@@ -47,7 +47,7 @@ The format of the `.json` file is:
 
 ## Filtered Data
 
-We provide manually labeled and filtered conversation data files in both Chinese and English under the `filtered_data` folder.
+We provide manually labeled and filtered conversation data files in both Chinese and English under the `filtered_data` folder. All data marked as `drop: true` is dropped. In addition to the annotation, we also removed all statements with the "[System]: XXX" style at the end of an utterance.
 
 The format of the `.json` file is similar to raw data but add `label` for every data sample:
 
@@ -61,3 +61,7 @@ The format of the `.json` file is similar to raw data but add `label` for every 
     }
 ]
 ```
+
+## Labeled Data
+
+We also provide all the data with labels under the `labeled_data` folder.
