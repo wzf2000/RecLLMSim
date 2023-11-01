@@ -1,4 +1,4 @@
-# Task-based Recommendation Conversation Generation with LLMs
+# RecLLMSim: A Task-based Recommendation Conversation Dataset
 
 A dataset for task-based recommendation conversation.
 
@@ -47,4 +47,17 @@ The format of the `.json` file is:
 
 ## Filtered Data
 
-Coming soon...
+We provide manually labeled and filtered conversation data files in both Chinese and English under the `filtered_data` folder.
+
+The format of the `.json` file is similar to raw data but add `label` for every data sample:
+
+```json
+[
+    {
+        // similar to the above...
+        "label" : {
+            "complete": 0 // 0, 1, 2 stand for imcomplete, partially complete and complete respectively
+        }
+    }
+]
+```
