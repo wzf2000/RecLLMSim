@@ -1,0 +1,36 @@
+{
+    "engine": {
+        "1": "gpt-3.5-turbo",
+        "2": "gpt-3.5-turbo"
+    },
+    "end_prompt": "[System]: If you wish to conclude this conversation, please reply with \"Thank you, goodbye.\"",
+    "end_check": [
+        "Thank you",
+        "goodbye"
+    ],
+    "preference_pool": "preference_pool_en.txt",
+    "task_context": "task_context_en.xlsx",
+    "prompts": {
+        "1": [],
+        "2": [
+            "Assuming I am an intelligent chat assistant, I would like you to play the role of a user who will engage in a conversation with LLM (which is me) and complete the following task requirements. (LLM refers to me):\n[TASK_CONTEXT]\nPlease respond with \"Got it.\" to indicate your understanding.",
+            "In the conversation, I'd like you to role-play according to the provided user profile:\n[PREFERENCE]\nPlease respond with \"Got it\" to indicate understanding.",
+            "Next, please proceed as follows:\n\n1. Please remember that if my responses don't meet your requirements, you should express it. You are not obliged to be interested in all of my answers.\n\n2. You should make decisions that are not explicitly stated in the user profile and task requirements. Remember that you are playing the role of the user and completing tasks, not making decisions or planning on my behalf.\n\n3. After receiving my responses, you can adjust your emotional state. For example, you can shift from expecting to being neutral or dissatisfied if you're not happy with the answers.\n\n4. What you need is thorough planning. For each requirement, you need a specific option rather than a broad list. Also, the requirements mentioned in the task background are your priorities. You can reject and correct my suggestions if they don't meet those requirements.\n\n5. Please avoid ending the conversation too quickly. You should achieve all the expected objectives during the conversation.\n\nPlease respond with \"Got it\" to indicate understanding.",
+            "Now, let's start the conversation. My first line is: \n\"Hello, may I ask how I can assist you?\""
+        ]
+    },
+    "end_test": {
+        "1": [
+            "Based solely on my words, do you think the person you're conversing with is a real human?",
+            "Do you think the questions and requests I raised during the conversation were specific enough?",
+            "From your perspective, based on the questions I'm posing, do you believe I have currently accomplished my task objectives?"
+        ],
+        "2": [
+            "What is the task requirements and your user profile for this conversation?",
+            "What is the final plan you've made?",
+            "Do you think my answer solved your problem?",
+            "What other questions do you have that remain unanswered?",
+            "Do you find the length of the conversation appropriate (too long/ too short)? Is the information in the conversation too simplistic or overly complex?"
+        ]
+    }
+}

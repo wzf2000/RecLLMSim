@@ -2,7 +2,7 @@
 
 A dataset for task-based recommendation conversation.
 
-## Data Format
+## RecLLMSim Dataset V2
 
 We provide all the data files under the `V2` folder.
 
@@ -50,3 +50,9 @@ The format of the `.json` file is:
     },
 }
 ```
+
+## RecUserSim Framework
+
+We provide the code for the framework RecUserSim in the `RecUserSim` folder.
+
+Check the `readme.md` file in the `RecUserSim` folder for more details.
