@@ -1,0 +1,110 @@
+{
+    "task": "recipe planning",
+    "preference_id": 77,
+    "task_context_id": 0,
+    "preference": "1. Gender: Female\n2. Age: 32\n3. Personality: Creative, independent, and optimistic\n4. Occupation: Tattoo Artist\n5. Daily Interests and Hobbies: Sketching, visiting art galleries, listening to rock music\n6. Travel Habits: Travels for tattoo conventions, enjoys cultural festivals\n7. Dining Preferences: Enjoys vegan food, loves trying local cuisines\n8. Spending Habits: Spends on art supplies, saves for future tattoo equipment\n9. Other Aspects: Works in a downtown studio, has a pet snake",
+    "preference_zh": "1. 性别：女性\n2. 年龄：32岁\n3. 个性：富有创造力、独立自主、乐观向上\n4. 职业：纹身师\n5. 日常兴趣爱好：素描、参观艺术画廊、听摇滚音乐\n6. 旅行习惯：参加纹身大会旅行，喜欢参与文化节庆\n7. 就餐偏好：喜欢素食，热衷尝试当地美食\n8. 消费习惯：购买艺术用品，为未来购置纹身设备存钱\n9. 其他方面：在市中心工作室工作，有一只宠物蛇",
+    "task_context": "You plan to prepare a meal at home for yourself. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家为自己准备一顿饭。你在烹饪方面并不很有技巧，经验有限。因此，你想要向LLM寻求帮助，创作食谱，确定所需食材，并决定要做哪些菜。在计划过程中，你应该学习每道菜的完整制作过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here to assist me. I'm planning to prepare a meal at home, but I'm not very skilled in cooking and have limited experience. I was hoping you could help me create a recipe, determine the necessary ingredients, and decide what dishes to make. Are you up for the challenge?",
+            "content_zh": "你好！很高兴你来帮助我。我计划在家做一顿饭，但我在烹饪方面并不是很有经验。希望你能帮我制定食谱，确定所需食材，并决定要做哪些菜。你准备好接受挑战吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'm here to help you with your cooking adventure. I'd be happy to assist you in creating a recipe, choosing ingredients, and deciding on dishes to make. Let's get started! What type of meal are you interested in preparing? Do you have any dietary preferences or restrictions?",
+            "content_zh": "你好！我可以帮你进行烹饪冒险。我很乐意协助你制作食谱、选择食材以及决定做哪些菜。让我们开始吧！你想准备什么类型的餐？你有任何饮食偏好或限制吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your help! I'm looking to prepare a delicious vegan meal. I enjoy exploring different cuisines, so I'm open to trying something new and exciting. As for dietary restrictions, I don't have any specific allergies or intolerances. What do you suggest we make?",
+            "content_zh": "谢谢你提供帮助！我想准备一顿美味的纯素餐。我喜欢探索不同的美食，所以很愿意尝试一些新奇有趣的菜肴。至于饮食限制，我没有特定的过敏或不耐受。你有什么建议我们做什么？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That sounds great! Vegan cuisine offers a wide range of delicious options. How about we create a flavorful Thai-inspired meal? Let's start with a delicious appetizer: Thai Fresh Spring Rolls with Peanut Dipping Sauce. For the main course, we can make a flavorful Vegan Thai Green Curry with tofu and vegetables. To complement the meal, let's prepare a simple and refreshing Mango Sticky Rice for dessert. How does that sound?",
+            "content_zh": "听起来很棒！纯素美食提供了各种美味选择。我们来创造一顿美味的泰式菜，怎么样？我们可以从一款美味的开胃菜开始：花生沾酱泰式新鲜春卷。主菜可以做一款美味的纯素泰式咖喱，加入豆腐和蔬菜。为了搭配这顿饭，我们来准备一份简单清爽的芒果糯米饭作为甜点。这听起来怎么样？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Hmm, Thai cuisine sounds wonderful! I love the idea of starting with Thai Fresh Spring Rolls and a Peanut Dipping Sauce. The Vegan Thai Green Curry with tofu and vegetables as the main course sounds delicious too. And Mango Sticky Rice for dessert? Yum! I'm excited to give this a try. Could you please provide me with the recipe and the list of ingredients for each dish?",
+            "content_zh": "嗯，泰国菜听起来很棒！我喜欢先享用泰式新鲜春卷和花生酱。作为主菜，素食泰式青咖喱配豆腐和蔬菜听起来也很美味。还有作为甜点的芒果糯米饭？太好吃了！我很兴奋要试试这些菜。你能提供每道菜的食谱和食材清单吗？",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! Here are the recipes and ingredient lists for each dish:\n\n1. Thai Fresh Spring Rolls with Peanut Dipping Sauce:\nIngredients:\n- Rice paper wrappers\n- 1 cup cooked rice noodles\n- Assorted vegetables (such as carrots, cucumber, bell peppers, and lettuce), julienned\n- Fresh herbs (such as cilantro, mint, and basil), chopped\n- 1/4 cup peanuts, crushed\n- Peanut Dipping Sauce (ingredients listed below)\n\nPeanut Dipping Sauce:\n- 1/4 cup peanut butter\n- 2 tablespoons soy sauce\n- 1 tablespoon maple syrup (or sweetener of choice)\n- 1 tablespoon lime juice\n- 1 clove garlic, minced\n- 1/2 teaspoon grated ginger\n- Water (to adjust consistency)\n\n2. Vegan Thai Green Curry:\nIngredients:\n- 1 tablespoon oil\n- 1 onion, diced\n- 2 cloves garlic, minced\n- 1 tablespoon green curry paste\n- 1 can coconut milk\n- 1 cup vegetable broth\n- 1 block tofu, cubed\n- Assorted vegetables (such as bell peppers, zucchini, and broccoli), sliced\n- 1 tablespoon soy sauce\n- 1 tablespoon lime juice\n- Fresh basil leaves (optional)\n- Cooked rice, for serving\n\n3. Mango Sticky Rice:\nIngredients:\n- 1 cup sticky rice (also known as glutinous rice or sweet rice)\n- 1 can coconut milk\n- 2 tablespoons sugar (or sweetener of choice)\n- 2 ripe mangoes, sliced\n- Sesame seeds (optional), for garnish\n\nThese recipes should give you a delicious Thai-inspired vegan meal. Let me know if you need any further assistance with the cooking process!",
+            "content_zh": "绝对没问题！以下是每道菜的食谱和食材清单：\n1. 泰式新鲜春卷配花生蘸酱：\n食材：\n- 大米纸包\n- 1杯煮熟的米粉\n- 各种蔬菜（如胡萝卜、黄瓜、甜椒和生菜），切丝\n- 香草（如香菜、薄荷和罗勒），切碎\n- 1/4杯花生碎\n- 花生蘸酱（下面列出的食材）\n\n花生蘸酱：\n- 1/4杯花生酱\n- 2汤匙酱油\n- 1汤匙枫糖浆（或其他甜味剂）\n- 1汤匙酸橙汁\n- 1瓣大蒜，切碎\n- 1/2茶匙姜末\n- 水（调节浓度）\n\n2. 素食泰式青咖喱：\n食材：\n- 1汤匙油\n- 1个洋葱，切丁\n- 2瓣大蒜，切碎\n- 1汤匙青咖喱酱\n- 1罐椰奶\n- 1杯蔬菜高汤\n- 1块豆腐，切块\n- 各种蔬菜（如甜椒、西葫芦和西兰花），切段\n- 1汤匙酱油\n- 1汤匙酸橙汁\n- 新鲜罗勒叶（可选）\n- 熟米饭，作为配菜\n\n3. 芒果糯米饭：\n食材：\n- 1杯糯米\n- 1罐椰奶\n- 2汤匙糖（或其他甜味剂）\n- 2个熟透的芒果，切片\n- 芝麻（可选），用作装饰\n\n这些食谱会为您带来美味的泰式素食餐。如果您需要在烹饪过程中需要任何进一步的帮助，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Got it! Thank you for providing the recipes and ingredient lists for each dish. I'm excited to get started on this Thai-inspired vegan meal! I'll make sure to follow the instructions and reach out if I need any further assistance during the cooking process. Thank you for your help!",
+            "content_zh": "知道了！谢谢您提供每道菜的配方和食材清单。我很兴奋开始准备这个受泰国启发的素食餐！我会确保按照说明进行，并在烹饪过程中需要任何进一步的帮助时和您联系。感谢您的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could assist you. I'm sure you'll do a fantastic job with your Thai-inspired vegan meal. Remember, don't hesitate to reach out if you have any questions or need further assistance along the way. Enjoy the cooking process and have a wonderful meal!",
+            "content_zh": "不客气！很高兴能帮助到你。我相信你会做出一道美味的泰式素食餐。记得，如果有任何问题或需要进一步的帮助，请随时联系我。享受烹饪过程，祝你用餐愉快！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you so much for your support and encouragement! I'll definitely reach out if I need any help while preparing the meal. I'm looking forward to the cooking process and enjoying a delicious Thai-inspired vegan feast. Thanks again, and have a great day!",
+            "content_zh": "非常感谢您的支持和鼓励！在准备餐食时如果需要帮助，我一定会联系您。我期待烹饪的过程，并享用美味的泰式素食盛宴。再次感谢，并祝您有一个美好的一天！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! I'm here to help, so don't hesitate to ask if you need anything. I hope you have a fantastic time preparing and enjoying your Thai-inspired vegan feast. Wishing you a wonderful day and a delicious meal! Happy cooking!",
+            "content_zh": "不客气！我在这里帮忙，如果需要任何帮助，请不要犹豫问我。希望您在准备和享受您泰式素食盛宴的时光过得愉快。祝您度过美好的一天，享用美味的美食！愉快烹饪！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "vegan",
+        "thai cuisine",
+        "fresh spring rolls"
+    ],
+    "preference_summary": [
+        "simple recipes",
+        "thai cuisine"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 1,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    }
+}

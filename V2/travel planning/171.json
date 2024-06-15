@@ -1,0 +1,128 @@
+{
+    "task": "travel planning",
+    "preference_id": 11,
+    "task_context_id": 1,
+    "preference": "1. Gender: Female\n2. Age: 38\n3. Personality: Communicative, empathetic, and charismatic\n4. Occupation: Human Resources Manager\n5. Daily Interests and Hobbies: Reading psychology books, networking, attending seminars\n6. Travel Habits: Enjoys relaxing beach vacations, travels mainly for work\n7. Dining Preferences: Prefers healthy food, enjoys dining out with friends\n8. Spending Habits: Invests in personal development courses, spends on fashion\n9. Other Aspects: Active in professional organizations, has a large network",
+    "preference_zh": "1. 性别：女性\n2. 年龄：38岁\n3. 个性：善于沟通，富有同理心，有魅力\n4. 职业：人力资源经理\n5. 日常兴趣和爱好：阅读心理学书籍，建立人脉，参加研讨会\n6. 旅行习惯：喜欢放松的海滩度假，主要出差旅行\n7. 饮食偏好：偏爱健康食物，喜欢和朋友一起外出就餐\n8. 消费习惯：投资于个人发展课程，花钱购买时尚品牌\n9. 其他方面：活跃于专业组织，拥有庞大的人脉网络",
+    "task_context": "You are planning a two-day-long trip this summer, The trip has no specific destination restrictions. You would like to use LLM to help refine your travel plans. During this conversation, you will need to make arrangements for accommodations, transportation, and itinerary details. Your ultimate travel plan should be as comprehensive as possible, ensuring that you can realistically follow it when the time comes.",
+    "task_context_zh": "你计划在今年夏天进行为期两天的旅行，这次旅行没有特定目的地限制。你希望使用LLM来帮助完善你的旅行计划。在这次对话中，你需要安排住宿、交通和行程细节。你的最终旅行计划应尽可能全面，确保在旅行时能够实际执行。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here to assist me. I'm planning a two-day trip this summer and I need help refining my travel plans. I have no specific destination in mind, so I'm open to suggestions. I would appreciate your assistance with accommodations, transportation, and creating a comprehensive itinerary. Can you help me with that?",
+            "content_zh": "你好！很高兴你能来帮助我。我正在计划今年夏天的一次两天的旅行，需要帮助优化我的旅行计划。我还没有特定目的地，所以乐意听取建议。我希望你能帮我安排住宿、交通以及制定一份全面的行程安排。你能帮我完成这些吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be happy to help you plan your two-day trip this summer. It's great that you're open to suggestions for your destination. To get started, could you let me know the general region or country you're interested in exploring? That way, I can provide more tailored recommendations for accommodations, transportation, and activities.",
+            "content_zh": "你好！很高兴能帮助你计划今年夏天的两天旅行。很高兴你愿意听取目的地建议。为了开始计划，你能告诉我你感兴趣探索的一般地区或国家吗？这样我就可以为你提供更具针对性的住宿、交通和活动建议了。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance! I'm actually quite flexible when it comes to the destination for this trip. I'm open to exploring any region or country that you think would be a great choice for a two-day getaway. I'm excited to hear your suggestions for accommodations, transportation, and activities. Let's make this trip memorable!",
+            "content_zh": "谢谢您提供帮助！对于这次旅行的目的地，我实际上非常灵活。我愿意探索您认为适合两天短途度假的任何地区或国家。期待听到您对住宿、交通和活动的建议。让我们一起把这次旅行变得难忘吧！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "That's fantastic! With so many options available, we can definitely plan a memorable trip for you. Since you have a two-day timeframe, it might be best to focus on a destination that is relatively close to your starting point. This way, you can maximize your time exploring rather than spending too much time on transportation.\n\nIf you're interested in nature and outdoor activities, consider visiting a national park or a scenic coastal area. If you prefer cultural experiences, perhaps a vibrant city with historical landmarks and museums would be a good fit. Alternatively, if you're looking for relaxation, a beachside getaway or a spa retreat could be perfect.\n\nCould you let me know your starting location or the general region you're located in? That way, I can provide some specific destination suggestions and help you with accommodations, transportation, and activities accordingly.",
+            "content_zh": "太棒了！有这么多选择可供我们，我们一定可以为您规划一次难忘的旅行。由于您有两天的时间，最好专注于距离您出发地比较近的目的地。这样，您可以最大程度地利用您的时间探索，而不是花太多时间在交通上。\n\n如果您对大自然和户外活动感兴趣，考虑参观一个国家公园或风景优美的海岸地区。如果您更喜欢文化体验，也许一个拥有历史地标和博物馆的充满活力的城市会更适合。或者，如果您在寻找放松，海滨度假村或水疗中心可能会很完美。\n\n您能告诉我您的出发地点或您所在的大致地区吗？这样，我可以提供一些具体的目的地建议，并根据您的需求帮助您安排住宿、交通和活动。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the suggestions! I'm located in the northeastern region of the United States, specifically in New York City. Since I'm looking for a relatively short trip, it would be great if the destination is within a few hours' travel from here. I'm open to any type of experience, whether it's exploring nature, immersing myself in a cultural city, or enjoying a relaxing beachside getaway. I'm excited to hear your specific destination suggestions and how we can plan accommodations, transportation, and activities accordingly. Let's make the most of these two days!",
+            "content_zh": "谢谢您的建议！我身处美国东北部地区，具体在纽约市。由于我在寻找一个相对较短的旅行，所以如果目的地离这里几个小时的路程就很好。我愿意尝试任何类型的体验，无论是探索大自然，沉浸在充满文化的城市中，还是享受轻松的海滩度假。我很期待听到您具体的目的地建议以及我们如何根据此计划住宿、交通和活动。让我们好好利用这两天！",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Great, being based in New York City opens up a lot of possibilities for your two-day trip! Here are a few destination suggestions within a few hours' travel from NYC that offer a variety of experiences:\n\n1. The Hamptons, New York: Known for its beautiful beaches, upscale resorts, and charming villages, the Hamptons offer a relaxing beachside getaway. You can spend your time sunbathing, exploring local shops and galleries, and enjoying delicious seafood.\n\n2. Philadelphia, Pennsylvania: Just a couple of hours away, Philadelphia is a vibrant city with a rich history. You can visit iconic landmarks like the Liberty Bell and Independence Hall, explore world-class museums such as the Philadelphia Museum of Art, and indulge in delicious cheesesteaks.\n\n3. Cape Cod, Massachusetts: A picturesque coastal destination, Cape Cod is known for its charming towns, lighthouses, and stunning beaches. You can enjoy activities like biking along the Cape Cod Rail Trail, visiting the Cape Cod National Seashore, and trying fresh seafood.\n\n4. Hudson Valley, New York: If you're interested in nature and scenic beauty, the Hudson Valley is a great choice. You can explore charming towns like Beacon and Cold Spring, hike in the beautiful Hudson Highlands State Park, and visit historical sites like the Franklin D. Roosevelt National Historic Site.\n\nNow, let's discuss accommodations. What type of lodging are you interested in? Are you looking for a hotel, a cozy bed and breakfast, or perhaps something more unique like a vacation rental?",
+            "content_zh": "很好，身在纽约市为您的两天旅行打开了许多可能性！以下是一些离纽约市几小时车程的目的地建议，提供了各种体验： 1. 纽约汉普顿斯：以美丽的海滩、高档度假村和迷人的村庄而闻名，汉普顿斯提供了一个放松的海滨度假胜地。您可以享受日光浴、探索当地商店和画廊，品尝美味的海鲜。 2. 宾夕法尼亚州费城：距离仅几个小时，费城是一个充满活力的城市，拥有丰富的历史。您可以参观象征性的地标如自由钟和独立厅，探索世界级博物馆如费城艺术博物馆，并享受美味的芝士牛肉三明治。 3. 马萨诸塞州开普角：一个风景如画的海岸目的地，开普角以其迷人的小镇、灯塔和令人惊叹的海滩而闻名。您可以享受沿着开普角铁路小径骑行、参观开普角国家海岸公园以及尝试新鲜海鲜等活动。 4. 纽约哈德逊谷地：如果您对自然和风景优美感兴趣，哈德逊谷地是一个不错的选择。您可以探索像比肯和科尔德斯普林这样的迷人小镇，徒步穿越美丽的哈德逊高地州立公园，参观像富兰克林·罗斯福国家历史遗址这样的历史遗址。 现在，让我们讨论住宿。您感兴趣的是什么类型的住宿？您是想要酒店、温馨的民宿，还是也许更独特些像度假租赁？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the destination suggestions! All of them sound appealing, and I'm having a hard time deciding. I might need a little more information to help me make a choice. Could you please provide some additional details about each destination, such as the highlights, unique experiences, and any specific events or attractions happening during the summer? This will help me narrow down my options and choose the best destination for my two-day trip.\n\nAs for accommodations, I'm open to different options. I usually prefer hotels for their convenience and amenities, but I'm also open to exploring cozy bed and breakfasts or unique vacation rentals if they offer a special experience. It would be great to have a comfortable place to stay that aligns with the overall vibe and attractions of the chosen destination.",
+            "content_zh": "感谢你们提供的目的地建议！所有的建议听起来都很吸引人，我很难做出决定。也许我需要更多的信息来帮助我做出选择。你们可以提供一些关于每个目的地的额外细节吗？比如亮点、独特体验，以及夏季期间发生的任何特定活动或景点？这将帮助我缩小选择范围，为我两天的旅行选择最佳目的地。\n\n至于住宿，我愿意考虑不同的选择。通常，我更喜欢酒店，因为它们方便且设施齐全，但我也愿意尝试温馨的民宿或独特的度假租赁，如果它们提供特别的体验的话。能在所选目的地整体氛围和景点相吻合的舒适住所将是很棒的。",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course! Here are some additional details about each destination to help you make a decision:\n\n1. The Hamptons, New York: The Hamptons are known for their beautiful beaches, including Main Beach in East Hampton, which consistently ranks among the best in the country. Besides beach activities, you can explore the charming towns of Southampton and Sag Harbor, visit art galleries, enjoy farm-to-table dining, and even go wine tasting at local vineyards. Additionally, during the summer, you might find events like outdoor concerts, art festivals, and farmers markets.\n\n2. Philadelphia, Pennsylvania: Philadelphia is rich in history and offers a mix of cultural attractions and modern amenities. You can visit the Liberty Bell and Independence Hall in the historic district, explore the Philadelphia Museum of Art (famous for the \"Rocky Steps\"), and indulge in delicious cheesesteaks at iconic spots like Pat's and Geno's. If you're visiting during the summer, you might find outdoor festivals, concerts, and special exhibitions happening in the city.\n\n3. Cape Cod, Massachusetts: Cape Cod is a picturesque destination with charming towns like Provincetown, Chatham, and Hyannis. You can relax on beautiful beaches, visit lighthouses such as Highland Light and Nauset Light, go whale watching, and explore the Cape Cod National Seashore. During the summer, you might find art festivals, live music performances, and seafood festivals happening in different towns.\n\n4. Hudson Valley, New York: The Hudson Valley is known for its scenic beauty, charming towns, and historical sites. You can visit the Dia:Beacon contemporary art museum, hike in the stunning Hudson Highlands State Park, explore the Vanderbilt Mansion National Historic Site, and enjoy farm-to-table dining experiences. During the summer, you might find outdoor concerts, farmers markets, and art festivals in different towns.\n\nConsidering your preference for convenience and amenities, a hotel in any of these destinations would be a great choice. However, if you're looking for a more unique experience, the Hamptons and Cape Cod offer charming bed and breakfast options, while the Hudson Valley has some interesting vacation rentals such as renovated barns or cottages.\n\nI hope this additional information helps you narrow down your options! Let me know if you have any more questions or need further assistance.",
+            "content_zh": "当然！以下是关于每个目的地的一些额外详细信息，帮助您做出决定：1. 纽约汉普顿斯：汉普顿斯以其美丽的海滩而闻名，其中包括位于东汉普顿的Main Beach，它在全国最佳海滩中排名一直很高。除了海滩活动，您还可以探索南安普敦和萨格港这些迷人的小镇，参观艺术画廊，享受农场餐饮，甚至在当地的葡萄园品尝葡萄酒。此外，在夏季期间，您可能会发现有户外音乐会、艺术节和农民市场等活动。2. 宾夕法尼亚州费城：费城历史悠久，融合了文化景点和现代设施。 您可以前往历史区参观自由钟和独立宫，探索以“洛基阶梯”而闻名的费城艺术博物馆，并在标志性地点如Pat's和Geno's品尝美味的芝士牛排。如果您在夏天造访，您可能会在城市中发现一些户外节日、音乐会和特别展览。3. 马萨诸塞州开普角：开普角是一个风景如画的目的地，拥有普罗温斯敦、查塔姆和海因尼斯等迷人的小镇。 您可以在美丽的海滩上放松身心，参观诸如高地灯塔和奈鲁塞特灯塔等灯塔，观看观鲸，探索开普角国家海岸公园。在夏季期间，您可能会在不同小镇发现艺术节、现场音乐表演和海鲜节。4. 纽约哈德逊谷：哈德逊谷以其如画的风景、迷人的小镇和历史遗址而闻名。 您可以参观迪亚：比肯当代艺术博物馆，徒步游览令人惊叹的哈德逊高地州立公园，探索范德宅邸国家历史遗址，并享受农场餐饮体验。在夏季期间，您可能会在不同小镇发现户外音乐会、农民市场和艺术节。考虑到您对便利和设施的偏好，这些目的地任何一个酒店都是一个不错的选择。 但是，如果您正在寻找更独特的体验，汉普顿斯和开普角提供迷人的早餐和住宿选择，而哈德逊谷则有一些有趣的度假租赁，如翻新过的仓库或小屋。希望这些额外信息能帮助您缩小选择范围！ 如果您有更多问题或需要进一步帮助，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for providing the additional details about each destination. It's helpful to have a better understanding of the highlights and unique experiences they offer. After considering all the options, I think I'm leaning towards visiting Cape Cod. The combination of picturesque coastal towns, stunning beaches, and the opportunity to try fresh seafood sounds delightful.\n\nNow that I have a destination in mind, I would appreciate your assistance in finding a charming bed and breakfast in Cape Cod. I prefer accommodations that have a cozy and welcoming atmosphere, ideally located near the beach or within close proximity to the main attractions. Do you have any specific recommendations for bed and breakfasts in Cape Cod that fit this description?\n\nAdditionally, could you also suggest the best mode of transportation to reach Cape Cod from New York City? I want to ensure that the journey is convenient and doesn't take up too much of my two-day trip.\n\nThank you for your help so far, and I'm looking forward to your recommendations!\n",
+            "content_zh": "感谢您提供关于每个目的地的额外细节。了解它们提供的亮点和独特体验对我很有帮助。在考虑了所有选项后，我想我更倾向于访问科德角。风景如画的海滨小镇、迷人的海滩以及尝试新鲜海鲜的机会听起来令人愉快。现在我已经有了心仪的目的地，我希望您能协助我找到科德角一家迷人的乡村旅馆。我喜欢那种温馨友好的住宿环境，最好靠近海滩或靠近主要景点。您有没有符合这一描述的科德角乡村旅馆的具体推荐？此外，您还能建议从纽约市到达科德角的最佳交通方式吗？我希望确保旅程方便，并且不会占用我两天的行程太多时间。感谢您迄今为止的帮助，我期待着您的推荐！",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Cape Cod is an excellent choice! It offers a wonderful blend of coastal beauty, charming towns, and delicious seafood. I'm glad you're excited about visiting there.\n\nWhen it comes to bed and breakfast options in Cape Cod, there are several charming and cozy places to consider. Here are a few recommendations that align with your preferences:\n\n1. The Captain's House Inn: Located in Chatham, this historic inn offers elegant rooms, beautiful gardens, and a delicious breakfast. It's within walking distance to Chatham Lighthouse Beach and the charming downtown area.\n\n2. The Inn at Cook Street: Situated in Provincetown, this Victorian-style inn features individually decorated rooms, a lovely garden, and a delicious breakfast. It's close to the beach and within walking distance to the town's shops, restaurants, and art galleries.\n\n3. The Palmer House Inn: Located in Falmouth, this romantic inn offers cozy rooms, a relaxing garden, and a gourmet breakfast. It's near the beach and within walking distance to Falmouth's Main Street, where you'll find shops, restaurants, and the Shining Sea Bikeway.\n\nNow, let's talk about transportation. The most convenient way to reach Cape Cod from New York City is by taking a combination of train and ferry or a direct bus. Here are a couple of options:\n\n1. Train and Ferry: You can take a train from New York City to Providence, Rhode Island, and then transfer to a ferry that will take you to Cape Cod. The ferry options include the high-speed ferry from Providence to Provincetown or the traditional ferry from Woods Hole to Martha's Vineyard or Nantucket. From there, you can explore Cape Cod by renting a car or using local transportation.\n\n2. Direct Bus: Another option is to take a direct bus from New York City to Cape Cod. Several bus companies operate routes between NYC and Cape Cod, offering convenient and direct transportation. Once you arrive, you can use local transportation or rent a car to explore the area.\n\nBoth options are relatively convenient and allow you to make the most of your two-day trip.\n\nI hope these recommendations for accommodations and transportation help you plan your trip to Cape Cod! If you have any more questions or need further assistance, feel free to ask.",
+            "content_zh": "开普角是一个绝佳的选择！ 它提供了海岸美景、迷人的小镇和美味的海鲜的完美融合。 很高兴您对去那里的行程感到兴奋。当谈到在开普角的住宿和早餐选择时，有几个迷人而舒适的地方可供考虑。 以下是几个符合您喜好的建议：1. 首领之家客栈：位于查塔姆，这家历史悠久的客栈提供优雅的客房、美丽的花园和美味的早餐。 您可以步行前往查塔姆灯塔海滩和迷人的市区。2. 库克街客栈：位于普罗文斯敦，这家维多利亚式客栈设有装饰各异的客房、可爱的花园和美味的早餐。 毗邻海滩，步行即可到达镇上的商店、餐厅和艺术画廊。3. 帕尔默客栈：位于法尔茅斯，这家浪漫客栈提供舒适的客房、宁静的花园和美食早餐。 毗邻海滩，可步行到达法尔茅斯的主街，那里有商店、餐厅和闪光海湾自行车道。现在，让我们谈谈交通。 从纽约市到开普角最方便的方式是乘坐火车和渡轮的组合或直达巴士。 以下是几个选择： 1. 火车和渡轮：您可以从纽约市乘火车到罗得岛州的普罗维登斯，然后换乘渡轮前往开普角。 渡轮选项包括从普罗维登斯到普罗文斯敦的高速渡轮，或从伍兹霍尔到玛莎葡萄园或南塔基特的传统渡轮。 从那里，您可以通过租车或使用当地交通工具探索开普角。2. 直达巴士：另一种选择是从纽约市直达巴士到开普角。 几家巴士公司之间运营纽约市和开普角之间的路线，提供便捷直达的交通。 到达后，您可以使用当地交通工具或租车探索该地区。 这两个选择都相对方便，并使您最大程度地利用了两天的行程。我希望这些关于住宿和交通的建议能帮助您计划前往开普角的行程！ 如果您有更多问题或需要进一步帮助，欢迎询问。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the recommendations! The Captain's House Inn in Chatham, The Inn at Cook Street in Provincetown, and The Palmer House Inn in Falmouth all sound like wonderful options for a cozy bed and breakfast experience in Cape Cod. I appreciate the details you provided, and I will look into each of them to determine which one suits my preferences and needs the best.\n\nRegarding transportation, taking a train to Providence and then transferring to a ferry to Cape Cod sounds like an interesting option. It would add a touch of adventure to the journey and allow me to enjoy the scenic views along the way. Alternatively, a direct bus from New York City to Cape Cod offers convenience and efficiency, which could be a great choice if I prefer a more straightforward route.\n\nI will consider both transportation options and weigh the pros and cons based on factors such as travel time, cost, and overall experience.\n\nThank you for your assistance so far! I'm getting closer to finalizing my plans for this two-day trip. If I have any further questions or need additional guidance, I'll be sure to reach out.",
+            "content_zh": "谢谢你的推荐！在查塔姆的船长之家旅馆，在普罗温斯敦的库克街客栈，以及在法尔茅斯的帕尔默之家旅馆，都听起来是在卡普角度过温馨床和早餐体验的绝佳选择。我很感谢你提供的细节，我会深入了解每一个，以确定哪一个最适合我的偏好和需求。\n\n至于交通，乘火车到普罗维登斯，然后转乘渡轮到卡普角听起来是一个有趣的选择。这会给旅程增添一丝冒险之感，让我在旅途中欣赏到美丽的风景。另外，从纽约市直达卡普角的巴士提供了便利和效率，如果我更喜欢一种更直接的路线，这可能是一个很好的选择。\n\n我会考虑这两种交通选择，并根据旅行时间、成本和整体体验等因素权衡其利弊。\n\n谢谢你迄今为止的帮助！我离最终确定这次为期两天的旅行计划更近了一步。如果有任何进一步的问题或需要额外的指导，我一定会联系你。",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad the bed and breakfast recommendations in Cape Cod resonate with you, and I'm sure you'll find the perfect choice among them.\n\nConsidering transportation, both the train and ferry option and the direct bus offer their own advantages. The train and ferry combination can indeed provide a more scenic and adventurous journey, allowing you to enjoy the coastal views along the way. On the other hand, the direct bus offers convenience and efficiency, which can be appealing if you prefer a more straightforward route.\n\nTake your time to weigh the pros and cons based on your preferences and priorities. Consider factors like travel time, cost, and the overall experience you're seeking. Either way, I'm confident you'll have a great time exploring Cape Cod!\n\nFeel free to reach out whenever you have more questions or need further guidance. I'm here to help you finalize your plans and make sure your two-day trip is a memorable one. Enjoy your upcoming adventure!",
+            "content_zh": "非常欢迎！很高兴你对在卡普角的民宿推荐感兴趣，我相信你会在其中找到完美的选择。考虑交通方式，无论是火车和渡轮组合还是直达巴士，都各有其优势。火车和渡轮组合确实可以提供更多风景秀丽和冒险的旅程，让你沿途欣赏沿海风光。另一方面，直达巴士提供了便利和高效，如果你更喜欢更直接的路线，可能会更吸引你。根据你的偏好和优先考虑因素，权衡利弊需要时间。考虑诸如旅行时间、费用和你所追求的整体体验等因素。无论如何，我相信你在探索卡普角时会度过美好时光！如有更多问题或需要进一步指导，请随时联系我。我在这里帮助你最终确定计划，确保你的双日之旅令人难忘。祝你即将开始的冒险愉快！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "cozy accommodations",
+        "beachside getaway",
+        "charming bed and breakfast",
+        "convenient transportation"
+    ],
+    "preference_summary": [
+        "beachside getaway",
+        "charming bed and breakfast",
+        "scenic journey"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    }
+}

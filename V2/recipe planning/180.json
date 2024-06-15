@@ -1,0 +1,62 @@
+{
+    "task": "recipe planning",
+    "preference_id": 4,
+    "task_context_id": 3,
+    "preference": "1. Gender: Male\n2. Age: 30\n3. Personality: Adventurous, outgoing, and humorous\n4. Occupation: Travel Blogger\n5. Daily Interests and Hobbies: Writing, trekking, surfing\n6. Travel Habits: Constantly on the move, enjoys offbeat destinations\n7. Dining Preferences: Enjoys street food, open to all types of cuisine\n8. Spending Habits: Allocates a large budget for travel, spends minimally on other things\n9. Other Aspects: Has a large online following, practices sustainable living",
+    "preference_zh": "1.性别：男性\n2.年龄：30岁\n3.个性：爱冒险、外向、幽默\n4.职业：旅行博主\n5.日常兴趣爱好：写作、徒步旅行、冲浪\n6.旅行习惯：经常在路上，喜欢独特的目的地\n7.饮食偏好：喜欢街头食品，对各种类型的菜肴都开放\n8.消费习惯：为旅行分配了大量预算，对其他事物的消费较少\n9.其他方面：拥有庞大的在线关注群体，实践可持续生活",
+    "task_context": "You plan to prepare a meal at home for yourself and your loved one. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家为自己和爱人准备一顿饭。你是一个技艺高超的厨师，有一定的专业知识。因此，你想请求LLM的帮助，共同创造食谱，确定所需的食材，以及决定要做哪些菜。在规划过程中，你应该学习每道菜的完整准备过程，以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you asked. I'm planning to prepare a special meal at home for myself and my loved one. I'm quite skilled in the kitchen, but I'd love some help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Are you up for the challenge?",
+            "content_zh": "你好！很高兴你问了。我打算在家里为自己和我爱的人准备一顿特别的饭菜。我在厨房方面很拿手，但我想要一些帮助来制定食谱，确定所需食材，以及决定要做什么菜。你愿意挑战吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be absolutely thrilled to help you create a special meal for your loved one. Cooking together can be such a wonderful experience. Let's start by discussing what type of cuisine or specific dishes you have in mind. Do you have any preferences or dietary restrictions?",
+            "content_zh": "你好！我将非常高兴地帮助您为您所爱的人创建一顿特别的餐点。一起烹饪可以是一种美妙的经历。让我们从讨论您心中想要的菜系或具体菜肴开始。您有任何喜好或饮食限制吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Hey there! Thanks for your enthusiasm. Well, I'm open to exploring different cuisines and trying out new dishes. As for preferences, we both enjoy street food and are open to all types of cuisine. We don't have any specific dietary restrictions, so we have quite a bit of flexibility in our choices. What do you suggest we make?",
+            "content_zh": "嗨！谢谢你的热情。嗯，我喜欢探索不同的美食并尝试新的菜肴。至于口味，我们都喜欢街边美食，并且对所有类型的菜肴都持开放态度。我们没有任何特殊的饮食限制，因此在选择方面我们有相当大的灵活性。你建议我们做什么呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That's great to hear! With such a wide range of possibilities, we can really get creative. How about we create a street food-inspired menu with a twist? We can start with some delicious appetizers, move on to a flavorful main course, and finish off with a mouthwatering dessert. Here's a suggestion for your special meal:\n\nAppetizer: Loaded Nacho Fries\nIngredients:\n- Potatoes (for making fries)\n- Olive oil\n- Salt and pepper\n- Shredded cheese (cheddar or a Mexican blend)\n- Diced tomatoes\n- Sliced jalapeños\n- Chopped green onions\n- Sour cream\n- Guacamole or sliced avocado\n\nMain Course: Korean BBQ Tacos\nIngredients:\n- Thinly sliced beef (such as sirloin or ribeye)\n- Soy sauce\n- Sesame oil\n- Brown sugar\n- Minced garlic\n- Ginger (freshly grated or ground)\n- Kimchi\n- Tortillas (corn or flour)\n- Optional toppings: sliced cucumbers, shredded lettuce, and Sriracha sauce\n\nDessert: Churro Ice Cream Sandwiches\nIngredients:\n- Churros (you can make them from scratch or buy pre-made ones)\n- Vanilla ice cream\n- Optional toppings: cinnamon sugar, chocolate sauce, or caramel sauce\n\nThese recipes offer a fusion of flavors and textures, combining different street food influences. Of course, feel free to modify or substitute ingredients based on your preferences. Let me know if you'd like more details on any of these dishes or if you have any other questions!",
+            "content_zh": "听到这个消息太棒了！有如此广泛的可能性，我们可以真正展现创意。我们怎么样来创作一个带有特色的街头食品灵感菜单呢？我们可以从一些美味的开胃菜开始，继续以丰富多味的主菜，然后以令人垂涎的甜点结束。这里有一个关于你特别餐的建议：\n\n开胃菜：装满的纳乔薯条\n材料：\n- 土豆（做薯条用）\n- 橄榄油\n- 盐和胡椒\n- 常规起司或墨西哥混合芝士\n- 切碎的番茄\n- 切片的墨西哥辣椒\n- 切碎的青葱\n- 酸奶油\n- 鳄梨酱或切片鳄梨\n\n主菜：韩式烧烤玉米卷\n材料：\n- 细切的牛肉（比如西冷牛排或肉眼肉）\n- 酱油\n- 麻油\n- 红糖\n- 蒜茸\n- 姜（新鲜磨碎或碎末）\n- 泡菜\n- 玉米卷（玉米或面粉）\n- 可选配料：切片黄瓜，切碎生菜和是拉差酱\n\n甜点：吉娜冰淇淋三明治\n材料：\n- 吉娜（你可以自己制作也可以购买现成的）\n- 香草冰淇淋\n- 可选配料：肉桂糖，巧克力酱或焦糖酱\n\n这些食谱融合了不同街头食品影响的口味和质地。当然，根据你的喜好随意修改或替换食材。如果你想了解更多关于这些菜肴的详细信息，或者有任何其他问题，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "exploring cuisines",
+        "street food",
+        "no dietary restrictions"
+    ],
+    "preference_summary": [
+        "street food",
+        "flexible"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 1,
+        "Memorization": 1,
+        "Detail Level": 1,
+        "Practical Usefulness": 1,
+        "Diversity": 2
+    }
+}

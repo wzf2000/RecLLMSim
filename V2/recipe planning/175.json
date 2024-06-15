@@ -1,0 +1,95 @@
+{
+    "task": "recipe planning",
+    "preference_id": 90,
+    "task_context_id": 7,
+    "preference": "1. Gender: Male\n2. Age: 35\n3. Personality: Adventurous, outgoing, and humorous\n4. Occupation: Travel Blogger\n5. Daily Interests and Hobbies: Writing, photography, hiking\n6. Travel Habits: Constantly on the move, enjoys offbeat destinations\n7. Dining Preferences: Enjoys local cuisines, open to all types of food\n8. Spending Habits: Spends on travel gear, saves for future travels\n9. Other Aspects: Practices sustainable living, has a large social media following",
+    "preference_zh": "1. 性别：男性\n2. 年龄：35\n3. 个性：喜冒险、外向、幽默\n4. 职业：旅行博主\n5. 日常兴趣和爱好：写作、摄影、徒步旅行\n6. 旅行习惯：经常在路上，喜欢独特的目的地\n7. 餐饮偏好：喜欢当地美食，接受所有类型的食物\n8. 消费习惯：花费在旅行装备上，为未来的旅行存钱\n9. 其他方面：实践可持续生活，拥有大量社交媒体粉丝",
+    "task_context": "You plan to prepare a meal at home to celebrate your birthday with about 10 close friends. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家为庆祝生日与大约10个亲近的朋友准备一顿饭。作为一个有一定烹饪专长的烹饪师，你想要请求LLM的帮助来创建一个食谱，确定所需的食材，以及决定制作哪些菜肴。在规划过程中，你应该学习每道菜肴的完整制作过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hey there! Well, since you asked, I'm actually planning to prepare a special meal at home for my birthday celebration with about 10 of my closest friends. I'm quite the cook and want to make something memorable. I was hoping you could help me create a recipe, figure out the necessary ingredients, and decide on the dishes I should make. What do you think?",
+            "content_zh": "嘿！既然你问了，我实际上正计划在家里为我的生日庆典准备特别的一餐，邀请我最亲密的大约10位朋友来参加。我是一个非常会做菜的人，想要做一些令人难忘的菜肴。我希望你可以帮助我创作一个食谱，确定所需的食材，并决定我应该制作哪些菜肴。你觉得怎么样？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hey! That sounds like a fantastic idea for your birthday celebration! I'd be more than happy to help you create a memorable meal for your special day. Let's start by brainstorming some ideas. Do you have any preferences or specific cuisines in mind? And are there any dietary restrictions or allergies I should be aware of?",
+            "content_zh": "嘿！那听起来是一个很棒的主意，用来庆祝你的生日！我非常乐意帮助你为特别的一天准备一个令人难忘的餐点。让我们先从一些创意开始吧。你有什么偏好或特定的美食类型吗？还有你有任何饮食限制或过敏我需要知道吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thanks for your enthusiasm! I love exploring different cuisines, so I'm open to trying something new and exciting. As for preferences, I enjoy bold flavors and dishes that are a bit adventurous. However, I don't have any dietary restrictions or allergies to worry about. So feel free to suggest any cuisine or specific dishes that you think would make the celebration extra special!",
+            "content_zh": "谢谢你的热情！我喜欢探索不同的美食，所以我愿意尝试一些新奇刺激的食物。至于口味，我喜欢浓郁的味道和一些冒险的菜肴。但是，我没有任何饮食限制或过敏问题需要担心。所以请随意建议任何你认为能让庆祝活动更加特别的美食或特定菜肴！",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That's great to hear! With no dietary restrictions to consider, we have a lot of freedom to get creative. How about we go for a fusion menu that combines different flavors and techniques? It could be a fun way to surprise and delight your guests. Here's an idea for a four-course meal to get us started:\n\n1. Appetizer: Thai-inspired Shrimp Satay Skewers with Peanut Sauce\n   - Ingredients: Shrimp, lemongrass, ginger, garlic, soy sauce, lime juice, peanut butter, coconut milk, honey, cilantro, and skewers.\n\n2. Soup: Spicy Mexican Tortilla Soup with Avocado Crema\n   - Ingredients: Chicken broth, tomatoes, onion, garlic, jalapeño, cumin, chili powder, tortilla strips, cooked chicken (optional), lime, avocado, sour cream, and cilantro.\n\n3. Main Course: Pan-Seared Steak with Chimichurri Sauce and Roasted Potatoes\n   - Ingredients: Steak (your choice of cut), olive oil, garlic, fresh herbs (such as parsley and oregano), red wine vinegar, red pepper flakes, potatoes, salt, and pepper.\n\n4. Dessert: Decadent Chocolate Lava Cakes with Raspberry Coulis\n   - Ingredients: Dark chocolate, butter, eggs, sugar, flour, raspberries, powdered sugar, and mint leaves (for garnish).\n\nOf course, feel free to make adjustments or substitutions based on your personal preferences. Let me know if you'd like more details on any of these dishes or if you have any other questions.",
+            "content_zh": "听到这些让人感到很棒！没有任何饮食限制可考虑，我们有很多自由发挥的空间。我们可以尝试一下融合不同口味和技巧的菜单，会是一个有趣的方式来让您的客人感到惊喜和满足。以下是一个四道菜的想法来开始我们的菜单设计：\n\n1. 开胃菜：泰式风味的花生虾沙爹串\n- 食材：虾，香茅，姜，大蒜，酱油，青柠檬汁，花生酱，椰奶，蜂蜜，香菜和串。\n\n2. 汤：墨西哥风味的辣鸡肉玉米片汤配鳄梨奶油\n- 食材：鸡汤，番茄，洋葱，大蒜，辣椒，孜然，辣椒粉，玉米片，熟鸡肉（可选），青柠檬，鳄梨，酸奶油和香菜。\n\n3. 主菜：铁板煎牛排配阿根廷香草酱和烤土豆\n- 食材：牛排（根据您的口味选择），橄榄油，大蒜，新鲜香草（如欧芹和牛至），红酒醋，红辣椒片，土豆，盐和胡椒。\n\n4. 甜点：浓醇的巧克力熔岩蛋糕配覆盆子酱\n- 食材：黑巧克力，黄油，鸡蛋，糖，面粉，覆盆子，糖粉和薄荷叶（用于装饰）。\n\n当然，根据您的个人口味可以对菜单进行调整或替换食材。如果您想了解更多关于这些菜肴的详情或有其他问题，请随时告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Wow, that fusion menu sounds absolutely amazing! I love the combination of flavors and the variety of cuisines. The Thai-inspired shrimp satay skewers with peanut sauce as an appetizer sound like a great way to kick off the meal. And the spicy Mexican tortilla soup with avocado crema for the soup course is sure to add a nice kick.\n\nFor the main course, the pan-seared steak with chimichurri sauce and roasted potatoes sounds like a mouthwatering combination. And to top it all off, the decadent chocolate lava cakes with raspberry coulis will definitely satisfy everyone's sweet tooth.\n\nI think this menu will impress my guests and make my birthday celebration truly special. I appreciate the detailed ingredients and the option to make adjustments based on my preferences. I'm excited to get started!\n\nNow, could you please guide me on the appropriate order to prepare these dishes? And if you have any tips or tricks for each recipe, I'd love to hear them!",
+            "content_zh": "哇，那个融合菜单听起来绝对令人惊叹！我喜欢各种口味的搭配以及多样的美食。用花生酱调味的泰式虾肉沙爹串作为开胃菜，听起来是一个很棒的开胃方式。而拥有墨西哥风味、配有鳄梨奶油酱的辣味墨西哥玉米饼汤，肯定会为餐前带来美好的开端。对于主菜，铁锅煎牛排搭配香草酱和烤土豆听起来是一道美味的组合。最后，豪华的巧克力熔岩蛋糕搭配覆盆子酱，肯定会满足每个人的甜食欲望。我相信这个菜单会给我的客人留下深刻印象，使我的生日庆祝活动变得真正特别。感谢详细的配料清单以及根据我的口味做出调整的选项。我很兴奋开始做菜！现在，你能告诉我这些菜肴的适当制作顺序吗？如果你有任何食谱的技巧或建议，我很乐意听取！",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "I'm glad you're excited about the menu! Let's go through the order of preparation and some tips for each dish:\n\n1. Shrimp Satay Skewers with Peanut Sauce:\n   - Start by marinating the shrimp in a mixture of lemongrass, ginger, garlic, soy sauce, and lime juice for about 30 minutes.\n   - While the shrimp marinates, prepare the peanut sauce by combining peanut butter, coconut milk, honey, and a splash of lime juice. Adjust the consistency by adding more coconut milk if needed.\n   - Skewer the marinated shrimp and grill or broil them until cooked through.\n   - Serve the skewers with the peanut sauce and garnish with chopped cilantro.\n\nTip: Soak the skewers in water for about 30 minutes before threading the shrimp to prevent them from burning.\n\n2. Spicy Mexican Tortilla Soup with Avocado Crema:\n   - Begin by sautéing onions, garlic, and jalapeño in a pot until softened. Add diced tomatoes, chicken broth, cumin, and chili powder. Simmer for about 15 minutes.\n   - While the soup simmers, prepare the avocado crema by blending avocado, lime juice, sour cream, and a pinch of salt until smooth.\n   - Add tortilla strips and cooked chicken (if using) to the soup and simmer for a few more minutes.\n   - Serve the soup hot, garnished with a drizzle of avocado crema and fresh cilantro.\n\nTip: For an extra touch, you can fry some tortilla strips for a crispy garnish.\n\n3. Pan-Seared Steak with Chimichurri Sauce and Roasted Potatoes:\n   - Start by seasoning the steak generously with salt and pepper. Heat some oil in a skillet over high heat and sear the steak on both sides until it reaches your desired level of doneness. Let it rest for a few minutes before slicing.\n   - While the steak rests, prepare the chimichurri sauce by blending garlic, fresh herbs (such as parsley and oregano), red wine vinegar, red pepper flakes, salt, and pepper. Slowly drizzle in olive oil until the sauce reaches a smooth consistency.\n   - For the roasted potatoes, toss them with olive oil, salt, and pepper, then roast in the oven until golden and crispy.\n   - Serve the sliced steak with a generous drizzle of chimichurri sauce and a side of roasted potatoes.\n\nTip: Letting the steak rest after cooking allows the juices to redistribute, resulting in a juicier steak.\n\n4. Decadent Chocolate Lava Cakes with Raspberry Coulis:\n   - Preheat your oven and prepare the ramekins by greasing them and dusting with cocoa powder.\n   - Melt the dark chocolate and butter together, then whisk in eggs, sugar, and flour until well combined.\n   - Divide the batter among the ramekins and bake them until the edges are set but the centers are still gooey.\n   - While the cakes cool slightly, prepare the raspberry coulis by blending raspberries and a bit of powdered sugar until smooth.\n   - Serve the warm lava cakes with a drizzle of raspberry coulis and a garnish of fresh mint leaves.\n\nTip: Dust the ramekins with cocoa powder instead of flour to prevent white residue on the cakes.\n\nRemember, timing is key when preparing a multi-course meal. Plan your prep work and cooking schedule accordingly to ensure everything is ready to be served at the right time. And don't forget to have fun while cooking and enjoy the process!",
+            "content_zh": "很高兴你对菜单感兴奋！让我们一起来看看准备顺序和每道菜的一些建议：\n1. 花生酱虾肉沙嗲串：\n- 首先，将虾肉用柠檬草、姜、大蒜、酱油和酸柑汁混合腌制约30分钟。\n- 在虾肉腌制的同时，准备花生酱，将花生酱、椰奶、蜂蜜和一点酸柑汁混合。如有必要，可加入更多椰奶调节稠度。\n- 将腌制的虾肉串起来，烤或烤至熟。\n- 与花生酱一起上桌，并撒上切碎的香菜。\n提示：将串烤签在水中浸泡30分钟，以防止烤焦。\n2. 辣墨西哥玉米片汤配鳄梨奶油酱：\n- 先在锅中炒洋葱、大蒜和墨西哥辣椒，直到软化。加入切碎的番茄、鸡汤、孜然和辣椒粉。炖约15分钟。\n- 汤在炖的时候，制作鳄梨奶油酱，将鳄梨、酸柑汁、酸奶油和一点盐搅拌至顺滑。\n- 将玉米片和已煮熟的鸡肉（如有）加入汤中，再炖几分钟。\n- 热汤上桌，浇上一点鳄梨奶油酱和新鲜香菜。\n提示：为了增添风味，您可以炸些玉米片做脆皮装饰。\n3. 干煎牛排配奇米苏酱和烤土豆：\n- 先用盐和胡椒腌制牛排。在煎锅里加热一些油，高温两面干煎牛排，直至达到您所期望的熟度。切片前让其静置片刻。\n- 牛排静置时，用大蒜、新鲜香草（如欧芹和牛至）、红酒醋、红辣椒粉、盐和胡椒混合制作奇米苏酱。缓慢地加入橄榄油，直至酱汁达到顺滑的稠度。\n- 对于烤土豆，用橄榄油、盐和胡椒拌匀，然后在烤箱中烤至金黄、脆脆。\n- 上桌的烤土豆搭配大量的奇米苏酱和烤土豆。\n提示：煮熟的牛排静置后，汁液重新分布，使牛排更多汁。\n4. 浓情巧克力熔岩蛋糕配覆盆子酱：\n- 预热烤箱，并将烤模抹油并撒上可可粉。\n- 将黑巧克力和黄油一起融化，然后搅拌融入鸡蛋、糖和面粉至混合均匀。\n- 将面糊分配到烤模中，并烤至边缘凝固但中心仍然松软。\n- 在蛋糕稍冷时，用覆盆子和少许糖粉混合搅拌成覆盆子酱。\n- 上桌时将温热的熔岩蛋糕拌上覆盆子酱和新鲜薄荷叶。\n提示：用可可粉将烤模抹油，以防蛋糕上有白色残渣。记住，在准备多道菜时，时机至关重要。计划好准备工作和烹饪时间表，以确保一切能准时上桌。别忘了在烹饪时享受，尽情享受整个过程！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you so much for the detailed instructions and tips! I love how you've broken down the preparation process for each dish. It's really helpful to have a clear order and some extra guidance.\n\nI'll make sure to soak the skewers before threading the shrimp to prevent them from burning. And I'll definitely fry some tortilla strips for that crispy garnish on the Mexican tortilla soup. The tip about letting the steak rest after cooking is a great reminder, as it's easy to get impatient when it smells so delicious!\n\nLastly, I'll dust the ramekins with cocoa powder for the lava cakes to avoid any white residue. The raspberry coulis sounds like the perfect accompaniment to the rich chocolate lava cakes.\n\nI'm feeling confident and ready to tackle this birthday meal. Thanks again for your assistance, and I'll be sure to have fun in the kitchen!",
+            "content_zh": "非常感谢您提供的详细说明和建议！我喜欢您为每道菜准备过程分解得如此清晰。有一个明确的顺序和额外的指导确实非常有帮助。\n\n我会确保在把虾穿在竹签上之前浸泡它们，以防止它们烧焦。我一定会为墨西哥玉米煎饼汤炸一些玉米片，制作脆脆的装饰。关于煮完牛排后让它休息的提示很好，因为当它闻起来如此美味时，很容易感到不耐烦！\n\n最后，我会用可可粉在小瓷碗上撒一些粉末，以避免留下任何白色残留物。覆盆子汁听起来是搭配丰富巧克力岩浆蛋糕的完美选择。\n\n我感到自信并准备好去应对这顿生日大餐。再次感谢您的帮助，我一定会在厨房里玩得很开心！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you found the instructions and tips helpful. It sounds like you have a solid plan in place, and I'm confident your birthday meal will turn out fantastic!\n\nRemember to take your time, enjoy the process, and don't hesitate to make any adjustments or add your own personal touches along the way. Cooking is all about creativity and making it your own.\n\nI hope your birthday celebration with your closest friends is absolutely amazing and filled with delicious food and wonderful memories. If you have any more questions or need further assistance, feel free to ask. Happy cooking and happy birthday!",
+            "content_zh": "非常欢迎！我很高兴你觉得这些指导和建议很有帮助。听起来你已经制定了一个很好的计划，我相信你的生日餐会非常棒！记得慢慢来，享受这个过程，随时根据自己的喜好进行调整或加入自己的个人风格。烹饪就是关于创造力和使其成为你自己的样子。\n我希望你和最亲密的朋友一起度过一个美好而充满美味食物和美好回忆的生日庆祝。如果有更多问题或需要帮助，请随时提问。愉快的烹饪和生日快乐！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "bold flavors",
+        "fusion",
+        "mouthwatering"
+    ],
+    "preference_summary": [
+        "bold flavors",
+        "adventurous",
+        "fusion menu"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    }
+}

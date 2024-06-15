@@ -1,0 +1,94 @@
+{
+    "task": "recipe planning",
+    "preference_id": 87,
+    "task_context_id": 4,
+    "preference": "1. Gender: Female\n2. Age: 32\n3. Personality: Creative, independent, and adventurous\n4. Occupation: Fashion Designer\n5. Daily Interests and Hobbies: Sketching designs, visiting fashion shows, photography\n6. Travel Habits: Travels for inspiration, enjoys visiting exotic locations\n7. Dining Preferences: Enjoys exotic and unique cuisines, loves seafood\n8. Spending Habits: Spends on unique fabrics for designs, invests in art pieces\n9. Other Aspects: Runs her own boutique, organizes fashion workshops",
+    "preference_zh": "1. 性别：女性\n2. 年龄：32岁\n3. 个性：创意、独立、冒险\n4. 职业：时尚设计师\n5. 日常兴趣爱好：设计草图、参观时装展、摄影\n6. 旅行习惯：为灵感而旅行，喜欢参观异国风情的地方\n7. 饮食喜好：喜欢异国风味和独特的美食，热爱海鲜\n8. 消费习惯：为设计购买独特面料，投资艺术品\n9. 其他方面：经营自己的时装店，组织时尚工作坊",
+    "task_context": "You plan to prepare a meal at home and invite three close friends to join you. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家准备一顿饭，并邀请三个亲近的朋友加入。你在烹饪方面并不很有技术，经验有限。因此，你想要请求LLM的帮助来创建食谱，确定所需的食材，并决定要做哪些菜。在计划过程中，你应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you reached out. I'm planning to prepare a meal at home and invite three close friends to join me. However, I'm not very skilled in cooking and have limited experience. I was hoping you could help me create a recipe, determine the necessary ingredients, and decide what dishes to make. Can you assist me with that?",
+            "content_zh": "你好！很高兴你联系我。我打算在家里准备一顿饭并邀请三个亲近的朋友加入我。然而，我不太擅长烹饪，经验也有限。希望你能帮助我创造一个食谱，确定必要的食材，并决定做什么菜。你可以帮助我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be happy to help you plan your meal and come up with some delicious recipes. Cooking for friends can be a lot of fun, even if you're not an experienced chef. What kind of cuisine are you interested in? Do you have any dietary restrictions or preferences? Let's start by narrowing down the type of meal you'd like to prepare!",
+            "content_zh": "你好！我很乐意帮助你计划一顿饭，并提供一些美味的食谱。即使你不是一名经验丰富的厨师，给朋友做饭也可以很有趣。你对哪种菜系感兴趣？你有任何饮食限制或偏好吗？让我们从缩小你想准备的餐点类型开始吧！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That sounds great! I'm always up for trying new and exotic cuisines. Seafood is something I particularly enjoy, so incorporating that into the meal would be wonderful. As for dietary restrictions, luckily none of my friends have any specific requirements, so we have the freedom to explore different options. I'm open to your suggestions!",
+            "content_zh": "听起来不错！我总是乐于尝试新奇的美食。海鲜是我特别喜欢的，所以把它融入到餐点中会很棒。至于饮食限制，幸运的是我的朋友们都没有特殊要求，所以我们有自由尝试不同的选择。我很乐意听取你的建议！",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Fantastic! Seafood is a great choice for a special meal with friends. How about we create a menu that features a variety of flavors and textures? Here's a suggestion for a three-course meal:\n\nAppetizer: Grilled Shrimp Skewers with Citrus Marinade\nMain Course: Pan-Seared Salmon with Lemon Butter Sauce\nDessert: Mango Coconut Panna Cotta\n\nFor the Grilled Shrimp Skewers, you'll need:\n- 1 pound of large shrimp, peeled and deveined\n- 2 cloves of garlic, minced\n- Zest and juice of 1 lemon\n- Zest and juice of 1 lime\n- 2 tablespoons of olive oil\n- Salt and pepper to taste\n- Skewers for grilling\n\nFor the Pan-Seared Salmon with Lemon Butter Sauce, you'll need:\n- 4 salmon fillets\n- Salt and pepper to taste\n- 2 tablespoons of butter\n- Juice of 1 lemon\n- Fresh dill for garnish\n\nFor the Mango Coconut Panna Cotta, you'll need:\n- 1 cup of mango puree (fresh or canned)\n- 1 cup of coconut milk\n- 1/4 cup of sugar\n- 1 teaspoon of vanilla extract\n- 2 teaspoons of gelatin powder\n- Fresh mint leaves for garnish\n\nLet me know if you're ready to move forward with these recipes, and I can provide you with the cooking instructions!",
+            "content_zh": "太棒了！海鲜是和朋友共享特别餐的一个很好的选择。我们来制定一个拥有各种口味和质感的菜单怎么样？以下是一个三道菜的建议菜单：\n\n开胃菜：柑橘酱烤虾串\n主菜：柠檬黄油煎三文鱼\n甜点：芒果椰奶奶酪\n\n为烤虾串备料，你需要：\n- 1磅大虾，剥皮去虾线\n- 2瓣大蒜，切碎\n- 1个柠檬的皮和汁\n- 1个酸橙的皮和汁\n- 2汤匙橄榄油\n- 适量盐和胡椒\n- 用于烤的串\n\n为柠檬黄油煎三文鱼备料，你需要：\n- 4块三文鱼\n- 适量盐和胡椒\n- 2汤匙黄油\n- 1个柠檬的汁\n- 新鲜莳萝叶用于装饰\n\n为芒果椰奶奶酪准备，你需要：\n- 1杯芒果泥（新鲜或罐装）\n- 1杯椰奶\n- 1/4杯糖\n- 1茶匙香草精\n- 2茶匙明胶粉\n- 新鲜薄荷叶用于装饰\n\n如果你准备好尝试这些食谱，请告诉我，我会提供给你烹饪说明！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Wow, that menu sounds absolutely delightful! I love the combination of grilled shrimp, pan-seared salmon, and the refreshing mango coconut panna cotta for dessert. I'm definitely ready to move forward with these recipes and would appreciate your guidance on the cooking instructions. Let's get started!",
+            "content_zh": "哇，那個菜單聽起來絕對令人愉悅！我喜歡烤蝦、鍋煎鮭魚和清爽的芒果椰子奶凍甜點的搭配。我絕對準備好開始這些食譜了，並且希望您能指導我烹飪的方法。讓我們開始吧！",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! Let's dive into the cooking instructions for each dish:\n\nGrilled Shrimp Skewers with Citrus Marinade:\n1. In a bowl, combine the minced garlic, lemon zest, lime zest, lemon juice, lime juice, olive oil, salt, and pepper. Mix well to create the marinade.\n2. Thread the shrimp onto skewers, making sure to leave enough space between each piece.\n3. Place the shrimp skewers in a shallow dish and pour the marinade over them, ensuring they are well coated. Let them marinate in the refrigerator for about 20-30 minutes.\n4. Preheat your grill to medium-high heat. Grill the shrimp skewers for 2-3 minutes per side, until they turn pink and opaque.\n5. Remove the skewers from the grill and serve them as a delicious appetizer.\n\nPan-Seared Salmon with Lemon Butter Sauce:\n1. Season the salmon fillets with salt and pepper on both sides.\n2. Heat a large skillet over medium-high heat and add the butter. Allow it to melt and start bubbling.\n3. Carefully place the salmon fillets in the skillet, skin-side down if they have skin. Cook for about 4-5 minutes on each side, until the salmon is cooked through and flakes easily with a fork.\n4. Remove the salmon from the skillet and set it aside on a plate.\n5. In the same skillet, add the lemon juice and stir it into the remaining butter to create a sauce. Cook for a minute or two until slightly thickened.\n6. Pour the lemon butter sauce over the salmon fillets, garnish with fresh dill, and serve.\n\nMango Coconut Panna Cotta:\n1. In a saucepan, combine the mango puree, coconut milk, and sugar. Heat the mixture over medium heat, stirring until the sugar dissolves.\n2. In a separate small bowl, sprinkle the gelatin powder over 2 tablespoons of cold water. Allow it to bloom for a few minutes.\n3. Add the bloomed gelatin to the saucepan with the mango and coconut mixture. Stir well until the gelatin completely dissolves.\n4. Remove the saucepan from heat and stir in the vanilla extract.\n5. Pour the panna cotta mixture into individual serving glasses or ramekins. Allow them to cool to room temperature, then refrigerate for at least 4 hours, or until set.\n6. Once the panna cotta is set, garnish each serving with fresh mint leaves and enjoy!\n\nI hope these instructions are clear and helpful! If you have any further questions or need additional guidance, feel free to ask. Enjoy your cooking adventure and the meal with your friends!",
+            "content_zh": "太棒了！让我们深入了解每道菜的烹饪步骤：烤柠檬大蒜虾串：1.在一个碗里，将碎蒜、柠檬皮、青柠皮、柠檬汁、青柠汁、橄榄油、盐和胡椒混合在一起。充分搅拌以制作腌料。2.将虾串在串上，确保每个件之间留有足够的空间。3.将虾串放入浅盘中，倒入腌料，确保它们均匀涂抹。让它们在冰箱中腌约20-30分钟。4.将烧烤架预热至中高温。每面烤虾串2-3分钟，直到它们变成粉红色且不透明。5.将串从烧烤架上取下，作为美味开胃菜食用。柠檬牛油焗三文鱼：1.在三文鱼片上两面撒上盐和胡椒调味。2.在中高温下加热一个大煎锅，加入牛油。让它融化并开始起泡。3.小心地将三文鱼片放入煎锅中，如果有皮，则皮朝下。每面煎约4-5分钟，直到三文鱼煮熟且用叉子轻松分层。4.将三文鱼片从煎锅中取出，放在一个盘子上。5.在同一个煎锅中，加入柠檬汁，搅拌成牛油酱。煮一两分钟直到稍微变稠。6.将柠檬牛油酱倒在三文鱼片上，撒上新鲜的莳萝，食用。芒果椰子奶冻：1.在一个锅中，将芒果泥、椰奶和糖混合在一起。在中火加热混合物，搅拌直到糖完全溶解。2.在一个小碗里，撒上2汤匙冷水的明胶粉。让其泡发几分钟。3.将膨胀的明胶加入带芒果和椰奶的锅中。充分搅拌直到明胶完全溶解。4.从火上取下锅，搅入香草精。5.倒入个别玻璃杯或小烤皿中。让其冷却至室温，然后冷藏至少4个小时或直到凝固。6.一旦奶冻凝固，每份奶冻上撒上新鲜薄荷叶，享受！希望这些说明清晰且有帮助！如有任何进一步问题或需额外指导，请随时询问。祝您和朋友们享受美食之旅和餐点！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you so much for providing the detailed cooking instructions! They are clear and easy to follow. I'm excited to try out these recipes and impress my friends with the delicious meal. I really appreciate your help in planning this. I'll make sure to reach out if I have any further questions. Thanks again!\n",
+            "content_zh": "非常感谢您提供详细的烹饪说明！它们清晰易懂。我很兴奋要尝试这些食谱，并用美味的餐点给朋友留下深刻印象。我真的很感激您在计划中的帮助。如果有任何进一步的问题，我一定会联系您的。再次感谢！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you found the instructions helpful. I'm confident that your friends will be impressed with the meal you prepare. Remember, cooking is all about having fun and experimenting, so don't hesitate to add your own personal touch to the recipes. If you have any more questions or need assistance in the future, don't hesitate to reach out. Enjoy your cooking adventure and have a wonderful time with your friends! Happy cooking!",
+            "content_zh": "不客气！我很高兴你觉得这些说明很有帮助。我相信你的朋友们会对你准备的美食印象深刻。记住，烹饪就是要有乐趣和尝试新事物，所以不要犹豫在食谱中加入自己的个人风格。如果你有任何问题或需要帮助，随时联系我。享受你的烹饪之旅，和朋友们一起度过美好时光！祝愉快的烹饪！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "exotic",
+        "seafood",
+        "mango"
+    ],
+    "preference_summary": [
+        "exotic cuisines",
+        "seafood"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 1
+    }
+}

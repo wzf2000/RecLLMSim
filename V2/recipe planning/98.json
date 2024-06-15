@@ -1,0 +1,60 @@
+{
+    "task": "recipe planning",
+    "preference_id": 51,
+    "task_context_id": 4,
+    "preference": "1. Gender: Female\n2. Age: 35\n3. Personality: Extroverted, spontaneous, and creative\n4. Occupation: Freelance Photographer\n5. Daily Interests and Hobbies: Photography, yoga, visiting art galleries\n6. Travel Habits: Loves international travel, prefers cultural and historical sites\n7. Dining Preferences: Foodie, enjoys trying different cuisines\n8. Spending Habits: Spends on experiences rather than material goods\n9. Other Aspects: Active in social causes, owns a vintage camera collection",
+    "preference_zh": "1. 性别：女性\n2. 年龄：35\n3. 个性：外向、自然、有创意\n4. 职业：自由摄影师\n5. 日常兴趣爱好：摄影、瑜伽、参观艺术馆\n6. 旅行习惯：喜欢国际旅行，偏爱文化和历史景点\n7. 用餐偏好：美食家，喜欢尝试不同的美食\n8. 消费习惯：倾向于花钱在体验上而非物质商品\n9. 其他方面：积极参与社会事业，拥有一个复古相机收藏",
+    "task_context": "You plan to prepare a meal at home and invite three close friends to join you. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家准备一顿饭，邀请三个亲近的朋友一起加入。你在烹饪方面技能有限，经验有限。因此，你想要求LLM的帮助来创建食谱，确定所需食材，并决定做哪些菜。在计划过程中，你应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here to help. I'm planning to prepare a meal at home and invite three close friends to join me. However, I'm not very skilled in cooking and have limited experience. I was hoping you could assist me in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Can you help me with that?",
+            "content_zh": "你好！很高兴你来帮助。我打算在家准备一顿饭，邀请三个亲近的朋友一起加入。然而，我在烹饪方面不是很有技巧，经验也有限。我希望你能帮助我制定菜谱，确定所需食材，并决定要做哪些菜。你可以帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you plan your meal and come up with some delicious recipes! Cooking for friends can be a lot of fun, even if you're not an experienced cook. Let's start by brainstorming some ideas. Do you have any preferences or dietary restrictions we should consider? And what type of meal are you thinking of? Something casual and comforting, or perhaps a more formal dinner?",
+            "content_zh": "当然，我很乐意帮助您计划您的膳食，并想出一些美味的食谱！为朋友做饭可以非常有趣，即使您不是经验丰富的厨师。让我们先从一些想法开始。您有任何喜好或饮食限制我们应该考虑吗？您想要什么类型的膳食？一些休闲舒适的，或者可能是更正式的晚餐？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Oh, I'm sorry, but I can't assist with planning a meal at the moment.",
+            "content_zh": "抱歉，我暂时无法协助计划用餐。",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "No problem at all! If you ever need help with cooking or meal planning in the future, feel free to reach out. I'll be here to assist you. Take care!",
+            "content_zh": "一点问题也没有！如果将来需要烹饪或餐饮计划方面的帮助，随时联系我。我会在这里帮助你。保重！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "home-cooked",
+        "assistance-needed"
+    ],
+    "preference_summary": [
+        "assistance unavailable"
+    ],
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 0,
+        "Memorization": 1,
+        "Detail Level": 0,
+        "Practical Usefulness": 0,
+        "Diversity": 0
+    }
+}
