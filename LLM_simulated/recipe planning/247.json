@@ -1,0 +1,186 @@
+{
+    "task": "recipe planning",
+    "preference_id": 74,
+    "task_context_id": 4,
+    "preference": "1. Gender: Male\n2. Age: 22\n3. Personality: Energetic, social, and optimistic\n4. Occupation: College Student\n5. Daily Interests and Hobbies: Playing soccer, partying, video gaming\n6. Travel Habits: Enjoys road trips with friends, attends music festivals\n7. Dining Preferences: Fast food lover, enjoys late-night snacks\n8. Spending Habits: Spends on concerts and entertainment, saves for education\n9. Other Aspects: Lives in a dorm, part of a college soccer team",
+    "preference_zh": "1. 性别：男性\n2. 年龄：22岁\n3. 个性：充满活力、社交能力强、乐观\n4. 职业：大学生\n5. 日常兴趣爱好：踢足球、参加派对、玩视频游戏\n6. 旅行习惯：喜欢与朋友一起出游、参加音乐节\n7. 餐饮偏好：快餐爱好者、喜欢吃宵夜\n8. 消费习惯：喜欢参加音乐会和娱乐活动、为了教育而存钱\n9. 其他方面：住在宿舍、是大学足球队的一员",
+    "task_context": "You plan to prepare a meal at home and invite three close friends to join you. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家里准备一顿饭，并邀请三个亲近的朋友一起前来。你在烹饪方面并不很擅长，经验有限。因此，你想要请求LLM的帮助，制定菜谱、确定所需食材，并决定要做哪些菜。在计划过程中，你应该了解每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I actually need your help with something. I'm planning to prepare a meal at home and invite three close friends to join me. The problem is, I'm not very skilled in cooking and have limited experience. I was hoping you could help me create a recipe, determine the necessary ingredients, and decide what dishes to make. Can you assist me with that?",
+            "content_zh": "你好！很高兴你在这里。实际上我需要你的帮助。我打算在家里准备一顿饭，请三个亲近的朋友一起来。问题是我在烹饪方面不是很在行，经验也有限。我希望你可以帮我制定食谱，确定所需食材，并决定要做哪些菜。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'm here to help you with your cooking adventure. Don't worry, cooking can be a lot of fun, even if you're not an expert. Let's start by brainstorming some ideas for your meal. Do you have any preferences or dietary restrictions? And what kind of cuisine or dishes are you interested in preparing?",
+            "content_zh": "你好！我在这里帮助您开始烹饪之旅。不要担心，即使您不是专家，烹饪也可以非常有趣。让我们从头脑风暴一些关于您饭菜的想法开始吧。您有什么偏好或饮食限制吗？您对准备哪种类型的美食或菜肴感兴趣呢？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Hey there! I'm excited to embark on this cooking adventure with your guidance. As for preferences, I'm open to trying different cuisines, but let's keep it simple and beginner-friendly. I don't have any dietary restrictions, so we have plenty of options to explore. Since I enjoy fast food and late-night snacks, perhaps we can incorporate some comfort food elements into the dishes. What do you think?",
+            "content_zh": "嘿！我很高兴能在你的指导下开始这次烹饪冒险。至于口味，我愿意尝试不同的菜系，但让我们保持简单和适合初学者的方向。我没有任何饮食限制，所以我们有很多选择可以探索。由于我喜欢快餐和深夜小吃，也许我们可以在菜肴中融入一些舒适食物元素。你觉得呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That sounds like a great plan! Comfort food can be a wonderful choice for a cozy gathering with friends. How about we create a menu that includes a main dish, a side dish, and a dessert? This way, we can cover all the bases and make sure everyone leaves satisfied. \n\nFor the main dish, I suggest trying a classic like homemade burgers. They're easy to make and can be customized to suit everyone's preferences. You can choose from beef, turkey, or even veggie patties. Serve them with toasted buns, lettuce, tomatoes, cheese, and some condiments like ketchup and mayo. Add a side of crispy oven-baked fries or sweet potato fries for an extra touch of comfort.\n\nNow, let's move on to the side dish. How about making some loaded nachos? It's a crowd-pleaser and perfect for sharing. Start with a bed of tortilla chips, then top them with melted cheese, diced tomatoes, jalapeños, black beans, and olives. You can also add some guacamole, sour cream, and salsa on the side for dipping.\n\nLastly, for dessert, let's keep it simple and satisfying. How about warm chocolate chip cookies? They're a classic comfort food that everyone loves. You can serve them with a scoop of vanilla ice cream for an extra indulgent treat.\n\nDoes this menu sound good to you? Let me know if you have any other preferences or if there's anything else I can assist you with!",
+            "content_zh": "这听起来是个很棒的计划！舒适食物可以是和朋友们进行温馨聚会的绝佳选择。我们何不制定一个菜单，包括一道主菜、一道配菜和一道甜点呢？这样我们就可以面面俱到，确保每个人都满意离开。对于主菜，我建议尝试一些经典的自制汉堡。它们易于制作，并且可以根据每个人的喜好进行定制。你可以从牛肉、火鸡或者素食饼中选择。搭配烤面包、生菜、番茄、奶酪以及一些调味品如番茄酱和美乃滋。再加上一边脆烤薯条或甜薯条，增添一丝额外的舒适感。现在，让我们来谈谈配菜。制作一些装满料的玉米片怎么样？这是一道人人喜爱、非常适合分享的菜肴。从一层玉米片开始，然后在上面加上融化的奶酪、切丁的番茄、墨西哥辣椒、黑豆和橄榄。你还可以另外加一些鳄梨酱、酸奶油和莎莎酱作为蘸料。最后，对于甜点，我们保持简单而令人满意。怎么样，来点温暖的巧克力碎片饼干？它们是每个人都喜爱的经典舒适食物。你可以搭配一球香草冰淇淋，让这道甜品更加诱人。这个菜单听起来不错吗？如果你有其他偏好或需要我提供任何其他帮助，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "Translation Problem Fixed"
+            },
+            "content_zh_old": "听起来好像是一个很棒的计划！安慰食物可以是与朋友温馨聚会的绝佳选择。我们何不打造一个包括主菜、配菜和甜点的菜单呢？这样一来，我们就可以覆盖所有要点，确保每个人都离开满意。对于主菜，我建议尝试一些经典的自制汉堡。它们很容易做，而且可以根据每个人的口味定制。你可以选择牛肉、火鸡，甚至素蔬饼。将它们与烤面包、生菜、番茄、奶酪以及番茄酱和蛋黄酱等调味品一起上桌。再来一份脆脆的烤薯条或甜薯条做为额外的安慰。\n现在，让我们继续配菜。做一些馅料均匀的墨西哥卷饼怎么样？这样既受欢迎又适合分享。先用一层墨西哥薄饼片作为底层，然后放上熔化的奶酪、切碎的番茄、墨西哥辣椒、黑豆和橄榄。你还可以加入一些鳄梨酱、酸奶油以及沙拉作为蘸酱。\n最后，甜点方面，我们简单而又让人满足。怎么样来些热腾腾的巧克力片饼干？这是每个人都喜爱的经典安慰食物。你可以配上一勺香草冰淇淋，增加一份额外的享受。\n这个菜单听起来不错吧？如果你有其他喜好或者需要我的其他帮助，请随时告诉我！"
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "simple",
+        "beginner-friendly",
+        "comfort food"
+    ],
+    "preference_summary": [
+        "simple",
+        "beginner-friendly",
+        "comfort food"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 1,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 1,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "22",
+            "zh": "22"
+        },
+        "Personality": [
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            },
+            {
+                "en": "Optimistic",
+                "zh": "乐观"
+            }
+        ],
+        "Occupation": {
+            "en": "Student",
+            "zh": "学生"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Playing video games",
+                "zh": "玩游戏"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Self-driving tour",
+                "zh": "自驾游"
+            },
+            {
+                "en": "Visiting exhibitions",
+                "zh": "看展"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Fast food",
+                "zh": "快餐"
+            },
+            {
+                "en": "Street food",
+                "zh": "街头小吃"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on entertainment",
+                "zh": "娱乐支出"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a dormitory",
+                "zh": "住在宿舍"
+            },
+            {
+                "en": "Active in sports activities",
+                "zh": "喜欢参与体育活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "Sequential",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Broad"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

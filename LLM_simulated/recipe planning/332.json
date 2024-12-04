@@ -1,0 +1,204 @@
+{
+    "task": "recipe planning",
+    "preference_id": 75,
+    "task_context_id": 7,
+    "preference": "1. Gender: Female\n2. Age: 37\n3. Personality: Ambitious, determined, and goal-oriented\n4. Occupation: Financial Advisor\n5. Daily Interests and Hobbies: Fitness training, stock market analysis, online shopping\n6. Travel Habits: Enjoys city breaks, prefers luxury resorts\n7. Dining Preferences: Health-conscious, enjoys sushi and salads\n8. Spending Habits: Invests in high-end fashion, saves for property\n9. Other Aspects: Lives in a city apartment, has a high-stress lifestyle",
+    "preference_zh": "1. 性别：女性\n2. 年龄：37\n3. 个性：雄心勃勃，坚定，目标导向\n4. 职业：金融顾问\n5. 日常兴趣爱好：健身训练，股市分析，网购\n6. 旅行习惯：喜欢城市短途旅行，偏好豪华度假胜地\n7. 餐饮偏好：注重健康，喜欢寿司和沙拉\n8. 消费习惯：投资高端时尚品牌，为房产储蓄\n9. 其他方面：住在城市公寓，生活压力较大",
+    "task_context": "You plan to prepare a meal at home to celebrate your birthday with about 10 close friends. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家里为庆祝生日邀请大约10个亲密的朋友准备一顿饭。你是一个烹饪技术娴熟的厨师。因此，你想要请LLM帮助你创建食谱，确定所需食材，并决定要做哪些菜。在规划过程中，你应该了解每道菜的完整准备过程和准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I'm actually looking for some assistance with planning a meal for my birthday celebration with around 10 close friends. I want to create a memorable dining experience, and I'd appreciate your help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Can you assist me with that?",
+            "content_zh": "你好！很高兴你来了。我实际上正在寻找一些帮助来为我和大约10个亲密朋友庆祝生日时的餐饮计划。我想要打造一个难忘的用餐体验，我会很感激你在创作食谱、确定所需食材和决定要做哪些菜肴方面的帮助。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be happy to help you plan a memorable meal for your birthday celebration. Planning a special dining experience can be a lot of fun. Let's start by discussing your preferences. Do you have any specific cuisine in mind or any dietary restrictions among your friends?",
+            "content_zh": "你好！我很乐意帮助你计划一个难忘的生日庆祝餐。计划一个特别的就餐体验会很有趣。让我们从讨论你的偏好开始。你有特定的餐饮口味或是朋友中有饮食限制吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance. I appreciate it. As for the cuisine, I'm open to suggestions. I enjoy a variety of flavors, but it would be great to have some healthy options since I try to maintain a health-conscious lifestyle. As for dietary restrictions, there aren't any specific ones among my friends, but it would be good to have some vegetarian or vegan options available. What do you think would work well for the occasion?",
+            "content_zh": "谢谢你提供帮助。我很感激。至于美食，我愿意听取建议。我喜欢多样的口味，但因为我试图保持健康意识生活方式，所以希望有一些健康选项。至于饮食限制，在我的朋友中没有特别要求，但提供一些素食或纯素选项会很不错。你觉得什么会很适合这个场合呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! It's wonderful that you're open to different cuisines and interested in incorporating healthy options. With those preferences in mind, I have a few ideas that might work well for your birthday celebration.\n\nFor starters, a colorful and refreshing salad would be a good choice. Consider a mixed greens salad with a variety of vegetables like cherry tomatoes, cucumbers, bell peppers, and avocado. You could also add some toasted nuts or seeds for added crunch and a light vinaigrette dressing.\n\nAs for the main course, a vegetarian or vegan option could be a flavorful roasted vegetable medley. You can roast a mix of seasonal vegetables such as carrots, zucchini, bell peppers, and sweet potatoes, seasoned with herbs and spices. It's a versatile dish that can be customized to your taste.\n\nAnother option is a delicious mushroom risotto. Risotto is a creamy and comforting dish that can be made with vegetable broth and a variety of mushrooms like cremini, shiitake, or porcini. It's a crowd-pleaser and can be served as a main course or a side dish.\n\nFor dessert, you could consider a fruit-based option like a mixed berry crumble or a vegan chocolate avocado mousse. Both are delicious and relatively easy to prepare.\n\nOf course, these are just a few ideas to get you started. Let me know if you have any specific preferences or if there's anything else I can help you with!",
+            "content_zh": "太棒了！你对不同的美食开放并有兴趣融入健康的选择，这真是太棒了。考虑到这些喜好，我有一些想法，可能会很适合你的生日庆祝活动。\n\n首先，一份色彩丰富清爽的沙拉是一个不错的选择。考虑一个混合生菜沙拉，加入樱桃番茄、黄瓜、甜椒和鳄梨等各种蔬菜。你也可以加入一些烤坚果或种子以增添一些脆脆的口感，再加上一些清淡的油醋调味汁。\n\n至于主菜，一道素食或纯素的烤蔬菜拼盘可能会是一道美味的选择。你可以烤一些时令蔬菜，比如胡萝卜、西葫芦、甜椒和红薯，加上香草和香料调味。这是一道多才多艺的菜肴，可根据你的口味自由搭配。\n\n另一个选择是美味的蘑菇烩饭。烩饭是一道奶油丰盈、令人安慰的菜肴，可用蔬菜高汤和各种蘑菇，如小褐蘑菇、香菇或牛肝菌制作。这是一道受人喜爱的菜肴，可作为主菜或配菜。\n\n至于甜点，你可以考虑一个以水果为基础的选择，比如混合浆果燕麦片或纯素巧克力鳄梨慕斯。这两种都美味，而且相对容易准备。\n\n当然，这些只是一些启发性的想法。如果你有任何具体的喜好或需要我帮忙的地方，请随时告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Those are some fantastic suggestions! I love the idea of starting with a refreshing salad and incorporating a roasted vegetable medley as the main course. The mushroom risotto sounds absolutely delicious as well. For dessert, the mixed berry crumble sounds like a perfect choice.\n\nI think these options will cater to everyone's preferences and dietary needs. Thank you for your suggestions! Now, I'd like to focus on the complete preparation process for each dish and the appropriate order in which to prepare them. Could you provide more details on the recipes and their preparation steps?",
+            "content_zh": "这些都是一些很棒的建议！我喜欢从一份清爽的沙拉开始，然后配上烤蔬菜拼盘作为主菜的想法。蘑菇烩饭听起来也非常美味。甜点的混合莓果烤饼听起来是一个完美的选择。\n我认为这些选择将满足每个人的口味和饮食需求。谢谢你的建议！现在，我想专注于每道菜的完整准备过程以及合适的准备顺序。你能提供更多关于菜谱和准备步骤的细节吗？",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! Let's break down the recipes and their preparation steps for each dish.\n\n1. Mixed Greens Salad:\n- Ingredients: Mixed greens, cherry tomatoes, cucumbers, bell peppers, avocado, toasted nuts or seeds, vinaigrette dressing (olive oil, vinegar, Dijon mustard, honey, salt, and pepper).\n- Preparation: Wash and dry the mixed greens, cherry tomatoes, cucumbers, and bell peppers. Chop the tomatoes, cucumbers, and bell peppers into bite-sized pieces. Cut the avocado into slices. In a bowl, combine the mixed greens, chopped vegetables, avocado slices, and toasted nuts or seeds. In a separate bowl, whisk together the vinaigrette dressing ingredients. Drizzle the dressing over the salad just before serving.\n\n2. Roasted Vegetable Medley:\n- Ingredients: Seasonal vegetables (carrots, zucchini, bell peppers, sweet potatoes, etc.), olive oil, salt, pepper, herbs (such as thyme, rosemary, or oregano).\n- Preparation: Preheat the oven to 400°F (200°C). Wash and chop the vegetables into similar-sized pieces. Toss the vegetables in olive oil, salt, pepper, and your choice of herbs. Spread them out on a baking sheet and roast for about 25-30 minutes, or until they are tender and slightly caramelized. Stir the vegetables once or twice during cooking for even browning.\n\n3. Mushroom Risotto:\n- Ingredients: Arborio rice, vegetable broth, mushrooms (cremini, shiitake, porcini, etc.), onion, garlic, white wine (optional), olive oil, butter (or vegan butter), Parmesan cheese (or vegan alternative), salt, pepper, fresh herbs (such as thyme or parsley).\n- Preparation: In a large saucepan, heat olive oil and sauté finely chopped onion and minced garlic until translucent. Add the Arborio rice and stir for a minute until it's coated with oil. If using white wine, pour it into the pan and stir until it evaporates. Gradually add vegetable broth, one ladle at a time, stirring constantly until the liquid is absorbed before adding more. In a separate pan, sauté sliced mushrooms until browned and add them to the risotto. Continue adding broth and stirring until the rice is al dente and creamy. Stir in butter, Parmesan cheese (or vegan alternative), salt, pepper, and fresh herbs to taste.\n\n4. Mixed Berry Crumble:\n- Ingredients: Mixed berries (strawberries, blueberries, raspberries, etc.), lemon juice, sugar (or sweetener of choice), flour (or gluten-free alternative), oats, butter (or vegan butter), cinnamon, salt.\n- Preparation: Preheat the oven to 375°F (190°C). In a bowl, combine the mixed berries, lemon juice, and sugar. In a separate bowl, mix together the flour, oats, sugar, cinnamon, and salt. Cut in the butter until the mixture resembles coarse crumbs. Pour the berry mixture into a baking dish and sprinkle the crumble mixture over the top. Bake for about 30-35 minutes, or until the berries are bubbling and the crumble is golden brown.\n\nRemember to adjust the quantities of each recipe based on the number of guests you're expecting. And don't forget to taste and adjust the seasoning as you go along. Enjoy your birthday celebration and the delicious meal!",
+            "content_zh": "绝对没问题！让我们为每道菜品逐步分解食谱和准备步骤。\n\n1. 混合蔬菜沙拉：\n- 食材：混合生菜、樱桃番茄、黄瓜、甜椒、鳄梨、烤坚果或种子、醋饭油调味酱（橄榄油、醋、第戎芥末、蜂蜜、盐和胡椒）。\n- 准备：清洗和擦干混合生菜、樱桃番茄、黄瓜和甜椒。将番茄、黄瓜和甜椒切成一口大小的块状。将鳄梨切片。在一个碗中，将混合生菜、切碎的蔬菜、鳄梨片和烤坚果或种子混合在一起。在另一个碗中，搅拌醋饭油调味酱的食材。在上菜前将酱料淋在沙拉上。\n\n2. 烤蔬菜拼盘：\n- 食材：时令蔬菜（胡萝卜、西葫芦、甜椒、红薯等）、橄榄油、盐、胡椒、香草（如百里香、迷迭香或牛至）。\n- 准备：预热烤箱至400°F（200°C）。清洗并将蔬菜切成同等大小的块状。将蔬菜撒上橄榄油、盐、胡椒和您喜欢的香草。将它们摊开在烤盘上，烘烤约25-30分钟，或直至熟透且略带焦糖色。在烹饪过程中偶尔搅拌蔬菜以均匀上色。\n\n3. 蘑菇烩饭：\n- 食材：阿罗里奥大米、蔬菜高汤、蘑菇（小蘑菇、香菇、牛肝菌等）、洋葱、大蒜、白葡萄酒（可选）、橄榄油、黄油（或植物黄油）、帕尔玛干酪（或植物替代品）、盐、胡椒、新鲜香草（如百里香或欧芹）。\n- 准备：在一个大炒锅中，加热橄榄油，炒香切碎的洋葱和蒜蓉直至透明。加入阿罗里奥大米，搅拌一分钟直至沾满油。如果使用白葡萄酒，将其倒入锅中，搅拌直至蒸发。逐渐加入蔬菜高汤，一次加入一勺，不断搅拌直至液体被吸收后再加入更多。在另一个平底锅中，将蘑菇片煎至金黄色并加入烩饭中。继续加入高汤并搅拌直至大米煮至半生不熟且浓稠。加入黄油、帕尔玛干酪（或植物替代品）、盐、胡椒和适量的新鲜香草。\n\n4. 混合莓果松饼：\n- 食材：混合莓果（草莓、蓝莓、覆盆子等）、柠檬汁、糖（或选择的甜味剂）、面粉（或无麸质替代品）、燕麦片、黄油（或植物黄油）、肉桂粉、盐。\n- 准备：预热烤箱至375°F（190°C）。将混合莓果、柠檬汁和糖混合在一个碗中。在另一个碗中，混合面粉、燕麦片、糖、肉桂粉和盐。将黄油切入混合物直至呈粗面包屑状。将浆果混合物倒入烤盘中，撒上松饼混合物。烘烤约30-35分钟，或直至浆果冒泡且松饼呈金黄色。\n\n请根据您的宾客数量调整每道菜的食谱并在烹饪过程中尝试并调整调味品。愿您度过愉快的生日庆祝活动并享用美味的晚餐！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "vegetarian",
+        "vegan",
+        "roasted vegetables"
+    ],
+    "preference_summary": [
+        "vegetarian/vegan options",
+        "healthy"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "37",
+            "zh": "37"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Occupation": {
+            "en": "Financial worker",
+            "zh": "金融工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Online shopping",
+                "zh": "网购"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Luxury accommodation",
+                "zh": "豪华住宿"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Healthy food",
+                "zh": "健康饮食"
+            },
+            {
+                "en": "Japanese cuisine",
+                "zh": "日式美食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on fashion",
+                "zh": "时尚支出"
+            },
+            {
+                "en": "Invests in real estate",
+                "zh": "房地产投资"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Has a high-stress lifestyle",
+                "zh": "生活压力大"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

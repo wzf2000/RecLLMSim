@@ -1,0 +1,194 @@
+{
+    "task": "recipe planning",
+    "preference_id": 3,
+    "task_context_id": 4,
+    "preference": "1. Gender: Female\n2. Age: 55\n3. Personality: Compassionate, patient, and nurturing\n4. Occupation: Nurse\n5. Daily Interests and Hobbies: Gardening, knitting, volunteering\n6. Travel Habits: Prefers staycations or short trips to the countryside\n7. Dining Preferences: Prefers home-cooked meals, follows a balanced diet\n8. Spending Habits: Saves for retirement, spends on family and grandchildren\n9. Other Aspects: Regularly attends church, has a book club membership",
+    "preference_zh": "1. 性别：女性\n2. 年龄：55\n3. 个性：富有同情心、耐心和关怀\n4. 职业：护士\n5. 日常兴趣和爱好：园艺、编织、志愿服务\n6. 旅行习惯：更喜欢在家度假或短途乡村旅行\n7. 饮食偏好：更喜欢家常饭菜，保持平衡饮食\n8. 消费习惯：为退休存钱，会花在家人和孙子女身上\n9. 其他方面：定期参加教堂活动，有书籍俱乐部会员",
+    "task_context": "You plan to prepare a meal at home and invite three close friends to join you. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家里准备一顿饭，并邀请三个亲近的朋友一起加入。你并不是很擅长烹饪，经验也有限。因此，你想请LLM帮忙制定食谱，确定所需的食材，以及决定要做什么菜。在计划过程中，你应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I need some help planning a meal at home. I want to invite three close friends over, but I'm not very skilled in cooking. I thought it would be nice to prepare a meal together. Could you help me create a recipe, determine the necessary ingredients, and decide what dishes to make?",
+            "content_zh": "你好！很高兴你来了。我需要一些帮助来计划在家中的一餐。我想邀请三个亲密的朋友来家里，但我不太擅长烹饪。我觉得一起准备一顿餐会很好。你可以帮我创建一个食谱，确定所需的食材，并决定要做哪些菜吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you plan a meal for your gathering! Cooking together can be a fun and interactive way to spend time with friends. Let's create a menu that's both delicious and manageable for you. Do you have any dietary restrictions or preferences I should consider while suggesting recipes?",
+            "content_zh": "当然，我很乐意帮助您规划聚餐的饭菜！一起烹饪可以是与朋友共度时光的有趣互动方式。让我们创建一个既美味又适合您的菜单。在建议食谱时，您有任何饮食限制或偏好我应该考虑吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance. I don't have any specific dietary restrictions, but I generally prefer to follow a balanced diet. So, recipes that incorporate a good mix of protein, vegetables, and grains would be great. I also enjoy trying new flavors and cuisines, so feel free to suggest a variety of dishes. Thank you!",
+            "content_zh": "感謝您提供幫助。我沒有特定的飲食限制，但我通常更喜歡遵循均衡飲食。因此，包含豐富蛋白質、蔬菜和穀物的食譜將是很棒的。我也喜歡嘗試新口味和不同菜系，所以隨時歡迎建議多樣的菜餚。謝謝！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! With those preferences in mind, let's create a menu that includes a variety of flavors and ingredients. How about we start with an appetizer, move on to the main course, and finish with a dessert? Here's a suggested menu:\n\nAppetizer: Bruschetta with Tomato and Basil\n- Ingredients: Baguette, tomatoes, fresh basil, garlic, olive oil, balsamic vinegar, salt, and pepper.\n- This classic Italian appetizer is simple to make and bursting with fresh flavors. It's a great way to kick off your meal.\n\nMain Course: Honey Garlic Glazed Salmon with Roasted Vegetables and Quinoa\n- Ingredients: Salmon fillets, honey, soy sauce, garlic, lemon, mixed vegetables (such as broccoli, carrots, and bell peppers), olive oil, salt, pepper, and quinoa.\n- This dish provides a good balance of protein, vegetables, and grains. The salmon is glazed with a sweet and savory sauce, and the roasted vegetables add a nice crunch. Serve it with quinoa for a complete meal.\n\nDessert: Mixed Berry Crumble\n- Ingredients: Mixed berries (such as strawberries, blueberries, and raspberries), sugar, lemon juice, flour, oats, butter, cinnamon, and vanilla ice cream (optional).\n- This fruity dessert is easy to make and always a crowd-pleaser. The warm, juicy berries topped with a crispy crumble make for a delicious ending to the meal. Serve it with a scoop of vanilla ice cream if desired.\n\nHow does this menu sound to you? Let me know if you have any specific questions or if you'd like to make any adjustments!",
+            "content_zh": "太好了！考虑到这些偏好，我们来创建一个包含各种口味和食材的菜单吧。我们是否可以从开胃菜开始，然后是主菜，最后是甜点？以下是建议的菜单：\n\n开胃菜：番茄罗勒布鲁斯凯塔\n- 食材：法棍，番茄，新鲜罗勒，大蒜，橄榄油，香醋，盐和胡椒。\n- 这道经典的意大利开胃菜制作简单，充满了新鲜的风味。它是开始你的用餐的绝佳方式。\n\n主菜：蜂蜜大蒜糖霜三文鱼配烤蔬菜和藜麦\n- 食材：三文鱼片，蜂蜜，酱油，大蒜，柠檬，混合蔬菜（如西兰花，胡萝卜和甜椒），橄榄油，盐，胡椒和藜麦。\n- 这道菜提供了良好的蛋白质、蔬菜和谷物的平衡。三文鱼上涂有甜咸酱汁，烤蔬菜增添了美妙的脆感。搭配藜麦一起食用，是完整的一餐。\n\n甜点：混合浆果酥\n- 食材：混合浆果（如草莓，蓝莓和覆盆子），糖，柠檬汁，面粉，燕麦，黄油，肉桂和香草冰淇淋（可选）。\n- 这道果味甜点制作简单，总能赢得人心。温暖多汁的浆果 topped with 酥脆的酥屑，是餐后的美味佳肴。如果愿意，可以搭配一球香草冰淇淋食用。\n\n这个菜单听起来怎么样？如果你有任何具体问题，或者想要做任何调整，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "Translation Problem Fixed"
+            },
+            "content_zh_old": "很好！考虑到这些偏好，让我们创建一个包含各种口味和成分的菜单。我们先来一道开胃菜，然后是主菜，最后是甜点，好吗？以下是建议的菜单：\n\n开胃菜：番茄罗勒意式烤面包\n- 成分：法棍面包、番茄、新鲜罗勒、大蒜、橄榄油、意大利香醋、盐和胡椒。\n- 这道经典意大利开胃菜制作简单，口味鲜美。是开始一餐的绝佳选择。\n\n主菜：蜂蜜蒜香焗三文鱼配烤蔬菜和藜麦\n- 成分：三文鱼鱼片、蜂蜜、酱油、大蒜、柠檬、混合蔬菜（如西兰花、胡萝卜和甜椒）、橄榄油、盐、胡椒和藜麦。\n- 这道菜提供了良好的蛋白质、蔬菜和谷物均衡。三文鱼裹着甜蜜香醇的酱汁，烤蔬菜带来美妙的脆脆口感。配上藜麦，是完整的一餐。\n\n甜点：混合浆果金宝\n- 成分：混合浆果（如草莓、蓝莓和覆盆子）、糖、柠檬汁、面粉、燕麦、黄油、肉桂和香草冰淇淋（可选）。\n- 这款水果甜点制作简便，深受喜爱。温热多汁的浆果上面覆盖着脆脆的金宝，是美味餐点的完美结束。如果愿意，可搭配一勺香草冰淇淋一起享用。\n\n这份菜单听起来如何？如果有任何具体问题或想要进行任何调整，请告诉我！"
+        },
+        {
+            "role": "user",
+            "content": "That menu sounds absolutely delightful! I love the combination of flavors and the balance of ingredients in each dish. I think it will make for a fantastic meal with my friends. I appreciate your suggestions, and I don't have any adjustments to make. Thank you for your help! I'm excited to try out these recipes.",
+            "content_zh": "那个菜单听起来绝对令人愉悦！我喜欢每道菜中风味的组合和配料的平衡。我认为这将和朋友们一起享用会是一顿美妙的餐点。我感谢您的建议，我不需要做任何调整。谢谢您的帮助！我很期待尝试这些食谱。",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you're excited about the menu. I'm sure you and your friends will have a wonderful time cooking and enjoying these delicious dishes together. Just take it step by step, and don't hesitate to ask if you need any further assistance or have any questions while preparing the recipes. Enjoy your meal and have a fantastic time with your friends!",
+            "content_zh": "不客气！很高兴看到你对菜单感兴奋。我相信你和朋友们在一起烹饪和享用这些美味佳肴的时光会非常愉快。只需一步步来，如果在准备菜谱时需要任何帮助或有任何问题，请毫不犹豫地问。祝你用餐愉快，和朋友们度过美好时光！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "balanced diet",
+        "mix of protein",
+        "variety of dishes"
+    ],
+    "preference_summary": [
+        "home-cooked",
+        "balanced diet",
+        "varied flavors"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "55",
+            "zh": "55"
+        },
+        "Personality": [
+            {
+                "en": "Friendly",
+                "zh": "友善"
+            },
+            {
+                "en": "Patient",
+                "zh": "耐心"
+            }
+        ],
+        "Occupation": {
+            "en": "Medical staff",
+            "zh": "医护人员"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Crafting",
+                "zh": "手工艺制作"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Prefers calm and serene locations",
+                "zh": "喜欢宁静"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Follows a balanced diet",
+                "zh": "均衡饮食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Active in academic activities",
+                "zh": "喜欢参与学术活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

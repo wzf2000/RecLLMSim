@@ -1,12 +1,10 @@
-# RecLLMSim: A Task-based Recommendation Conversation Dataset
+# To What Extent Can LLMs Assist in User Simulation for Task-Oriented Conversations
 
-A dataset for task-based recommendation conversation.
+## Data
 
-## RecLLMSim Dataset V2
+We provide all the data files under the `real_human_user` and `LLM_simulated` folder.
 
-We provide all the data files under the `V2` folder.
-
-The conversation dataset is divided into several parts according to the task. Each conversation is stored in a `.json` file under the corresponding task folder.
+The conversation dataset is divided into several parts according to the task and the user. Each conversation is stored in a `.json` file under the corresponding task folder.
 
 The format of the `.json` file is:
 ```json
@@ -40,19 +38,14 @@ The format of the `.json` file is:
     "conflict": false,
     "preference_summary": "The summary of the user simulator's preference extracted from the conversation.",
     "rating": {
-        "Preference Alignment": "The rating of preference alignment.",
-        "Additional Preferences": "The rating of additional preferences.",
-        "Role-Playing Completeness": "The rating of role-playing completeness.",
-        "Memorization": "The rating of memorization.",
-        "Detail Level": "The rating of detail level.",
-        "Practical Usefulness": "The rating of practical usefulness.",
-        "Diversity": "The rating of diversity.",
+        // Some rating information.
     },
+    // Some other information.
 }
 ```
 
-## RecUserSim Framework
+## User Simulator Framework
 
-We provide the code for the framework RecUserSim in the `RecUserSim` folder.
+We provide the code for the framework in the `RecUserSim` folder.
 
 Check the `readme.md` file in the `RecUserSim` folder for more details.

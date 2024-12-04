@@ -1,0 +1,230 @@
+{
+    "task": "recipe planning",
+    "preference_id": 60,
+    "task_context_id": 3,
+    "preference": "1. Gender: Male\n2. Age: 35\n3. Personality: Ambitious, assertive, and confident\n4. Occupation: Real Estate Agent\n5. Daily Interests and Hobbies: Networking, fitness training, golf\n6. Travel Habits: Travels for work, enjoys city breaks\n7. Dining Preferences: Enjoys fine dining, loves trying new restaurants\n8. Spending Habits: Invests in high-end fashion, saves for property\n9. Other Aspects: Lives in a city apartment, has a high-stress lifestyle",
+    "preference_zh": "1. 性别：男\n2. 年龄：35\n3. 个性：雄心勃勃，自信\n4. 职业：房地产经纪人\n5. 日常兴趣和爱好：社交，健身训练，高尔夫\n6. 旅行习惯：因工作而出差，喜欢城市短途旅行\n7. 用餐偏好：喜欢高档餐厅，喜欢尝试新餐馆\n8. 消费习惯：投资高端时尚，为房产存钱\n9. 其他：居住在城市公寓，生活压力大",
+    "task_context": "You plan to prepare a meal at home for yourself and your loved one. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家里为自己和爱人准备一顿饭。你是一个技艺高超的厨师，有一些专业知识。因此，你想要请LLM帮助你制定食谱，确定所需的食材，并决定要做哪些菜。在规划过程中，你应该学习每道菜的完整烹饪过程和适当的准备顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I could use your help in planning a special meal for myself and my loved one. As a skilled cook, I want to create a memorable dining experience. Could you assist me in creating a recipe, determining the necessary ingredients, and deciding what dishes to make?",
+            "content_zh": "你好！很高兴你在这里。我需要你的帮助来规划一顿特别的餐饮，为我和我爱的人。作为一个熟练的厨师，我想要打造一个难忘的用餐体验。你能帮我制定食谱、确定所需食材，并决定要做哪些菜吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you plan a special meal! Creating a memorable dining experience is all about combining delicious flavors, beautiful presentation, and a touch of creativity. Let's start by discussing the type of cuisine or specific dishes you have in mind. Do you have any preferences or dietary restrictions?",
+            "content_zh": "当然，我很乐意帮助你计划一顿特别的餐！创造一个难忘的就餐体验，关键是结合美味的口味、精美的呈现和一点创意。让我们从讨论你心中想要的美食类型或具体菜肴开始吧。你有什么偏好或饮食限制吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for your willingness to assist me. I don't have any specific cuisine in mind, but I would like to prepare a meal that showcases a variety of flavors. We don't have any dietary restrictions, so we have the freedom to explore different options. I want to impress my loved one with a multi-course meal, so any suggestions for appetizers, main courses, and desserts would be appreciated.",
+            "content_zh": "感谢你愿意帮助我。我没有特定的菜系在心里，但我想准备一顿展现多种口味的餐。我们没有任何饮食限制，所以可以自由地探索不同的选择。我想用一顿多道菜来打动我所爱的人，所以如果有关于开胃菜、主菜和甜点的建议将不胜感激。",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "That sounds wonderful! A multi-course meal is a great way to create a memorable dining experience. Let's start by brainstorming some ideas for each course. For appetizers, you could consider something light and refreshing, like a citrusy shrimp ceviche or a bruschetta with fresh tomatoes and basil. Alternatively, if you prefer something warm and comforting, you could go for a creamy mushroom soup or crispy bacon-wrapped scallops.\n\nMoving on to the main course, you have plenty of options. Are there any proteins you and your loved one particularly enjoy? For example, you could prepare a perfectly seared steak with a red wine reduction, or perhaps a roasted salmon with a lemon-dill sauce. If you're feeling adventurous, you could even try making a homemade pasta dish, like a decadent lobster ravioli or a rich carbonara.\n\nLastly, let's talk about dessert! This is your chance to indulge your sweet tooth. If you're both chocolate lovers, a molten lava cake or a chocolate mousse could be a perfect choice. Alternatively, you could create a fruit-based dessert like a classic apple pie with a flaky crust or a refreshing mixed berry tart.\n\nOnce we have a better idea of the specific dishes you'd like to make, we can dive into the recipe details and determine the necessary ingredients. Let me know which ideas you're leaning towards, and we can continue from there!",
+            "content_zh": "这听起来太棒了！多道菜的餐点是创造难忘用餐体验的绝佳方式。让我们开始头脑风暴，为每个菜单想一些点子。对于开胃菜，你可以考虑一些轻盈且提神的食物，比如柑橘味的虾仁酸橘汁腌鱼或者新鲜番茄和罗勒的意式烤面包。或者，如果你更喜欢温暖且令人安慰的食物，你可以选择奶油蘑菇汤或者脆皮培根包裹的扇贝。接下来是主菜，你有很多选择。有没有你和你爱的人特别喜欢的蛋白质？例如，你可以准备一个完美的煎牛排配红酒汁，或者是烤三文鱼配柠檬莳萝酱。如果你想尝试一些冒险的菜肴，你甚至可以尝试自制意大利面食，比如奢华的龙虾饺子或者浓郁的卡邦尼意面。最后，我们来谈谈甜点！这是你放纵甜食欲望的机会。如果你们都是巧克力爱好者，一个熔岩蛋糕或者巧克力慕斯可能是完美的选择。或者，你可以制作一个基于水果的甜点，比如经典的苹果派配酥皮或者清新的混合浆果挞。一旦我们对你想要制作的具体菜肴有了更好的了解，我们就可以深入到食谱细节并确定所需的食材。告诉我你倾向于哪些想法，我们可以从那里继续！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "Translation Problem Fixed"
+            },
+            "content_zh_old": "听起来太棒了！一顿多道菜的餐点是创造一个难忘的用餐体验的好办法。让我们开始头脑风暴一些每道菜的想法。对于开胃菜，您可以考虑一些清淡爽口的选择，比如柑橘味的虾沙拉或番茄香菜意式小土司。或者，如果您喜欢温暖和令人安慰的食物，您可以选择奶油蘑菇汤或酥脆的培根卷扇贝。接着是主菜，您有很多选择。您和您的爱人特别喜欢哪些蛋白质？例如，您可以准备一个完美的煎牛排配红酒酱，或者一道带柠檬莳萝酱的烤鲑鱼。如果您感觉冒险，甚至可以尝试制作自制意大利面菜肴，比如奢华的龙虾馄饨或浓郁的卡邦尼通心粉。最后，让我们谈谈甜点！这是您放纵自己甜食爱好的机会。如果您两位都是巧克力爱好者，熔岩蛋糕或巧克力慕斯可能是一个完美的选择。或者，您可以制作基于水果的甜点，例如带有酥皮的经典苹果派或清爽的混合浆果挞。一旦我们更清楚您想制作的具体菜肴，我们就可以深入了解食谱细节并确定所需食材。请告诉我您偏向的想法，然后我们可以继续进一步讨论！"
+        },
+        {
+            "role": "user",
+            "content": "I appreciate your suggestions! They all sound delicious and I'm having a hard time choosing just one option for each course. For the appetizer, I think the bruschetta with fresh tomatoes and basil would be a great choice to start the meal with a burst of flavors.\n\nAs for the main course, I'm leaning towards the idea of a perfectly seared steak with a red wine reduction. The combination of tender steak and rich sauce is sure to impress. And for dessert, I think the molten lava cake would be a decadent and indulgent way to end the meal.\n\nNow that we have an idea of the dishes, I'd love to dive into the recipe details and determine the necessary ingredients. Let's start with the bruschetta. How would you suggest preparing it?",
+            "content_zh": "我很感谢你的建议！它们听起来都很美味，我很难选择每道菜的一个选项。对于开胃菜，我认为用新鲜番茄和罗勒做的意大利烤面包将是一个开胃的选择，可以让人感受到一股味蕾的冲击。\n至于主菜，我倾向于用红酒减量法完美煎烤牛排的想法。嫩牛排和浓郁的酱汁的组合一定会给人留下深刻的印象。至于甜点，我认为熔岩巧克力蛋糕将是一个华丽而奢侈的方式来结束这顿饭。\n既然我们已经有了菜肴的想法，我很想深入了解烹饪细节并确定所需的配料。我们从意大利烤面包开始吧。你会如何建议准备它呢？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great choices! The bruschetta with fresh tomatoes and basil is a classic appetizer that's both vibrant and flavorful. Here's a simple recipe to guide you:\n\nIngredients:\n- Baguette or Italian bread\n- Ripe tomatoes (2-3 medium-sized)\n- Fresh basil leaves\n- Garlic cloves (2-3, minced)\n- Extra virgin olive oil\n- Balsamic vinegar\n- Salt and pepper to taste\n\nInstructions:\n1. Preheat your oven to 375°F (190°C).\n2. Slice the baguette or Italian bread into 1/2-inch thick slices. Place them on a baking sheet and drizzle with olive oil.\n3. Toast the bread slices in the preheated oven for about 8-10 minutes, or until they turn golden and crispy. Set them aside to cool.\n4. Meanwhile, chop the tomatoes into small cubes, removing the seeds and excess liquid.\n5. In a bowl, combine the chopped tomatoes, minced garlic, a handful of torn basil leaves, a drizzle of olive oil, and a splash of balsamic vinegar. Season with salt and pepper to taste. Mix well.\n6. Once the bread slices have cooled slightly, arrange them on a platter or individual plates.\n7. Spoon the tomato mixture generously over each bread slice, allowing some of the juices to soak into the bread.\n8. Garnish with a few additional basil leaves and a drizzle of olive oil.\n9. Serve the bruschetta immediately, while the bread is still crispy and the flavors are fresh.\n\nThis appetizer is a great way to kick off your special meal with its vibrant colors and burst of flavors. Let me know if you have any other questions or need further assistance!",
+            "content_zh": "很棒的选择！ 配有新鲜番茄和罗勒的意式烤面包片是一道经典的开胃菜，既充满活力又美味。以下是一个简单的食谱指导：\n\n食材：\n- 法棍面包或意大利面包\n- 熟番茄（2-3个中等大小）\n- 新鲜罗勒叶\n- 大蒜瓣（2-3个，切碎）\n- 特级初榨橄榄油\n- 香醋\n- 盐和胡椒适量\n\n步骤：\n1. 将烤箱预热至375°F（190°C）。\n2. 将法棍面包或意大利面包切成1/2英寸厚的薄片。把它们放在烤盘上并撒上橄榄油。\n3. 在预热的烤箱中烤面包片约8-10分钟，或直到它们变成金黄色并脆脆的。放在一旁冷却。\n4. 与此同时，将番茄切成小块，去除种子和多余的液体。\n5. 在一个碗中，将切碎的番茄、切碎的大蒜、一把撕碎的罗勒叶、一点橄榄油和一点香醋混合在一起。根据口味加盐和胡椒调味。搅拌均匀。\n6. 当面包片稍微冷却时，把它们摆放在盘子或个人盘子上。\n7. 在每片面包上大方地勺上番茄混合物，让一些汁液浸透到面包中。\n8. 用一些额外的罗勒叶和一点橄榄油装饰。\n9. 尽快食用这道意式烤面包片，当面包还很脆，味道新鲜时。\n\n这道开胃菜是以其充满活力的颜色和爆发的味道为您的特殊餐食拉开序幕的绝佳方式。如果您有任何其他问题或需要进一步帮助，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for providing the recipe for the bruschetta! It sounds simple yet delicious, and I appreciate the step-by-step instructions. I'm excited to try it out.\n\nNext, let's move on to the main course. We decided on a perfectly seared steak with a red wine reduction. Could you please provide a recipe for this dish as well? I want to make sure I get the cooking technique and flavors just right.",
+            "content_zh": "谢谢您提供意式面包片的食谱！听起来简单又美味，我很感激这一步步的指导。我很期待尝试一下。\n下面我们来准备主菜。我们决定来一份完美煎烤的牛排，搭配红酒汁。您也可以提供这道菜的食谱吗？我想确保我把烹饪技巧和调味料都掌握好。",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Certainly! Here's a recipe for a perfectly seared steak with a red wine reduction:\n\nIngredients:\n- Steak of your choice (such as ribeye, filet mignon, or striploin)\n- Salt and pepper\n- Olive oil\n- Butter\n- Garlic cloves (2-3, crushed)\n- Fresh thyme sprigs (a few)\n- Red wine (about 1 cup)\n- Beef or vegetable broth (about 1/2 cup)\n- Cornstarch (optional, for thickening)\n- Fresh parsley (for garnish)\n\nInstructions:\n1. Start by bringing the steak to room temperature. Remove it from the refrigerator and let it sit on the counter for about 30 minutes. This allows for more even cooking.\n2. Preheat your oven to 400°F (200°C).\n3. Season the steak generously with salt and pepper on both sides.\n4. Heat a large oven-safe skillet over high heat. Add a drizzle of olive oil and a pat of butter to the skillet. Swirl the pan to coat the bottom evenly.\n5. Once the skillet is hot, carefully place the steak in the pan. Sear it for about 2-3 minutes on each side, until a golden brown crust forms.\n6. Add crushed garlic cloves and fresh thyme sprigs to the skillet. Spoon the melted butter over the steak to baste it.\n7. Transfer the skillet to the preheated oven and continue cooking the steak for about 5-10 minutes, depending on the desired doneness. Use a meat thermometer to check the internal temperature: around 130°F (54°C) for medium-rare, 140°F (60°C) for medium, and so on. Remember that the steak will continue to cook slightly as it rests.\n8. Once the steak reaches your preferred doneness, remove the skillet from the oven and transfer the steak to a cutting board. Tent it loosely with foil and let it rest for about 5-10 minutes to allow the juices to redistribute.\n9. While the steak is resting, prepare the red wine reduction. Place the skillet back on the stovetop over medium heat. Add red wine and scrape the bottom of the pan to release any browned bits.\n10. Allow the wine to reduce by about half, then add the beef or vegetable broth. Continue simmering until the sauce thickens slightly.\n11. If desired, you can thicken the sauce further by mixing a small amount of cornstarch with water to create a slurry. Stir this into the sauce and cook for an additional minute until it thickens to your liking.\n12. Remove the skillet from heat and strain the sauce to remove the garlic and thyme.\n13. Slice the rested steak against the grain into thick slices. Pour the red wine reduction over the steak or serve it on the side.\n14. Garnish with fresh parsley and serve the steak immediately.\n\nThis recipe should result in a beautifully seared steak with a flavorful red wine reduction. Adjust the cooking time according to your preferred level of doneness. Enjoy your impressive main course! Let me know if there's anything else I can assist you with.",
+            "content_zh": "当然！以下是一份完美煎牛排配红酒减汁的食谱：\n\n材料：\n- 你喜欢的牛排（如肋眼牛排，菲力牛排或西冷牛排）\n- 盐和胡椒\n- 橄榄油\n- 黄油\n- 大蒜瓣（2-3瓣，压碎）\n- 新鲜百里香（几株）\n- 红葡萄酒（约1杯）\n- 牛肉或蔬菜高汤（约1/2杯）\n- 玉米淀粉（可选择性添加，用于勾芡）\n- 新鲜欧芹（用于装饰）\n\n做法：\n1. 先将牛排的温度等待至室温。从冰箱取出，让其在柜台上放置约30分钟。这有助于更均匀烹饪。\n2. 将烤箱预热至400°F（200°C）。\n3. 在两面上大方地撒上盐和胡椒。\n4. 在一个大烤箱安全的煎锅中，用大火加热。在锅中加入一点橄榄油和一块黄油。旋转锅子均匀涂抹底部。\n5. 一旦平底锅加热，小心地将牛排放入锅中。每一面煎2-3分钟，直到形成金黄色的外皮。\n6. 将压碎的大蒜瓣和新鲜百里香放入锅中。将融化的黄油勺在牛排上润湿它。\n7. 将煎锅转移到预热的烤箱中，继续烹饪牛排大约5-10分钟，具体时间取决于所需的火候。使用肉温计检查内部温度：中熟大约130°F（54°C），中烧大约140°F（60°C）等等。记住牛排在休息时会继续烹饪。\n8. 一旦牛排达到你喜欢的火候，将煎锅从烤箱中取出，把牛排移到切菜板上。松散地盖上锡纸，让其静置约5-10分钟，让汁液重新分布。\n9. 在牛排静置时，准备红酒减汁。将煎锅放回中火上。加入红葡萄酒，刮底部以释放任何褐色碎渣。\n10. 让葡萄酒减少一半左右，然后加入牛肉或蔬菜高汤。继续煨煮，直到酱汁稍微变浓。\n11. 如果需要，可以通过将少量玉米淀粉与水混合成浆来进一步增稠酱汁。搅匀后加入酱汁中，煮一个额外的分钟直至达到所需的浓稠度。\n12. 关火并过滤酱汁，去除大蒜和百里香。\n13. 将休息好的牛排逆着纹理切成厚片。将红酒减汁倒在牛排上或当成配菜。\n14. 用新鲜欧芹装饰并立即享用牛排。\n\n这个食谱应该使牛排煎得漂亮，配上美味的红酒减汁。根据你所喜欢的煮熟程度调整烹饪时间。享受你令人印象深刻的主菜！如有任何其他需要帮助的地方，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for providing the recipe for the perfectly seared steak with a red wine reduction! It sounds absolutely mouthwatering, and I appreciate the detailed instructions. I can't wait to try it out and impress my loved one.\n\nNow, let's move on to dessert. We decided on the molten lava cake. Could you please provide a recipe for this indulgent treat? I want to make sure I get the gooey center just right.",
+            "content_zh": "感谢您提供了完美煎牛排配红酒减汁的食谱！听起来非常让人垂涎，我很感激您提供的详细说明。我迫不及待地想尝试一下，让我心爱的人留下深刻印象。现在，让我们来谈谈甜点。我们决定要做熔岩巧克力蛋糕。您可以提供这种美味的食谱吗？我想确保蛋糕中间的奶油酱浆恰到好处。",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! Molten lava cake is a classic and decadent dessert that's sure to impress. Here's a recipe to help you achieve that gooey center:\n\nIngredients:\n- Dark chocolate (about 6 ounces), chopped\n- Unsalted butter (1/2 cup), plus extra for greasing\n- Granulated sugar (1/2 cup)\n- Eggs (3 whole + 3 yolks)\n- All-purpose flour (1/4 cup)\n- Pinch of salt\n- Optional: powdered sugar and fresh berries for garnish\n\nInstructions:\n1. Preheat your oven to 425°F (220°C). Grease the inside of 4-6 ramekins or individual oven-safe dishes with butter, then lightly dust them with flour. This will help the cakes release easily.\n2. In a heatproof bowl, melt the chopped dark chocolate and butter together. You can do this in a microwave in short bursts, stirring in between, or using a double boiler on the stovetop. Once melted, set aside to cool slightly.\n3. In a separate bowl, whisk together the granulated sugar, eggs, and egg yolks until well combined.\n4. Gradually pour the melted chocolate mixture into the egg mixture, whisking constantly.\n5. Sift in the all-purpose flour and add a pinch of salt. Gently fold the mixture together until just combined. Be careful not to overmix.\n6. Divide the batter evenly among the prepared ramekins or dishes, filling them about 3/4 of the way.\n7. Place the ramekins on a baking sheet and transfer them to the preheated oven.\n8. Bake for about 10-12 minutes, or until the edges of the cakes are set but the centers still look slightly jiggly.\n9. Carefully remove the baking sheet from the oven and let the cakes cool for a minute or two. This will help them firm up slightly before serving.\n10. To serve, run a knife around the edges of each cake and invert them onto individual plates. Gently tap the bottoms of the ramekins to release the cakes. They should slide out easily, revealing the molten centers.\n11. Optional: Dust the cakes with powdered sugar and garnish with fresh berries for a touch of elegance.\n12. Serve the molten lava cakes immediately while they're still warm and gooey. Pair them with a scoop of vanilla ice cream or a dollop of whipped cream, if desired.\n\nEnjoy the rich and indulgent molten lava cakes! I hope they make for a delightful ending to your special meal. Let me know if there's anything else I can assist you with.",
+            "content_zh": "當然！熔岩蛋糕是一款經典且豪華的甜點，一定會給人留下深刻印象。以下是一個食譜，幫助您完成那種黏稠的中心：\n\n材料：\n- 黑巧克力（約6盎司），切碎\n- 无盐黄油（1/2 杯），另外用于涂抹\n- 白砂糖（1/2 杯）\n- 鸡蛋（3 整个 + 3 蛋黄）\n- 多用途面粉（1/4 杯）\n- 一小撮盐\n- 可选：糖粉和新鲜浆果装饰用\n\n做法：\n1. 预热烤箱至425°F（220°C）。涂抹4-6个蛋糕模或独立的耐热碟子内部，然后轻轻撒上面粉。这将有助于蛋糕容易取出。\n2. 在一个耐热碗中，将切碎的黑巧克力和黄油融化在一起。您可以在微波炉中间歇短暂加热，中间搅拌，或者在炉灶上使用双锅炉。融化后，搁置一边稍微冷却。\n3. 在另一个碗中，将白砂糖、鸡蛋和蛋黄一起搅拌直至充分混合。\n4. 将熔化的巧克力混合物逐渐倒入蛋糊中，不停搅拌。\n5. 过筛加入多用途面粉并加入一小撮盐。轻轻拌匀混合物直到刚刚结合。小心不要过度搅拌。\n6. 将面糊均匀分配至预先准备的蛋糕模或碟子中，填充约3/4。\n7. 将蛋糕模放在烤盘上，转移到预热好的烤箱中去烤。\n8. 烤约10-12分钟，或者蛋糕边缘凝固但中间仍然稍微颤动。\n9. 小心地把烤盘从烤箱取出，让蛋糕冷却1-2分钟。这将帮助蛋糕稍微凝固之后再享用。\n10. 为了上菜，用刀沿着每个蛋糕的边缘画一圈，然后倒扣到个人盘子上。轻轻拍打蛋糕模的底部来取出蛋糕。它们应该很容易滑出，露出熔岩中心。\n11. 可选：撒上糖粉装饰，搭配新鲜浆果增添一丝优雅的风味。\n12. 在蛋糕还温热黏稠时立即享用熔岩蛋糕。如果愿意，可以搭配一勺香草冰淇淋或一勺打发奶油。\n\n享受这富有和奢华的熔岩蛋糕！希望它们能为您特别的餐宴留下美好的结尾。如果有任何需要帮助的地方，请随时告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "bruschetta",
+        "steak",
+        "molten lava cake"
+    ],
+    "preference_summary": [
+        "multi-course",
+        "variety of flavors",
+        "impress"
+    ],
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "35",
+            "zh": "35"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Confident",
+                "zh": "自信"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on fashion",
+                "zh": "时尚支出"
+            },
+            {
+                "en": "Invests in real estate",
+                "zh": "房地产投资"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Has a high-stress lifestyle",
+                "zh": "生活压力大"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

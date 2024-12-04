@@ -1,0 +1,217 @@
+{
+    "task": "recipe planning",
+    "preference_id": 98,
+    "task_context_id": 7,
+    "preference": "1. Gender: Male\n2. Age: 50\n3. Personality: Ambitious, assertive, and driven\n4. Occupation: Political Consultant\n5. Daily Interests and Hobbies: Reading political news, golfing, wine tasting\n6. Travel Habits: Frequently travels for work, prefers luxury hotels\n7. Dining Preferences: Enjoys fine dining, prefers protein-rich diet\n8. Spending Habits: High spender, invests in real estate\n9. Other Aspects: Has a large social circle, enjoys public speaking",
+    "preference_zh": "1. 性别：男性\n2. 年龄：50\n3. 个性：雄心勃勃、坚定果敢、积极向上\n4. 职业：政治顾问\n5. 日常兴趣和爱好：阅读政治新闻、高尔夫、品酒\n6. 旅行习惯：经常因工作而出差，偏好豪华酒店\n7. 就餐偏好：喜欢美食，偏好富含蛋白质的饮食\n8. 消费习惯：大手大脚，投资房地产\n9. 其他方面：社交圈广阔，喜欢演讲",
+    "task_context": "You plan to prepare a meal at home to celebrate your birthday with about 10 close friends. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家里为和约10个亲近的朋友庆祝生日而做一顿饭。你是个有一定烹饪技巧的厨师。因此，你想要请LLM帮忙创建食谱，确定所需食材，以及决定做哪些菜。在计划过程中，你应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you asked. I'm planning to prepare a meal at home to celebrate my birthday with about 10 close friends. I'm a skilled cook, so I'd like your help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Can you assist me with that?",
+            "content_zh": "你好！很高兴你问了。我打算在家里准备一顿饭来和大约10位亲近的朋友一起庆祝我的生日。我是一个熟练的厨师，所以我想请你帮忙创作菜谱，确定所需的食材，以及决定要做哪些菜。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be more than happy to assist you in creating a fantastic birthday meal for your celebration with friends. Planning a special meal can be a lot of fun! Let's start by discussing a few details. What kind of cuisine or specific dishes are you interested in preparing? Do you have any dietary restrictions or preferences to consider?",
+            "content_zh": "你好！我很乐意帮助你们为和朋友庆祝生日准备一顿美味佳肴。策划一顿特殊的餐点可以让人兴奋！让我们从讨论一些细节开始吧。你们有兴趣准备什么种类的菜肴或特定的菜品？有任何饮食限制或偏好需要考虑吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for your offer to assist me. Given my personality and dining preferences, I would like to prepare a meal that is both elegant and protein-rich. I enjoy fine dining, so I want to create a menu that reflects that. As for specific dishes, I'm open to suggestions. I don't have any dietary restrictions to consider, so we have some flexibility there. What ideas do you have for a sophisticated and protein-rich meal?",
+            "content_zh": "谢谢你提供帮助。考虑到我的个性和饮食偏好，我想准备一顿既优雅又富含蛋白质的餐。我喜欢高级餐厅，所以我想设计一个能反映这一点的菜单。至于具体的菜肴，我愿意听取建议。我没有任何饮食限制需要考虑，所以在这方面我们有一些灵活性。你对一个精致且富含蛋白质的餐有什么想法？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! An elegant and protein-rich meal sounds like a fantastic choice for your birthday celebration. Here's a suggested menu that combines sophistication with a focus on protein:\n\nStarter:\n- Seared Scallops with a Citrus Beurre Blanc: This dish is elegant and delicious, with perfectly seared scallops served in a tangy and buttery citrus sauce.\n\nMain Course:\n- Herb-Crusted Rack of Lamb: A classic choice for a special occasion, a rack of lamb coated in a flavorful herb crust and roasted to perfection. Serve it with a side of roasted vegetables or a creamy potato gratin.\n\n- Grilled Salmon with Lemon-Dill Sauce: For those who prefer seafood, a beautifully grilled salmon fillet topped with a refreshing lemon-dill sauce. Accompany it with a side of sautéed asparagus or a wild rice pilaf.\n\nVegetarian Option:\n- Stuffed Portobello Mushrooms: For any vegetarian guests, stuffed portobello mushrooms make a delightful main course. Fill them with a delicious mixture of breadcrumbs, cheese, herbs, and vegetables, then bake until golden brown.\n\nDessert:\n- Chocolate Lava Cake: A decadent and indulgent dessert option, a rich chocolate lava cake with a gooey center is sure to impress your guests. Serve it warm with a scoop of vanilla ice cream or a drizzle of raspberry coulis.\n\nThese are just a few ideas to get you started. Feel free to mix and match or modify the dishes based on your preferences. Let me know if you'd like more specific recipes or if you have any other questions!",
+            "content_zh": "太好了！一顿既优雅又富含蛋白质的餐点听起来是庆祝生日的绝佳选择。这里有一个建议菜单，结合了精致和对蛋白质的重视：\n\n前菜：\n- 煎扇贝佐柑橘奶油白酱：这道菜优雅美味，完美的煎扇贝搭配上酸酸的奶油柑橘酱。\n\n主菜：\n- 香草酥皮羊排：对于特殊场合来说是经典的选择，羊排外裹香料酥皮，烤至完美。可以搭配烤蔬菜或奶油土豆焗饭。\n\n- 柠檬莳萝酱烤三文鱼：对于喜欢海鲜的人来说，这是一道美味的烤三文鱼，上面浇着清新的柠檬莳萝酱。可以配上一旁的炒芦笋或野生米饭。\n\n素食选项：\n- 酿口蘑：对于任何素食的客人，酿口蘑是一道美妙的主菜。用面包屑、奶酪、香草和蔬菜的美味混合物填充它们，然后烘烤至金黄色。\n\n甜点：\n- 巧克力熔岩蛋糕：一个奢华诱人的甜点选择，丰富的巧克力熔岩蛋糕中心熔化，一定会给你的客人留下深刻印象。趁热搭配一球香草冰淇淋或覆盆子酱。\n\n这些只是一些初步的想法。随意搭配或根据你的喜好修改菜品。如果你想要更具体的食谱或有任何其他问题，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "Translation Problem Fixed"
+            },
+            "content_zh_old": "太棒了！一顿优雅又富含蛋白质的餐点听起来是一个很棒的选择来庆祝你的生日。以下是一个建议的菜单，它将优雅与蛋白质结合在一起：\n\n开胃菜：\n- 柑橘味牛油煎带子：这道菜优雅而美味，完美煎炸的带子搭配一份酸酸甜甜的牛油柑橘酱。\n\n主菜：\n- 草草烤羊排：在特殊场合的经典选择，一份裹着风味十足草草的羊排，烤得恰到好处。搭配一份烤蔬菜或奶油马铃薯焗饭。\n\n- 柠檬莳萨酱烤三文鱼：对于喜欢海鲜的人来说，一份美味的烤三文鱼配上清新的柠檬莳萨酱。搭配一份炒芦笋或野生大米饭。\n\n素食选择：\n- 烤欧蘑菇：对于任何素食客人来说，烤欧蘑菇是一道令人愉悦的主菜。将他们填满美味的面包屑、奶酪、香草和蔬菜混合物，然后烤至金黄。\n\n甜点：\n- 巧克力熔岩蛋糕：一种奢华且令人陶醉的甜点选择，一份口感醇厚的巧克力熔岩蛋糕中间夹着浓浓的巧克力浆，肯定会给你的客人留下深刻印象。搭配一小勺香草冰淇淋或覆盆子酱。\n\n这些只是一些启示，让你开始思考。请随意搭配或调整这些菜肴以适应你的偏好。如果你想要更具体的食谱或有其他问题，请告诉我！"
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the wonderful suggestions! I love the idea of starting with seared scallops and the citrus beurre blanc sauce sounds delightful. The herb-crusted rack of lamb and grilled salmon options also sound fantastic for the main course. The stuffed portobello mushrooms will be a great vegetarian option to include. And of course, a chocolate lava cake for dessert is a perfect way to end the meal.\n\nCould you please provide me with the specific recipes for each dish? I want to make sure I have all the details to prepare the meal flawlessly. Thank you!",
+            "content_zh": "谢谢您提供的精彩建议！我喜欢以煎带子开始的想法，柑橘味黄油白酱听起来令人愉悦。草本鲜香羊排和烤三文鱼也是主菜中听起来不错的选择。蘑菇填料法式烤菇将是一个很棒的素食选择。当然，一道巧克力熔岩蛋糕作为甜点是一个完美的方式结束餐。您能否提供每道菜的具体食谱？我想确保我有所有细节来完美地准备这顿饭。谢谢！",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "Certainly! Here are the specific recipes for each dish:\n\nSeared Scallops with Citrus Beurre Blanc:\nIngredients:\n- 10 large sea scallops\n- Salt and pepper to taste\n- 2 tablespoons olive oil\n- 1/4 cup white wine\n- 1/4 cup freshly squeezed citrus juice (lemon, orange, or a combination)\n- 4 tablespoons unsalted butter, cold and cut into small cubes\n- Zest of the citrus fruit used for juice\n- Chopped fresh parsley for garnish\n\nInstructions:\n1. Pat the scallops dry and season them with salt and pepper.\n2. Heat the olive oil in a large skillet over medium-high heat.\n3. Add the scallops to the skillet and sear them for about 2-3 minutes on each side until golden brown. Remove from the skillet and set aside.\n4. In the same skillet, add the white wine and citrus juice. Bring it to a simmer and cook for a couple of minutes to reduce slightly.\n5. Reduce the heat to low and gradually whisk in the cold butter cubes, one at a time, until the sauce is smooth and creamy.\n6. Stir in the citrus zest and season with salt and pepper to taste.\n7. Place the seared scallops on a serving plate and drizzle the citrus beurre blanc sauce over them. Garnish with chopped fresh parsley. Serve immediately.\n\nHerb-Crusted Rack of Lamb:\nIngredients:\n- 2 racks of lamb (8 chops each), trimmed and frenched\n- Salt and pepper to taste\n- 2 tablespoons Dijon mustard\n- 2 tablespoons fresh herbs (such as rosemary, thyme, and parsley), finely chopped\n- 1 cup breadcrumbs\n- 2 tablespoons olive oil\n\nInstructions:\n1. Preheat the oven to 400°F (200°C).\n2. Season the racks of lamb with salt and pepper.\n3. Heat the olive oil in an oven-safe skillet over high heat.\n4. Sear the racks of lamb in the skillet for about 2 minutes on each side until browned.\n5. Remove the skillet from the heat and brush the top side of each rack with Dijon mustard.\n6. In a small bowl, mix together the fresh herbs and breadcrumbs. Press the mixture onto the mustard-coated side of the racks, forming a crust.\n7. Place the skillet with the racks of lamb in the preheated oven and roast for about 15-20 minutes for medium-rare doneness (adjust cooking time based on desired doneness).\n8. Remove the lamb from the oven and let it rest for a few minutes before slicing into individual chops. Serve hot.\n\nGrilled Salmon with Lemon-Dill Sauce:\nIngredients:\n- 4 salmon fillets\n- Salt and pepper to taste\n- 2 tablespoons olive oil\n- 1/4 cup mayonnaise\n- 2 tablespoons freshly squeezed lemon juice\n- 1 tablespoon fresh dill, chopped\n- Lemon wedges for serving\n\nInstructions:\n1. Preheat the grill to medium-high heat.\n2. Season the salmon fillets with salt, pepper, and olive oil.\n3. Place the salmon fillets on the grill and cook for about 4-5 minutes per side until cooked through and grill marks appear.\n4. In a small bowl, whisk together the mayonnaise, lemon juice, and chopped dill to make the lemon-dill sauce.\n5. Remove the salmon from the grill and serve with a dollop of lemon-dill sauce on top. Garnish with lemon wedges. Serve hot.\n\nStuffed Portobello Mushrooms:\nIngredients:\n- 4 large portobello mushrooms\n- 1 tablespoon olive oil\n- 1 small onion, finely chopped\n- 2 cloves garlic, minced\n- 1 cup breadcrumbs\n- 1/2 cup grated Parmesan cheese\n- 1/4 cup chopped fresh parsley\n- Salt and pepper to taste\n\nInstructions:\n1. Preheat the oven to 375°F (190°C).\n2. Remove the stems from the portobello mushrooms and gently scrape out the gills using a spoon.\n3. Heat the olive oil in a skillet over medium heat. Add the chopped onion and minced garlic, and sauté until softened and lightly browned.\n4. In a bowl, combine the sautéed onion and garlic with the breadcrumbs, Parmesan cheese, chopped parsley, salt, and pepper.\n5. Place the portobello mushrooms on a baking sheet and fill each with the breadcrumb mixture, pressing it down gently.\n6. Bake the stuffed mushrooms in the preheated oven for about 20 minutes until the mushrooms are tender and the tops are golden brown.\n7. Remove from the oven and serve hot.\n\nChocolate Lava Cake:\nIngredients:\n- 4 ounces dark chocolate, chopped\n- 1/2 cup unsalted butter\n- 1/2 cup powdered sugar\n- 2 large eggs\n- 2 large egg yolks\n- 1/4 cup all-purpose flour\n- Optional: Vanilla ice cream or raspberry coulis for serving\n\nInstructions:\n1. Preheat the oven to 425°F (220°C). Grease and lightly flour four ramekins.\n2. In a microwave-safe bowl, melt the dark chocolate and butter together in short bursts, stirring until smooth. Let it cool slightly.\n3. In a separate bowl, whisk together the powdered sugar, eggs, and egg yolks until well combined.\n4. Gradually pour the chocolate mixture into the egg mixture, whisking constantly.\n5. Sift the flour into the chocolate mixture and gently fold until just combined.\n6. Divide the batter evenly among the prepared ramekins.\n7. Place the ramekins on a baking sheet and bake in the preheated oven for about 12-14 minutes until the edges are set but the center is still soft.\n8. Remove the ramekins from the oven and let them cool for a minute or two. Carefully invert each ramekin onto a serving plate and gently tap to release the cake. The center should be gooey.\n9. Serve the chocolate lava cakes warm with a scoop of vanilla ice cream or a drizzle of raspberry coulis.\n\nI hope these recipes help you prepare a memorable birthday meal! Let me know if you need any further assistance or have any other questions. Enjoy your celebration!",
+            "content_zh": "当然！以下是每道菜的具体食谱：\n\n柑橘酥烤带子：\n材料：\n- 10个大海扇贝\n- 适量盐和胡椒\n- 2汤匙橄榄油\n- 1/4杯白葡萄酒\n- 1/4杯新鲜榨的柑橘汁（柠檬，橙或混合汁）\n- 4汤匙冷的未加盐黄油，切成小块\n- 用于榨汁的柑橘水果的果皮\n- 切碎的新鲜欧芹装饰用\n\n做法：\n1. 把带子擦干，撒上盐和胡椒。\n2. 在一个大煎锅中用中火加热橄榄油。\n3. 把带子放入煎锅中，每面煎2-3分钟，直到金黄色。从煎锅中取出，放在一边。\n4. 在同一煎锅中，加入白葡萄酒和柑橘汁。煮沸并煮几分钟至稍微减少。\n5. 把火调小，逐渐加入冷凝块黄油，直到酱汁变得顺滑和奶油状。\n6. 搅拌柑橘皮，根据口味加入盐和胡椒。\n7. 把煎熟的带子放在盘子上，淋上柑橘酥烤带子酱。装饰着切碎的新鲜欧芹。立即上桌。\n\n香草焗羊排：\n材料：\n- 2块羊排（每块8块肋骨），修剪和法国处理\n- 适量盐和胡椒\n- 2汤匙第戎芥末\n- 2汤匙新鲜香草（如迷迭香，百里香和欧芹），切碎\n- 1杯面包屑\n- 2汤匙橄榄油\n\n做法：\n1. 烤箱预热至400°F（200°C）。\n2. 用盐和胡椒调味羊排。\n3. 在烤箱耐高温煎锅中用大火加热橄榄油。\n4. 在煎锅中煎约2分钟，直到每一面变褐色。\n5. 把煎锅从火上取下，用第戎芥末刷在每块羊排的上方。\n6. 在一个小碗中，将新鲜香草和面包屑混合在一起。把混合物压在涂有芥末的一侧的羊排上，形成一层面包屑。\n7. 把带羊排的煎锅放入已预热的烤箱中，烘烤15-20分钟至中熟（根据所需熟度调整烹饪时间）。\n8. 取出羊排，休息几分钟后切成单独的肋排。热着上桌。\n\n柠檬莳萝烤鲑鱼：\n材料：\n- 4块鲑鱼柳\n- 适量盐和胡椒\n- 2汤匙橄榄油\n- 1/4杯蛋黄酱\n- 2汤匙新鲜柠檬汁\n- 1汤匙新鲜莳萝，切碎\n- 用于装饰的柠檬楔\n\n做法：\n1. 把烤炉预热至中高温。\n2. 用盐，胡椒和橄榄油调味鲑鱼柳。\n3. 把鲑鱼柳放在烤架上，每面烤约4-5分钟，直到熟透和出现烤点。\n4. 在一个小碗中，搅拌蛋黄酱，柠檬汁和切碎的莳萝，制成柠檬莳萝酱。\n5. 把鲑鱼从烤架上取下，顶上加一勺柠檬莳萝酱。用柠檬楔装饰。热着上桌。\n\n烤野子菇：\n材料：\n- 4大个野子菇\n- 1汤匙橄榄油\n- 1个小洋葱，切碎\n- 2瓣大蒜，切碎\n- 1杯面包屑\n- 1/2杯磨碎的帕玛森奶酪\n- 1/4杯切碎的新鲜欧芹\n- 适量盐和胡椒\n\n做法：\n1. 烤箱预热至375°F（190°C）。\n2. 把野子菇的茎去除，用勺子轻轻刮除菌褶。\n3. 在一个平底锅里用中火加热橄榄油。加入切碎的洋葱和大蒜，炒熟至变软和浅褐色。\n4. 在一个碗中，将炒好的洋葱和大蒜与面包屑，帕玛森奶酪，切碎的欧芹，盐和胡椒混合在一起。\n5. 把野子菇放在烤盘上，每个都装上面包屑混合物，轻轻按压。\n6. 把填充好的野子菇放入已预热的烤箱烤约20分钟，直到菇变软，顶部呈金黄色。\n7. 从烤箱中取出，热着上桌。\n\n巧克力熔岩蛋糕：\n材料：\n- 4盎司黑巧克力，切碎\n- 1/2杯未加盐黄油\n- 1/2杯糖粉\n- 2个大鸡蛋\n- 2个大蛋黄\n- 1/4杯多用途面粉\n- 选用：香草冰淇淋或覆盆子果酱\n\n做法：\n1. 烤箱预热至425°F（220°C）。涂抹四个烤杯。\n2. 在一个微波器的碗里，将黑巧克力和黄油一起加热，间歇性搅拌直到光滑。稍微冷却。\n3. 在另一个碗中，将糖粉，鸡蛋和蛋黄搅拌至充分结合。\n4. 将巧克力混合物逐渐倒入鸡蛋混合物中，不停搅拌。\n5. 面粉筛入巧克力混合物中，轻轻折叠至刚刚结合。\n6. 将面糊均匀分配到已准备好的烤杯中。\n7. 把烤杯放在烤盘上，放入已预热的烤箱，烘烤12-14分钟直到边缘坚实但中心还是软的。\n8. 从烤箱中取出烤杯，冷却一两分钟。谨慎地倒扣每一个烤杯到一个盘子上，并轻轻敲以释放蛋糕。中心应该是稠密的。\n9. 配上一勺香草冰淇淋或一勺覆盆子果酱享用。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for providing the detailed recipes! They all sound delicious and I'm excited to prepare them for my birthday celebration. I appreciate your help in planning the meal. I'll make sure to follow the instructions closely and create a memorable dining experience for my guests. Thank you again for your assistance!\n\n[System]: You're welcome! I'm glad I could help. If you have any more questions or need further assistance, feel free to ask. Enjoy your birthday celebration and have a wonderful time with your friends!",
+            "content_zh": "谢谢您提供详细的食谱！它们听起来都很美味，我对为我的生日庆祝准备它们感到兴奋。感谢您在计划餐饮方面的帮助。我会确保仔细遵循指示，为我的客人创造一个令人难忘的用餐体验。再次感谢您的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "Thank you! I'm glad I could assist you. Don't hesitate to reach out if you need any more help or have any other questions. Have a fantastic birthday celebration and enjoy the delicious meal with your friends. Cheers to a memorable and special day!",
+            "content_zh": "谢谢！我很高兴我能帮助到你。若有任何需要帮忙或其他问题，请不要犹豫与我联系。祝你生日快乐，与朋友们一起享受美味的餐食。为了这个值得纪念和特别的日子干杯！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "elegant",
+        "protein-rich",
+        "vegetarian"
+    ],
+    "preference_summary": [
+        "elegant",
+        "flexible menu"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "50",
+            "zh": "50"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Confident",
+                "zh": "自信"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Luxury accommodation",
+                "zh": "豪华住宿"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Healthy food",
+                "zh": "健康饮食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "High spender",
+                "zh": "高消费"
+            },
+            {
+                "en": "Invests in real estate",
+                "zh": "房地产投资"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Has a large social circle",
+                "zh": "社交广泛"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

@@ -1,0 +1,217 @@
+{
+    "task": "recipe planning",
+    "preference_id": 14,
+    "task_context_id": 0,
+    "preference": "1. Gender: Male\n2. Age: 55\n3. Personality: Calm, patient, and caring\n4. Occupation: Pediatrician\n5. Daily Interests and Hobbies: Reading medical journals, gardening, playing golf\n6. Travel Habits: Prefers calm and serene locations, enjoys family vacations\n7. Dining Preferences: Enjoys comfort food, prefers home-cooked meals\n8. Spending Habits: Saves for retirement, spends on gardening tools\n9. Other Aspects: Active in local community health programs, has a family",
+    "preference_zh": "1. 性别: 男性\n2. 年龄: 55\n3. 个性: 冷静，耐心，关心他人\n4. 职业: 儿科医生\n5. 日常兴趣和爱好: 阅读医学期刊，园艺，打高尔夫\n6. 旅行习惯: 偏爱宁静幽静的地方，享受家庭度假\n7. 餐饮偏好: 喜欢舒适的食物，偏爱家常菜\n8. 消费习惯: 为退休存钱，购买园艺工具\n9. 其他方面: 积极参与当地社区健康项目，拥有一个家庭",
+    "task_context": "You plan to prepare a meal at home for yourself. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家为自己准备一顿饭。你在烹饪方面并不很娴熟，经验有限。因此，你想要请LLM帮忙制定食谱，确定所需的食材，以及决定做什么菜。在计划过程中，你应该学习每道菜的完整烹饪过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I'm looking to prepare a meal at home for myself, but I don't have much experience in cooking. I was hoping you could help me create a recipe, decide on the necessary ingredients, and guide me on the order in which to prepare the dishes. Can you assist me with that?",
+            "content_zh": "你好！很高兴你在这里。我想在家里为自己准备一顿饭，但我在烹饪方面经验不多。我希望你能帮我制定一个食谱，确定所需的食材，并指导我如何准备菜肴的顺序。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you with that! Cooking can be a fun and rewarding experience, even if you're just starting out. What type of meal are you in the mood for? Are there any specific dietary restrictions or preferences I should consider while suggesting a recipe? Let's start by narrowing down the options, and then we can move on to the ingredients and preparation steps.",
+            "content_zh": "当然，我很乐意帮助你！烹饪可以是一次有趣和值得的体验，即使你刚刚开始。你现在想要吃什么类型的餐？在我建议食谱时，有没有任何特殊的饮食限制或偏好我应该考虑？让我们首先缩小选择范围，然后再考虑食材和准备步骤。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance. I appreciate it. I'm in the mood for something comforting and hearty. As for dietary restrictions, I don't have any specific ones, but it would be great if the recipe could incorporate some vegetables. Let's start by exploring some options based on those preferences.",
+            "content_zh": "谢谢您提供帮助。我很感激。我想吃一些让人感觉舒适且丰盛的食物。至于饮食限制，我没有特别的要求，但如果食谱中包含一些蔬菜就太棒了。让我们从这些偏好出发来探索一些选项。",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! How about we make a delicious vegetable curry with rice? It's a comforting and hearty dish that can be easily customized to suit your taste preferences. Here's a simple recipe to get started:\n\nIngredients:\n- 1 tablespoon vegetable oil\n- 1 onion, diced\n- 2 cloves of garlic, minced\n- 1 tablespoon curry powder (adjust to your preferred level of spiciness)\n- 1 teaspoon ground cumin\n- 1 teaspoon ground coriander\n- 1 teaspoon turmeric\n- 1 can (400ml) coconut milk\n- 2 cups mixed vegetables (such as carrots, bell peppers, cauliflower, and peas)\n- Salt and pepper to taste\n- Cooked rice for serving\n- Fresh cilantro (coriander) leaves for garnish (optional)\n\nNow, let's move on to the preparation steps:\n\n1. Heat the vegetable oil in a large pan over medium heat. Add the diced onion and minced garlic, and sauté until they become translucent and fragrant.\n\n2. Add the curry powder, ground cumin, ground coriander, and turmeric to the pan. Stir well to coat the onions and garlic with the spices. Cook for another minute to release the flavors.\n\n3. Pour in the coconut milk and stir to combine. Bring the mixture to a simmer.\n\n4. Add the mixed vegetables to the pan. You can use fresh or frozen vegetables, whichever you prefer. Stir everything together, then cover the pan and let it simmer for about 10-15 minutes until the vegetables are cooked to your desired tenderness.\n\n5. Season with salt and pepper to taste. Adjust the spices if needed by adding more curry powder or any other spices you prefer.\n\n6. Serve the vegetable curry over cooked rice. You can garnish it with fresh cilantro leaves if you like.\n\nAnd there you have it! A delicious vegetable curry with rice. Feel free to experiment with the vegetables and spices to make it your own. Enjoy your meal! Let me know if you have any questions or if there's anything else I can assist you with.",
+            "content_zh": "太棒了！我们做一道美味的蔬菜咖喱配米饭怎么样？这是一道让人感到舒适和温暖的菜肴，可以根据您的口味偏好进行简单地定制。以下是一个简单的食谱供您参考：\n\n食材：\n- 1汤匙植物油\n- 1个洋葱，切丁\n- 2瓣大蒜，切碎\n- 1汤匙咖喱粉（根据您喜欢的辛辣程度进行调整）\n- 1茶匙孜然粉\n- 1茶匙芫荽粉\n- 1茶匙姜黄粉\n- 1听（400毫升）椰奶\n- 2杯混合蔬菜（如胡萝卜、甜椒、花菜和豌豆）\n- 适量盐和胡椒粉\n- 熟米饭\n- 新鲜香菜叶（装饰用，可选）\n\n现在，让我们开始准备步骤：\n\n1. 在大平底锅中用中火加热植物油。加入切碎的洋葱和蒜末，炒至变成半透明且散发香味。\n\n2. 将咖喱粉、孜然粉、芫荽粉和姜黄粉加入锅中。充分搅拌，让洋葱和大蒜与香料充分混合。继续翻炒一分钟使其释放香气。\n\n3. 倒入椰奶并搅拌均匀。将混合物煮沸。\n\n4. 将混合蔬菜加入锅中。您可以使用新鲜或冷冻蔬菜，根据您的喜好选择。将所有食材搅拌在一起，然后盖上锅盖，焖煮约10-15分钟，直到蔬菜煮熟至您喜欢的软硬程度。\n\n5. 根据口味加入盐和胡椒调味。如有需要，通过添加更多咖喱粉或其他香料进行调整。\n\n6. 将蔬菜咖喱盛在熟米饭上。可以根据喜好用新鲜香菜叶进行装饰。\n\n如此美味的蔬菜咖喱配米饭就完成啦！欢迎尝试不同的蔬菜和香料，打造属于您自己的口味。祝您用餐愉快！如果您有任何问题或需要进一步帮助，请随时告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That sounds absolutely delicious! I love the idea of making a vegetable curry with rice. Thank you for providing such a detailed recipe and the step-by-step instructions. I really appreciate it. I'll make sure to follow the recipe and adjust the spices to my liking. I'm excited to give it a try! If I have any questions along the way, I'll be sure to reach out. Thanks again for your help.",
+            "content_zh": "听起来绝对美味！我喜欢用米饭做蔬菜咖喱的主意。谢谢您提供如此详细的食谱和逐步说明。我非常感谢。我会确保按照食谱并根据我喜好调整香料。我很兴奋去尝试！如果在制作过程中有任何问题，我一定会联系您。再次感谢您的帮助。",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you liked the recipe. Cooking should be an enjoyable experience, so feel free to get creative and make adjustments based on your taste preferences. Don't hesitate to ask if you have any questions or need further assistance while preparing the dish. I'm here to help. Enjoy your cooking adventure, and I hope your vegetable curry turns out absolutely delicious! Happy cooking!",
+            "content_zh": "不客气！很高兴您喜欢这个食谱。做饭应该是一种愉快的体验，所以请随意发挥创意，根据您的口味偏好进行调整。在准备这道菜时，如果您有任何问题或需要进一步帮助，请毫不犹豫地询问。我会在这里帮忙。祝您在烹饪的冒险中享受乐趣，并希望您的蔬菜咖喱味道非常美味！愉快的烹饪！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you so much for your kind words and encouragement! I truly appreciate your support. I'll definitely reach out if I need any further assistance. I'm looking forward to my cooking adventure and enjoying the delicious vegetable curry. Thanks again for all your help! Have a wonderful day!",
+            "content_zh": "非常感谢您的好话和鼓励！我真心感激您的支持。如果需要进一步的帮助，我一定会与您联系。我期待着我的烹饪探险，享受美味的蔬菜咖喱。再次感谢您的帮助！祝您度过美好的一天！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm here to support you every step of the way. I'm glad I could assist you, and I hope your cooking adventure is a success. Enjoy your vegetable curry, and have a fantastic day too! Remember, I'm always here if you need any more help in the future. Happy cooking and take care!",
+            "content_zh": "非常欢迎！我在这里支持您每一个步骤。我很高兴能帮助您，希望您的烹饪冒险取得成功。享受您的蔬菜咖喱，也祝您有一个美好的一天！记住，如果将来您需要更多帮助，我一直在这里。祝烹饪愉快，保重！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "comfort food",
+        "vegetable",
+        "curry"
+    ],
+    "preference_summary": [
+        "excited",
+        "supported",
+        "grateful"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "55",
+            "zh": "55"
+        },
+        "Personality": [
+            {
+                "en": "Calm",
+                "zh": "冷静"
+            },
+            {
+                "en": "Patient",
+                "zh": "耐心"
+            },
+            {
+                "en": "Friendly",
+                "zh": "友善"
+            }
+        ],
+        "Occupation": {
+            "en": "Medical staff",
+            "zh": "医护人员"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Prefers calm and serene locations",
+                "zh": "喜欢宁静"
+            },
+            {
+                "en": "Family vacations",
+                "zh": "家庭旅行"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in volunteer activities",
+                "zh": "喜欢参与志愿活动"
+            },
+            {
+                "en": "Has a family",
+                "zh": "家庭生活"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        }
+    }
+}

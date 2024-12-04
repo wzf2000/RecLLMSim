@@ -1,0 +1,250 @@
+{
+    "task": "recipe planning",
+    "preference_id": 83,
+    "task_context_id": 3,
+    "preference": "1. Gender: Female\n2. Age: 60\n3. Personality: Independent, strong-willed, and resilient\n4. Occupation: Retired Police Officer\n5. Daily Interests and Hobbies: Walking, reading crime novels, volunteering in community\n6. Travel Habits: Enjoys cruises, visits family in different states\n7. Dining Preferences: Prefers traditional dishes, enjoys baking\n8. Spending Habits: Spends on home improvement, saves for healthcare\n9. Other Aspects: Active in local community, has a pet dog",
+    "preference_zh": "1. 性别：女性\n2. 年龄：60\n3. 个性：独立、意志坚定、有适应能力\n4. 职业：退休警察\n5. 每日兴趣爱好：散步、阅读犯罪小说、志愿参与社区活动\n6. 旅行习惯：喜欢乘坐游轮、去不同州拜访家人\n7. 餐饮喜好：喜欢传统菜肴、烘焙食品\n8. 消费习惯：花钱在家居改善上，为医疗保健储蓄\n9. 其他方面：活跃于当地社区，有一只宠物狗",
+    "task_context": "You plan to prepare a meal at home for yourself and your loved one. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "您计划在家为自己和所爱的人准备一顿饭。您是一位有一定专长的烹饪高手。因此，您想要请LLM帮助您制定食谱，确定所需的食材，以及决定要做的菜肴。在规划过程中，您应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here to help. I'm planning to prepare a special meal at home for myself and my loved one. As a retired police officer, I enjoy traditional dishes and baking. I'd like your assistance in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Could you help me with that?",
+            "content_zh": "你好！我很高兴你在这里帮忙。我打算在家为自己和我所爱的人准备一顿特别的饭菜。作为一名退休警官，我喜欢传统菜肴和烘焙。我希望你能帮忙创建一个食谱，确定所需的食材，以及决定要做哪些菜。你能帮忙吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be happy to assist you in creating a special meal for you and your loved one. Traditional dishes and baking sound like a wonderful idea! Let's start by brainstorming some options. What are some of your favorite traditional dishes or types of cuisine that you and your loved one enjoy?",
+            "content_zh": "你好！我很乐意帮助你为你和你的爱人准备一顿特别的餐点。传统菜肴和烘焙听起来是个绝妙的主意！让我们开始头脑风暴一些选项。你和你的爱人最喜欢的传统菜肴或者是你们喜欢的菜系有哪些？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "Translation Problem Fixed"
+            },
+            "content_zh_old": "你好！我很高兴帮助您为您和您的爱人创建一顿特别的餐。传统菜肴和烘焙听起来是一个很好的主意！让我们从头脑风暴一些选项开始。您和您的爱人喜欢什么传统菜肴或美食类型？"
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your help! When it comes to traditional dishes, my loved one and I enjoy classics like roast chicken, beef stew, and lasagna. We also have a soft spot for comfort foods like macaroni and cheese and apple pie. As for cuisine types, we're open to various options, but we tend to lean towards American, Italian, and maybe some Southern-inspired dishes. What do you suggest we make?",
+            "content_zh": "谢谢你提供帮助！在传统菜肴方面，我和我心爱的人喜欢经典的烤鸡、牛肉炖菜和千层面。我们也喜欢舒适食物，比如通心粉奶酪和苹果派。至于菜系，我们愿意尝试各种选择，但我们更倾向于美式、意大利式，也许还有南方灵感的菜肴。你建议我们做什么呢？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Those are some great choices! How about we create a menu that combines elements from both American and Italian cuisines? Here's a suggested menu that incorporates your preferences:\n\nAppetizer:\n- Bruschetta: Toasted bread topped with a mixture of diced tomatoes, garlic, basil, and olive oil.\n\nMain Course Options:\n1. Classic Roast Chicken: A succulent roasted chicken seasoned with herbs and served with roasted vegetables and mashed potatoes.\n2. Italian Beef Stew: A hearty stew with tender beef, potatoes, carrots, and onions, simmered in a flavorful tomato-based sauce.\n\nSide Dishes:\n- Creamy Macaroni and Cheese: A comforting dish made with a rich cheese sauce and baked until golden and bubbly.\n- Garlic Roasted Green Beans: Fresh green beans tossed in olive oil, minced garlic, salt, and pepper, then roasted until crispy.\n\nDessert:\n- Classic Apple Pie: A flaky, buttery crust filled with sweet and tangy apple slices, cinnamon, and a touch of sugar.\n\nFor the ingredients, you'll need items like chicken, beef, tomatoes, garlic, herbs, vegetables, pasta, cheese, apples, and pie crust ingredients. Is there anything specific you'd like help with, such as the recipe for any of these dishes or the quantities of ingredients needed?",
+            "content_zh": "这些都是一些很棒的选择！我们可以尝试创建一个菜单，结合美国和意大利美食的元素吗？以下是一个建议的菜单，考虑到了您的喜好：前菜：- 焦香面包片：用切碎的番茄、大蒜、罗勒和橄榄油混合的面包片。主菜选项：1. 经典烤鸡：用香草调味的多汁烤鸡，配烤蔬菜和土豆泥。2. 意式牛肉炖菜：用嫩牛肉、马铃薯、胡萝卜和洋葱，在有风味的番茄酱中炖煮的浓郁炖菜。配菜：- 奶油芝士通心粉：用浓郁的芝士酱制成的令人愉悦的菜肴，烤至金黄和起泡。- 蒜香烤青豆：新鲜青豆撒上橄榄油、蒜蓉、盐和胡椒，然后烤至脆口。甜点：- 经典苹果派：酥脆、黄油口感的酥皮里填着甜而酸的苹果片、肉桂和一点点糖。对于食材，您会需要鸡肉、牛肉、番茄、大蒜、香草、蔬菜、意大利面、奶酪、苹果和馅饼皮等食材。是否有什么具体的需要帮助的，比如这些菜肴的烹饪方法或所需食材的量？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That menu sounds absolutely delicious! I love the combination of American and Italian flavors. I would appreciate your help with the recipes for the bruschetta, classic roast chicken, Italian beef stew, creamy macaroni and cheese, garlic roasted green beans, and classic apple pie. Additionally, it would be great if you could provide the quantities of ingredients needed for each dish. Thank you for your assistance!",
+            "content_zh": "那个菜单听起来绝对美味！我喜欢美式和意式风味的结合。我会感激你帮助我找到意式蒜香面包、经典烤鸡、意式牛肉炖菜、奶油通心粉、大蒜烤青豆和经典苹果馅饼的食谱。另外，如果你能提供每道菜所需食材的数量，那就太棒了。谢谢你的帮助！",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! I'm glad you like the menu. Here are the recipes and ingredient quantities for each dish:\n\n1. Bruschetta:\nIngredients:\n- 4-6 slices of crusty bread\n- 2 large tomatoes, diced\n- 2 cloves of garlic, minced\n- 1/4 cup fresh basil leaves, chopped\n- 2 tablespoons extra-virgin olive oil\n- Salt and pepper to taste\n\nInstructions:\n1. Preheat your oven to 375°F (190°C).\n2. Place the bread slices on a baking sheet and toast them in the oven until lightly golden.\n3. In a bowl, combine the diced tomatoes, minced garlic, chopped basil, olive oil, salt, and pepper. Mix well.\n4. Once the bread is toasted, remove it from the oven and let it cool slightly.\n5. Spoon the tomato mixture onto the bread slices, distributing it evenly.\n6. Serve the bruschetta as an appetizer.\n\n2. Classic Roast Chicken:\nIngredients:\n- 1 whole chicken (approximately 4-5 pounds)\n- 2 tablespoons olive oil\n- 1 tablespoon dried herbs (such as thyme, rosemary, or a poultry seasoning blend)\n- Salt and pepper to taste\n- Assorted vegetables for roasting (carrots, potatoes, onions)\n\nInstructions:\n1. Preheat your oven to 425°F (220°C).\n2. Rinse the chicken and pat it dry with paper towels.\n3. Rub the chicken with olive oil, then season it generously with salt, pepper, and dried herbs.\n4. Place the chicken on a roasting pan or a baking dish, breast-side up.\n5. Surround the chicken with the assorted vegetables.\n6. Roast the chicken in the preheated oven for about 1 hour and 15 minutes, or until the internal temperature reaches 165°F (74°C) when measured with a meat thermometer inserted into the thickest part of the thigh.\n7. Remove the chicken from the oven and let it rest for 10-15 minutes before carving.\n\n3. Italian Beef Stew:\nIngredients:\n- 2 pounds beef stew meat, cut into cubes\n- 2 tablespoons olive oil\n- 1 onion, chopped\n- 2 cloves of garlic, minced\n- 2 carrots, peeled and sliced\n- 2 celery stalks, sliced\n- 1 can (14 ounces) diced tomatoes\n- 1 cup beef broth\n- 1/2 cup red wine (optional)\n- 2 teaspoons dried Italian herbs (such as oregano, basil, and thyme)\n- Salt and pepper to taste\n\nInstructions:\n1. In a large pot or Dutch oven, heat the olive oil over medium-high heat.\n2. Add the beef cubes and brown them on all sides. Remove the beef from the pot and set it aside.\n3. In the same pot, add the chopped onion, minced garlic, sliced carrots, and celery. Sauté until the vegetables are softened.\n4. Return the beef to the pot and add the diced tomatoes, beef broth, red wine (if using), dried Italian herbs, salt, and pepper.\n5. Bring the stew to a boil, then reduce the heat to low and cover the pot.\n6. Simmer the stew for about 2-3 hours, or until the beef is tender and the flavors have melded together.\n7. Adjust the seasoning if needed and serve the stew hot.\n\n4. Creamy Macaroni and Cheese:\nIngredients:\n- 8 ounces elbow macaroni\n- 2 cups shredded cheddar cheese\n- 2 cups milk\n- 2 tablespoons butter\n- 2 tablespoons all-purpose flour\n- 1/2 teaspoon mustard powder (optional)\n- Salt and pepper to taste\n\nInstructions:\n1. Cook the macaroni according to the package instructions, then drain and set it aside.\n2. In a saucepan, melt the butter over medium heat. Stir in the flour and mustard powder (if using) to create a roux.\n3. Gradually whisk in the milk, ensuring there are no lumps.\n4. Cook the sauce over medium heat, stirring constantly, until it thickens.\n5. Remove the sauce from the heat and stir in the shredded cheddar cheese until melted and smooth.\n6. Season the sauce with salt and pepper to taste.\n7. Add the cooked macaroni to the sauce and stir until well coated.\n8. Serve the macaroni and cheese hot, optionally baking it in the oven for a crispy top.\n\n5. Garlic Roasted Green Beans:\nIngredients:\n- 1 pound fresh green beans, trimmed\n- 2 tablespoons olive oil\n- 2 cloves of garlic, minced\n- Salt and pepper to taste\n\nInstructions:\n1. Preheat your oven to 425°F (220°C).\n2. Toss the trimmed green beans with olive oil, minced garlic, salt, and pepper in a mixing bowl.\n3. Spread the green beans out on a baking sheet in a single layer.\n4. Roast the green beans in the preheated oven for about 15-20 minutes, or until they are tender and slightly crispy.\n5. Remove the green beans from the oven and serve them hot.\n\n6. Classic Apple Pie:\nIngredients:\n- 2 pie crusts (store-bought or homemade)\n- 6-7 medium-sized apples, peeled, cored, and sliced\n- 3/4 cup granulated sugar\n- 2 tablespoons all-purpose flour\n- 1 teaspoon ground cinnamon\n- 1/4 teaspoon ground nutmeg\n- 1 tablespoon lemon juice\n- 2 tablespoons butter, cut into small pieces\n- 1 egg, beaten (for egg wash)\n- Additional sugar for sprinkling\n\nInstructions:\n1. Preheat your oven to 375°F (190°C).\n2. Line a pie dish with one of the pie crusts.\n3. In a large bowl, combine the sliced apples, granulated sugar, flour, cinnamon, nutmeg, and lemon juice. Mix well.\n4. Pour the apple mixture into the prepared pie crust and dot the top with small pieces of butter.\n5. Cover the pie with the second pie crust. You can create a lattice pattern or simply cover the pie with a full crust, making sure to cut a few slits in the top for venting.\n6. Brush the top crust with the beaten egg and sprinkle it with additional sugar.\n7. Place the pie on a baking sheet to catch any drips, then bake it in the preheated oven for about 45-55 minutes, or until the crust is golden brown and the filling is bubbly.\n8. Allow the pie to cool for a bit before serving.\n\nI hope these recipes and ingredient quantities help you create a fantastic meal! Let me know if you need any further assistance.",
+            "content_zh": "不客气！很高兴您喜欢菜单。以下是每道菜的食谱和配料数量：\n\n1. 焦香面包片：\n配料：\n- 4-6片硬面包\n- 2个大番茄，切块\n- 2瓣大蒜，切碎\n- 1/4杯新鲜罗勒叶，切碎\n- 2汤匙特级初榨橄榄油\n- 盐和胡椒适量\n\n说明：\n1. 预热烤箱至375°F（190°C）。\n2. 将面包片放在烤盘上，放入烤箱中烤至微金黄。\n3. 在一个碗中，将切块番茄、切碎大蒜、切碎罗勒、橄榄油、盐和胡椒混合均匀。\n4. 烤好面包后，取出待稍凉。\n5. 将番茄混合物勺在面包片上，均匀分布。\n6. 将焦香面包片作为前菜。\n\n2. 经典烤鸡：\n配料：\n- 1整只鸡（约4-5磅）\n- 2汤匙橄榄油\n- 1汤匙干草草、迷迭香或家禽调味品混合物\n- 盐和胡椒适量\n- 多种蔬菜用于烤制（胡萝卜、土豆、洋葱）\n\n说明：\n1. 预热烤箱至425°F（220°C）。\n2. 冲洗鸡，用纸巾擦干。\n3. 用橄榄油涂抹鸡，然后大量撒上盐、胡椒和干草草。\n4. 将鸡放在烤盘或烤盘上，胸部朝上。\n5. 将各种蔬菜放在鸡周围。\n6. 在预热烤箱中烤制鸡约1小时15分钟，或直至用肉温计插入大腿最厚部位时，内部温度达到165°F（74°C）。\n7. 取出鸡，让其静置10-15分钟后切块。\n\n3. 意式牛肉炖肉：\n配料：\n- 2磅牛肉炖肉，切成块\n- 2汤匙橄榄油\n- 1个洋葱，切碎\n- 2瓣大蒜，切碎\n- 2根胡萝卜，去皮，切片\n- 2根芹菜，切片\n- 1罐（14盎司）切碎番茄\n- 1杯牛肉汤\n- 1/2杯红酒（可选）\n- 2茶匙干意大利香草（如牛至、罗勒和百里香）\n- 盐和胡椒适量\n\n说明：\n1. 在大锅或荷兰炖锅中用中高火热橄榄油。\n2. 加入牛肉块并四面煎褐色。将牛肉从锅中取出，备用。\n3. 在同一锅中，加入切碎的洋葱、切碎的大蒜、切片的胡萝卜和芹菜。炒至蔬菜变软。\n4. 将牛肉放回锅中，加入切碎的番茄、牛肉汤、红酒（如使用）、干意大利香草、盐和胡椒。\n5. 将炖肉煮沸，然后将火调至小火，盖上锅盖。\n6. 炖约2-3小时，或直至牛肉变软，风味融合。\n7. 如有需要，调整调味并热盛。\n\n4. 奶油通心粉奶酪：\n配料：\n- 8盎司通心粉\n- 2杯切丝车达奶酪\n- 2杯牛奶\n- 2汤匙黄油\n- 2汤匙多用途面粉\n- 1/2茶匙芥末粉（可选）\n- 盐和胡椒适量\n\n说明：\n1. 根据包装说明煮通心粉，然后沥干备用。\n2. 在平底锅中用中火融化黄油。搅入面粉和芥末粉（如果使用）制成白酱。\n3. 逐渐搅入牛奶，确保没有豆豆。\n4. 用中火煮酱，不断搅拌，直至变稠。\n5. 从火上取下酱，搅入切丝车达奶酪直至融化顺滑。\n6. 根据口味加盐和胡椒。\n7. 将煮熟的通心粉加入酱中并拌匀。\n8. 热食通心粉奶酪，可选择将其放入烤箱制作脆皮。\n\n5. 蒜香烤青豆：\n配料：\n- 1磅新鲜青豆，去茎\n- 2汤匙橄榄油\n- 2瓣大蒜，切碎\n- 盐和胡椒适量\n\n说明：\n1. 预热烤箱至425°F（220°C）。\n2. 在一个碗中将去茎的青豆、橄榄油、切碎大蒜、盐、胡椒拌匀。\n3. 将青豆摆放在烤盘上，单层摊开。\n4. 在预热烤箱中烤制青豆约15-20分钟，或直至变酥嫩脆。\n5. 取出烤好的青豆，热食。\n\n6. 经典苹果派：\n配料：\n- 2个馅饼酥皮（现购或自制）\n- 6-7个中等大小的苹果，去皮、去核、切片\n- 3/4杯白砂糖\n- 2汤匙多用途面粉\n- 1茶匙肉桂粉\n- 1/4茶匙肉豆蔻粉\n- 1汤匙柠檬汁\n- 2汤匙黄油，切成小块\n- 1个打散的蛋（用于涂抹）\n- 额外糖粉用于撒\n\n说明：\n1. 预热烤箱至375°F（190°C）。\n2. 用一个馅饼容器铺上一个酥皮。\n3. 在一个大碗中，将切片的苹果、白砂糖、面粉、肉桂粉、肉豆蔻粉和柠檬汁混合均匀。\n4. 将苹果混合物倒入准备好的馅饼容器中，顶部点缀小块黄油。\n5. 用第二个馅饼皮盖住馅饼。可以制成格子图案或简单地覆盖馅饼，但确保在顶部切几个口子用于通风。\n6. 用打散的鸡蛋刷涂抹顶部，撒上额外的糖粉。\n7. 将馅饼放在烤盘上，烤约45-55分钟，或直至酥皮金黄、馅料起泡。\n8. 在食用前稍降温。 \n\n我希望这些食谱和配料数量能帮助您制作一顿绝妙的大餐！如果需要进一步的帮助，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for providing the detailed recipes and ingredient quantities! I appreciate your thoroughness. I will make sure to follow these instructions to create a fantastic meal for myself and my loved one. If I have any further questions or need additional assistance, I'll let you know. Thanks again for your help!\n",
+            "content_zh": "谢谢您提供详细的食谱和材料数量！我很感激您的细心。我会确保按照这些说明来为我自己和我所爱的人制作美味的饭菜。如果我有任何进一步的问题或需要额外的帮助，我会告诉您的。再次感谢您的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could help. I'm confident that your meal will turn out amazing. If you have any more questions or need further assistance along the way, don't hesitate to reach out. Enjoy preparing and sharing the meal with your loved one! Have a great time, and happy cooking!",
+            "content_zh": "不用客气！我很高兴能帮上忙。我确信你的餐会很棒。如果你有更多问题或需要进一步帮助，随时联系我。享受准备并与你爱的人分享这顿餐！祝你过得愉快，烹饪快乐！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you so much for your support and kind words! I really appreciate your assistance in planning this special meal. I'll make sure to enjoy the process and the meal itself. If I have any more questions or need further guidance, I'll reach out. Thanks again, and have a wonderful day!\n",
+            "content_zh": "非常感谢您的支持和亲切的话！我真的很感激您在策划这顿特别的餐点上的帮助。我会确保享受整个过程和餐点本身。如果我有更多问题或需要进一步指导，我会联系您。再次感谢，祝您有一个美好的一天！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're most welcome! It was my pleasure to assist you. I'm glad I could help you plan this special meal. Enjoy every moment of the process and savor the delicious results. Remember, I'm here whenever you need any more guidance or have further questions. Have a fantastic day and enjoy your meal with your loved one!",
+            "content_zh": "不客气！能够帮助您我感到很高兴。很高兴能够帮助您计划这顿特别的餐食。享受过程的每一刻，品尝美味的结果。记住，我随时准备帮助您或解答任何疑问。祝您有个美好的一天，与心爱的人一起享用美食！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for your kind assistance and support throughout this conversation. I truly appreciate your help in planning this special meal. I'll make sure to reach out if I need any further guidance or have more questions. Have a wonderful day, and thank you again for your help!\n",
+            "content_zh": "感谢您在整个对话过程中的亲切协助和支持。我非常感激您在策划这顿特别的餐食时的帮助。如果我需要更多的指导或有更多问题，我会确保与您联系。祝您有个美好的一天，再次感谢您的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could be of assistance to you. Don't hesitate to reach out if you need any further guidance or have more questions in the future. I'm here to help. Have a fantastic day, and enjoy your special meal. Thank you for your kind words, and it was my pleasure to assist you!",
+            "content_zh": "非常欢迎！我很高兴能帮助到您。如果您需要进一步的指导或有更多问题，欢迎随时联系我。我会尽力帮助您。祝您有个美好的一天，享受您的特别餐。谢谢您的友善言辞，帮助您是我的荣幸！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "italian",
+        "american",
+        "classic"
+    ],
+    "preference_summary": [
+        "american",
+        "italian",
+        "southern-inspired"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 0,
+        "Detail Level": 1,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "60",
+            "zh": "60"
+        },
+        "Personality": [
+            {
+                "en": "Independent",
+                "zh": "独立"
+            },
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Visiting family",
+                "zh": "探亲"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Baking",
+                "zh": "烘焙"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Organizes community activities",
+                "zh": "组织社区活动"
+            },
+            {
+                "en": "Keeping small animals",
+                "zh": "养小动物"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

@@ -1,0 +1,255 @@
+{
+    "task": "new travel planning",
+    "preference_id": 15,
+    "task_context_id": 7,
+    "preference": "1. Gender: Female\n2. Age: 30\n3. Personality: Ambitious, assertive, and confident\n4. Occupation: Real Estate Agent\n5. Daily Interests and Hobbies: Interior design, networking, fitness training\n6. Travel Habits: Prefers city breaks, enjoys luxury resorts\n7. Dining Preferences: Enjoys fine dining, loves trying new restaurants\n8. Spending Habits: Invests in high-end fashion, saves for property\n9. Other Aspects: Lives in a city apartment, has a high-stress lifestyle",
+    "preference_zh": "1. 性别：女\n2. 年龄：30\n3. 个性：有抱负，自信，自信\n4. 职业：房地产经纪人\n5. 日常兴趣和爱好：室内设计，社交，健身训练\n6. 旅行习惯：喜欢城市短途旅行，享受豪华度假村\n7. 就餐偏好：喜欢精致餐饮，喜欢尝试新餐厅\n8. 消费习惯：投资高端时尚，为房产存钱\n9. 其他方面：住在城市公寓，生活压力大",
+    "task_context": "You are planning a weekend trip that will take place in December. Your goal, with the help of LLM, is to refine and finalize your travel plans. This includes making detailed arrangements for accommodations, transportation, and your daily itinerary. Your final travel plan should be as comprehensive and realistic as possible, ensuring that it can be seamlessly implemented when the time comes.\nYour trip planning should take into consideration the specific destination as specified in the following requirements: no specific destination restrictions. You should also consider your point of departure, your preferred mode of transportation to the destination, and the specific attractions or activities you wish to engage in. Remember to consider factors such as travel distance, travel time, and the opening hours of the attractions.",
+    "task_context_zh": "你正在计划一个将在12月举行的周末旅行。在LLM的帮助下，你的目标是完善和确定你的旅行计划。这包括对住宿、交通和每天行程的详细安排。你的最终旅行计划应尽可能全面和现实，确保在时机到来时能够顺利实施。你的旅行计划应考虑到以下要求中指定的具体目的地：没有特定目的地限制。你还应考虑你的出发地、到达目的地的首选交通方式，以及你希望参与的具体景点或活动。记得考虑诸如旅行距离、旅行时间和景点的开放时间等因素。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Well, I've got a busy lifestyle and I need a break. I'm planning a weekend trip in December. I would love a city break to unwind and indulge a little. I enjoy the finer things in life, so I'm looking for a destination that could offer luxury resorts, fine dining, and high-end fashion shopping. I'd like your help in figuring out where I should go and what I should do there, along with arranging accommodations and transportation.",
+            "content_zh": "嗯，我过着忙碌的生活，需要休息一下。我正在计划十二月的周末旅行。我想去一个城市放松一下，尽情享受一下。我喜欢生活中的精致品味，所以我正在寻找一个能提供豪华度假村、美食餐厅和高端时尚购物的目的地。我希望得到你的帮助，找出我应该去哪里，以及在那里我该做些什么，同时安排住宿和交通。",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely, I'd be happy to help you plan your luxury city break! To better assist you, I'll need a bit more information:\n\n1. Where are you currently located or where will you be departing from?\n2. What's your budget range for this trip?\n3. Do you have any preferred cities or countries in mind already, or are you open to any suggestions?\n4. Do you prefer a quiet, relaxing atmosphere or a lively, bustling city vibe?\n5. Are there any specific cuisines you're interested in trying?\n\nOnce I have these details, I can start offering some personalized recommendations.",
+            "content_zh": "当然，我很乐意帮助您计划您的豪华城市假期！为了更好地帮助您，我需要更多的信息：1. 您目前所在地或出发地在哪里？2. 这次旅行的预算范围是多少？3. 您是否已经有心仪的城市或国家，还是愿意听取建议？4. 您是偏爱宁静放松的氛围，还是热闹喧嚣的都市感？5. 您是否有任何特定的美食您感兴趣尝试？一旦我有了这些细节，我可以开始提供一些个性化的建议。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "1. I'm departing from New York City.\n2. For the budget, I'm thinking in the range of $3,000 to $5,000 for the weekend. I like to indulge, but I also believe in spending wisely.\n3. I'm open to suggestions, but I've always had a fascination with European cities. Something about their architecture and history alongside modern luxury really appeals to me.\n4. A bit of both, actually. I'd like to explore the city during the day, maybe some quiet corners or exclusive spots, but I'd also love to experience the nightlife—chic bars, exclusive clubs.\n5. I'm a big fan of Mediterranean cuisine, but also open to trying new, innovative dishes. Fine dining is a must.\n\nHope this helps narrow it down!",
+            "content_zh": "1. 我从纽约市出发。2. 对于预算，我考虑在周末花费3000到5000美元之间。我喜欢尽情享受，但也相信明智地花钱。3. 我愿意听取建议，但我一直对欧洲城市充满着迷。他们的建筑和历史与现代奢华并存真的很吸引我。4. 其实我都喜欢。白天我想探索城市，也许找一些僻静的角落或独特的景点，但我也希望体验夜生活——时尚酒吧、高级俱乐部。5. 我喜欢地中海美食，但也愿意尝试新的创新菜肴。高级餐饮是必须的。希望这有助于缩小范围！",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Thank you for providing these details, this really helps. Given your interest in European cities, your love for architecture and history, and your appreciation for Mediterranean cuisine, I would recommend considering Barcelona, Spain.\n\nBarcelona is a city that combines the old with the new in a stunning way. It's known for its vibrant nightlife, high-end shopping, world-class dining, and stunning architecture, notably the works of Antoni Gaudí. The city also has a number of luxury resorts where you can unwind.\n\nHere's a rough plan:\n\n**Day 1: Arrival and exploring the city**\n- Fly from New York City to Barcelona. The flight duration is around 8 hours non-stop.\n- Check-in at a luxury resort. I recommend the W Barcelona or the Hotel Arts Barcelona, both offer stunning views of the city and the sea.\n- Depending on your arrival time, you can start exploring the city. The Gothic Quarter is a great place to start. You can shop at Passeig de Gràcia, where you'll find many high-end fashion stores.\n- For dinner, you could try Moments, a two-Michelin-star restaurant that offers innovative Catalan cuisine.\n\n**Day 2: Sightseeing and Nightlife**\n- After breakfast, you could visit some of Gaudi's masterpieces like Park Guell and Sagrada Familia.\n- For lunch, you could try Mediterranean cuisine at Botafumeiro, one of the city's oldest and most renowned seafood restaurants.\n- In the evening, visit the El Raval neighborhood, known for its vibrant nightlife. You can start the night with drinks at one of the chic bars and then move to an exclusive club like Pacha Barcelona or Sutton.\n\n**Day 3: Relaxation and Departure**\n- Start your day with a relaxing spa treatment at your resort.\n- Visit the famous Mercado de La Boqueria for a lunch of local delicacies.\n- Depending on your flight time, you can visit the Picasso Museum or take a walk on the beach before heading to the airport.\n\nWith respect to your budget, a round-trip flight from NYC to Barcelona in December costs around $600-$800. A room at a luxury resort could cost around $200-$400 per night. Factoring in sightseeing, dining, and nightlife, your estimated total cost should fall within your budget.\n\nBefore finalizing anything, please ensure to check the travel advisories for Spain in December due to the ongoing pandemic situation. Also, as a US citizen, you can stay in Spain as a tourist for up to 90 days without a visa. However, make sure your passport is valid for at least 6 months beyond your planned date of departure.\n\nLet me know what you think about this initial plan, and if you want any modifications or have any preferences, I'd be happy to adjust accordingly!",
+            "content_zh": "感谢您提供这些详细信息，这真的很有帮助。考虑到您对欧洲城市的兴趣，对建筑和历史的热爱，以及对地中海美食的欣赏，我建议考虑西班牙的巴塞罗那。\n\n巴塞罗那是一座以惊人的方式将古老与现代相结合的城市。它以其充满活力的夜生活、高端购物、世界级餐饮和令人惊叹的建筑而闻名，尤其是安东尼·高迪的作品。该市还有许多豪华度假胜地，供您放松身心。\n\n以下是一个初步计划：\n\n**第一天：抵达和探索城市**\n- 从纽约飞往巴塞罗那。非停机时间约为8小时。\n- 入住豪华度假胜地。我建议 W 巴塞罗那或巴塞罗那艺术酒店，都可欣赏到城市和大海的壮丽景色。\n- 根据您的抵达时间，您可以开始探索该市。哥特区是一个很好的出发地。您可以在 Passeig de Gràcia 购物，在那里您会发现许多高端时尚店。\n- 晚餐可以尝试 Moments，这是一家获得两颗米其林星的餐厅，提供创新的加泰罗尼亚美食。\n\n**第二天：观光和夜生活**\n- 早餐后，您可以参观高迪的杰作，如瓜尔公园和圣家堂。\n- 午餐时，您可以试试位于巴塞罗那最古老和著名的海鲜餐厅之一的 Botafumeiro 地中海美食。\n- 晚上，参观以活力四射的夜生活而闻名的 El Raval 街区。您可以从时髦的酒吧开始夜晚，然后前往 Pacha 巴塞罗那或 Sutton 等独家俱乐部。\n\n**第三天：放松与启程**\n- 从您的度假胜地开始一天的放松水疗。 \n- 参观著名的拉布克里亚市场，品尝当地美味的午餐。\n- 根据您的航班时间，您可以参观毕加索博物馆，或在前往机场之前在海滩上散步。\n\n以您的预算为参考，12月从纽约到巴塞罗那的往返机票约为600-800美元。豪华度假胜地的房间每晚大约200-400美元。根据观光、用餐和夜生活，您的预计总花费应该在您的预算范围内。\n在最终确定任何事项之前，请确保查看由于当前疫情形势而出的西班牙12月份的旅行警报情况。此外，作为美国公民，您可以作为游客在西班牙停留长达90天，无需签证。不过，请确保您的护照在您计划出发日期之后至少有效6个月。\n\n请告诉我您对这个初步计划的想法，如果您需要任何修改或有任何偏好，我将乐意进行调整！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Barcelona sounds like a dream! I love the itinerary you've suggested. Here are a few tweaks I'd like:\n\n1. On Day 1, after checking in, I'd like to relax and unwind rather than start exploring right away. Maybe the hotel has a spa or wellness center?\n\n2. I'm not a big fan of seafood. Could you suggest another restaurant for lunch on Day 2?\n\n3. I've visited Mercado de La Boqueria before, so I'd rather try something new for lunch on Day 3.\n\n4. I'd like to add a fitness activity to my itinerary. Maybe there's a local fitness class that I could join?\n\nAside from these, the rest of the plan sounds great. I'm also happy the costs fall within my budget. Could you also assist me in booking the flights and accommodations once we finalize the plan?",
+            "content_zh": "巴塞罗那听起来像是个梦想！我喜欢你建议的行程安排。这里有一些微调我想要做：1.在第一天入住后，我想放松一下，不着急开始探索。也许酒店有spa或健康中心？2.我不是海鲜的粉丝。你能在第二天的午餐建议另一家餐厅吗？3.我以前去过博克利亚市场，所以在第三天的午餐，我宁愿尝试一些新的地方。4.我想在行程中增加健身活动。也许有当地的健身课可以参加？除了这些，计划的其余部分听起来都很棒。我也很高兴成本在我的预算范围内。一旦我们敲定计划，你能帮我预订航班和住宿吗？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'm glad you like the initial plan! Here are the modifications based on your preferences:\n\n**Day 1: Arrival and Relaxation**\n- Upon your arrival and check-in at the hotel, you can spend the rest of the day unwinding. Both W Barcelona and Hotel Arts Barcelona have excellent spa facilities where you can book a relaxing massage or wellness treatment.\n- In the evening, you can enjoy a quiet dinner at your hotel's fine dining restaurant.\n\n**Day 2: Sightseeing, Fine Dining, and Nightlife**\n- Your sightseeing activities remain the same, visiting Park Guell and Sagrada Familia in the morning.\n- For lunch, instead of Botafumeiro, I recommend Restaurant Gaig, which offers traditional Catalan cuisine with a modern twist. It's very well-reviewed and they offer a variety of dishes beyond seafood.\n- Your evening plans to experience Barcelona's nightlife remain the same.\n\n**Day 3: Fitness Activity, Exploring New Culinary Experiences, and Departure**\n- Start your day with a fitness class. Open Yoga Barcelona offers morning yoga classes that could be a refreshing way to start your day.\n- For lunch, I recommend Petit Comité. It's another fine dining restaurant that offers innovative and creative dishes inspired by Catalan cuisine.\n- Depending on your flight time, you can visit the Picasso Museum or take a beach walk before heading to the airport.\n\nOnce you're happy with the final plan, I can certainly assist you with booking your flights and accommodations! Just let me know. \n\nRemember, it's important to check travel advisories and health and safety regulations related to COVID-19 before your trip.",
+            "content_zh": "当然，我很高兴你喜欢最初的计划！根据你的喜好，以下是修改建议：\n\n**第一天：抵达和放松**\n- 抵达并在酒店办理入住手续后，你可以花余下的时间放松身心。W巴塞罗那酒店和巴塞罗那艺术酒店都有很棒的spa设施，你可以预约放松身心的按摩或健康疗法。\n- 晚上，你可以在酒店的精致餐厅享用宁静的晚餐。\n\n**第二天：观光、美食和夜生活**\n- 你的观光活动保持不变，上午参观瓜尔公园和圣家堂。\n- 午餐方面，我建议不去波达富米尔餐厅，而是选择Restaurant Gaig，他们提供现代创新的传统加泰罗尼亚美食。这家餐厅得到了很好的评价，菜品不仅限于海鲜。\n- 你晚上体验巴塞罗那夜生活的计划保持不变。\n\n**第三天：健身活动、探索新的美食体验和离开**\n- 以一节健身课开始新的一天。Open Yoga Barcelona提供早晨瑜伽课程，可能是一个让你精神焕发的开始。\n- 午餐方面，我推荐Petit Comité。这是另一家精致餐厅，提供创新的菜品，灵感来源于加泰罗尼亚美食。\n- 根据你的飞行时间，你可以参观毕加索博物馆或在前往机场前散步海滩。\n一旦你满意最终计划，我可以帮你预订航班和住宿！只要告诉我。\n请记住，在旅行之前查看与COVID-19相关的旅行警报和健康与安全规定是很重要的。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "This revised plan sounds perfect! I'm particularly excited about the yoga class on Day 3; it's exactly the kind of fitness activity I was hoping to include. Let's proceed with booking the flights and accommodations. I'd prefer to stay at the W Barcelona, given its stunning views and spa facilities. Could we also book a wellness treatment there for Day 1? And for the flights, I'd like to opt for business class for a more comfortable experience. Please ensure the flight times allow for a relaxed schedule without rushing.",
+            "content_zh": "这个修订后的计划听起来太完美了！我特别期待第三天的瑜伽课程；这正是我希望包括的健身活动。让我们继续预订航班和住宿吧。我更倾向于住在W巴塞罗那酒店，因为那里有令人惊叹的美景和温泉设施。我们也能在第一天预订那里的健康护理吗？至于航班，我想选择商务舱，以获得更舒适的体验。请确保航班时间不会太赶，能够让我有一个轻松的行程安排。",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Fantastic! I'm thrilled to hear that the revised plan meets your expectations. While I can guide you through booking flights and accommodations, please note that I'm unable to make actual bookings or transactions. However, I'll provide you with a step-by-step guide on how to proceed:\n\n### Flights:\n1. **Searching for Flights:** Visit a flight comparison website like Kayak, Skyscanner, or Google Flights.\n2. **Selecting Your Dates:** Since you're planning a weekend trip in December, consider departing New York City on a Friday and returning on Sunday. This will maximize your time in Barcelona.\n3. **Choosing Business Class:** Filter your search to show only business class options for a more comfortable experience.\n4. **Flight Times:** Look for flights that depart New York City in the evening, allowing you to work or relax during the day before your flight. For your return, a late afternoon or evening flight from Barcelona will give you ample time to enjoy your last day without rushing.\n5. **Booking:** Once you find a suitable flight that fits your schedule and preferences, proceed to book through the airline's official website or a trusted travel agency.\n\n### Accommodation at W Barcelona:\n1. **Booking a Room:** Visit the official website of W Barcelona. Select your check-in and check-out dates, then choose a room or suite that appeals to you. Given your budget and preferences, you might enjoy their \"Fabulous Room\" or \"Studio Suite\" for more space and stunning views.\n2. **Wellness Treatment:** After booking your room, navigate to the \"Spa & Fitness\" section of their website. You can find information on the spa treatments available. It's advisable to book your spa treatment in advance to ensure availability. You can do this either online through their booking system or by contacting the hotel directly via email or phone.\n\n### Additional Tips:\n- **Early Booking:** Given that December is a popular travel time, I recommend booking your flights and accommodation as soon as possible to secure the best rates and availability.\n- **Travel Insurance:** Consider purchasing travel insurance that covers trip cancellations, medical emergencies, and other unforeseen events.\n- **COVID-19 Considerations:** Keep an eye on travel advisories, entry requirements for Spain, and any health and safety guidelines both from your airline and the W Barcelona hotel.\n\nOnce you've made your bookings, you can start looking forward to a luxurious and relaxing weekend in Barcelona! If you have any more questions or need further assistance, feel free to ask.",
+            "content_zh": "太棒了！听到改订的计划符合您的期望，我感到非常激动。虽然我可以指导您预订航班和住宿，但请注意我无法进行实际的预订或交易。但是，我将为您提供一份逐步指南，告诉您如何继续：\n\n### 航班：\n1. **搜索航班：**访问像Kayak、Skyscanner或Google Flights这样的航班比较网站。\n2. **选择日期：**因为您计划在十二月进行周末旅行，请考虑在周五离开纽约市，并在周日返回。这将最大限度地增加您在巴塞罗那的时间。\n3. **选择商务舱：**筛选您的搜索，仅显示商务舱选项，以获得更舒适的体验。\n4. **航班时间：**寻找在晚上离开纽约市的航班，让您可以在航班前一天工作或放松。对于您的返回航班，从巴塞罗那晚间或傍晚的航班将让您有充分时间在最后一天享受而不必匆忙。\n5. **预订：**一旦找到适合您时间表和偏好的合适航班，就可以通过航空公司的官方网站或值得信赖的旅行社预订。\n\n### W巴塞罗那酒店住宿：\n1. **预订房间：**访问W巴塞罗那的官方网站。选择您的入住和退房日期，然后选择一个对您有吸引力的房间或套房。根据您的预算和喜好，您可能会喜欢他们的“绝妙房”或“工作室套房”，以获得更多的空间和令人惊叹的景观。\n2. **健康护理：**预订完房间后，转到他们网站的“水疗与健身”部分。您可以找到有关水疗护理的信息。建议提前预订水疗护理，以确保可用性。您既可以在线通过他们的预订系统进行预订，也可以通过电子邮件或电话直接联系酒店。\n\n### 其他建议：\n- **提早预订：**考虑到十二月是繁忙的旅行时间，我建议您尽快预订航班和住宿，以确保获得最佳价格和可用性。\n- **旅行保险：**考虑购买涵盖旅行取消、医疗紧急情况和其他意外事件的旅行保险。\n- **COVID-19注意事项：**关注旅行警报、西班牙入境要求以及来自您的航空公司和W巴塞罗那酒店的任何卫生和安全指南。\n\n一旦您完成预订，您就可以开始期待在巴塞罗那度过一个豪华放松的周末！如果您有更多问题或需要进一步帮助，请随时问我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed guide. It's extremely helpful. I'll follow these steps and make the bookings. I appreciate your assistance in planning this trip. It seems like it's going to be exactly the break I need. Is there anything else I should keep in mind or any other tips for a first-time visitor to Barcelona?",
+            "content_zh": "感谢详细的指南，非常有帮助。我会按照这些步骤进行预订。感谢您在规划这次旅行中的帮助。看起来这将是我需要的休息。我还需要注意什么，或者对巴塞罗那首次游客有什么其他建议吗？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're most welcome! I'm sure you'll have a fantastic trip. Here are a few additional tips for your first visit to Barcelona:\n\n1. **Language:** While many people in Barcelona speak English, particularly in tourist areas and hotels, it's always appreciated if you learn a few basic phrases in Spanish or Catalan, the two main languages spoken in Barcelona.\n\n2. **Currency:** The currency in Spain is the Euro (€). Credit cards are widely accepted, but it's always a good idea to carry some cash for smaller establishments or tips.\n\n3. **Tipping:** Tipping is not as obligatory in Spain as it is in the U.S., but it's common to leave a small tip (around 10%) in restaurants if you're satisfied with the service.\n\n4. **Safety:** Barcelona is a safe city overall, but like any major city, it's wise to be mindful of your belongings, especially in crowded tourist areas and on public transport, due to pickpockets.\n\n5. **Dress Code:** Spaniards tend to dress stylishly. While there's no strict dress code, you might feel more comfortable dressing a bit more formally, especially for dinners at high-end restaurants or nights out.\n\n6. **Local Customs:** Dinner time in Spain is typically later than in the U.S., with many people eating around 9-10pm. Also, Spanish people are generally relaxed about time, so don't be surprised if things run a little late!\n\n7. **Tourist Information Offices:** Barcelona has several tourist information offices around the city where you can get maps, brochures, and any other information you might need.\n\nRemember to check the latest travel advisories and health guidelines related to COVID-19 before your trip. Safe travels, and enjoy your luxurious weekend break in Barcelona!",
+            "content_zh": "非常欢迎您！我相信您会度过一个美妙的旅程。以下是您首次访问巴塞罗那的一些建议：\n1. 语言：尽管巴塞罗那许多人会说英语，特别是在旅游区和酒店，但如果您学习一些西班牙语或加泰罗尼亚语的基本短语，这总是让人感激的，这两种语言是巴塞罗那使用的主要语言。\n2. 货币：西班牙的货币是欧元（€）。信用卡被广泛接受，但最好携带一些现金给较小的机构或小费。\n3. 小费：在西班牙，小费不像在美国那样义务，但如果您对餐厅的服务感到满意，留下小费（约10%）是很普遍的。\n4. 安全：巴塞罗那总体上是一个安全的城市，但像任何大城市一样，您应该注意自己的财物，尤其是在拥挤的旅游区和公共交通中，以防小偷。\n5. 着装规范：西班牙人倾向于穿着时尚。虽然没有严格的着装规范，但您可能会觉得在高档餐厅用餐或夜间外出时，穿得稍微正式一些会更舒适。\n6. 土俗风情：在西班牙，晚餐时间通常比美国晚一些，许多人会在晚上9-10点左右用餐。此外，西班牙人对时间通常比较放松，如果事情晚一些进行，也不要感到惊讶！\n7. 旅游信息办公室：巴塞罗那市有几个旅游信息办公室，您可以在那里获得地图、小册子和您可能需要的任何其他信息。\n在旅行前，请记得查看与COVID-19相关的最新旅行警报和健康准则。祝您一路平安，享受在巴塞罗那度过的奢华周末假期！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary": [
+        "luxury resorts",
+        "fine dining",
+        "high-end shopping",
+        "wellness activities"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "30",
+            "zh": "30"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Confident",
+                "zh": "自信"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Crafting",
+                "zh": "手工艺制作"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Luxury accommodation",
+                "zh": "豪华住宿"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on fashion",
+                "zh": "时尚支出"
+            },
+            {
+                "en": "Invests in real estate",
+                "zh": "房地产投资"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Has a high-stress lifestyle",
+                "zh": "生活压力大"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_1120": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        }
+    }
+}

@@ -1,0 +1,257 @@
+{
+    "task": "travel planning",
+    "preference_id": 68,
+    "task_context_id": 1,
+    "preference": "1. Gender: Male\n2. Age: 40\n3. Personality: Disciplined, methodical, and calm\n4. Occupation: Military Officer\n5. Daily Interests and Hobbies: Fitness training, reading military history, fishing\n6. Travel Habits: Travels for work, enjoys camping and outdoor activities\n7. Dining Preferences: Prefers hearty meals, enjoys grilling\n8. Spending Habits: Invests in home security systems, saves for children's education\n9. Other Aspects: Active in veterans' organizations, has a family",
+    "preference_zh": "1. 性别：男性\n2. 年龄：40\n3. 个性：有纪律，条理清晰，冷静\n4. 职业：军官\n5. 日常兴趣和爱好：健身训练，阅读军事历史，钓鱼\n6. 旅行习惯：出差旅行，喜欢露营和户外活动\n7. 饮食偏好：喜欢丰盛的餐饮，喜欢烧烤\n8. 消费习惯：投资家庭安全系统，为子女教育存钱\n9. 其他方面：积极参与退伍军人组织，有家庭",
+    "task_context": "You are planning a two-day-long trip this summer, The trip has no specific destination restrictions. You would like to use LLM to help refine your travel plans. During this conversation, you will need to make arrangements for accommodations, transportation, and itinerary details. Your ultimate travel plan should be as comprehensive as possible, ensuring that you can realistically follow it when the time comes.",
+    "task_context_zh": "你打算在今年夏天进行为期两天的旅行，这次旅行没有具体目的地限制。你希望使用LLM来帮助完善您的旅行计划。在这次交谈中，您需要安排住宿、交通和行程详情。您的最终旅行计划应尽可能全面，确保到时候你能实际地按照计划执行。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I'm in the process of planning a two-day trip this summer, and I could use your assistance. I have no specific destination in mind, so I'm looking for recommendations and help with accommodations, transportation, and itinerary details. Are you able to help me with that?",
+            "content_zh": "你好！很高兴你在这里。我正在计划今年夏天的一个两天的旅行，我需要你的帮助。我还没有具体的目的地，所以我在寻找建议和帮助安排住宿、交通和行程细节。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be more than happy to help you plan your two-day trip this summer. Since you don't have a specific destination in mind, we can explore a few options together and find something that suits your preferences. Could you let me know what kind of activities or experiences you're interested in? For example, are you looking for a relaxing beach getaway, an adventurous hiking trip, a city exploration, or something else entirely?",
+            "content_zh": "你好！我很乐意帮助你规划今年夏天的两天旅行。由于你暂时还没有特定目的地，我们可以一起探索一些选项，找到适合你喜好的行程。你能告诉我你对什么样的活动或体验感兴趣吗？比如，你是想要一次放松的海滩度假、一次冒险的徒步旅行、城市探险，还是其他什么呢？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for your willingness to assist me. Given my interests and travel habits, I'm leaning towards an outdoor adventure with a mix of activities. I enjoy camping, fishing, and exploring nature. It would be great to find a destination that offers opportunities for these activities. Additionally, since I'm a military officer, I appreciate historical sites or museums related to military history. It would be a bonus if the destination has such attractions. Can you suggest any places that fit these criteria?",
+            "content_zh": "感谢您愿意帮助我。鉴于我的兴趣和旅行习惯，我更倾向于一次结合各种活动的户外冒险。我喜欢露营，钓鱼和探索大自然。希望能找到一个提供这些活动机会的目的地。此外，由于我是一名军官，我喜欢与军事历史相关的历史遗迹或博物馆。如果目的地有这样的景点将是一个加分。您能否推荐符合这些条件的地方？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Certainly! Based on your preferences for outdoor adventure and an interest in military history, I have a few destinations in mind that might be perfect for your two-day trip. Here are a couple of options:\n\n1. Gettysburg, Pennsylvania, USA: Gettysburg is known for its rich history, particularly the Civil War battle that took place there. You can visit the Gettysburg National Military Park, which offers guided tours and a museum where you can learn about the battle. There are also camping grounds nearby, such as the Artillery Ridge Campground, where you can enjoy the outdoors.\n\n2. Colorado Springs, Colorado, USA: Colorado Springs is surrounded by stunning natural beauty and offers plenty of outdoor activities. You can explore the Garden of the Gods, hike in the nearby Pike National Forest, or even go fishing in one of the many lakes and rivers in the area. Additionally, you can visit the United States Air Force Academy and the Peterson Air and Space Museum to satisfy your interest in military history.\n\nThese are just a couple of suggestions to get started. If you have any specific regions or countries in mind, I can provide more tailored recommendations.",
+            "content_zh": "当然！根据您对户外冒险和军事历史的兴趣，我心中有几个可能非常适合您两天旅行的目的地。以下是一些选项：\n\n1. 美国宾夕法尼亚州的葛底斯堡：葛底斯堡以其丰富的历史而闻名，特别是发生在那里的内战战役。您可以参观葛底斯堡国家军事公园，那里提供导游服务和一个博物馆，您可以了解战役的情况。附近还有露营地，比如Artillery Ridge露营地，您可以在那里享受户外活动。\n\n2. 美国科罗拉多州科罗拉多斯普林斯：科罗拉多斯普林斯被迷人的自然美景环绕，提供丰富的户外活动。您可以探索上帝花园，徒步穿越附近的 派克国家森林，甚至在该地区的众多湖泊和河流中钓鱼。此外，您还可以参观美国空军学院和彼得森空中太空博物馆，满足您对军事历史的兴趣。\n\n这只是一个开始的建议。如果您有具体的地区或国家在心中，我可以提供更具针对性的建议。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the suggestions! Both Gettysburg and Colorado Springs sound like great options that align with my interests. I appreciate the historical significance of Gettysburg, and Colorado Springs offers the perfect combination of outdoor activities and military history attractions. I think I'll focus on exploring Colorado Springs for this trip.\n\nNow, let's move on to accommodations. Since I'll be staying for two days, I would prefer a comfortable and convenient place to rest after a day of outdoor activities. Do you have any recommendations for hotels or lodges in Colorado Springs that offer a balance of comfort and proximity to the attractions we discussed?",
+            "content_zh": "谢谢您的建议！盖茨堡和科罗拉多斯普林斯听起来都是与我的兴趣相符的好选择。我很欣赏盖茨堡的历史意义，而科罗拉多斯普林斯则提供了户外活动和军事历史景点的完美结合。我打算专注于探索科罗拉多斯普林斯的旅行。\n\n现在，让我们讨论住宿问题。由于我会呆两天，我想要一个舒适便利的地方，在一天的户外活动后休息。您是否有推荐的科罗拉多斯普林斯的酒店或旅馆，可以提供舒适和靠近我们讨论的景点的平衡？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! Colorado Springs has a range of accommodations to suit different preferences and budgets. Here are a few options that offer both comfort and proximity to the attractions in the area:\n\n1. The Broadmoor: This luxurious resort is located near the Cheyenne Mountain Zoo and offers a wide range of amenities, including multiple restaurants, a spa, and beautiful grounds. It's a bit on the pricier side, but if you're looking for a truly indulgent experience, it's worth considering.\n\n2. Garden of the Gods Resort and Club: Situated right at the entrance of the Garden of the Gods Park, this resort offers stunning views and easy access to the park's trails. It features comfortable rooms, a golf course, and a spa, making it a great choice for relaxation after a day of outdoor activities.\n\n3. The Mining Exchange, A Wyndham Grand Hotel: Located in downtown Colorado Springs, this historic hotel offers a blend of modern amenities and old-world charm. It's within walking distance of various restaurants, shops, and museums, including the United States Olympic & Paralympic Museum.\n\n4. Cheyenne Mountain Resort: Nestled in the foothills of the Rockies, this resort offers a peaceful setting with beautiful views. It has its own golf course, multiple pools, and a spa. It's a great option if you're looking for a serene retreat while still being close to the attractions.\n\nThese are just a few suggestions, but there are many more accommodations available in Colorado Springs. It's always a good idea to check reviews and compare prices to find the best fit for your needs.",
+            "content_zh": "绝对没问题！科罗拉多泉有各种各样的住宿选择，适合不同的偏好和预算。以下是几个选项，既舒适又靠近该地区的景点：\n\n1. Broadmoor度假村：这家豪华度假村位于夏延山动物园附近，拥有多家餐厅、水疗中心和美丽的庭园等多种便利设施。价格有点高，但如果你想要真正奢华的体验，值得考虑。\n\n2. Gods花园度假村和俱乐部：坐落在大自然之神公园入口处，这家度假村提供令人惊叹的景观和便捷进入公园的径道。它设有舒适的客房、高尔夫球场和水疗中心，是一天户外活动后放松的绝佳选择。\n\n3. 采矿交易所，温德姆大酒店：位于科罗拉多泉市中心的这家历史悠久的酒店提供现代便利设施与老式魅力的完美结合。步行即可到达各种餐馆、商店和博物馆，包括美国奥林匹克和残奥博物馆。\n\n4. 夏延山度假村：坐落在落基山脉的山麓，这家度假村提供美丽景色的宁静环境。它设有自己的高尔夫球场、多个游泳池和水疗中心。如果你想要一个宁静的避难所，同时又靠近景点，这是一个很好的选择。\n\n这只是一些建议，科罗拉多泉还有许多其他住宿选择。查看评论和比较价格，以找到最适合自己需求的住宿是一个很好的主意。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed recommendations! The Broadmoor and Garden of the Gods Resort and Club both sound like excellent options for a comfortable stay. I appreciate the variety of amenities they offer, and their proximity to the attractions I'm interested in.\n\nConsidering my preference for a peaceful retreat, I think I'll go with the Garden of the Gods Resort and Club. Being located right at the entrance of the park will provide easy access to the trails, and the stunning views will be an added bonus.\n\nNow, let's move on to transportation. Since I'll be traveling within Colorado Springs, what would you suggest as the most convenient mode of transportation? Should I rent a car or rely on public transportation?",
+            "content_zh": "感谢你详细的建议！Broadmoor和花园神的度假村和俱乐部听起来都是舒适住宿的绝佳选择。我欣赏他们提供的各种设施，以及它们与我感兴趣的景点的亲近程度。\n考虑到我对宁静度假胜地的喜好，我认为我会选择花园神的度假村和俱乐部。由于它位于公园入口，将为我提供便捷的步行道进入通道，而令人惊叹的美景将是一个额外的奖励。\n现在，让我们来谈一谈交通。由于我将在科罗拉多斯普林斯周边旅行，你会建议我什么是最方便的交通方式？我应该租车还是依靠公共交通？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Renting a car would likely be the most convenient mode of transportation for exploring Colorado Springs. While the city does have some public transportation options like buses, they might not provide the flexibility and convenience you desire, especially for outdoor activities and visiting different attractions.\n\nHaving a car will allow you to easily access the various outdoor sites, such as the Garden of the Gods, Pike National Forest, and other nearby attractions. It will also give you the freedom to explore at your own pace and make spontaneous stops along the way.\n\nThere are several car rental agencies available in Colorado Springs, both at the airport and in the city. It's a good idea to compare prices and book in advance to secure the best deal. Just make sure to have a valid driver's license and be familiar with the local traffic rules and regulations.\n\nIf you prefer not to drive, you can also consider rideshare services like Uber or Lyft, which are widely available in Colorado Springs. However, keep in mind that relying solely on rideshares might limit your options for exploring more remote outdoor areas.\n\nOverall, renting a car offers the most flexibility and convenience for your two-day trip, allowing you to make the most of your time in Colorado Springs.",
+            "content_zh": "租一辆汽车可能是探索科罗拉多斯普林斯最便利的交通方式。虽然该城市有一些公共交通选择，比如公交车，但它们可能无法提供您所需的灵活性和方便性，尤其是对于户外活动和参观不同景点。\n\n拥有一辆汽车将使您能够轻松访问各种户外景点，比如诸如上帝花园、派克国家森林等附近景点。它还将给您自由探索的机会，以您自己的步调前进并在途中做出即兴停留。\n\n科罗拉多斯普林斯有许多汽车租赁机构，机场和城市都有。比较价格并提前预订以确保获得最优惠的交易是个好主意。只需确保持有有效的驾驶执照并熟悉当地的交通规则和法规。\n\n如果您不想开车，还可以考虑类似Uber或Lyft的共乘服务，在科罗拉多斯普林斯广泛可用。然而，请记住，仅依靠共乘可能会限制您探索更遥远户外地区的选择。\n\n总的来说，对于您的两天之行，租车提供了最大的灵活性和便利性，使您能充分利用在科罗拉多斯普林斯的时间。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the recommendation! Renting a car does seem like the best option for flexibility and convenience during my trip to Colorado Springs. It will allow me to easily access the outdoor sites and explore at my own pace.\n\nI'll make sure to compare prices and book a car rental in advance to secure the best deal. Your suggestion to be familiar with the local traffic rules and regulations is noted as well.\n\nNow that we have accommodations and transportation sorted, let's move on to the itinerary. Based on the attractions we discussed, what would be a suggested itinerary for the two days in Colorado Springs? I want to make sure I can fit in the outdoor activities, military history sites, and any other noteworthy attractions in the area.\n",
+            "content_zh": "感谢您的推荐！在科罗拉多斯普林斯期间，租车似乎是灵活且便捷的最佳选择。这将让我轻松访问户外景点并以自己的步调探索。我会确保比较价格并提前预订租车以确保获得最佳交易。您建议熟悉当地交通规则和法规也已记下。现在住宿和交通事宜已安排妥当，让我们继续制定行程。根据我们讨论的景点，两天在科罗拉多斯普林斯的建议行程是什么？我想确保能安排户外活动、军事历史景点以及该地区的其他值得一游的景点。",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! Here's a suggested two-day itinerary for your trip to Colorado Springs, incorporating the outdoor activities, military history sites, and other noteworthy attractions:\n\nDay 1:\n- Morning: Start your day with a visit to the Garden of the Gods. Explore the stunning rock formations, take a leisurely hike along the trails, and enjoy the breathtaking views.\n- Afternoon: Head to the United States Air Force Academy. Take a self-guided tour of the campus, visit the Cadet Chapel, and explore the Visitor Center, which showcases the history and achievements of the academy.\n- Evening: Wrap up your day with a relaxing dinner at one of the restaurants near your resort, perhaps enjoying the beautiful views of the park.\n\nDay 2:\n- Morning: Begin your day with a trip to the Cheyenne Mountain Zoo, which is known for its beautiful setting and diverse animal exhibits. Spend a few hours exploring the zoo and enjoying interactive experiences.\n- Afternoon: Visit the Peterson Air and Space Museum, where you can learn about the history of aviation and space exploration. Explore the exhibits, including military aircraft and artifacts.\n- Evening: If time allows, consider taking a short drive to Manitou Springs, a charming town located near Colorado Springs. Take a stroll through the downtown area, browse the unique shops, and have dinner at one of the local restaurants.\n\nOf course, feel free to adjust this itinerary based on your preferences and the time you have available. There are plenty of other attractions and outdoor activities in the area, such as hiking in Pike National Forest or visiting the Olympic Training Center, which you can consider adding if they align with your interests.\n\nRemember to check the opening hours and any reservation requirements for the attractions you plan to visit, as some may have limitations due to COVID-19 or other factors. Enjoy your trip to Colorado Springs!",
+            "content_zh": "太棒了！这里是您去科罗拉多斯普林斯之行建议的两天行程，结合了户外活动、军事历史遗址和其他值得关注的景点：\n\n第一天：\n- 早上：开始您的一天，参观花石公园。探索令人惊叹的岩石形态，沿着小径悠闲徒步，欣赏令人叹为观止的景色。\n- 下午：前往美国空军学院。进行自助游校园，参观学员礼拜堂，并探索展示学院历史和成就的访客中心。\n- 晚上：在度假村附近的一家餐厅享用放松的晚餐，也许还可以欣赏到公园美丽的景色。\n\n第二天：\n- 早上：开始您的一天，前往切延山动物园，以其优美的环境和多样化的动物展览而闻名。花几个小时探索动物园，享受互动体验。\n- 下午：参观彼得森空中宇宙博物馆，您可以了解航空和太空探索的历史。探索展览，包括军用飞机和文物。\n- 晚上：如果时间允许，考虑短途驾车前往靠近科罗拉多斯普林斯的迈努透泉，一个迷人的小镇。穿过市区漫步，逛逛独特的商店，并在当地餐厅享用晚餐。\n\n当然，根据您的喜好和可用时间，随时可以调整这个行程。该地区还有许多其他景点和户外活动，例如在派克国家森林徒步或参观奥林匹克训练中心，如果符合您的兴趣，也可以考虑添加。\n\n请记得查看您计划参观的景点的开放时间和任何预约要求，因为一些景点受到COVID-19或其他因素的限制。祝您在科罗拉多斯普林斯之行愉快！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed itinerary! It looks well-balanced and covers the attractions I'm interested in. I appreciate the suggestions for each day, including the Garden of the Gods, the United States Air Force Academy, the Cheyenne Mountain Zoo, and the Peterson Air and Space Museum. The idea of visiting Manitou Springs for a stroll and dinner sounds lovely as well.\n\nI'll make sure to check the opening hours and any reservation requirements beforehand to ensure a smooth experience. Thank you for your help in planning this comprehensive itinerary for my two-day trip to Colorado Springs!\n\nIs there anything else I should consider or any additional tips you have for me before I finalize my travel plans?",
+            "content_zh": "谢谢你提供详细的行程安排！看起来很平衡，涵盖了我感兴趣的景点。我感谢每天的建议，包括神话之花园、美国空军学院、切延山动物园和彼得森空间博物馆。去曼尼图斯普林斯散步并吃晚餐的想法听起来也很可爱。我会提前查看开放时间和预订要求，以确保一次顺利的体验。谢谢你帮我规划这个为期两天的科罗拉多斯普林斯之行的全面行程！在我最终确定旅行计划之前，你还有什么其他建议或额外的提示吗？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! I'm glad you found the itinerary helpful. Before finalizing your travel plans, here are a few additional tips to consider:\n\n1. Weather and Packing: Colorado Springs can have unpredictable weather, so be prepared for varying conditions. Pack layers, including a light jacket or sweater for cooler evenings, and comfortable walking shoes for outdoor activities.\n\n2. Timing and Crowds: Keep in mind that some attractions, especially popular ones like the Garden of the Gods, can get crowded during peak times. Consider visiting early in the morning to avoid crowds and have a more peaceful experience.\n\n3. COVID-19 Safety Measures: Stay updated on the latest COVID-19 guidelines and regulations in Colorado Springs. Some attractions may have specific safety protocols in place, such as mask requirements or limited capacity. Check their websites or contact them directly for any necessary information.\n\n4. Local Recommendations: While I've provided a suggested itinerary, don't hesitate to ask locals or staff at your accommodations for additional recommendations. They may have insider tips on lesser-known attractions or dining spots that could enhance your experience.\n\n5. Enjoy the Journey: Remember to take breaks, relax, and enjoy the beautiful surroundings. Embrace the outdoor adventure, soak in the history, and savor the moments of your trip.\n\nI hope these tips help you finalize your travel plans and have a fantastic time exploring Colorado Springs. Safe travels, and feel free to return if you have any more questions or need further assistance!",
+            "content_zh": "不客气！我很高兴你觉得这个行程有帮助。在最终确定旅行计划之前，以下是一些额外的建议要考虑：\n\n1. 天气和行李: 科罗拉多泉可以有变化多端的天气，所以要做好准备。要带上多层衣服，包括一件轻外套或毛衣以防晚上变冷，并且带上适合户外活动的舒适步行鞋。\n\n2. 时间和人潮: 请记住一些景点，特别是像众神花园这样受欢迎的景点在高峰时段可能会很拥挤。考虑在早上早些时候参观以避开人群，享受更宁静的体验。\n\n3. COVID-19 安全措施: 请时刻关注科罗拉多泉最新的COVID-19指南和规定。一些景点可能会有特定的安全规程，如口罩要求或限制人数。查看他们的网站或直接联系他们以获取任何必要的信息。\n\n4. 当地推荐: 虽然我提供了一个建议的行程，但不要犹豫询问当地人或住宿地的工作人员是否有额外的推荐。他们可能有一些内幕贴士，介绍一些不那么为人知的景点或餐厅，能够提升你的体验。\n\n5. 享受旅程: 记得要休息、放松，享受美丽的环境。拥抱户外的冒险，沉浸历史，品味旅程中的每个时刻。\n\n希望这些建议能帮助你最终确定旅行计划，在科罗拉多泉探索时度过美妙的时光。祝旅途平安，如果有任何问题或需要进一步帮助，请随时回来！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "outdoor adventure",
+        "camping",
+        "fishing",
+        "exploring nature",
+        "military history"
+    ],
+    "preference_summary": [
+        "outdoor adventure",
+        "colorado springs",
+        "comfortable lodging",
+        "car rental",
+        "detailed itinerary"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 1
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "40",
+            "zh": "40"
+        },
+        "Personality": [
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            },
+            {
+                "en": "Meticulous",
+                "zh": "细致"
+            },
+            {
+                "en": "Calm",
+                "zh": "冷静"
+            }
+        ],
+        "Occupation": {
+            "en": "Military personnel",
+            "zh": "军人"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Outdoor activities",
+                "zh": "户外活动"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Follows a balanced diet",
+                "zh": "均衡饮食"
+            },
+            {
+                "en": "Grilling",
+                "zh": "烧烤"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in volunteer activities",
+                "zh": "喜欢参与志愿活动"
+            },
+            {
+                "en": "Has a family",
+                "zh": "家庭生活"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Broad"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Broad"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Broad"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

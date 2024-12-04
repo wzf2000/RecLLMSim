@@ -1,0 +1,219 @@
+{
+    "task": "recipe planning",
+    "preference_id": 35,
+    "task_context_id": 0,
+    "preference": "1. Gender: Female\n2. Age: 32\n3. Personality: Creative, independent, and optimistic\n4. Occupation: Tattoo Artist\n5. Daily Interests and Hobbies: Sketching, visiting art galleries, listening to rock music\n6. Travel Habits: Travels for tattoo conventions, enjoys cultural festivals\n7. Dining Preferences: Enjoys vegan food, loves trying local cuisines\n8. Spending Habits: Spends on art supplies, saves for future tattoo equipment\n9. Other Aspects: Works in a downtown studio, has a pet snake",
+    "preference_zh": "1.性别:女性\n2.年龄:32\n3.个性:有创意、独立、乐观\n4.职业:纹身师\n5.日常兴趣爱好:素描、参观艺术画廊、听摇滚音乐\n6.旅行习惯:参加纹身展会旅行、喜欢参加文化节庆\n7.用餐喜好:喜欢素食、喜欢尝试当地美食\n8.消费习惯:花钱购买艺术用品，为未来的纹身设备存钱\n9.其他方面:在市中心工作室工作，养一只宠物蛇",
+    "task_context": "You plan to prepare a meal at home for yourself. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家为自己准备一顿饭。你在烹饪方面技术不是很娴熟，经验有限。因此，你想请LLM帮忙制定食谱，确定所需食材，以及决定要做什么菜。在计划过程中，你应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here to assist me. I would like your help in preparing a meal at home. I don't have much experience in cooking, so I'm hoping you can guide me through creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Can you help me with that?",
+            "content_zh": "你好！很高兴你在这里帮助我。我想请你在家帮助我准备一顿饭。我在烹饪方面经验不多，所以希望你能指导我制定食谱，确定所需食材，并决定要做什么菜。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you with that! Cooking can be a lot of fun, and I'm here to guide you through the process. Let's start by deciding what kind of meal you'd like to prepare. Are you in the mood for something specific, like pasta, chicken, vegetarian, or maybe even a dessert? Let me know your preferences, and we can go from there!",
+            "content_zh": "当然，我很乐意帮助你！烹饪是一件很有趣的事情，我会指导你完成整个过程。我们先来决定你想要做什么样的菜。你是想要做意面、鸡肉、素食还是甜点呢？告诉我你的喜好，我们可以从那里开始！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance! I'm in the mood for a flavorful vegan dish. Something that incorporates fresh vegetables and spices would be great. Do you have any suggestions for a delicious vegan recipe that I can try?",
+            "content_zh": "谢谢您提供帮助！我想要尝试一道美味的素食菜肴。融合新鲜蔬菜和香料的食物会很棒。您有没有什么好的素食食谱推荐给我尝试呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! How about we make a tasty and colorful dish called \"Vegan Chickpea Curry\"? It's packed with flavor, protein, and various vegetables. Here's a simple recipe to get you started:\n\nIngredients:\n- 1 tablespoon vegetable oil\n- 1 onion, diced\n- 3 cloves of garlic, minced\n- 1 tablespoon fresh ginger, grated\n- 1 tablespoon curry powder\n- 1 teaspoon ground cumin\n- 1 teaspoon ground coriander\n- 1/2 teaspoon turmeric\n- 1 can (14 oz) coconut milk\n- 1 can (14 oz) diced tomatoes\n- 2 cups cooked chickpeas (or 1 can, drained and rinsed)\n- 2 cups mixed vegetables (such as bell peppers, carrots, and peas)\n- Salt and pepper to taste\n- Fresh cilantro, for garnish (optional)\n\nInstructions:\n1. Heat the vegetable oil in a large pan or pot over medium heat.\n2. Add the diced onion and cook until it becomes translucent, about 5 minutes.\n3. Stir in the minced garlic and grated ginger, and cook for another minute.\n4. Add the curry powder, cumin, coriander, and turmeric. Stir well to coat the onions and spices evenly.\n5. Pour in the coconut milk and diced tomatoes (with their juices). Mix everything together and bring it to a simmer.\n6. Add the cooked chickpeas and mixed vegetables to the pot. Stir to combine.\n7. Reduce the heat to low and let the curry simmer for about 15-20 minutes, or until the vegetables are tender.\n8. Season with salt and pepper to taste.\n9. Serve the vegan chickpea curry over steamed rice or with naan bread.\n10. Garnish with fresh cilantro if desired.\n\nThis recipe is quite flexible, so feel free to adjust the spices and vegetables to your liking. You can also add some heat by including chili powder or cayenne pepper if you enjoy spicy food. Enjoy your flavorful vegan chickpea curry! Let me know if you have any other questions or need further assistance.",
+            "content_zh": "当然可以！我们来做一道美味多彩的素香鹰咖喱怎么样？这道菜口味浓郁，富含蛋白质和各种蔬菜。以下是一个简单的食谱供您参考：\n\n材料：\n- 1汤匙植物油\n- 1颗洋葱，切碎\n- 3瓣大蒜，切碎\n- 1汤匙新鲜姜，磨碎\n- 1汤匙咖喱粉\n- 1茶匙孜然粉\n- 1茶匙芫荽粉\n- 半茶匙姜黄粉\n- 1罐（14 盎司）椰奶\n- 1罐（14 盎司）切碎的番茄\n- 2杯熟鹰咖喱豆（或一罐，沥干后冲洗干净）\n- 2杯杂蔬菜（如彩椒、胡萝卜和豌豆）\n- 适量盐和胡椒\n- 新鲜香菜，用来装饰（可选）\n\n做法：\n1. 在一个大平底锅或锅里用中火加热植物油。\n2. 加入切碎的洋葱，煮至变成半透明，约 5 分钟。\n3. 加入蒜末和姜末，再煮一分钟。\n4. 加入咖喱粉、孜然粉、芫荽粉和姜黄粉。搅拌均匀，确保洋葱和香料均匀覆盖。\n5. 倒入椰奶和切碎的番茄（连同汁液）。搅拌均匀，然后煮沸。\n6. 将熟鹰咖喱豆和杂蔬菜加入锅中。搅拌均匀。\n7. 将火调至小火，焖煮咖喱约 15-20 分钟，或直到蔬菜变软。\n8. 根据口味加盐和胡椒。\n9. 将素鹰咖喱倒在蒸米饭上或配以馕饼食用。\n10. 如有需要，可用新鲜香菜装饰。\n\n这个食谱很灵活，您可以根据自己的口味调整香料和蔬菜。如果您喜欢辛辣食物，还可以加入辣椒粉或红辣椒粉调味。祝您享用美味的素香鹰咖喱！如有任何其他问题或需要进一步帮助，请随时告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That sounds absolutely delicious! I love the combination of flavors and the use of chickpeas and vegetables in the curry. I can't wait to try it out. Thank you for providing such a detailed recipe. I'll make sure to follow the instructions closely and adjust the spices and vegetables to my taste. If I have any further questions, I'll definitely reach out. Thank you for your help!",
+            "content_zh": "听起来绝对美味！我喜欢咖喱中调味料的组合以及鹰嘴豆和蔬菜的使用。我迫不及待想尝试一下。谢谢你提供这么详细的食谱。我一定会仔细遵循说明，并根据我的口味调整香料和蔬菜。如果我有任何进一步的问题，我一定会联系你。谢谢你的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you liked the recipe. Cooking is all about experimenting and making it your own, so feel free to customize it to suit your taste preferences. Don't hesitate to ask if you have any questions along the way. I hope your vegan chickpea curry turns out amazing and becomes a go-to recipe for you. Enjoy your cooking adventure, and have a fantastic meal!",
+            "content_zh": "不客气！很高兴您喜欢这个食谱。烹饪就是关于尝试和按照自己的喜好进行改进，所以随意定制以满足您的口味喜好。如果您在制作过程中有任何问题，请不要犹豫问我。希望您的素食鹰嘴豆咖喱制作得非常美味，并成为您的必试食谱。祝您烹饪之旅愉快，用餐愉快！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for your kind words and encouragement! I'm excited to embark on this cooking adventure and try out the vegan chickpea curry. I'll make sure to put my own spin on it and enjoy the process. Thanks again for your assistance and well wishes. Have a wonderful day!\n",
+            "content_zh": "谢谢您的美好话语和鼓励！我很兴奋地开始这个烹饪冒险，并尝试一下素食鹰嘴豆咖喱。我会确保在其中加入我的特色，享受整个过程。再次感谢您的帮助和祝福。祝您有一个美好的一天！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could assist you. Enjoy the cooking adventure and have a fantastic time preparing the vegan chickpea curry. Don't forget to savor the process and have fun experimenting with flavors. If you ever need any more assistance or have any other questions, feel free to reach out. Have a wonderful day and happy cooking!",
+            "content_zh": "非常欢迎！我很高兴能帮助到您。享受烹饪的乐趣，愉快地准备素食鹰嘴豆咖喱。别忘记享受整个过程，尽情探索不同口味。如果您需要任何帮助或有其他问题，请随时联系我。祝您度过美好的一天，愉快烹饪！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "vegan",
+        "chickpea curry"
+    ],
+    "preference_summary": [
+        "fresh vegetables",
+        "spices"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "32",
+            "zh": "32"
+        },
+        "Personality": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Independent",
+                "zh": "独立"
+            },
+            {
+                "en": "Optimistic",
+                "zh": "乐观"
+            }
+        ],
+        "Occupation": {
+            "en": "Artist",
+            "zh": "艺术工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Painting",
+                "zh": "绘画"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Listening to music",
+                "zh": "听音乐"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Visiting exhibitions",
+                "zh": "看展"
+            },
+            {
+                "en": "Cultural trips",
+                "zh": "文化旅行"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Vegan",
+                "zh": "素食"
+            },
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Invests in art pieces",
+                "zh": "购买艺术品"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Keeping small animals",
+                "zh": "养小动物"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

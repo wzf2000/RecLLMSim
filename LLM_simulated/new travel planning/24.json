@@ -1,0 +1,223 @@
+{
+    "task": "new travel planning",
+    "preference_id": 42,
+    "task_context_id": 7,
+    "preference": "1. Gender: Male\n2. Age: 28\n3. Personality: Energetic, competitive, and focused\n4. Occupation: Professional Basketball Player\n5. Daily Interests and Hobbies: Training, watching sports, playing video games\n6. Travel Habits: Travels for competitions, enjoys adventurous activities\n7. Dining Preferences: Follows strict diet regimen, prefers protein shakes\n8. Spending Habits: Invests in sports equipment, spends on gaming\n9. Other Aspects: Lives in a shared apartment, has a sports scholarship",
+    "preference_zh": "1. 性别：男 2. 年龄：28 3. 个性：精力充沛，好竞争，专注 4. 职业：职业篮球运动员 5. 日常兴趣和爱好：训练，观看体育比赛，玩电子游戏 6. 旅行习惯：为比赛而旅行，喜欢冒险活动 7. 用餐偏好：遵循严格的饮食规律，偏爱蛋白质奶昔 8. 消费习惯：投资于体育设备，花费在游戏上 9. 其他方面：住在合租公寓，拥有体育奖学金",
+    "task_context": "You are planning a weekend trip that will take place in December. Your goal, with the help of LLM, is to refine and finalize your travel plans. This includes making detailed arrangements for accommodations, transportation, and your daily itinerary. Your final travel plan should be as comprehensive and realistic as possible, ensuring that it can be seamlessly implemented when the time comes.\nYour trip planning should take into consideration the specific destination as specified in the following requirements: no specific destination restrictions. You should also consider your point of departure, your preferred mode of transportation to the destination, and the specific attractions or activities you wish to engage in. Remember to consider factors such as travel distance, travel time, and the opening hours of the attractions.",
+    "task_context_zh": "你正在计划一个将在12月举行的周末旅行。在LLM的帮助下，你的目标是完善和确定你的旅行计划。这包括对住宿、交通和每天行程的详细安排。你的最终旅行计划应尽可能全面和现实，确保在时机到来时能够顺利实施。你的旅行计划应考虑到以下要求中指定的具体目的地：没有特定目的地限制。你还应考虑你的出发地、到达目的地的首选交通方式，以及你希望参与的具体景点或活动。记得考虑诸如旅行距离、旅行时间和景点的开放时间等因素。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hey there, I'm planning a weekend trip in December. I need to sort out my travel plans, including accommodations, transportation, and daily itinerary. I don't have a specific destination in mind yet, so I'm open to suggestions. Let's start with some cool destinations that you think would suit me. Remember, I'm sporty and adventurous.",
+            "content_zh": "嘿，我打算在十二月去周末旅行。我需要安排好我的旅行计划，包括住宿、交通和每日行程。我还没有特定的目的地，所以我愿意听取建议。让我们从你认为适合我的一些酷炫目的地开始。记住，我喜欢运动和冒险。",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely, I'd love to help you with that! \n\nGiven your sporty and adventurous traits, I can suggest a few destinations that might be interesting for a weekend trip in December:\n\n1. **Whistler, Canada**: One of the most famous ski resorts in the world, perfect for winter sports enthusiasts. Besides skiing and snowboarding, you can also enjoy snowmobiling, snowshoeing, and ice climbing.\n\n2. **Queenstown, New Zealand**: Known as the adventure capital of the world. You can participate in a variety of thrilling activities, like bungee jumping, jet boating, white-water rafting, and skydiving. Plus, December is summer in New Zealand, so the weather would be great.\n\n3. **Costa Rica**: Offers a blend of adventure and nature. You can explore rainforests, go white water rafting, zip-lining, surfing, or even volcano hiking.\n\n4. **Interlaken, Switzerland**: Another great place for winter sports. It also offers opportunities for skydiving and paragliding with a stunning backdrop of snow-covered mountains.\n\n5. **Moab, Utah, USA**: If you're into off-road biking or hiking, Moab offers some of the best trails. Plus, you can visit the nearby national parks like Arches and Canyonlands.\n\nPlease let me know which one appeals to you the most or if you want more options. Also, I need to know your current location to help you with transportation and other logistics.",
+            "content_zh": "当然，我很乐意帮助你！考虑到你热爱体育和冒险，我可以建议几个十二月周末旅行的目的地：\n\n1. **加拿大惠斯勒**：世界上最著名的滑雪度假胜地之一，非常适合冬季运动爱好者。除了滑雪和滑雪板运动，你还可以尽情享受雪地摩托车、雪鞋行走和攀冰等活动。\n\n2. **新西兰皇后镇**：被誉为世界冒险之都。你可以参与各种激动人心的活动，如蹦极、喷气艇、白水漂流和跳伞。此外，十二月是新西兰的夏季，天气会非常好。\n\n3. **哥斯达黎加**：结合了冒险和大自然元素。你可以探索雨林、进行急流漂流、空中滑索、冲浪，甚至火山徒步旅行。\n\n4. **瑞士因特拉肯**：冬季运动的另一个好去处。它还提供了跳伞和滑翔伞的机会，背景是白雪覆盖的群山。\n\n5. **美国犹他州莫阿布**：如果你喜欢越野骑行或徒步旅行，莫阿布提供一些最佳的小径。另外，你还可以参观附近的国家公园，如拱门国家公园和峡谷地国家公园。\n\n请让我知道哪个对你最吸引，或者如果你想要更多选择。另外，我需要知道你目前的位置，以便帮助你处理交通和其他后勤事宜。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Great suggestions! I'm really drawn to the idea of Whistler, Canada. It seems like a great opportunity to combine my love for sports and adventure. Plus, I've always wanted to try ice climbing. I'm currently based in New York. Let's explore this option further. Can you help me figure out the best way to get to Whistler from New York, and a suitable place for me to stay? I'd prefer a place close to the ski resorts.",
+            "content_zh": "很棒的建议！我真的很喜欢去加拿大惠斯勒的想法。这似乎是一个很好的机会，结合了我对运动和冒险的热爱。另外，我一直想尝试攀冰。我目前在纽约。让我们进一步探讨这个选项。你能帮我找出从纽约到惠斯勒的最佳方式，以及适合我住宿的地方吗？我比较喜欢靠近滑雪度假村的地方。",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely, I'm glad you liked the suggestion!\n\n**Traveling from New York to Whistler:**\n\nThe most convenient way to get to Whistler from New York is by air. You can take a direct flight from New York to Vancouver. The flight duration is approximately 6 hours. From Vancouver, Whistler is a 2-hour drive. You have a couple of options to reach Whistler from Vancouver:\n\n1. **Shuttle Bus**: There are several shuttle services like the Whistler Shuttle and Pacific Coach that run from Vancouver Airport to Whistler. They offer comfortable rides with Wi-Fi onboard.\n\n2. **Car Rental**: If you prefer more flexibility, you can rent a car at Vancouver Airport and drive to Whistler. The route is quite scenic.\n\n**Accommodation:**\n\nWhistler has a range of accommodations close to the ski resorts. Here are a few options:\n\n1. **The Westin Resort & Spa**: Located in Whistler's pedestrian village, it's just a few steps away from the gondolas servicing the ski slopes.\n\n2. **Fairmont Chateau Whistler**: Nestled at the base of Blackcomb Mountain, Fairmont offers ski-in and ski-out access and a luxurious stay.\n\n3. **Pan Pacific Whistler Mountainside**: It offers well-equipped rooms and direct access to the mountains for skiing.\n\n4. **Summit Lodge Boutique Hotel**: A slightly more budget-friendly option, it's located within a short walk to the ski lifts.\n\nAll these hotels also offer equipment rental for skiing and other winter sports.\n\nDo let me know if you need more information or if you have other preferences.",
+            "content_zh": "当然，我很高兴你喜欢这个建议！从纽约到惠斯勒的旅行：从纽约到惠斯勒最方便的方式是乘飞机。您可以直飞从纽约到温哥华。飞行时间约为6小时。从温哥华到惠斯勒需驱车2小时。您可以选择几种方式从温哥华到达惠斯勒：1.穿梭巴士：有几家穿梭服务，如惠斯勒穿梭和太平洋教练，从温哥华机场到惠斯勒。他们提供舒适的乘车体验，车上有Wi-Fi。2.租车：如果您更喜欢灵活性，您可以在温哥华机场租车驱车前往惠斯勒。路线非常风景优美。住宿：惠斯勒有许多靠近滑雪胜地的住宿选择。以下是一些选项：1.威斯汀度假酒店与水疗中心：位于惠斯勒的步行村，离滑雪缆车只有几步之遥。2.费尔蒙香槟惠斯太尔酒店：坐落在布莱考姆山脚下，费尔蒙提供滑雪进出和豪华住宿。3.潘太田惠斯山边：设备齐全的客房和直接进入山上滑雪的通道。4.颠峰小径精品酒店：价格稍微亲民，步行即可到达滑雪缆车。所有这些酒店还提供滑雪和其他冬季运动的器材租赁。如果您需要更多信息或有其他喜好，请随时告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "The direct flight to Vancouver sounds good; I'll probably go with that. As for getting to Whistler from Vancouver, I think I'll rent a car. It'll give me the flexibility to explore a bit and I always enjoy a good drive.\n\nNow, regarding accommodations, I'm torn between The Westin Resort & Spa and the Fairmont Chateau Whistler. I've got to stick to my diet and training regimen, so a place with good gym facilities and healthy dining options is important. Can you tell me more about these aspects for both hotels?\n\nAlso, can you help me put together an itinerary? I'd like to maximize my time there with a good mix of skiing, ice climbing, and maybe a day for recovery with something less intensive. Let's plan for a Friday to Sunday trip.",
+            "content_zh": "直飞温哥华听起来不错；我可能会选择那个。至于从温哥华到惠斯勒的交通，我想我会租一辆车。这样我就能有灵活性多探索一下，而且我总是喜欢一次愉快的驾驶。现在，关于住宿，我在西酒店度假村和温哥华费尔蒙夏多惠斯勒之间犹豫不决。我必须坚持我的饮食和训练计划，所以有良好的健身设施和健康的餐饮选择的地方很重要。你能告诉我这两家酒店的这些方面吗？另外，你能帮我制定一个行程吗？我想充分利用我的时间，滑雪、冰爬，可能还有一个不那么紧张的恢复日。让我们计划一个周五到周日的行程。",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely, let's take a closer look at your accommodation options:\n\n**The Westin Resort & Spa:**\n\nThe Westin offers a state-of-the-art gym facility, The WestinWORKOUT® Fitness Studio, open 24/7. It has a variety of cardio machines, strength-training equipment, and free weights. They also offer a RunWESTIN™ program with guided group runs and custom running maps. \n\nFor dining, The Grill & Vine offers a fresh and locally sourced menu, with plenty of healthy options. The FireRock Lounge, on the other hand, is a great place for a casual, nutritious meal.\n\n**Fairmont Chateau Whistler:**\n\nFairmont also has a well-equipped gym, open 24/7, with treadmills, elliptical trainers, free weights, and resistance training machines. They offer complimentary yoga and fitness classes as well.\n\nFor dining, The Wildflower features mountain cuisine with plenty of fresh, locally sourced, and nutritious options. The Health Club Juice Bar offers light snacks and healthy smoothies.\n\n**Itinerary:**\n\nHere's a rough plan for your trip:\n\n**Friday:**\n\n- Morning: Arrival in Vancouver, pick up rental car and drive to Whistler.\n- Afternoon: Check into hotel and get familiar with the surroundings.\n- Evening: Light workout at the hotel gym and dinner at the hotel restaurant.\n\n**Saturday:**\n\n- Morning: Start your day early with skiing. Most ski slopes open as early as 8:30 am.\n- Afternoon: Continue skiing or try snowboarding.\n- Evening: Rejuvenate with a relaxing session at the hotel spa, followed by dinner.\n\n**Sunday:**\n\n- Morning: Embark on an ice climbing adventure. Several tour operators offer beginner-friendly ice climbing lessons.\n- Afternoon: For recovery, you might enjoy a scenic gondola ride on the PEAK 2 PEAK Gondola, offering breathtaking panoramic views of Whistler. \n- Evening: Drive back to Vancouver for your flight back to New York.\n\nPlease let me know what you think of this itinerary and if you want any changes. Also, remember to check the COVID-19 guidelines and restrictions for travel to Canada from the USA.",
+            "content_zh": "绝对的，让我们更仔细地看看您的住宿选择：\n\n**威斯汀度假村及水疗中心：**\n\n威斯汀酒店提供先进的健身设施——威斯汀健身工作室，全天候开放。设有各种有氧机器、力量训练设备和自由重量。他们还提供RunWESTIN™计划，包括有引导的小组跑步和定制跑步地图。\n\n在餐饮方面，The Grill & Vine提供新鲜和本地食材制作的菜单，提供大量健康选择。另一方面，FireRock Lounge是一个非常适合休闲、营养丰富的用餐场所。\n\n**费尔蒙夏多惠斯勒城堡酒店：**\n\n费尔蒙酒店也设有设备齐全的健身房，全天候开放，设有跑步机、椭圆机、自由重量和抗阻训练设备。他们还提供免费瑜伽和健身课程。\n\n在餐饮方面，The Wildflower餐厅提供丰富的山地美食，有大量新鲜、本地食材和营养丰富的选择。而健康俱乐部果汁吧则提供轻食和健康果昔。\n\n**行程：**\n\n以下是您的旅行大致计划：\n\n**星期五：**\n\n- 上午：抵达温哥华，取得租车并驱车前往惠斯勒。\n- 下午：入住酒店并熟悉周围环境。\n- 晚上：在酒店健身房进行轻量训练，并在酒店餐厅晚餐。\n\n**星期六：**\n\n- 上午：早早开始您的滑雪之旅。大多数滑雪场早上8:30开放。\n- 下午：继续滑雪或尝试单板滑雪。\n- 晚上：在酒店温泉放松后享用晚餐。\n\n**星期日：**\n\n- 上午：踏上冰攀登冒险之旅。一些旅行社提供适合初学者的冰攀登课程。\n- 下午：为恢复，您可能会喜欢乘坐PEAK 2 PEAK全景缆车进行风景如画的惠斯勒全景观光。\n- 晚上：驱车返回温哥华，准备返回纽约的航班。\n\n请让我知道您对这个行程有何看法，是否需要任何更改。同时，请记得查看从美国前往加拿大的COVID-19指南和旅行限制。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "The fitness facilities and dining options at both hotels sound great and should fit my needs. Let’s go with The Westin Resort & Spa; it seems to have everything I'm looking for and is conveniently located.\n\nThe itinerary looks solid. On Saturday, I'd like to lock in an ice climbing session in the morning instead of additional skiing. That'll give me a new challenge and keep things interesting. Also, considering my competitive nature, I might want to spend a bit more time at the gym on Friday evening to shake off the flight.\n\nAs for Sunday, I think a gondola ride is a nice touch for recovery. But let's add a late afternoon spa session before the drive back to Vancouver to ensure I'm fully relaxed.\n\nOne last thing: before we finalize this, could you find out if any of these hotels have protein shakes or a place where I can get them? It's a key part of my diet, especially after workouts.",
+            "content_zh": "两家酒店的健身设施和餐饮选择听起来都很不错，都应该能满足我的需求。我们选择威斯汀度假酒店和水疗中心吧；它似乎拥有我想要的一切，而且位置方便。\n行程看起来很不错。周六早上，我想锁定冰攀活动，而不是滑雪。这将给我一个新的挑战，让事情更有趣。考虑到我的竞争性格，我可能想在周五晚些时候在健身房多呆一会，以摆脱飞行的疲劳。\n至于周日，我觉得坐缆车是恢复的一个不错的选择。但在返回温哥华的路上，我们加一个傍晚的spa疗程，以确保我完全放松。\n最后一件事：在最终确定之前，你能查一下这些酒店是否有蛋白奶昔或我可以得到它们的地方吗？这对我的饮食至关重要，尤其是在锻炼后。",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "Great choices! Let's refine your itinerary based on your latest preferences and check on the protein shake availability at The Westin Resort & Spa.\n\n**Friday:**\n\n- Morning: Fly from New York to Vancouver, pick up the rental car, and drive to Whistler.\n- Afternoon: Check into The Westin Resort & Spa, explore the surroundings.\n- Evening: Extended gym session to shake off the flight. For dinner, you can try Grill & Vine for some nutritious options.\n\n**Saturday:**\n\n- Morning: Ice climbing session. Whistler offers guided tours that cater to all skill levels, including beginners, ensuring you have a safe and thrilling experience.\n- Afternoon: Return to the hotel, perhaps relax a bit, and then you can spend some more time exploring Whistler or having a light workout.\n- Evening: Consider relaxing at the FireRock Lounge or exploring other dining options in Whistler Village.\n\n**Sunday:**\n\n- Morning: Enjoy a leisurely breakfast and then head for the PEAK 2 PEAK Gondola ride for some stunning views.\n- Early Afternoon: Return to the hotel and prepare for the spa session. It's a perfect way to soothe your muscles after the adventurous activities.\n- Late Afternoon: Spa session at the hotel to ensure you are fully relaxed before the drive back.\n- Evening: Drive back to Vancouver in preparation for your flight back to New York.\n\n**Regarding protein shakes at The Westin Resort & Spa:**\n\nThe Westin Resort & Spa is committed to promoting a healthy lifestyle, which includes nutritious dining options. While specific details about protein shakes aren't readily available online, establishments like The Westin that focus on wellness typically offer a range of nutritious supplements, including protein shakes, especially in their gym area or through room service. However, I recommend contacting the hotel directly to confirm their current offerings and see if they can accommodate your dietary needs throughout your stay.\n\nYour trip to Whistler sounds like it's going to be both adventurous and rejuvenating! If there's anything else you need to know or another aspect of your trip you'd like to explore further, feel free to ask.",
+            "content_zh": "很棒的选择！让我们根据您最新的偏好来完善您的行程，并查看威斯汀度假村和水疗中心是否有蛋白奶昔供应。 \n\n星期五：\n- 早上：从纽约飞往温哥华，取得租车并驱车前往惠斯勒。\n- 下午：入住威斯汀度假村和水疗中心，探索周边环境。\n- 晚上：延长健身房课程以摆脱飞行的疲劳。晚餐可以尝试格里尔和葡萄酒，享用一些营养美味的选择。\n\n星期六：\n- 早上：冰攀岩课程。惠斯勒提供针对所有技能水平的引导游，包括初学者，确保您有一个安全和激动人心的体验。\n- 下午：返回酒店，也许稍微放松一下，然后您可以花一些时间探索惠斯勒或进行轻度锻炼。\n- 晚上：考虑在FireRock酒廊放松或探索惠斯勒村的其他餐饮选择。\n\n星期日：\n- 早上：享受悠闲的早餐，然后前往PEAK 2 PEAK索道观光，欣赏壮丽的景色。\n- 早下午：返回酒店准备水疗课程。这是在经历了冒险活动后舒缓肌肉的完美方式。\n- 晚下午：在酒店享受水疗课程，确保您在驱车回程前完全放松。\n- 晚上：返回温哥华，准备飞往纽约的航班。\n\n关于威斯汀度假村和水疗中心的蛋白奶昔：\n威斯汀度假村和水疗中心致力于促进健康的生活方式，其中包括营养餐饮选择。虽然关于蛋白奶昔的具体细节并不容易在网上找到，像威斯汀这样专注于健康的场所通常提供一系列营养补充剂，包括蛋白奶昔，尤其是在他们的健身房区域或通过客房服务。然而，我建议直接联系酒店确认他们目前提供的服务，并了解他们是否可以满足您在住宿期间的饮食需求。\n\n您前往惠斯勒的旅行听起来既充满冒险又令人恢复活力！如果您还需要了解其他信息或者想进一步探索您旅行的其他方面，请随时提问。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That finalizes things nicely. I appreciate your help in sorting out the details. I will contact The Westin Resort & Spa directly to ask about the protein shakes. Otherwise, I think we've got a solid plan in place. Thanks for your assistance!",
+            "content_zh": "这样就把事情搞定了。感谢你在整理细节方面的帮助。我会直接联系威斯汀度假酒店和水疗中心，询问蛋白奶昔的事情。否则，我觉得我们已经制定了一个可靠的计划。感谢你的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could assist with your travel plans. Whistler is an amazing destination, and I'm sure you're going to have an incredible time there. Remember to pack warm clothing and all your necessary gear. Safe travels, and enjoy your sporty and adventurous weekend! If you have any more questions or need further assistance in the future, don't hesitate to ask. Enjoy your trip!",
+            "content_zh": "非常欢迎！很高兴我能帮助你的旅行计划。惠斯勒是一个惊人的目的地，我相信你会在那里度过一段不可思议的时光。记得要带上保暖的衣物和所有必需的装备。一路平安，享受你充满运动和冒险的周末！如果你有任何更多的问题或将来需要进一步的帮助，不要犹豫问我。祝你旅途愉快！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary": [
+        "trip finalized",
+        "gratitude expressed"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "28",
+            "zh": "28"
+        },
+        "Personality": [
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            },
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            }
+        ],
+        "Occupation": {
+            "en": "Professional athlete",
+            "zh": "职业运动员"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Watching TV",
+                "zh": "看电视"
+            },
+            {
+                "en": "Playing video games",
+                "zh": "玩游戏"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Outdoor activities",
+                "zh": "户外活动"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Healthy food",
+                "zh": "健康饮食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on entertainment",
+                "zh": "娱乐支出"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Active in sports activities",
+                "zh": "喜欢参与体育活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Depth",
+            "context": "High",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

@@ -1,0 +1,221 @@
+{
+    "task": "recipe planning",
+    "preference_id": 95,
+    "task_context_id": 0,
+    "preference": "1. Gender: Female\n2. Age: 30\n3. Personality: Ambitious, determined, and goal-oriented\n4. Occupation: Startup Founder\n5. Daily Interests and Hobbies: Networking, reading business books, yoga\n6. Travel Habits: Travels for work, enjoys city breaks\n7. Dining Preferences: Health-conscious, enjoys sushi and salads\n8. Spending Habits: Invests in high-end tech gadgets, saves for business growth\n9. Other Aspects: Lives in a city apartment, has a high-stress lifestyle",
+    "preference_zh": "1. 性别：女性\n2. 年龄：30岁\n3. 个性：有野心，有决心，有目标\n4. 职业：创业者\n5. 日常兴趣爱好：社交，阅读商业书籍，瑜伽\n6. 旅行习惯：出差旅行，喜欢城市短途\n7. 餐饮偏好：注重健康，喜欢寿司和沙拉\n8. 消费习惯：投资高端科技产品，为业务增长而存款\n9. 其他方面：住在城市公寓，生活高压",
+    "task_context": "You plan to prepare a meal at home for yourself. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "您打算在家为自己准备一顿饭。您并不是很擅长烹饪，拥有有限的烹饪经验。因此，您希望向LLM寻求帮助，创建食谱，确定所需食材，并决定要做哪些菜。在计划过程中，您应该学习每道菜的完整准备过程以及准备菜品的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here to assist me. I'm looking to prepare a meal at home but I have limited cooking experience. I would appreciate your help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Additionally, I'd like to learn the complete preparation process for each dish and the appropriate order in which to prepare them. Could you guide me through this process?",
+            "content_zh": "你好！很高兴你能在这里帮助我。我想在家里准备一顿饭，但是我在烹饪方面经验有限。我会感激你在创建食谱、确定所需食材以及决定做什么菜方面的帮助。此外，我想学习每道菜的完整准备过程以及准备它们的适当顺序。你能帮我引导这个过程吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course! I'd be happy to help you create a delicious meal at home. Let's start by deciding what type of cuisine you're in the mood for. Are you looking for something specific, or do you have any dietary restrictions or preferences?",
+            "content_zh": "当然可以！我很乐意帮助您在家里制作美味的餐点。让我们从决定您想吃哪种类型的菜开始。您是想尝试特定的食物吗，还是有任何饮食限制或偏好？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance. I'm in the mood for something healthy and light, so perhaps a sushi-based meal or a fresh salad would be great options. I don't have any dietary restrictions, so we have some flexibility there. What do you suggest?",
+            "content_zh": "谢谢您提供帮助。我想要吃点健康清淡的东西，也许是寿司或者新鲜沙拉会是很好的选择。我没有任何饮食限制，所以我们有一些灵活性。您有什么建议？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Both sushi and salads are fantastic options for a healthy and light meal. Let's go with a sushi-based meal for now. We can make a variety of sushi rolls and complement them with some miso soup and a simple cucumber salad. Here's a step-by-step guide to help you prepare this meal:\n\n1. Decide on the sushi fillings: Some popular options include raw fish (like salmon or tuna), cooked shrimp, avocado, cucumber, and carrots. You can also add some cream cheese or spicy mayo if you like.\n\n2. Gather the ingredients:\n   - Sushi rice\n   - Nori (seaweed sheets)\n   - Sushi vinegar (or rice vinegar mixed with sugar and salt)\n   - Fillings of your choice (mentioned above)\n   - Soy sauce\n   - Wasabi and pickled ginger (optional)\n\n3. Prepare the sushi rice:\n   - Rinse 2 cups of sushi rice under cold water until the water runs clear.\n   - Cook the rice according to the package instructions.\n   - Once cooked, transfer the rice to a large bowl and let it cool slightly.\n   - Gradually add sushi vinegar to the rice while gently folding it in with a wooden spatula. Allow the rice to cool completely.\n\n4. Prepare the fillings:\n   - Slice your chosen fillings into thin strips or small pieces.\n   - Lay them out on a plate for easy access during the rolling process.\n\n5. Assemble the sushi rolls:\n   - Place a bamboo sushi mat on a clean surface and put a sheet of nori on top.\n   - Wet your hands with water to prevent sticking, then grab a handful of sushi rice and spread it evenly over the nori, leaving a small border at the top.\n   - Arrange your fillings in a line across the rice, near the bottom edge of the nori.\n\n6. Roll the sushi:\n   - Using the bamboo mat, start rolling the sushi from the bottom, applying gentle pressure to keep it tight.\n   - Once you reach the top, moisten the border with a little water to seal the roll.\n   - Repeat the process with the remaining nori sheets and fillings.\n\n7. Slice and serve:\n   - Use a sharp knife to slice the sushi rolls into bite-sized pieces.\n   - Arrange them on a platter and serve with soy sauce, wasabi, and pickled ginger.\n\n8. Prepare miso soup:\n   - Follow the instructions on the miso paste package to make miso soup. It usually involves dissolving the paste in hot water and adding tofu, seaweed, and scallions.\n\n9. Make a simple cucumber salad:\n   - Slice cucumbers thinly and place them in a bowl.\n   - Drizzle with a mixture of rice vinegar, soy sauce, sesame oil, and a pinch of sugar.\n   - Toss gently to combine and let it marinate for a few minutes before serving.\n\nThat's it! You now have a delicious sushi-based meal ready to enjoy. Remember, presentation is key, so feel free to get creative with your plating. Let me know if you have any questions or need further assistance along the way!",
+            "content_zh": "寿司和沙拉都是健康轻食的绝佳选择。让我们现在选择寿司为主的一餐吧。我们可以制作各种寿司卷，并搭配一些味噌汤和简单的黄瓜沙拉。以下是一份逐步指南，帮助您准备这顿饭：\n\n1. 决定寿司填料：一些流行的选择包括生鱼（如三文鱼或金枪鱼）、熟虾、鳄梨、黄瓜和胡萝卜。您还可以根据喜好添加一些奶油奶酪或辣椒酱。\n\n2. 收集食材：\n   - 寿司米\n   - 海苔\n   - 寿司醋（或混合糖和盐的米醋）\n   - 您选择的填料（如上所述）\n   - 酱油\n   - 山葵和泡姜（可选）\n\n3. 准备寿司米：\n   - 用冷水冲洗2杯寿司米，直到水变清澈。\n   - 根据包装说明煮米饭。\n   - 煮熟后，将大米倒入一个大碗中稍微冷却。\n   - 用木质铲逐渐向大米中加入寿司醋，轻轻拌匀。让大米完全冷却。\n\n4. 准备填料：\n   - 将您选择的填料切成细条或小块。\n   - 将它们摆放在盘子上，方便在卷的过程中取用。\n\n5. 组装寿司卷：\n   - 在干净的表面上放一块竹寿司垫，然后放一张海苔在上面。\n   - 用水湿润双手以防粘连，然后抓一把寿司米均匀地铺在海苔上，留出顶部一小边。\n   - 在靠近海苔底部边缘的米饭上排列您的填料。\n\n6. 卷寿司：\n   - 使用竹垫，从底部开始卷寿司，施加适量压力使其保持紧密。\n   - 当卷到顶端时，用少量水湿润边缘以封口。\n   - 使用剩余的海苔和填料重复这个过程。\n\n7. 切片并上菜：\n   - 使用锋利的刀将寿司卷切成一口大小的块。\n   - 将它们摆放在托盘上，并配以酱油、山葵和泡姜。\n\n8. 准备味噌汤：\n   - 根据味噌酱包装上的说明制作味噌汤。通常涉及在热水中溶解酱，然后加入豆腐、海苔和大葱。\n\n9. 制作简单的黄瓜沙拉：\n   - 把黄瓜切成薄片放入碗中。\n   - 撒上一点米醋、酱油、麻油和一小撮糖的混合液。\n   - 拌匀轻柔，静置几分钟后即可食用。\n\n就是这样！您现在可以享用到一顿美味的以寿司为主的餐点了。记住，摆盘很重要，所以可以随意发挥创意。如果您有任何问题或需要进一步协助，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for providing such a detailed guide! I appreciate your help in planning this sushi-based meal. The step-by-step instructions for preparing the sushi rolls, miso soup, and cucumber salad are very clear. I'm excited to give it a try!\n\nJust to clarify, for the miso soup, should I use a specific type of miso paste? And do you have any suggestions for the sushi fillings that would work well together?",
+            "content_zh": "非常感谢您提供如此详细的指南！我感谢您在规划这顿以寿司为主的餐点时的帮助。准备寿司卷、味噌汤和黄瓜沙拉的逐步说明非常清晰。我很兴奋想尝试！只是想澄清一下，对于味噌汤，我应该使用特定类型的味噌酱吗？您有哪些建议可以让寿司馅料搭配得更好吗？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! I'm glad you found the instructions helpful. For the miso soup, there are different types of miso paste available, such as white (shiro) miso, red (aka) miso, and mixed (awase) miso. White miso has a milder and sweeter flavor, while red miso is bolder and saltier. Either white or red miso would work well for miso soup, depending on your personal preference. You can find miso paste in most grocery stores or Asian markets.\n\nAs for sushi fillings, here are a few combinations that work well together:\n\n1. Classic California Roll:\n   - Crab or imitation crab sticks\n   - Avocado\n   - Cucumber\n\n2. Spicy Tuna Roll:\n   - Fresh tuna (sashimi-grade)\n   - Spicy mayo (mix mayo with sriracha or chili sauce)\n   - Cucumber or avocado\n\n3. Shrimp Tempura Roll:\n   - Tempura-battered shrimp (cooked)\n   - Avocado\n   - Cucumber\n   - Spicy mayo or eel sauce\n\nFeel free to mix and match fillings based on your preferences. You can also add additional ingredients like sesame seeds, scallions, or tobiko (fish roe) for added flavor and texture.\n\nRemember to have fun and experiment with different combinations. Sushi is quite versatile, so you can get creative and customize it to your liking. Enjoy your sushi-making adventure, and if you have any more questions, feel free to ask!",
+            "content_zh": "不客气！我很高兴您觉得这些说明有帮助。对于味噌汤，有不同种类的味噌酱可供选择，如白味噌（shiro）、红味噌（aka）和混合味噌（awase）。白味噌味道比较温和和甜，而红味噌则更加浓烈和咸。无论是白味噌还是红味噌都适合用来做味噌汤，取决于个人口味。您可以在大多数杂货店或亚洲市场找到味噌酱。关于寿司的馅料，以下是一些搭配推荐：1. 经典加州卷： - 蟹肉或仿蟹柳 - 牛油果 - 黄瓜2. 辣味金枪鱼卷： - 新鲜金枪鱼（生吃级别） - 辣味蛋黄酱（将蛋黄酱与是拉差或辣椒酱混合） - 黄瓜或牛油果3. 虾天妇罗卷： - 天妇罗虾（煮熟） - 牛油果 - 黄瓜 - 辣味蛋黄酱或鳗鱼酱随意搭配馅料以满足个人口味。您也可以添加芝麻、青葱或飞鱼籽等额外食材增添口味和口感。记得要享受并尝试不同的搭配。寿司的搭配方法多种多样，您可以发挥创意，根据自己的口味进行定制。祝您享受寿司制作的旅程，如果有更多问题，请随时问我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the suggestions! I love the idea of trying out different combinations and getting creative with the sushi fillings. I'll definitely keep those options in mind when preparing the rolls.\n\nI appreciate all your help in planning this meal. I feel confident now in creating a delicious sushi-based meal, complete with miso soup and a cucumber salad. I'm excited to give it a try! If I have any further questions along the way, I'll be sure to reach out. Thank you again for your assistance.\n\n[System]: You're welcome! I'm glad I could help. I'm confident that your sushi-based meal will turn out fantastic. If you have any more questions or need assistance with anything else in the future, don't hesitate to ask. Enjoy your cooking experience and have a great meal!",
+            "content_zh": "谢谢您的建议！我喜欢尝试不同组合并在寿司馅料中发挥创意的想法。在制作寿司卷时，我一定会记住这些选择。\n感谢您在计划这顿饭中的所有帮助。现在我对创作美味的以寿司为基础的餐食感到自信，还有味噌汤和黄瓜沙拉。我很兴奋尝试！如果在过程中有任何问题，我一定会联系您。再次感谢您的帮助。\n[System]: 不客气！我很高兴能够帮助您。我相信您的寿司餐会非常棒。如果将来有任何问题或需要帮助，请随时提问。祝您烹饪愉快，用餐愉快！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "Thank you! I'm glad I could assist you. Have a wonderful time preparing your meal, and don't hesitate to reach out if you need any more help or have any other questions in the future. Enjoy your delicious sushi-based feast and have a great day!",
+            "content_zh": "谢谢！我很高兴能帮助到您。祝您做饭时愉快，如果需要更多帮助或有其他问题，不要犹豫联系我。享受您美味的寿司大餐，并祝您有美好的一天！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "sushi",
+        "salads",
+        "health-conscious"
+    ],
+    "preference_summary": [
+        "light",
+        "sushi-based meal",
+        "fresh salad"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 1,
+        "Practical Usefulness": 2,
+        "Diversity": 1
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "30",
+            "zh": "30"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Occupation": {
+            "en": "Startup founder",
+            "zh": "创业者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Healthy food",
+                "zh": "健康饮食"
+            },
+            {
+                "en": "Japanese cuisine",
+                "zh": "日式美食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on tech gadgets",
+                "zh": "科技产品"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Has a high-stress lifestyle",
+                "zh": "生活压力大"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

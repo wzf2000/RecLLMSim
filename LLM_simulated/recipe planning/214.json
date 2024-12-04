@@ -1,0 +1,232 @@
+{
+    "task": "recipe planning",
+    "preference_id": 14,
+    "task_context_id": 4,
+    "preference": "1. Gender: Male\n2. Age: 55\n3. Personality: Calm, patient, and caring\n4. Occupation: Pediatrician\n5. Daily Interests and Hobbies: Reading medical journals, gardening, playing golf\n6. Travel Habits: Prefers calm and serene locations, enjoys family vacations\n7. Dining Preferences: Enjoys comfort food, prefers home-cooked meals\n8. Spending Habits: Saves for retirement, spends on gardening tools\n9. Other Aspects: Active in local community health programs, has a family",
+    "preference_zh": "1. 性别：男\n2. 年龄：55\n3. 个性：冷静、耐心、关心他人\n4. 职业：儿科医生\n5. 日常兴趣爱好：阅读医学期刊、园艺、打高尔夫\n6. 旅行习惯：喜欢宁静的地方，享受家庭度假\n7. 餐饮偏好：喜欢舒适食物，偏爱家常菜\n8. 消费习惯：为退休存钱，购买园艺工具\n9. 其他方面：积极参与当地社区健康项目，有家庭",
+    "task_context": "You plan to prepare a meal at home and invite three close friends to join you. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家准备一顿饭，并邀请三个亲近的朋友一起参加。你在烹饪方面不太熟练，经验有限。因此，你想请LLM帮忙制定食谱，确定所需食材，并决定要做什么菜。在规划过程中，你应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you reached out. I would appreciate your help in preparing a meal at home. I plan to invite three close friends over, but I'm not very skilled in cooking and have limited experience. I was hoping you could guide me in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Could you assist me with that?",
+            "content_zh": "你好！很高兴你联系我。我希望你能帮我准备一顿家庭餐。我打算邀请三个亲近的朋友过来，但我在烹饪方面并不很擅长，经验也有限。希望你能指导我制作食谱，确定必要的食材，并决定做哪些菜。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you prepare a meal for your friends! Cooking can be a fun and rewarding experience, even if you're not very skilled. Let's start by discussing what kind of meal you'd like to make. Do you have any preferences or dietary restrictions to consider? Are there any specific cuisines or dishes that you and your friends enjoy?",
+            "content_zh": "当然，我很乐意帮助您为朋友准备一顿餐！烹饪可以是一个有趣而有益的体验，即使您没有很高的技术水平。让我们首先讨论一下您想做什么类型的餐。您有任何偏好或膳食限制需要考虑吗？您和您的朋友喜欢哪些特定的菜系或菜肴呢？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance. I appreciate your understanding and guidance. As for the meal, I'd like to keep it simple and comforting. Comfort food tends to be a hit with my friends. We don't have any dietary restrictions to consider, so we have some flexibility there. I think a combination of appetizers, a main course, and a dessert would be great. As for specific cuisines or dishes, I'm open to suggestions. What do you think would work well for a cozy and enjoyable meal with friends?",
+            "content_zh": "感谢您提供的帮助。我感激您的理解和指导。至于餐点，我想保持简单而令人安慰的食物。安慰食品通常受到我朋友的喜爱。我们没有任何饮食限制要考虑，所以在这方面我们有一些灵活性。我认为一些开胃菜、主菜和甜点的组合会很棒。至于具体的菜系或菜肴，我愿意听取建议。您认为什么样的餐点与朋友一起温馨愉悦呢？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! Comfort food is always a crowd-pleaser. How about we go with a classic American-inspired menu? Here's a suggestion for a cozy and enjoyable meal:\n\nAppetizers:\n1. Spinach and Artichoke Dip: A creamy and delicious dip served with tortilla chips or toasted bread.\n2. Mini Meatballs: Bite-sized meatballs in a savory sauce, served with toothpicks for easy snacking.\n\nMain Course:\n3. Baked Mac and Cheese: A comforting and cheesy dish that's always a hit. You can even add some crispy bacon or sautéed mushrooms for extra flavor.\n4. Oven-Roasted Chicken: Simple yet flavorful, seasoned with herbs and roasted until juicy and golden. Serve it with a side of roasted vegetables or mashed potatoes.\n\nDessert:\n5. Warm Apple Crumble: A classic dessert that's perfect for fall. Serve it with a scoop of vanilla ice cream or a dollop of whipped cream.\n\nThese dishes are relatively easy to make and can be prepared in advance or with minimal effort on the day of your gathering. Let me know if you'd like more details on any of these recipes, or if you have any other preferences or questions!",
+            "content_zh": "太棒了！舒适的食物总是受人欢迎的。我们选一个经典的美国菜单怎么样？这里有一个温暖而愉快的用餐建议：前菜：1. 菠菜和朝鲜蓟蘸酱：配玉米片或烤面包，奶油美味的蘸酱。2. 迷你肉丸：浸泡在美味酱汁中的小肉丸，用牙签方便食用。主菜：3. 烤奶酪通心粉：一道让人惬意且多汁的奶酪菜肴。您甚至可以加入一些脆糖肉或炒蘑菇增加口味。4. 烤鸡：简单而美味，用香草调味，并烤至多汁金黄。搭配烤蔬菜或土豆泥。甜点：5. 温暖的苹果果脆：秋季最佳选择的经典甜点。配上一勺香草冰激凌或一勺奶油。这些菜品相对容易制作，可以提前准备或在聚会当天轻松烹饪。如果您想了解这些食谱的更多细节，或者有其他偏好或问题，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That sounds like a fantastic menu! I love the idea of starting with a creamy Spinach and Artichoke Dip and some Mini Meatballs as appetizers. The Baked Mac and Cheese and Oven-Roasted Chicken for the main course are classic comfort food choices that I'm sure my friends will enjoy. And to top it off, a Warm Apple Crumble for dessert sounds absolutely delightful.\n\nI appreciate your suggestions, and I think these dishes will be perfect for our gathering. If you could provide me with the recipes or any additional details, that would be helpful. Thank you for your assistance so far!",
+            "content_zh": "听起来像是一个绝妙的菜单！我喜欢以奶油菠菜艺术植物心和一些迷你肉丸子作为开胃菜的想法。烤奶酪与烤鸡作为主菜是经典的舒适食物选择，我相信我的朋友们会喜欢。最后，一个温暖的苹果馅饼作为甜点听起来绝对令人愉快。感谢您的建议，我认为这些菜肴将非常适合我们的聚会。如果您可以提供食谱或任何其他详细信息，那将会很有帮助。谢谢您迄今为止的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you like the menu. Here are the recipes for the dishes I suggested:\n\nSpinach and Artichoke Dip:\nIngredients:\n- 1 cup frozen spinach, thawed and drained\n- 1 cup canned artichoke hearts, drained and chopped\n- 1 cup cream cheese, softened\n- 1/2 cup sour cream\n- 1/2 cup mayonnaise\n- 1 cup shredded mozzarella cheese\n- 1/2 cup grated Parmesan cheese\n- 2 cloves garlic, minced\n- Salt and pepper to taste\n\nInstructions:\n1. Preheat your oven to 350°F (175°C).\n2. In a mixing bowl, combine the spinach, artichoke hearts, cream cheese, sour cream, mayonnaise, mozzarella cheese, Parmesan cheese, garlic, salt, and pepper. Mix well.\n3. Transfer the mixture to a baking dish and smooth the top.\n4. Bake for 20-25 minutes, or until the top is golden and bubbly.\n5. Serve hot with tortilla chips or toasted bread.\n\nMini Meatballs:\nIngredients:\n- 1 lb ground beef\n- 1/2 cup breadcrumbs\n- 1/4 cup grated Parmesan cheese\n- 1/4 cup milk\n- 1/4 cup finely chopped onion\n- 2 cloves garlic, minced\n- 1 egg, lightly beaten\n- 1 tablespoon chopped parsley\n- 1 teaspoon dried oregano\n- Salt and pepper to taste\n- Marinara sauce for serving\n\nInstructions:\n1. Preheat your oven to 375°F (190°C) and line a baking sheet with parchment paper.\n2. In a large bowl, combine all the ingredients (except the marinara sauce) and mix until well combined.\n3. Shape the mixture into small meatballs, about 1 inch in diameter, and place them on the prepared baking sheet.\n4. Bake for 15-20 minutes, or until the meatballs are cooked through and browned.\n5. Serve with toothpicks and a side of marinara sauce for dipping.\n\nFor the Baked Mac and Cheese, Oven-Roasted Chicken, and Warm Apple Crumble recipes, I can provide you with the detailed instructions if you'd like. Just let me know!",
+            "content_zh": "非常欢迎！我很高兴你喜欢菜单。这里是我建议的菜肴的食谱： \n\n菠菜和朝鲜蓟酱： \n材料： \n- 1 杯冷冻菠菜，解冻和沥干 \n- 1 杯腌制朝鲜蓟心，沥干和切碎 \n- 1 杯奶油奶酪，软化 \n- 1/2 杯酸奶油 \n- 1/2 杯蛋黄酱 \n- 1 杯切碎的莫扎雷拉奶酪 \n- 1/2 杯磨碎的帕尔玛奶酪 \n- 2 瓣大蒜，切碎 \n- 盐和胡椒粉适量 \n\n制作方法： \n1. 将烤箱预热至 350°F（175°C）。 \n2. 在一个大碗中，将菠菜、朝鲜蓟心、奶油奶酪、酸奶油、蛋黄酱、莫扎雷拉奶酪、帕尔玛奶酪、大蒜、盐和胡椒粉混合在一起。搅拌均匀。 \n3. 将混合物转移到烤盘中并抹平顶部。 \n4. 烘烤 20-25 分钟，或直到顶部呈金黄色并冒泡。 \n5. 热蘸玉米片或烤面包享用。\n\n迷你肉丸： \n材料： \n- 1 磅碎牛肉 \n- 1/2 杯面包屑 \n- 1/4 杯磨碎的帕尔玛奶酪 \n- 1/4 杯牛奶 \n- 1/4 杯切碎的洋葱 \n- 2 瓣大蒜，切碎 \n- 1 只蛋，打散 \n- 1 汤匙切碎的意大利香菜 \n- 1 茶匙干牛至 \n- 盐和胡椒粉适量 \n- 番茄酱一份 \n\n制作方法： \n1. 将烤箱预热至 375°F（190°C）并在烤盘上铺上烘焙纸。 \n2. 在一个大碗中，将所有材料（除了番茄酱）混合在一起，搅拌均匀。 \n3. 将混合物搓成直径约 1 英寸的小肉丸，并将它们放在准备好的烤盘上。 \n4. 烘烤 15-20 分钟，或直到肉丸煮熟并呈棕色。 \n5. 配上小牙签和一份蘸番茄酱的配菜。\n\n至于烤焗奶酪通心粉、烤箱烤鸡和温暖苹果馅饼的食谱，如果你愿意的话，我可以提供详细的说明。只要告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for providing the recipes for the Spinach and Artichoke Dip and Mini Meatballs. They both sound delicious, and I'm excited to try them out!\n\nIf you could also provide me with the detailed instructions for the Baked Mac and Cheese, Oven-Roasted Chicken, and Warm Apple Crumble, that would be wonderful. I want to make sure I have all the necessary information to prepare these dishes successfully. Thank you for your help so far!\n\nBy the way, I have a question regarding the Oven-Roasted Chicken. Do you have any specific seasoning or herb recommendations that would pair well with it?",
+            "content_zh": "谢谢您提供菠菜和朝鲜蓟蘸酱和迷你肉丸的食谱。它们听起来都很美味，我很期待尝试！如果您还能为焗芝士乳酪通心粉，烤箱烤鸡和热苹果馅饼提供详细的说明，那将太棒了。我希望确保我拥有准备这些菜肴所需的所有必要信息。迄今为止感谢您的帮助！顺便问一下，关于烤箱烤鸡，您有哪些特定的调料或草药推荐，可以很好地搭配它吗？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! I'm glad you liked the appetizer recipes. Now, let's move on to the main course and dessert.\n\nBaked Mac and Cheese:\nIngredients:\n- 8 oz elbow macaroni\n- 3 cups shredded cheddar cheese\n- 2 cups milk\n- 1/4 cup unsalted butter\n- 1/4 cup all-purpose flour\n- 1/2 teaspoon salt\n- 1/4 teaspoon black pepper\n- Optional: crispy bacon or sautéed mushrooms for topping\n\nInstructions:\n1. Preheat your oven to 350°F (175°C) and lightly grease a baking dish.\n2. Cook the macaroni according to the package instructions, then drain and set aside.\n3. In a saucepan, melt the butter over medium heat. Stir in the flour, salt, and pepper until smooth.\n4. Gradually whisk in the milk and cook, stirring constantly, until the mixture thickens.\n5. Remove the saucepan from heat and stir in 2 1/2 cups of the shredded cheddar cheese until melted and smooth.\n6. In the greased baking dish, combine the cooked macaroni and the cheese sauce, mixing well.\n7. Sprinkle the remaining 1/2 cup of shredded cheddar cheese on top.\n8. Bake for 25-30 minutes, or until the top is golden and bubbly.\n9. Optional: If using, sprinkle crispy bacon or sautéed mushrooms on top before serving.\n\nOven-Roasted Chicken:\nIngredients:\n- 1 whole chicken (3-4 lbs)\n- 2 tablespoons olive oil\n- 1 tablespoon dried herbs (such as thyme, rosemary, or a poultry seasoning blend)\n- Salt and pepper to taste\n\nInstructions:\n1. Preheat your oven to 425°F (220°C).\n2. Pat the chicken dry with paper towels and place it on a roasting pan or baking sheet.\n3. Rub the chicken with olive oil, making sure to coat it evenly.\n4. Sprinkle the dried herbs, salt, and pepper all over the chicken, both on the surface and inside the cavity.\n5. Place the chicken in the preheated oven and roast for about 1 hour, or until the internal temperature reaches 165°F (74°C) and the skin is golden and crispy.\n6. Remove the chicken from the oven and let it rest for 10-15 minutes before carving.\n\nFor the Warm Apple Crumble recipe, here are the detailed instructions:\n\nWarm Apple Crumble:\nIngredients:\n- 4-5 medium-sized apples, peeled, cored, and sliced\n- 1 tablespoon lemon juice\n- 1/2 cup all-purpose flour\n- 1/2 cup rolled oats\n- 1/2 cup brown sugar\n- 1/2 teaspoon ground cinnamon\n- 1/4 teaspoon ground nutmeg\n- 1/4 cup unsalted butter, cold and cut into small pieces\n- Optional: vanilla ice cream or whipped cream for serving\n\nInstructions:\n1. Preheat your oven to 375°F (190°C) and lightly grease a baking dish.\n2. In a bowl, toss the sliced apples with lemon juice to prevent browning, then transfer them to the greased baking dish.\n3. In a separate bowl, combine the flour, rolled oats, brown sugar, cinnamon, and nutmeg.\n4. Add the cold butter pieces to the dry mixture and use your fingers or a pastry cutter to blend them together until the mixture resembles coarse crumbs.\n5. Sprinkle the crumble mixture evenly over the apples in the baking dish.\n6. Bake for 30-35 minutes, or until the apples are tender and the crumble topping is golden and crispy.\n7. Remove from the oven and let it cool slightly before serving.\n8. Optional: Serve warm with a scoop of vanilla ice cream or a dollop of whipped cream.\n\nI hope these detailed instructions help you prepare the dishes successfully! Let me know if you have any more questions or if there's anything else I can assist you with. Enjoy your meal with your friends!",
+            "content_zh": "不客气！我很高兴你喜欢开胃菜谱。现在我们继续到主菜和甜点。\n\n烤奶酪通心粉：\n\n材料：\n- 8盎司通心粉\n- 3杯切碎的切达奶酪\n- 2杯牛奶\n- 1/4杯无盐黄油\n- 1/4杯多用途面粉\n- 1/2茶匙盐\n- 1/4茶匙黑胡椒粉\n- 可选：脆熟培根或炒蘑菇作为材料\n\n做法：\n1. 预热烤箱至350°F（175°C），轻轻润抹烤盘。\n2. 根据包装说明煮通心粉，然后沥干备用。\n3. 在一个平底锅中，用中火融化黄油。搅拌面粉、盐和黑胡椒粉直至光滑。\n4. 逐渐搅入牛奶，不断搅拌，直至混合物变稠。\n5. 取下平底锅，加入2 1/2杯切达奶酪，搅拌直至融化光滑。\n6. 将煮熟的通心粉和奶酪酱混合在润抹的烤盘中，搅拌均匀。\n7. 在表面撒上剩余的1/2杯切达奶酪。\n8. 烘烤25-30分钟，或者直至上面金黄且有泡沫。\n9. 可选：使用时，在上面撒上脆熟培根或炒蘑菇。\n\n烤全鸡：\n\n材料：\n- 1整只鸡（3-4磅）\n- 2汤匙橄榄油\n- 1汤匙干香草（如百里香、迷迭香或家禽调料混合物）\n- 盐和胡椒适量\n\n做法：\n1. 预热烤箱至425°F（220°C）。\n2. 用纸巾擦干鸡，放在烤盘或烤盘上。\n3. 将鸡涂抹橄榄油，确保均匀涂抹。\n4. 在整只鸡上均匀撒上干香草、盐和胡椒，包括表面和腔内。\n5. 将鸡放入预热烤箱烘烤约1小时，或直至内部温度达到165°F（74°C）且皮金黄且酥脆。\n6. 从烤箱中取出鸡，让其静置10-15分钟后切片。\n\n关于温暖的苹果脆的食谱，下面是详细说明：\n\n温暖的苹果脆：\n\n材料：\n- 4-5个中等大小的苹果，削皮、去核、切片\n- 1汤匙柠檬汁\n- 1/2杯多用途面粉\n- 1/2杯燕麦片\n- 1/2杯红糖\n- 1/2茶匙肉桂粉\n- 1/4茶匙肉豆蔻粉\n- 1/4杯冷冻无盐黄油，切小块\n- 可选：香草冰淇淋或打发奶油作为配料\n\n做法：\n1. 预热烤箱至375°F（190°C），轻轻润抹烤盘。\n2. 在一个碗中，用柠檬汁拌匀切片的苹果，以防止变色，然后将其转移到润抹的烤盘中。\n3. 在另一个碗中，搅拌面粉、燕麦片、红糖、肉桂粉和肉豆蔻粉。\n4. 将冷冻黄油块加入干混合物中，用手指或糕点切割器混合在一起，直至混合物呈粗粒状。\n5. 均匀撒上脆饼糠在烤盘中的苹果上。\n6. 烤30-35分钟，或直至苹果变软且脆饼糠表面金黄且酥脆。\n7. 从烤箱中取出，稍微冷却后即可食用。\n8. 可选：配上一勺香草冰淇淋或一勺打发奶油享用。\n\n希望这些详细说明能帮助您成功准备这些菜肴！如果有更多问题或需要其他帮助，请随时告诉我。与朋友共享美好的一餐！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for providing the detailed instructions for the Baked Mac and Cheese, Oven-Roasted Chicken, and Warm Apple Crumble. I appreciate your help!\n\nI now have everything I need to prepare these dishes for my gathering with friends. I'm excited to try out these recipes, and I'm sure my friends will enjoy them too.\n\nThank you for your assistance and thorough planning. I feel confident in preparing this meal now. If I have any further questions or need any additional guidance, I'll be sure to reach out. I truly appreciate your help!\n\nThank you again, and have a great day!\n",
+            "content_zh": "感谢您提供烤奶酪通心粉、烤箱烤鸡和热苹果派的详细制作说明。我非常感激您的帮助！\n\n现在我已经有了准备这些菜肴招待朋友所需的所有材料。我很兴奋能尝试这些食谱，我相信我的朋友们也会喜欢它们。\n\n感谢您的帮助和周到的规划。现在我有信心能准备这顿饭。如果我有任何进一步的问题或需要额外的指导，我一定会联系您的。我真心感激您的帮助！\n\n再次感谢，祝您有美好的一天！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could help you plan your meal, and I'm confident that you'll do a fantastic job preparing these dishes for your gathering. Remember to have fun and enjoy the process!\n\nIf you have any more questions or need further guidance, don't hesitate to reach out. I'm always here to assist you. Have a wonderful time with your friends, and I hope your meal turns out to be a great success!\n\nThank you for your kind words, and have a fantastic day too!",
+            "content_zh": "非常欢迎！我很高兴能帮助您规划您的餐食，我相信您会很好地准备这些菜肴供您的聚会。记得要享受过程并且保持乐趣！如果有任何问题或需要进一步指导，请随时联系我。我总是在这里帮助您。祝您和朋友们度过愉快的时光，希望您的餐食会取得成功！谢谢您的好话，也祝您美好的一天！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "creamy",
+        "comforting",
+        "classic"
+    ],
+    "preference_summary": [
+        "simple",
+        "no dietary restrictions"
+    ],
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 1
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "55",
+            "zh": "55"
+        },
+        "Personality": [
+            {
+                "en": "Calm",
+                "zh": "冷静"
+            },
+            {
+                "en": "Patient",
+                "zh": "耐心"
+            },
+            {
+                "en": "Friendly",
+                "zh": "友善"
+            }
+        ],
+        "Occupation": {
+            "en": "Medical staff",
+            "zh": "医护人员"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Prefers calm and serene locations",
+                "zh": "喜欢宁静"
+            },
+            {
+                "en": "Family vacations",
+                "zh": "家庭旅行"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in volunteer activities",
+                "zh": "喜欢参与志愿活动"
+            },
+            {
+                "en": "Has a family",
+                "zh": "家庭生活"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

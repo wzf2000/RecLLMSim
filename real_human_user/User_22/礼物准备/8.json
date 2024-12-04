@@ -1,0 +1,124 @@
+{
+    "history": [
+        {
+            "role": "user",
+            "content": "我想要为我的侄子准备一份礼物，预算应处于合适，要求性价比合适，我的侄子爱好旅游和运动，请帮我给出购买或者制作方式，详细给出合适的网购平台或者线下品牌店，并给出恰当预算对比",
+            "intent": [
+                "推荐"
+            ]
+        },
+        {
+            "role": "assistant",
+            "content": "为你的侄子准备一份性价比合适的礼物，考虑到他喜欢旅游和运动，可以从以下几个方面入手：\n\n### 1. 运动装备\n#### 选项：\n- **运动手环或智能手表**：适合监测运动数据和健康状况。\n- **运动背包**：适合户外旅行和运动时使用，功能性强。\n- **跑步鞋或运动鞋**：选择舒适且适合多种运动的款式。\n\n#### 推荐平台/品牌：\n- **网购平台**：京东、天猫、亚马逊。\n- **品牌店**：迪卡侬、耐克（Nike）、阿迪达斯（Adidas）。\n  \n#### 预算：\n- **运动手环或智能手表**：300-1000元。\n- **运动背包**：200-500元。\n- **跑步鞋或运动鞋**：300-800元。\n\n### 2. 旅游相关装备\n#### 选项：\n- **旅行水壶或保温杯**：便于携带，适合户外活动。\n- **多功能瑞士军刀**：适合户外旅行使用。\n- **旅游指南书籍或地图**：为他提供旅行灵感。\n\n#### 推荐平台/品牌：\n- **网购平台**：京东、天猫、当当网。\n- **品牌店**：探路者（Toread）、北面（The North Face）。\n\n#### 预算：\n- **旅行水壶或保温杯**：100-300元。\n- **多功能瑞士军刀**：200-500元。\n- **旅游指南书籍或地图**：50-150元。\n\n### 3. DIY礼物\n#### 选项：\n- **自制旅行日记**：为他记录旅行经历提供一个独特的本子。\n- **手工制作的运动装备饰品**：如编织手环、钥匙扣等。\n\n#### 制作方式：\n- **购买材料**：可在淘宝、拼多多等平台购买DIY材料。\n- **制作教程**：可以在B站、YouTube上寻找相关教程。\n\n#### 预算：\n- **自制旅行日记**：50-100元。\n- **手工饰品**：30-80元。\n\n### 总结\n根据你的预算和侄子的喜好，可以选择一件实用且富有意义的礼物。运动装备和旅游装备都能很好地满足他的需求，而DIY礼物则可以增加个人情感价值。希望这些建议能帮助你找到合适的礼物！",
+            "hallucination": "否"
+        }
+    ],
+    "task_context": "最近，你想要为你的侄子/侄女/弟弟/妹妹准备一份礼物。为此你希望向LLM寻求建议，通过对话确定礼物的购买或制作方式，最终的预算不应该过于贵或便宜，符合一般情况即可。",
+    "task_type": "礼物准备",
+    "profile": {
+        "gender": "Male",
+        "age": 18,
+        "personality": [
+            "乐观",
+            "上进",
+            "随性"
+        ],
+        "occupation": "学生",
+        "daily_interests": [
+            "看电视",
+            "听音乐",
+            "运动"
+        ],
+        "travel_habits": [
+            "参观历史遗迹",
+            "户外活动",
+            "自然风光",
+            "文化旅行"
+        ],
+        "dining_preferences": [
+            "均衡饮食",
+            "中式美食",
+            "街头小吃",
+            "烧烤"
+        ],
+        "spending_habits": [
+            "用于旅行",
+            "节俭"
+        ],
+        "other_aspects": [
+            "喜欢参与志愿活动",
+            "住在宿舍"
+        ],
+        "complete_tid": {
+            "菜谱规划": [
+                2
+            ]
+        }
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "详细"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "很有用"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "结果多样"
+        }
+    ],
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Breadth",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "Breadth",
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "order": "Breadth",
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "order": "Breadth",
+            "feedback": "NoFeedback"
+        },
+        "3": {
+            "order": "Breadth",
+            "feedback": "NoFeedback"
+        }
+    }
+}

@@ -1,0 +1,204 @@
+{
+    "task": "recipe planning",
+    "preference_id": 91,
+    "task_context_id": 3,
+    "preference": "1. Gender: Female\n2. Age: 40\n3. Personality: Disciplined, meticulous, and calm\n4. Occupation: Dietitian\n5. Daily Interests and Hobbies: Cooking, fitness training, reading health magazines\n6. Travel Habits: Prefers wellness retreats, enjoys nature-based destinations\n7. Dining Preferences: Strictly vegan, prefers organic food\n8. Spending Habits: Invests in health and wellness products, prefers quality over quantity\n9. Other Aspects: Runs a health blog, has a home gym",
+    "preference_zh": "1. 性别：女性\n2. 年龄：40\n3. 个性：有纪律、细致、冷静\n4. 职业：营养师\n5. 日常兴趣爱好：烹饪、健身训练、阅读健康杂志\n6. 旅行习惯：喜欢健康疗养度假，享受以自然为基础的目的地\n7. 饮食偏好：严格素食，偏好有机食品\n8. 消费习惯：投资健康和健康产品，偏向质量而非数量\n9. 其他方面：经营健康博客，拥有家庭健身房",
+    "task_context": "You plan to prepare a meal at home for yourself and your loved one. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划为自己和心爱的人在家做一顿饭。你是一个有经验的厨师，希望请求LLM帮助创作菜谱，确定必备食材，并决定要做哪些菜。在计划过程中，你应该学习每道菜的完整制作过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you asked. I'm planning to prepare a special meal at home for myself and my loved one. As a skilled cook and a dietitian, I'd like your help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Could you assist me with that?",
+            "content_zh": "你好！很高兴你问。我打算在家里给自己和我爱的人准备一顿特别的饭菜。作为一个熟练的厨师和营养师，我想请你帮助我创作食谱，确定所需的食材，以及决定做什么菜。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be delighted to help you plan a special meal for you and your loved one. As a skilled cook and a dietitian, I can definitely assist you in creating a delicious and nutritious recipe. Let's start by discussing your preferences and any dietary restrictions or allergies you might have. What kind of cuisine are you interested in, and are there any specific ingredients you'd like to include or avoid?",
+            "content_zh": "你好！我很乐意帮助你为你和你所爱的人安排一顿特别的餐饮。作为一名熟练的厨师和营养师，我一定可以帮助你创作出美味又营养的食谱。让我们开始讨论你的喜好以及你可能有的任何饮食限制或过敏反应。你对什么类型的菜系感兴趣？有没有任何特定的食材你想包括或避开？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for your offer to help! Given my dietary preferences, I strictly follow a vegan diet and prefer organic ingredients. I enjoy a variety of cuisines, but I'm particularly fond of Mediterranean and Asian flavors. I would like the meal to be well-balanced and incorporate plenty of fresh vegetables, whole grains, and plant-based protein sources. As for allergies or restrictions, there aren't any specific ones to consider. Could you suggest some recipe ideas based on these preferences?",
+            "content_zh": "感谢您提出的帮助！考虑到我的饮食偏好，我严格遵循纯素饮食，并更喜欢有机食材。我喜欢各种不同的烹饪风格，但尤其喜欢地中海和亚洲风味。我希望餐食能够平衡搭配丰富的新鲜蔬菜、全谷物和植物蛋白来源。至于过敏或限制，没有特别需要考虑的。您能否根据这些偏好建议一些食谱想法呢？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! With your preferences in mind, how about we create a delicious and nutritious Vegan Mediterranean Buddha Bowl? This bowl will feature a variety of flavors and textures, while incorporating fresh vegetables, whole grains, and plant-based protein sources. Here's a suggested recipe:\n\nIngredients:\n- 1 cup cooked quinoa or brown rice\n- 1 cup chickpeas, drained and rinsed\n- 1 cup cherry tomatoes, halved\n- 1 cup cucumber, diced\n- 1 cup mixed greens (spinach, kale, or arugula)\n- 1/2 cup Kalamata olives, pitted and halved\n- 1/4 cup red onion, thinly sliced\n- 1/4 cup fresh parsley, chopped\n- 2 tablespoons extra-virgin olive oil\n- 1 tablespoon lemon juice\n- 1 teaspoon dried oregano\n- Salt and pepper to taste\n- Optional toppings: roasted red peppers, avocado, hummus\n\nInstructions:\n1. In a large bowl, combine the cooked quinoa or brown rice, chickpeas, cherry tomatoes, cucumber, mixed greens, Kalamata olives, red onion, and fresh parsley.\n2. In a small bowl, whisk together the extra-virgin olive oil, lemon juice, dried oregano, salt, and pepper to make the dressing.\n3. Drizzle the dressing over the bowl ingredients and toss gently to combine.\n4. Taste and adjust seasoning if needed.\n5. Serve the Buddha bowl as is or top it with roasted red peppers, avocado slices, or a dollop of hummus for added flavor and creaminess.\n\nThis Vegan Mediterranean Buddha Bowl is not only visually appealing but also packed with nutrients. It provides a good balance of plant-based protein, healthy fats, and complex carbohydrates. Feel free to customize the recipe by adding or substituting ingredients based on your preferences and what's available. Enjoy your special meal with your loved one!",
+            "content_zh": "当然！考虑到您的喜好，我们来制作一道美味又营养的素食地中海佛钵如何？这道菜将融合各种口味和质感，同时加入新鲜蔬菜、全谷物和植物蛋白源。以下是建议的食谱：\n\n食材：\n- 1杯煮熟的藜麦或糙米\n- 1杯鹰嘴豆，沥干水后冲洗\n- 1杯车厘子番茄，切半\n- 1杯黄瓜，切丁\n- 1杯混合生菜（菠菜、羽衣甘蓝或苦蓼）\n- 半杯卡拉玛塔橄榄，去核切半\n- 1/4杯红洋葱，切薄片\n- 1/4杯新鲜欧芹，切碎\n- 2汤匙特级初榨橄榄油\n- 1汤匙柠檬汁\n- 1茶匙干牛至\n- 盐和胡椒适量\n- 可选配料：烤红辣椒、鳄梨、鹰嘴豆泥\n\n制作方法：\n1. 在一个大碗中，将熟藜麦或糙米、鹰嘴豆、车厘子番茄、黄瓜、混合生菜、卡拉玛塔橄榄、红洋葱和新鲜欧芹混合在一起。\n2. 在一个小碗中，搅拌特级初榨橄榄油、柠檬汁、干牛至、盐和胡椒制成酱汁。\n3. 将酱汁淋在碗中食材上，轻轻拌匀。\n4. 尝试并根据需要调整调味。\n5. 作为佛钵原样食用，或者在上面加上烤红辣椒、鳄梨片或一勺鹰嘴豆泥增添口味和奶油感。\n\n这道地中海素食佛钵不仅视觉上吸引人，而且富含营养。它提供了丰富的植物蛋白、健康脂肪和复杂碳水化合物。根据您的喜好和当地的供应情况，随意定制食谱，享受和您爱的人一起共进的特别美食！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That sounds absolutely delicious! I love the idea of a Vegan Mediterranean Buddha Bowl. The combination of flavors and textures, along with the nutrient-packed ingredients, makes it a perfect choice for a special meal. I appreciate your detailed recipe and instructions. I will definitely give it a try!\n\nIs there any other dish you would recommend to complement the Buddha Bowl? Perhaps a side dish or a dessert that would go well with the overall theme and flavors?",
+            "content_zh": "听起来绝对美味！我喜欢素食地中海佛钵的想法。各种口味和质地的组合，再加上充满营养的原料，使其成为一顿特别的餐的完美选择。我很感谢您详细的食谱和说明。我一定会尝试的！\n您还有什么其他菜肴推荐可以搭配佛钵吗？也许有一道配菜或甜点可以与整体主题和口味搭配得很好？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "I'm glad you like the Vegan Mediterranean Buddha Bowl idea! It's a versatile dish that pairs well with various side dishes and desserts. Here are a couple of suggestions to complement the Buddha Bowl:\n\n1. Side Dish: Roasted Mediterranean Vegetables\nIngredients:\n- 1 zucchini, sliced\n- 1 red bell pepper, sliced\n- 1 yellow bell pepper, sliced\n- 1 eggplant, diced\n- 1 red onion, sliced\n- 2 tablespoons extra-virgin olive oil\n- 1 teaspoon dried oregano\n- Salt and pepper to taste\n\nInstructions:\n- Preheat the oven to 400°F (200°C).\n- In a large bowl, toss the sliced zucchini, bell peppers, diced eggplant, and sliced red onion with olive oil, dried oregano, salt, and pepper.\n- Spread the vegetables evenly on a baking sheet.\n- Roast in the preheated oven for about 25-30 minutes, or until the vegetables are tender and slightly browned.\n- Serve the roasted Mediterranean vegetables alongside the Buddha Bowl for an extra dose of deliciousness.\n\n2. Dessert: Vegan Lemon Blueberry Cheesecake Bars\nIngredients:\n- 1 1/2 cups raw cashews, soaked overnight and drained\n- 1/4 cup coconut oil, melted\n- 1/4 cup maple syrup\n- 1/4 cup lemon juice\n- Zest of 1 lemon\n- 1 teaspoon vanilla extract\n- 1 cup fresh or frozen blueberries\n- 1 cup almond flour\n- 1/4 cup coconut flour\n- 2 tablespoons coconut oil, melted\n- 2 tablespoons maple syrup\n\nInstructions:\n- In a food processor, blend the soaked cashews, melted coconut oil, maple syrup, lemon juice, lemon zest, and vanilla extract until smooth and creamy.\n- Line a baking dish with parchment paper and spread the cashew mixture evenly to form the cheesecake layer.\n- In a separate bowl, mix the blueberries, almond flour, coconut flour, melted coconut oil, and maple syrup until well combined.\n- Spread the blueberry mixture over the cashew layer.\n- Place the dish in the freezer for at least 2 hours, or until firm.\n- Once firm, remove from the freezer and cut into bars.\n- Serve the Vegan Lemon Blueberry Cheesecake Bars as a refreshing and sweet ending to your meal.\n\nThese side dish and dessert options complement the flavors and theme of the Vegan Mediterranean Buddha Bowl. They add variety and a touch of indulgence to your special meal. Enjoy creating and savoring these dishes with your loved one!",
+            "content_zh": "我很高兴你喜欢素食地中海佛钵的构思！这是一道多功能的菜肴，搭配各种配菜和甜点都很合适。以下是一些建议来搭配佛钵：\n\n1. 配菜：烤地中海蔬菜\n食材：\n- 1根黄瓜，切片\n- 1个红甜椒，切片\n- 1个黄甜椒，切片\n- 1个茄子，切块\n- 1个红洋葱，切片\n- 2汤匙特级初榨橄榄油\n- 1茶匙干牛至\n- 盐和胡椒适量\n\n做法：\n- 预热烤箱至400°F（200°C）。\n- 在一个大碗中，将切片的黄瓜、甜椒、茄子和红洋葱与橄榄油、干牛至、盐和胡椒拌匀。\n- 均匀地将蔬菜摊在烤盘上。\n- 在预热的烤箱中烘烤约25-30分钟，或直到蔬菜变软并略呈棕色。\n- 将烤地中海蔬菜搭配佛钵一起享用，增添更多美味。\n\n2. 甜点：素柠檬蓝莓乳酪棒\n食材：\n- 1 1/2杯生腰果，浸泡过夜后沥干\n- 1/4杯椰子油，融化\n- 1/4杯枫糖浆\n- 1/4杯柠檬汁\n- 1个柠檬的表皮\n- 1茶匙香草精\n- 1杯新鲜或冷冻蓝莓\n- 1杯杏仁粉\n- 1/4杯椰子粉\n- 2汤匙椰子油，融化\n- 2汤匙枫糖浆\n\n做法：\n- 在食品加工机中搅拌浸泡过的腰果、融化的椰子油、枫糖浆、柠檬汁、柠檬表皮和香草精，直至光滑细腻。\n- 用烘焙纸将烤盘铺平，将腰果混合物均匀铺开成奶酪层。\n- 在另一个碗中，混合蓝莓、杏仁粉、椰子粉、融化的椰子油和枫糖浆，搅拌均匀。\n- 将蓝莓混合物铺在腰果层上。\n- 将烤盘放入冰箱至少2小时，或直到凝固。\n- 凝固后，从冰箱取出并切成块状。\n- 将素柠檬蓝莓乳酪棒作为一道清新甜美的结尾供应。\n\n这些配菜和甜点选择与素食地中海佛钵的口味和主题相得益彰。它们为您的特别餐添加了多样性和一丝放纵。愿您与您所爱的人一起创作和品尝这些美食！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "well-balanced",
+        "fresh vegetables",
+        "plant-based protein"
+    ],
+    "preference_summary": [
+        "mediterranean",
+        "asian flavors"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 1
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "40",
+            "zh": "40"
+        },
+        "Personality": [
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            },
+            {
+                "en": "Meticulous",
+                "zh": "细致"
+            },
+            {
+                "en": "Calm",
+                "zh": "冷静"
+            }
+        ],
+        "Occupation": {
+            "en": "Medical staff",
+            "zh": "医护人员"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Cooking",
+                "zh": "烘焙/烹饪"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Prefers calm and serene locations",
+                "zh": "喜欢宁静"
+            },
+            {
+                "en": "Nature-based destinations",
+                "zh": "自然风光"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Vegan",
+                "zh": "素食"
+            },
+            {
+                "en": "Healthy food",
+                "zh": "健康饮食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Prefers quality over quantity",
+                "zh": "质量大于数量"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Managing personal media platforms",
+                "zh": "经营自媒体"
+            },
+            {
+                "en": "Living in one’s own house",
+                "zh": "有房产"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

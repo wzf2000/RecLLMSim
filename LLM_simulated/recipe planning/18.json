@@ -1,0 +1,217 @@
+{
+    "task": "recipe planning",
+    "preference_id": 2,
+    "task_context_id": 7,
+    "preference": "1. Gender: Male\n2. Age: 45\n3. Personality: Ambitious, driven, and assertive\n4. Occupation: CEO of a startup\n5. Daily Interests and Hobbies: Reading business books, golfing, networking\n6. Travel Habits: Frequently travels for business, prefers luxury hotels\n7. Dining Preferences: Enjoys fine dining, prefers protein-rich diet\n8. Spending Habits: High spender, invests in stocks\n9. Other Aspects: Has a large social circle, enjoys public speaking",
+    "preference_zh": "1. 性别：男性\n2. 年龄：45岁\n3. 个性：有雄心壮志、进取心强、果断\n4. 职业：创业公司的CEO\n5. 日常兴趣和爱好：阅读商业书籍、打高尔夫球、社交\n6. 旅行习惯：经常出差，喜欢豪华酒店\n7. 饮食偏好：喜欢美食，偏好富含蛋白质的饮食\n8. 消费习惯：花钱大手大脚，投资股票\n9. 其他方面：有大社交圈，喜欢演讲",
+    "task_context": "You plan to prepare a meal at home to celebrate your birthday with about 10 close friends. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家为庆祝生日与大约10位亲密朋友准备一顿饭。你是一个有一定烹饪技能的厨师。因此，你想要请求LLM的帮助，制定菜谱，确定所需食材，并决定要做什么菜。在计划过程中，你应该学习每道菜的完整制作过程以及适当的制作顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I'm planning a birthday celebration at home with about 10 close friends, and I would appreciate your help in creating a delicious meal. As a skilled cook, I want to make sure everything turns out perfect. Could you help me come up with a recipe and decide on the dishes to prepare?",
+            "content_zh": "你好！很高兴你在这里。我计划在家里举办一个生日庆祝活动，有大约10位亲密的朋友，我希望你可以帮忙制作美味的餐点。作为一名有经验的厨师，我希望确保一切完美。你能帮我想出一个食谱并决定要准备哪些菜吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you plan a delicious birthday meal for your celebration at home! Let's start by brainstorming some ideas. Do you have any preferences or dietary restrictions we should consider? Are there any specific cuisines you and your friends enjoy?",
+            "content_zh": "当然，我很乐意帮助您计划在家庆祝时的美味生日餐！让我们开始一起集思广益一些想法。您有任何偏好或饮食限制需要考虑吗？你和你的朋友喜欢什么特定的菜系吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance. As the host, I want to impress my guests with a memorable meal. I personally enjoy a protein-rich diet and appreciate fine dining experiences. As for my friends, they have diverse palates, but they generally enjoy a variety of cuisines. I'm open to suggestions, so please feel free to share your ideas!",
+            "content_zh": "感谢你提供帮助。作为主人，我想用一顿难忘的晚餐来给客人留下深刻印象。我个人喜欢富含蛋白质的饮食并喜欢美食体验。至于我的朋友们，他们口味多样，但总体上喜欢各种类型的菜肴。我乐意听取建议，欢迎分享你的想法！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! With those preferences in mind, how about we create a menu that incorporates a mix of flavors and cuisines? Here's an idea for a three-course meal that could impress your guests:\n\nStarter:\nSeared Scallops with Citrus Beurre Blanc and Microgreens\n\nMain Course:\nHerb-Crusted Rack of Lamb with Roasted Garlic Mashed Potatoes and Grilled Asparagus\n\nDessert:\nDark Chocolate Lava Cakes with Raspberry Coulis and Vanilla Bean Ice Cream\n\nThis menu offers a balance of elegance and variety. The seared scallops with a tangy citrus beurre blanc sauce make for a light and flavorful starter. The herb-crusted rack of lamb, served with creamy mashed potatoes and grilled asparagus, is a decadent main course that showcases your love for protein-rich dishes. And to finish off the meal, the rich and indulgent dark chocolate lava cakes with a tart raspberry coulis and a scoop of vanilla bean ice cream will surely leave a lasting impression.\n\nHow does that sound? Let me know if you have any specific preferences or if you'd like to make any adjustments to the menu!",
+            "content_zh": "太棒了！考虑到这些喜好，我们可以创建一个融合各种口味和烹饪风格的菜单，如何？以下是一个可能会让您的客人印象深刻的三道菜菜单的想法：\n\n头盘：\n柑橘白酒煎带子和微绿\n\n主菜：\n香草焙烤小羊排配烤大蒜土豆泥和烤芦笋\n\n甜点：\n黑巧克力熔岩蛋糕配覆盆子酱和香草冰淇淋\n\n这个菜单提供了优雅和丰富多样性的平衡。煎带子搭配带有柑橘味白酒的酱汁作为清淡而美味的头盘。香草焙烤小羊排搭配奶油土豆泥和烤芦笋，是一道奢华的主菜，展示了您对富含蛋白质食物的热爱。最后，富含味道丰富且令人陶醉的黑巧克力熔岩蛋糕搭配酸甜的覆盆子酱和一勺香草冰淇淋定会留下深刻印象。\n\n听起来怎么样？如果您有特定偏好或想要调整菜单，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "I appreciate your suggestions for the menu. The proposed three-course meal sounds absolutely delightful! I love the combination of flavors and the balance between elegance and variety. The seared scallops with citrus beurre blanc as a starter, followed by the herb-crusted rack of lamb as the main course, and finishing off with the dark chocolate lava cakes for dessert is an excellent choice.\n\nI don't have any specific preferences or adjustments to make at the moment. However, I would like to know the complete preparation process for each dish and the appropriate order in which to prepare them. Could you provide me with the detailed recipes and the order in which I should tackle them?",
+            "content_zh": "谢谢你对菜单的建议。提议的三道菜听起来非常美味！我喜欢口味的组合和优雅与多样性之间的平衡。作为开胃菜的煎带子配柑橘味白酱，主菜是草药裹汁羊排，最后是巧克力熔岩蛋糕，这是一个很棒的选择。\n\n目前我没有具体的偏好或调整。不过，我想了解每道菜的完整准备过程和适当的准备顺序。你能为我提供详细的菜谱和我应该处理它们的顺序吗？",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Certainly! Here are the detailed recipes for each dish, along with the suggested order of preparation:\n\nStarter: Seared Scallops with Citrus Beurre Blanc and Microgreens\n\nIngredients:\n- 10 large scallops\n- Salt and pepper to taste\n- 2 tablespoons butter\n- 1/4 cup white wine\n- Juice of 1 lemon\n- Zest of 1 lemon\n- Zest of 1 orange\n- Microgreens for garnish\n\nInstructions:\n1. Pat the scallops dry with a paper towel and season them with salt and pepper.\n2. Heat a large skillet over medium-high heat and melt the butter.\n3. Once the butter is hot, add the scallops to the skillet and sear them for about 2-3 minutes on each side until they develop a golden crust.\n4. Remove the scallops from the skillet and set them aside.\n5. In the same skillet, add the white wine, lemon juice, lemon zest, and orange zest. Cook for a couple of minutes until the sauce is slightly reduced and thickened.\n6. Plate the scallops, drizzle the citrus beurre blanc sauce over them, and garnish with microgreens.\n\nMain Course: Herb-Crusted Rack of Lamb with Roasted Garlic Mashed Potatoes and Grilled Asparagus\n\nIngredients:\n- 2 racks of lamb (about 8 chops each)\n- Salt and pepper to taste\n- 2 tablespoons Dijon mustard\n- 1 cup breadcrumbs\n- 2 tablespoons fresh rosemary, finely chopped\n- 2 tablespoons fresh thyme, finely chopped\n- 4 cloves garlic, minced\n- 2 tablespoons olive oil\n- 4 large potatoes, peeled and diced\n- 4 cloves roasted garlic\n- 1/2 cup milk\n- Salt and pepper to taste\n- 1 bunch asparagus, trimmed\n- Olive oil for grilling\n\nInstructions:\n1. Preheat the oven to 400°F (200°C).\n2. Season the racks of lamb with salt and pepper, then brush them with Dijon mustard.\n3. In a bowl, combine the breadcrumbs, rosemary, thyme, minced garlic, salt, and pepper.\n4. Press the breadcrumb mixture onto the racks of lamb, coating them evenly.\n5. Heat olive oil in an oven-safe skillet over high heat. Sear the racks of lamb for about 2-3 minutes on each side until browned.\n6. Transfer the skillet to the preheated oven and roast the lamb for approximately 15-20 minutes for medium-rare doneness. Adjust the cooking time based on your desired level of doneness.\n7. While the lamb is cooking, prepare the roasted garlic mashed potatoes. Boil the diced potatoes until tender, then drain and mash them with roasted garlic, milk, salt, and pepper until smooth and creamy.\n8. For the grilled asparagus, lightly coat them with olive oil and season with salt and pepper. Grill them over medium heat for about 5-7 minutes until tender-crisp.\n9. Once the lamb is done, remove it from the oven and let it rest for a few minutes before slicing into individual chops.\n10. Plate the sliced lamb alongside the roasted garlic mashed potatoes and grilled asparagus.\n\nDessert: Dark Chocolate Lava Cakes with Raspberry Coulis and Vanilla Bean Ice Cream\n\nIngredients:\n- 6 ounces dark chocolate, chopped\n- 1/2 cup unsalted butter\n- 1/2 cup powdered sugar\n- 2 large eggs\n- 2 large egg yolks\n- 1/4 cup all-purpose flour\n- 1/2 cup fresh raspberries\n- 1 tablespoon sugar\n- Vanilla bean ice cream for serving\n\nInstructions:\n1. Preheat the oven to 425°F (220°C). Grease and lightly flour individual ramekins.\n2. In a microwave-safe bowl, melt the dark chocolate and butter together in 30-second intervals, stirring until smooth.\n3. In a separate bowl, whisk together the powdered sugar, eggs, and egg yolks until well combined.\n4. Gradually add the melted chocolate mixture to the egg mixture, whisking constantly.\n5. Stir in the flour until just combined.\n6. Divide the batter equally among the prepared ramekins.\n7. In a blender or food processor, puree the raspberries and sugar until smooth. Strain the mixture to remove any seeds.\n8. Bake the lava cakes for about 10-12 minutes until the edges are set but the centers are still soft and gooey.\n9. Remove the cakes from the oven and let them cool for a minute or two. Carefully invert each ramekin onto a plate to release the lava cake.\n10. Drizzle the raspberry coulis over the lava cakes and serve them with a scoop of vanilla bean ice cream.\n\nNow that you have the recipes and the order of preparation, you can plan your cooking process accordingly. Start with the seared scallops as the starter, then move on to the herb-crusted rack of lamb as the main course. While the lamb is in the oven, you can work on preparing the roasted garlic mashed potatoes and grilling the asparagus. Finally, once the main course is complete, you can bake the dark chocolate lava cakes for dessert.\n\nI hope this helps you create a memorable and delicious birthday celebration for you and your friends! Let me know if you have any more questions or need further assistance.",
+            "content_zh": "当然！这里是每道菜的详细食谱以及建议的准备顺序：\n\n开胃菜：香煎扇贝配柑橘白酱和微绿\n\n食材：\n- 10个大扇贝\n- 根据口味调整盐和胡椒\n- 2汤匙黄油\n- 1/4杯白葡萄酒\n- 1个柠檬的汁\n- 1个柠檬的皮\n- 1个橙子的皮\n- 微绿作为装饰\n\n做法：\n1. 用纸巾把扇贝擦干，用盐和胡椒调味。\n2. 在中高火的大煎锅中融化黄油。\n3. 黄油热后，将扇贝加入锅中，每面煎约2-3分钟，直到形成金黄色的外壳。\n4. 将扇贝从锅中取出，放置一旁。\n5. 在同一个锅中，加入白葡萄酒、柠檬汁、柠檬皮和橙皮。煮几分钟直到酱汁略微减少并变稠。\n6. 将扇贝装盘，淋上柑橘白酱，用微绿装饰。\n\n主菜：草本酥皮羊排配烤蒜蓉土豆泥和烤芦笋\n\n食材：\n- 2排羊排（每排约8块）\n- 根据口味调整盐和胡椒\n- 2汤匙第戎芥末\n- 1杯面包屑\n- 2汤匙新鲜迷迭香，细切\n- 2汤匙新鲜百里香，细切\n- 4瓣大蒜，切碎\n- 2汤匙橄榄油\n- 4个大土豆，去皮切块\n- 4瓣烤大蒜\n- 1/2杯牛奶\n- 根据口味调整盐和胡椒\n- 1束芦笋，修剪\n- 烤用橄榄油\n\n做法：\n1. 预热烤箱至400°F (200°C)。\n2. 用盐和胡椒调味羊排，然后涂上第戎芥末。\n3. 在碗中，混合面包屑、迷迭香、百里香、切碎的大蒜、盐和胡椒。\n4. 将面包屑混合物均匀地涂抹在羊排上。\n5. 在耐烤的煎锅中加热橄榄油，用高火将羊排每面煎约2-3分钟直到变棕。\n6. 将煎锅转移到预热的烤箱中，烤约15-20分钟直到羊排达到中度熟。根据您喜欢的熟度调整烹饪时间。\n7. 羊排烹饪时，准备烤蒜蓉土豆泥。将切块的土豆煮至软，然后沥干，加入烤大蒜、牛奶、盐和胡椒捣碎，直到顺滑细腻。\n8. 烤芦笋时，轻轻涂上橄榄油，用盐和胡椒调味。在中火下烤约5-7分钟直到嫩脆。\n9. 羊排烤好后，从烤箱中取出，让它休息几分钟，然后切成单独的排。\n10. 将切好的羊排与烤蒜蓉土豆泥和烤芦笋一起装盘。\n\n甜点：黑巧克力熔岩蛋糕配覆盆子酱和香草豆冰淇淋\n\n食材：\n- 6盎司黑巧克力，切碎\n- 1/2杯无盐黄油\n- 1/2杯糖粉\n- 2个大鸡蛋\n- 2个大蛋黄\n- 1/4杯通用面粉\n- 1/2杯新鲜覆盆子\n- 1汤匙糖\n- 香草豆冰淇淋，供应\n\n做法：\n1. 预热烤箱至425°F (220°C)。给个别的小模具涂油并轻轻撒上面粉。\n2. 在微波安全的碗中，将黑巧克力和黄油以30秒间隔加热，搅拌至光滑。\n3. 在另一个碗中，将糖粉、鸡蛋和蛋黄搅拌均匀。\n4. 将融化的巧克力混合物逐渐加入鸡蛋混合物中，不断搅拌。\n5. 加入面粉，搅拌至刚刚混合。\n6. 将面糊均匀分配到准备好的模具中。\n7. 在搅拌机或食品处理器中，将覆盆子和糖搅拌成纯泥。过滤混合物以去除任何种子。\n8. 将熔岩蛋糕烤约10-12分钟，直到边缘设定但中心仍然柔软多汁。\n9. 从烤箱中取出蛋糕，让它冷却一两分钟。小心地将每个模具倒扣在盘子上，释放熔岩蛋糕。\n10. 在熔岩蛋糕上淋上覆盆子酱，并与一球香草豆冰淇淋一起供应。\n\n现在您已经有了食谱和准备顺序，可以相应地规划您的烹饪过程。从香煎扇贝作为开胃菜开始，然后进行草本酥皮羊排作为主菜。当羊排在烤箱中时，您可以准备烤蒜蓉土豆泥和烤芦笋。最后，主菜完成后，您可以烤黑巧克力熔岩蛋糕作为甜点。\n\n希望这能帮助您为您和您的朋友创造一个难忘而美味的生日庆祝活动！如果您有任何其他问题或需要进一步的帮助，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "Translation Problem Fixed"
+            },
+            "content_zh_old": "当然！以下是每道菜的详细食谱，以及建议的准备顺序：\n\n开胃菜：柑橘白霜煎带子配微型绿叶\n\n材料：\n- 10只大带子\n- 盐和胡椒适量\n- 2汤匙黄油\n- 1/4杯白葡萄酒\n- 1个柠檬的汁\n- 1个柠檬的磨皮\n- 1个橘子的磨皮\n- 适量微型绿叶作装饰\n\n步骤：\n1. 用厨房纸巾擦干带子，并用盐和胡椒调味。 \n2. 在大平底锅中用中高火加热并融化黄油。\n3. 黄油热后，将带子加入锅中，每面煎约2-3分钟，直至金黄色。 \n4. 将带子从锅中取出备用。 \n5. 在同一锅中，加入白葡萄酒、柠檬汁、柠檬磨皮和橘子磨皮。煮几分钟，直至酱汁稍微浓稠。 \n6. 将带子装盘，淋上柑橘白霜酱，撒上微型绿叶作装饰。\n\n主菜：香草羊排配烤大蒜土豆泥和烤芦笋\n\n材料：\n- 2份羊排（每份约8块肋排）\n- 盐和胡椒适量\n- 2汤匙第戎芥末\n- 1杯面包糠\n- 2汤匙新鲜迷迭香，切细\n- 2汤匙新鲜百里香，切细\n- 4瓣大蒜，切碎\n- 2汤匙橄榄油\n- 4个大土豆，去皮切块\n- 4瓣烤大蒜\n- 1/2杯牛奶\n- 盐和胡椒适量\n- 1把芦笋，去茎部\n- 用于烤制的橄榄油\n\n步骤：\n1. 预热烤箱至400°F（200°C）。 \n2. 用盐和胡椒调味羊排，然后刷上第戎芥末。 \n3. 在一个碗中，将面包糠、迷迭香、百里香、切碎的大蒜、盐和胡椒混合在一起。 \n4. 将面包糠混合物均匀涂抹在羊排上。 \n5. 在一个耐高温平底锅中加热橄榄油。将羊排每面煎约2-3分钟，至上色。 \n6. 将平底锅移到预热的烤箱中，将羊排烤约15-20分钟，至中熟。根据您的期望熟度调整烹饪时间。 \n7. 当羊排在烤制时，准备烤大蒜土豆泥。将切好的土豆煮至软烂，然后沥干并与烤大蒜、牛奶、盐和胡椒捣碎至光滑细腻。 \n8. 对于烤芦笋，轻轻涂抹橄榄油，撒上盐和胡椒。在中火上烤约5-7分钟，直至嫩脆。 \n9. 羊排烤好后，从烤箱取出，静置几分钟，然后切成单独的小肋排。 \n10. 将切好的羊排盘上，搭配烤大蒜土豆泥和烤芦笋。\n\n甜点：黑巧克力熔岩蛋糕配覆盆子糖浆和香草豆冰淇淋\n\n材料：\n- 6盎司黑巧克力，切碎\n- 1/2杯无盐黄油\n- 1/2杯糖粉\n- 2个大鸡蛋\n- 2个大蛋黄\n- 1/4杯多用途面粉\n- 1/2杯新鲜覆盆子\n- 1汤匙糖\n- 香草豆冰淇淋作搭配\n\n步骤：\n1. 预热烤箱至425°F（220°C）。涂抹和轻轻撒上面粉的烤模。 \n2. 在微波炉安全的碗中，每隔30秒融化黑巧克力和黄油，搅拌至光滑。 \n3. 在另一个碗中，混合糖粉、鸡蛋和蛋黄，搅拌均匀。 \n4. 逐渐将融化的巧克力混合物加入鸡蛋混合物，不断搅拌。 \n5. 加入面粉搅拌至刚刚混合均匀。 \n6. 将面糊均匀分配到准备好的烤模中。 \n7. 在搅拌器或食品加工器中，搅拌覆盆子和糖至光滑。将混合物过滤以去除任何籽。 \n8. 烘烤熔岩蛋糕约10-12分钟，直至边缘凝固但中心仍然柔软且粘稠。 \n9. 从烤箱中取出蛋糕，让其冷却1-2分钟。小心将每个烤模倒扣到盘子上释放出蛋糕。 \n10. 在熔岩蛋糕上淋上覆盆子糖浆，搭配一勺香草豆冰淇淋。 \n\n现在您已经有了食谱和准备顺序，可以相应地规划烹饪过程。先准备开胃菜的煎带子，然后再做主菜的香草羊排。当羊排在烤箱中时，您可以开始准备烤大蒜土豆泥和烤芦笋。最后，当主菜完成时，您可以烤黑巧克力熔岩蛋糕作为甜点。\n\n希望这能帮助您为您和您的朋友创造一个值得纪念且美味的生日庆祝活动！如果有任何问题或需要进一步帮助，请告诉我。"
+        },
+        {
+            "role": "user",
+            "content": "Thank you for providing the detailed recipes and the order of preparation. I appreciate your thoroughness in guiding me through the cooking process. The recipes sound delicious, and I'm confident that they will impress my guests.\n\nI will start with the seared scallops as the starter, then move on to the herb-crusted rack of lamb as the main course. While the lamb is in the oven, I'll prepare the roasted garlic mashed potatoes and grill the asparagus. Finally, I'll bake the dark chocolate lava cakes for dessert.\n\nI'm excited to try out this menu and create a memorable birthday celebration. Thank you for your help!",
+            "content_zh": "谢谢您提供详细的食谱和准备顺序。我很感激您在烹饪过程中的细致指导。食谱听起来很美味，我相信它们会给我的客人留下深刻印象。我将以煎带子作为开胃菜开始，然后转向长骨羊排作为主菜。当羊排在烤箱中时，我会准备烤大蒜土豆泥和烤芦笋。最后，我会烘烤黑巧克力岩浆蛋糕作为甜点。我很兴奋尝试这个菜单，为一次难忘的生日庆祝活动。感谢您的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you found the recipes and order of preparation helpful. It sounds like you have a great plan in place, and I'm sure your birthday celebration will be a hit with these delicious dishes.\n\nRemember to take your time, enjoy the cooking process, and have fun while preparing the meal. Your guests will appreciate the effort you put into creating such a special menu.\n\nIf you have any more questions or need further assistance along the way, don't hesitate to ask. I wish you the best of luck with your birthday celebration, and I hope you and your friends have a wonderful time together!",
+            "content_zh": "非常欢迎！我很高兴你觉得食谱和准备顺序有帮助。听起来你有一个很好的计划，我确信这些美味的菜肴会让你的生日庆典成为一个成功。记得慢慢来，享受烹饪的过程，在准备餐点时尽情享乐。你的客人会感激你为创造这样一个特别菜单所付出的努力。如果在路上有更多问题或需要进一步帮助，请不要犹豫向我提问。我祝你的生日庆典一切顺利，希望你和朋友们共度美好时光！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "scallops",
+        "rack of lamb",
+        "dark chocolate lava cakes"
+    ],
+    "preference_summary": [
+        "diverse cuisines",
+        "elegant flavors"
+    ],
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "45",
+            "zh": "45"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Confident",
+                "zh": "自信"
+            }
+        ],
+        "Occupation": {
+            "en": "Startup founder",
+            "zh": "创业者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Luxury accommodation",
+                "zh": "豪华住宿"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Healthy food",
+                "zh": "健康饮食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "High spender",
+                "zh": "高消费"
+            },
+            {
+                "en": "Invests in stocks",
+                "zh": "股票"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Has a large social circle",
+                "zh": "社交广泛"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        }
+    }
+}

@@ -1,0 +1,187 @@
+{
+    "task": "recipe planning",
+    "preference_id": 49,
+    "task_context_id": 3,
+    "preference": "1. Gender: Female\n2. Age: 28\n3. Personality: Ambitious, determined, and goal-oriented\n4. Occupation: Financial Analyst\n5. Daily Interests and Hobbies: Fitness training, stock market analysis, online shopping\n6. Travel Habits: Enjoys city breaks, prefers luxury resorts\n7. Dining Preferences: Health-conscious, enjoys sushi and salads\n8. Spending Habits: Invests in high-end fashion, saves for property\n9. Other Aspects: Lives in a city apartment, has a high-stress lifestyle",
+    "preference_zh": "1. 性别：女性\n2. 年龄：28岁\n3. 个性：有抱负、坚定而目标导向\n4. 职业：金融分析师\n5. 日常兴趣和爱好：健身训练、股市分析、网购\n6. 旅行习惯：喜欢城市短途旅行，偏爱豪华度假村\n7. 饮食偏好：注重健康，喜欢寿司和沙拉\n8. 消费习惯：投资高端时尚，为买房存款\n9. 其他方面：居住在城市公寓，生活压力大",
+    "task_context": "You plan to prepare a meal at home for yourself and your loved one. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算为自己和爱人在家做一顿饭。作为一个技术娴熟的厨师，你想要请LLM帮忙创建菜谱，确定所需食材，以及决定做哪些菜。在计划过程中，你应该学习每道菜的完整准备过程，以及准备菜肴的恰当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I'm looking to prepare a special meal for myself and my loved one. I'd like your help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Are you able to assist me with that?",
+            "content_zh": "你好！很高兴你在这里。我想要为我和心爱的人准备一顿特别的餐点。我希望你能帮助我制作食谱，确定所需的食材，以及决定做哪些菜。你能帮助我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'm here to help you with that special meal preparation. I'd be more than happy to assist you in creating a recipe, selecting the necessary ingredients, and deciding what dishes to make. Could you please let me know your preferences, such as any dietary restrictions, favorite cuisines, or specific ingredients you'd like to include?",
+            "content_zh": "你好！我在这里来帮助你准备特别的餐点。很乐意帮助你制作食谱、选择必要的食材，以及决定要做什么菜。请告诉我你的喜好，比如任何饮食限制、喜欢的菜系，或者你想要包括的特定食材。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance! As for preferences, I have a few things in mind. We both enjoy sushi and salads, so incorporating those would be great. We don't have any dietary restrictions, but we do try to eat healthily. I'm open to exploring different cuisines and ingredients, so feel free to suggest some options. What do you think would make for a delicious and memorable meal?",
+            "content_zh": "感谢您提供帮助！至于偏好，我有几件事在脑海中。我们两个都喜欢寿司和沙拉，所以包括这些会很棒。我们没有任何饮食限制，但我们尽量健康饮食。我愿意尝试不同的菜系和食材，所以随时提出建议。您认为什么会是一顿美味且难忘的餐饮呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That sounds like a wonderful plan! Combining sushi and salads can create a delightful and refreshing meal. Here's an idea for a delicious and memorable meal that incorporates both:\n\n1. Sushi Rolls:\n   - California Roll: Crab sticks, avocado, cucumber, and sesame seeds wrapped in nori (seaweed) and sushi rice.\n   - Spicy Tuna Roll: Fresh tuna mixed with spicy mayo, cucumber, and scallions wrapped in nori and sushi rice.\n   - Vegetable Roll: A combination of colorful vegetables like carrots, bell peppers, and cucumber wrapped in nori and sushi rice.\n\n2. Salad:\n   - Asian Sesame Salad: A mix of fresh greens (such as lettuce, spinach, or kale), shredded carrots, sliced cucumbers, edamame beans, and toasted sesame seeds. Dress it with a homemade sesame ginger dressing for a flavorful touch.\n\n3. Miso Soup:\n   - Start the meal with a classic miso soup made with miso paste, tofu cubes, seaweed, and green onions. It's a light and comforting addition to the meal.\n\n4. Sides:\n   - Gyoza: Pan-fried Japanese dumplings filled with a savory mixture of ground pork, cabbage, garlic, and ginger.\n   - Tempura Vegetables: Lightly battered and deep-fried vegetables like sweet potatoes, broccoli, and zucchini. Serve with a dipping sauce made from soy sauce, rice vinegar, and grated ginger.\n\nFor dessert, you could consider something light and refreshing like a fruit platter or a small portion of green tea ice cream.\n\nThese suggestions offer a balance of flavors, textures, and cuisines. Feel free to modify or add any other dishes that you think would complement the meal. Let me know if you need any further assistance or specific recipes!",
+            "content_zh": "听起来像一个美好的计划！将寿司和沙拉结合起来可以制作出一顿愉悦清新的餐点。以下是一个融合了两者的美味难忘的餐点的创意建议： \n\n1. 寿司卷： \n   - 加州卷：蟹柳、鳄梨、黄瓜和芝麻籽包裹在海苔和寿司米中。 \n   - 辣味金枪鱼卷：新鲜金枪鱼拌入辛辣美乃滋、黄瓜和青葱之中，并包裹在海苔和寿司米中。 \n   - 蔬菜卷：胡萝卜、彩椒和黄瓜等多彩蔬菜混合在一起，包裹在海苔和寿司米中。 \n\n2. 沙拉： \n   - 亚洲芝麻沙拉：新鲜绿叶蔬菜（如生菜、菠菜或羽衣甘蓝）、胡萝卜丝、黄瓜片、毛豆和烤芝麻籽混合而成。用自制芝麻姜味调味汁拌匀，增添风味。 \n\n3. 味噌汤： \n   - 用味噌酱、豆腐块、海带和青葱制作经典的味噌汤开胃。这是一道清淡舒适的餐点辅助菜品。 \n\n4. 小菜： \n   - 饺子：煎炸日式饺子内馅包括碎猪肉、卷心菜、大蒜和生姜。 \n   - 天妇罗蔬菜：轻炸的甜薯、西兰花和西葫芦。搭配由酱油、米醋和姜丝调制而成的蘸料。 \n\n作为甜点，您可以考虑清淡爽口的水果拼盘或一小份绿茶冰淇淋。 这些建议提供了平衡的口味、口感和烹饪风格。欢迎根据自己的喜好修改或增加其他菜肴，让我知道如果您需要任何进一步的帮助或具体食谱！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "sushi",
+        "salads",
+        "healthy"
+    ],
+    "preference_summary": [
+        "exploring different cuisines"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 1,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 1
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "28",
+            "zh": "28"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Occupation": {
+            "en": "Financial worker",
+            "zh": "金融工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Online shopping",
+                "zh": "网购"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Luxury accommodation",
+                "zh": "豪华住宿"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Healthy food",
+                "zh": "健康饮食"
+            },
+            {
+                "en": "Japanese cuisine",
+                "zh": "日式美食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on fashion",
+                "zh": "时尚支出"
+            },
+            {
+                "en": "Invests in real estate",
+                "zh": "房地产投资"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Has a high-stress lifestyle",
+                "zh": "生活压力大"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Broad"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        }
+    }
+}

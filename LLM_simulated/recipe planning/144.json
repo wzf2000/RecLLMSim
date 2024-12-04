@@ -1,0 +1,229 @@
+{
+    "task": "recipe planning",
+    "preference_id": 23,
+    "task_context_id": 4,
+    "preference": "1. Gender: Female\n2. Age: 50\n3. Personality: Charismatic, ambitious, and driven\n4. Occupation: Politician\n5. Daily Interests and Hobbies: Networking, reading political news, public speaking\n6. Travel Habits: Frequently travels for work, prefers luxury hotels\n7. Dining Preferences: Prefers fine dining, enjoys a variety of cuisines\n8. Spending Habits: Invests in high-end fashion, donates to charities\n9. Other Aspects: Active in social causes, has a large social circle",
+    "preference_zh": "1. 性别：女性\n2. 年龄：50\n3. 个性：有魅力，有野心，目标明确\n4. 职业：政治人物\n5. 日常兴趣和爱好：社交网络，阅读政治新闻，演讲\n6. 旅行习惯：经常出差旅行，喜欢豪华酒店\n7. 餐饮偏好：喜欢高档餐厅，享受各种美食\n8. 消费习惯：投资高端时尚品牌，捐款给慈善机构\n9. 其他方面：积极参与社会事业，社交圈广泛",
+    "task_context": "You plan to prepare a meal at home and invite three close friends to join you. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家准备一顿饭，邀请三个亲近的朋友一起吃。你在烹饪方面并不很熟练，缺乏烹饪经验。因此，你想请LLM帮助你制定食谱，确定需要的食材，并决定要做哪些菜。在计划过程中，你应该学习每道菜的完整制作过程以及适当的准备菜肴的顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! Thank you for offering your assistance. I'm actually planning a meal at home and I would like to invite three close friends to join me. However, I'm not very skilled in cooking and I have limited experience. I was hoping you could help me create a recipe, determine the necessary ingredients, and decide what dishes to make. Can you help me with that?",
+            "content_zh": "你好！感谢您提供帮助。我实际上正在计划在家里准备一顿饭，并且想邀请三个亲近的朋友加入我。然而，我在烹饪方面并不是很有技术，并且经验有限。我希望你能帮助我创建食谱，确定所需食材，并决定要做什么菜。你能帮助我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you plan your meal and come up with some delicious dishes! Let's start by discussing what type of cuisine you and your friends enjoy. Do you have any preferences or dietary restrictions?",
+            "content_zh": "当然，我很乐意帮助您规划餐点，并想出一些美味的菜肴！我们可以从讨论您和您的朋友喜欢的菜系开始。您有什么偏好或饮食限制吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance. I'm actually planning a meal at home and I would like to invite three close friends to join me. However, I'm not very skilled in cooking and I have limited experience. I was hoping you could help me create a recipe, determine the necessary ingredients, and decide what dishes to make. Can you help me with that?\n",
+            "content_zh": "感谢您提供帮助。我实际上正计划在家里准备一顿饭，我想邀请三个亲密的朋友一起参加。但是，我在烹饪方面并不很擅长，经验有限。希望您能帮助我制定食谱，确定所需食材，以及决定要做哪些菜。您可以帮我完成吗？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! I'd be glad to help you plan your meal and come up with some tasty recipes. Let's start by discussing what type of cuisine you and your friends enjoy. Do you have any preferences or dietary restrictions?",
+            "content_zh": "当然！我很乐意帮助您规划膳食，并提供一些美味的食谱。让我们开始讨论您和朋友喜欢哪种烹饪风格。您有任何偏好或饮食限制吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance. I'm actually planning a meal at home and I would like to invite three close friends to join me. However, I'm not very skilled in cooking and I have limited experience. I was hoping you could help me create a recipe, determine the necessary ingredients, and decide what dishes to make. Can you help me with that?\n",
+            "content_zh": "感谢你提供帮助。我其实正在计划在家里做一顿饭，我想邀请三个亲近的朋友一起。但我并不很擅长烹饪，经验也有限。我希望你能帮我制定食谱，确定所需食材，以及决定做哪些菜。你能帮我吗？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "I'd be happy to help you plan your meal and create some delicious recipes! Let's start by discussing what type of cuisine you and your friends enjoy. Do you have any preferences or dietary restrictions?",
+            "content_zh": "我很乐意帮助您规划餐食并创造一些美味的食谱！让我们从讨论您和您的朋友喜欢的菜系开始。您有什么喜好或饮食限制吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for your willingness to assist me. When it comes to cuisine, my friends and I enjoy a variety of flavors. We are open to trying different cuisines and have no specific dietary restrictions. We appreciate both vegetarian and non-vegetarian options. What suggestions do you have for the dishes we could prepare?",
+            "content_zh": "感谢您愿意帮助我。在美食方面，我和我的朋友喜欢各种口味。我们乐意尝试不同的菜系，没有特定的饮食限制。我们都喜欢素食和荤食。您有什么菜肴建议我们可以准备？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That's great to hear! With no specific dietary restrictions, we have a wide range of options to choose from. How about we create a menu that includes a mix of vegetarian and non-vegetarian dishes? Here's a suggestion for a three-course meal:\n\nAppetizer: Bruschetta with Tomato and Basil\n\nIngredients:\n- Baguette or Italian bread\n- Ripe tomatoes\n- Fresh basil leaves\n- Garlic cloves\n- Olive oil\n- Salt and pepper\n\nInstructions:\n1. Preheat your oven to 375°F (190°C).\n2. Slice the baguette into half-inch thick slices and place them on a baking sheet.\n3. Drizzle olive oil over the bread slices and toast them in the oven until they turn golden and crispy.\n4. In the meantime, dice the tomatoes and chop the basil leaves.\n5. In a bowl, mix the tomatoes, basil, minced garlic, salt, pepper, and a drizzle of olive oil.\n6. Once the bread is toasted, remove it from the oven and let it cool slightly.\n7. Spoon the tomato and basil mixture onto the bread slices and serve as an appetizer.\n\nMain Course: Lemon Herb Roasted Chicken with Roasted Vegetables\n\nIngredients:\n- Whole chicken\n- Lemons\n- Fresh herbs (such as rosemary, thyme, or parsley)\n- Garlic cloves\n- Olive oil\n- Salt and pepper\n- Assorted vegetables (carrots, potatoes, Brussels sprouts, etc.)\n\nInstructions:\n1. Preheat your oven to 425°F (220°C).\n2. Rinse the chicken and pat it dry with paper towels.\n3. Stuff the cavity of the chicken with lemon wedges, fresh herbs, and garlic cloves.\n4. Rub the chicken with olive oil, salt, and pepper, ensuring it's evenly coated.\n5. Place the chicken in a roasting pan and roast it in the preheated oven for about 1 hour and 15 minutes, or until the internal temperature reaches 165°F (74°C).\n6. While the chicken is roasting, prepare the vegetables by cutting them into bite-sized pieces.\n7. Toss the vegetables with olive oil, salt, and pepper.\n8. After the chicken has roasted for about 30 minutes, add the vegetables to the same roasting pan and continue roasting until both the chicken and vegetables are cooked through and golden brown.\n\nDessert: Chocolate Mousse\n\nIngredients:\n- Dark chocolate\n- Heavy cream\n- Sugar\n- Vanilla extract\n- Whipped cream and chocolate shavings (optional, for garnish)\n\nInstructions:\n1. Melt the dark chocolate in a heatproof bowl over simmering water or in short bursts in the microwave.\n2. In a separate bowl, whip the heavy cream, sugar, and vanilla extract until soft peaks form.\n3. Gently fold the melted chocolate into the whipped cream until well combined.\n4. Divide the mousse into serving glasses or bowls and refrigerate for at least 2 hours to set.\n5. Before serving, you can garnish the mousse with whipped cream and chocolate shavings if desired.\n\nI hope this menu sounds appealing to you and your friends! Let me know if you have any other questions or need further assistance.",
+            "content_zh": "听到这个消息真是太好了！没有特定的饮食限制，我们有各种选择。我们来制作一份包括素食和非素食菜肴的菜单怎么样？以下是一个三道菜的建议菜单：\n\n头盘：番茄香蒜脆面包\n\n食材：\n- 法棍面包或意大利面包\n- 熟番茄\n- 新鲜罗勒叶\n- 大蒜瓣\n- 橄榄油\n- 盐和胡椒\n\n制作方法：\n1. 将烤箱预热至375°F（190°C）。\n2. 把法棍面包切成半英寸厚片放在烤盘上。\n3. 在面包上淋上橄榄油，放入烤箱中烤至金黄酥脆。\n4. 与此同时，把番茄切丁，罗勒叶切碎。\n5. 在碗中混合番茄、罗勒、蒜末、盐、胡椒和橄榄油。\n6. 面包烤好后从烤箱取出稍微冷却。\n7. 把番茄和罗勒混合物舀到面包上作为开胃菜。\n\n主菜：柠檬香草烤鸡配烤蔬菜\n\n食材：\n- 整只鸡\n- 柠檬\n- 新鲜香草（例如迷迭香、百里香或欧芹）\n- 大蒜瓣\n- 橄榄油\n- 盐和胡椒\n- 各种蔬菜（胡萝卜、土豆、小包心菜等）\n\n制作方法：\n1. 将烤箱预热至425°F（220°C）。\n2. 冲洗鸡，用厨房纸巾擦干净。\n3. 将柠檬楔、新鲜香草和大蒜塞入鸡腔内。\n4. 用橄榄油、盐和胡椒搽抹鸡，确保均匀覆盖。\n5. 把鸡放入烤盘中，放入预热烤箱烤约1小时15分钟，或直到内部温度达到165°F（74°C）。\n6. 当鸡正在烤制时，将蔬菜切成一口大小的块。\n7. 用橄榄油、盐和胡椒拌匀蔬菜。\n8. 大约烤制鸡30分钟后，将蔬菜放入同一个烤盘中，继续烤制直至鸡和蔬菜都烤熟呈金黄色。\n\n甜点：巧克力慕斯\n\n食材：\n- 黑巧克力\n- 动物奶油\n- 糖\n- 香草精\n- 打发奶油和巧克力屑（可选择添加，用于装饰）\n\n制作方法：\n1. 将黑巧克力在隔水加热的碗中融化或者在微波炉中短暂加热至溶化。\n2. 在另一个碗中将动物奶油、糖和香草精打发至软性发泡。\n3. 将融化的巧克力轻轻拌入打发的奶油中直至均匀混合。\n4. 把慕斯分装入盛装杯或碗中，放入冰箱至少冷藏2小时至凝固。\n5. 在上菜前，您可以根据需要用打发奶油和巧克力屑来装饰慕斯。\n\n希望这份菜单对您和朋友们有吸引力！如果您有其他问题或需要进一步帮助，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for providing such a delicious and well-rounded menu! I really appreciate your suggestions. The Bruschetta with Tomato and Basil as the appetizer sounds refreshing and flavorful. The Lemon Herb Roasted Chicken with Roasted Vegetables for the main course sounds like a hearty and satisfying option. Lastly, the Chocolate Mousse for dessert is a classic and indulgent choice.\n\nI think this menu will impress my friends and make for a memorable meal. I will definitely give these recipes a try. Thank you for your help in planning the meal!",
+            "content_zh": "感谢您提供如此美味且丰富的菜单！我真的很感激您的建议。开胃菜中的番茄罗勒意面听起来清新可口。主菜中的柠檬香料烤鸡与烤蔬菜听起来是丰盛满足的选择。最后，巧克力慕斯作为甜点是经典而豪华的选择。 我觉得这个菜单会给我的朋友留下深刻印象，成为一个令人难忘的晚餐。我一定会尝试这些食谱。感谢您在计划餐饮方面的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you liked the menu suggestions. I'm sure your friends will enjoy the delicious meal you have planned. Don't hesitate to reach out if you need any further assistance or have any other questions while preparing the recipes. Enjoy your cooking and have a fantastic time with your friends!",
+            "content_zh": "不客气！很高兴你喜欢菜单建议。我相信你的朋友会喜欢你计划的美味餐。在准备这些食谱时，如果需要任何进一步的帮助或有其他问题，请不要犹豫与我联系。祝愉快烹饪，和朋友们度过美好时光！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "hearty",
+        "refreshing",
+        "indulgent"
+    ],
+    "preference_summary": [
+        "simple recipes",
+        "fine dining",
+        "variety of cuisines"
+    ],
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 1,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "50",
+            "zh": "50"
+        },
+        "Personality": [
+            {
+                "en": "Friendly",
+                "zh": "友善"
+            },
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Luxury accommodation",
+                "zh": "豪华住宿"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on fashion",
+                "zh": "时尚支出"
+            },
+            {
+                "en": "Donations",
+                "zh": "捐款"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in volunteer activities",
+                "zh": "喜欢参与志愿活动"
+            },
+            {
+                "en": "Has a large social circle",
+                "zh": "社交广泛"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Breadth",
+            "context": "Low",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

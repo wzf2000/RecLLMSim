@@ -1,0 +1,257 @@
+{
+    "task": "travel planning",
+    "preference_id": 9,
+    "task_context_id": 7,
+    "preference": "1. Gender: Female\n2. Age: 28\n3. Personality: Ambitious, determined, and goal-oriented\n4. Occupation: Financial Analyst\n5. Daily Interests and Hobbies: Fitness training, stock market analysis, online shopping\n6. Travel Habits: Enjoys city breaks, prefers luxury resorts\n7. Dining Preferences: Health-conscious, enjoys sushi and salads\n8. Spending Habits: Invests in high-end fashion, saves for property\n9. Other Aspects: Lives in a city apartment, has a high-stress lifestyle",
+    "preference_zh": "1. 性别：女性\n2. 年龄：28\n3. 个性：雄心勃勃、坚定不移、目标导向\n4. 职业：金融分析师\n5. 日常兴趣爱好：健身训练、股市分析、网上购物\n6. 旅行习惯：喜欢城市度假，偏爱豪华度假村\n7. 餐饮偏好：注重健康，喜欢寿司和沙拉\n8. 消费习惯：投资高端时尚，为房产储蓄\n9. 其他方面：居住在城市公寓，生活压力较大",
+    "task_context": "You are planning a two-day-long trip this winter, The trip has no specific destination restrictions. You would like to use LLM to help refine your travel plans. During this conversation, you will need to make arrangements for accommodations, transportation, and itinerary details. Your ultimate travel plan should be as comprehensive as possible, ensuring that you can realistically follow it when the time comes.",
+    "task_context_zh": "你正在计划一次为期两天的冬季旅行，这次旅行没有特定目的地限制。你希望使用LLM来帮助完善你的旅行计划。在这次对话中，你需要安排住宿、交通和行程细节。你的最终旅行计划应尽可能全面，确保到时候你能够真实地按照计划行动。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here to assist me. I'm in the process of planning a two-day trip this winter, and I could use some help refining my travel plans. I want to make sure I have a comprehensive itinerary that includes accommodations, transportation, and other details. Can you help me with that?",
+            "content_zh": "你好！很高兴你在这里帮助我。我正在计划这个冬天的一次为期两天的旅行，希望能够得到一些帮助来完善我的旅行计划。我想确保我的旅行日程包括住宿、交通以及其他细节。你可以帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you with your travel plans! Planning a trip can be exciting, and having a well-thought-out itinerary can make your experience more enjoyable. Let's start by discussing the destination you have in mind. Where are you planning to go for your two-day winter trip?",
+            "content_zh": "当然，我很乐意帮助您制定旅行计划！规划一次旅行可能让人兴奋，而制定周密的行程安排可以让您的经历更加愉快。让我们从讨论您心中的目的地开始。您打算去哪里度过为期两天的冬季之旅？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance! Since my trip has no specific destination restrictions, I'm open to exploring various options. I'm particularly drawn to vibrant cities with a mix of culture, shopping, and dining experiences. Do you have any recommendations for a city that offers a great winter getaway?",
+            "content_zh": "感谢您的提供帮助！由于我的旅行没有特定目的地限制，我愿意探索各种选择。我特别喜欢充满活力的城市，拥有文化、购物和美食体验。您有没有推荐的城市，适合冬季度假？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Certainly! If you're looking for a vibrant city with a mix of culture, shopping, and dining, there are several fantastic options for a winter getaway. Here are a few cities that might interest you:\n\n1. New York City, USA: Known as \"The Big Apple,\" New York City offers a dazzling array of attractions, from iconic landmarks like Times Square and Central Park to world-class museums, Broadway shows, and a diverse culinary scene. Plus, during winter, you can enjoy ice skating at Rockefeller Center and witness the magical holiday decorations.\n\n2. Tokyo, Japan: Tokyo is a bustling metropolis that seamlessly blends modernity with tradition. You can explore vibrant neighborhoods like Shibuya and Shinjuku, visit historic sites such as the Meiji Shrine and Senso-ji Temple, indulge in delicious street food, and experience the unique winter illuminations throughout the city.\n\n3. Vienna, Austria: As the capital of Austria, Vienna is renowned for its rich history, stunning architecture, and classical music heritage. During winter, you can visit the numerous Christmas markets, enjoy a cup of hot spiced wine (Glühwein), and immerse yourself in the city's cultural offerings, including concerts and opera performances.\n\n4. Barcelona, Spain: Barcelona offers a vibrant atmosphere with its unique blend of Catalan culture, stunning architecture (including Gaudí's masterpieces), and a lively food scene. Despite being a coastal city, Barcelona experiences a mild winter, making it an ideal destination for exploring its charming streets and enjoying the local cuisine.\n\nThese are just a few suggestions, but there are many more cities around the world that could provide a great winter getaway. Let me know if any of these options catch your interest, or if you have any specific preferences, and we can continue refining your itinerary!",
+            "content_zh": "当然！如果您正在寻找一个充满文化、购物和美食混合的充满活力的城市，那么有几个非常棒的选择可以作为冬季度假胜地。以下是一些可能会吸引您的城市：\n\n1. 美国纽约市：纽约市被称为“大苹果”，提供了大量的旅游景点，从时代广场和中央公园等标志性地标到世界一流的博物馆、百老汇秀和多元化的烹饪场景。此外，在冬季，您可以在洛克菲勒中心滑冰，感受神奇的节日装饰。\n\n2. 日本东京：东京是一个熙熙攘攘的大都市，完美地结合了现代与传统。您可以探索涩谷和新宿等充满活力的街区，参观明治神宫和浅草寺等历史悠久的景点，尽情品尝美味的街头食品，并体验整个城市独特的冬季灯光装饰。\n\n3. 奥地利维也纳：作为奥地利的首都，维也纳以丰富的历史、令人惊叹的建筑和古典音乐传统而闻名。在冬季，您可以参观众多的圣诞集市，品尝一杯热香料酒（Glühwein），并沉浸在城市的文化活动中，包括音乐会和歌剧表演。\n\n4. 西班牙巴塞罗那：巴塞罗那以其独特的加泰罗尼亚文化、令人惊叹的建筑（包括高迪的杰作）和充满活力的美食场景而闻名。尽管是一个沿海城市，但巴塞罗那在冬季气候温和，使其成为探索迷人街道和品尝当地美食的理想目的地。\n\n这只是一些建议，但世界各地还有许多城市可以提供一个美好的冬季度假。如果您对这些选项中的任何一个感兴趣，或者有任何特定偏好，请告诉我，我们可以继续制定您的行程！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the suggestions! I'm intrigued by all of these options, but I think I'll go with Tokyo, Japan for my winter getaway. The combination of modernity, tradition, and winter illuminations sounds captivating. Now that we have a destination in mind, let's move on to accommodations. Can you help me find a luxury resort in Tokyo that offers a comfortable and memorable stay?",
+            "content_zh": "谢谢你的建议！我对所有这些选择都很感兴趣，但我想我会选择日本的东京作为我的冬季度假地。现代化、传统文化和冬季灯饰的结合听起来很迷人。既然我们已经有了目的地，请帮我找一个在东京提供舒适和难忘住宿的豪华度假村，好吗？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! Tokyo offers a wide range of luxury accommodations that can provide a comfortable and memorable stay. Here are a few highly regarded luxury resorts in Tokyo:\n\n1. Aman Tokyo: Aman Tokyo is a luxurious hotel located in the Otemachi district, offering stunning views of the city skyline. It features spacious rooms, a tranquil spa, and exceptional service, ensuring a truly indulgent experience.\n\n2. The Ritz-Carlton, Tokyo: Situated in the upscale Roppongi district, The Ritz-Carlton, Tokyo offers elegant rooms, panoramic city views, and a range of amenities including a luxurious spa and multiple dining options.\n\n3. Mandarin Oriental, Tokyo: Located in the Nihonbashi district, the Mandarin Oriental, Tokyo boasts stylish rooms, exquisite dining options, and a spa with breathtaking views of the city. It's known for its exceptional service and attention to detail.\n\n4. The Peninsula Tokyo: Situated in the Marunouchi district, The Peninsula Tokyo offers luxurious rooms, world-class dining, and a rooftop bar with panoramic views. It also provides excellent service and is conveniently located near popular attractions.\n\nThese are just a few examples, but Tokyo has many other luxury resorts that cater to various preferences. It's worth exploring their websites, reading reviews, and comparing amenities and prices to find the perfect fit for your stay. Let me know if you need further assistance with booking or have any other questions!",
+            "content_zh": "绝对没错！东京提供了各种豪华住宿选择，可以为您提供舒适且难忘的住宿体验。以下是东京一些备受推崇的豪华度假酒店：\n1. 安缦东京：位于大手町区的安缦东京是一家豪华酒店，提供令人惊叹的城市天际线景观。酒店设有宽敞的客房、宁静的水疗中心和出色的服务，确保您享受到真正的奢侈体验。\n2. 东京丽思卡尔顿酒店：坐落在高档的六本木区，东京丽思卡尔顿酒店提供优雅的客房、全景城市景观以及豪华水疗中心和多种餐饮选择。\n3. 东京文华东方酒店：位于日本桥区的东京文华东方酒店设有时尚客房、精致的餐饮选择和享有城市美景的水疗中心。该酒店以其出色的服务和极致的关注细节而闻名。\n4. 东京半岛酒店：位于丸之内区的东京半岛酒店提供豪华客房、世界级餐饮和天台酒吧，可享受全景美景。酒店还提供卓越的服务，并位于热门景点附近的便利位置。\n这仅是一些例子，但东京还有许多其他迎合各种偏好的豪华度假酒店。值得浏览它们的网站，阅读评论，并比较设施和价格，以找到适合您的理想住宿。如果需要进一步协助预订或有任何其他问题，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the suggestions! The options you provided all sound fantastic, and I appreciate the variety of choices. After reviewing their amenities and prices, I think I'll go with the Mandarin Oriental, Tokyo. The combination of stylish rooms, exquisite dining, and the spa with stunning city views is very appealing. Now that we have the accommodations sorted, let's move on to transportation. How can I get around Tokyo conveniently during my two-day trip?",
+            "content_zh": "谢谢你的建议！你提供的选择都听起来很棒，我很感谢这么多种选择。在审查了它们的设施和价格后，我想我会选择东京文华东方酒店。时尚客房、精致餐饮和享有令人惊艳的城市景观的水疗中心的组合非常吸引人。既然我们已经确定了住宿，让我们继续议论交通。在我两天的行程中，如何方便地在东京四处走动呢？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Getting around Tokyo conveniently is relatively easy thanks to its efficient public transportation system. Here are some options you can consider for transportation during your two-day trip:\n\n1. Tokyo Metro and Toei Subway: The Tokyo Metro and Toei Subway networks cover most of the city and are a convenient way to travel between different neighborhoods and attractions. They are known for their punctuality and frequency of trains.\n\n2. JR Yamanote Line: The Yamanote Line is a circular train line that loops around central Tokyo, stopping at major stations like Shinjuku, Shibuya, and Tokyo Station. It's a great way to access popular tourist areas and transfer to other train lines.\n\n3. Taxis: Taxis are readily available in Tokyo, but they can be quite expensive compared to other modes of transportation. They are best used for short distances or when you have heavy luggage.\n\n4. Tokyo Metro Pass: Consider purchasing a Tokyo Metro Pass or a prepaid IC card like Suica or Pasmo. These cards allow for seamless travel on trains and buses, offering convenience and potential cost savings.\n\n5. Walking: Tokyo is a pedestrian-friendly city with many interesting neighborhoods and attractions within walking distance of each other. Exploring on foot can be a great way to soak in the atmosphere and discover hidden gems.\n\nIt's worth noting that Tokyo can be busy during peak hours, so planning your itinerary to avoid rush hours can help you have a more comfortable travel experience. Additionally, Google Maps and other navigation apps can be helpful for finding the best routes and estimating travel times. Enjoy exploring Tokyo! Let me know if there's anything else I can assist you with.",
+            "content_zh": "在东京方便地出行相对容易，这要归功于其高效的公共交通系统。以下是您在两天旅行期间可以考虑的交通方式：\n\n1. 东京地铁和都营地铁：东京地铁和都营地铁网络覆盖了城市的大部分地区，是在不同街区和景点之间出行的便利方式。它们以准点和列车频率而著称。\n\n2. JR山手线：山手线是一条环绕东京市中心的环形火车线路，在新宿、涩谷和东京站等主要车站停靠。这是前往热门旅游区域和转乘其他火车线路的好方式。\n\n3. 出租车：在东京很容易找到出租车，但与其他交通方式相比可能会更昂贵。它们最适合短距离旅行或携带大件行李时使用。\n\n4. 东京地铁通：考虑购买一张东京地铁通或预付IC卡，如Suica或Pasmo。这些卡可以在火车和公交车上无缝换乘，提供便利和潜在的节省成本。\n\n5. 步行：东京是一个适合行人的城市，许多有趣的街区和景点彼此之间步行距离很近。徒步探索可是感受这里氛围和发现隐藏宝藏的好方式。\n\n值得注意的是，在高峰时段，东京可能会很拥挤，因此规划行程以避开高峰时间可帮助您拥有更舒适的旅行体验。此外，谷歌地图和其他导航应用可以帮助您找到最佳路线并估计旅行时间。享受探索东京吧！如果有其他需要帮助的地方，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed transportation options! I appreciate the variety of choices available. Given the efficiency and coverage of the Tokyo Metro and Toei Subway networks, I think I'll primarily rely on them for getting around the city. The Yamanote Line sounds particularly useful for accessing major stations and tourist areas. I'll also keep in mind the option of walking, especially for exploring nearby neighborhoods. Thank you for your assistance so far! Now, let's move on to refining the itinerary. What are some must-visit attractions or activities in Tokyo during the winter season?",
+            "content_zh": "谢谢你提供了如此详细的交通选择！我很感激能有这么多种选择。考虑到东京地铁和都营地铁网络的效率和覆盖范围，我认为主要会依赖它们来在城市中移动。山手线听起来特别适用于前往主要车站和旅游区域。我也会考虑步行的选择，尤其是去附近的社区探索。感谢迄今为止的帮助！现在，让我们继续优化行程计划。在东京冬季有哪些必去的景点或活动呢？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! I'm glad the transportation options are helpful for your trip. Tokyo offers a wide range of attractions and activities, especially during the winter season. Here are some must-visit places and activities to consider for your itinerary:\n\n1. Winter Illuminations: Tokyo is known for its stunning winter illuminations, where various parks, shopping districts, and landmarks are adorned with beautiful light displays. Some popular spots include Roppongi Hills, Tokyo Midtown, and Caretta Shiodome. Don't miss the dazzling displays at Tokyo Disneyland or Tokyo DisneySea if you're interested in a magical experience.\n\n2. Senso-ji Temple and Asakusa: Visit the historic Senso-ji Temple in Asakusa, Tokyo's oldest Buddhist temple. Explore Nakamise Shopping Street, lined with traditional shops selling souvenirs and snacks. You can also take a boat cruise on the nearby Sumida River for a different perspective of the city.\n\n3. Meiji Shrine and Harajuku: Take a stroll through the tranquil Meiji Shrine, dedicated to Emperor Meiji and Empress Shoken. Afterward, explore the vibrant neighborhood of Harajuku, known for its quirky fashion, trendy shops, and delicious street food. Takeshita Street is a must-visit for its unique shopping experience.\n\n4. Tsukiji Fish Market: Although the famous Tsukiji Fish Market has relocated to Toyosu, it's still a great place to experience the bustling atmosphere and enjoy fresh seafood. You can explore the outer market, try sushi at one of the local restaurants, or participate in a tuna auction.\n\n5. Shinjuku Gyoen National Garden: If you're looking for a peaceful retreat, visit Shinjuku Gyoen National Garden. This beautiful park offers various garden styles, including Japanese, French, and English gardens. It's a great place to relax, enjoy nature, and have a picnic.\n\n6. Art and Culture: Tokyo is home to numerous art museums and galleries. Consider visiting the Mori Art Museum in Roppongi, the Tokyo National Museum in Ueno, or the teamLab Borderless digital art museum in Odaiba for immersive and unique art experiences.\n\nThese are just a few suggestions, and Tokyo has much more to offer based on your interests. Don't forget to indulge in the local cuisine, try a traditional tea ceremony, and explore the city's vibrant neighborhoods. Let me know if there's anything specific you'd like to include in your itinerary, and I'll be happy to assist you further!",
+            "content_zh": "不客气！我很高兴交通选择对您的旅行有帮助。东京在冬季提供各种各样的景点和活动。以下是一些必游的地方和活动，供您考虑您的行程：\n\n1. 冬季灯光秀：东京以其令人惊叹的冬季灯光秀而闻名，各个公园、购物区和地标都会被美丽的灯光装饰。一些热门景点包括六本木之丘、东京中城和凯瑟塔汐留。如果您对神奇的体验感兴趣，不要错过东京迪士尼乐园或东京迪士尼海洋的迷人表演。\n\n2. 浅草寺和浅草：参观位于浅草的历史悠久的浅草寺，这是东京最古老的佛教寺庙。探索中门市街，这里有一排传统商店，销售纪念品和小吃。您还可以乘坐附近的隅田川游船，以不同的视角欣赏城市景色。\n\n3. 明治神宫和原宿：在宁静的明治神宫散步，这座神社是为明治天皇和昭仁皇后而建。之后，探索原宿这个充满活力的街区，以其古怪的时尚、时髦的商店和美味的街头食品而闻名。竹下街是一个必游之地，因为其独特的购物体验。\n\n4. 筑地鱼市：尽管著名的筑地鱼市已经迁至豊洲，但这仍然是体验繁华氛围和品尝新鲜海鲜的绝佳场所。您可以探索外部市场，在当地餐厅尝试寿司或参加拍卖。\n\n5. 新宿御苑：如果您正在寻找宁静的避风港，请访问新宿御苑。这个美丽的公园提供各种花园风格，包括日本、法国和英国花园。这是一个放松、享受大自然和野餐的好地方。\n\n6. 艺术和文化：东京拥有众多艺术博物馆和画廊。考虑参观六本木的森美术馆、上野的东京国立博物馆或台场的teamLab Borderless数字艺术博物馆，让您获得沉浸式和独特的艺术体验。\n\n以上仅是一些建议，根据您的兴趣，东京还有更多令人期待的景点。不要忘记品尝当地美食，尝试传统茶道，探索这个充满活力的城市街区。如果您有任何特别想要包含在行程中的内容，请告诉我，我将乐意为您提供进一步的帮助！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the wonderful suggestions! I'm thrilled to have such a diverse range of attractions and activities to choose from. The winter illuminations sound enchanting, and I definitely don't want to miss Senso-ji Temple and Asakusa, as well as Meiji Shrine and Harajuku. Exploring the Tsukiji Fish Market and enjoying the tranquility of Shinjuku Gyoen National Garden are also on my list now. I appreciate your help in creating a well-rounded itinerary. Now, I think I have a comprehensive plan for my two-day trip to Tokyo this winter. Thank you for your assistance!",
+            "content_zh": "谢谢您提供的精彩建议！我很高兴能有这么多各种各样的景点和活动可供选择。冬季的照明灯光听起来很迷人，我肯定不想错过浅草寺和淺草以及明治神宫和原宿。现在我也将筑地市场和新宿御苑的宁静列入计划。感谢您帮助我制定了一个全面的行程安排。现在，我觉得我已经有一个全面的计划来度过我这个冬天去东京的两天之行。感谢您的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could help you create a comprehensive itinerary for your two-day trip to Tokyo. It sounds like you have a fantastic plan that includes a mix of cultural, historical, and festive experiences. Tokyo has so much to offer, and I'm sure you'll have a memorable time exploring the city and immersing yourself in its vibrant atmosphere.\n\nIf you have any more questions or need further assistance in the future, feel free to reach out. Have a fantastic trip to Tokyo and enjoy every moment of your winter getaway! Safe travels!",
+            "content_zh": "非常欢迎！我很高兴能帮助您为您在东京的两天旅行制定全面的行程。听起来您有一个包含文化、历史和节庆体验的精彩计划。东京有很多精彩之处，我相信您在探索这座城市和沉浸在其充满活力的氛围中会度过一个难忘的时光。如果您有任何问题或将来需要进一步帮助，请随时联系。祝您在东京的旅行愉快，享受冬日度假的每一刻！一路平安！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "vibrant cities",
+        "culture",
+        "shopping",
+        "dining experiences",
+        "luxury resort"
+    ],
+    "preference_summary": [
+        "vibrant cities",
+        "culture",
+        "shopping",
+        "dining",
+        "tokyo"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "28",
+            "zh": "28"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Occupation": {
+            "en": "Financial worker",
+            "zh": "金融工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Online shopping",
+                "zh": "网购"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Luxury accommodation",
+                "zh": "豪华住宿"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Healthy food",
+                "zh": "健康饮食"
+            },
+            {
+                "en": "Japanese cuisine",
+                "zh": "日式美食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on fashion",
+                "zh": "时尚支出"
+            },
+            {
+                "en": "Invests in real estate",
+                "zh": "房地产投资"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Has a high-stress lifestyle",
+                "zh": "生活压力大"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

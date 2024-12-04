@@ -1,0 +1,239 @@
+{
+    "task": "recipe planning",
+    "preference_id": 1,
+    "task_context_id": 0,
+    "preference": "1. Gender: Female\n2. Age: 35\n3. Personality: Extroverted, spontaneous, and creative\n4. Occupation: Freelance Graphic Designer\n5. Daily Interests and Hobbies: Painting, yoga, photography\n6. Travel Habits: Loves international travel, prefers cultural and historical sites\n7. Dining Preferences: Foodie, enjoys trying different cuisines\n8. Spending Habits: Spends on experiences rather than material goods\n9. Other Aspects: Active in social causes, owns a vintage motorcycle",
+    "preference_zh": "1. 性别：女性\n2. 年龄：35\n3. 个性：外向、自发、富有创造力\n4. 职业：自由职业平面设计师\n5. 日常兴趣爱好：绘画、瑜伽、摄影\n6. 旅行习惯：热爱国际旅行，偏好文化和历史景点\n7. 饮食偏好：美食家，喜欢尝试不同的菜系\n8. 消费习惯：更愿意消费体验而不是物质商品\n9. 其他方面：积极参与社会活动，拥有一辆老式摩托车",
+    "task_context": "You plan to prepare a meal at home for yourself. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家为自己准备一顿饭。你在烹饪方面不是很熟练，经验有限。因此，你想要请求LLM的帮助来制定食谱，确定所需的食材，并决定要做哪些菜。在规划过程中，你应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I'm looking to prepare a meal at home, but I'm not very skilled in cooking and have limited experience. I was hoping you could help me create a recipe, determine the necessary ingredients, and decide what dishes to make. Can you assist me with that?",
+            "content_zh": "你好！很高兴你在这里。我想在家准备一顿饭，但我在烹饪方面并不很有技巧，经验也有限。我希望你能帮我制作一个菜谱，确定所需食材，决定要做什么菜。你可以帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be happy to help you with that. Cooking can be a lot of fun, and with a little guidance, you'll be able to prepare a delicious meal at home. Let's start by discussing what type of cuisine or dish you're interested in making. Do you have any preferences or dietary restrictions?",
+            "content_zh": "你好！我很乐意帮助您。烹饪可以很有趣，有了一点指导，您就能在家做出美味的一餐。让我们先讨论一下您想要做什么类型的菜肴或菜品。您有什么偏好或饮食限制吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance! I'm open to trying different cuisines, so I don't have any specific preferences. As for dietary restrictions, I don't have any allergies, but I prefer vegetarian options. What do you suggest we make?",
+            "content_zh": "谢谢你提供帮助！我愿意尝试不同的美食，所以我没有特定的偏好。至于饮食限制，我没有过敏，但我更喜欢素食选项。你建议我们做什么呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! Since you prefer vegetarian options, how about we create a delicious and nutritious vegetarian meal? Let's start with a simple yet flavorful main dish. How about a hearty vegetable stir-fry with tofu? It's a versatile dish that allows you to use a variety of vegetables. \n\nFor the stir-fry, you'll need:\n\n- 1 block of firm tofu, drained and cubed\n- Assorted vegetables of your choice (such as bell peppers, broccoli, carrots, mushrooms, snap peas, or zucchini), sliced or chopped\n- 2 cloves of garlic, minced\n- 1 tablespoon of ginger, grated\n- 2 tablespoons of soy sauce (or tamari for a gluten-free option)\n- 1 tablespoon of sesame oil (or any other cooking oil)\n- Optional: 1 tablespoon of cornstarch mixed with 2 tablespoons of water (to thicken the sauce)\n\nTo prepare the stir-fry, follow these steps:\n\n1. Heat the sesame oil in a large skillet or wok over medium-high heat.\n2. Add the minced garlic and grated ginger, and sauté for about 1 minute until fragrant.\n3. Add the cubed tofu to the skillet and cook for a few minutes until it starts to brown.\n4. Add the vegetables to the skillet and stir-fry for 4-5 minutes until they are cooked but still crisp.\n5. In a small bowl, mix the soy sauce with the optional cornstarch slurry to create a sauce.\n6. Pour the sauce over the stir-fry and stir well to coat everything evenly. Cook for another minute until the sauce thickens.\n7. Serve the stir-fry over steamed rice or noodles.\n\nNow, let's think about a side dish to complement the stir-fry. How about a simple and refreshing cucumber salad? It's quick to prepare and adds a nice crunch to the meal.\n\nFor the cucumber salad, you'll need:\n\n- 2 cucumbers, thinly sliced\n- 1/4 cup rice vinegar\n- 1 tablespoon sugar (or alternative sweetener of your choice)\n- 1/2 teaspoon salt\n- Optional: sesame seeds or chopped fresh herbs for garnish (such as cilantro or mint)\n\nTo make the cucumber salad, follow these steps:\n\n1. In a bowl, mix together the rice vinegar, sugar, and salt until the sugar and salt have dissolved.\n2. Add the sliced cucumbers to the bowl and toss them well in the dressing.\n3. Let the cucumber salad marinate in the refrigerator for at least 15 minutes before serving.\n4. Garnish with sesame seeds or fresh herbs if desired.\n\nWith the stir-fry and cucumber salad, you'll have a well-balanced and delicious vegetarian meal. I hope you enjoy preparing and savoring it! Let me know if you need any more assistance or have any other questions.",
+            "content_zh": "太棒了！既然您偏爱素食选择，我们来制作一道美味又营养的素食菜肴怎么样？我们先从一个简单但味道浓郁的主菜开始。要不要试试做一道丰盛的豆腐炒蔬菜呢？这是一道多用途的菜品，您可以选择各种蔬菜搭配。 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n对于炒菜，您需要准备以下材料：\n\n\n\n\n1块坚豆腐，沥干并切成方块\n各种您喜欢的蔬菜（如甜椒、西兰花、胡萝卜、蘑菇、豆荚或西葫芦），切片或切块\n2瓣大蒜，剁碎\n1汤匙姜，磨碎\n2汤匙酱油（或无麸质的酱油tamari）\n1汤匙麻油（或其他任何食用油）\n可选：1汤匙玉米淀粉混合2汤匙水（用于加厚酱汁）\n\n\n\n\n\n\n\n准备炒菜，按照以下步骤进行：\n\n\n\n\n1. 在一个大平底锅或炒锅中用中火加热麻油。\n2. 加入剁碎的大蒜和磨碎的姜，炒约1分钟至香气飘散。\n3. 将切块豆腐加入平底锅，煮几分钟直到开始变褐色。\n4. 将蔬菜加入平底锅，炒4-5分钟直到熟但仍然脆嫩。\n5. 在一个小碗中，将酱油与可选的玉米淀粉浆混合，制成酱汁。\n6. 将酱汁倒在炒菜上，充分搅拌以均匀涂抹。再煮1分钟直到酱汁变稠。\n7. 可将炒菜盛在米饭或面条上。\n\n\n\n\n\n\n现在，让我们想想一道搭配炒菜的配菜。要不要试试做一份简单清爽的黄瓜沙拉？它既容易准备又能为菜肴增添一丝爽口。\n\n\n\n\n\n\n\n\n对于黄瓜沙拉，您需要准备以下材料：\n\n\n\n\n2根黄瓜，切成薄片\n1/4杯米醋\n1汤匙白糖（或您选择的替代甜味剂）\n1/2茶匙盐\n可选：芝麻或切碎的新鲜香草作装饰（如香菜或薄荷）\n\n\n\n\n\n\n\n\n\n做黄瓜沙拉，按照以下步骤进行：\n\n\n\n\n1. 在一个碗中，将米醋、白糖和盐混合在一起，直至白糖和盐溶解。\n2. 将切片黄瓜放入碗中，轻轻拌匀。\n3. 将黄瓜沙拉放入冰箱中浸泡至少15分钟后食用。\n4. 如需，可用芝麻或新鲜香草作装饰。\n\n\n\n\n\n\n通过炒菜和黄瓜沙拉的搭配，您将品尝到一份均衡美味的素食餐。希望您享受制作和品尝！如果您需要更多帮助或有其他问题，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That sounds absolutely delicious! I love the idea of a vegetable stir-fry with tofu as the main dish, and the cucumber salad as a refreshing side. The recipe and instructions you provided seem clear and easy to follow. I can't wait to give it a try!\n\nThank you so much for your help. I really appreciate it!",
+            "content_zh": "听起来绝对美味！我喜欢用豆腐作为主菜的蔬菜炒和清爽的黄瓜沙拉的想法。您提供的食谱和说明看起来清晰易懂。我迫不及待想试试！谢谢您的帮助，我非常感激！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you liked the recipe and instructions. I'm sure you'll do great in the kitchen, and I'm excited for you to try this delicious meal. Don't hesitate to reach out if you have any questions or need further assistance along the way. Enjoy your cooking experience and bon appétit!",
+            "content_zh": "不客气！我很高兴你喜欢这个食谱和说明。我相信你在厨房里会做得很棒，我迫不及待想让你尝试这道美味的餐点。如果你有任何问题或需要进一步协助，请随时与我联系。享受你的烹饪体验，祝你胃口好！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you so much for your kind words and encouragement! I'll definitely reach out if I need any more assistance. I'm looking forward to enjoying the cooking experience and the tasty meal. Thanks again, and have a wonderful day!",
+            "content_zh": "非常感谢你的友善言语和鼓励！如果需要更多帮助，我一定会联络你的。我期待着享受烹饪体验和美味的餐点。再次感谢，祝你有一个美好的一天！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're most welcome! I'm here to help anytime you need it. I'm glad to hear that you're looking forward to the cooking experience and meal. I hope you have a fantastic time in the kitchen and enjoy every bite of your homemade creation. Have a wonderful day too, and happy cooking!",
+            "content_zh": "不客气！我随时在这里帮助您。很高兴听到您期待烹饪体验和餐食。希望您在厨房里度过美好时光，并享受您自制美食的每一口。也祝您有一个美好的一天，愉快烹饪！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "vegetable stir-fry",
+        "tofu",
+        "cucumber salad"
+    ],
+    "preference_summary": [
+        "excited",
+        "vegetarian",
+        "appreciative"
+    ],
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "35",
+            "zh": "35"
+        },
+        "Personality": [
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            },
+            {
+                "en": "Spontaneous",
+                "zh": "随性"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Occupation": {
+            "en": "Artist",
+            "zh": "艺术工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Painting",
+                "zh": "绘画"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Photography",
+                "zh": "摄影"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "International travel",
+                "zh": "国际旅行"
+            },
+            {
+                "en": "Cultural trips",
+                "zh": "文化旅行"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Focus on experience",
+                "zh": "注重消费体验"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in volunteer activities",
+                "zh": "喜欢参与志愿活动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_1120": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        }
+    }
+}

@@ -1,0 +1,217 @@
+{
+    "task": "recipe planning",
+    "preference_id": 0,
+    "task_context_id": 0,
+    "preference": "1. Gender: Male\n2. Age: 25\n3. Personality: Introverted, analytical, and detail-oriented\n4. Occupation: Software Engineer\n5. Daily Interests and Hobbies: Coding, video games, reading tech blogs\n6. Travel Habits: Prefers local travel, enjoys hiking and camping\n7. Dining Preferences: Vegetarian, enjoys cooking at home\n8. Spending Habits: Frugal, invests in tech gadgets\n9. Other Aspects: Enjoys solitude, has a pet cat",
+    "preference_zh": "1. 性别：男\n2. 年龄：25\n3. 个性：内向、分析力强、注重细节\n4. 职业：软件工程师\n5. 日常兴趣爱好：编程、玩视频游戏、阅读科技博客\n6. 旅行习惯：喜欢本地旅行、喜欢徒步旅行和露营\n7. 饮食偏好：素食主义者、喜欢在家烹饪\n8. 消费习惯：节俭、喜欢投资科技小工具\n9. 其他方面：喜欢独处、有一只宠物猫",
+    "task_context": "You plan to prepare a meal at home for yourself. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家为自己准备一顿饭。你在烹饪方面并不很擅长，经验也有限。因此，你想请LLM帮忙制定食谱，确定所需食材，以及决定做什么菜。在规划过程中，你应该学会每道菜的完整准备过程，以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I'm looking to prepare a meal at home, but I'm not very skilled in cooking and have limited experience. I was hoping you could help me create a recipe, determine the necessary ingredients, and guide me on what dishes to make. Can you assist me with that?",
+            "content_zh": "你好！很高兴你来了。我想在家里准备一顿饭，但我并不是很擅长做饭，经验也有限。我希望你能帮我制定一个食谱，确定所需食材，并指导我做什么菜。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'm here to help you with your cooking adventure. I'd be more than happy to assist you in creating a recipe, finding the necessary ingredients, and guiding you through the process. Let's start by figuring out what type of meal you're in the mood for. Are you looking for something specific like a main course, a side dish, or maybe even a dessert? And do you have any dietary restrictions or preferences I should consider?",
+            "content_zh": "你好！我在这里帮助你在烹饪冒险中。我很乐意帮助你创建食谱，找到必要的配料，并指导你完成整个过程。让我们首先确定你现在想要什么类型的餐食。你是在寻找像主菜、配菜还是甜点这样具体的东西吗？你有任何饮食限制或偏好我应该考虑吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That's great! I appreciate your willingness to assist me. I'm thinking of preparing a delicious vegetarian main course. As a vegetarian, I enjoy exploring different plant-based options. I don't have any specific dietary restrictions, but I prefer dishes that are healthy and flavorful. It would be wonderful if the recipe could incorporate some fresh vegetables and perhaps a protein source like tofu or legumes. What do you suggest?",
+            "content_zh": "太好了！我感激你愿意帮助我。我正在考虑准备一道美味的素食主菜。作为一个素食者，我喜欢尝试不同的植物性选择。我没有特定的饮食限制，但我更喜欢健康和有味道的菜肴。如果配方中包含一些新鲜蔬菜和可能的蛋白质来源，比如豆腐或豆类，那将太棒了。你有什么建议？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Fantastic! I have a delicious and nutritious recipe idea for you: Spicy Tofu Stir-Fry with Mixed Vegetables. It's a versatile dish that you can customize based on your preferences and the ingredients you have on hand. Here's a step-by-step guide to help you prepare it:\n\nIngredients:\n- 1 block of firm tofu, drained and cubed\n- 2 tablespoons soy sauce\n- 2 tablespoons cornstarch\n- 2 tablespoons vegetable oil\n- 1 onion, sliced\n- 2 cloves of garlic, minced\n- 1 bell pepper, sliced\n- 1 carrot, thinly sliced\n- 1 cup broccoli florets\n- 1 cup snap peas\n- 1 tablespoon sriracha sauce (adjust according to your spice tolerance)\n- 2 tablespoons hoisin sauce\n- Salt and pepper to taste\n- Optional garnish: sesame seeds and chopped green onions\n\nInstructions:\n1. In a bowl, combine the cubed tofu, soy sauce, and cornstarch. Toss gently to coat the tofu evenly. Let it marinate for about 10 minutes.\n2. Heat 1 tablespoon of vegetable oil in a large skillet or wok over medium-high heat. Add the marinated tofu and cook until golden brown and crispy on all sides. Remove the tofu from the pan and set aside.\n3. In the same pan, add another tablespoon of oil and sauté the onion and garlic until fragrant and slightly softened.\n4. Add the bell pepper, carrot, broccoli, and snap peas to the pan. Stir-fry for a few minutes until the vegetables are tender-crisp.\n5. In a small bowl, whisk together the sriracha sauce and hoisin sauce. Pour the sauce over the vegetables and stir to coat evenly.\n6. Return the tofu to the pan and toss everything together. Cook for an additional 2-3 minutes until the tofu is heated through.\n7. Season with salt and pepper to taste.\n8. Garnish with sesame seeds and chopped green onions, if desired.\n9. Serve the spicy tofu stir-fry with steamed rice or noodles for a complete meal.\n\nFeel free to adjust the vegetables or spices to your liking. This recipe is quite versatile, so you can experiment with different combinations to suit your taste. Enjoy your flavorful and healthy vegetarian main course! Let me know if you have any questions along the way.",
+            "content_zh": "太棒了！我为你准备了一道美味又营养的食谱：香辣豆腐炒什锦蔬菜。这是一道多功能的菜肴，你可以根据自己的口味和现有的食材进行定制。以下是详细的制作步骤：\n\n食材：\n- 1块硬豆腐，沥干并切丁\n- 2汤匙酱油\n- 2汤匙玉米淀粉\n- 2汤匙植物油\n- 1个洋葱，切片\n- 2瓣大蒜，切碎\n- 1个甜椒，切片\n- 1个胡萝卜，切薄片\n- 1杯西兰花花束\n- 1杯荷兰豆\n- 1汤匙辣椒酱（根据个人口味调整）\n- 2汤匙海鲜酱\n- 盐和胡椒适量\n- 可选装饰：芝麻和切碎的青葱\n\n做法：\n1. 在一个碗中，将切好的豆腐、酱油和玉米淀粉混合在一起，轻轻搅拌均匀。让豆腐腌制约10分钟。\n2. 在一个大煎锅或炒锅中，中火加热1汤匙植物油。加入腌制好的豆腐，煮至金黄色并且四面脆。取出豆腐，备用。\n3. 同一个锅中再加入一汤匙油，爆香洋葱和大蒜至香浓并略微变软。\n4. 加入甜椒、胡萝卜、西兰花和荷兰豆，炒几分钟至蔬菜变软但保持脆嫩。\n5. 在一个小碗中，搅拌辣椒酱和海鲜酱。将酱汁倒入蔬菜中，搅拌均匀。\n6. 将备好的豆腐加入锅中，搅拌均匀。继续烹饪2-3分钟，直到豆腐加热透彻。\n7. 根据口味加盐和胡椒。\n8. 如有需要，点缀芝麻和切碎的青葱。\n9. 热腾腾的香辣豆腐炒什锦蔬菜可以搭配蒸饭或面条享用，组成一顿丰盛的餐点。\n\n随意调整蔬菜或香料以满足自己的口味。这道菜的变化性很大，你可以尝试不同的搭配来适应自己的口味。享受美味又健康的素食主菜！如果有任何问题，请随时问我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Wow, that recipe sounds absolutely delicious! I love the combination of tofu and mixed vegetables in a spicy stir-fry. The step-by-step instructions are clear and easy to follow. I appreciate that you provided options for customization as well. I can't wait to give it a try!\n\nThank you so much for your help. I'm really excited to cook this dish. Do you have any recommendations for a side dish or dessert that would complement the spicy tofu stir-fry?",
+            "content_zh": "哇，那个食谱听起来绝对美味！我喜欢辣炒鱼豆腐和混合蔬菜的搭配。分步说明清晰易懂。我很感谢你提供了自定义选项。我迫不及待想试试它！\n非常感谢您的帮助。我非常兴奋地要做这道菜。您有没有推荐搭配这个辣豆腐炒其他菜或甜点的建议呢？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you're excited to try the recipe. Now, let's find some tasty side dishes and a delightful dessert to complement your spicy tofu stir-fry.\n\nFor a side dish, I suggest a simple and refreshing Cucumber Salad. Here's a quick recipe:\n\nIngredients:\n- 1 large cucumber, thinly sliced\n- 1/4 cup rice vinegar\n- 1 tablespoon soy sauce\n- 1 tablespoon sesame oil\n- 1 teaspoon sugar\n- 1/2 teaspoon red pepper flakes (optional)\n- 2 tablespoons chopped fresh cilantro or mint (optional)\n\nInstructions:\n1. In a mixing bowl, combine rice vinegar, soy sauce, sesame oil, sugar, and red pepper flakes (if using). Whisk until the sugar is dissolved.\n2. Add the thinly sliced cucumber to the bowl and toss to coat the cucumber slices evenly with the dressing.\n3. Let the cucumber salad marinate in the refrigerator for at least 15 minutes to allow the flavors to meld together.\n4. Just before serving, sprinkle with chopped fresh cilantro or mint (if desired).\n\nThis cucumber salad is light, tangy, and pairs perfectly with the spicy stir-fry.\n\nNow, let's move on to dessert. How about a refreshing Mango Coconut Chia Pudding? Here's a simple recipe:\n\nIngredients:\n- 1 ripe mango, peeled and diced\n- 1 cup coconut milk\n- 3 tablespoons chia seeds\n- 1 tablespoon maple syrup or sweetener of your choice\n- Optional toppings: shredded coconut, sliced almonds, or fresh berries\n\nInstructions:\n1. In a blender, combine the diced mango and coconut milk. Blend until smooth and creamy.\n2. Pour the mango-coconut mixture into a bowl or jar, then add the chia seeds and maple syrup. Stir well to combine.\n3. Let the mixture sit for 5 minutes, then stir again to prevent clumping. Repeat this process a few times over the course of 20-30 minutes.\n4. Cover the bowl or jar and refrigerate for at least 2 hours or overnight to allow the chia seeds to thicken and absorb the liquid.\n5. Before serving, give the chia pudding a good stir. If desired, top with shredded coconut, sliced almonds, or fresh berries for added texture and flavor.\n\nThis Mango Coconut Chia Pudding is a delightful and healthy way to end your meal.\n\nI hope these side dish and dessert suggestions complement your spicy tofu stir-fry perfectly. Enjoy your cooking adventure, and let me know if you need any further assistance or have more questions!",
+            "content_zh": "非常欢迎！我很高兴你对尝试这个食谱感到兴奋。现在，让我们找一些美味的配菜和甜点来搭配你的辣豆腐炒菜。\n\n作为配菜，我建议一个简单清爽的黄瓜沙拉。以下是一个快速食谱：\n\n配料：\n- 1根大黄瓜，切成薄片\n- 1/4杯米醋\n- 1汤匙酱油\n- 1汤匙麻油\n- 1茶匙糖\n- 1/2茶匙红辣椒粉（可选）\n- 2汤匙切碎的新鲜香菜或薄荷（可选）\n\n做法：\n1. 在一个大碗中，将米醋、酱油、麻油、糖和红辣椒粉（如果使用）混合在一起，搅拌直到糖完全溶解。\n2. 将薄片黄瓜加入碗中，拌匀让黄瓜片均匀裹上调味料。\n3. 将黄瓜沙拉放入冰箱浸泡至少15分钟，让口味融合在一起。\n4. 上桌前，撒上切碎的新鲜香菜或薄荷（如有需要）。\n\n这款黄瓜沙拉清爽，酸辣，非常适合搭配辣辣的炒菜。\n\n接下来，让我们来尝试甜点。如何试试清爽的芒果椰奶奇亚布丁？以下是一个简单食谱：\n\n配料：\n- 1个成熟芒果，去皮切块\n- 1杯椰奶\n- 3汤匙奇亚籽\n- 1汤匙枫糖浆或自选甜味剂\n- 可选配料：椰丝、切片杏仁或新鲜莓果\n\n做法：\n1. 将切块芒果和椰奶放入搅拌机中，搅拌至浓稠顺滑。\n2. 将芒果椰奶混合物倒入碗或罐中，然后加入奇亚籽和枫糖浆搅拌均匀。\n3. 静置5分钟，然后再次搅拌以防止结块。在20-30分钟内重复几次这个过程。\n4. 盖上碗或罐，冷藏至少2小时或过夜，让奇亚籽变稠吸收液体。\n5.上桌前，彻底搅拌奇亚布丁。如有需要，可撒上椰丝、切片杏仁或新鲜莓果增加口感和味道。\n\n这款芒果椰奶奇亚布丁是一个美味健康的结束你的餐点的方式。\n\n希望这些配菜和甜点建议能够完美搭配你的辣豆腐炒菜。享受你的做饭之旅，并让我知道如果需要进一步帮助或有更多问题！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the wonderful suggestions! The cucumber salad sounds like a refreshing and light side dish that will complement the spicy tofu stir-fry perfectly. I appreciate the simplicity of the recipe.\n\nThe Mango Coconut Chia Pudding sounds like a delightful and healthy dessert option. I love the combination of mango and coconut, and the addition of chia seeds adds a nice texture. I'm excited to try it out!\n\nI really appreciate your help in planning this meal. The recipe, side dish, and dessert all sound fantastic. I feel confident and excited to get cooking now. Thank you again for your assistance!\n\n[System]: I'm glad I could assist you in planning your meal. If you have any more questions or need further assistance, feel free to ask. Enjoy your cooking adventure, and have a great time preparing and savoring your delicious vegetarian meal!",
+            "content_zh": "非常感谢您的精彩建议！黄瓜沙拉听起来清爽轻盈，将会与辣豆腐炒得完美搭配。我欣赏这道食谱的简单性。\n芒果椰子奇亚布丁听起来是一种可口健康的甜点选择。我喜欢芒果和椰子的组合，加入奇亚籽增加了质感。我很期待尝试它！\n感谢您的帮助规划这顿饭。这道食谱、配菜和甜点都听起来很棒。现在我感到自信和兴奋已经开始动手烹饪了。再次感谢您的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you found the suggestions helpful and feel confident in your cooking adventure. Don't hesitate to reach out if you have any more questions or need further assistance along the way. Enjoy preparing and savoring your flavorful vegetarian meal, and have a wonderful time! Happy cooking!",
+            "content_zh": "不客气！我很高兴您觉得建议有用，并对您的烹饪之旅感到自信。如果您有任何问题或需要进一步的帮助，请别犹豫，随时联系我。享受准备和品尝美味的素食餐，祝您度过愉快的时光！祝您烹饪愉快！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "plant-based",
+        "healthy",
+        "flavorful"
+    ],
+    "preference_summary": [
+        "vegetarian",
+        "healthy",
+        "flavorful"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 1,
+        "Memorization": 1,
+        "Detail Level": 1,
+        "Practical Usefulness": 1,
+        "Diversity": 1
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "25",
+            "zh": "25"
+        },
+        "Personality": [
+            {
+                "en": "Introverted",
+                "zh": "内向"
+            },
+            {
+                "en": "Meticulous",
+                "zh": "细致"
+            }
+        ],
+        "Occupation": {
+            "en": "Engineer",
+            "zh": "工程师"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Playing video games",
+                "zh": "玩游戏"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Self-driving tour",
+                "zh": "自驾游"
+            },
+            {
+                "en": "Outdoor activities",
+                "zh": "户外活动"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Vegan",
+                "zh": "素食"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Frugal",
+                "zh": "节俭"
+            },
+            {
+                "en": "Spends on tech gadgets",
+                "zh": "科技产品"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Lives alone",
+                "zh": "独自生活"
+            },
+            {
+                "en": "Keeping small animals",
+                "zh": "养小动物"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

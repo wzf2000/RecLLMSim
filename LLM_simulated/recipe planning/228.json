@@ -1,0 +1,212 @@
+{
+    "task": "recipe planning",
+    "preference_id": 42,
+    "task_context_id": 0,
+    "preference": "1. Gender: Male\n2. Age: 28\n3. Personality: Energetic, competitive, and focused\n4. Occupation: Professional Basketball Player\n5. Daily Interests and Hobbies: Training, watching sports, playing video games\n6. Travel Habits: Travels for competitions, enjoys adventurous activities\n7. Dining Preferences: Follows strict diet regimen, prefers protein shakes\n8. Spending Habits: Invests in sports equipment, spends on gaming\n9. Other Aspects: Lives in a shared apartment, has a sports scholarship",
+    "preference_zh": "1. 性别：男\n2. 年龄：28\n3. 个性：精力充沛，喜欢竞争，专注\n4. 职业：专业篮球运动员\n5. 日常兴趣爱好：训练，观看体育比赛，玩电子游戏\n6. 旅行习惯：为比赛而旅行，喜欢冒险活动\n7. 饮食偏好：遵循严格的饮食计划，偏爱蛋白质奶昔\n8. 消费习惯：投资于体育器材，花费在游戏上\n9. 其他方面：住在合租公寓，拥有体育奖学金",
+    "task_context": "You plan to prepare a meal at home for yourself. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家为自己准备一顿饭。你并不擅长烹饪，经验有限。因此，你想要请LLM帮助制定食谱，确定必要的食材，并决定要做哪些菜。在计划过程中，你应该学习每道菜的完整准备过程和适当的准备顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! As a professional basketball player, I'm looking to prepare a meal at home for myself. However, I don't have much cooking experience and could use some help. I was hoping you could assist me in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Can you help me with that?",
+            "content_zh": "你好！作为一名职业篮球运动员，我想在家里为自己准备一顿饭。然而，我没有太多的烹饪经验，需要一些帮助。我希望你能帮助我创建一个食谱，确定所需的食材，并决定要做哪些菜。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you with that! Cooking at home can be a great way to fuel your body and explore different flavors. Let's start by discussing what kind of meal you'd like to prepare. Are you looking for something specific, like a hearty dinner, a healthy lunch, or perhaps a post-workout meal?",
+            "content_zh": "当然，我很乐意帮助您！ 在家做饭是提供能量和探索不同口味的好方法。 让我们先讨论一下您想准备的是什么样的餐食。 您是在寻找特定的事物，比如一顿丰盛的晚餐、健康的午餐，或者也许是健身后的一餐吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "As a professional basketball player, I prioritize maintaining a healthy diet to support my training and performance. So, I would like to prepare a healthy and nutritious post-workout meal. It should be packed with protein, essential nutrients, and energy to aid in recovery. Do you have any suggestions for a post-workout meal that fits these criteria?",
+            "content_zh": "作为一名职业篮球运动员，我把保持健康饮食放在首位，以支持我的训练和比赛表演。因此，我想准备一顿健康且营养丰富的训练后餐。它应该富含蛋白质、必需营养素和能量，有助于恢复。您有什么建议符合这些标准的训练后餐吗？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! A post-workout meal that's high in protein, nutrients, and energy is a great choice for recovery. How about a delicious and nutritious grilled chicken breast with quinoa and roasted vegetables? Here's a simple recipe to get you started:\n\nIngredients:\n- 2 boneless, skinless chicken breasts\n- 1 cup quinoa\n- Assorted vegetables (such as broccoli, bell peppers, zucchini, and carrots)\n- Olive oil\n- Salt and pepper to taste\n- Your choice of herbs and spices (such as garlic powder, paprika, or Italian seasoning)\n\nInstructions:\n1. Preheat your grill or stovetop grill pan to medium-high heat.\n2. Season the chicken breasts with salt, pepper, and your choice of herbs or spices. Drizzle them with a bit of olive oil.\n3. Grill the chicken breasts for about 6-8 minutes per side, or until they reach an internal temperature of 165°F (75°C). Cooking time may vary depending on the thickness of the chicken breasts, so adjust accordingly.\n4. While the chicken is grilling, cook the quinoa according to the package instructions. Usually, you'll need to rinse the quinoa, combine it with water or broth, and simmer it for around 15-20 minutes until the liquid is absorbed and the quinoa is tender.\n5. Chop the assorted vegetables into bite-sized pieces and toss them with olive oil, salt, and pepper. Roast them in the oven at 400°F (200°C) for about 15-20 minutes or until they are cooked to your desired tenderness.\n6. Once the chicken, quinoa, and roasted vegetables are ready, plate them together and enjoy your post-workout meal!\n\nThis meal provides a good balance of protein from the chicken, complex carbohydrates from the quinoa, and a variety of vitamins and minerals from the vegetables. Feel free to customize the recipe by adding your favorite seasonings or swapping out the vegetables based on your preferences.",
+            "content_zh": "当然！一顿富含蛋白质、营养和能量的运动后餐是恢复的绝佳选择。何不来一份美味又有营养的烤鸡胸肉配藜麦和烤蔬菜呢？以下是一个简单的食谱供您参考：\n\n食材：\n- 2块去骨去皮的鸡胸肉\n- 1杯藜麦\n- 各种蔬菜（如西兰花、彩椒、西葫芦和胡萝卜）\n- 橄榄油\n- 盐和胡椒适量\n- 您喜欢的香草和调味料（如大蒜粉、辣椒粉或意式调味料）\n\n烹饪步骤：\n1. 将烧烤架或炉灶烤盘预热至中高温。\n2. 用盐、胡椒和您喜欢的香草或调料腌制鸡胸肉，淋上一点橄榄油。\n3. 将鸡胸肉烤制约6-8分钟每面，或直到达到165°F（75°C）的内部温度。烹饪时间可能会因鸡胸肉的厚度而有所变化，所以请适当调整。\n4. 在烧烤时，按包装说明煮藜麦。通常，您需要冲洗藜麦，加水或高汤，然后煮约15-20分钟，直到液体被吸收，藜麦变得柔软。\n5. 将各种蔬菜切成小块，撒上橄榄油、盐和胡椒。在400°F（200°C）的烤箱中烤约15-20分钟，或直到烹饪至您喜欢的软硬程度。\n6. 一旦鸡肉、藜麦和烤蔬菜做好，摆盘并享用您的运动后餐！\n\n这份餐提供了鸡肉的蛋白质、藜麦的复杂碳水化合物，以及蔬菜的各种维生素和矿物质的良好平衡。请随意根据喜好添加您喜欢的调味料或根据个人口味更换蔬菜。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That sounds like a fantastic post-workout meal! Grilled chicken breast with quinoa and roasted vegetables provides a great combination of protein, carbohydrates, and nutrients for recovery. I appreciate the detailed recipe you provided, and I'll definitely give it a try. Thank you for your help!",
+            "content_zh": "听起来像是一顿绝佳的训练后餐！烤鸡胸肉配藜麦和烤蔬菜提供了丰富的蛋白质、碳水化合物和营养物质，有助于恢复。我很感谢你提供的详细食谱，我一定会尝试的。谢谢你的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you liked the recipe. I'm sure you'll enjoy preparing and savoring this nutritious meal. Remember, cooking at home allows you to have control over the ingredients and flavors, so feel free to experiment and make it your own. If you have any more questions or need assistance with anything else, feel free to ask. Happy cooking and good luck with your basketball training!",
+            "content_zh": "非常感谢！很高兴您喜欢这个菜谱。我相信您会喜欢准备和品尝这顿营养丰富的餐点。记住，在家烹饪可以让您控制食材和口味，所以随时尝试和创新使之更符合自己口味。如果您有任何问题或需要帮助，随时问我。祝您烹饪愉快，同时祝您篮球训练成功！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the encouragement and support! I appreciate your assistance in helping me plan a nutritious post-workout meal. I'll definitely keep experimenting and exploring different flavors in my cooking. If I have any more questions or need further assistance, I'll be sure to reach out. Thanks again and have a great day!",
+            "content_zh": "谢谢你的鼓励和支持！我很感激你帮助我规划一顿有营养的运动后餐。我一定会继续尝试并探索烹饪中不同的口味。如果我有更多问题或需要进一步帮助，我一定会联系你。再次感谢并祝你有一个美好的一天！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could help. Feel free to reach out anytime you need assistance or have more questions. I'm here to help you on your culinary journey. Have a fantastic day and enjoy your cooking adventures! Take care and best of luck with your basketball training.",
+            "content_zh": "不客气！很高兴能帮到你。任何时候如果需要帮助或有更多问题，请随时联系我。我在这里帮助你的烹饪之旅。祝你有一个美妙的一天，享受你的烹饪冒险！保重，并祝你的篮球训练顺利。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "healthy",
+        "nutritious",
+        "post-workout"
+    ],
+    "preference_summary": [
+        "home cooking",
+        "energy-rich"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 1,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 1
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "28",
+            "zh": "28"
+        },
+        "Personality": [
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            },
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            }
+        ],
+        "Occupation": {
+            "en": "Professional athlete",
+            "zh": "职业运动员"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Watching TV",
+                "zh": "看电视"
+            },
+            {
+                "en": "Playing video games",
+                "zh": "玩游戏"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Outdoor activities",
+                "zh": "户外活动"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Healthy food",
+                "zh": "健康饮食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on entertainment",
+                "zh": "娱乐支出"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Active in sports activities",
+                "zh": "喜欢参与体育活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Depth",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Depth",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "Sequential",
+            "order": "Depth",
+            "context": "Low",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        }
+    }
+}

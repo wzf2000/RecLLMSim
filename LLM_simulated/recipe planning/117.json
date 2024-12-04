@@ -1,0 +1,244 @@
+{
+    "task": "recipe planning",
+    "preference_id": 4,
+    "task_context_id": 7,
+    "preference": "1. Gender: Male\n2. Age: 30\n3. Personality: Adventurous, outgoing, and humorous\n4. Occupation: Travel Blogger\n5. Daily Interests and Hobbies: Writing, trekking, surfing\n6. Travel Habits: Constantly on the move, enjoys offbeat destinations\n7. Dining Preferences: Enjoys street food, open to all types of cuisine\n8. Spending Habits: Allocates a large budget for travel, spends minimally on other things\n9. Other Aspects: Has a large online following, practices sustainable living",
+    "preference_zh": "1. 性别：男性\n2. 年龄：30\n3. 个性：冒险，外向，幽默\n4. 职业：旅行博主\n5. 日常兴趣爱好：写作，徒步旅行，冲浪\n6. 旅行习惯：经常在路上，喜欢偏僻的目的地\n7. 饮食偏好：喜欢街头食品，对各种类型的美食都开放\n8. 消费习惯：为旅行分配大部分预算，在其他方面花费很少\n9. 其他方面：拥有庞大的在线粉丝群，实践可持续生活",
+    "task_context": "You plan to prepare a meal at home to celebrate your birthday with about 10 close friends. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家里为庆祝生日与大约10个亲密朋友准备一顿饭。你是一位有一些专业技能的烹饪达人。因此，你想要请LLM帮忙制作食谱，确定所需食材，并决定要做哪些菜。在规划过程中，你应该学习每道菜的完整准备过程和合适的制作顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you asked. I'm planning to celebrate my birthday with about 10 close friends, and I want to prepare a special meal at home. Since you're an intelligent chat assistant, I thought you could help me create a delicious recipe, determine the necessary ingredients, and decide what dishes to make. Can you assist me with that?",
+            "content_zh": "你好！很高兴你问到了。我计划与大约10个亲近的朋友一起庆祝我的生日，并且想在家里准备一顿特别的美食。既然你是一个聪明的聊天助手，我觉得你可以帮我制作美味的食谱，确定必要的食材，并且决定要做哪些菜肴。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you with that! Birthdays are a great occasion to gather with friends and enjoy a special meal. Let's start by brainstorming some ideas for your birthday menu. Do you have any preferences in terms of cuisine or specific dishes you'd like to include? And are there any dietary restrictions or food allergies I should keep in mind?",
+            "content_zh": "当然，我很乐意帮助你！生日是与朋友聚在一起享受美食的绝佳时机。让我们开始头脑风暴一些生日菜单的想法。你对美食或具体菜肴有什么偏好吗？还有您有任何饮食限制或食物过敏我应该注意的吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Hey there! I'm all about exploring different cuisines, so I'm open to trying something adventurous and unique for my birthday meal. As a travel blogger, I'm constantly exposed to various flavors and dishes, so surprise me with your suggestions! I don't have any dietary restrictions or food allergies to worry about. Let's make this a memorable culinary experience!",
+            "content_zh": "嘿！我很喜欢探索不同的美食，所以我愿意尝试一些冒险和独特的东西作为我的生日大餐。作为一名旅行博主，我经常接触到各种口味和菜肴，所以请给我一些惊喜建议！我没有任何饮食限制或食物过敏需要担心。让我们共同创造一个令人难忘的美食体验！",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That sounds fantastic! Since you're open to exploring different cuisines, let's create a menu that takes your taste buds on a global journey. Here's a suggestion for a multi-course meal that incorporates flavors from different parts of the world:\n\nAppetizer:\n- Vietnamese Fresh Spring Rolls: These light and refreshing rolls filled with colorful veggies, herbs, and shrimp are a perfect way to start the meal.\n\nSoup:\n- Moroccan Harira Soup: This hearty and aromatic soup made with lentils, chickpeas, tomatoes, and spices such as cumin and coriander will warm everyone's hearts.\n\nMain Course:\n- Indian Butter Chicken: A classic dish with tender chicken cooked in a creamy tomato-based sauce, flavored with a blend of Indian spices. Serve it with fragrant basmati rice or naan bread.\n\nSide Dish:\n- Greek Spanakopita: This delicious spinach and feta cheese pie wrapped in crispy phyllo pastry will add a Mediterranean touch to your meal.\n\nSalad:\n- Thai Green Papaya Salad: A zesty and refreshing salad with shredded green papaya, carrots, peanuts, and a tangy dressing made with lime juice, fish sauce, and chili.\n\nDessert:\n- French Crème Brûlée: End the meal on a sweet note with this classic French dessert. Silky smooth vanilla custard with a caramelized sugar topping.\n\nThese are just suggestions, and you can modify or add to the menu based on your preferences. Let me know if you'd like more details on any of these dishes or if you have any other ideas in mind!",
+            "content_zh": "听起来太棒了！既然你愿意尝试不同的美食，让我们设计一份可以带领你的味蕾环游世界的菜单。以下是一个结合了世界各地风味的多道菜谱建议：前菜：-越南新鲜春卷：这些清淡清新的春卷内有色彩缤纷的蔬菜、香草和虾，是开始用餐的完美方式。 汤：-摩洛哥哈里拉汤：这种浓郁芳香的汤用扁豆、鹰嘴豆、番茄和孜然、芫荽等香料制成，将温暖每个人的心。 主菜：-印度奶油鸡：这是一道经典菜肴，嫩鸡肉煮在奶油番茄酱中，调以多种印度香料。搭配芬芳的巴斯马蒂米饭或印度烤饼。配菜：-希腊菠菜派：这道美味的菠菜和飞达奶酪馅饼包裹在松脆的费洛酥皮中，为你的餐点增添地中海风味。 沙拉：-泰式青木瓜沙拉：这是一道清爽开胃的沙拉，含有切碎的青木瓜、胡萝卜、花生，以及用酸柑汁、鱼露和辣椒调制的爽口酱汁。 甜点：-法式焦糖燕奶布丁：用这款经典的法式甜点来结束用餐。丝滑的香草奶油配上一个焦糖糖衣。 这些只是建议，你可以根据你的喜好修改或添加菜单。如果你想了解更多关于这些菜肴的细节，或者有其他想法，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Wow, that menu sounds absolutely amazing! You've really nailed the global theme, and I love the variety of flavors and cuisines you've included. I'm particularly excited about the Vietnamese Fresh Spring Rolls and the Moroccan Harira Soup as starters. The Indian Butter Chicken and Greek Spanakopita as the main course and side dish sound like a fantastic combination. The Thai Green Papaya Salad will definitely add a refreshing touch, and ending the meal with French Crème Brûlée sounds like the perfect sweet treat. I think this menu will impress my friends and make for a memorable birthday celebration. Thank you so much for your suggestions!",
+            "content_zh": "哇，那个菜单听起来真是太棒了！你真的掌握了全球主题，我喜欢你包含的各种口味和菜系。我特别期待越南新鲜春卷和摩洛哥哈里拉汤作为开胃菜。印度黄油鸡和希腊菠菜派作为主菜和配菜听起来是一个绝妙的组合。泰式青木瓜沙拉肯定会增添一丝清新，以法式焦糖奶油布丁作为甜点来结束这顿餐听起来就像是完美的甜点。我觉得这个菜单会让我的朋友印象深刻，并且让生日庆祝变得难忘。非常感谢你的建议！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm thrilled to hear that you liked the menu suggestions. I have no doubt that your friends will be impressed with the variety and deliciousness of the dishes you'll be serving. It's great to see your enthusiasm for trying new flavors and cuisines. Remember, cooking together can also be a fun activity for you and your friends, so don't hesitate to involve them in the preparation process if you'd like. If you need any further assistance with the recipes or any other aspect of your birthday celebration, feel free to ask. I hope you have an amazing birthday filled with great food, laughter, and wonderful memories!",
+            "content_zh": "不客气！很高兴听到您喜欢菜单建议。我毫不怀疑，您的朋友们会对您所准备的各种美味佳肴印象深刻。看到您对尝试新口味和美食充满热情真是太棒了。记住，一起烹饪也可以是您和朋友们的一个有趣活动，如果您愿意，请毫不犹豫地让他们参与准备过程。如果您需要任何进一步的食谱或生日庆祝的任何其他方面的帮助，请随时提问。希望您度过一个美好的生日，有着美食、欢笑和美好回忆！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you so much for your kind words and support! I truly appreciate your help in planning my birthday celebration. I'll definitely consider involving my friends in the cooking process to make it even more enjoyable. If I have any more questions or need further assistance, I'll be sure to reach out. Thanks again for everything, and I'm looking forward to creating amazing memories on my special day!",
+            "content_zh": "非常感谢你的好话和支持！我真的很感激你在筹划我的生日庆祝会上的帮助。我一定会考虑让我的朋友参与烹饪过程，使其更加愉快。如果我有任何问题或需要进一步帮助，我一定会联系你。再次感谢你的一切，我期待在我的特别日子上创造美好的回忆！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could assist you in planning your birthday celebration. Involving your friends in the cooking process will not only make it more enjoyable but also create lasting memories together. Feel free to reach out anytime if you have more questions or need further assistance. I wish you a fantastic birthday filled with joy, delicious food, and wonderful moments with your friends. Enjoy your special day and create those amazing memories!",
+            "content_zh": "非常欢迎您！我很高兴能够帮助您筹划生日庆祝活动。让您的朋友们参与到烹饪过程中，不仅会让活动更加有趣，还能创造持久的回忆。如果您有更多问题或需要进一步的帮助，请随时联系我。祝您的生日充满欢乐、美食和与朋友们的美好时光。享受您的特别日子，创造那些美妙的回忆！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "Translation Problem Fixed"
+            },
+            "content_zh_old": "不客气！我很高兴能帮助您计划生日庆祝活动。让朋友参与烹饪过程不仅会让活动更加愉快，而且会一同创造持久的回忆。如果您有更多问题或需要进一步帮助，请随时联系我。祝您生日快乐，充满快乐、美食和与朋友共度的美好时刻。享受您的特别日子，创造那些美好的回忆！"
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "adventurous",
+        "global",
+        "variety"
+    ],
+    "preference_summary": [
+        "excited",
+        "global theme",
+        "prepared"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 0,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 1,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "30",
+            "zh": "30"
+        },
+        "Personality": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            },
+            {
+                "en": "Humorous",
+                "zh": "幽默"
+            }
+        ],
+        "Occupation": {
+            "en": "Content creator",
+            "zh": "自媒体工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Writing",
+                "zh": "写作"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Street food",
+                "zh": "街头小吃"
+            },
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "For travel",
+                "zh": "用于旅行"
+            },
+            {
+                "en": "Frugal",
+                "zh": "节俭"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Managing personal media platforms",
+                "zh": "经营自媒体"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_1120": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        }
+    }
+}

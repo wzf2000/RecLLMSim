@@ -1,0 +1,233 @@
+{
+    "task": "recipe planning",
+    "preference_id": 94,
+    "task_context_id": 7,
+    "preference": "1. Gender: Male\n2. Age: 22\n3. Personality: Energetic, social, and optimistic\n4. Occupation: College Student\n5. Daily Interests and Hobbies: Playing basketball, partying, video gaming\n6. Travel Habits: Enjoys road trips with friends, attends music festivals\n7. Dining Preferences: Fast food lover, enjoys late-night snacks\n8. Spending Habits: Spends on concerts and entertainment, saves for education\n9. Other Aspects: Lives in a dorm, part of a college basketball team",
+    "preference_zh": "1. 性别：男性\n2. 年龄：22\n3. 个性：充满活力，善于社交，乐观向上\n4. 职业：大学生\n5. 日常兴趣爱好：打篮球，参加聚会，玩视频游戏\n6. 旅行习惯：喜欢和朋友一起自驾旅行，去参加音乐节\n7. 饮食喜好：快餐爱好者，喜欢吃夜宵\n8. 消费习惯：在音乐会和娱乐上花钱，为教育存钱\n9. 其他方面：住在宿舍，是大学篮球队成员",
+    "task_context": "You plan to prepare a meal at home to celebrate your birthday with about 10 close friends. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家里为约10位亲近的朋友庆祝生日，想要做一顿饭。你是个熟练的厨师并有一些专业知识。因此，你想要请LLM帮忙制定食谱，确定所需的食材，并决定做哪些菜。在计划过程中，你应该学习每道菜的完整制作过程，以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hey there! I'm glad you asked. I'm actually planning a birthday celebration at home with about 10 close friends, and I could use some help with creating a delicious meal. As a skilled cook, I want to impress my friends with some tasty dishes. Can you help me come up with a recipe and determine the necessary ingredients?",
+            "content_zh": "嘿! 很高兴你问。其实我正在计划在家里和大约10个亲近的朋友一起庆祝生日，我需要一些帮助来制作美味的餐点。作为一个技艺娴熟的厨师，我想用一些美味的菜肴给朋友留下深刻印象。你能帮我想出一个食谱并确定所需食材吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you create a delicious meal for your birthday celebration! What type of cuisine or specific dishes are you interested in? Are there any dietary restrictions or preferences I should consider? Let me know, and we can start brainstorming some ideas and gather the necessary ingredients.",
+            "content_zh": "当然，我很乐意帮助你为生日庆祝活动准备美味的餐点！你喜欢什么类型的菜系或具体的菜肴呢？是否有任何饮食限制或偏好我需要考虑？告诉我，我们可以开始拟定一些想法并采购必要的食材。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thanks for offering to help! I'm open to different cuisines, but I'd love to incorporate some crowd-pleasing dishes. Let's go for a mix of flavors and textures. As for dietary restrictions, there aren't any specific ones among my friends, so we have some flexibility there. I'm excited to hear your ideas and gather the necessary ingredients.",
+            "content_zh": "感谢提供帮助！我可以尝试不同的美食，但我希望包括一些受欢迎的菜肴。让我们尝试多种口味和口感。至于饮食限制，我朋友中没有特殊的限制，所以我们在这方面有一定的灵活性。我很期待听到你的建议并准备好必要的食材。",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! With those guidelines in mind, how about we create a menu that includes a flavorful appetizer, a satisfying main course, and a delightful dessert? Here's a suggestion for each:\n\n1. Appetizer: Crispy Baked Chicken Wings with Spicy Honey Glaze\n   - Ingredients:\n     - Chicken wings (about 2-3 pounds)\n     - Salt and pepper\n     - Paprika\n     - Garlic powder\n     - Honey\n     - Hot sauce (adjust the amount to your preferred level of spiciness)\n     - Soy sauce\n     - Lime juice\n     - Fresh cilantro (for garnish)\n\n2. Main Course: Creamy Garlic Parmesan Pasta with Grilled Shrimp\n   - Ingredients:\n     - Pasta of your choice (linguine or fettuccine work well)\n     - Shrimp (about 1 pound), peeled and deveined\n     - Olive oil\n     - Garlic cloves, minced\n     - Heavy cream\n     - Parmesan cheese, grated\n     - Salt and pepper\n     - Fresh parsley (for garnish)\n\n3. Dessert: Mini Chocolate Lava Cakes with Raspberry Sauce\n   - Ingredients:\n     - Butter (for greasing ramekins)\n     - Dark chocolate (about 6 ounces), chopped\n     - Butter (about 1/2 cup)\n     - Eggs (3 whole eggs and 3 egg yolks)\n     - Sugar (about 1/2 cup)\n     - All-purpose flour (about 1/4 cup)\n     - Fresh raspberries (for garnish)\n     - Powdered sugar (for dusting)\n\nThese recipes should impress your friends with their delicious flavors! Let me know if you'd like the detailed step-by-step instructions for any of these dishes, or if you need any substitutions or modifications.",
+            "content_zh": "太棒了！记住这些建议，我们来制作一个菜单，包括一道美味的开胃菜，一道令人满足的主菜和一道美味的甜点。以下是每道菜的建议：\n\n1. 开胃菜：辣蜜糖焗鸡翅\n- 食材：\n- 鸡翅（约2-3磅）\n- 盐和胡椒\n- 辣椒粉\n- 大蒜粉\n- 蜂蜜\n- 辣椒酱（根据个人口味调整量）\n- 酱油\n- 青柠汁\n- 新鲜香菜（装饰用）\n\n2. 主菜：奶油大蒜巴马干意面配烤虾\n- 食材：\n- 您选择的意大利面（意面或宽面条效果很好）\n- 去壳去肠虾（约1磅）\n- 橄榄油\n- 大蒜瓣，切碎\n- 动物奶油\n- 巴马干酪，磨碎\n- 盐和胡椒\n- 新鲜欧芹（用来装饰）\n\n3. 甜点：迷你巧克力熔岩蛋糕配覆盆子酱\n- 食材：\n- 黄油（用于涂抹瓦坯）\n- 黑巧克力（约6盎司），切碎\n- 黄油（约1/2杯）\n- 鸡蛋（3个全蛋和3个蛋黄）\n- 糖（约1/2杯）\n- 多用途面粉（约1/4杯）\n- 新鲜覆盆子（用于装饰）\n- 糖粉（用于撒装）\n\n这些食谱应该会因其美味的口味而让您的朋友印象深刻！如果您想要任何这些菜肴的详细步骤说明，或者需要任何替代或修改，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Wow, these suggestions sound amazing! I love the variety in the menu. The Crispy Baked Chicken Wings with Spicy Honey Glaze will definitely kick off the celebration on a flavorful note. The Creamy Garlic Parmesan Pasta with Grilled Shrimp sounds like a satisfying main course, and the Mini Chocolate Lava Cakes with Raspberry Sauce will be the perfect sweet ending.\n\nI would appreciate if you could provide me with the detailed step-by-step instructions for each dish. I want to make sure I get everything right. And no need for substitutions or modifications, these recipes are spot on!\n\nLet's start with the Crispy Baked Chicken Wings. How should I prepare them?",
+            "content_zh": "哇，这些建议听起来太棒了！我喜欢菜单上的多样性。带有辣蜜糖酱的香脆烤鸡翅肯定会以美味的味道开始庆祝。带烤虾的奶油大蒜帕尔马干酪意面听起来像是令人满足的主菜，而带覆盆子酱的迷你巧克力岩浆蛋糕将是完美的甜蜜结局。我希望您能为每道菜提供详细的步骤说明。我想确保我做对每一样东西。不需要替换或修改，这些食谱都是恰到好处的！让我们从香脆烤鸡翅开始。我该怎么做？",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "I'm glad you liked the menu! Now let's dive into the details of preparing the Crispy Baked Chicken Wings with Spicy Honey Glaze. Here's a step-by-step guide:\n\n1. Preheat your oven to 425°F (220°C) and line a baking sheet with parchment paper.\n\n2. In a large bowl, combine the chicken wings with salt, pepper, paprika, and garlic powder. Toss them well to ensure even seasoning.\n\n3. Arrange the seasoned chicken wings on the prepared baking sheet in a single layer. Make sure they are not overcrowded to ensure crispiness.\n\n4. Place the baking sheet in the preheated oven and bake for about 40-45 minutes, or until the wings are golden brown and crispy.\n\n5. While the wings are baking, prepare the spicy honey glaze. In a small saucepan, combine honey, hot sauce, soy sauce, and lime juice. Heat the mixture over low heat, stirring occasionally, until well combined and warmed through.\n\n6. Once the chicken wings are cooked, remove them from the oven and let them cool for a few minutes.\n\n7. Toss the baked chicken wings in the spicy honey glaze until they are evenly coated.\n\n8. Garnish with fresh cilantro and serve the wings hot as an appetizer. They pair well with a side of ranch or blue cheese dressing for dipping.\n\nEnjoy the crispy and flavorful chicken wings with your friends! Let me know when you're ready for the next recipe, and I'll provide you with the instructions for the Creamy Garlic Parmesan Pasta with Grilled Shrimp.",
+            "content_zh": "很高兴你喜欢菜单！现在让我们深入准备带有辣蜜饼干鸡翅的细节。以下是逐步指南：\n\n1. 预热烤箱至425华氏度（220摄氏度），在烤盘上铺上烘焙纸。\n\n2. 在一个大碗中，将鸡翅与盐、胡椒粉、辣椒粉和大蒜粉混合。充分搅拌以确保均匀调味。\n\n3. 将调味的鸡翅摆放在准备好的烤盘上，保持单层摆放。确保它们之间不过于拥挤以确保酥脆。\n\n4. 将烤盘放入预热的烤箱中，烘烤约40-45分钟，直到鸡翅呈金黄色并变脆。\n\n5. 在翅膀烘烤期间，准备辣蜜饼饧。在一个小锅中，混合蜂蜜、辣椒酱、酱油和柠檬汁。在小火上加热混合物，不时搅拌，直至完全混合和加热。\n\n6. 一旦鸡翅烤熟，从烤箱中取出让其冷却几分钟。\n\n7. 将烤好的鸡翅浸入辣蜜饼饧中，直至均匀涂抹。\n\n8. 用新鲜香菜装饰，热腌鸡翅作为开胃菜。它们搭配牧场或蓝纹奶酪沙拉酱非常好。\n\n享受带着朋友一起品尝的酥脆多汁的鸡翅！当你准备好尝试下一个配方时，请告诉我，我将为你提供烤虾奶油蒜意大利面的做法。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed instructions! I can already imagine the delicious aroma of the crispy chicken wings with that spicy honey glaze. I'll make sure to follow the steps carefully.\n\nNow, I'm ready to move on to the next recipe. Please provide me with the instructions for the Creamy Garlic Parmesan Pasta with Grilled Shrimp. I'm excited to learn how to make this mouthwatering dish!",
+            "content_zh": "感谢详细的指导！我已经可以想象到那带有辣蜜糖浆的脆鸡翅散发的美味香气。我会确保仔细按照步骤操作。\n现在，我准备继续下一个食谱。请给我提供奶油蒜蓉帕玛森芝士意大利面配烤虾的制作方法。我很兴奋能学会如何做这道令人垂涎的菜肴！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! The Creamy Garlic Parmesan Pasta with Grilled Shrimp is a delectable choice. Here's how you can prepare it:\n\n1. Cook the pasta: Bring a large pot of salted water to a boil. Add the pasta and cook according to the package instructions until al dente. Drain the pasta, reserving about 1/2 cup of the pasta water.\n\n2. Grill the shrimp: Preheat a grill or grill pan over medium-high heat. Toss the shrimp with olive oil, salt, and pepper. Grill the shrimp for about 2-3 minutes per side until they are pink and cooked through. Remove from the grill and set aside.\n\n3. Prepare the sauce: In a large skillet, heat some olive oil over medium heat. Add minced garlic and sauté for about 1-2 minutes until fragrant and lightly golden. Pour in the heavy cream and bring it to a gentle simmer.\n\n4. Add the pasta and cheese: Reduce the heat to low and add the cooked pasta to the skillet with the cream sauce. Toss the pasta in the sauce until well coated. Add grated Parmesan cheese and continue tossing until the cheese has melted and the sauce has thickened slightly. If the sauce seems too thick, you can add some of the reserved pasta water to thin it out.\n\n5. Season and garnish: Season the pasta with salt and pepper to taste. Stir in some fresh parsley for added freshness and flavor.\n\n6. Serve: Divide the creamy garlic Parmesan pasta among individual plates. Top each serving with the grilled shrimp and garnish with additional parsley if desired.\n\nNow you have a delicious plate of Creamy Garlic Parmesan Pasta with Grilled Shrimp ready to be enjoyed! If you have any more questions or need further assistance, feel free to ask.",
+            "content_zh": "不客气！奶油蒜香帕尔马干酪意面配烤虾是一个美味的选择。以下是你可以准备它的方法：\n\n1. 煮意面：将一大锅加盐的水煮沸。加入意面，根据包装上的说明煮至半硬。将意面捞出，保留大约1/2杯的意面水。\n\n2. 烤虾：将烤架或烤盘预热至中高温。将虾与橄榄油、盐和胡椒拌匀。将虾烤约2-3分钟每面，直到它们变粉红色且熟透。从烤架上取下，放置一旁。\n\n3. 准备酱汁：在一个大煎锅中，用中火加热一些橄榄油。加入切碎的大蒜，炒约1-2分钟，直到香味四溢且略呈金黄色。倒入浓奶油，让它轻轻地煨。\n\n4. 加入意面和奶酪：将火调至低，将煮熟的意面加入到煎锅中的奶油酱里。将意面在酱汁中翻炒，直到均匀裹上酱汁。加入磨碎的帕尔马干酪，继续翻炒，直到奶酪融化且酱汁略微变稠。如果酱汁看起来太浓，可以加入一些保留的意面水来稀释。\n\n5. 调味和装饰：根据口味用盐和胡椒调味。加入一些新鲜的欧芹，增添新鲜感和风味。\n\n6. 上桌：将奶油蒜香帕尔马干酪意面分装到个人盘中。每份上面放上烤虾，并如果喜欢，可以再撒上一些欧芹作为装饰。\n\n现在，一盘美味的奶油蒜香帕尔马干酪意面配烤虾就准备好了，可以享用了！如果你有任何其他问题或需要进一步的帮助，请随时询问。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "Translation Problem Fixed"
+            },
+            "content_zh_old": "不客气！香蒜帕尔玛奶油意面配烤虾是个美味的选择。以下是制作方法：\n1. 煮意面：将一大锅盐水煮沸，加入意面，按照包装说明煮至“al dente”。沥干意面，留下约1/2杯意面水。\n2. 烤虾：预热烧烤架或烧烤锅至中高温。用橄榄油、盐和胡椒拌炒虾，每面烤约2-3分钟直至虾变粉红色且熟透。从烧烤架上取下并备用。\n3. 准备酱汁：在一个大煎锅中用中火加热一些橄榄油，加入蒜蓉炒约1-2分钟至香气四溢且变金黄色。倒入奶油并煮至微微沸腾。\n4. 加入意面和奶酪：将火调至小，将已煮好的意面加入带有奶油酱的煎锅中，拌匀直至意面裹满酱汁。加入刨好的帕尔玛奶酪，继续搅拌直至奶酪融化且酱汁稍微变稠。如果酱汁太浓稠，可以加入一些留下的意面水调节。\n5. 调味和装饰：根据口味加盐和胡椒调味。加入一些新鲜欧芹提味。\n6. 上桌：将香蒜帕尔玛奶油意面分盛在每个盘子中，每份再加烤虾，如需，再用新鲜欧芹装饰。\n现在，您可以享用美味的香蒜帕尔玛奶油意面配烤虾了！如果有更多问题或需要进一步帮助，请随时提问。"
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed instructions! The Creamy Garlic Parmesan Pasta with Grilled Shrimp sounds absolutely divine. I can't wait to try it out and impress my friends with this flavorful dish.\n\nI appreciate your help so far. Now, I'm ready for the final recipe, the Mini Chocolate Lava Cakes with Raspberry Sauce. Please provide me with the instructions, and let's complete this delightful menu!\n",
+            "content_zh": "感谢详细的指导！带烤虾的奶油大蒜帕尔马干酪意面听起来绝对美味。我迫不及待想尝试一下，用这道美味的菜肴让我的朋友印象深刻。 我非常感激你到目前为止的帮助。现在，我准备了最终食谱，迷你巧克力岩浆蛋糕配覆盆子酱。请给我提供指导，让我们完成这美味的菜单！",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! I'm glad you're excited about the Creamy Garlic Parmesan Pasta with Grilled Shrimp. Now, let's move on to the final recipe, the Mini Chocolate Lava Cakes with Raspberry Sauce. Here's how you can prepare this decadent dessert:\n\nFor the Mini Chocolate Lava Cakes:\n1. Preheat your oven to 425°F (220°C). Grease individual ramekins with butter and place them on a baking sheet.\n\n2. In a heatproof bowl, melt the chopped dark chocolate and butter together. You can do this by placing the bowl over a saucepan of simmering water, making sure the bottom of the bowl doesn't touch the water. Stir until the chocolate and butter are completely melted and smooth. Remove from heat and set aside to cool slightly.\n\n3. In a separate bowl, whisk together the eggs, egg yolks, and sugar until well combined.\n\n4. Gradually pour the melted chocolate mixture into the egg mixture, whisking constantly until the batter is smooth.\n\n5. Add the all-purpose flour to the batter and gently fold it in until just combined. Be careful not to overmix.\n\n6. Divide the batter evenly among the prepared ramekins, filling each about 2/3 full.\n\n7. Bake the lava cakes in the preheated oven for about 10-12 minutes, or until the edges are set but the centers are still slightly soft and jiggly.\n\n8. Remove the lava cakes from the oven and let them cool for a minute or two. Then, using oven mitts or a kitchen towel, carefully invert each ramekin onto a serving plate. The cakes should release easily.\n\nFor the Raspberry Sauce:\n1. In a small saucepan, combine fresh raspberries with a splash of water and a sprinkle of sugar. Cook over medium heat, stirring occasionally, until the raspberries break down and release their juices.\n\n2. Use a fine mesh sieve or cheesecloth to strain the raspberry mixture, removing the seeds. You should be left with a smooth raspberry sauce.\n\nTo serve:\n1. Dust the mini chocolate lava cakes with powdered sugar.\n\n2. Drizzle the raspberry sauce over the cakes or serve it on the side.\n\n3. Garnish with a few fresh raspberries for an extra touch.\n\nNow, you have a delightful dessert of Mini Chocolate Lava Cakes with Raspberry Sauce to conclude your birthday celebration. Enjoy the rich, gooey centers and the tangy sweetness of the raspberry sauce! If you have any more questions or need further assistance, feel free to ask.",
+            "content_zh": "不客气！我很高兴你对招牌奶油蒜味帕尔马干奶酪意大利面搭配烤虾感到兴奋。现在，让我们继续看最后一个食谱，迷你巧克力熔岩蛋糕配覆盆子酱。以下是制作这款醉人甜点的步骤：\n\n对于迷你巧克力熔岩蛋糕：\n1. 将烤箱预热至425华氏度（220摄氏度）。用黄油涂抹个人烤盘，并将其放在烤盘上。\n\n2. 在一个耐热碗中，融化切成小块的黑巧克力和黄油。您可以将碗放在炖锅上，让其覆盖着熬煮的水，确保碗底不接触水。搅拌直至巧克力和黄油完全融化且光滑。取出后静置稍凉。\n\n3. 在另一个碗中，搅拌鸡蛋、蛋黄和糖，直至充分混合。\n\n4. 逐渐将融化的巧克力混合物倒入鸡蛋混合物中，不断搅拌直至面糊光滑。\n\n5. 将面粉加入面糊中，轻轻拌匀至完全混合。注意不要过度搅拌。\n\n6. 将面糊均匀分配到烤盘中，填充至约2/3满。\n\n7. 放入预热好的烤箱中烤约10-12分钟，或直到边缘凝固但中心仍稍软。\n\n8. 从烤箱中取出熔岩蛋糕，待其冷却1-2分钟。然后使用烤箱手套或厨房毛巾，谨慎地将每个烤盘倒置到盛食物的盘子上。蛋糕应容易脱模。\n\n对于覆盆子酱：\n1. 在一个小锅中，将新鲜覆盆子与少许水和少量糖混合。中火煮至覆盆子煮烂并释放汁液。\n\n2. 使用细网筛或干净的纱布过滤覆盆子混合物，去除籽。您应该得到光滑的覆盆子酱。\n\n摆盘：\n1. 在迷你巧克力熔岩蛋糕上撒上糖粉。\n\n2. 将覆盆子酱淋在蛋糕上或放在一边供应。\n\n3. 用一些新鲜覆盆子点缀，增添额外风味。\n\n现在，您可以品尝迷你巧克力熔岩蛋糕配覆盆子酱，结束生日庆祝活动。享受浓郁、熔化的中心和覆盆子酱的酸甜味！如果您有更多问题或需要进一步协助，请随时提问。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "crowd-pleasing",
+        "variety",
+        "flavorful"
+    ],
+    "preference_summary": [
+        "crowd-pleasing",
+        "variety"
+    ],
+    "rating": {
+        "Preference Alignment": 0,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "22",
+            "zh": "22"
+        },
+        "Personality": [
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            },
+            {
+                "en": "Optimistic",
+                "zh": "乐观"
+            }
+        ],
+        "Occupation": {
+            "en": "Student",
+            "zh": "学生"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Playing video games",
+                "zh": "玩游戏"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Self-driving tour",
+                "zh": "自驾游"
+            },
+            {
+                "en": "Visiting exhibitions",
+                "zh": "看展"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Fast food",
+                "zh": "快餐"
+            },
+            {
+                "en": "Street food",
+                "zh": "街头小吃"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on entertainment",
+                "zh": "娱乐支出"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a dormitory",
+                "zh": "住在宿舍"
+            },
+            {
+                "en": "Active in sports activities",
+                "zh": "喜欢参与体育活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

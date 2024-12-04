@@ -1,0 +1,213 @@
+{
+    "task": "new travel planning",
+    "preference_id": 89,
+    "task_context_id": 5,
+    "preference": "1. Gender: Female\n2. Age: 28\n3. Personality: Compassionate, patient, and nurturing\n4. Occupation: Kindergarten Teacher\n5. Daily Interests and Hobbies: Crafting, reading children's books, gardening\n6. Travel Habits: Prefers nature trips, enjoys wildlife safaris\n7. Dining Preferences: Prefers home-cooked meals, enjoys baking\n8. Spending Habits: Spends on classroom supplies, saves for future travels\n9. Other Aspects: Volunteers at a local community center, has a pet rabbit",
+    "preference_zh": "1. 性别：女性\n2. 年龄：28\n3. 个性：富有同情心，耐心，有爱心\n4. 职业：幼儿园教师\n5. 日常兴趣爱好：手工艺，阅读儿童书籍，园艺\n6. 旅行习惯：喜欢大自然之旅，享受野生动物园\n7. 饮食偏好：喜欢家常菜，喜欢烘焙\n8. 消费习惯：购买教室用品，为未来旅行存钱\n9. 其他方面：在当地社区中心做志愿者，有一只宠物兔子",
+    "task_context": "You are planning a month-long trip that will take place this summer. Your goal, with the help of LLM, is to refine and finalize your travel plans. This includes making detailed arrangements for accommodations, transportation, and your daily itinerary. Your final travel plan should be as comprehensive and realistic as possible, ensuring that it can be seamlessly implemented when the time comes.\nYour trip planning should take into consideration the specific destination as specified in the following requirements: no specific destination restrictions. You should also consider your point of departure, your preferred mode of transportation to the destination, and the specific attractions or activities you wish to engage in. Remember to consider factors such as travel distance, travel time, and the opening hours of the attractions.",
+    "task_context_zh": "您正在计划一个将在今年夏天进行的为期一个月的旅行。您的目标是在LLM的帮助下完善和最终确定您的旅行计划。这包括详细安排住宿、交通和每日行程。您的最终旅行计划应尽可能全面和现实，确保在时机到来时能够顺利实施。您的旅行计划应考虑以下要求中指定的具体目的地：没有具体目的地限制。您还应考虑您的出发地、到达目的地的首选交通方式，以及您希望参与的具体景点或活动。记得考虑旅行距离、旅行时间和景点的开放时间等因素。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm planning a month-long trip for this summer and I'm really excited about it. I'm open to going anywhere, but I really love trips that allow me to connect with nature and witness wildlife. I'm also a bit of a foodie and love trying local cuisines, but I prefer home-cooked style meals. Can you help me come up with a detailed travel plan?",
+            "content_zh": "你好！我正在计划今年夏天一个为期一个月的旅行，我对此非常兴奋。我愿意去任何地方，但我真的很喜欢那些让我与大自然联系并见证野生动物的旅行。我也有点吃货，喜欢尝试当地美食，但我更喜欢家常菜。你能帮我制定一个详细的旅行计划吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely, I'd be delighted to help you plan your trip. Since you're interested in connecting with nature and wildlife, and also keen on exploring local cuisines, we can certainly find a destination that caters to both. Before we proceed with crafting your travel plan, I need some additional information:\n\n1. What is your starting location? This will help determine the ease of travel and potential destinations.\n2. Do you have a budget in mind for your trip?\n3. Are there any specific regions or continents you're interested in, or any you'd prefer to avoid?\n4. Would you be comfortable with different types of accommodations, such as hotels, lodges, or guesthouses?\n5. Do you have any dietary restrictions or preferences that should be taken into account when considering destinations?\n6. Are you looking for a more relaxed pace with longer stays in fewer locations, or do you prefer moving around more frequently to see as much as possible?\n7. What is your nationality, as this may affect visa requirements for international travel?\n\nOnce I have this information, I can start suggesting destinations, attractions, and an itinerary that aligns with your interests and preferences.",
+            "content_zh": "当然，我很高兴帮助您规划旅行。由于您对与大自然和野生动物的联系感兴趣，同时也热衷于探索当地美食，我们肯定可以找到一个旅行目的地，满足您的需求。在我们继续制定您的旅行计划之前，我需要一些额外的信息：\n1. 您的出发地点是哪里？这将有助于确定旅行的便利程度和潜在目的地。\n2. 您对旅行有预算吗？\n3. 您对特定的地区或大陆感兴趣吗，或者有哪些您想避免的地方？\n4. 您是否愿意接受不同类型的住宿，比如酒店、小屋或民宿？\n5. 您是否有任何饮食限制或偏好，需要在考虑目的地时考虑？\n6. 您是希望在较少的地点停留更长时间，还是更喜欢频繁移动，尽可能多地看到景点？\n7. 您的国籍是什么，因为这可能会影响国际旅行的签证要求。\n一旦我获得这些信息，我就可以开始建议目的地、景点和符合您兴趣和偏好的行程安排。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for guiding me through this! Here are the details:\n\n1. My starting location is Toronto, Canada.\n2. For the budget, I've saved up about $5,000 CAD for this trip, hoping it covers most expenses including flights, accommodations, and activities.\n3. I'm particularly drawn to Africa and South America because of their rich wildlife and natural landscapes, but I'm open to other regions if you think they align better with my interests.\n4. I'm quite flexible with accommodations. I'd prefer somewhere comfortable but it doesn't have to be luxurious. Eco-lodges or guesthouses would be lovely.\n5. No specific dietary restrictions, but I do enjoy meals that are on the healthier side, with plenty of vegetables and grains.\n6. I'm looking for a more relaxed pace. Maybe spending a week in a few different places would be ideal, so I don't feel rushed and can really soak in the environment and culture.\n7. I'm Canadian, so hopefully, visa requirements won't be too much of a hassle for the destinations we consider.\n\nI'm really looking forward to your suggestions!",
+            "content_zh": "谢谢你在这方面的指导！以下是详细信息：\n1. 我的出发地点是加拿大多伦多。\n2. 就预算而言，我为这次旅行存了大约5000加元，希望它能覆盖大部分费用，包括机票、住宿和活动。\n3. 我特别喜欢非洲和南美洲，因为它们拥有丰富的野生动物和自然风景，但如果你认为其他地区更符合我的兴趣，我也愿意考虑。\n4. 住宿方面我比较灵活。我希望住的地方舒适，但不一定豪华。生态小屋或招待所会很棒。\n5. 没有特殊的饮食限制，但我喜欢偏健康的餐点，含有大量蔬菜和谷物。\n6. 我希望旅行节奏更轻松。也许在几个不同的地方待上一周会是理想的，这样我就不会感到匆忙，可以真正融入环境和文化。\n7. 我是加拿大人，希望我们考虑的目的地的签证要求不会太麻烦。\n我真的很期待你的建议！",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Thanks for providing all the details. Based on your preferences and given the wildlife, nature, and culinary interests, I suggest considering a trip to South Africa. It offers rich wildlife, beautiful landscapes, and a unique culinary scene that includes traditional home-cooked style meals. \n\nHere's a rough plan:\n\n**1. Johannesburg (1 week):**\n   - Visit Johannesburg Zoo and Johannesburg Botanical Garden.\n   - Explore the Apartheid Museum and Constitution Hill for a touch of history.\n   - Enjoy local cuisine at Yeoville Dinner Club, where you can enjoy home-style African meals.\n\n**2. Kruger National Park (1 week):**\n   - A safari in Kruger National Park is a must for wildlife and nature enthusiasts.\n   - Stay in an eco-lodge within the park for a unique experience.\n\n**3. Cape Town (1 week):**\n   - Visit Table Mountain, Cape Point, and Boulders Beach (famous for its penguin colony).\n   - Explore the city's culinary scene. Try traditional dishes like Bobotie (a type of pie with minced meat) and Biltong (dried, cured meat).\n\n**4. Stellenbosch (1 week):**\n   - This town in the Cape Winelands is renowned for its wineries and gourmet restaurants.\n   - Enjoy wine tasting and vineyard tours.\n\nIn terms of travel, I recommend you take a flight from Toronto to Johannesburg. For internal travel within South Africa, you can use domestic flights, buses, or rent a car if you're comfortable driving.\n\nFor accommodations, there are various eco-lodges available in Kruger National Park like Rhino Post Safari Lodge or Hamiltons Tented Camp. In cities like Johannesburg, Cape Town, and Stellenbosch, you can find comfortable guesthouses or boutique hotels to stay in.\n\nJust a note, as a Canadian citizen, you don't need a visa for stays of up to 90 days in South Africa.\n\nI recommend purchasing travel insurance for your trip for any unforeseen circumstances. Also, check the necessary vaccines before you travel.\n\nPlease let me know if you want changes or if there's something specific you would like to do, and I can adjust the plan accordingly.",
+            "content_zh": "感谢提供所有细节。根据您的喜好以及对野生动物、自然和美食的兴趣，我建议考虑前往南非旅行。南非提供丰富的野生动物、美丽的风景以及独特的美食场景，包括传统家常风格的餐点。以下是一个大致的计划：\n\n1. 约翰内斯堡（1周）：\n- 参观约翰内斯堡动物园和约翰内斯堡植物园。\n- 探索种族隔离博物馆和宪法山，感受历史的触感。\n- 在Yeoville Dinner Club享用当地美食，品尝家常非洲餐点。\n\n2. 克鲁格国家公园（1周）：\n- 对于野生动物和自然爱好者来说，克鲁格国家公园的野生动物园绝对是必去之地。\n- 在公园内的生态小屋住宿，体验独特的经历。\n\n3. 开普敦（1周）：\n- 参观桌山、好望角和企鹅海滩（以其企鹅群而闻名）。\n- 探索城市的美食场景，尝试传统菜肴如Bobotie（一种用碎肉制成的馅饼）和Biltong（干燥、腌制的肉）。\n\n4. 斯泰伦博斯（1周）：\n- 这个位于开普葡萄酒产区的小镇以其酒庄和美食餐厅而闻名。\n- 享受品酒和葡萄园之旅。\n\n关于旅行，我建议您从多伦多飞往约翰内斯堡。在南非内部旅行时，您可以使用国内航班、巴士或者如果您习惯驾驶的话可以租车。\n\n在住宿方面，克鲁格国家公园内有各种生态小屋可供选择，如犀牛邮政野生动物园或汉密尔顿帐篷营。在约翰内斯堡、开普敦和斯泰伦博斯等城市，您可以找到舒适的招待所或精品酒店入住。\n\n作为加拿大公民，您在南非停留不超过90天无需签证。\n\n我建议您为旅行购买旅行保险，以防发生意外情况。另外，在旅行前请检查必要的疫苗接种情况。\n\n如果您有任何更改意见或者有特定想做的事情，请告诉我，我可以相应调整计划。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "This is so exciting! South Africa sounds like a dream destination for me. I appreciate the time you've taken to lay out a rough plan. \n\nI do have a few additional requests to refine the plan further:\n\n1. Can you suggest specific guesthouses or boutique hotels in Johannesburg, Cape Town, and Stellenbosch that will fit within my budget?\n2. Could you provide more detail on the daily activities? For instance, if I'm spending a week in Johannesburg, what activities or attractions would I be doing each day?\n3. I'd love to bake or cook a local dish during my stay. Are there any cooking or baking classes that you could recommend, especially in Cape Town or Stellenbosch?\n4. As I'm a kindergarten teacher, I'd love to visit a local school or community center where I could perhaps volunteer for a day or two. Any recommendations for this?\n \nI'm really looking forward to your suggestions!",
+            "content_zh": "这太令人兴奋了！南非听起来像是我梦想的目的地。我感谢您花时间制定了一个大致的计划。\n\n我有一些额外的要求，以进一步完善计划：\n\n1. 您能否建议约翰内斯堡、开普敦和斯泰伦博斯的特定招待所或精品酒店，以符合我的预算？\n2. 您能否提供更多关于每日活动的细节？例如，如果我在约翰内斯堡待一周，每天我会做什么活动或参观哪些景点？\n3. 我想在逗留期间烘焙或烹饪当地菜肴。您能推荐任何烹饪或烘焙课程，尤其是在开普敦或斯泰伦博斯吗？\n4. 由于我是一名幼儿园教师，我很想参观当地学校或社区中心，也许可以在那里做一两天的志愿者工作。您有任何推荐吗？\n\n我真的很期待您的建议！",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "I'm glad you're excited about the trip to South Africa! Here are the additional details you requested:\n\n**Accommodations:**\n1. **Johannesburg:** The Bannister Hotel - It's a boutique hotel located in Braamfontein, a central suburb known for its hipster culture, art, and food scene.\n2. **Cape Town:** Ashanti Lodge Gardens - It offers amazing views of Table Mountain, and it's close to some of the city's popular attractions.\n3. **Stellenbosch:** Bonne Esperance Guest House - A charming guesthouse located in the town center, within walking distance to restaurants, art galleries, and museums.\n\n**Daily activities:**\n\n**Week 1 - Johannesburg:**\n- Day 1: Rest and acclimate. Explore the local area.\n- Day 2: Visit the Apartheid Museum.\n- Day 3: Explore Johannesburg Botanical Garden.\n- Day 4: Visit Constitution Hill.\n- Day 5: Trip to Johannesburg Zoo.\n- Day 6: Explore the local markets and shopping areas.\n- Day 7: Rest day, prepare for the next location.\n\n**Week 2 - Kruger National Park:**\n- Day 1-7: Since wildlife is not on a schedule, a typical day would include early morning and late afternoon game drives, as these are the times when animals are most active. During the day, you can relax at the lodge, go on guided walks, or participate in other activities offered by the lodge.\n\n**Week 3 - Cape Town:**\n- Day 1: Rest and acclimate. Explore the local area.\n- Day 2: Visit Table Mountain.\n- Day 3: Explore Cape Point and Boulders Beach.\n- Day 4: Visit a local school or community center.\n- Day 5: Cooking class.\n- Day 6: Explore the city, local markets, shopping.\n- Day 7: Rest day, prepare for the next location.\n\n**Week 4 - Stellenbosch:**\n- Day 1: Rest and acclimate. Explore the local area.\n- Day 2-3: Visit vineyards for wine tasting and tours.\n- Day 4: Explore the local art galleries and museums.\n- Day 5: Visit a local school or community center.\n- Day 6: Rest and prepare for the return trip.\n- Day 7: Departure.\n\n**Cooking classes:**\n- Cape Malay Cooking Safari in Cape Town - It includes a tour of the spice market and a hands-on cooking workshop where you'll learn to prepare traditional Cape Malay dishes.\n- Rozendal Cooking Classes in Stellenbosch - Learn traditional methods of food preservation, fermentation, and baking with local ingredients.\n\n**Volunteering at a school/community center:**\n- Uthando (Love) South Africa - It's a non-profit company that provides meaningful and responsible travel experiences. They work with several projects, including schools, and could potentially arrange a day for you to volunteer.\n\nI hope this helps! Let me know if you need any more information or adjustments to the plan.",
+            "content_zh": "我很高兴你对前往南非的旅行感到兴奋！以下是你要求的额外细节：\n\n**住宿：**\n1. **约翰内斯堡：**班尼斯特酒店 - 这是一家精品酒店，位于布拉姆丰丁，这是一个以嬉皮文化、艺术和美食闻名的中心郊区。\n2. **开普敦：**阿山蒂花园旅馆 - 它可以欣赏到桌山的壮丽景色，靠近城市一些热门景点。\n3. **斯泰伦博斯：**博恩埃斯佩朗斯客栈 - 一家迷人的客栈，位于市中心，步行距离内有餐厅、艺术画廊和博物馆。\n\n**每日活动：**\n\n**第一周 - 约翰内斯堡：**\n- 第1天：休息和适应。探索当地地区。\n- 第2天：参观种族隔离博物馆。\n- 第3天：探索约翰内斯堡植物园。\n- 第4天：参观宪法山。\n- 第5天：前往约翰内斯堡动物园。\n- 第6天：探索当地市场和购物区。\n- 第7天：休息日，为下一个地点做准备。\n\n**第二周 - 克鲁格国家公园：**\n- 第1-7天：由于野生动物没有固定时间表，一天的典型活动包括清晨和傍晚的游戏车驾驶，因为这些时候动物最活跃。白天，你可以在旅馆放松，参加导游步行活动或参加旅馆提供的其他活动。\n\n**第三周 - 开普敦：**\n- 第1天：休息和适应。探索当地地区。\n- 第2天：参观桌山。\n- 第3天：探索开普角和博尔德斯海滩。\n- 第4天：参观当地学校或社区中心。\n- 第5天：烹饪课。\n- 第6天：探索城市、当地市场、购物。\n- 第7天：休息日，为下一个地点做准备。\n\n**第四周 - 斯泰伦博斯：**\n- 第1天：休息和适应。探索当地地区。\n- 第2-3天：参观葡萄园品酒和旅行。\n- 第4天：探索当地艺术画廊和博物馆。\n- 第5天：参观当地学校或社区中心。\n- 第6天：休息并准备返回旅程。\n- 第7天：离开。\n\n**烹饪课程：**\n- 在开普敦的开普马来烹饪冒险 - 包括参观香料市场和动手烹饪车间，学习制作传统的开普马来菜肴。\n- 在斯泰伦博斯的罗森达尔烹饪课程 - 学习使用当地食材传统的食物保存、发酵和烘焙方法。\n\n**在学校/社区中心做义工：**\n- 爱南非（Uthando） - 这是一家提供有意义和负责任的旅行体验的非营利性公司。他们与几个项目合作，包括学校，可能安排你做义工的一天。\n\n希望这些信息对你有帮助！如果需要更多信息或计划调整，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "This plan is coming together so nicely, thank you! I'm really excited about the cooking classes and the opportunity to volunteer at a local school or community center. \n\nJust a few more things:\n1. Could you give me a detailed breakdown of the budget, including accommodations, activities, meals, and transportation within South Africa?\n2. I'd love to pick up some local crafts or souvenirs during my trip. Could you suggest some places where I could do that?\n3. Since I'll be traveling alone, could you suggest some safety tips or precautions I should take?\n4. Lastly, do you have any book recommendations related to South Africa's history, culture, or wildlife that I could read before my trip?\n\nI appreciate all your help!",
+            "content_zh": "这个计划进展得非常顺利，谢谢！我对烹饪课程和在当地学校或社区中心做志愿者的机会非常兴奋。还有几件事情：1. 你能给我一个详细的预算明细吗，包括南非的住宿、活动、餐饮和交通费用？2. 我想在旅行期间购买一些当地手工艺品或纪念品。你能推荐一些我可以购买的地方吗？3. 因为我将独自旅行，你能给我一些建议，告诉我应该采取哪些安全措施吗？4. 最后，你有关于南非历史、文化或野生动物的书籍推荐吗？我在旅行前想读一些。非常感谢你的帮助！",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "I'm glad you're finding the plan helpful! Here's some more detailed information:\n\n**Budget breakdown (approximate costs in CAD):**\n\n1. **Flights:** A round trip flight from Toronto to Johannesburg can range from $1,000 - $1,500.\n2. **Accommodations:** On average, expect to pay around $50 per night, which totals to $1,400 for 28 nights.\n3. **Food:** A typical meal at an inexpensive restaurant would cost around $10, so you can budget about $30 a day for meals, which totals to $840 for 28 days.\n4. **Transportation:** Depending on the mode of transport, you could budget around $500 for the month. This includes domestic flights, local taxis, and public transport.\n5. **Activities:** Entrance fees for places like Kruger National Park, the Apartheid Museum, and Table Mountain, along with the cost of cooking classes, can add up to around $400.\n6. **Miscellaneous:** For any additional costs like souvenirs, emergencies, etc., you can allocate around $350.\n\nThis totals to approximately $4,990, which is within your budget of $5,000. Keep in mind that prices can vary and it's always good to have a buffer for unexpected expenses.\n\n**Souvenirs:**\n1. **Johannesburg:** Visit the Rosebank Sunday Market for a wide range of crafts, artwork, and food.\n2. **Cape Town:** Greenmarket Square, a historical market square with a variety of stalls selling African souvenirs and crafts.\n3. **Stellenbosch:** The Stellenbosch Heritage Shop, for high-quality local crafts and gifts.\n\n**Safety tips:**\n1. Avoid displaying expensive items or carrying large sums of money.\n2. Use reliable taxi services or Uber, especially at night.\n3. Be aware of your surroundings and look confident, even if you're not sure where you're going.\n4. Keep copies of your important documents, like passport and visa, in a separate place from the originals.\n5. Share your itinerary with family or friends and regularly check in with them.\n\n**Book recommendations:**\n1. \"Long Walk to Freedom\" by Nelson Mandela - An autobiography that offers profound insights into South Africa's history.\n2. \"Cry, the Beloved Country\" by Alan Paton - A classic South African novel.\n3. \"The Elephant Whisperer\" by Lawrence Anthony - A captivating story about wildlife conservation.\n\nI hope this information helps! Let me know if there's anything else you need.",
+            "content_zh": "很高兴你觉得这个计划有帮助！以下是一些更详细的信息：\n\n**预算细目（加拿大元）：**\n\n1. **机票：** 从多伦多到约翰内斯堡的往返机票价格大约在1000 - 1500加元之间。\n2. **住宿：** 平均每晚大约需要支付50加元，28晚总计1400加元。\n3. **餐饮：** 在一家便宜餐厅用餐的平均费用约为10加元，所以你可以每天预算30加元用于餐饮，28天总计840加元。\n4. **交通：** 根据交通方式的不同，你可以为这个月预算大约500加元。这包括国内航班、当地出租车和公共交通。\n5. **活动：** 克鲁格国家公园、种族隔离博物馆和桌山等景点的门票费用，以及烹饪课程的费用，总计约为400加元。\n6. **杂项：** 用于纪念品、紧急情况等额外费用，你可以分配大约350加元。\n\n总计约为4990加元，这在你的5000加元预算范围内。请记住价格可能有所变化，最好为意外费用留有一些余地。\n\n**纪念品：**\n1. **约翰内斯堡：** 参观罗斯班克星期日市场，那里有各种手工艺品、艺术品和食品。\n2. **开普敦：** 格林市场广场，一个历史悠久的市场广场，有各种摊位出售非洲纪念品和手工艺品。\n3. **斯泰伦博斯：** 斯泰伦博斯传统商店，提供高质量的当地手工艺品和礼品。\n\n**安全提示：**\n1. 避免展示昂贵物品或携带大笔现金。\n2. 使用可靠的出租车服务或Uber，尤其是在晚上。\n3. 注意周围环境，保持自信，即使不确定自己的目的地。\n4. 将重要文件的副本（如护照和签证）与原件分开存放。\n5. 与家人或朋友分享你的行程，并定期与他们联系。\n\n**书籍推荐：**\n1. 尼尔森·曼德拉的《漫漫自由路》- 一部提供对南非历史深刻见解的自传。\n2. 阿兰·帕顿的《哦，我心爱的国家》- 一部经典的南非小说。\n3. 劳伦斯·安东尼的《大象耳语者》- 一个关于野生动物保护的引人入胜的故事。\n\n希望这些信息对你有所帮助！如果有任何其他需要，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary": [
+        "budget breakdown",
+        "local souvenirs",
+        "safety tips",
+        "book recommendations"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 0,
+        "Memorization": 1,
+        "Detail Level": 0,
+        "Practical Usefulness": 1,
+        "Diversity": 1
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "28",
+            "zh": "28"
+        },
+        "Personality": [
+            {
+                "en": "Friendly",
+                "zh": "友善"
+            },
+            {
+                "en": "Patient",
+                "zh": "耐心"
+            }
+        ],
+        "Occupation": {
+            "en": "Educators",
+            "zh": "教师"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Crafting",
+                "zh": "手工艺制作"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Nature-based destinations",
+                "zh": "自然风光"
+            },
+            {
+                "en": "Outdoor activities",
+                "zh": "户外活动"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Baking",
+                "zh": "烘焙"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "For travel",
+                "zh": "用于旅行"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in volunteer activities",
+                "zh": "喜欢参与志愿活动"
+            },
+            {
+                "en": "Keeping small animals",
+                "zh": "养小动物"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Both"
+        }
+    }
+}

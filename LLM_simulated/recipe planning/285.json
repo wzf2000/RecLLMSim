@@ -1,0 +1,217 @@
+{
+    "task": "recipe planning",
+    "preference_id": 20,
+    "task_context_id": 0,
+    "preference": "1. Gender: Male\n2. Age: 29\n3. Personality: Passionate, creative, and outgoing\n4. Occupation: Chef\n5. Daily Interests and Hobbies: Experimenting with recipes, wine tasting, playing the guitar\n6. Travel Habits: Travels to explore cuisines, enjoys food festivals\n7. Dining Preferences: Enjoys a variety of cuisines, loves seafood\n8. Spending Habits: Invests in kitchen gadgets, spends on fresh ingredients\n9. Other Aspects: Runs a food blog, has a pet parrot",
+    "preference_zh": "1. 性别：男性\n2. 年龄：29\n3. 个性：热情、有创意、外向\n4. 职业：厨师\n5. 日常兴趣爱好：尝试新食谱、品酒、弹吉他\n6. 出行习惯：喜欢到处旅行探索美食，喜欢参加美食节\n7. 餐饮喜好：喜欢各种美食，热爱海鲜\n8. 消费习惯：投资厨房器具，花钱购买新鲜食材\n9. 其他方面：经营美食博客，有一只宠物鹦鹉",
+    "task_context": "You plan to prepare a meal at home for yourself. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家为自己做一顿饭。你在烹饪方面并不十分熟练，经验有限。因此，你想请LLM帮忙制定食谱，确定所需食材，并决定要做哪些菜。在计划过程中，你应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I'm looking to prepare a meal at home for myself, but I'm not very skilled in cooking and have limited experience. I was hoping you could help me create a recipe, determine the necessary ingredients, and decide what dishes to make. Can you assist me with that?",
+            "content_zh": "你好！很高兴你在这里。我想要在家里给自己准备一顿饭，但是我在烹饪方面并不是很熟练，经验也有限。希望你能帮助我制定一个食谱，确定必要的食材，并决定要做哪些菜。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you with that! Cooking at home can be a fun and rewarding experience, even if you're just starting out. Let's begin by discussing what type of meal you'd like to prepare. Are you in the mood for something specific, like a particular cuisine or dietary preference? And do you have any dietary restrictions or allergies I should consider while suggesting recipes?",
+            "content_zh": "当然，我乐意帮助你！在家烹饪可能是一次有趣且有益的体验，即使你刚刚开始。我们先讨论一下你想要准备什么类型的餐点。你是否有特定的口味，比如某种特定的菜系或饮食偏好？而且你有任何饮食限制或食物过敏需要我在建议食谱时考虑吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That's great! I'm open to exploring different cuisines and trying new things. I don't have any specific dietary preferences or restrictions, so feel free to suggest any recipe that you think would be interesting and delicious. I'm excited to see what you come up with!",
+            "content_zh": "太棒了！我乐于探索不同的美食并尝试新事物。我没有任何特定的饮食偏好或限制，所以请随意建议任何你认为有趣和美味的食谱。我很期待看到你的创意！",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That's great to hear! Since you're open to exploring different cuisines, let's go for a flavorful and versatile dish that's loved by many: stir-fried noodles with vegetables and protein. It's a great way to experiment with different flavors and textures. Here's a simple recipe to get you started:\n\nIngredients:\n- 8 ounces of noodles (such as rice noodles, soba noodles, or egg noodles)\n- 2 tablespoons of cooking oil (vegetable, canola, or sesame oil)\n- 2 cloves of garlic, minced\n- 1 small onion, thinly sliced\n- 1 cup of mixed vegetables (such as bell peppers, carrots, broccoli, snap peas)\n- 1 cup of protein (such as tofu, chicken, shrimp, or beef), thinly sliced or cubed\n- 2 tablespoons of soy sauce\n- 1 tablespoon of oyster sauce (optional, for added flavor)\n- Salt and pepper to taste\n- Optional garnishes: chopped green onions, sesame seeds, or lime wedges\n\nInstructions:\n1. Cook the noodles according to the package instructions. Drain and set aside.\n2. Heat the oil in a large pan or wok over medium-high heat.\n3. Add the minced garlic and sliced onion to the pan. Stir-fry for a minute until fragrant and slightly softened.\n4. Add the protein to the pan and cook until it's browned and cooked through. If you're using shrimp, they should turn pink.\n5. Add the mixed vegetables to the pan and stir-fry for a few minutes until they're tender-crisp.\n6. Add the cooked noodles to the pan and toss everything together.\n7. Drizzle the soy sauce and oyster sauce (if using) over the noodles and vegetables. Stir-fry for another minute to coat everything evenly.\n8. Taste and season with salt and pepper as needed.\n9. Serve hot and garnish with chopped green onions, sesame seeds, or a squeeze of lime juice if desired.\n\nThis recipe is quite flexible, so feel free to adjust the quantities and ingredients based on your preferences. You can also add other seasonings or spices to enhance the flavors. Enjoy your homemade stir-fried noodles, and don't hesitate to ask if you need any further assistance or have any other questions!",
+            "content_zh": "非常高兴听到这个消息！既然你愿意尝试不同的美食，那就来做一道深受喜爱、味道多样的菜吧：炒面条配蔬菜和蛋白质。这是一个尝试不同口味和质地的好方法。以下是一个让你开始的简单食谱：\n\n食材：\n- 8 盎司面条（如米粉、荞麦面条或蛋面条）\n- 2 汤匙食用油（植物油、罗芝麻油或芝麻油）\n- 2 瓣大蒜，切碎\n- 1 个小洋葱，切薄片\n- 1 杯混合蔬菜（如彩椒、胡萝卜、西兰花、荷兰豆）\n- 1 杯蛋白质（如豆腐、鸡肉、虾或牛肉），切薄片或丁\n- 2 汤匙酱油\n- 1 汤匙蚝油（可选，增加风味）\n- 盐和胡椒粉适量\n- 可选装饰：切碎的青葱、芝麻或青柠片\n\n烹饪步骤：\n1. 根据包装说明煮面条。沥干备用。\n2. 在大平底锅或炒锅中用中高火加热油。\n3. 把切碎的大蒜和薄洋葱加入锅中。翻炒一分钟至香味扑鼻并稍微软化。\n4. 将蛋白质加入锅中煮至变色熟透。如果使用虾，它们应该变成粉色。\n5. 加入混合蔬菜，翻炒几分钟直至嫩脆。\n6. 将煮熟的面条加入锅中，搅拌均匀。\n7. 淋上酱油和蚝油（如使用）。炒匀一分钟，让面条和蔬菜均匀沾上酱料。\n8. 根据需要尝试并调味盐和胡椒粉。\n9. 热热的上桌，如果需要可加青葱、芝麻或挤些青柠汁作装饰。\n\n这个食谱相当灵活，根据个人喜好随意调整食材和用量。也可以添加其他调味料或香料增强口味。享用你自制的炒面条，如果需要进一步的帮助或有任何问题，请随时询问！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That sounds absolutely delicious! I love the versatility of stir-fried noodles, and this recipe seems perfect for a flavorful and satisfying meal. I appreciate the detailed instructions and the option to customize the ingredients based on my preferences. I'll definitely give this recipe a try. Thank you so much for your help! Do you have any suggestions for a side dish or dessert that would complement this meal?",
+            "content_zh": "听起来绝对美味！我喜欢炒面的多样性，这个食谱看起来非常适合作为一顿美味而令人满足的餐食。我很感谢详细的说明以及根据我的口味选择配料的选项。我一定会尝试这个食谱。非常感谢您的帮助！您有什么配菜或甜点的建议来搭配这道菜吗？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! I'm glad you liked the recipe. Stir-fried noodles are indeed versatile and can be paired with various side dishes and desserts. Here are a couple of suggestions:\n\nFor a side dish, you can try making a simple Asian-inspired cucumber salad. Here's a quick recipe:\n\nIngredients:\n- 1 cucumber, thinly sliced\n- 2 tablespoons of rice vinegar\n- 1 tablespoon of soy sauce\n- 1 teaspoon of sesame oil\n- 1 teaspoon of sugar (optional)\n- 1 tablespoon of toasted sesame seeds (optional)\n- Chopped fresh cilantro or green onions for garnish (optional)\n\nInstructions:\n1. In a bowl, whisk together the rice vinegar, soy sauce, sesame oil, and sugar until well combined.\n2. Add the thinly sliced cucumber to the bowl and toss to coat the cucumber slices with the dressing.\n3. Let the cucumber salad marinate for about 10-15 minutes to allow the flavors to meld together.\n4. Sprinkle toasted sesame seeds and garnish with chopped cilantro or green onions, if desired.\n5. Serve chilled as a refreshing side dish to complement your stir-fried noodles.\n\nFor dessert, how about a simple fruit salad with a twist? Here's an idea:\n\nIngredients:\n- Assorted fresh fruits of your choice (such as berries, melons, grapes, kiwi, pineapple, etc.)\n- Fresh mint leaves for garnish (optional)\n- Honey or a squeeze of lime juice for drizzling (optional)\n\nInstructions:\n1. Wash and prepare the fruits by cutting them into bite-sized pieces.\n2. Combine the fruits in a bowl and gently toss them together.\n3. If desired, drizzle a bit of honey or squeeze some lime juice over the fruit salad for added sweetness or tanginess.\n4. Garnish with fresh mint leaves for a pop of color and extra freshness.\n5. Serve the fruit salad chilled as a light and refreshing dessert to round off your meal.\n\nI hope these suggestions add some variety and enjoyment to your meal! Let me know if there's anything else I can assist you with. Happy cooking and bon appétit!",
+            "content_zh": "不客气！我很高兴你喜欢这道食谱。炒面确实可以搭配各种配菜和甜点。以下是一些建议：\n\n作为配菜，你可以尝试制作一个简单又有亚洲风味的黄瓜沙拉。以下是一个快速的食谱：\n\n食材：\n- 1根黄瓜，切成薄片\n- 2汤匙米醋\n- 1汤匙生抽\n- 1茶匙麻油\n- 1茶匙糖（可选）\n- 1汤匙炒香的芝麻（可选）\n- 切碎的香菜或青葱作装饰（可选）\n\n做法：\n1.在一个碗中，搅拌米醋、生抽、麻油和糖，直至充分混合。\n2.将切成薄片的黄瓜加入碗中，搅拌均匀，让黄瓜片均匀裹上酱汁。\n3.让黄瓜沙拉腌制约10-15分钟，使风味融合。\n4.如有需要，撒上炒香的芝麻，再摆上切碎的香菜或青葱。\n5.凉拌食用，作为清爽的配菜，搭配你的炒面。\n\n作为甜点，试试一个带有变化的简单水果沙拉吧？以下是一个想法：\n\n食材：\n- 各种新鲜水果（如浆果、甜瓜、葡萄、奇异果、菠萝等）\n- 新鲜薄荷叶作装饰（可选）\n- 蜂蜜或一些青柠汁（可选）\n\n做法：\n1.清洗和切割水果，切成块状。\n2.将水果混合在一个碗中，轻轻拌匀。\n3.如有需要，可以在水果沙拉上滴一点蜂蜜或挤一些青柠汁，增加甜味或酸味。\n4.用新鲜薄荷叶作装饰，增色提鲜。\n5.凉拌食用，作为清淡而清爽的甜点，为你的餐食划上完美的句号。\n\n希望这些建议为您的餐食增添一些变化和乐趣！如果需要帮助，请随时告诉我。祝愉快烹饪，尽情享用！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you so much for the side dish and dessert suggestions! The Asian cucumber salad sounds like a perfect accompaniment to the stir-fried noodles, providing a refreshing and tangy contrast. And the fruit salad with a twist sounds like a delightful way to end the meal on a light and refreshing note. I appreciate the detailed recipes and your thoughtful suggestions. I can't wait to try them out! If I have any more questions or need further assistance, I'll be sure to reach out. Thank you again for your help!",
+            "content_zh": "非常感谢您关于配菜和甜点的建议！亚洲黄瓜沙拉听起来是炒面的完美搭配，提供了清爽又酸甜的对比。而带有独特风味的水果沙拉则是一个美好的方式来以清爽的方式结束一餐。我感谢您提供的详细食谱和周到的建议。我迫不及待想尝试它们！如果我有更多问题或需要进一步的帮助，我一定会联系您。再次感谢您的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you liked the suggestions for the side dish and dessert. The cucumber salad and fruit salad should indeed complement the stir-fried noodles nicely. I'm excited for you to try them out!\n\nFeel free to reach out anytime if you have more questions or need further assistance. I'm here to help. Enjoy your cooking experience and have a fantastic meal! Happy cooking!",
+            "content_zh": "不客气！很高兴你喜欢了配菜和甜点的建议。黄瓜沙拉和水果沙拉确实会很好地搭配炒面。我很期待你尝试它们！如果有更多问题或需要进一步帮助，请随时联系我。我会在这里帮忙。祝你烹饪愉快，美味佳肴！烹饪快乐！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "versatile",
+        "flavorful",
+        "tangy"
+    ],
+    "preference_summary": [
+        "stir-fried noodles",
+        "asian cucumber salad",
+        "fruit salad"
+    ],
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 1
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "29",
+            "zh": "29"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            }
+        ],
+        "Occupation": {
+            "en": "Chef",
+            "zh": "厨师"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Cooking",
+                "zh": "烘焙/烹饪"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Playing instruments",
+                "zh": "演奏乐器"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Food tour",
+                "zh": "美食之旅"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            },
+            {
+                "en": "Seafood",
+                "zh": "海鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on tech gadgets",
+                "zh": "科技产品"
+            },
+            {
+                "en": "Focus on experience",
+                "zh": "注重消费体验"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Managing personal media platforms",
+                "zh": "经营自媒体"
+            },
+            {
+                "en": "Keeping small animals",
+                "zh": "养小动物"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        },
+        "2": {
+            "planning": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "specificity": "Broad"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Breadth",
+            "context": "Low",
+            "specificity": "Broad"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}

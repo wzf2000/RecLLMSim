@@ -1,0 +1,185 @@
+{
+    "task": "recipe planning",
+    "preference_id": 45,
+    "task_context_id": 4,
+    "preference": "1. Gender: Female\n2. Age: 40\n3. Personality: Disciplined, meticulous, and calm\n4. Occupation: Yoga Instructor\n5. Daily Interests and Hobbies: Meditation, reading self-help books, organic farming\n6. Travel Habits: Prefers wellness retreats, enjoys nature-based destinations\n7. Dining Preferences: Strictly vegan, prefers organic food\n8. Spending Habits: Invests in health and wellness products, prefers quality over quantity\n9. Other Aspects: Practices minimalism, has a home studio",
+    "preference_zh": "1. 性别：女性\n2. 年龄：40\n3. 个性：自律、细心、平静\n4. 职业：瑜伽教练\n5. 日常兴趣爱好：冥想、阅读自助书籍、有机农业\n6. 出行习惯：喜欢健康度假，喜欢自然风光\n7. 饮食偏好：严格素食主义，喜欢有机食品\n8. 消费习惯：投资健康与保健产品，品质优于数量\n9. 其他方面：实践极简主义，家里有一个工作室",
+    "task_context": "You plan to prepare a meal at home and invite three close friends to join you. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家做饭，邀请三个亲密的朋友参加。你在烹饪方面并不很在行，经验有限。因此，你想要求LLM帮助制定食谱，确定所需食材，并决定做什么菜。在计划过程中，你应该学习每道菜的完整制作过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you asked. I'm planning to prepare a meal at home and invite three close friends to join me. However, I don't have much cooking experience, so I could use some help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Can you assist me with that?",
+            "content_zh": "你好！我很高兴你问。我打算在家里准备一顿饭，并邀请三个亲近的朋友一起加入。但是，我没有太多烹饪经验，所以我需要一些帮助来制定食谱，确定必要的食材，并决定要做什么菜。你可以帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! Of course, I'd be happy to help you with your meal planning. Cooking for friends can be a lot of fun, and I'm here to make the process easier for you. Let's start by discussing what type of cuisine or dishes you and your friends might enjoy. Do you have any preferences or dietary restrictions to consider?",
+            "content_zh": "你好！当然，我很乐意帮助你规划餐食。为朋友烹饪可以很有趣，我在这里为你简化整个过程。让我们首先讨论一下你和朋友喜欢的菜系或菜肴。你有任何偏好或饮食限制需要考虑吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance. I appreciate it. As a yoga instructor, I follow a strictly vegan diet and prefer organic food. So, for this meal, I would like to stick to vegan dishes made with fresh, wholesome ingredients. It would be great if we could incorporate some plant-based protein sources and a variety of vegetables. Are you familiar with vegan cooking?",
+            "content_zh": "感谢您提供帮助。我很感激。作为瑜伽教练，我遵循严格的素食饮食，偏爱有机食品。因此，对于这一餐，我希望保持以新鲜、健康食材制作的素食菜肴。如果能加入一些植物蛋白来源和各种蔬菜，那就太好了。您是否熟悉素食烹饪？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! Vegan cooking is all about creating delicious dishes without using any animal products. It's a wonderful way to explore the world of plant-based cuisine. I'm quite familiar with vegan cooking and can certainly help you come up with some tasty recipes that fit your preferences.\n\nTo start, let's think about the main course. How about a protein-rich dish like a chickpea curry or a tofu stir-fry? Both options are versatile, flavorful, and can be customized to your liking. Additionally, they can be paired with a variety of side dishes and accompaniments. What do you think?",
+            "content_zh": "絕對！純素烹飪是通過不使用任何動物產品來創造美味佳餚的方式。這是一種探索植物為基礎烹飪世界的美妙方式。我對純素烹飪非常熟悉，肯定可以幫助您製作出一些符合您喜好的美味食譜。\n\n首先，讓我們考慮主菜。豆子咖哩或豆腐炒菜等富含蛋白質的菜餚怎麼樣？這兩個選擇都是多功能、味道濃郁，並可以按照您的喜好進行定制。此外，它們可以搭配各種配菜和陪菜。您覺得如何？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "vegan",
+        "organic",
+        "plant-based"
+    ],
+    "preference_summary": [
+        "vegan",
+        "organic",
+        "plant-based protein"
+    ],
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 1,
+        "Memorization": 1,
+        "Detail Level": 0,
+        "Practical Usefulness": 0,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "40",
+            "zh": "40"
+        },
+        "Personality": [
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            },
+            {
+                "en": "Meticulous",
+                "zh": "细致"
+            },
+            {
+                "en": "Calm",
+                "zh": "冷静"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Prefers calm and serene locations",
+                "zh": "喜欢宁静"
+            },
+            {
+                "en": "Nature-based destinations",
+                "zh": "自然风光"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Vegan",
+                "zh": "素食"
+            },
+            {
+                "en": "Healthy food",
+                "zh": "健康饮食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Prefers quality over quantity",
+                "zh": "质量大于数量"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "No description",
+                "zh": "无符合描述"
+            },
+            {
+                "en": "Living in one’s own house",
+                "zh": "有房产"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "1": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "2": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        },
+        "3": {
+            "planning": "PlanningOriented",
+            "order": "Comprehensive",
+            "context": "High",
+            "specificity": "Concrete"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    }
+}
