@@ -39,7 +39,7 @@ human_prompt_V1 = """You are a skilled conversational analyst. Your task is to e
 
    - **Broad**: The user's questions are open-ended and cover a wide range of topics.
    
-   - **Concrete**: The user's questions are specific and focused on detailed information.
+   - **Specific**: The user's questions are specific and focused on detailed information.
 
 **Instructions:**
 
@@ -56,10 +56,10 @@ human_prompt_V1 = """You are a skilled conversational analyst. Your task is to e
 The output should be in JSON format, structured like this:
 ```json
 {
-    "planning": "PlanningOriented/Sequential",
+    "planning": "Planning/Sequential",
     "order": "Depth/Breadth/Comprehensive",
     "context": "High/Low",
-    "specificity": "Broad/Concrete"
+    "question": "Broad/Specific"
 }
 ```
 
@@ -137,7 +137,7 @@ sim_prompt_V1 = """You are a skilled conversational analyst. Your task is to eva
 
    - **Broad**: The user's questions are open-ended and cover a wide range of topics.
    
-   - **Concrete**: The user's questions are specific and focused on detailed information.
+   - **Specific**: The user's questions are specific and focused on detailed information.
 
 **Instructions:**
 
@@ -154,10 +154,10 @@ sim_prompt_V1 = """You are a skilled conversational analyst. Your task is to eva
 The output should be in JSON format, structured like this:
 ```json
 {
-    "planning": "PlanningOriented/Sequential",
+    "planning": "Planning/Sequential",
     "order": "Depth/Breadth/Comprehensive",
     "context": "High/Low",
-    "specificity": "Broad/Concrete"
+    "question": "Broad/Specific"
 }
 ```
 
@@ -266,10 +266,10 @@ def multi_cls_V1(text: str, model: str, human: bool) -> dict[str, dict[str, str]
     strategy2 = cls(text, model, 1, human)
     strategy3 = cls(text, model, 1, human)
     # get the most common strategy
-    if strategy1.planning == strategy2.planning or strategy1.planning == strategy3.planning:
-        planning = strategy1.planning
-    elif strategy2.planning == strategy3.planning:
-        planning = strategy2.planning
+    if strategy1.information_request == strategy2.information_request or strategy1.information_request == strategy3.information_request:
+        planning = strategy1.information_request
+    elif strategy2.information_request == strategy3.information_request:
+        planning = strategy2.information_request
     else:
         assert False
     if strategy1.order == strategy2.order or strategy1.order == strategy3.order:
@@ -284,13 +284,13 @@ def multi_cls_V1(text: str, model: str, human: bool) -> dict[str, dict[str, str]
         context = strategy2.context
     else:
         assert False
-    if strategy1.specificity == strategy2.specificity or strategy1.specificity == strategy3.specificity:
-        specificity = strategy1.specificity
-    elif strategy2.specificity == strategy3.specificity:
-        specificity = strategy2.specificity
+    if strategy1.question == strategy2.question or strategy1.question == strategy3.question:
+        question = strategy1.question
+    elif strategy2.question == strategy3.question:
+        question = strategy2.question
     else:
         assert False
-    final_strategy = StrategyV1(planning=planning, order=order, context=context, specificity=specificity)
+    final_strategy = StrategyV1(information_request=planning, order=order, context=context, question=question)
     return {
         'final': final_strategy.model_dump(),
         '1': strategy1.model_dump(),

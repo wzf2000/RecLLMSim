@@ -1,8 +1,8 @@
 from enum import Enum
 from pydantic import BaseModel
 
-class Planning(str, Enum):
-    PlanOriented = 'PlanningOriented'
+class InformationRequest(str, Enum):
+    Planning = 'Planning'
     Sequential = 'Sequential'
 
 class OrderV1(str, Enum):
@@ -14,9 +14,9 @@ class Context(str, Enum):
     High = 'High'
     Low = 'Low'
 
-class Specificity(str, Enum):
+class Question(str, Enum):
     Broad = 'Broad'
-    Concrete = 'Concrete'
+    Specific = 'Specific'
 
 class OrderV2(str, Enum):
     Depth = 'Depth'
@@ -31,10 +31,10 @@ class Feedback(str, Enum):
     Both = 'Both'
 
 class StrategyV1(BaseModel):
-    planning: Planning
+    information_request: InformationRequest
     order: OrderV1
     context: Context
-    specificity: Specificity
+    question: Question
 
 class StrategyV2(BaseModel):
     order: OrderV2

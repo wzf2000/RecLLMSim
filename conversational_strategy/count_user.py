@@ -13,7 +13,7 @@ max_freq = {}
 users = os.listdir(dir_name)
 freq_dict = {}
 # strategy_field = 'strategy'
-# key_value = ['planning_PlanningOriented', 'context_High', 'specificity_Concrete']
+# key_value = ['planning_Planning', 'context_High', 'question_Specific']
 strategy_field = 'strategy_V2'
 key_value = ['order_DepthBreadth', 'order_Breadth', 'feedback_NoFeedback', 'feedback_Negative']
 for task_list in [['旅行规划', '礼物准备', '菜谱规划', '技能学习规划']]:

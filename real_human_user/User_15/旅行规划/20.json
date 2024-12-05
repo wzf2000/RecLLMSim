@@ -125,28 +125,28 @@
     ],
     "strategy": {
         "final": {
-            "planning": "PlanningOriented",
+            "information_request": "Planning",
             "order": "Comprehensive",
             "context": "Low",
-            "specificity": "Concrete"
+            "question": "Specific"
         },
         "1": {
             "planning": "Sequential",
             "order": "Comprehensive",
             "context": "Low",
-            "specificity": "Broad"
+            "question": "Broad"
         },
         "2": {
-            "planning": "PlanningOriented",
+            "information_request": "Planning",
             "order": "Comprehensive",
             "context": "Low",
-            "specificity": "Concrete"
+            "question": "Specific"
         },
         "3": {
-            "planning": "PlanningOriented",
+            "information_request": "Planning",
             "order": "Comprehensive",
             "context": "High",
-            "specificity": "Concrete"
+            "question": "Specific"
         }
     },
     "strategy_V2": {
@@ -165,6 +165,13 @@
         "3": {
             "order": "BreadthDepth",
             "feedback": "Both"
+        }
+    },
+    "strategy_human": {
+        "final": {
+            "planning": "Sequential",
+            "context": "High",
+            "question": "Specific"
         }
     }
 }
