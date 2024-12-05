@@ -28,7 +28,7 @@ def label_single(history: list[dict[str, str]], version: int, human: bool = Fals
         else:
             return {}
 
-def label_sim(version: int, strategy_name: str, sample: bool = False):
+def label_sim(version: int, strategy_name: str, compare_name: str, sample: bool = False):
     dir_name = SIM_DIR
     task_list = ['new travel planning', 'preparing gifts', 'travel planning', 'recipe planning', 'skills learning planning']
     
@@ -39,10 +39,17 @@ def label_sim(version: int, strategy_name: str, sample: bool = False):
     files.sort(key=lambda x: x.split('.')[0])
     if sample:
         files = files[:10]
+    
+    right = {}
+    
     for i, file in enumerate(files):
         with open(os.path.join(dir_name, task, file), 'r') as f:
             data = json.load(f)
         if strategy_name in data:
+            for key in data[strategy_name]['final']:
+                if key not in right:
+                    right[key] = []
+                right[key].append(data[strategy_name]['final'][key] == data[compare_name]['final'][key])
             continue
         st.progress(i / len(files), f'{i} / {len(files)}')
         data[strategy_name]= label_single(data['history'], version, False)
@@ -52,7 +59,10 @@ def label_sim(version: int, strategy_name: str, sample: bool = False):
             st.rerun()
         return
 
-def label_human(version: int, strategy_name: str, sample: bool = False):
+    for key in right:
+        st.markdown(f'{key}: {sum(right[key]) / len(right[key])} ({sum(right[key])} / {len(right[key])})')
+
+def label_human(version: int, strategy_name: str, compare_name: str, sample: bool = False):
     dir_name = HUMAN_DIR
     task_list = ['旅行规划', '礼物准备', '菜谱规划', '技能学习规划']
     users = os.listdir(dir_name)
@@ -63,6 +73,8 @@ def label_human(version: int, strategy_name: str, sample: bool = False):
     users = [user for user in users if os.path.exists(os.path.join(dir_name, user, task))]
     if sample:
         users = users[:10]
+    
+    right = {}
     
     for i, user in enumerate(users):
         if not os.path.exists(os.path.join(dir_name, user, task)):
@@ -76,6 +88,10 @@ def label_human(version: int, strategy_name: str, sample: bool = False):
             with open(os.path.join(dir_name, user, task, file), 'r') as f:
                 data = json.load(f)
             if strategy_name in data:
+                for key in data[strategy_name]['final']:
+                    if key not in right:
+                        right[key] = []
+                    right[key].append(data[strategy_name]['final'][key] == data[compare_name]['final'][key])
                 continue
             st.progress(i / len(users), f'{i} / {len(users)}')
             data[strategy_name]= label_single(data['history'], version, True)
@@ -84,6 +100,9 @@ def label_human(version: int, strategy_name: str, sample: bool = False):
                     json.dump(data, fw, ensure_ascii=False, indent=4)
                 st.rerun()
             return
+
+    for key in right:
+        st.markdown(f'{key}: {sum(right[key]) / len(right[key])} ({sum(right[key])} / {len(right[key])})')
 
 def main():
     st.set_page_config(page_title='Human Label', layout='wide')
@@ -94,11 +113,12 @@ def main():
     st.sidebar.markdown('### Mode')
     mode = st.sidebar.selectbox('Mode', ['Simulation', 'Human'])
     strategy_name = 'strategy_human' if version == 1 else 'strategy_human_V2'
+    compare_name = 'strategy' if version == 1 else 'strategy_V2'
     
     if mode == 'Simulation':
-        label_sim(version, strategy_name, sample)
+        label_sim(version, strategy_name, compare_name, sample)
     elif mode == 'Human':
-        label_human(version, strategy_name, sample)
+        label_human(version, strategy_name, compare_name, sample)
 
 if __name__ == '__main__':
     main()
