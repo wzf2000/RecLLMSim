@@ -21,8 +21,8 @@ def label_single(history: list[dict[str, str]], version: int, human: bool = Fals
             strategy['final']['context'] = st.selectbox('Context', [Context.High.value, Context.Low.value])
             strategy['final']['question'] = st.selectbox('Specificity', [Question.Broad.value, Question.Specific.value])
         elif version == 2:
-            strategy['final']['order'] = st.selectbox('Order', [OrderV2.Depth, OrderV2.Breadth, OrderV2.DepthBreadth, OrderV2.BreadthDepth])
-            strategy['final']['feedback'] = st.selectbox('Feedback', [Feedback.Positive.value, Feedback.Negative.value])
+            strategy['final']['order'] = st.selectbox('Order', [OrderV2.Depth.value, OrderV2.Breadth.value, OrderV2.DepthBreadth.value, OrderV2.BreadthDepth.value])
+            strategy['final']['feedback'] = st.selectbox('Feedback', [Feedback.NoFeedback.value, Feedback.Positive.value, Feedback.Negative.value, Feedback.Both.value])
         if st.button('Submit'):
             return strategy
         else:
@@ -91,6 +91,8 @@ def label_human(version: int, strategy_name: str, compare_name: str, sample: boo
                 for key in data[strategy_name]['final']:
                     if key not in right:
                         right[key] = []
+                    if data[strategy_name]['final'][key] != data[compare_name]['final'][key]:
+                        st.markdown(f'{user} {task} {file} {key} {data[strategy_name]["final"][key]} {data[compare_name]["final"][key]}')
                     right[key].append(data[strategy_name]['final'][key] == data[compare_name]['final'][key])
                 continue
             st.progress(i / len(users), f'{i} / {len(users)}')
