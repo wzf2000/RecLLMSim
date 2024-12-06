@@ -86,3 +86,42 @@ The consistency between the manual annotation and the automatic annotation is as
 |   8   |   15    |      **1.8667**      |        **1.7333**         |
 |   9   |    6    |        1.6667        |          1.3333           |
 |  10   |    5    |        1.6000        |          1.2000           |
+
+### Average User Satisfaction Scores with Different Conversational Strategies
+
+|   Categorization    |  Strategy  | Detail Level | Practical Utility | Diversity |
+| :-----------------: | :--------: | :----------: | :---------------: | :-------: |
+| Information Request |  Planning  |    1.5676    |      1.3739       |  1.4865   |
+|                     | Sequential |    1.6087    |      1.4783       |  1.5942   |
+| Context Dependency  |    High    |    1.5539    |      1.3971       |  1.4804   |
+|                     |    Low     |    1.6322    |      1.4023       |  1.5862   |
+|     Specificity     |   Broad    |    2.0000    |      0.8571       |  1.7143   |
+|                     |  Specific  |    1.5669    |      1.4120       |  1.5070   |
+|  Depth Vs. Bredth   |     DF     |    1.6364    |      1.4545       |  1.5455   |
+|                     |     BF     |    1.5556    |      1.4167       |  1.6111   |
+|                     |    DF-B    |    1.6053    |      1.4737       |  1.5789   |
+|                     |     BF     |    1.5728    |      1.3786       |  1.4806   |
+|      Feedback       |     No     |    1.6630    |      1.4891       |  1.6848   |
+|                     |  Positive  |    1.5333    |      1.3111       |  1.5556   |
+|                     |  Negative  |    1.7027    |      1.4324       |  1.4595   |
+|                     |    Both    |    1.4872    |      1.3504       |  1.3761   |
+
+## Annotation Criteria
+
+### Detail Level
+
+- **2 (High):** In-depth responses with detailed explanations (e.g., a recipe including specific ingredients and step-by-step instructions).
+- **0 (Low):** Vague or brief responses (e.g., listing destination names without descriptions in a travel plan).
+- **1 (Medium):** Responses between these extremes.
+
+### Diversity
+
+- **Low (0):** Only one or two options provided per query.
+- **Medium (1):** Some queries have three or more options, while others are limited.
+- **High (2):** All queries include three or more diverse options.
+
+### Practical Utility
+
+- **Not usable (0):** Unrealistic plans (e.g., an overly tight travel schedule or learning plans with unreasonably fast progress).
+- **Somewhat usable (1):** Partially applicable suggestions (e.g., gift ideas that provide inspiration but are difficult to implement).
+- **Highly usable (2):** Practical and actionable plans (e.g., a Python learning plan with achievable milestones).
