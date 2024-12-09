@@ -66,11 +66,13 @@ Check the `readme.md` file in the `RecUserSim` folder for more details.
 
 We sample some conversations from the dataset and manually annotate the conversational strategy.
 
+Specifically, we selected 10 conversations collected by real human users in each scenario for manual annotation.
+
 The consistency between the manual annotation and the automatic annotation is as follows:
 
 |  **strategy**  | **Information request** | **Context dependency** | **Question** | **Depth Vs. Breadth** | **Feedback** |
 | :------------: | :---------------------: | :--------------------: | :----------: | :-------------------: | :----------: |
-| **Match rate** |           0.9           |          0.9           |      1       |           1           |     0.6      |
+| **Match rate** |    $0.9 (36 / 40)$      |     $0.9 (36 / 40)$    | $1 (40 / 40)$|  $0.975 (39 / 40)$    |$0.85 (34 / 40)$|
 
 ### Simulation Quality across Different Conversation Turns
 

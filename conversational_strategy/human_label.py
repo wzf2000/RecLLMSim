@@ -6,18 +6,21 @@ from output_format import InformationRequest, Context, Question, OrderV2, Feedba
 from basic_info import SIM_DIR, HUMAN_DIR
 
 def label_single(history: list[dict[str, str]], version: int, human: bool = False) -> dict[str, str]:
+    user_only = st.sidebar.checkbox('User Only')
     col1, col2 = st.columns([3, 1])
     with col1:
         with st.container(height=500):
             st.markdown('### History')
             for utt in history:
+                if user_only and utt['role'] == 'assistant':
+                    continue
                 st.chat_message(utt['role']).markdown(utt['content'] if human else utt['content_zh'])
     with col2:
         st.markdown('### Strategy')
         strategy = {}
         strategy['final'] = {}
         if version == 1:
-            strategy['final']['planning'] = st.selectbox('Planning', [InformationRequest.Planning.value, InformationRequest.Sequential.value])
+            strategy['final']['information_request'] = st.selectbox('Planning', [InformationRequest.Planning.value, InformationRequest.Sequential.value])
             strategy['final']['context'] = st.selectbox('Context', [Context.High.value, Context.Low.value])
             strategy['final']['question'] = st.selectbox('Specificity', [Question.Broad.value, Question.Specific.value])
         elif version == 2:
