@@ -32,7 +32,7 @@ def work_human(attribute: str, **kwargs) -> dict[str, float]:
     output_file = os.path.join(os.path.dirname(__file__), 'figures', 'human', f'{attribute}.png')
     plt.savefig(output_file)
     return list(distribution.keys())
-    
+
 if __name__ == '__main__':
     items = ['Personality', 'Daily Interests and Hobbies', 'Travel Habits', 'Dining Preferences', 'Spending Habits']
     ranks = {}

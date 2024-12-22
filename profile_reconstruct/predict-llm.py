@@ -13,7 +13,7 @@ from pipe_util import exp_sim, exp_sim2human, exp_sim2human2, exp_human, exp_hum
 
 class Answer(BaseModel):
     answer: list[int]
-    
+
 api_config_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'api_config.json')
 
 with open(api_config_file, 'r') as f:
@@ -39,7 +39,7 @@ prompt = """请根据以下对话，为对话中的user选择最符合其[Profil
 }
 ```
 
-你的回答是：   
+你的回答是：
 """
 
 def rank2prob(labels: list[str], rank: list[int]) -> np.ndarray:

@@ -16,29 +16,20 @@ client = OpenAI(
 human_prompt_V1 = """You are a skilled conversational analyst. Your task is to evaluate a given dialogue, which is in Chinese, between a user and a system to identify several aspects of the user's inquiry strategy. Specifically, you need to classify each aspect as follows:
 
 1. **User Strategy Type**: Determine whether the user's approach is best described as a "Planning-Oriented Inquiry" or a "Sequential Information Request".
-   
    - **Planning-Oriented Inquiry**: The user explicitly requests information in a structured manner, often outlining steps, sequences, or processes to achieve a particular goal.
-
    - **Sequential Information Request**: The user asks for information in a logical order that reflects an underlying plan or roadmap they intend to follow without explicitly outlining it.
 
 2. **Depth vs. Breadth Strategy**:
-
    - **Depth-Oriented**: The user delves deeply into a single topic before moving on.
-   
    - **Breadth-Oriented**: The user explores multiple topics with less depth.
-   
    - **Comprehensive Strategy**: The user balances depth and breadth, exploring multiple topics with sufficient depth in each.
 
 3. **Context Dependency**:
-
    - **High Context Dependency**: The user's questions heavily rely on previous dialogue content.
-   
    - **Low Context Dependency**: The user's questions can be understood independently of earlier dialogue.
 
 4. **Question Specificity**:
-
    - **Broad**: The user's questions are open-ended and cover a wide range of topics.
-   
    - **Specific**: The user's questions are specific and focused on detailed information.
 
 **Instructions:**
@@ -71,21 +62,15 @@ human_prompt_V2 = """You are a skilled conversational analyst. Your task is to e
 ### 1. Depth vs. Breadth Strategy
 
 - **Depth-Oriented**: The user focuses intensely on a specific aspect of their plan, thoroughly exploring it before moving on to another aspect.
-
 - **Breadth-Oriented**: The user considers a wide range of aspects of their plan, exploring each one briefly without going into much detail.
-
 - **Depth-First, Then Breadth**: The user initially examines a particular aspect of their plan in great detail before expanding their inquiry to include a broader range of aspects.
-
 - **Breadth-First, Then Depth**: The user begins by covering a wide array of aspects superficially and subsequently chooses specific aspects to explore in detail.
 
 ### 2. User Feedback to Responses
 
 - **No Feedback**: Throughout the multi-turn dialogue, the user does not provide any feedback or reaction to the responses received, proceeding with their inquiries without acknowledging the answers.
-
 - **Positive Feedback**: The user consistently provides affirmative or approving responses to the information received throughout the interaction, indicating satisfaction or agreement.
-
 - **Negative Feedback**: The user consistently expresses dissatisfaction or disagreement with the responses during the interaction, possibly indicating the information was unhelpful or incorrect.
-
 - **Both Feedback**: The user provides both positive and negative feedback at different times throughout the dialogue, showing varied reactions depending on the responses.
 
 **Instructions:**
@@ -114,29 +99,20 @@ The output should be in JSON format, structured like this:
 sim_prompt_V1 = """You are a skilled conversational analyst. Your task is to evaluate a given dialogue between a user and a system to identify several aspects of the user's inquiry strategy. Specifically, you need to classify each aspect as follows:
 
 1. **User Strategy Type**: Determine whether the user's approach is best described as a "Planning-Oriented Inquiry" or a "Sequential Information Request".
-   
    - **Planning-Oriented Inquiry**: The user explicitly requests information in a structured manner, often outlining steps, sequences, or processes to achieve a particular goal.
-
    - **Sequential Information Request**: The user asks for information in a logical order that reflects an underlying plan or roadmap they intend to follow without explicitly outlining it.
 
 2. **Depth vs. Breadth Strategy**:
-
    - **Depth-Oriented**: The user delves deeply into a single topic before moving on.
-   
    - **Breadth-Oriented**: The user explores multiple topics with less depth.
-   
    - **Comprehensive Strategy**: The user balances depth and breadth, exploring multiple topics with sufficient depth in each.
 
 3. **Context Dependency**:
-
    - **High Context Dependency**: The user's questions heavily rely on previous dialogue content.
-   
    - **Low Context Dependency**: The user's questions can be understood independently of earlier dialogue.
 
 4. **Question Specificity**:
-
    - **Broad**: The user's questions are open-ended and cover a wide range of topics.
-   
    - **Specific**: The user's questions are specific and focused on detailed information.
 
 **Instructions:**

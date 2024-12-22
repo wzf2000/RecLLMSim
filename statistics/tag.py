@@ -36,7 +36,7 @@ def get_sim_data(task: str | None = None) -> list[dict[str, list[str]]]:
             with open(os.path.join(SIM_DIR, task, file), 'r') as f:
                 data = json.load(f)
             profile = data['profile_mapped']
-            
+
             output_profile = {}
             for attr in profile:
                 if not isinstance(profile[attr], list):

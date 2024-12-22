@@ -22,14 +22,14 @@ class Model():
             self.model = xgb.XGBClassifier(**kwargs)
         else:
             raise NotImplementedError
-    
+
     def __str__(self) -> str:
         return f"{self.type}"
-    
+
     def fit(self, X_train: np.ndarray, y_train: np.ndarray):
         X_encoded = self.vectorizer.fit_transform(X_train)
         self.model.fit(X_encoded, y_train)
-    
+
     def predict(self, X_test: np.ndarray) -> np.ndarray:
         X_encoded = self.vectorizer.transform(X_test)
         return self.model.predict(X_encoded)

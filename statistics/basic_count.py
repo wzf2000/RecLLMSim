@@ -120,8 +120,8 @@ if __name__ == '__main__':
             scenario = ' '.join(scenario)
         sim_stats = statistics(sim_data)
         human_stats = statistics(human_data)
-        output = f'''\midrule
-        \multirow{{2}}{{*}}{{{scenario}}} & Simu. & {sim_stats["convs"]} & {sim_stats["turns"]:.2f} & {sim_stats["avg_user_tokens"]:.2f} & {sim_stats["avg_user_tokens_turn"]:.2f} & {sim_stats["avg_assistant_tokens_turn"]:.2f} \\\\
+        output = f'''\\midrule
+        \\multirow{{2}}{{*}}{{{scenario}}} & Simu. & {sim_stats["convs"]} & {sim_stats["turns"]:.2f} & {sim_stats["avg_user_tokens"]:.2f} & {sim_stats["avg_user_tokens_turn"]:.2f} & {sim_stats["avg_assistant_tokens_turn"]:.2f} \\\\
         & Human & {human_stats["convs"]} & {human_stats["turns"]:.2f} & {human_stats["avg_user_tokens"]:.2f} & {human_stats["avg_user_tokens_turn"]:.2f} & {human_stats["avg_assistant_tokens_turn"]:.2f} \\\\
         '''
         print(output)

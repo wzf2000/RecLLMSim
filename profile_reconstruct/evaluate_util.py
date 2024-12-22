@@ -42,7 +42,7 @@ def compute_metrics(labels: np.ndarray, probs: np.ndarray, ranking_only: bool = 
         f1_macro_average = metrics.f1_score(labels, preds, average='macro')
         f1_weighted_average = metrics.f1_score(labels, preds, average='weighted')
         accuracy = metrics.accuracy_score(labels, preds)
-    
+
     # 计算hitrate与recall
     hit_rate_1 = hit_rate(labels, probs, 1)
     hit_rate_3 = hit_rate(labels, probs, 3)

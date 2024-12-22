@@ -52,7 +52,7 @@ if __name__ == '__main__':
     # output markdown format table
     # head
     print(f'| Turns | # Conv. | {" | ".join(rating_keys)} |')
-    print('| --- | --- | --- | --- |') 
+    print('| --- | --- | --- | --- |')
     # body
     for turns, data in quality_data.items():
         print(f'| {turns} | {len(data[rating_keys[0]])} | {" | ".join([f"{sum(data[key]) / len(data[key]):.4f}" for key in rating_keys])} |')

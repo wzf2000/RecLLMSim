@@ -35,14 +35,14 @@ class Model():
             self.model = ClassifierChain(model, order='random', random_state=42)
         else:
             raise NotImplementedError
-    
+
     def __str__(self) -> str:
         return f"{self.type}-{self.strategy}"
-    
+
     def fit(self, X_train: np.ndarray, y_train: np.ndarray):
         X_encoded = self.vectorizer.fit_transform(X_train)
         self.model.fit(X_encoded, y_train)
-    
+
     def predict(self, X_test: np.ndarray) -> np.ndarray:
         X_encoded = self.vectorizer.transform(X_test)
         return self.model.predict(X_encoded)
@@ -76,47 +76,47 @@ if __name__ == '__main__':
         'max_depth': 10,
         'n_jobs': -1
     }
-    
+
     # exp_sim('XGB-MultiOutput', ModelType.ML, work, 'zh', **XGB_PARAMS)
     # exp_sim('XGB-ClassifierChain', ModelType.ML, work, 'zh', **XGB_PARAMS)
     # exp_sim('RF-MultiOutput', ModelType.ML, work, 'zh', **RF_PARAMS)
     # exp_sim('RF-ClassifierChain', ModelType.ML, work, 'zh', **RF_PARAMS)
-    
+
     # exp_sim2human('XGB-MultiOutput', ModelType.ML, work, **XGB_PARAMS)
     # exp_sim2human('XGB-ClassifierChain', ModelType.ML, work, **XGB_PARAMS)
     # exp_sim2human('RF-MultiOutput', ModelType.ML, work, **RF_PARAMS)
     # exp_sim2human('RF-ClassifierChain', ModelType.ML, work, **RF_PARAMS)
-    
+
     # exp_human('XGB-MultiOutput', ModelType.ML, work, **XGB_PARAMS)
     # exp_human('XGB-ClassifierChain', ModelType.ML, work, **XGB_PARAMS)
     # exp_human('RF-MultiOutput', ModelType.ML, work, **RF_PARAMS)
     # exp_human('RF-ClassifierChain', ModelType.ML, work, **RF_PARAMS)
-    
+
     # exp_sim4human('XGB-MultiOutput', ModelType.ML, work, **XGB_PARAMS)
     # exp_sim4human('XGB-ClassifierChain', ModelType.ML, work, **XGB_PARAMS)
     # exp_sim4human('RF-MultiOutput', ModelType.ML, work, **RF_PARAMS)
     # exp_sim4human('RF-ClassifierChain', ModelType.ML, work, **RF_PARAMS)
-    
+
     # exp_human2sim('XGB-MultiOutput', ModelType.ML, work, **XGB_PARAMS)
     # exp_human2sim('XGB-ClassifierChain', ModelType.ML, work, **XGB_PARAMS)
     # exp_human2sim('RF-MultiOutput', ModelType.ML, work, **RF_PARAMS)
     # exp_human2sim('RF-ClassifierChain', ModelType.ML, work, **RF_PARAMS)
-    
+
     # exp_sim2human2('XGB-MultiOutput', ModelType.ML, work, **XGB_PARAMS)
     # exp_sim2human2('XGB-ClassifierChain', ModelType.ML, work, **XGB_PARAMS)
     # exp_sim2human2('RF-MultiOutput', ModelType.ML, work, **RF_PARAMS)
     # exp_sim2human2('RF-ClassifierChain', ModelType.ML, work, **RF_PARAMS)
-    
+
     # exp_sim4human2('XGB-MultiOutput', ModelType.ML, work, **XGB_PARAMS)
     # exp_sim4human2('XGB-ClassifierChain', ModelType.ML, work, **XGB_PARAMS)
     # exp_sim4human2('RF-MultiOutput', ModelType.ML, work, **RF_PARAMS)
     # exp_sim4human2('RF-ClassifierChain', ModelType.ML, work, **RF_PARAMS)
-    
+
     # exp_human2sim2('XGB-MultiOutput', ModelType.ML, work, **XGB_PARAMS)
     # exp_human2sim2('XGB-ClassifierChain', ModelType.ML, work, **XGB_PARAMS)
     # exp_human2sim2('RF-MultiOutput', ModelType.ML, work, **RF_PARAMS)
     # exp_human2sim2('RF-ClassifierChain', ModelType.ML, work, **RF_PARAMS)
-    
+
     # exp_sim4human3('XGB-MultiOutput', ModelType.ML, work, **XGB_PARAMS)
     # exp_sim4human3('XGB-ClassifierChain', ModelType.ML, work, **XGB_PARAMS)
     # exp_sim4human3('RF-MultiOutput', ModelType.ML, work, **RF_PARAMS)

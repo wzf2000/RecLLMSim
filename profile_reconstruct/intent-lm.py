@@ -20,14 +20,14 @@ class ClsDataset(Dataset):
             self.tokenizer.pad_token = self.tokenizer.eos_token
             self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
         self.max_length = max_length
-        
+
     def __len__(self):
         return len(self.texts)
-    
+
     def __getitem__(self, idx):
         text = str(self.texts[idx])
         label = self.labels[idx]
-        
+
         input_ids = self.tokenizer.encode(
             text,
             add_special_tokens=False,
@@ -35,7 +35,7 @@ class ClsDataset(Dataset):
         if len(input_ids) > self.max_length:
             input_ids = input_ids[-self.max_length:]
         truncated_text = self.tokenizer.decode(input_ids)
-        
+
         encoding = self.tokenizer.encode_plus(
             truncated_text,
             add_special_tokens=True,
@@ -46,7 +46,7 @@ class ClsDataset(Dataset):
             return_attention_mask=True,
             return_tensors='pt',
         )
-        
+
         return {
             'input_ids': encoding['input_ids'].flatten(),
             'attention_mask': encoding['attention_mask'].flatten(),

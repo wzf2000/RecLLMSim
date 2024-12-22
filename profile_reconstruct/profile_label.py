@@ -90,7 +90,7 @@ def main():
                 st.chat_message(utt['role']).markdown(utt['content'])
     attribute_name = ' '.join(list(map(lambda x: x.capitalize(), attribute.split('_'))))
     with col2:
-        st.markdown(f'### Label')
+        st.markdown('### Label')
         choices = st.multiselect(f'Choose from highest to lowest probability for **{attribute_name}**', classes, key=attribute, )
         if st.button('Submit'):
             if len(choices) < 3:

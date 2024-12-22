@@ -363,7 +363,7 @@ def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Cal
     else:
         raise ValueError('Invalid hot_cold value')
     item_name = item.split('and')[0].strip().lower().replace(' ', '_')
-    
+
     def filter(X: list[str], y: list[set[str]]) -> tuple[list[str], list[set[str]]]:
         X_filtered = []
         y_filtered = []
@@ -374,7 +374,7 @@ def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Cal
                 X_filtered.append(X[i])
                 y_filtered.append(label)
         return X_filtered, y_filtered
-    
+
     X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, filtered=True)
     X_sim, y_sim = filter(X_sim, y_sim)
     original_size = len(X_sim)

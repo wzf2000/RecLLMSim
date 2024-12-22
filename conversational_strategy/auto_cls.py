@@ -29,7 +29,7 @@ def cls_sim(version: int, model: str, strategy_name: str, compare_strategy_name:
                         right[key].append(data[strategy_name]['final'][key] == data['strategy']['final'][key])
                 continue
             try:
-                data[strategy_name]= multi_cls(conv_format(data['history']), model, version, False)
+                data[strategy_name] = multi_cls(conv_format(data['history']), model, version, False)
                 if compare_strategy_name is None:
                     for key in data[strategy_name]['final']:
                         if key not in right:
@@ -71,7 +71,7 @@ def cls_human(version: int, model: str, strategy_name: str, compare_strategy_nam
                             right[key].append(data[strategy_name]['final'][key] == data[compare_strategy_name]['final'][key])
                     continue
                 try:
-                    data[strategy_name]= multi_cls(conv_format(data['history']), model, version, True)
+                    data[strategy_name] = multi_cls(conv_format(data['history']), model, version, True)
                     if compare_strategy_name is None:
                         for key in data[strategy_name]['final']:
                             if key not in right:

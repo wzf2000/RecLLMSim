@@ -21,7 +21,7 @@ for task_list in [['旅行规划', '礼物准备', '菜谱规划', '技能学习
                 with open(os.path.join(dir_name, user, task, file), 'r') as f:
                     data = json.load(f)
                 strategy = data[strategy_field]['final']
-                
+
                 def convert_score(option: str) -> int:
                     if option == '详细':
                         return 2
@@ -41,7 +41,7 @@ for task_list in [['旅行规划', '礼物准备', '菜谱规划', '技能学习
                         return 0
                     else:
                         raise ValueError(f'Unknown option: {option}')
-                
+
                 questions = data['questionnaire']
                 rating = {}
                 for question in questions:

@@ -16,14 +16,14 @@ class MultiLabelDataset(Dataset):
         self.labels = labels
         self.tokenizer = tokenizer
         self.max_length = max_length
-        
+
     def __len__(self):
         return len(self.texts)
-    
+
     def __getitem__(self, idx):
         text = str(self.texts[idx])
         labels = self.labels[idx]
-        
+
         encoding = self.tokenizer.encode_plus(
             text,
             add_special_tokens=True,
@@ -34,7 +34,7 @@ class MultiLabelDataset(Dataset):
             return_attention_mask=True,
             return_tensors='pt',
         )
-        
+
         return {
             'input_ids': encoding['input_ids'].flatten(),
             'attention_mask': encoding['attention_mask'].flatten(),
@@ -123,9 +123,9 @@ if __name__ == '__main__':
     # exp_sim4human4(BERT_BASE, ModelType.LM, work, ratio=2)
     # exp_sim4human4(BERT_BASE, ModelType.LM, work, ratio=5)
     # exp_sim4human4(BERT_BASE, ModelType.LM, work, ratio=10)
-    
+
     # exp_human(BERT_BASE, ModelType.LM, work)
-    
+
     # exp_sim4human5(BERT_BASE, ModelType.LM, work, ratio=0.1, hot_cold=HotCold.HOT)
     # exp_sim4human5(BERT_BASE, ModelType.LM, work, ratio=0.1, hot_cold=HotCold.COLD)
     # exp_sim4human5(BERT_BASE, ModelType.LM, work, ratio=0.1, hot_cold=HotCold.HOT, topk=1)
