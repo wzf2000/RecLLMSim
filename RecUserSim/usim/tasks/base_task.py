@@ -10,7 +10,7 @@ class Task:
 
     def run(self, *args, **kwargs):
         raise NotImplementedError
-    
+
     def launch(self):
         init()
         parser = ArgumentParser()

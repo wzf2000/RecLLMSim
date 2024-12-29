@@ -12,9 +12,9 @@ def count_sample(pool: str):
         count += 1
     return count
 
-def build_preference_pool(prompt: str, cont: str, version: int, pool_size: int = 50, engine: str = None):
-    if engine is not None:
-        chatbot = get_chatbot(engine=engine)
+def build_preference_pool(prompt: str, cont: str, version: int, pool_size: int = 50, model: str = None):
+    if model is not None:
+        chatbot = get_chatbot(model=model)
     else:
         chatbot = get_chatbot()
     prompt = prompt.replace(POOL_SIZE, str(pool_size))
@@ -51,9 +51,9 @@ def build_new_preference_pool(file_name: str, pool_size: int = 50):
         version = 1
         while POOL_NAME.format(version) in dir_list:
             version += 1
-    if 'engine' not in data:
+    if 'model' not in data:
         return build_preference_pool(prompt, cont, version, pool_size)
-    return build_preference_pool(prompt, cont, version, pool_size, data['engine'])
+    return build_preference_pool(prompt, cont, version, pool_size, data['model'])
 
 def random_sample_preference(file_name: str, sample_num: int = 1):
     with open(file_name, 'r') as f:

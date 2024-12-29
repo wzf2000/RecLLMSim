@@ -1,7 +1,7 @@
 import sys
 from argparse import ArgumentParser
 from loguru import logger
-from usim.tasks import *
+from usim.tasks import PGTask, GenChatTask
 
 def main():
     init_parser = ArgumentParser()

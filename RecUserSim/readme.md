@@ -10,13 +10,12 @@
 
 ## Usage
 
-Add `config/configV4.json` as following:
+Add `config/api-config.json` as following:
 
 ```json
 {
     "api_base": "API_BASE, looks like https://..../v1, optional",
     "api_key": "Your API key",
-    "engine": "The chat model to use, e.g. gpt-3.5-turbo, gpt-4-turbo-preview, etc.",
     "temperature": 0.5 // The temperature used in the chat completions.
 }
 ```

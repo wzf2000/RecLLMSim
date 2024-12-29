@@ -22,10 +22,11 @@ class GenChatTask(Task):
         parser.add_argument('--test', action='store_true', help='Whether to test the task')
         parser.add_argument('--output_dir', default='output', type=str, help='The output directory')
         parser.add_argument('--env_id', default='0', type=str, help='The environment id')
-        parser.add_argument('--post_query',action='store_true', help='Whether to test the task after conversation')
+        parser.add_argument('--post_query', action='store_true', help='Whether to test the task after conversation')
         parser.add_argument('--preferences', default=-1, type=int, help='The number of preferences to generate')
+        parser.add_argument('--max_turn', default=10, type=int, help='The maximum number of turns')
         return parser
-    
+
     @staticmethod
     def _generate_prompt(prompt: str, preference: str = None, task_context: str = None) -> str:
         if preference is not None:
@@ -33,9 +34,10 @@ class GenChatTask(Task):
         if task_context is not None:
             prompt = prompt.replace(TASK_CONTEXT, task_context)
         return prompt
-    
-    def run(self, config: str, task_type: str, context_ids: list[int], test: bool, output_dir: str, env_id: str, post_query: bool, preferences: int, *args, **kwargs):
+
+    def run(self, config: str, task_type: str, context_ids: list[int], test: bool, output_dir: str, env_id: str, post_query: bool, preferences: int, max_turn: int, *args, **kwargs):
         self.task_type = task_type
+        self.max_turn = max_turn
         with open(config, 'r') as f:
             self.config = json.load(f)
 
@@ -92,9 +94,12 @@ class GenChatTask(Task):
 
     @logger.catch
     def single_run(self, preference: str, task_context: str, post_query: bool = False):
-        process1 = lambda x: x
-        process2 = lambda x: x + '\n' + self.config['end_prompt']
-        # process2 = lambda x: x
+        def process1(x: str) -> str:
+            return x
+
+        def process2(x: str) -> str:
+            return x + '\n' + self.config['end_prompt']
+
         def ending(x):
             for token in self.config['end_check']:
                 if token.lower() not in x.lower():
@@ -105,10 +110,10 @@ class GenChatTask(Task):
         prompt2_list = self.config['prompts']['2']
         prompt2_list = [self._generate_prompt(prompt, preference, task_context) for prompt in prompt2_list]
 
-        if 'engine' in self.config:
-            chatbot1, chatbot2 = multi_chat(prompt1_list, prompt2_list, ending=ending, process1=process1, process2=process2, engine1=self.config['engine']['1'], engine2=self.config['engine']['2'])
+        if 'model' in self.config:
+            chatbot1, chatbot2 = multi_chat(prompt1_list, prompt2_list, ending=ending, process1=process1, process2=process2, model1=self.config['model']['1'], model2=self.config['model']['2'], max_turn=self.max_turn)
         else:
-            chatbot1, chatbot2 = multi_chat(prompt1_list, prompt2_list, ending=ending, process1=process1, process2=process2)
+            chatbot1, chatbot2 = multi_chat(prompt1_list, prompt2_list, ending=ending, process1=process1, process2=process2, max_turn=self.max_turn)
 
         ret = {}
         ret['preference'] = preference
@@ -144,4 +149,3 @@ class GenChatTask(Task):
                 'response': response
             })
         return ret
-    
