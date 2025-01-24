@@ -1,0 +1,235 @@
+{
+    "task": "recipe planning",
+    "preference_id": 13,
+    "task_context_id": 0,
+    "preference": "1. Gender: Female\n2. Age: 47\n3. Personality: Creative, independent, and adventurous\n4. Occupation: Jewelry Designer\n5. Daily Interests and Hobbies: Sketching designs, visiting art galleries, pottery\n6. Travel Habits: Travels for inspiration, enjoys visiting exotic locations\n7. Dining Preferences: Enjoys exotic and unique cuisines, loves seafood\n8. Spending Habits: Spends on unique materials for designs, invests in art pieces\n9. Other Aspects: Runs her own boutique, organizes art workshops",
+    "preference_zh": "1. 性别：女性\n2. 年龄：47\n3. 个性：富有创意，独立自主，喜爱冒险\n4. 职业：珠宝设计师\n5. 日常兴趣和爱好：设计草图，参观艺术画廊，制陶\n6. 旅行习惯：为了灵感而旅行，喜欢参观异国风情的地方\n7. 饮食偏好：喜欢异国风味和独特美食，热爱海鲜\n8. 消费习惯：花费在独特材料上为设计，投资艺术品\n9. 其他方面：经营自己的精品店，组织艺术工作坊",
+    "task_context": "You plan to prepare a meal at home for yourself. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家为自己准备一顿饭。你在烹饪方面并不很有技巧，经验也有限。因此，你希望请求LLM的帮助：制定菜谱、确定所需食材，以及决定要做哪些菜。在计划过程中，你应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here to assist me. I'm in the mood to prepare a special meal for myself at home, but I'm not very skilled in cooking. I was hoping you could help me by creating a recipe and guiding me through the process. I'd also appreciate your input on what dishes I should make. Can you help me with that?",
+            "content_zh": "你好！很高兴你在这里帮助我。我想在家为自己准备一顿特别的餐，但我在烹饪方面不是很擅长。希望你能帮我制定食谱并指导我整个过程。我也很感谢你在我制作哪些菜肴方面的建议。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be happy to help you create a special meal and guide you through the cooking process. Cooking can be a fun and rewarding experience, even if you're not very skilled. Let's start by discussing what type of cuisine or flavors you enjoy. Are there any specific ingredients you'd like to use or any dietary restrictions I should keep in mind?",
+            "content_zh": "你好！ 我很乐意帮助您制作一顿特别的美食，并引导您完成烹饪过程。 烹饪可以是一种有趣且有益的经验，即使您并不是很有技巧。 让我们先讨论一下您喜欢的菜系或口味。 您是否有任何特定的食材要使用或者我需要考虑的任何饮食限制？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance! I'm quite adventurous when it comes to food, so I enjoy trying out different cuisines and flavors. I particularly love seafood, so incorporating that into the meal would be fantastic. As for dietary restrictions, I don't have any specific ones. I'm open to exploring unique ingredients and flavors. What ideas do you have in mind?",
+            "content_zh": "感谢您提供帮助！在吃食方面，我非常喜欢冒险，所以我喜欢尝试不同的菜系和口味。我特别喜欢海鲜，所以把海鲜融入餐点当中会很棒。至于饮食限制，我没有特别的限制。我乐于尝试独特的成分和口味。您有什么想法呢？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! Since you love seafood, how about we create a delicious meal centered around that? How about starting with a refreshing appetizer like a shrimp ceviche? It's a light and flavorful dish that's perfect for setting the tone of a special meal. \n\nFor the main course, we can go for a classic dish like pan-seared salmon with a lemon butter sauce. It's relatively simple to prepare, and the flavors of the salmon paired with the tangy sauce are absolutely delightful. We can serve it with some roasted asparagus and a side of wild rice pilaf to complete the meal.\n\nFor dessert, we can keep it light and refreshing with a tropical fruit salad. You can choose your favorite fruits like mango, pineapple, and kiwi, and toss them together with a squeeze of lime juice for a zesty finish.\n\nDoes this sound good to you? If so, I can provide you with the detailed recipes and guide you through each step of the cooking process.",
+            "content_zh": "太棒了！既然你喜欢海鲜，我们可以做一顿以海鲜为中心的美味晚餐吧！我们可以先来一道清爽的开胃菜，比如虾仁酸橙汁腌鱼片？这是一道清淡而美味的菜肴，非常适合为特别晚餐的氛围调整。 \n\n作为主菜，我们可以选择一道经典菜品，比如煎烤三文鱼配柠檬黄油酱。这道菜相对简单容易准备，三文鱼的鲜美口感与酸酸的酱汁相配，非常美味。我们可以搭配些烤芦笋和一份野生米饭来完整这顿晚餐。\n\n甜点部分，我们可以选择做一份清新的热带水果沙拉。你可以选择自己喜欢的水果，比如芒果、菠萝和猕猴桃，再挤一点柠檬汁来提味。\n\n听起来不错吧？如果你觉得好的话，我可以提供详细的配方并指导你烹饪的每个步骤。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Hmm, that sounds like a delightful meal! I'm definitely on board with the shrimp ceviche as an appetizer. The combination of fresh shrimp and tangy flavors sounds perfect to start the meal.\n\nAs for the main course, pan-seared salmon with a lemon butter sauce sounds absolutely delicious. I love the idea of pairing it with roasted asparagus and wild rice pilaf. It's a well-rounded and flavorful combination.\n\nFor dessert, I'm all for a light and refreshing tropical fruit salad. The mix of mango, pineapple, and kiwi with a hint of lime juice sounds like a perfect way to end the meal.\n\nI would love to have the detailed recipes and your guidance through each step of the cooking process. Let's get started!",
+            "content_zh": "嗯，那听起来像是一顿美味的大餐！我绝对赞成虾类酸橙腌鱼作为开胃菜。新鲜虾和酸味风味的结合听起来很完美来开始这顿餐。至于主菜，煎烤三文鱼配柠檬黄油酱听起来绝对美味。我很喜欢搭配烤芦笋和野生米饭拌菜的想法。这是一种美味多样且丰富的搭配。至于甜点，我很喜欢清淡爽口的热带水果沙拉。芒果、菠萝和奇异果混合着一丝青柠汁听起来是结束这顿餐的绝佳方式。我希望能得到详细的菜谱和您在每个烹饪步骤中的指导。让我们开始吧！",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Fantastic! Let's start with the shrimp ceviche. Here's the recipe:\n\nShrimp Ceviche:\nIngredients:\n- 1 pound of fresh shrimp, peeled and deveined\n- 1 cup of freshly squeezed lime juice\n- 1 small red onion, finely chopped\n- 1 jalapeño pepper, seeded and finely chopped\n- 1 ripe tomato, diced\n- 1/4 cup of fresh cilantro, chopped\n- Salt and pepper to taste\n\nInstructions:\n1. Bring a pot of water to a boil. Add the shrimp and cook for about 2-3 minutes until they turn pink and opaque. Drain and rinse under cold water to stop the cooking process.\n2. Chop the cooked shrimp into bite-sized pieces and place them in a bowl.\n3. Add the lime juice, red onion, jalapeño pepper, tomato, and cilantro to the bowl with the shrimp. Season with salt and pepper.\n4. Mix everything together gently, ensuring the shrimp is well-coated with the lime juice.\n5. Cover the bowl and refrigerate for at least 30 minutes to allow the flavors to meld together.\n6. Serve chilled and enjoy!\n\nOnce you've prepared the ceviche, we can move on to the main course: pan-seared salmon with lemon butter sauce. Here's the recipe:\n\nPan-Seared Salmon with Lemon Butter Sauce:\nIngredients:\n- 2 salmon fillets\n- Salt and pepper to taste\n- 2 tablespoons of olive oil\n- 2 tablespoons of butter\n- 2 cloves of garlic, minced\n- Juice of 1 lemon\n- 2 tablespoons of fresh parsley, chopped\n\nInstructions:\n1. Season the salmon fillets with salt and pepper on both sides.\n2. Heat the olive oil in a large skillet over medium-high heat.\n3. Place the salmon fillets in the skillet, skin-side down, and cook for about 4-5 minutes until the skin is crispy and browned.\n4. Flip the salmon fillets and cook for another 3-4 minutes on the other side until the fish is cooked through and flakes easily with a fork. Remove the salmon from the skillet and set aside.\n5. In the same skillet, melt the butter over medium heat. Add the minced garlic and cook for about 1 minute until fragrant.\n6. Add the lemon juice and stir to combine. Cook for an additional 1-2 minutes.\n7. Remove the skillet from the heat and stir in the chopped parsley.\n8. Pour the lemon butter sauce over the cooked salmon fillets.\n9. Serve the salmon with roasted asparagus and wild rice pilaf.\n\nFor the roasted asparagus, simply toss the asparagus spears with olive oil, salt, and pepper, and roast them in a preheated oven at 425°F (220°C) for about 12-15 minutes until tender and slightly crispy.\n\nAs for the wild rice pilaf, you can prepare it according to the package instructions, adding some sautéed onions and garlic for extra flavor.\n\nLastly, let's move on to the tropical fruit salad:\n\nTropical Fruit Salad:\nIngredients:\n- 1 ripe mango, peeled and diced\n- 1 cup of diced pineapple\n- 2 kiwis, peeled and sliced\n- Juice of 1 lime\n\nInstructions:\n1. In a large bowl, combine the diced mango, pineapple, and sliced kiwis.\n2. Squeeze the lime juice over the fruit and gently toss to coat.\n3. Refrigerate the fruit salad for at least 30 minutes before serving to enhance the flavors.\n4. Serve chilled and enjoy the refreshing tropical flavors!\n\nI hope you enjoy preparing and savoring this delightful meal! If you have any questions or need further assistance with any step, feel free to ask.",
+            "content_zh": "太好了！让我们从虾酸橙腌制开始。以下是配方：\n\n虾酸橙腌制：\n配料：\n- 1磅新鲜虾，去壳去肠\n- 1杯新鲜挤出的酸橙汁\n- 1个小红洋葱，切碎\n- 1个去籽的小辣椒，切碎\n- 1个成熟番茄，切丁\n- 1/4杯切碎的新鲜香菜\n- 适量盐和胡椒\n\n说明：\n1. 将一锅水烧开。加入虾，煮约2-3分钟，直到虾变粉红色和不透明。沥干，用冷水冲洗以停止烹饪过程。\n2. 将熟虾切成一口大小的块，放入碗中。\n3. 将酸橙汁、红洋葱、辣椒、番茄和香菜加入虾的碗中。调味盐和胡椒。\n4. 轻轻搅拌所有材料，确保虾完全浸泡在酸橙汁中。\n5. 盖上碗，冷藏至少30分钟，使风味混合在一起。\n6. 冷藏后享用！\n\n准备好了酸橙腌制后，我们可以进入主菜：柠檬黄油煎三文鱼。以下是配方：\n\n煎三文鱼配柠檬黄油酱：\n配料：\n- 2块三文鱼鱼片\n- 适量盐和胡椒\n- 2汤匙橄榄油\n- 2汤匙黄油\n- 2瓣大蒜，切碎\n- 1个柠檬汁\n- 2汤匙切碎的新鲜欧芹\n\n说明：\n1. 在三文鱼鱼片两侧撒上盐和胡椒。\n2. 在一个大煎锅中加热橄榄油至中高温。\n3. 将三文鱼鱼片放入煎锅中，皮朝下，煮约4-5分钟，直到皮变脆和金黄。\n4. 翻转三文鱼鱼片，另一侧煮3-4分钟，直到鱼煮熟，用叉子轻松刺穿即可。从煎锅中取出三文鱼，备用。\n5. 在同一煎锅中，用中火融化黄油。加入切碎的大蒜，煮约1分钟直到香气飘散。\n6. 加入柠檬汁，搅拌均匀。再煮1-2分钟。\n7. 关火，加入切碎的欧芹，搅拌均匀。\n8. 将柠檬黄油酱倒在煮熟的三文鱼鱼片上。\n9. 搭配烤芦笋和野生米饭一起享用。\n\n烤芦笋：将芦笋条与橄榄油、盐和胡椒一起拌匀，放入已预热至425°F（220°C）的烤箱中烤约12-15分钟，直到变软和微脆。\n\n野生米饭盖菜：按照包装说明准备野生米饭，加入一些炒洋葱和大蒜增添风味。\n\n最后，让我们进入热带水果沙拉：\n\n热带水果沙拉：\n配料：\n- 1个成熟芒果，去皮切块\n- 1杯切丁菠萝\n- 2个奇异果，去皮切片\n- 1个柠檬汁\n\n说明：\n1. 在一个大碗中，将切块的芒果、菠萝和奇异果混合在一起。\n2. 挤柠檬汁在水果上，轻轻拌匀。\n3. 将水果沙拉冷藏至少30分钟后食用，增强风味。\n4. 冷藏后享用！希望您享受准备和品尝这美味的餐点！如有任何问题或需要进一步协助，请随时提问。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for providing the detailed recipes! I appreciate your guidance. I'm excited to prepare this delicious meal.\n\nI will start by preparing the shrimp ceviche. I'll follow your instructions and ensure that the shrimp is cooked perfectly. Once it's ready, I'll refrigerate it for the recommended time to let the flavors develop.\n\nAfter that, I'll move on to the main course and prepare the pan-seared salmon with lemon butter sauce. I'll season the salmon fillets and cook them until they are crispy and cooked through. The lemon butter sauce sounds absolutely divine, and I'll make sure to pour it over the salmon fillets just before serving.\n\nFor the side dishes, I'll roast the asparagus in the oven with olive oil, salt, and pepper. And I'll prepare the wild rice pilaf with sautéed onions and garlic to add extra flavor.\n\nLastly, I'll prepare the tropical fruit salad by combining the diced mango, pineapple, and sliced kiwis. I'll squeeze lime juice over the fruit and refrigerate it for a while to let the flavors meld together.\n\nThank you for your assistance so far! I'm looking forward to enjoying this wonderful meal.",
+            "content_zh": "感谢提供详细食谱！我感激您的指导。我很兴奋要准备这顿美味的餐食。首先我会准备虾酸橘汁腌虾。我会按照您的指示确保虾煮得完美。一旦煮好，我会按照建议的时间让其冷藏，使口味发酵。\n接着，我会准备主菜，煎鲑鱼配柠檬黄油酱。我会调味鲑鱼片，并将其煮至金黄酥脆。柠檬黄油酱听起来绝对美味，我会确保在上菜前将其浇在鲑鱼片上。\n作为配菜，我会用橄榄油、盐和胡椒在烤箱中烤芦笋。我还会准备用炒洋葱和大蒜炒制的野生米饭，增添额外的口味。\n最后，我会准备热带水果沙拉，将切块的芒果、菠萝和切片的奇异果混合在一起。我会在水果上挤上酸橙汁，并将其冷藏一段时间，让口味融合。\n到目前为止感谢您的帮助！我期待着享受这顿美好的餐点。",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! It sounds like you have a great plan in place. I'm confident that your shrimp ceviche will turn out fantastic, and the flavors will come together beautifully after refrigeration.\n\nWhen cooking the salmon, remember to keep an eye on it to ensure it doesn't overcook. The crispy skin and tender flesh will make for a delightful combination, especially when paired with the tangy lemon butter sauce.\n\nRoasting the asparagus will bring out its natural sweetness, and the wild rice pilaf with sautéed onions and garlic will provide a delicious and aromatic side dish.\n\nLastly, the tropical fruit salad will be a refreshing and vibrant way to end the meal. The combination of mango, pineapple, and kiwi with a touch of lime juice will provide a burst of tropical flavors.\n\nI'm thrilled that you're excited to prepare this meal. Enjoy the process, and I hope each dish turns out wonderfully. If you have any further questions or need additional guidance along the way, don't hesitate to ask. Happy cooking, and bon appétit!",
+            "content_zh": "非常欢迎！听起来你已经有一个很棒的计划了。我相信你的虾酸橘鱼会非常美味，而味道在冷藏后会融合得非常完美。\n烹饪三文鱼时，请记得留心，确保不要煮得过头。酥脆的皮和嫩滑的肉会组成一道美味的组合，尤其是搭配上酸酸的柠檬奶油酱。\n烤芦笋会凸显其天然甜味，而带炒洋葱和大蒜的野生米烩将成为美味而芳香的配菜。\n最后，热带水果沙拉将是结束这顿饭的清爽而充满活力的方式。芒果、菠萝和奇异果与一点点酸酸的青柠汁结合在一起，将提供热带风味的爆发。\n我很高兴你对准备这顿饭感到兴奋。享受这个过程，希望每道菜都能出色。如果你有任何进一步的问题或需要额外的指导，请毫不犹豫地问。愉快的烹饪，祝您胃口好！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "seafood",
+        "tropical",
+        "refreshing"
+    ],
+    "preference_summary": [
+        "shrimp ceviche",
+        "pan-seared salmon",
+        "tropical fruit salad"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "47",
+            "zh": "47"
+        },
+        "Personality": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Independent",
+                "zh": "独立"
+            }
+        ],
+        "Occupation": {
+            "en": "Artist",
+            "zh": "艺术工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Painting",
+                "zh": "绘画"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Crafting",
+                "zh": "手工艺制作"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Cultural trips",
+                "zh": "文化旅行"
+            },
+            {
+                "en": "International travel",
+                "zh": "国际旅行"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            },
+            {
+                "en": "Seafood",
+                "zh": "海鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Invests in art pieces",
+                "zh": "购买艺术品"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Organizes community activities",
+                "zh": "组织社区活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Depth",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

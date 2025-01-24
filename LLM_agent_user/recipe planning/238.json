@@ -1,0 +1,206 @@
+{
+    "task": "recipe planning",
+    "preference_id": 37,
+    "task_context_id": 3,
+    "preference": "1. Gender: Female\n2. Age: 28\n3. Personality: Compassionate, patient, and nurturing\n4. Occupation: Veterinary Nurse\n5. Daily Interests and Hobbies: Taking care of pets, reading, gardening\n6. Travel Habits: Prefers nature trips, enjoys wildlife safaris\n7. Dining Preferences: Prefers home-cooked meals, enjoys baking\n8. Spending Habits: Spends on pet supplies, saves for future travels\n9. Other Aspects: Volunteers at a local animal shelter, has three dogs",
+    "preference_zh": "1. 性别：女性\n2. 年龄：28\n3. 个性：富有同情心，耐心，爱心\n4. 职业：兽医护士\n5. 日常兴趣和爱好：照顾宠物，阅读，园艺\n6. 旅行习惯：喜欢自然之旅，享受野生动物园\n7. 饮食偏好：喜欢家常饭菜，喜欢烘焙\n8. 消费习惯：购买宠物用品，为未来旅行存钱\n9. 其他方面：在本地动物收容所做志愿者，有三只狗",
+    "task_context": "You plan to prepare a meal at home for yourself and your loved one. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家为自己和爱人准备一顿饭。你是一个烹饪技巧娴熟的厨师。因此，你希望请求LLM的帮助来制定菜谱，确定必要的食材，以及决定要做哪些菜。在计划过程中，你应该了解每道菜的完整制作过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm so glad you're here. I'm looking to prepare a special meal at home for myself and my loved one. I'm quite skilled in the kitchen, but I'd love your help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Can you assist me with that?",
+            "content_zh": "你好！我很高兴你在这里。我想要在家里为我和我心爱的人准备一顿特别的饭菜。我在厨房里很拿手，但我希望你能帮忙创作食谱，确定所需食材，并决定要做哪些菜。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'm thrilled to help you create a special meal for your loved one. I'd be more than happy to assist you with recipe ideas, ingredient suggestions, and dish choices. Let's get started! What type of cuisine or specific dishes are you interested in preparing?",
+            "content_zh": "你好！我很高兴能帮助你为你所爱的人准备一顿特别的餐点。我非常乐意为你提供食谱建议、食材建议和菜品选择。让我们开始吧！你有兴趣准备哪种美食或具体的菜肴？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance! Since I enjoy baking, I thought it would be lovely to prepare a three-course meal with a dessert. For the main course, I'm open to suggestions. As for the appetizer, I was thinking of making a Caprese salad. And for dessert, I'd love to bake a classic apple pie. What do you think of these choices?",
+            "content_zh": "谢谢你提供帮助！由于我喜欢烘焙，我觉得准备一顿三菜一甜的晚餐会很美好。对于主菜，我可以接受建议。至于开胃菜，我想做一份卡普雷塞沙拉。甜点的话，我想烤一个经典的苹果派。你觉得这些选择怎么样？",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "That sounds like a fantastic plan! A Caprese salad is always a refreshing choice for an appetizer, and a classic apple pie for dessert is sure to be a hit. Now, let's brainstorm some ideas for the main course.\n\nConsidering your baking skills, how about preparing a delicious stuffed chicken breast as the main course? It's a versatile dish that allows for creativity. You can stuff the chicken with a combination of ingredients like spinach, feta cheese, and sun-dried tomatoes, or perhaps a mixture of mushrooms, onions, and Swiss cheese. The options are endless!\n\nTo accompany the stuffed chicken breast, you could make some roasted vegetables, such as carrots, zucchini, and bell peppers, seasoned with herbs and olive oil. This will add color and flavor to the plate.\n\nDoes this sound appealing to you, or would you prefer another suggestion for the main course?",
+            "content_zh": "听起来像一个很棒的计划！ 开胃菜总是一个清爽的选择，经典的苹果派作为甜点肯定会受欢迎。 现在，让我们一起为主菜想一些主意。考虑到你的烘焙技能，要不你来做一道美味的烤鸡胸作为主菜？ 这是一道多才多艺的菜肴，可以展现创意。 你可以用菠菜、费达奶酪和日晒番茄的混合物填充鸡肉，或者也可以尝试用蘑菇、洋葱和瑞士奶酪的混合物。 选择是无限的！为了搭配这道填充的烤鸡胸，你可以做一些烤蔬菜，比如胡萝卜、西葫芦和彩椒，用香料和橄榄油调味。 这将为菜盘增添色彩和风味。 你觉得这个方案吸引你吗，还是你想要关于主菜的其他建议？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "home-cooked meals",
+        "baking",
+        "classic recipes"
+    ],
+    "preference_summary": [
+        "caprese salad",
+        "apple pie"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 0,
+        "Memorization": 1,
+        "Detail Level": 1,
+        "Practical Usefulness": 1,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "28",
+            "zh": "28"
+        },
+        "Personality": [
+            {
+                "en": "Friendly",
+                "zh": "友善"
+            },
+            {
+                "en": "Patient",
+                "zh": "耐心"
+            }
+        ],
+        "Occupation": {
+            "en": "Medical staff",
+            "zh": "医护人员"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Taking care of pets",
+                "zh": "养宠物"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Nature-based destinations",
+                "zh": "自然风光"
+            },
+            {
+                "en": "Outdoor activities",
+                "zh": "户外活动"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Baking",
+                "zh": "烘焙"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "For travel",
+                "zh": "用于旅行"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in volunteer activities",
+                "zh": "喜欢参与志愿活动"
+            },
+            {
+                "en": "Keeping small animals",
+                "zh": "养小动物"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

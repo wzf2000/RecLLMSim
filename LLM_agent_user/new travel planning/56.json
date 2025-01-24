@@ -1,0 +1,249 @@
+{
+    "task": "new travel planning",
+    "preference_id": 33,
+    "task_context_id": 7,
+    "preference": "1. Gender: Female\n2. Age: 30\n3. Personality: Energetic, ambitious, and confident\n4. Occupation: Fashion Blogger\n5. Daily Interests and Hobbies: Fashion photography, shopping, attending fashion shows\n6. Travel Habits: Travels for fashion events, enjoys luxury city breaks\n7. Dining Preferences: Loves gourmet food, enjoys wine tasting\n8. Spending Habits: Spends on high-end fashion and beauty products, invests in designer pieces\n9. Other Aspects: Has a large social media following, lives in a city apartment",
+    "preference_zh": "1. 性别: 女性 2. 年龄: 30 3. 个性: 爽朗、有雄心、自信 4. 职业: 时尚博主 5. 日常兴趣爱好: 摄影时尚、购物、参加时装秀 6. 旅行习惯: 为时尚活动出行，喜欢豪华城市旅行 7. 饮食偏好: 热爱美食、享受品酒 8. 消费习惯: 消费高端时尚和美容产品，投资设计师单品 9. 其他方面: 拥有庞大的社交媒体追随者，居住在市中心公寓",
+    "task_context": "You are planning a weekend trip that will take place in December. Your goal, with the help of LLM, is to refine and finalize your travel plans. This includes making detailed arrangements for accommodations, transportation, and your daily itinerary. Your final travel plan should be as comprehensive and realistic as possible, ensuring that it can be seamlessly implemented when the time comes.\nYour trip planning should take into consideration the specific destination as specified in the following requirements: no specific destination restrictions. You should also consider your point of departure, your preferred mode of transportation to the destination, and the specific attractions or activities you wish to engage in. Remember to consider factors such as travel distance, travel time, and the opening hours of the attractions.",
+    "task_context_zh": "你正在计划一个将在12月举行的周末旅行。在LLM的帮助下，你的目标是完善和确定你的旅行计划。这包括对住宿、交通和每天行程的详细安排。你的最终旅行计划应尽可能全面和现实，确保在时机到来时能够顺利实施。你的旅行计划应考虑到以下要求中指定的具体目的地：没有特定目的地限制。你还应考虑你的出发地、到达目的地的首选交通方式，以及你希望参与的具体景点或活动。记得考虑诸如旅行距离、旅行时间和景点的开放时间等因素。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hi there! I am planning a weekend trip in December, and I need your help with finalizing the travel plans. I'm a fashion blogger so I prefer a destination that is fashion-forward, has good shopping options and some interesting fashion events. Can you suggest some destinations that could work for me?",
+            "content_zh": "你好！我正在计划十二月的周末旅行，我需要你的帮助来敲定旅行计划。我是时尚博主，所以我更喜欢一个时尚前卫的目的地，有良好的购物选择和一些有趣的时尚活动。你能给我一些建议适合我的目的地吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you plan your trip! Given your interest in fashion, I recommend considering the following destinations:\n\n1. Paris, France: Known as the fashion capital of the world, Paris is home to many luxury fashion houses. The city also boasts numerous upscale shopping districts and boutiques. In December, you might also be able to catch some fashion events.\n\n2. Milan, Italy: Another major fashion hub, Milan hosts the famous \"Milano Moda Donna\" fashion shows. The city's Quadrilatero della Moda is a must-visit for shopping.\n\n3. New York, USA: With its mix of luxury brands and independent designers, New York City offers a unique shopping experience. Plus, there are always fashion events taking place in the city.\n\n4. London, UK: Known for its avant-garde fashion scene, London is a great place to discover new trends and designers. \n\n5. Tokyo, Japan: Tokyo is renowned for its street fashion and shopping districts like Harajuku and Ginza.\n\nBefore we proceed with detailed planning, could you please let me know where you will be traveling from? Also, do you have a preferred destination among these, or any other preferences that could help me tailor the plan to your needs?",
+            "content_zh": "当然，我很乐意帮助您规划旅行！鉴于您对时尚的兴趣，我建议考虑以下目的地：\n\n1. 法国巴黎：被称为世界时尚之都，巴黎是许多奢侈时装品牌的故乡。这座城市还拥有众多高档购物区和精品店。十二月份，您还能够参加一些时尚活动。\n\n2. 意大利米兰：另一个重要的时尚中心，米兰举办着著名的“米兰时装周”时装秀。这座城市的时尚之路是购物的必游之地。\n\n3. 美国纽约：纽约市拥有各种奢侈品牌和独立设计师，提供独特的购物体验。此外，该市还经常举办时尚活动。\n\n4. 英国伦敦：以其前卫的时尚场景而闻名，伦敦是发现新潮流和设计师的好地方。\n\n5. 日本东京：东京以其街头时尚以及原宿和银座等购物区而闻名。\n\n在我们进行详细规划之前，您能告诉我您将从哪里出发旅行吗？另外，您对这些目的地有偏好吗，或者有其他偏好可以帮助我为您量身定制计划吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "I'm currently based in New York, so I'd prefer a destination that's a direct flight away to maximize my time. Paris is always a great idea, especially since I haven't attended any fashion events there recently. I'm leaning towards Paris, but I'm open to considering London as well since it's also a fashion hub and a bit closer. Could you provide some details on the fashion events happening in Paris and London during December? And I'd also appreciate some luxury accommodation options that are close to the main shopping districts.",
+            "content_zh": "我目前在纽约，所以我更倾向于选择一个直飞航班的目的地，以最大限度地利用我的时间。巴黎总是一个好主意，尤其是因为我最近没有参加过那里的任何时装活动。我倾向于巴黎，但我也愿意考虑伦敦，因为它也是一个时尚中心，而且离得更近一点。你能提供一些有关12月份巴黎和伦敦时尚活动的详情吗？我也会感激一些靠近主要购物区的豪华住宿选择。",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely, I can certainly help with that. Please note that due to the current COVID-19 pandemic, it's essential to check the latest travel advisories and event schedules, as they can change frequently. \n\nIn Paris, some fashion-related events that typically take place in December include various fashion exhibitions at the Musée des Arts Décoratifs and Palais Galliera. However, specific schedules and events for this December may not be released yet, so it's recommended to check their websites closer to your travel date.\n\nIn London, the Fashion and Textile Museum and Victoria & Albert Museum frequently host fashion exhibitions. December is also the time for pre-Christmas sample sales in London, which could be an interesting experience.\n\nFor accommodations, here are some options:\n\nIn Paris:\n1. The Ritz Paris: Located in the 1st arrondissement, close to high-end shops and fashion boutiques.\n2. Mandarin Oriental: Situated near the chic Saint-Honoré district, known for its fashion boutiques.\n3. Hôtel Plaza Athénée: Located on the prestigious Avenue Montaigne, home to numerous luxury fashion houses.\n\nIn London:\n1. The May Fair Hotel: Situated in the heart of Mayfair, close to luxury shopping streets like Bond Street and Regent Street.\n2. Claridge's: This iconic hotel is near the shopping districts of Oxford Street and Regent Street.\n3. The Connaught: Also located in Mayfair, close to numerous high-end boutiques.\n\nDo any of these options stand out to you? And would you like me to look into flight options for you?",
+            "content_zh": "当然，我可以帮忙。请注意，由于当前的COVID-19大流行，检查最新的旅行警报和活动时间表至关重要，因为它们可能会经常更改。在巴黎，通常在12月举行的一些与时装有关的活动包括在艺术装饰博物馆和加列拉宫举行的各种时装展览。然而，本12月的具体时间表和活动可能尚未公布，因此建议在临近旅行日期时查看它们的网站。在伦敦，时尚与纺织博物馆和维多利亚和艾伯特博物馆经常举办时装展览。12月也是伦敦举行圣诞节前的样品销售活动的时候，可能会是一次有趣的体验。至于住宿，以下是一些选择：在巴黎： 1. 里兹巴黎酒店：位于第一区，靠近高端商店和时尚精品店。2. 文华东方酒店：位于时尚的圣奥诺雷区附近，以其时尚精品店而闻名。3. 阿芬酒店：位于著名的蒙田大道，是许多奢侈时装品牌的所在地。在伦敦：1.梅费尔酒店：位于梅菲尔中心，靠近邦德街和摄政街等豪华购物街道。2.克拉里奇酒店：这家标志性酒店靠近牛津街和摄政街的购物区。3.康纳特酒店：也位于梅菲尔，靠近许多高端精品店。这些选择中有没有让您感兴趣的？您希望我帮忙查询航班选项吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed information. I think Paris sounds more appealing to me this time, and I have always wanted to stay at the Ritz Paris. So, let's finalize Paris as the destination. Could you please help me with the direct flight options from New York to Paris in the first week of December? I prefer flying business class and ideally would like to leave New York on a Friday evening and return on Sunday night or Monday morning. Also, could you suggest an itinerary for Saturday and Sunday, keeping in mind my interest in fashion and luxury shopping?",
+            "content_zh": "谢谢您提供的详细信息。我觉得这次巴黎听起来更吸引人，而且我一直想住在巴黎丽兹酒店。所以，让我们确定巴黎为目的地。您能否帮我查一下12月初从纽约到巴黎的直达航班选项？我更喜欢坐商务舱，理想情况下想在一个周五的晚上从纽约出发，然后在周日晚上或周一早上返回。同时，您能否建议周六和周日的行程安排，在考虑到我对时尚和奢侈购物的兴趣的情况下？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Fantastic choice! Paris in December is truly magical, and staying at the Ritz Paris will undoubtedly be an unforgettable experience. Let's proceed with your travel plans.\n\n### Flight Options\nFor direct flights from New York to Paris in the first week of December, carriers like Air France, Delta, and American Airlines are known to offer excellent business class services. Flights typically depart from either John F. Kennedy International Airport (JFK) or Newark Liberty International Airport (EWR) and arrive at Paris Charles de Gaulle Airport (CDG). \n\nGiven your preferences for flying out of New York on a Friday evening and returning by Sunday night or Monday morning, here are hypothetical options (please note, actual schedules should be checked as they can vary):\n\n- **Departure:** Air France, JFK to CDG, departing around 7:00 PM on Friday, and arriving the next morning in Paris.\n- **Return:** Air France, CDG to JFK, departing around 10:00 PM on Sunday, arriving in New York on Sunday night, or an early Monday flight if you prefer a full day in Paris on Sunday.\n\n### Itinerary for Paris\n\n**Saturday:**\n\n- **Morning:** Start your day with a leisurely breakfast at the Ritz Paris. Then head out to explore Avenue Montaigne and Rue Saint-Honoré, known for their luxury boutiques and flagship stores. This area is a fashionista's dream, with stores ranging from Chanel to Dior.\n  \n- **Afternoon:** Visit the Palais Galliera, the City of Paris Fashion Museum. Depending on their schedule, they might have a fashion exhibition that aligns with your interests. Afterward, enjoy lunch at one of the chic cafés in the Marais district, which is also great for boutique shopping.\n\n- **Evening:** Consider booking a table at L'Avenue, a fashionable restaurant popular with the fashion crowd. It's located close to Avenue Montaigne, making it a convenient spot to end your day.\n\n**Sunday:**\n\n- **Morning:** Explore the famous flea market, Les Puces de Saint-Ouen, for vintage fashion finds. It's one of the largest antique markets in the world and a fantastic place to discover unique pieces.\n\n- **Afternoon:** Visit the Louvre or the Musée d'Orsay for a touch of culture, or if you prefer to keep the focus on fashion, the Musée des Arts Décoratifs often has fashion-related exhibits.\n\n- **Evening:** Enjoy your last evening with a Seine river cruise. Many operators offer dinner cruises that give you a unique view of Paris by night, including sights like the Eiffel Tower and Notre-Dame.\n\n### Accommodation\nYou've chosen the Ritz Paris, which is an excellent base for your fashion-focused weekend. It's centrally located, making it easy to access the best of Paris's shopping and cultural offerings.\n\nWould you like assistance with booking flights, the hotel, or making reservations at any of the mentioned locations?",
+            "content_zh": "精彩的选择！ 十二月的巴黎真的很神奇，在巴黎丽思卡尔顿酒店住宿无疑会是一次难忘的体验。让我们继续制定您的旅行计划吧。\n### 航班选择\n在十二月的第一周从纽约飞往巴黎的直达航班中，像法国航空、达美航空和美国航空这样的航空公司都以提供出色的商务舱服务而著称。航班通常从约翰·肯尼迪国际机场（JFK）或纽瓦克自由国际机场（EWR）起飞，抵达巴黎戴高乐机场（CDG）。\n鉴于您偏好在周五晚上从纽约出发，并在周日晚上或周一早上返回，以下是一些假设的选择（请注意，实际航班时间可能有所差异，应当核实）：\n- ** 出发：**  法国航空，JFK到CDG，周五晚上约7点起飞，隔天早上抵达巴黎。\n- ** 返回：**  法国航空，CDG到JFK，周日晚上约10点起飞，当晚抵达纽约，或者如果您喜欢在周日度过整整一天在巴黎的话，也可以选择周一早上的航班。\n### 巴黎行程\n**周六：**\n- ** 早上：** 在巴黎丽思卡尔顿酒店享用悠闲的早餐，然后前往探索蒙甘大街和奥诺雷大街，以其奢侈精品店和旗舰店而闻名。这个地区是时尚达人的梦想，有从香奈儿到迪奥等各种品牌的商店。\n- ** 下午：** 参观加利耶拉宫，巴黎时装博物馆。根据他们的展览时间表，他们可能会举办与您兴趣相关的时尚展览。之后，在马雷区的时尚咖啡馆享用午餐，这里也非常适合精品购物。\n- ** 晚上：** 考虑预订L'Avenue餐厅的餐桌，这是时尚界的热门餐厅。它位于蒙甘大街附近，是结束您一天的便利之地。\n**周日：**\n- ** 早上：** 探索著名的圣温蒙跳蚤市场，寻找复古时尚宝贝。这是世界上最大的古董市场之一，是发现独特物品的绝佳去处。\n- ** 下午：** 参观卢浮宫或奥赛美术馆，享受一些文化的氛围，或者如果您更偏爱时尚，那么应该参观装饰艺术博物馆，那里经常有与时尚相关的展览。\n- ** 晚上：** 享受塞纳河游船的最后一个晚上。许多运营商提供晚餐游船，让您以一种独特的方式欣赏巴黎的夜晚，包括埃菲尔铁塔和巴黎圣母院等景点。\n### 住宿\n您选择了巴黎丽思卡尔顿酒店，这是您时尚周末的绝佳基地。它地理位置优越，方便您前往巴黎最好的购物和文化场所。\n您是否需要帮助预订航班、酒店，或是在提到的地点中预订餐厅？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "This itinerary sounds absolutely fabulous, and the Ritz Paris will definitely make the trip extra special. I'd like to proceed with booking the flights you mentioned with Air France, the hotel stay at the Ritz for two nights, and a table at L'Avenue for Saturday evening. Could you also book a spot for the Seine river dinner cruise on Sunday night? It sounds like a wonderful way to wrap up the trip. And if possible, could you recommend a place for wine tasting? I love gourmet food and would enjoy incorporating a wine tasting experience into my weekend.",
+            "content_zh": "这个行程听起来绝对太棒了，巴黎丽思卡尔顿酒店的确会让这次旅行格外特别。我想预订您提到的与法国航空的航班，丽思卡尔顿酒店的两晚住宿，并在周六晚上在拉芙妮餐厅订一张餐桌。您能否也帮我预订周日晚上的塞纳河晚餐游船？这听起来是一个美好的方式来结束旅行。如果可能的话，您能推荐一个葡萄酒品鉴的地方吗？我喜欢美食，也愿意在周末融入一个葡萄酒品鉴体验。",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "I'm glad you're happy with the itinerary! Unfortunately, as an AI, I'm unable to directly book flights, hotels, or make reservations. However, I can guide you on how to do these yourself.\n\n### Flight Booking\nTo book your flights, you can visit the Air France website or a trusted travel booking site like Expedia or Kayak. Enter your departure (New York - JFK) and arrival (Paris - CDG) airports, select 'Business Class', and then choose your desired dates in December. \n\n### Hotel Booking\nFor hotel reservations at the Ritz Paris, visit their official website. You'll find a booking portal where you can select your check-in and check-out dates and choose the type of room you prefer. I would recommend doing this as soon as possible, as the Ritz is quite popular and rooms may get booked up quickly.\n\n### Restaurant and Cruise Reservations\nFor L'Avenue, you can make a reservation through their website or by calling them directly. For the Seine river dinner cruise, several companies offer this service, such as Bateaux Parisiens and Vedettes de Paris. You can book directly on their websites.\n\n### Wine Tasting Experience\nFor a wine tasting experience, I recommend O Chateau, located in central Paris. They offer a variety of wine tasting options, ranging from 'Tour de France of Wine' tastings to 'Champagne Cruises' on the Seine. You can book your preferred wine tasting experience on their website.\n\nI hope this helps! Let me know if you have any other questions or need further assistance with your travel plans.",
+            "content_zh": "很高兴你对行程安排感到满意！不幸的是，作为AI，我无法直接预订航班、酒店或者进行预订。但是，我可以指导你如何自行完成这些步骤。\n\n### 预订航班\n要预订航班，你可以访问法国航空公司的官方网站或者像Expedia或者Kayak这样的值得信赖的旅行预订网站。输入出发地（纽约-肯尼迪机场）和目的地（巴黎-戴高乐机场），选择‘商务舱’，然后选择你在12月份希望出行的日期。\n\n### 预订酒店\n要预订里兹巴黎酒店，可以访问他们的官方网站。你会发现一个预订门户，你可以在上面选择入住和退房日期，并选择你喜欢的房间类型。我建议你尽快完成预订，因为里兹酒店很受欢迎，客房可能会很快被预订一空。\n\n### 餐厅和游轮预订\n对于L'Avenue餐厅，你可以通过他们的网站或者直接致电预订。至于塞纳河晚餐游轮，有很多公司提供这项服务，比如巴黎游船和巴黎之光。你可以直接在他们的网站上预订。\n\n### 品酒体验\n对于品酒体验，我推荐在巴黎市中心的O Chateau。他们提供各种品酒选项，从‘法国葡萄酒之旅’品酒到在塞纳河上的‘香槟之旅’。你可以在他们的网站上预订你喜欢的品酒体验。\n\n希望这能帮到你！如果你有任何其他问题或需要进一步帮助，随时告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you so much for your help! I feel more confident about my trip now. I'll proceed with the bookings as per your instructions. The O Chateau for wine tasting sounds like a fantastic idea, I'll definitely add that to my itinerary. I appreciate all your suggestions and assistance in planning this trip. I'm really looking forward to it!",
+            "content_zh": "非常感谢您的帮助！现在我对我的旅行更有信心了。我会按照您的指示进行预订。O Chateau的品酒活动听起来是一个很棒的主意，我一定会把它加入我的行程表。感谢您在规划这次旅行中提供的所有建议和帮助。我真的很期待这次旅行！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm thrilled to hear that you're excited about your trip and that the suggestions were helpful. Paris is a city with so much to offer, especially for someone with a keen interest in fashion and gourmet experiences. I'm sure you'll have an amazing time exploring the iconic fashion spots, indulging in luxurious dining, and enjoying the unique wine tasting experience at O Chateau. If you have any last-minute questions or need further assistance while planning, feel free to reach out. Have a wonderful trip to Paris, and may it be as fabulous and memorable as you've envisioned! Bon voyage!",
+            "content_zh": "非常欢迎！听到您对旅行感到兴奋并且建议对您有所帮助，我感到非常高兴。巴黎是一个提供很多东西的城市，特别适合对时尚和美食有浓厚兴趣的人。我相信您在探索标志性的时尚景点、尽情享受奢华的美食和在欧舍多酒庄享受独特的品酒体验时一定会度过美妙的时光。如果您有任何临时问题或需要进一步帮助的话，请随时联系。祝您去巴黎的旅行美好愉快，并且愿它能如您所想象的那样美好和难忘！一路平安！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary": [
+        "confident",
+        "ready to book"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 0,
+        "Memorization": 0,
+        "Detail Level": 2,
+        "Practical Usefulness": 1,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "30",
+            "zh": "30"
+        },
+        "Personality": [
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            },
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Confident",
+                "zh": "自信"
+            }
+        ],
+        "Occupation": {
+            "en": "Content creator",
+            "zh": "自媒体工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Photography",
+                "zh": "摄影"
+            },
+            {
+                "en": "Online shopping",
+                "zh": "网购"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Luxury accommodation",
+                "zh": "豪华住宿"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on fashion",
+                "zh": "时尚支出"
+            },
+            {
+                "en": "Invests in art pieces",
+                "zh": "购买艺术品"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Managing personal media platforms",
+                "zh": "经营自媒体"
+            },
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 5,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        }
+    }
+}

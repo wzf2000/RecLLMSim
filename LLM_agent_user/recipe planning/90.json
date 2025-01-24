@@ -1,0 +1,239 @@
+{
+    "task": "recipe planning",
+    "preference_id": 98,
+    "task_context_id": 3,
+    "preference": "1. Gender: Male\n2. Age: 50\n3. Personality: Ambitious, assertive, and driven\n4. Occupation: Political Consultant\n5. Daily Interests and Hobbies: Reading political news, golfing, wine tasting\n6. Travel Habits: Frequently travels for work, prefers luxury hotels\n7. Dining Preferences: Enjoys fine dining, prefers protein-rich diet\n8. Spending Habits: High spender, invests in real estate\n9. Other Aspects: Has a large social circle, enjoys public speaking",
+    "preference_zh": "1. 性别：男性\n2. 年龄：50岁\n3. 个性：雄心勃勃、果断、有追求\n4. 职业：政治顾问\n5. 日常兴趣爱好：阅读政治新闻、打高尔夫球、品酒\n6. 旅行习惯：经常因工作出差，偏爱豪华酒店\n7. 餐饮偏好：喜欢品尝美食，偏好富含蛋白质的饮食\n8. 消费习惯：大手笔消费者，投资房地产\n9. 其他方面：社交圈子广阔，喜欢演讲",
+    "task_context": "You plan to prepare a meal at home for yourself and your loved one. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "您计划在家为自己和所爱的人准备一顿饭。您是一名烹饪技术娴熟的厨师。因此，您想要请LLM的帮助，制作食谱，确定所需食材，以及决定要做什么菜。在计划过程中，您应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I'm actually looking for some help in preparing a special meal for myself and my loved one. I consider myself a skilled cook, but I'd like to create a new recipe and make sure I have all the necessary ingredients. Additionally, I'd appreciate guidance on the order in which to prepare the dishes. Can you assist me with that?",
+            "content_zh": "你好！很高兴你在这里。我实际上是在寻求帮助，为我自己和我所爱的人准备一顿特别的餐点。我认为我是一个熟练的厨师，但我想尝试新的食谱并确保我有所有必要的食材。另外，我想知道应该如何安排烹饪的顺序。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be happy to help you with your special meal preparation. Creating a new recipe can be exciting, and I can definitely assist you in brainstorming ideas and ensuring you have all the necessary ingredients. Let's start by discussing the type of cuisine or specific dish you have in mind. Do you have any preferences or dietary restrictions?",
+            "content_zh": "你好！我很乐意帮助您准备特殊食物。创造一个新食谱是令人兴奋的，我肯定可以帮助您思考构思并确保您拥有所有必需的食材。让我们从讨论您心中所想的菜系或特定菜肴开始。您有任何偏好或饮食限制吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That's great! I appreciate your willingness to assist me. For this special meal, I would like to prepare a sophisticated and protein-rich dinner. I'm open to different cuisines, but I lean towards a fusion of Mediterranean and Asian flavors. As for dietary restrictions, none come to mind. I'm excited to hear your ideas and suggestions for the dishes we can create.",
+            "content_zh": "太棒了！我感激你愿意帮助我。对于这顿特别的晚餐，我想要准备一顿精致且富含蛋白质的晚餐。我愿意尝试不同的烹饪风格，但我更倾向于地中海和亚洲口味的融合。关于饮食限制，我没有任何想法。我很期待听到你对我们可以创造的菜肴的想法和建议。",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Fantastic! A fusion of Mediterranean and Asian flavors sounds like a wonderful combination. Let's brainstorm some ideas for your special meal. How about starting with a flavorful appetizer? One idea could be to make Mediterranean-inspired grilled shrimp skewers with a tangy Asian dipping sauce. You can marinate the shrimp in a mixture of olive oil, lemon juice, garlic, and Mediterranean herbs like oregano and thyme. Then, grill them until they're slightly charred and serve them with a dipping sauce made from soy sauce, ginger, garlic, and a touch of honey.\n\nFor the main course, you could prepare a dish like miso-glazed salmon with a Mediterranean couscous salad. The salmon can be marinated in a mixture of miso paste, soy sauce, honey, and a hint of sesame oil. Roast it in the oven until it's nicely caramelized on top. For the couscous salad, you can toss cooked couscous with cherry tomatoes, cucumbers, olives, feta cheese, fresh herbs like mint and parsley, and dress it with lemon juice and olive oil.\n\nFinally, for dessert, we can go with a fusion-inspired treat like a mango and coconut panna cotta. It combines the tropical flavors of mango and coconut milk in a creamy and refreshing dessert. You can make the panna cotta by dissolving gelatin in coconut milk, sweetening it with a bit of sugar or honey, and blending in pureed mango. Let it set in the refrigerator until firm, and serve it with a garnish of fresh mango slices.\n\nHow do these ideas sound to you? Let me know if you'd like more details on any of the dishes, or if you have any other preferences or suggestions!",
+            "content_zh": "太棒了！地中海和亚洲风味的融合听起来是一个美妙的组合。让我们一起为您的特别餐来想一些主意。首先，我们可以从一道美味的开胃菜开始。一个想法是制作地中海风味的烤虾串配上酸甜的亚洲蘸酱。您可以将虾用橄榄油、柠檬汁、大蒜和地中海香草（如牛至和百里香）混合腌制，然后烤至略带焦黄，搭配由酱油、姜、大蒜和一点点蜂蜜制成的蘸酱一起享用。\n接下来是主菜，您可以准备一道像味噌糖醋三文鱼配地中海薄饼沙拉这样的菜肴。三文鱼可以用味噌酱、酱油、蜂蜜和少许芝麻油混合腌制，然后在烤箱里烤至顶部金黄。至于薄饼沙拉，您可以将煮熟的薄饼与樱桃番茄、黄瓜、橄榄、费达奶酪、薄荷和欧芹等新鲜草本植物拌匀，然后用柠檬汁和橄榄油调味。\n最后是甜点，我们可以选择一道融合灵感的甜点，比如芒果椰奶奶酪。它将芒果和椰奶的热带风味融合在一起，是一款奶油滋润的清爽甜点。您可以将明胶溶解在椰奶中，加入少量糖或蜂蜜，混合芒果泥。让其在冰箱里冷藏至凝固，搭配新鲜芒果片作为装饰。\n这些想法对您如何？如果您对任何菜品想要更多细节，或者有其他喜好或建议，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Wow, those ideas sound absolutely delicious! I love the combination of flavors and the creativity behind each dish. The Mediterranean-inspired grilled shrimp skewers with the tangy Asian dipping sauce as an appetizer sound like a perfect way to start the meal. The miso-glazed salmon with a Mediterranean couscous salad for the main course is a great choice too, as it combines the richness of miso with the freshness of the salad. And the mango and coconut panna cotta for dessert sounds like a delightful and refreshing way to end the meal.\n\nI think these ideas are spot-on and align perfectly with what I had in mind. I would love more details on the preparation process for each dish, especially the miso-glazed salmon and the mango and coconut panna cotta. Could you provide me with the step-by-step instructions for those two dishes?",
+            "content_zh": "哇，这些想法听起来绝对美味！我喜欢每道菜的味道和创意，地中海风味的烤虾串配上酸甜的亚洲蘸酱作为开胃菜听起来是一个完美的开餐方式。主菜的味噌鲑鱼和地中海小米沙拉也是一个很好的选择，因为它结合了味噌的浓郁和沙拉的新鲜。而作为甜点的芒果椰子意式奶冻听起来是一个令人愉悦并且清爽的结束餐饭方式。我认为这些想法非常恰当，并与我的预期完美契合。我希望了解每道菜的准备过程的更多细节，尤其是味噌鲑鱼和芒果椰子意式奶冻。你能为这两道菜提供详细的逐步说明吗？",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! I'm glad you like the ideas. Let's dive into the step-by-step instructions for the miso-glazed salmon and the mango and coconut panna cotta.\n\nMiso-Glazed Salmon:\n1. Preheat your oven to 400°F (200°C) and line a baking sheet with parchment paper.\n2. In a bowl, whisk together 3 tablespoons of miso paste, 2 tablespoons of soy sauce, 1 tablespoon of honey, and 1 teaspoon of sesame oil until well combined.\n3. Place the salmon fillets on the prepared baking sheet and brush the miso glaze generously over the top of each fillet.\n4. Bake the salmon in the preheated oven for about 12-15 minutes, or until the salmon is cooked through and the glaze is caramelized on top.\n5. Once cooked, remove the salmon from the oven and let it rest for a few minutes before serving.\n\nMango and Coconut Panna Cotta:\n1. In a small bowl, sprinkle 2 teaspoons of gelatin over 1/4 cup of cold water and let it sit for about 5 minutes to bloom.\n2. In a saucepan, heat 1 cup of coconut milk and 1/4 cup of sugar over medium heat until the sugar is dissolved and the mixture is warm. Do not bring it to a boil.\n3. Remove the saucepan from heat and whisk in the bloomed gelatin until fully dissolved.\n4. In a blender, combine 1 ripe mango (peeled and pitted) with the coconut milk mixture. Blend until smooth and well combined.\n5. Pour the mixture into individual serving glasses or ramekins and refrigerate for at least 4 hours, or until set.\n6. Once set, garnish the panna cotta with fresh mango slices before serving.\n\nRemember to adjust the quantities based on the number of servings you need. Also, feel free to add your own personal touches and garnishes to make the dishes even more special. Enjoy your meal preparation, and let me know if you have any further questions or need more assistance!",
+            "content_zh": "当然！很高兴你喜欢这些想法。让我们深入了解味噌焗三文鱼和芒果椰子奶冻的逐步指导。 \n\n味噌焗三文鱼：\n1. 将烤箱预热至400华氏度（200摄氏度），用烤纸在烤盘上铺好。 \n2. 在一个碗里，搅拌3汤匙味噌酱、2汤匙酱油、1汤匙蜂蜜和1茶匙芝麻油，直到充分混合。 \n3. 将三文鱼片放在准备好的烤盘上，大方地刷上每块鱼片顶部的味噌酱。 \n4. 将三文鱼置于预热烤箱中烤约12-15分钟，或直到熟透且酱汁在顶部焦糖化。 \n5. 烤好后，将三文鱼从烤箱中取出，让其静置几分钟后再上桌。\n\n芒果椰子奶冻：\n1. 在一个小碗里，将2茶匙明胶撒在1/4杯冷水上，静置约5分钟让其吸满。 \n2. 在一个平底锅中，将1杯椰奶和1/4杯糖在中火加热，直到糖溶解且混合物变暖。不要煮沸。 \n3. 将平底锅从火上取下，搅拌进泡好的明胶直至完全溶解。 \n4. 在搅拌器中，将1个去皮去核的成熟芒果与椰奶混合物搅拌至顺滑并充分混合。 \n5. 将混合物倒入个体大小的玻璃杯或小瓦罐中，冷藏至少4小时，直至凝固。 \n6. 凝固后，在上桌前用新鲜芒果片装饰奶冻。\n\n根据所需份量调整配料。同时，也可以根据喜好添加个人风味和装饰，使菜品更加特别。祝用餐愉快，如果有任何问题或需要更多帮助，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for providing the detailed instructions for both the miso-glazed salmon and the mango and coconut panna cotta. I appreciate the clarity and guidance you've given me.\n\nI am confident that I will be able to follow these instructions and create a fantastic meal for my loved one. The miso-glazed salmon sounds incredibly flavorful, and I can't wait to taste the caramelized glaze on top. As for the mango and coconut panna cotta, the combination of mango and coconut milk is sure to create a delightful and refreshing dessert.\n\nI truly appreciate your assistance in helping me plan this special meal. I feel confident and excited to get started. If I have any further questions or need more guidance along the way, I'll be sure to reach out to you. Thank you again for your help!\n\n[System]: You're welcome! I'm glad I could assist you in planning your special meal. I'm confident that it will turn out delicious. Remember, I'm here to help if you need any further assistance or have any questions. Enjoy your cooking experience and have a wonderful time with your loved one!",
+            "content_zh": "感谢您提供了关于味增烤三文鱼和芒果椰子奶冻的详细说明。我很感激您给我的清晰指导。\n我确信我能够按照这些说明做出一顿美味的晚餐给我所爱的人。味增烤三文鱼听起来非常美味，我迫不及待想尝一尝上面的焦糖酱。至于芒果椰子奶冻，芒果和椰子牛奶的结合一定会带来一款美味清爽的甜点。\n我真的很感谢您在帮助我规划这顿特别的晚餐方面的协助。我感到自信和兴奋，准备开始动手。如果我有任何进一步的问题或需要更多的指导，我一定会和您联系。再次感谢您的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "Thank you for your kind words! I'm glad I could be of help. I'm sure your cooking skills combined with these delicious recipes will result in a memorable meal for you and your loved one. Don't hesitate to reach out if you need any further assistance or have any other questions. Enjoy your cooking and have a fantastic time!",
+            "content_zh": "谢谢你的赞美！我很高兴能帮到你。我相信你的烹饪技能加上这些美味的食谱，一定会为你和你所爱的人带来一顿难忘的美餐。如果需要进一步的帮助或有任何其他问题，请随时联系我。祝你烹饪愉快，度过美好时光！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "sophisticated",
+        "protein-rich",
+        "mediterranean-asian fusion"
+    ],
+    "preference_summary": [
+        "confident",
+        "excited",
+        "guided"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "50",
+            "zh": "50"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Confident",
+                "zh": "自信"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Luxury accommodation",
+                "zh": "豪华住宿"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Healthy food",
+                "zh": "健康饮食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "High spender",
+                "zh": "高消费"
+            },
+            {
+                "en": "Invests in real estate",
+                "zh": "房地产投资"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Has a large social circle",
+                "zh": "社交广泛"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        }
+    }
+}

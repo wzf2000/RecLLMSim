@@ -1,0 +1,222 @@
+{
+    "task": "recipe planning",
+    "preference_id": 63,
+    "task_context_id": 3,
+    "preference": "1. Gender: Female\n2. Age: 26\n3. Personality: Free-spirited, creative, and outgoing\n4. Occupation: Musician\n5. Daily Interests and Hobbies: Writing songs, playing instruments, attending concerts\n6. Travel Habits: Tours for performances, enjoys cultural festivals\n7. Dining Preferences: Enjoys vegan food, loves trying local cuisines\n8. Spending Habits: Spends on musical equipment, saves for recording sessions\n9. Other Aspects: Lives in a shared artist loft, active in local music scene",
+    "preference_zh": "1. 性别：女性\n2. 年龄：26岁\n3. 个性：自由奔放、创意丰富、外向\n4. 职业：音乐人\n5. 日常兴趣爱好：创作歌曲、演奏乐器、参加演唱会\n6. 旅行习惯：巡回演出、喜欢文化节庆\n7. 用餐偏好：喜欢素食、热爱尝试当地美食\n8. 消费习惯：购买音乐设备、储蓄用于录音会话\n9. 其他方面：居住在合租的艺术家阁楼，活跃于本地音乐圈",
+    "task_context": "You plan to prepare a meal at home for yourself and your loved one. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家里为自己和所爱的人做一顿饭。作为一名有些专业知识的烹饪师，你想要请求LLM的帮助来制作食谱，确定所需的食材，并决定要做哪些菜。在规划过程中，你应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm so glad you're here. I need your help in planning a special meal for myself and my loved one. I'm a skilled cook, but I'm looking for some creative ideas. Can you assist me in creating a delicious recipe and deciding what dishes to make?",
+            "content_zh": "你好！很高兴你在这里。我需要你帮助我规划一顿给我和我爱的人吃的特别的晚餐。我是一个熟练的厨师，但是我正在寻找一些创意的点子。你能帮我制作出美味的食谱并决定做什么菜吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be delighted to help you plan a special meal for your loved one! How exciting that you're a skilled cook and looking to get creative. Let's start by brainstorming some ideas. Could you let me know if there are any dietary restrictions or preferences I should consider? Additionally, do you have any specific cuisines or ingredients in mind?",
+            "content_zh": "当然，我很乐意帮助您为您所爱的人策划一顿特别的餐！您是一位技艺娴熟的厨师并且愿意展现创意，真是令人兴奋。让我们先从头脑风暴一些想法开始。您能告诉我是否有任何饮食限制或偏好我应该考虑吗？另外，您有什么特定的菜系或食材在脑海中吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance! We both have a preference for vegan food, so it would be great if the meal could be entirely plant-based. As for cuisines, we love trying different flavors from around the world, so any suggestions are welcome. We're open to exploring new ingredients and techniques. What ideas do you have in mind?",
+            "content_zh": "感谢您提供帮助！我们都喜欢吃素食，所以如果餐点完全以植物为基础将会很棒。至于菜系，我们喜欢尝试来自世界各地的不同口味，所以欢迎任何建议。我们乐于探索新的食材和烹饪技巧。您有什么想法呢？",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "That's wonderful to hear! Creating a plant-based meal with flavors from around the world sounds like a fantastic idea. How about we start with a flavorful appetizer? One option could be to make some vegan sushi rolls filled with a variety of colorful vegetables like cucumber, avocado, and bell peppers. You can also add some marinated tofu or tempeh for protein.\n\nFor the main course, how about a Moroccan-inspired tagine? This slow-cooked stew is traditionally made with meat, but we can easily adapt it to be vegan. You can use a combination of chickpeas, sweet potatoes, carrots, and a medley of spices like cumin, turmeric, and cinnamon. Serve it over a bed of fluffy couscous or quinoa for a complete and satisfying meal.\n\nTo complement the tagine, a side of roasted Brussels sprouts with a tangy balsamic glaze would be delicious. Simply toss the sprouts in olive oil, season with salt and pepper, and roast them until crispy. Then drizzle them with a reduction of balsamic vinegar for a sweet and savory touch.\n\nFinally, for dessert, how about a decadent chocolate mousse made with silken tofu? It's surprisingly creamy and rich, and your loved one won't even guess it's made with tofu. You can customize the flavor by adding some melted dark chocolate, a splash of vanilla extract, and a touch of maple syrup for sweetness.\n\nI hope these ideas inspire you! Let me know if you'd like more details on any of the recipes or if you have any other preferences.",
+            "content_zh": "这听起来太棒了！用世界各地的风味创造一个植物性餐点听起来是一个绝妙的主意。我们可以从一道美味的开胃菜开始。一个选择是制作一些素食寿司卷，内填充各种五彩缤纷的蔬菜，如黄瓜、鳄梨和彩椒。你还可以加一些腌制的豆腐或豆豉增加蛋白质。\n\n作为主菜，一个摩洛哥风味的塔吉呢怎么样？这种慢炖炖菜传统上用肉制成，但我们很容易可以改成素食。你可以使用鹰嘴豆、红薯、胡萝卜和一系列香料，如孜然、姜黄和肉桂。可以搭配蓬松的库斯库斯或藜麦一起享用，这是一顿完整、美味的餐点。\n\n为了搭配塔吉呢，一份有酸甜风味的烤芽甘蓝圆子将会美味可口。简单地用橄榄油把圆子折匀，撒上盐和胡椒，然后烤制至变脆。然后浇上用降糖醋减煮的甘蓝圆子，增添一丝甜蜜与鲜香。\n\n最后，甜点怎么样？可以试试用硬豆腐制作的丰富巧克力慕斯？它有惊人的滑腻和浓郁口感，你的爱人甚至不会想到它是用豆腐制成的。你可以通过加入一些融化的黑巧克力、少许香草精和少许枫糖浆来定制口味。\n\n希望这些想法能给你灵感！如果你想了解更多任何菜谱的细节或有其他的喜好，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Wow, those ideas sound absolutely amazing! I love the creativity and the mix of flavors you've suggested. The vegan sushi rolls with colorful vegetables and marinated tofu or tempeh as the appetizer is a great way to start the meal. It's light, refreshing, and visually appealing.\n\nThe Moroccan-inspired tagine with chickpeas, sweet potatoes, carrots, and a blend of aromatic spices sounds absolutely delicious. The combination of flavors will surely make for a hearty and satisfying main course. Serving it over couscous or quinoa is a fantastic idea to complete the dish.\n\nRoasted Brussels sprouts with a balsamic glaze as a side dish will add a delightful contrast to the tagine. The crispy sprouts with the tangy glaze will provide a nice balance of flavors.\n\nAnd for dessert, the chocolate mousse made with silken tofu sounds like a decadent treat. The addition of melted dark chocolate, vanilla extract, and maple syrup will definitely make it rich and indulgent.\n\nI absolutely love these suggestions! They are unique, flavorful, and fit perfectly with our vegan preferences. Thank you so much for your help! Is there anything else you'd recommend or any specific instructions I should keep in mind while preparing these dishes?",
+            "content_zh": "哇，这些想法听起来绝对令人惊叹！我喜欢你提出的创意和混合口味。作为开胃菜的素食寿司卷，搭配有色彩缤纷的蔬菜和腌制豆腐或豆豉，是开始餐点的绝佳选择。清淡、爽口且视觉上吸引。摩洛哥风味的鹰嘴豆、甜土豆、胡萝卜和混合香料炖菜听起来绝对美味。口味的组合一定会成为一道丰盛而令人满足的主菜。搭配小麦粉粒或藜麦将会是完成这道菜的绝佳选择。作为配菜的烤甘蓝芽搭配黑醋汁是给炖菜增添一道美妙的对比。脆脆的甘蓝芽搭配酸甜的醋汁将提供口味的良好平衡。至于甜点，用软豆腐制作的巧克力慕斯听起来像是一种奢侈的美食。融化的黑巧克力、香草精和枫糖浆的添加一定会使其变得丰富而令人沉醉。我非常喜欢这些建议！它们独具特色、口味浓郁，完全符合我们的素食偏好。非常感谢您的帮助！还有什么其他建议吗？在准备这些菜肴时需要注意什么具体的指导吗？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "I'm thrilled that you love the suggestions! It sounds like you're all set for a delicious and memorable meal. Here are a few additional tips and instructions for each dish:\n\n1. Vegan Sushi Rolls:\n- Make sure to use sushi-grade rice and season it with rice vinegar, sugar, and salt for that authentic sushi flavor.\n- Use a bamboo sushi mat to roll the sushi tightly and evenly.\n- Serve the sushi rolls with soy sauce, wasabi, and pickled ginger for a traditional touch.\n\n2. Moroccan-Inspired Tagine:\n- Sauté the onions and spices first to release their flavors before adding the vegetables and chickpeas.\n- If you have a tagine pot, that's ideal for slow-cooking, but a regular pot or Dutch oven will work too.\n- Cook the tagine on low heat for a longer time to allow the flavors to meld together and the vegetables to become tender.\n\n3. Roasted Brussels Sprouts with Balsamic Glaze:\n- Preheat your oven to a high temperature (around 425°F/220°C) to achieve crispy Brussels sprouts.\n- Toss the sprouts in olive oil and spread them out on a baking sheet in a single layer for even roasting.\n- While roasting, keep an eye on them to prevent burning, and flip them once halfway through for even browning.\n- Drizzle the balsamic glaze over the sprouts just before serving for a vibrant and tangy finish.\n\n4. Chocolate Mousse:\n- Blend the silken tofu until smooth and creamy, and gradually add the melted dark chocolate, vanilla extract, and maple syrup while blending.\n- Taste and adjust the sweetness if needed by adding more maple syrup.\n- Chill the mousse in the refrigerator for at least an hour before serving to allow it to set and develop its texture.\n\nRemember to have fun while preparing the meal and don't hesitate to make adjustments based on your personal preferences. Enjoy the process and the delightful flavors that await you! If you have any more questions or need further assistance, feel free to ask.",
+            "content_zh": "我很高兴你喜欢这些建议！听起来你已经准备好享受一顿美味难忘的美食了。以下是每道菜的一些建议和指导：\n\n1. 素食寿司卷：\n- 确保使用寿司级米饭，并用米醋、糖和盐调味，以获得正宗的寿司风味。\n- 使用竹寿司垫将寿司卷紧密均匀地卷起。\n- 配以酱油、芥末和泡姜，以传统风味供应。\n\n2. 摩洛哥风味的塔吉锅：\n- 先炒洋葱和香料释放其味道，然后加入蔬菜和鹰嘴豆。\n- 如果你有塔吉锅，那是慢炖的理想选择，但普通锅或荷兰锅也可以。\n- 用小火煮塔吉锅更长的时间，让味道融合在一起，蔬菜变得嫩软。\n\n3. 烤乳油球配意大利黑醋汁：\n- 将烤箱预热至高温度（约425°F/220°C），烹饪脆皮乳油球。\n- 将球拌上橄榄油，摊开放在烤盘上单层均匀烤制。\n- 烘烤时，密切观察以防烧焦，并在中途翻转一次，使其均匀上色。\n- 在上菜前将意大利黑醋汁淋在球上，味道清新酸爽。\n\n4. 巧克力慕斯：\n- 将丝滑豆腐搅拌至顺滑细腻，逐渐加入融化的黑巧克力、香草精和枫糖浆，继续搅拌。\n- 根据需要加入更多枫糖浆调整甜度。\n- 将慕斯冷藏至少一小时，待其定型，并发展出其质地。\n\n在准备美食时记得享受过程，根据个人口味进行调整。享受这美妙风味的过程！如果您有更多问题或需要进一步帮助，请随时询问。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "vegan sushi",
+        "tagine",
+        "chocolate mousse"
+    ],
+    "preference_summary": [
+        "plant-based",
+        "global flavors"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "26",
+            "zh": "26"
+        },
+        "Personality": [
+            {
+                "en": "Spontaneous",
+                "zh": "随性"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            }
+        ],
+        "Occupation": {
+            "en": "Artist",
+            "zh": "艺术工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Writing",
+                "zh": "写作"
+            },
+            {
+                "en": "Playing instruments",
+                "zh": "演奏乐器"
+            },
+            {
+                "en": "Listening to music",
+                "zh": "听音乐"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Cultural trips",
+                "zh": "文化旅行"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Vegan",
+                "zh": "素食"
+            },
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on entertainment",
+                "zh": "娱乐支出"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Active in music activities",
+                "zh": "喜欢参与音乐活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "1": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

@@ -1,0 +1,301 @@
+{
+    "task": "recipe planning",
+    "preference_id": 68,
+    "task_context_id": 7,
+    "preference": "1. Gender: Male\n2. Age: 40\n3. Personality: Disciplined, methodical, and calm\n4. Occupation: Military Officer\n5. Daily Interests and Hobbies: Fitness training, reading military history, fishing\n6. Travel Habits: Travels for work, enjoys camping and outdoor activities\n7. Dining Preferences: Prefers hearty meals, enjoys grilling\n8. Spending Habits: Invests in home security systems, saves for children's education\n9. Other Aspects: Active in veterans' organizations, has a family",
+    "preference_zh": "1. 性别：男性\n2. 年龄：40岁\n3. 个性：纪律严明，有条不紊，镇定\n4. 职业：军官\n5. 日常兴趣爱好：健身训练，阅读军事历史，钓鱼\n6. 旅行习惯：出差旅行，喜欢露营和户外活动\n7. 饮食偏好：喜欢丰盛的餐点，喜欢烧烤\n8. 消费习惯：投资家庭安全系统，为子女教育储蓄\n9. 其他方面：积极参与退伍军人组织，有家庭",
+    "task_context": "You plan to prepare a meal at home to celebrate your birthday with about 10 close friends. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家里为庆祝生日而做一顿饭，邀请大约10位亲近的朋友。你是一位技艺娴熟的厨师，有一定的专业知识。因此，你想请求LLM的帮助，制作菜谱，确定所需的食材，并决定要做什么菜。在规划过程中，你应该学习每道菜的完整制作过程，以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you asked. I'm planning a birthday celebration at home with about 10 close friends, and I'd like your help in creating a delicious meal. As a skilled cook, I want to prepare a variety of dishes that will impress my guests. Can you assist me in creating a recipe, determining the necessary ingredients, and deciding what dishes to make?",
+            "content_zh": "你好！很高兴你询问。我打算在家里和大约10位亲近的朋友举行生日庆祝活动，我希望你能帮助我制作美味的餐点。作为一名技艺高超的厨师，我想准备一系列让客人印象深刻的菜肴。你能帮我设计食谱、确定所需的食材以及决定制作哪些菜品吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you create a delicious meal for your birthday celebration! Let's start by brainstorming some ideas for dishes that will impress your guests. Do you have any specific preferences or dietary restrictions that we should consider?",
+            "content_zh": "当然，我很乐意帮助您为生日庆祝活动准备美味的餐点！让我们先集思广益，想出一些能让您的客人印象深刻的菜肴。您有什么特别偏好或饮食限制我们需要考虑的吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance. I don't have any specific dietary restrictions to consider, but I do have some preferences. As an avid griller, I would love to incorporate some grilled dishes into the menu. Additionally, I enjoy hearty meals, so dishes with robust flavors and substantial portions would be great. Let's start by brainstorming some ideas for the main course. What do you suggest?",
+            "content_zh": "谢谢您提供帮助。我没有特定的饮食限制需要考虑，但我有一些喜好。作为一个热爱烧烤的人，我希望菜单中能加入一些烧烤菜肴。此外，我喜欢丰盛的餐点，因此搭配浓郁味道和丰富份量的菜肴会很棒。让我们从头道菜开始，一起来想一些主菜的创意吧。您有什么建议？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Grilled dishes with robust flavors and substantial portions sound fantastic for a birthday celebration! How about considering a few options for the main course? Here are a few ideas:\n\n1. Grilled Ribeye Steak: A juicy and flavorful ribeye steak, seasoned with your favorite spices and grilled to perfection. Serve it with a side of roasted potatoes and a fresh green salad.\n\n2. Grilled Lemon Herb Chicken: Marinate chicken breasts in a mixture of lemon juice, garlic, and herbs, then grill them until they're juicy and tender. Serve with grilled vegetables and a side of wild rice.\n\n3. Grilled Salmon with Mango Salsa: Season salmon fillets with a combination of spices, then grill them until they're flaky and delicious. Top with a refreshing mango salsa and serve alongside quinoa or couscous.\n\n4. Grilled Portobello Mushroom Burgers: For a vegetarian option, grill portobello mushrooms marinated in balsamic vinegar, garlic, and herbs. Serve them on toasted buns with your choice of toppings and a side of sweet potato fries.\n\nThese are just a few ideas to get you started. Let me know if any of these options appeal to you, or if you'd like to explore other ideas for the main course!",
+            "content_zh": "带有浓郁风味和丰盛份量的烤菜听起来在生日庆祝会上非常棒！不妨考虑一下主菜的几种选择？下面是一些想法：\n\n1. 烤肋眼牛排：一个多汁而美味的肋眼牛排，用你喜欢的香料调味，烤得恰到好处。配上烤土豆和新鲜的绿色沙拉。\n\n2. 烤柠檬香草鸡肉：用柠檬汁、大蒜和香草混合物腌制鸡胸肉，然后烤至多汁和嫩滑。配上烤蔬菜和一份野生米饭。\n\n3. 芒果莎莎烤三文鱼：用一系列香料调味三文鱼片，然后烤至松脆美味。撒上清新的芒果莎莎，搭配藜麦或中东小米。\n\n4. 烤波托贝罗蘑菇汉堡：作为素食选择，烤波托贝罗蘑菇用香醋、大蒜和香草腌制。用您喜欢的配料和一份甜土豆条放在烤面包上。\n\n这只是一些启发性的想法。如果您对这些选择中的任何一种感兴趣，或者想探索其他关于主菜的想法，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Those are excellent suggestions for the main course! I particularly like the idea of grilled ribeye steak and grilled salmon with mango salsa. They both sound delicious and would definitely impress my guests. Let's go with those options.\n\nNow, let's move on to appetizers. What do you suggest we serve to kick off the meal and set the tone for the celebration?",
+            "content_zh": "这些是关于主菜的绝妙建议！我特别喜欢烤肋眼牛排和配芒果莎莎的烤三文鱼的想法。它们听起来都很美味，肯定会给我的客人留下深刻印象。我们就选这两个吧。现在，让我们继续谈谈开胃菜。你建议我们上什么菜开启整顿大餐并为庆典定调呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great choices for the main course! Now, let's move on to appetizers to kick off the celebration. Here are a few ideas to get your guests excited:\n\n1. Grilled Shrimp Skewers: Marinate large shrimp in a mixture of olive oil, garlic, lemon juice, and herbs, then skewer them and grill until they're lightly charred. Serve with a tangy dipping sauce like a garlic aioli or a spicy cocktail sauce.\n\n2. Caprese Skewers: Thread cherry tomatoes, mozzarella balls, and fresh basil leaves onto skewers. Drizzle with balsamic glaze and a sprinkle of salt and pepper for a simple and elegant appetizer.\n\n3. Bruschetta: Grill slices of baguette until they're lightly toasted, then top with a mixture of diced tomatoes, fresh basil, garlic, and a drizzle of olive oil. It's a classic and refreshing appetizer that's always a hit.\n\n4. Grilled Vegetable Platter: Grill a variety of colorful vegetables like zucchini, bell peppers, eggplant, and asparagus. Arrange them on a platter with a side of herbed yogurt dip or hummus for a healthy and flavorful option.\n\nThese appetizers should set the tone for a delicious meal and get your guests excited. Feel free to mix and match or choose your favorites from the list. Let me know if you need any more suggestions or if you'd like to move on to discussing side dishes and desserts!",
+            "content_zh": "主菜的选择很棒！现在，让我们开始前菜来开始庆祝吧。以下是一些建议，让您的客人兴奋起来：\n\n1. 烤虾串：将大虾用橄榄油、大蒜、柠檬汁和香草腌制，串起来烤至微微焦黄。配上蒜蓉蛋黄酱或辣味鸡尾酒酱作为爽口的蘸酱。\n\n2. 卡普雷塞串：将樱桃番茄、马苏里拉球和新鲜罗勒叶穿在串上。淋上意大利黑醋酱和一点盐和胡椒，做成简单优雅的前菜。\n\n3. 意式烤面包片：将法棍切片烤至微微金黄，然后加上切碎的番茄、新鲜罗勒、大蒜和橄榄油。这是一道经典清爽的前菜，总是受欢迎。\n\n4. 烤蔬菜拼盘：烤一些色彩丰富的蔬菜，如西葫芦、彩椒、茄子和芦笋。摆放在托盘上，并配上调味酸奶酱或鹰嘴豆泥，健康美味。\n\n这些前菜应该为美味的餐点定调，令您的客人兴奋不已。随意搭配或从列表中挑选您喜爱的菜品。如果需要更多建议或者想讨论配菜和甜点，请随时告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Those are fantastic appetizer suggestions! I particularly like the idea of grilled shrimp skewers and the Caprese skewers. They sound delicious and will definitely set the tone for a great meal.\n\nNow, let's move on to side dishes. What do you recommend we serve alongside the main course to complement the flavors and add variety to the meal?",
+            "content_zh": "那些是很棒的开胃菜建议！我特别喜欢烤虾串和卡普雷塞串的想法。它们听起来很美味，肯定会为美好的一顿饭设下基调。\n现在，让我们继续谈谈配菜。你建议我们在主菜旁边供应什么，以补充口味并增加餐点的多样性呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great choices for the appetizers! Now, let's move on to side dishes that will complement the flavors of the main course and add variety to the meal. Here are a few ideas:\n\n1. Grilled Vegetables: Since you enjoy grilling, consider grilling a medley of vegetables such as zucchini, bell peppers, eggplant, and onions. Toss them in olive oil, season with salt, pepper, and your favorite herbs, then grill until they're tender and slightly charred.\n\n2. Garlic Mashed Potatoes: Creamy mashed potatoes are always a crowd-pleaser. Boil peeled potatoes until tender, then mash them with butter, garlic, milk, salt, and pepper. You can even add some grated cheese for extra flavor.\n\n3. Grilled Corn on the Cob: Brush fresh corn with melted butter, sprinkle with salt and pepper, then grill until it's nicely charred. Serve with a flavored butter like garlic herb butter or chipotle lime butter.\n\n4. Quinoa Salad: Prepare a refreshing quinoa salad with diced cucumbers, cherry tomatoes, red onions, feta cheese, and a lemon vinaigrette. It's a light and nutritious side dish that pairs well with grilled meats and seafood.\n\nThese side dishes will complement the flavors of the main course and add variety to the meal. Feel free to mix and match or choose your favorites from the list. Let me know if you need any more suggestions or if you'd like to discuss desserts next!",
+            "content_zh": "开胃菜的选择很不错！现在，让我们继续探讨搭配主菜口味并增添餐品多样性的配菜。以下是一些建议：\n\n1. 烤蔬菜：由于您喜欢烤食品，可以考虑烤制多种蔬菜，如西葫芦、甜椒、茄子和洋葱。用橄榄油拌匀，撒上盐、胡椒和您喜爱的香草，然后烤至变软并略带焦糖色。\n\n2. 蒜泥土豆泥：奶油口感的土豆泥总是受欢迎。将去皮土豆煮至变软，然后搅拌入黄油、大蒜、牛奶、盐和胡椒。您也可以添加一些磨碎的奶酪增添口味。\n\n3. 烤玉米棒：用融化的黄油刷涂新鲜玉米，撒上盐和胡椒，然后烤至表面烤焦。搭配蒜香草黄油或辣椒青柠黄油一起享用。\n\n4. 藜麦沙拉：准备清爽的藜麦沙拉，混合黄瓜丁、樱桃番茄、红洋葱、飞达奶酪和柠檬油醋汁。这是一道清淡营养的配菜，搭配烤肉和海鲜效果很好。\n\n这些配菜将搭配出主菜的口味并增添餐品多样性。可以自由搭配或从清单中选择自己喜爱的配菜。如果需要更多建议或讨论甜点，请随时告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Those are wonderful suggestions for side dishes! I particularly like the idea of grilled vegetables and garlic mashed potatoes. They will complement the main course perfectly and add variety to the meal.\n\nNow, let's move on to desserts. What do you recommend we serve to end the meal on a sweet note and celebrate the birthday in style?",
+            "content_zh": "这些是很棒的配菜建议！我特别喜欢烤蔬菜和大蒜土豆泥的想法。它们将完美地搭配主菜，并丰富了膳食的口味。现在，让我们来讨论甜点。你建议我们用什么来为这顿饭收尾，并以别致的方式庆祝生日呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great choices for the side dishes! Grilled vegetables and garlic mashed potatoes will definitely enhance the meal.\n\nNow, let's move on to desserts to end the meal on a sweet note and celebrate the birthday in style. Here are a few ideas:\n\n1. Grilled Pineapple with Vanilla Ice Cream: Slice fresh pineapple into rings, brush them with a mixture of honey and cinnamon, then grill until they're caramelized and slightly charred. Serve with a scoop of creamy vanilla ice cream for a delightful combination of flavors.\n\n2. Chocolate Lava Cake: Indulge your guests with warm and gooey chocolate lava cakes. These individual-sized cakes have a rich molten chocolate center that oozes out when you cut into them. Serve with a dollop of whipped cream or a scoop of vanilla ice cream.\n\n3. Fresh Berry Parfait: Layer fresh berries like strawberries, blueberries, and raspberries with Greek yogurt and granola in glasses or bowls. It's a light and refreshing dessert that showcases the natural sweetness of the berries.\n\n4. Grilled Peaches with Honey and Mascarpone: Halve ripe peaches, brush them with a little olive oil, then grill until they're soft and caramelized. Serve with a drizzle of honey and a dollop of mascarpone cheese for a sweet and creamy treat.\n\nThese dessert options should provide a sweet ending to the meal and make the birthday celebration even more special. As always, feel free to mix and match or choose your favorites. Let me know if you need any more suggestions or if there's anything else I can assist you with!",
+            "content_zh": "丰富的配菜选择！烤蔬菜和蒜泥土豆泥肯定会提升餐点的美味。\n\n现在，让我们继续甜点，以甜美的方式结束餐点，并时尚地庆祝生日。以下是一些想法：\n\n1. 香烤菠萝配香草冰淇淋：将新鲜的菠萝切成环状，刷上蜂蜜和肉桂混合物，然后烤至焦糖化和稍微焦黄。配上一勺奶油香草冰淇淋，品尝出香甜口味的美妙组合。\n\n2. 巧克力熔岩蛋糕：用温暖而黏稠的巧克力熔岩蛋糕款待您的客人。这些独立大小蛋糕内部是浓郁的熔化巧克力，当您切开它们时就会流出。配上一勺鲜奶油或一勺香草冰淇淋。\n\n3. 新鲜莓果花杯：在玻璃杯或碗中将草莓、蓝莓和树莓等新鲜莓果与希腊酸奶和燕麦层层叠加。这是一个轻盈清爽的甜点，展示了莓果的自然甜味。\n\n4. 香烤桃子配蜂蜜和马斯卡彭奶酪：将成熟的桃子切成两半，刷上少许橄榄油，然后烤至软糯和焦糖化。配上一道蜂蜜汁和一勺马斯卡彭奶酪，享用甜蜜奶香的美味。\n\n这些甜品选择应该为餐点画下甜蜜的句号，并使生日庆祝更加特别。如往常一样，随意搭配或选择您喜欢的。请让我知道如果您需要更多建议或有其他需要我帮助的地方！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Those are fantastic dessert suggestions! I particularly like the idea of grilled pineapple with vanilla ice cream and the chocolate lava cake. They sound absolutely delicious and will surely impress my guests.\n\nThank you for your suggestions and thorough planning assistance. I appreciate your help in creating a wonderful menu for my birthday celebration. I now have a clear idea of the dishes I'll be preparing and the order in which to prepare them. Your guidance has been invaluable.\n\nIs there anything else you can assist me with regarding the meal preparation, or is there anything else you'd like to discuss?",
+            "content_zh": "这些都是很棒的甜点建议！我特别喜欢用香草冰淇淋烤菠萝和巧克力熔岩蛋糕的想法。它们听起来绝对美味，一定会给我的客人留下深刻的印象。感谢您的建议和详细的计划帮助。我感谢您在我生日庆祝会的菜单制定中的帮助。我现在清楚地知道我将要准备的菜肴以及准备它们的顺序。您的指导是非常宝贵的。您还能帮助我处理关于餐食准备的其他事项吗？或者您还想讨论其他事情吗？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could help you plan a wonderful menu for your birthday celebration. It sounds like you have a fantastic lineup of dishes that will surely impress your guests. I'm confident that your cooking skills, combined with these delicious recipes, will make for a memorable meal.\n\nIf you have any specific questions about the meal preparation or need assistance with any particular aspect, feel free to ask! I'm here to help you every step of the way. And if there's anything else you'd like to discuss, whether it's related to the celebration or not, feel free to bring it up. I'm here to chat and assist you with anything you need.",
+            "content_zh": "非常欢迎！我很高兴能帮助你为生日庆典准备一个精彩的菜单。听起来你有一系列美味的菜肴，肯定会给客人留下深刻印象。我相信你的烹饪技能和这些美味的食谱结合起来，将会制作出一顿值得铭记的美食。如果有任何关于菜肴准备方面的具体问题或需要任何帮助，请随时问我！我会在每个步骤上帮助你。如果有任何其他你想讨论的事情，无论是与庆典有关还是不相关的，欢迎提出。我在这里和你聊天，无论你需要什么都可以向我求助。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "grilled dishes",
+        "robust flavors",
+        "substantial portions"
+    ],
+    "preference_summary": [
+        "grateful",
+        "planned",
+        "hearty"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "40",
+            "zh": "40"
+        },
+        "Personality": [
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            },
+            {
+                "en": "Meticulous",
+                "zh": "细致"
+            },
+            {
+                "en": "Calm",
+                "zh": "冷静"
+            }
+        ],
+        "Occupation": {
+            "en": "Military personnel",
+            "zh": "军人"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Outdoor activities",
+                "zh": "户外活动"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Follows a balanced diet",
+                "zh": "均衡饮食"
+            },
+            {
+                "en": "Grilling",
+                "zh": "烧烤"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in volunteer activities",
+                "zh": "喜欢参与志愿活动"
+            },
+            {
+                "en": "Has a family",
+                "zh": "家庭生活"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_1120": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        }
+    }
+}

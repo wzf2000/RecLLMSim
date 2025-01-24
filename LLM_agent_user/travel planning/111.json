@@ -1,0 +1,294 @@
+{
+    "task": "travel planning",
+    "preference_id": 1,
+    "task_context_id": 5,
+    "preference": "1. Gender: Female\n2. Age: 35\n3. Personality: Extroverted, spontaneous, and creative\n4. Occupation: Freelance Graphic Designer\n5. Daily Interests and Hobbies: Painting, yoga, photography\n6. Travel Habits: Loves international travel, prefers cultural and historical sites\n7. Dining Preferences: Foodie, enjoys trying different cuisines\n8. Spending Habits: Spends on experiences rather than material goods\n9. Other Aspects: Active in social causes, owns a vintage motorcycle",
+    "preference_zh": "1. 性别：女性\n2. 年龄：35\n3. 个性：外向、自发、有创意\n4. 职业：自由职业平面设计师\n5. 日常兴趣爱好：绘画、瑜伽、摄影\n6. 旅行习惯：热爱国际旅行，偏爱文化和历史景点\n7. 餐饮偏好：美食家，喜欢尝试不同的美食\n8. 消费习惯：更注重消费体验而非物质商品\n9. 其他方面：积极参与社会事业，拥有一辆古董摩托车",
+    "task_context": "You are planning a thirty-day-long trip this summer, The trip has no specific destination restrictions. You would like to use LLM to help refine your travel plans. During this conversation, you will need to make arrangements for accommodations, transportation, and itinerary details. Your ultimate travel plan should be as comprehensive as possible, ensuring that you can realistically follow it when the time comes.",
+    "task_context_zh": "你计划今年夏天进行一个为期三十天的旅行，这次旅行没有特定的目的地限制。你希望使用LLM来帮助完善你的旅行计划。在这次对话中，你需要安排住宿、交通和行程细节。你的最终旅行计划应尽可能全面，确保到时候你能实际按计划行动。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm excited to plan my thirty-day-long trip this summer, and I could really use your assistance. I want to make sure I have a comprehensive travel plan that covers accommodations, transportation, and itinerary details. Can you help me with that?",
+            "content_zh": "你好！我很兴奋地要计划这个夏天持续三十天的旅行，我真的非常需要你的帮助。我想确保我有一个包括住宿、交通和行程细节的全面旅行计划。你可以帮助我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you plan your thirty-day-long trip! That sounds like an exciting adventure. Let's start by discussing your destination. Where are you thinking of going?",
+            "content_zh": "当然，我很乐意帮助您规划长达三十天的旅行！听起来像是一次令人兴奋的冒险。让我们从讨论您的目的地开始。您打算去哪里？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering to help! Since I have no specific destination restrictions, I'm open to exploring various options. I love immersing myself in different cultures and visiting historical sites, so any destination with rich cultural heritage would be fantastic. Do you have any recommendations based on that?",
+            "content_zh": "感谢你提供帮助！因为我没有特定的目的地限制，我愿意探索各种选择。我喜欢沉浸在不同的文化中，喜欢参观历史遗址，所以任何拥有丰富文化遗产的目的地都会很棒。你有基于这个的任何推荐吗？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That's great to hear! Based on your interests in immersing yourself in different cultures and visiting historical sites, there are plenty of destinations that could be a great fit for your trip. Here are a few recommendations to consider:\n\n1. Europe: With its diverse history and cultural heritage, Europe offers a multitude of options. You could explore cities like Rome, Paris, Athens, or Prague, each with its own unique charm and historical significance.\n\n2. Southeast Asia: Countries like Thailand, Cambodia, and Vietnam are known for their rich cultural heritage, ancient temples, and vibrant markets. You could visit iconic sites like Angkor Wat in Cambodia or explore the bustling streets of Bangkok.\n\n3. South America: Countries like Peru, Mexico, and Colombia are known for their ancient ruins, such as Machu Picchu and Chichen Itza, as well as vibrant indigenous cultures. You could experience the awe-inspiring landscapes of the Andes or explore the vibrant cities of Lima or Bogota.\n\n4. Middle East: Countries like Jordan and Egypt offer a blend of ancient history and cultural experiences. You could visit iconic sites like Petra, the Pyramids of Giza, or explore bustling markets in cities like Amman or Cairo.\n\nThese are just a few suggestions, but there are many more incredible destinations to consider. Once you have a specific region or country in mind, we can dive deeper into planning your accommodations, transportation, and itinerary details.",
+            "content_zh": "听到这个消息很棒！根据您对沉浸在不同文化和参观历史遗迹的兴趣，有许多目的地也许非常适合您的旅行。以下是一些建议供您考虑：\n1. 欧洲：欧洲拥有多元的历史和文化遗产，提供了多种选择。您可以探索罗马、巴黎、雅典或布拉格等城市，每个城市都有其独特的魅力和历史意义。\n2. 东南亚：如泰国、柬埔寨和越南等国家以其丰富的文化遗产、古代寺庙和充满活力的市场而闻名。您可以参观柬埔寨的吴哥窟等标志性景点，或探索曼谷繁忙的街道。\n3. 南美洲：秘鲁、墨西哥和哥伦比亚等国家以其像马丘比丘和奇琴伊察这样的古代遗址，以及充满活力的土著文化而闻名。您可以体验安第斯山脉的令人惊叹的景观，或探索利马或波哥大繁华的城市。\n4. 中东：约旦和埃及等国家结合了古代历史和文化体验。您可以参观佩特拉、吉萨金字塔等标志性景点，或在安曼或开罗等城市探索繁华的市场。\n这些仅仅是一些建议，但还有许多不可思议的目的地值得考虑。一旦您确定了具体的地区或国家，我们可以深入规划您的住宿、交通和行程细节。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Those are fantastic recommendations! I'm particularly drawn to the idea of exploring Europe and Southeast Asia. The historical sites in Europe and the vibrant cultures of Southeast Asia both sound like incredible experiences. Let's focus on Europe for now. Specifically, I'm interested in visiting Rome, Paris, Athens, and Prague. Could you help me with accommodations for these cities?",
+            "content_zh": "这些都是很棒的建议！我特别喜欢探索欧洲和东南亚的想法。欧洲的历史遗迹和东南亚充满活力的文化，听起来都是不可思议的体验。让我们现在专注于欧洲。具体来说，我对访问罗马、巴黎、雅典和布拉格很感兴趣。你能帮我安排这些城市的住宿吗？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! Exploring Rome, Paris, Athens, and Prague will give you a taste of Europe's rich history and cultural diversity. When it comes to accommodations, each city offers a wide range of options to suit different preferences and budgets. Here are some suggestions for each city:\n\nRome:\n- Luxury: The Hassler Roma or Hotel de Russie are known for their opulence and central locations.\n- Mid-range: Hotel Artemide or Hotel Navona are popular choices with good amenities and reasonable prices.\n- Budget: Hotel Grifo or Hotel Italia offer affordable options without compromising on comfort.\n\nParis:\n- Luxury: The Ritz Paris or Four Seasons Hotel George V are iconic and offer a luxurious experience.\n- Mid-range: Hotel Le A or Hotel Tourville are well-located and offer a comfortable stay at a reasonable price.\n- Budget: Hotel du Mont Blanc or Hotel Excelsior Latin are budget-friendly options in central areas.\n\nAthens:\n- Luxury: Hotel Grande Bretagne or Electra Palace Athens offer luxurious accommodations with stunning views of the Acropolis.\n- Mid-range: Attalos Hotel or Athens Center Square Hotel are centrally located and provide good value for money.\n- Budget: Hotel Plaka or Hotel Arethusa offer affordable options while being close to major attractions.\n\nPrague:\n- Luxury: Aria Hotel Prague or Mandarin Oriental, Prague offer luxurious accommodations with top-notch amenities.\n- Mid-range: Hotel Pod Vezi or Hotel Kampa Garden provide comfortable stays at a reasonable price.\n- Budget: Hotel Residence Agnes or Hotel Golden City Garni offer affordable options without compromising on quality.\n\nRemember to check reviews, compare prices, and consider the location in each city to find the best fit for your needs. Once you have an idea of your preferred accommodations, we can move on to discussing transportation and itinerary details for your trip.",
+            "content_zh": "当然! 探索罗马、巴黎、雅典和布拉格将让您领略欧洲丰富的历史和文化多样性。在住宿方面，每个城市都提供各种选择，以满足不同的偏好和预算。以下是每个城市的一些建议：\n\n罗马：\n- 高档：哈斯勒罗马酒店或罗西酒店以其奢华和中央位置而闻名。\n- 中档：阿尔特米代酒店或纳沃纳酒店是受欢迎的选择，设施完善，价格合理。\n- 经济：格里福酒店或意大利酒店提供实惠的选择，舒适而不妥协。\n\n巴黎：\n- 高档：里茨巴黎酒店或乔治五世四季酒店具有标志性，提供豪华的体验。\n- 中档：Le A酒店或图尔维尔酒店位置便利，提供舒适的住宿，价格合理。\n- 经济：蒙布朗酒店或埃克塞西尔拉丁酒店是中心地区的经济选择。\n\n雅典：\n- 高档：大不列颠大饭店或电王宫雅典酒店提供豪华住宿，可欣赏卫城的壮丽景色。\n- 中档：阿塔洛斯酒店或雅典中心广场酒店位置中心，性价比高。\n- 经济：普拉卡酒店或阿雷苏萨酒店提供实惠的选择，同时靠近主要景点。\n\n布拉格：\n- 高档：阿瑞亚布拉格酒店或金莲东方酒店提供豪华住宿和一流设施。\n- 中档：维兹酒店或坎帕花园酒店提供价格合理的舒适住宿。\n- 经济：阿涅斯住宅酒店或金城加尼酒店提供经济实惠的选择，而不会妥协质量。\n\n记得查看评论，比较价格，考虑每个城市的位置，以找到最适合您需求的住宿。一旦您确定了偏好的住宿，我们可以继续讨论您行程的交通和细节。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed accommodation recommendations! I'll definitely look into these options for Rome, Paris, Athens, and Prague. It's great to have a range of choices to suit different budgets. Now, let's move on to transportation. Since I'll be visiting multiple cities, what would be the best way to travel between them? Should I consider flights, trains, or a combination of both?",
+            "content_zh": "感谢您详细的住宿推荐！我一定会查看一下罗马、巴黎、雅典和布拉格的这些选择。有各种选择适合不同预算真是太好了。现在，让我们继续讨论交通。因为我将要去多个城市，最佳的旅行方式是什么呢？我应该考虑乘飞机、火车，还是两者的组合？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "When it comes to traveling between cities in Europe, you have several options depending on your preferences and the distance between destinations. Here are some suggestions for traveling between Rome, Paris, Athens, and Prague:\n\nFlights: If you're looking for the fastest way to travel between cities, flights can be a convenient option, especially for longer distances. There are numerous airlines that operate within Europe, offering direct flights between major cities. Be sure to compare prices and check for any budget airlines that may offer lower fares.\n\nTrains: Europe has an extensive and efficient rail network, making train travel a popular choice. The train journeys can be scenic and offer a comfortable experience. For example, you can take a high-speed train from Rome to Florence, then continue to Venice, and finally reach Prague. Similarly, you can travel from Paris to Prague via Munich or Berlin. Train travel allows you to enjoy the landscapes and explore more of the countryside.\n\nCombination: Depending on the distances and your preferences, you can also consider a combination of flights and trains. For instance, you could fly from Rome to Athens to save time, and then take a train from Athens to Thessaloniki, where you can catch a flight to Paris. This way, you can balance convenience and experience.\n\nIt's worth noting that the availability and frequency of flights and trains may vary, so it's advisable to check schedules and book in advance, especially during peak travel seasons. Additionally, consider factors like cost, travel time, and the experience you desire when making your transportation choices.\n\nOnce you've decided on the mode of transportation, we can move on to discussing the itinerary details for each city and the activities you'd like to include during your trip.",
+            "content_zh": "当谈到在欧洲城市之间旅行时，您可以根据自己的喜好和目的地之间的距离选择几种交通方式。以下是关于罗马、巴黎、雅典和布拉格之间旅行的一些建议：\n\n航班：如果您希望以最快的方式在城市之间旅行，航班可能是一个方便的选择，尤其是对于较长的距离而言。欧洲有许多航空公司在其内部运营，提供主要城市之间的直达航班。务必比较价格，并查看是否有任何提供更低票价的廉价航空公司。\n\n火车：欧洲拥有庞大而高效的铁路网络，使得火车旅行成为一种受欢迎的选择。火车的旅程可能风景如画，让人感到舒适。例如，您可以乘坐高速列车从罗马到佛罗伦萨，然后继续前往威尼斯，最终抵达布拉格。同样，您可以通过慕尼黑或柏林从巴黎前往布拉格。火车旅行让您可以享受美景并探索乡村地区。\n\n组合：根据距离和您的喜好，您还可以考虑飞机和火车的组合。例如，您可以从罗马飞往雅典以节省时间，然后从雅典乘坐火车到塞萨洛尼基，从那里您可以搭乘飞机前往巴黎。这样，您可以平衡便利和体验。\n\n值得注意的是，航班和火车的可用性和频率可能有所不同，因此在旅行旺季特别是要提前检查时间表并预订。此外，在选择交通方式时，请考虑成本、旅行时间和您想要的体验等因素。\n\n一旦您决定了交通方式，我们可以继续讨论每个城市的行程细节以及您在旅行期间想要包括的活动。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed transportation suggestions! I appreciate the options of flights, trains, and combinations of both. I'll be sure to consider factors like cost, travel time, and the experience I desire when making my transportation choices.\n\nNow, let's move on to discussing the itinerary details for each city. I'd love to explore the cultural and historical highlights of Rome, Paris, Athens, and Prague. Could you provide some suggestions for must-visit attractions, landmarks, and activities in each city?",
+            "content_zh": "感谢您提供了详细的交通建议！我很感激航班、火车和二者组合的选择。在做出交通选择时，我一定会考虑成本、旅行时间和我期望的体验等因素。现在，让我们继续讨论每个城市的行程细节。我很想探索罗马、巴黎、雅典和布拉格的文化和历史亮点。您能提供每个城市必游的景点、地标和活动吗？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Certainly! Here are some must-visit attractions, landmarks, and activities for each of the cities you mentioned:\n\nRome:\n- Colosseum: Explore the iconic ancient amphitheater and learn about its fascinating history.\n- Vatican City: Visit St. Peter's Basilica, the Sistine Chapel, and the Vatican Museums, home to incredible art collections.\n- Roman Forum: Wander through the ruins of the ancient city center and imagine life in ancient Rome.\n- Trevi Fountain: Toss a coin into this stunning Baroque fountain and make a wish.\n- Pantheon: Admire the impressive architecture of this well-preserved ancient Roman temple.\n- Trastevere: Explore this charming neighborhood known for its narrow streets, local trattorias, and lively atmosphere.\n\nParis:\n- Eiffel Tower: Enjoy breathtaking views of Paris from the iconic landmark.\n- Louvre Museum: Marvel at world-famous art, including the Mona Lisa, in one of the largest museums in the world.\n- Notre-Dame Cathedral: Admire the Gothic architecture of this famous cathedral on the Île de la Cité.\n- Montmartre: Explore the bohemian neighborhood, visit the Sacré-Cœur Basilica, and enjoy the artistic ambiance.\n- Seine River Cruise: Take a leisurely boat ride along the Seine to see Paris from a different perspective.\n- Champs-Élysées and Arc de Triomphe: Stroll down the famous avenue and admire the triumphal arch.\n\nAthens:\n- Acropolis: Visit the iconic ancient citadel and its famous structures like the Parthenon and the Erechtheion.\n- Plaka: Explore the charming old neighborhood with its narrow streets, traditional tavernas, and shops.\n- Ancient Agora: Discover the heart of ancient Athens, once a bustling marketplace and agora.\n- National Archaeological Museum: Dive into Greek history and admire a vast collection of ancient artifacts.\n- Mount Lycabettus: Hike or take a funicular to the top for panoramic views of Athens.\n\nPrague:\n- Prague Castle: Explore the largest ancient castle complex in the world and visit St. Vitus Cathedral.\n- Charles Bridge: Walk across this historic bridge adorned with statues and enjoy views of the Vltava River.\n- Old Town Square: Admire the Astronomical Clock, visit the Church of Our Lady before Týn, and soak up the atmosphere.\n- Prague Astronomical Clock: Witness the medieval astronomical clock's hourly show in the Old Town Square.\n- Prague's Jewish Quarter: Explore the historic Jewish Quarter, including the Jewish Museum and synagogues.\n\nThese are just a few highlights in each city, but there's so much more to discover! Depending on your interests, you can also explore local markets, try regional cuisine, attend cultural events, or take day trips to nearby attractions. I hope these suggestions help you plan an exciting and enriching itinerary!",
+            "content_zh": "当然！以下是您提到的每座城市必访的景点、地标和活动：\n\n罗马：\n- 斗兽场：探索标志性的古代露天剧场，了解其迷人的历史。\n- 梵蒂冈城：参观圣彼得大教堂、西斯廷教堂和梵蒂冈博物馆，那里陈列着令人难以置信的艺术珍藏品。\n- 罗马广场：漫步古城中心的废墟，想象古罗马的生活。\n- 特雷维喷泉：往这座令人赞叹的巴洛克式喷泉中投币许愿。\n- 万神殿：欣赏这座保存完好的古罗马神庙的令人印象深刻的建筑。\n- 特拉斯泰韦雷：探索这个以其狭窄街道、当地小餐馆和热闹氛围而闻名的迷人社区。\n\n巴黎：\n- 埃菲尔铁塔：从这座标志性地标欣赏巴黎令人惊叹的景色。\n- 卢浮宫：在世界上最大的博物馆之一，欣赏蒙娜丽莎等世界著名艺术品。\n- 巴黎圣母院：在西岛上欣赏这座著名大教堂的哥特式建筑。\n- 蒙马特：探索波西米亚风格的街区，参观圣心圣殿，享受艺术氛围。\n- 塞纳河游船：乘坐轻松的游船沿着塞纳河游览巴黎，以不同的视角欣赏城市风光。\n- 香榭丽舍大街和凯旋门：沿着这条著名大道散步，欣赏凯旋门的凯旋门。\n\n雅典：\n- 卫城：参观标志性的古代城堡及其著名建筑，如帕台农神庙和厄勒克塞尼亚神庙。\n- 普拉卡：探索这个古老街区，有着狭窄街道、传统餐馆和商店。\n- 古代广场：发现古代雅典的中心，曾是一个繁荣的市场和广场。\n- 国家考古博物馆：深入了解希腊历史，欣赏广泛的古代文物收藏。\n- 利卡维图斯山：徒步或乘坐缆车登上山顶，欣赏雅典的全景。\n\n布拉格：\n- 布拉格城堡：探索世界上最大的古堡群，参观圣维特大教堂。\n- 查理大桥：走过这座历史悠久的桥，上面有雕像，欣赏弗尔塔瓦河的景色。\n- 旧城广场：欣赏天文钟，参观提恩前圣母教堂，沉浸在氛围中。\n- 布拉格天文钟：在旧城广场目睹中世纪的天文钟每小时表演。\n- 布拉格犹太区：探索历史悠久的犹太区，包括犹太博物馆和犹太教堂。\n\n这只是每座城市的一些亮点，但还有很多值得探索的地方！根据您的兴趣，您还可以探索当地市场，尝试当地美食，参加文化活动，或者去附近的景点进行一日游。希望这些建议能帮助您计划一个令人兴奋和丰富的行程！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the fantastic suggestions! I'm thrilled to explore the Colosseum and Vatican City in Rome, visit iconic landmarks like the Eiffel Tower and Louvre Museum in Paris, delve into the history of Athens with the Acropolis and Ancient Agora, and immerse myself in the charm of Prague Castle and Charles Bridge. These activities and attractions will definitely make my trip memorable.\n\nI will take your recommendations into consideration and start working on my itinerary. If I have any further questions or need assistance, may I reach out to you again?",
+            "content_zh": "非常感谢您提供的出色建议！我很兴奋要探索罗马的斗兽场和梵蒂冈城，参观巴黎的埃菲尔铁塔和卢浮宫，深入了解雅典的卫城和古代集会广场的历史，沉浸在布拉格城堡和查理大桥的魅力中。这些活动和景点一定会让我的旅行难忘。我会考虑您的建议，并开始制定我的行程。如果我有任何进一步的问题或需要帮助，我可以再次联系您吗？",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! I'm glad you found the suggestions helpful, and I'm here to assist you throughout your trip planning process. Feel free to reach out anytime you have more questions, need further assistance, or if there's anything else I can help you with. Have a wonderful time creating your itinerary, and I hope you have an amazing trip filled with unforgettable experiences! Safe travels!",
+            "content_zh": "当然！很高兴您觉得这些建议有帮助，我会在您整个旅行计划过程中提供帮助。有任何问题、需要进一步帮助或需要我帮忙的时候随时联系我。祝您制定行程时玩得开心，希望您的旅程充满难忘的经历！一路平安！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "thirty-day-long trip",
+        "europe",
+        "southeast asia",
+        "vibrant cultures"
+    ],
+    "preference_summary": [
+        "europe",
+        "cultural heritage",
+        "historical sites"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 1,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "35",
+            "zh": "35"
+        },
+        "Personality": [
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            },
+            {
+                "en": "Spontaneous",
+                "zh": "随性"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Occupation": {
+            "en": "Artist",
+            "zh": "艺术工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Painting",
+                "zh": "绘画"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Photography",
+                "zh": "摄影"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "International travel",
+                "zh": "国际旅行"
+            },
+            {
+                "en": "Cultural trips",
+                "zh": "文化旅行"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Focus on experience",
+                "zh": "注重消费体验"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in volunteer activities",
+                "zh": "喜欢参与志愿活动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Broad"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Broad"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_1120": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

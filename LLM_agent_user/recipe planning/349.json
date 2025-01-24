@@ -1,0 +1,258 @@
+{
+    "task": "recipe planning",
+    "preference_id": 85,
+    "task_context_id": 0,
+    "preference": "1. Gender: Female\n2. Age: 30\n3. Personality: Ambitious, determined, and goal-oriented\n4. Occupation: Software Engineer\n5. Daily Interests and Hobbies: Coding, reading tech blogs, playing video games\n6. Travel Habits: Enjoys city breaks, prefers luxury resorts\n7. Dining Preferences: Health-conscious, enjoys sushi and salads\n8. Spending Habits: Invests in high-end tech gadgets, saves for property\n9. Other Aspects: Lives in a city apartment, has a high-stress lifestyle",
+    "preference_zh": "1. 性别：女性\n2. 年龄：30\n3. 个性：雄心勃勃、坚定不移、目标导向\n4. 职业：软件工程师\n5. 日常兴趣爱好：编程、阅读科技博客、玩视频游戏\n6. 旅行习惯：喜欢城市短途旅行，更喜欢豪华度假村\n7. 饮食喜好：注重健康，喜欢寿司和沙拉\n8. 消费习惯：投资于高端科技设备，为房产存钱\n9. 其他方面：住在城市公寓，生活紧张",
+    "task_context": "You plan to prepare a meal at home for yourself. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家为自己准备一顿饭。你在烹饪方面并不很擅长，有限的烹饪经验。因此，你想要请LLM帮忙制定食谱、确定所需食材，并决定要做什么菜。在规划过程中，你应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here to assist me. I'm planning to prepare a meal at home for myself, but I'm not very skilled in cooking. I have limited cooking experience, so I could use some help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Can you guide me through the process?",
+            "content_zh": "你好！我很高兴你在这里帮助我。我计划在家里为自己准备一顿饭，但我在烹饪方面不是很有经验。我烹饪经验有限，所以我需要一些帮助制定食谱，确定所需的食材，以及决定要做哪些菜。你能帮我一起完成这个过程吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you with that! Cooking can be a lot of fun, and with a little guidance, you'll be able to prepare a delicious meal at home. Let's start by narrowing down what kind of meal you'd like to make. Are you in the mood for something specific, like pasta, chicken, vegetarian, or maybe even a specific cuisine?",
+            "content_zh": "当然，我很乐意帮助您！烹饪可以是很有趣的，通过一点指导，您将能够在家里准备美味的餐点。让我们首先确定您想要做什么样的餐点。您想做一些特定的东西吗，比如意大利面、鸡肉、素食，还是甚至某种特定的美食呢？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance! I'm open to trying different cuisines, but I'd like to keep it on the healthier side. How about we go for a vegetarian meal? I'm curious to explore some delicious vegetarian recipes.",
+            "content_zh": "谢谢你提供帮助！我很愿意尝试不同的美食，但我希望保持健康。我们去吃素食怎么样？我很想尝试一些美味的素食食谱。",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That sounds great! Vegetarian meals can be both delicious and nutritious. How about we prepare a flavorful and hearty dish like a vegetarian stir-fry? It's a versatile dish that allows you to incorporate a variety of vegetables, and you can serve it with rice or noodles for a complete meal. \n\nHere's a simple recipe to get you started:\n\nVegetarian Stir-Fry:\nIngredients:\n- Assorted vegetables (such as bell peppers, broccoli, carrots, snap peas, mushrooms, etc.)\n- Firm tofu, diced (optional for added protein)\n- Garlic cloves, minced\n- Ginger, grated\n- Soy sauce (or tamari for gluten-free option)\n- Sesame oil (or any cooking oil you prefer)\n- Salt and pepper to taste\n- Cooked rice or noodles for serving\n\nInstructions:\n1. Prepare your vegetables by washing, peeling, and chopping them into bite-sized pieces.\n2. If using tofu, drain it, pat it dry with a paper towel, and dice it into cubes.\n3. Heat some oil in a large skillet or wok over medium-high heat.\n4. Add minced garlic and grated ginger to the hot oil and sauté for a minute until fragrant.\n5. Add the tofu (if using) and cook until it turns golden brown on all sides. Remove from the skillet and set aside.\n6. In the same skillet, add more oil if needed and then add the vegetables. Stir-fry them for a few minutes until they become tender-crisp.\n7. Return the tofu to the skillet with the vegetables and season with soy sauce, salt, and pepper to taste. Stir everything together and cook for an additional minute or two.\n8. Remove from heat and drizzle with a little sesame oil for added flavor.\n9. Serve your vegetarian stir-fry over cooked rice or noodles, and enjoy!\n\nFeel free to customize this recipe by adding your favorite vegetables or experimenting with different sauces and seasonings. And don't forget to have fun while cooking! Let me know if you have any questions or if there's anything else I can assist you with.",
+            "content_zh": "听起来很棒！素食餐既美味又营养。我们准备一个可口丰盛的菜肴，比如素炒菜怎么样？这是一个多功能的菜肴，可以让你加入各种蔬菜，你可以搭配米饭或面条，让它成为一顿完整的餐。以下是一个简单的食谱开始制作：\n\n素炒菜\n食材：\n-各种蔬菜（比如甜椒、西兰花、胡萝卜、豌豆、蘑菇等）\n-豆腐（可选择切成小块，增加蛋白质）\n-蒜瓣，切末\n-姜，切末\n-酱油（或无麸质酱油）\n-芝麻油（或任何你喜欢的烹饪油）\n-盐和胡椒调味\n-熟米饭或面条用于搭配\n\n做法：\n1.清洗、去皮并将蔬菜切成小块。\n2.如果使用豆腐，沥干水分，用厨房纸巾擦干，切成小块。\n3.在大平底锅或炒锅中用中高火加热一些油。\n4.将蒜末和姜末加入热油中炒一分钟，直到香味散发出来。\n5.加入豆腐（如果使用）炒至金黄色，取出放在一边。\n6.在同一锅中，如有需要可加入更多油，然后加入蔬菜。翻炒几分钟，至蔬菜变得嫩脆。\n7.将豆腐和蔬菜放回锅中，加入酱油、盐和胡椒调味。搅拌均匀，继续煮一两分钟。\n8.离火，撒上一点芝麻油增加风味。\n9.将素炒菜盛在煮熟的米饭或面条上，享用！\n\n请随意根据喜好添加您喜爱的蔬菜或尝试不同的酱料和调味料来个性化这个菜谱。烹饪时一定要开心！如果您有任何问题或需要帮助，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That sounds like a delicious and healthy option! I appreciate the detailed recipe you provided for the vegetarian stir-fry. It seems straightforward and customizable, which is perfect for my limited cooking experience. I'll definitely give it a try!\n\nNow, since we have the main dish sorted, I'd like to complement it with a refreshing side dish. Do you have any suggestions for a light and flavorful salad that would pair well with the stir-fry?",
+            "content_zh": "听起来像是一种美味又健康的选择！我很感谢你提供的素炒菜谱，很详细。它看起来简单又可以根据个人口味调整，对我这个烹饪经验有限的人来说非常适合。我一定会尝试的！\n现在，既然主菜已经准备好了，我想配上一道清爽可口的配菜。你有什么建议吗？可以和这道素炒搭配得很好的 light 又好吃的沙拉吗？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! A light and refreshing salad will complement the stir-fry nicely. How about a simple cucumber and tomato salad? It's easy to make, requires minimal ingredients, and adds a burst of freshness to your meal. Here's a recipe for you:\n\nCucumber and Tomato Salad:\nIngredients:\n- 1 English cucumber (or any cucumber variety), thinly sliced\n- 2-3 ripe tomatoes, diced\n- Red onion, thinly sliced (optional)\n- Fresh herbs (such as parsley, basil, or mint), chopped\n- Lemon juice (from 1 lemon)\n- Extra virgin olive oil\n- Salt and pepper to taste\n\nInstructions:\n1. In a large bowl, combine the sliced cucumber, diced tomatoes, and thinly sliced red onion (if using).\n2. Add the chopped fresh herbs to the bowl.\n3. Drizzle the salad with lemon juice and a generous amount of extra virgin olive oil.\n4. Season with salt and pepper to taste.\n5. Gently toss everything together until well combined.\n6. Let the salad sit for a few minutes to allow the flavors to meld together.\n7. Give it a taste and adjust the seasoning if needed.\n8. Serve the cucumber and tomato salad alongside your vegetarian stir-fry for a refreshing and vibrant combination.\n\nThis salad is versatile, so feel free to add or substitute ingredients based on your preferences. You can also experiment with different dressings or add some crumbled feta cheese or olives for extra flavor. Enjoy your meal, and don't hesitate to ask if you need further assistance or have any more questions!",
+            "content_zh": "当然可以！一道清爽的沙拉会很好地搭配炒菜。怎么样来一份简单的黄瓜番茄沙拉呢？它制作简单，成分少，可以为您的餐食增添一丝清新。以下是一个食谱：\n\n黄瓜番茄沙拉：\n成分：\n- 1根青瓜（任何一种青瓜都可以），切薄片\n- 2-3个成熟的番茄，切丁\n- 洋葱，切薄片（可选）\n- 新鲜香草（如欧芹，罗勒或薄荷），切碎\n- 柠檬汁（1颗柠檬的汁）\n- 特级初榨橄榄油\n- 盐和胡椒适量\n\n制作方法：\n1. 在一个大碗中，将切片的黄瓜，切丁的番茄和薄片的洋葱（如使用）混合在一起。\n2. 将切碎的新鲜香草加入碗中。\n3. 淋上柠檬汁和足量的特级初榨橄榄油。\n4. 根据口味加入盐和胡椒。\n5. 轻轻地搅拌均匀。\n6. 让沙拉静置片刻，让味道融合。\n7. 尝一尝，根据需要调整味道。\n8. 将黄瓜番茄沙拉伴随您的素炒菜一起享用，清爽美味。\n\n这款沙拉很多变，随意根据您的喜好添加或替换成分。您也可以尝试不同的调味料，或者添加一些碎羊奶干酪或橄榄增加风味。祝您用餐愉快！如果需要更多帮助或有任何问题，请随时询问！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for providing the recipe for the cucumber and tomato salad! It sounds like the perfect light and refreshing side dish to accompany the stir-fry. I appreciate the suggestions for customization as well. I'll make sure to try different dressings and perhaps add some feta cheese or olives for extra flavor.\n\nWith the main dish and side salad planned, I'd like to round off the meal with a simple dessert. Do you have any recommendations for a quick and easy dessert that I can prepare at home?",
+            "content_zh": "谢谢您提供黄瓜和番茄沙拉的食谱！听起来是搭配炒菜的完美清爽菜肴。我也感谢您提供的定制建议。我会尝试不同的调味料，也许添加一些风味更浓郁的菲达奶酪或橄榄。主菜和配菜沙拉都已经计划好，接下来我想用简单的甜点来结束这顿饭。您有没有推荐我可以在家准备的快速简易甜点？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Certainly! How about a classic and easy dessert like fruit salad? It's a light and refreshing way to end the meal, and you can customize it with your favorite fruits. Here's a simple recipe to get you started:\n\nEasy Fruit Salad:\nIngredients:\n- Assorted fruits (such as strawberries, blueberries, grapes, pineapple, melon, etc.)\n- Fresh mint leaves (optional)\n- Honey or maple syrup (optional, for a touch of sweetness)\n- Lemon or lime juice (optional, to prevent fruits from browning)\n\nInstructions:\n1. Wash, peel (if necessary), and chop the fruits into bite-sized pieces.\n2. In a large bowl, combine the chopped fruits.\n3. If desired, add a squeeze of lemon or lime juice to prevent the fruits from browning.\n4. For added sweetness, drizzle a little honey or maple syrup over the fruit salad and gently toss to coat.\n5. If using, tear some fresh mint leaves and sprinkle them on top for extra flavor and a pop of color.\n6. Let the fruit salad sit in the refrigerator for a little while to allow the flavors to meld together and chill.\n7. Serve the fruit salad in individual bowls or glasses, and enjoy!\n\nFeel free to get creative with your fruit selection and add any additional toppings or garnishes you like. You can also serve the fruit salad with a dollop of yogurt or a sprinkle of granola for added texture. Enjoy your meal and dessert!\n\nIf you have any more questions or need further assistance, feel free to ask. Happy cooking!",
+            "content_zh": "当然可以！要不试试经典简单的水果沙拉吧？这是一个清爽的方式来结束一餐，而且你可以根据自己喜欢的水果来定制。以下是一个简单的食谱供您参考：\n\n简易水果沙拉：\n食材：\n- 各种水果（如草莓、蓝莓、葡萄、菠萝、甜瓜等）\n- 新鲜薄荷叶（可选）\n- 蜂蜜或枫糖浆（可选，增添甜味）\n- 柠檬或酸橙汁（可选，防止水果氧化变色）\n\n步骤：\n1. 将水果洗净、去皮（如果需要）并切成小块。\n2. 在一个大碗中混合切好的水果。\n3. 如有需要，加入一些柠檬或酸橙汁以防止水果氧化变色。\n4. 如想增甜味，在水果沙拉上淋上少许蜂蜜或枫糖浆，轻轻拌匀。\n5. 如需要，撕碎一些新鲜薄荷叶撒在上面，增添风味和色彩。\n6. 让水果沙拉在冰箱中静置片刻，使调味汁融合并冷却。\n7. 将水果沙拉盛在个人碗或玻璃杯中，享用！\n\n可以根据喜好选择水果并添加任何额外的配料或装饰。也可以在水果沙拉中加入一勺酸奶或撒上一些燕麦片增添口感。祝您用餐愉快并享用甜点！\n\n如果有更多问题或需要进一步帮助，请随时提问。祝愉快烹饪！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for suggesting the fruit salad as a quick and easy dessert option! It's a perfect choice to end the meal on a light and refreshing note. I like the idea of adding some honey or maple syrup for a touch of sweetness, and the option to prevent the fruits from browning with lemon or lime juice is helpful too. I'll definitely give it a try!\n\nI really appreciate all your guidance in planning this meal. You've provided me with a delicious vegetarian stir-fry, a cucumber and tomato salad, and an easy fruit salad for dessert. I feel more confident about cooking now, thanks to your help!\n\nIs there anything else you suggest I consider or any additional tips you have for me before I start cooking?",
+            "content_zh": "感谢您建议水果沙拉作为快捷简便的甜点选择！这是一个完美的选择，让餐后以清爽的口感结束。我喜欢加入一些蜂蜜或枫糖浆增添甜味的想法，以及利用柠檬或酸橙汁防止水果氧化变黑的选项也很有帮助。我一定会尝试的！我非常感谢您在这顿饭计划中的所有指导。您为我提供了一道美味的素炒菜，一份黄瓜和番茄沙拉，以及一个简单的水果沙拉作为甜点。由于您的帮助，现在我对烹饪更有信心了！在我开始烹饪之前，您还建议我考虑或给我任何其他提示吗？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could help you plan your meal, and I'm confident that you'll do a great job in the kitchen. Before you start cooking, here are a few additional tips to keep in mind:\n\n1. Prep ahead: Take some time to chop and prepare your ingredients before you start cooking. This will make the cooking process smoother and more enjoyable.\n\n2. Taste as you go: Don't be afraid to taste your food as you cook. It's the best way to adjust the seasoning and ensure the flavors are balanced.\n\n3. Experiment and have fun: Cooking is a creative process, so don't be afraid to experiment with flavors, spices, and ingredients. Feel free to add your personal touch to the recipes and make them your own.\n\n4. Clean as you cook: Keeping your workspace clean and organized will make the cooking process more efficient. Try to wash dishes and utensils as you go to avoid a pile-up of dirty dishes at the end.\n\n5. Enjoy the process: Cooking is not just about the end result; it's also about enjoying the process. Take your time, listen to some music, and savor the experience of creating a delicious meal.\n\nRemember, even if things don't turn out exactly as planned, it's all part of the learning process. Don't be discouraged and keep trying new recipes and techniques. Cooking is a skill that improves with practice.\n\nIf you have any more questions or need further assistance while you're cooking, don't hesitate to reach out. I'm here to help. Good luck, and I hope you have a fantastic cooking experience!",
+            "content_zh": "非常欢迎！我很高兴能帮助你规划餐食，我相信你会在厨房里表现出色。在你开始烹饪之前，这里有一些额外的提示要记住：\n\n1. 提前准备：在开始烹饪之前花些时间切碎和准备食材。这样可以使烹饪过程更顺利更愉快。\n\n2. 边尝试边品尝：烹饪过程中不要害怕尝试食物。这是调整调味和确保口味平衡的最佳方式。\n\n3. 尝试和享受：烹饪是一个创造性的过程，不要害怕尝试不同的口味、香料和食材。随时添加个人的风味到食谱中，让它们成为你自己的。\n\n4. 边烹饪边清理：保持工作区干净整洁会使烹饪过程更有效率。尽量随时清洗盘子和餐具，以避免最后一起一大堆的脏盘子。\n\n5. 享受过程：烹饪不仅仅是最终结果，也是享受过程。花时间，听些音乐，品尝制作美味餐食的体验。\n\n记住，即使事情没有完全按计划进行，这都是学习过程的一部分。不要气馁，继续尝试新的食谱和技巧。烹饪是一个随着练习而提高的技能。\n\n如果在烹饪过程中有任何问题或需要进一步帮助，请不要犹豫联系我。我在这里帮助你。祝你好运，希望你有一个美妙的烹饪体验！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "vegetarian",
+        "light",
+        "customizable"
+    ],
+    "preference_summary": [
+        "vegetarian",
+        "light desserts"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 1,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "30",
+            "zh": "30"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Occupation": {
+            "en": "Engineer",
+            "zh": "工程师"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Playing video games",
+                "zh": "玩游戏"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Luxury accommodation",
+                "zh": "豪华住宿"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Healthy food",
+                "zh": "健康饮食"
+            },
+            {
+                "en": "Japanese cuisine",
+                "zh": "日式美食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on tech gadgets",
+                "zh": "科技产品"
+            },
+            {
+                "en": "Invests in real estate",
+                "zh": "房地产投资"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Has a high-stress lifestyle",
+                "zh": "生活压力大"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

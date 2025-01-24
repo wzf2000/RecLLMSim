@@ -1,0 +1,248 @@
+{
+    "task": "new travel planning",
+    "preference_id": 20,
+    "task_context_id": 0,
+    "preference": "1. Gender: Male\n2. Age: 29\n3. Personality: Passionate, creative, and outgoing\n4. Occupation: Chef\n5. Daily Interests and Hobbies: Experimenting with recipes, wine tasting, playing the guitar\n6. Travel Habits: Travels to explore cuisines, enjoys food festivals\n7. Dining Preferences: Enjoys a variety of cuisines, loves seafood\n8. Spending Habits: Invests in kitchen gadgets, spends on fresh ingredients\n9. Other Aspects: Runs a food blog, has a pet parrot",
+    "preference_zh": "1. 性别：男性\n2. 年龄：29\n3. 个性：热情、创造性、外向\n4. 职业：厨师\n5. 日常兴趣爱好：尝试新菜谱、品酒、弹吉他\n6. 旅行习惯：喜欢探索不同美食，喜欢参加美食节\n7. 就餐偏好：喜欢各种菜系，热爱海鲜\n8. 消费习惯：投资厨房用品，购买新鲜食材\n9. 其他方面：经营食品博客，有一只宠物鹦鹉",
+    "task_context": "You are planning a weekend trip that will take place this summer. Your goal, with the help of LLM, is to refine and finalize your travel plans. This includes making detailed arrangements for accommodations, transportation, and your daily itinerary. Your final travel plan should be as comprehensive and realistic as possible, ensuring that it can be seamlessly implemented when the time comes.\nYour trip planning should take into consideration the specific destination as specified in the following requirements: a historical and cultural tour to Xi'an, the ancient capital of 13 dynasties. You should also consider your point of departure, your preferred mode of transportation to the destination, and the specific attractions or activities you wish to engage in. Remember to consider factors such as travel distance, travel time, and the opening hours of the attractions.",
+    "task_context_zh": "你正在计划一个将在今年夏天进行的周末旅行。你的目标是在LLM的帮助下完善和最终确定你的旅行计划。这包括对住宿、交通和每日行程的详细安排。你的最终旅行计划应尽可能全面和现实，并确保在时机成熟时能够顺利实施。你的行程规划应考虑到以下要求中指定的特定目的地：对西安的历史和文化之旅，西安是13个朝代的古都。你还应考虑你的出发地、前往目的地的首选交通方式以及你希望参与的具体景点或活动。记得考虑旅行距离、旅行时间以及景点的开放时间等因素。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Great! I'm planning a weekend trip this summer to Xi'an, the ancient capital of China. I'm really excited about exploring its rich history and culture. Given my passion for food, I'm also eager to dive into the local cuisine. Can we start by discussing travel options from my current location, New York City, to Xi'an? I'd prefer a balance between cost and comfort for the flight.",
+            "content_zh": "太好了！我计划今年夏天去西安度周末，西安是中国古都。我对探索它丰富的历史和文化非常兴奋。鉴于我对美食的热情，我也迫不及待地想要品尝当地的美食。能不能先从我的目前所在地纽约市到西安的旅行方式开始讨论呢？我希望航班的费用和舒适度之间能够有一个平衡。",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely, I'm excited to help you plan this trip. \n\nFirst, let's discuss your flight options. Given the distance between New York City and Xi'an, direct flights are not available. You will need to consider a one-stop flight, with layovers in cities like Beijing, Shanghai or Guangzhou.\n\nAirlines that operate this route include Air China, China Eastern, and China Southern. The flight duration typically ranges from 18 to 20 hours, including the layover. For your comfort, I would recommend choosing an airline that offers spacious seating and good in-flight service. \n\nAs for the cost, the price of a round-trip ticket to Xi'an from New York in the summer can range from $800 to $1300, depending on when you book and the specific flight you choose. I would advise booking as early as possible to secure the best price.\n\nBefore we go further, I also want to check: Do you already have a Chinese visa or will you need information on how to apply for one?",
+            "content_zh": "当然，我很高兴帮助您计划这次旅行。\n首先，让我们讨论一下您的飞行选择。由于纽约和西安之间的距离，直达航班不可用。您需要考虑一次停靠的航班，可以在北京、上海或广州等城市中转。\n经营这条航线的航空公司包括中国国际航空、中国东方航空和中国南方航空。飞行时间通常在18至20小时之间，包括中转时间。为了您的舒适，我建议选择一个提供宽敞座位和良好机上服务的航空公司。\n至于价格，在夏季，纽约到西安的往返机票价格可能在800到1300美元之间，取决于您预订的时间和选择的具体航班。我建议尽早预订以确保最优惠的价格。\n在我们进一步讨论之前，我还想确认一下：您已经获得中国签证了吗？还是需要了解如何申请？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thanks for the detailed information! I don't have a Chinese visa yet, so I'll definitely need some guidance on how to apply for one. I appreciate the cost estimate for the flights - I'd like to keep the flight price towards the lower end of that range. Can you help me find some suitable options that I can book in advance?",
+            "content_zh": "谢谢你提供的详细信息！我还没有中国签证，所以肯定需要一些指导来申请签证。感谢你提供的航班费用估算 - 我想把航班价格控制在那个范围的较低端。你能帮我找一些合适的提前预订的选项吗？",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely, let's cover the Chinese visa application first.\n\nAs a U.S. citizen, you are required to obtain a visa before entering China. Here are the steps to apply for a Chinese tourist visa, also known as an L visa:\n\n1. Fill out the China Tourist Visa Application Form: You can either download it from the Chinese embassy's website or fill it out online.\n\n2. Prepare the following documents: \n   - Your valid passport, with at least 6 months' validity and blank visa pages.\n   - Photocopy of the passport's data page.\n   - One recent passport-quality photo.\n   - Proof of travel, such as flight ticket reservation and proof of hotel reservation, or an invitation letter from a Chinese citizen or a foreigner with a Chinese permanent residence permit.\n\n3. Submit the application: You can either submit your application directly to the Chinese embassy or consulate, or use an approved agency if you cannot do it in person. The application process usually takes 4 to 5 business days, but expedited services are available for an additional fee.\n\nNow, onto the flights. I recommend using flight search engines like Skyscanner or Google Flights to find the best deals. Currently, for a departure in mid-July and a return in late July, the cheapest one-stop flights are offered by Air China and China Eastern, with prices ranging from $800 to $900. Layovers are in Beijing or Shanghai, and the total travel time is approximately 20 hours each way. \n\nRemember that prices fluctuate frequently, so it's a good idea to set up a price alert on these platforms to get notified when prices drop. \n\nPlease let me know if you need assistance with hotel booking, itinerary planning in Xi'an, or any other part of your trip!",
+            "content_zh": "当然，我们先来处理一下中国签证申请。作为美国公民，您在进入中国之前需要获得签证。以下是申请中国旅游签证（也称为L签证）的步骤：\n\n1. 填写中国旅游签证申请表：您可以从中国大使馆的网站上下载申请表，也可以在线填写。\n\n2. 准备以下材料：\n   - 有效护照，至少还有6个月有效期和空白签证页。\n   - 护照资料页的复印件。\n   - 一张近期的护照照片。\n   - 旅行证明，如机票预订和酒店预订证明，或者来自中国公民或持有中国永久居留许可的外国人的邀请函。\n\n3. 递交申请：您可以直接将申请递交给中国大使馆或领事馆，或者如果无法亲自办理，也可以使用经批准的代理机构。申请过程通常需要4至5个工作日，但也可以支付额外费用获得加急服务。\n\n接下来，我们来看看航班。我建议使用Skyscanner或Google Flights等航班搜索引擎寻找最优惠的机票。目前，7月中旬出发，7月下旬返程的一次转机最便宜的航班由中国国航和中国东方航空提供，价格在800美元至900美元之间。转机地点为北京或上海，总旅行时间大约为每段20个小时。\n\n请记住价格经常波动，因此建议在这些平台上设置价格警报，以便在价格下降时收到通知。\n\n如果您需要酒店预订、西安行程规划或者旅程的其他任何部分的帮助，请随时告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That's really helpful advice for the visa application process, thank you. I'll start gathering the necessary documents and look into those flight options on the search engines you mentioned. Setting up a price alert is a smart move—I'll do that.\n\nMoving on, I'd like to secure accommodation. I'm looking for a hotel that's centrally located in Xi'an, preferably close to the main attractions like the Terracotta Army, and with good access to local restaurants. Since I'm a chef, I'd love to stay somewhere known for its food. Also, it should be comfortable and have a touch of luxury without breaking the bank. What do you suggest?",
+            "content_zh": "对签证申请过程来说，这些建议真的非常有帮助，谢谢。我会开始收集必要的文件，并查看你提到的搜索引擎上的航班选项。设置价格提醒是个明智的做法，我会去做的。\n接下来，我想要安排住宿。我在寻找一个位于西安市中心的酒店，最好靠近兵马俑这样的主要景点，而且要方便当地餐馆。因为我是厨师，我想住在一个以美食而闻名的地方。此外，住宿应该舒适，有一些豪华感，但不要花费太多。你有什么建议？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "For a comfortable stay that balances luxury with the rich culinary heritage of Xi'an, and easy access to major attractions including the Terracotta Army, here are two highly recommended options for you:\n\n1. **Sofitel Xian on Renmin Square**: Located in the heart of the city, this hotel is part of the historic Renmin Square and offers a blend of French elegance and Chinese tradition. It's not only close to the city's main attractions but also surrounded by lush gardens that provide a serene escape from the bustling city. The hotel hosts several restaurants that offer a range of international and local cuisines, including a highly praised Cantonese restaurant. Given your culinary interests, the variety and quality of food here would likely be a highlight. The Sofitel is known for its spacious rooms, excellent service, and amenities like a spa, indoor pool, and fitness center. Prices are reasonable for the level of luxury provided.\n\n2. **Wyndham Grand Xian South**: This hotel is celebrated for its beautiful architecture, inspired by the Tang Dynasty, and its proximity to the Big Wild Goose Pagoda as well as other historical sites. It's a bit closer to the Terracotta Army than the city center, offering a nice balance for your itinerary. The Wyndham Grand boasts multiple dining options, including a superb buffet that features both international and Shaanxi local dishes, allowing you to indulge in the local cuisine right at your hotel. The rooms are modern, spacious, and well-equipped, ensuring a comfortable stay. With its excellent service and amenities like a fitness center and indoor pool, it offers great value for a luxurious experience.\n\nBoth options provide the comfort and luxury you're looking for, with excellent access to local cuisine and major attractions. The Sofitel Xian on Renmin Square is more centrally located, making it ideal if you prefer to be in the heart of Xi'an. The Wyndham Grand Xian South, on the other hand, might offer a quieter stay with slightly easier access to the Terracotta Army.\n\nDue to the popularity of these hotels, especially in the summer, I recommend booking as soon as your travel dates are confirmed to secure a good rate. Would you like more information on either of these hotels, or assistance with booking?",
+            "content_zh": "为了在西安享受舒适的住宿体验，一方面能够体验豪华，一方面能够品尝丰富的美食文化，并且能够方便前往包括兵马俑在内的主要景点，以下是两个强烈推荐的选择：\n\n1. **西安索菲特人民广场酒店**：位于城市中心的酒店，是人民广场历史悠久的一部分，结合了法国优雅和中国传统。不仅靠近城市的主要景点，而且周围环绕着郁郁葱葱的花园，为您提供了一个从喧嚣城市中逃离的宁静之地。酒店拥有几家餐厅，提供各种国际和本地美食，包括备受好评的粤菜餐厅。考虑到您对美食的兴趣，这里的美食种类和质量可能成为亮点。索菲特酒店以宽敞的客房、卓越的服务和温泉、室内游泳池和健身中心等设施而闻名，价格也合理。\n\n2. **西安温德姆至尊南部大酒店**：这家酒店以唐代建筑为灵感而受到赞誉，靠近大雁塔和其他历史遗迹。它比城市中心离兵马俑更近，为您的行程提供了一个不错的平衡。温德姆至尊酒店拥有多种餐饮选择，包括既有国际美食又有陕西地方特色菜肴的自助餐，让您可以在酒店就能享受当地美食。客房现代、宽敞、设施齐全，确保您的舒适住宿。酒店还提供卓越的服务和健身中心、室内游泳池等设施，提供豪华体验的极高价值。\n\n两个选择都能为您提供所需的舒适和豪华，同时能够方便地品尝当地美食和前往主要景点。西安索菲特人民广场酒店位于市中心，是您喜欢身处西安中心地带的理想选择。另一方面，西安温德姆至尊南部大酒店可能提供更宁静的住宿体验，并且更便于前往兵马俑。\n\n由于这些酒店的受欢迎程度特别是在夏季，我建议一旦您的旅行日期确定下来就立即预订以确保得到一个好的价格。您想要了解这些酒店的更多信息，或者需要预订帮助吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Both options sound fantastic and each has its own appeal. I think I'll go with the Sofitel Xian on Renmin Square for its central location and the variety of food in its restaurants. I'll go ahead and secure a booking—no assistance required for now, but thanks for offering!\n\nNext, I'd like to plan my itinerary. I'm particularly interested in the Terracotta Army, the Ancient City Wall, and the Muslim Quarter for its bustling food street. Could you help me plan a realistic schedule over 3 days, considering the opening hours and travel time between attractions? Also, any food recommendations in these areas would be appreciated!",
+            "content_zh": "两个选择都听起来很棒，各有吸引力。我想我会选择西安人民广场索菲特酒店，因为它位于市中心，餐厅里有各种食物。我会先预订一下——目前不需要帮助，但还是谢谢你的提议！接下来，我想计划一下我的行程。我特别感兴趣的是兵马俑、古城墙和清真寺一带热闹的美食街。你能帮我安排一个实际可行的行程吗？考虑到各景点的开放时间和路上的交通时间，我计划在三天内游览完。此外，如果你有这些地区的美食推荐，我将不胜感激！",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely, I'd be happy to help with that. Here's a suggested itinerary for your 3-day stay in Xi'an:\n\n**Day 1:** \n\n- Start your trip with a visit to the **Terracotta Army**. It's one of the most significant archeological excavations of the 20th century, and you wouldn't want to miss it. The site opens at 8:30 AM and closes at 5:30 PM. It's about an hour's drive from the city center, so plan to leave your hotel around 7:30 AM. Spend the morning exploring the three pits and the exhibition hall.\n\n- For lunch, try some local dishes at a nearby restaurant. The area is known for its delicious \"Yang Rou Pao Mo\", a mutton stew with bread, and \"Liángpí\", cold skin noodles.\n\n- In the afternoon, head back to the city and visit the **Big Wild Goose Pagoda**, one of the most famous Buddhist pagodas in China. It's beautiful at sunset.\n\n- For dinner, choose from one of the many restaurants near your hotel. If you're in the mood for dumplings, \"De Fa Chang\" is renowned for its dumpling banquet.\n\n**Day 2:** \n\n- Spend the morning exploring the **Ancient City Wall**. You can walk, cycle, or even take an electric cart around the wall. The wall opens at 8:00 AM and closes at 10:00 PM.\n\n- For lunch, try the \"Biang Biang Noodles\", one of the \"ten strange wonders of Shaanxi\", at a local restaurant.\n\n- In the afternoon, visit the **Shaanxi History Museum** to further immerse yourself in Xi'an's rich history. The museum closes at 5:30 PM.\n\n- In the evening, stroll around the Grand Tang Mall for shopping and dining.\n\n**Day 3:** \n\n- Dedicate your day to the **Muslim Quarter**. Start in the morning to avoid the crowd and explore the Great Mosque first, then delve into the food street. You'll find a variety of snacks and local dishes, such as \"Rou Jia Mo\" (Chinese hamburger), \"Lamb Skewers\", and \"Sticky Rice in a Jar\".\n\n- In the afternoon, visit the **Drum and Bell Towers**, which are not far from the Muslim Quarter.\n\n- Wrap up your final evening with dinner at one of the high-end restaurants in your hotel, or try another local restaurant if you prefer.\n\nRemember to adjust the itinerary as needed based on your pace and preferences. Let me know if you need more information or assistance with anything else!",
+            "content_zh": "当然，我很乐意帮忙。以下是您在西安停留3天的建议行程：\n**第一天：**\n- 从参观**兵马俑**开始您的旅程。这是20世纪最重要的考古发现之一，您一定不想错过。景点上午8:30开放，下午5:30关闭。离市中心大约一小时车程，所以计划上午7:30离开酒店。早上花时间探索三个坑和展览馆。\n- 午餐时，尝试附近餐厅的一些当地菜肴。这个地区以其美味的“羊肉泡馍”和“凉皮”而闻名。\n- 下午返回市区参观**大雁塔**，这是中国最著名的佛塔之一，在日落时分非常漂亮。\n- 晚餐时，选择在酒店附近的众多餐厅之一。如果你想吃饺子，“德发长”以其饺子宴而闻名。\n**第二天：**\n- 上午花时间探索**古城墙**。您可以步行、骑车，甚至乘坐电瓶车游览城墙。城墙上午8:00开放，晚上10:00关闭。\n- 午餐时，在当地餐厅尝试“油泼面”，陕西八大怪之一。\n- 下午，参观**陕西历史博物馆**，以进一步了解西安悠久的历史。博物馆下午5:30关闭。\n- 傍晚，到大唐商城逛逛购物和用餐。\n**第三天：**\n- 将一整天都献给**回民街**。早上开始避开人群，先探索清真寺，然后深入美食街区。您会发现各种小吃和当地菜肴，如“肉夹馍”（中国汉堡）、“羊肉串”和“罐头糯米饭”。\n- 下午，参观**鼓楼和钟楼**，离回民街不远。\n- 结束您的最后一个晚上，在酒店的高档餐厅用餐，或者如果您喜欢的话尝试另一家当地餐厅。\n请根据您的步调和喜好调整行程。如果您需要更多信息或其他方面的帮助，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "This itinerary looks perfect, thank you! It balances historical sites with plenty of opportunities to explore the local cuisine. I'm especially excited to try Yang Rou Pao Mo and Biang Biang Noodles. \n\nBefore we wrap up, could you recommend any specific places or dishes in the Muslim Quarter that I shouldn't miss? Given my passion for cooking and my food blog, I'm always on the lookout for unique culinary experiences to share with my readers.",
+            "content_zh": "这个行程看起来很完美，谢谢！它平衡了历史遗迹和探索当地美食的机会。我特别期待尝试羊肉泡馍和油泼面。在我们结束之前，你能否推荐在回民街我不容错过的特定地点或菜肴？考虑到我对烹饪的热情和我的美食博客，我一直在寻找独特的烹饪体验，与读者分享。",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely, the Muslim Quarter is a paradise for food lovers and there are several must-try dishes and places that you should not miss:\n\n1. **Jiasan Soup Dumpling Shop**: This place is famous for its Guantang Baozi, or soup dumplings. The dumplings are filled with mutton or beef and a rich, savory broth.\n\n2. **Rou Jia Mo (Chinese Hamburger)**: This is an iconic street food of Xi'an. It's a meat-filled sandwich made with a moist, tender filling (usually beef or mutton) and a dense, crispy bread. You can find it almost everywhere in the Muslim Quarter, but Fanji is one of the most famous spots for it.\n\n3. **Biang Biang Noodles**: Named for the sound they make when the dough is slapped against the counter, these wide, thick noodles are served with a variety of toppings. Try them at any of the numerous stalls in the Muslim Quarter.\n\n4. **Zeng Gao**: This is a unique Xi'an dessert made of sticky rice, jujubes, and black rice. The best place to try it is Jia San Guan Tang Bao Zi, which has been selling Zeng Gao for generations.\n\n5. **Lamb Skewers**: Grilled right in front of you, these skewers are seasoned with cumin and chili and are a favorite among locals and tourists.\n\n6. **Li Hua's PaoMo Restaurant**: A great place if you want to try Yang Rou Pao Mo, a local specialty soup made with crumbled flatbread and mutton.\n\n7. **Persimmon Pancakes**: These sweet treats are made from ripe persimmons and are a must-try. Look for vendors with a long line, as these are often the ones selling the best pancakes.\n\nRemember, the Muslim Quarter is not just about food, it's also a cultural experience. The old shops, narrow lanes, and historic buildings all add to the charm. Enjoy your culinary journey!",
+            "content_zh": "在回民街，美食爱好者的天堂，有几种必尝的菜肴和地方，你不容错过：1.贾三灌汤包子铺：这家店以它的灌汤包著名。包子里面装满了羊肉或牛肉以及浓郁的可口汤汁。 2.肉夹馍（中国汉堡）：这是西安的标志性街头美食。它是由湿润、嫩滑的馅料（通常是牛肉或羊肉）和浓郁、脆口的面包裹成的。你几乎可以在回民街的任何地方找到它，但樊记是最著名的地方之一。 3.扁扁面：这种宽厚的面条因为面团被抛撞在柜台上发出的声音而得名，可以加各种配料。在回民街的许多摊位都可以尝到。 4.澄糕：这是一种独特的西安甜点，由糯米、红枣和黑米制成。最好的尝试地点是贾三灌汤包子铺，这家店已经几代人在售卖澄糕。 5.羊肉串：在你面前烤制，加入孜然和辣椒调味，是当地人和游客最喜欢的。 6.李华泡馍饭店：如果想尝试羊肉泡馍，这是一个很好的地方，这是一种由面饼和羊肉制成的当地特色汤。 7.柿饼：这些甜点是由成熟的柿子制成的，必须尝尝。寻找排队最长的小贩，因为这些通常是卖最好的煎饼的地方。请记住，回民街不仅仅是美食，它也是一次文化体验。古老的商店、窄窄的巷子和历史建筑都增添了魅力。享受你的美食之旅！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary": [
+        "muslim quarter culinary recommendations"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 1,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 1
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "29",
+            "zh": "29"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            }
+        ],
+        "Occupation": {
+            "en": "Chef",
+            "zh": "厨师"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Cooking",
+                "zh": "烘焙/烹饪"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Playing instruments",
+                "zh": "演奏乐器"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Food tour",
+                "zh": "美食之旅"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            },
+            {
+                "en": "Seafood",
+                "zh": "海鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on tech gadgets",
+                "zh": "科技产品"
+            },
+            {
+                "en": "Focus on experience",
+                "zh": "注重消费体验"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Managing personal media platforms",
+                "zh": "经营自媒体"
+            },
+            {
+                "en": "Keeping small animals",
+                "zh": "养小动物"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        }
+    }
+}

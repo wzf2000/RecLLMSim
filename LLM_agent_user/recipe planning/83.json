@@ -1,0 +1,226 @@
+{
+    "task": "recipe planning",
+    "preference_id": 26,
+    "task_context_id": 4,
+    "preference": "1. Gender: Male\n2. Age: 45\n3. Personality: Disciplined, methodical, and calm\n4. Occupation: Military Officer\n5. Daily Interests and Hobbies: Fitness training, reading military history, fishing\n6. Travel Habits: Travels for work, enjoys camping and outdoor activities\n7. Dining Preferences: Prefers hearty meals, enjoys grilling\n8. Spending Habits: Invests in home security systems, saves for children's education\n9. Other Aspects: Active in veterans' organizations, has a family",
+    "preference_zh": "1. 性别：男性 2. 年龄：45岁 3. 个性：有纪律性，条理性，冷静 4. 职业：军官 5. 日常兴趣和爱好：健身训练，阅读军事历史，钓鱼 6. 旅行习惯：因工作而旅行，喜欢露营和户外活动 7. 饮食偏好：喜欢丰盛的餐食，喜欢烧烤 8. 消费习惯：投资家庭安全系统，为孩子的教育储蓄 9. 其他方面：积极参与退伍军人组织，有一个家庭",
+    "task_context": "You plan to prepare a meal at home and invite three close friends to join you. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家准备一顿饭，并邀请三个亲密的朋友一起加入。你在烹饪方面并不是很熟练，经验有限。因此，你希望请求LLM的帮助，制定一个食谱，确定所需的食材，以及决定做哪些菜。在规划过程中，你应该了解每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. Today, I could use your help in planning a meal at home. I want to invite three close friends over and prepare a delicious meal for them. However, I have limited cooking experience. Could you assist me in creating a recipe, determining the necessary ingredients, and deciding what dishes to make?",
+            "content_zh": "你好！我很高兴你在这里。今天，我需要你帮忙在家计划一顿饭。我想邀请三个好朋友过来，为他们准备一顿美味的餐。然而，我烹饪经验有限。你能帮我创建一个食谱，确定所需食材，以及决定做什么菜吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you plan a delicious meal for your friends! Let's start by brainstorming some ideas. What type of cuisine or dishes do you and your friends enjoy? Do you have any dietary restrictions or preferences we should keep in mind?",
+            "content_zh": "当然，我很乐意帮助你为朋友们计划一顿美味的晚餐！我们可以先头脑风暴一些想法。你和朋友们喜欢什么类型的菜肴？你们有任何饮食限制或偏好需要考虑吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance. As a military officer, I appreciate hearty meals and enjoy grilling. I think it would be great to prepare a barbecue-themed meal for my friends. We don't have any specific dietary restrictions, so we can be flexible with the menu. What do you suggest we include in our barbecue feast?",
+            "content_zh": "非常感谢您提供帮助。作为一名军官，我喜欢可口的餐点和烧烤。我认为为我的朋友准备一个以烧烤为主题的餐会会很棒。我们没有特殊的饮食限制，所以菜单可以很灵活。您建议我们在烧烤盛宴中包含什么呢？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "A barbecue-themed meal sounds fantastic! Here's a suggestion for a delicious and satisfying menu:\n\nMain Course:\n1. Grilled Steak: Choose a good quality cut like ribeye or sirloin. Marinate the steak in a blend of olive oil, garlic, salt, pepper, and your favorite herbs for a few hours before grilling. Cook it to your desired level of doneness and let it rest before slicing.\n\n2. Grilled Chicken: Marinate chicken breasts or thighs in a mixture of lemon juice, olive oil, garlic, paprika, salt, and pepper. Grill until cooked through and slightly charred on the outside.\n\n3. Grilled Vegetables: Prepare a colorful medley of vegetables such as bell peppers, zucchini, eggplant, and mushrooms. Toss them in olive oil, salt, pepper, and your choice of herbs, then grill until tender and slightly charred.\n\nSide Dishes:\n1. Classic Coleslaw: Combine shredded cabbage, carrots, and thinly sliced onions in a bowl. In a separate bowl, whisk together mayonnaise, apple cider vinegar, sugar, salt, and pepper. Pour the dressing over the vegetables and toss until well coated.\n\n2. Baked Beans: You can either make them from scratch or use canned beans. Sauté onions and bacon, then add the beans, brown sugar, molasses, ketchup, mustard, and a bit of barbecue sauce. Simmer on low heat until thick and flavorful.\n\n3. Corn on the Cob: Grill the corn until it's slightly charred, then brush it with melted butter and sprinkle with salt and pepper. Serve it with lime wedges for an extra zing.\n\nDessert:\n1. Grilled Pineapple: Slice fresh pineapple into rings and grill them until caramelized. Serve with a scoop of vanilla ice cream and a drizzle of honey or a sprinkle of cinnamon.\n\nBeverages:\nConsider offering a variety of refreshing drinks like iced tea, lemonade, or fruit-infused water. You can also have some chilled beer or wine available if your friends enjoy them.\n\nI hope this menu helps you plan your barbecue feast! Let me know if you need any further assistance or if you have any other questions.",
+            "content_zh": "烧烤主题的餐食听起来太棒了！这里有一个美味且满足的菜单建议：\n\n主菜：\n1. 烤牛排：选择优质的肉块，如肋眼牛排或西冷牛排。在烤之前，用橄榄油、大蒜、盐、胡椒和你最喜欢的香草腌制牛排数小时。按照您想要的熟度烹饪，然后切片前让其休息。\n\n2. 烤鸡肉：用柠檬汁、橄榄油、大蒜、辣椒粉、盐和胡椒混合腌制鸡胸或鸡腿。烤至熟透并外部略烤。\n\n3. 烤蔬菜：准备一份多彩的蔬菜拼盘，如灯笼椒、小青瓜、茄子和蘑菇。用橄榄油、盐、胡椒和您选择的香草拌匀，然后烤至软嫩并略烤。\n\n配菜：\n1. 经典卷心菜沙拉：在一个碗里将卷心菜丝、胡萝卜和薄切洋葱混合在一起。在另一个碗中，搅拌蛋黄酱、苹果醋、糖、盐和胡椒。把酱料倒在蔬菜上搅拌均匀。\n\n2. 烤豆：您可以从头开始做，也可以使用罐头豆。炒洋葱和培根，然后加入豆、红糖、糖浆、番茄酱、芥末和适量烧烤酱。用小火煮至浓稠。\n\n3. 玉米棒：将玉米烤至略带焦痕，然后刷上溶化的黄油，撒上盐和胡椒。配上青柠楔增加风味。\n\n甜点：\n1. 烤菠萝：切新鲜菠萝成圆环，烤至焦糖色。配以一勺香草冰淇淋和蜂蜜或肉桂。\n\n饮料：\n考虑提供各种清爽的饮料，如冰茶、柠檬水或水果泡水。如果您的朋友喜欢，还可以准备一些冰镇啤酒或葡萄酒。\n\n希望这份菜单可以帮助您安排烧烤盛宴！如果您需要进一步的帮助或有其他问题，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That sounds like a fantastic menu! I appreciate the detailed suggestions. Grilled steak, chicken, and vegetables will definitely make for a hearty main course. The classic coleslaw, baked beans, and corn on the cob will complement the grilled dishes nicely. And the grilled pineapple for dessert sounds absolutely delicious.\n\nI think this menu covers all the bases for a satisfying barbecue-themed meal. I'm excited to try it out! Thank you for your help in planning this. Is there anything else I should consider or any specific instructions you have for the preparation process?",
+            "content_zh": "听起来像是一个绝妙的菜单！我非常感谢你的详细建议。烤牛排、烤鸡肉和蔬菜肯定会是一个丰盛的主菜。经典的卷心菜沙拉、烤豆和玉米棒会很好地搭配烤菜。烤菠萝甜点听起来绝对美味。我觉得这个菜单涵盖了满足烧烤主题的所有部分。我很期待试一试！感谢你在规划中的帮助。还有我需要考虑的其他事情吗？还有你对准备过程的具体说明吗？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you liked the menu. Now, let's go over a few preparation tips and instructions to ensure everything turns out perfectly:\n\n1. Marinating the meats: Make sure to marinate the steak and chicken for at least a few hours before grilling. This will help infuse them with flavor and make them more tender. You can prepare the marinades in advance and keep the meats refrigerated until you're ready to grill.\n\n2. Preparing the grill: Clean the grill grates thoroughly and oil them lightly to prevent sticking. Preheat the grill to medium-high heat for the steak and chicken, and medium heat for the vegetables.\n\n3. Grilling the steak: For a medium-rare steak, grill it for about 4-5 minutes per side, depending on the thickness. Adjust the cooking time based on your preferred level of doneness. Remember to let the steak rest for a few minutes before slicing to retain its juices.\n\n4. Grilling the chicken: Chicken breasts usually take around 6-8 minutes per side on medium-high heat. Thighs might take a bit longer, around 8-10 minutes per side. Make sure the internal temperature reaches 165°F (74°C) for safe consumption.\n\n5. Grilling the vegetables: Keep an eye on the vegetables while grilling, as they can cook quickly. The cooking time will vary depending on the size and thickness of the slices. Grill them until they are tender and have a nice char, typically around 5-7 minutes.\n\n6. Assembling the coleslaw: You can prepare the coleslaw in advance and keep it refrigerated until serving. Just make sure to toss it well before serving to distribute the dressing evenly.\n\n7. Baking the beans: If you're making baked beans from scratch, follow the recipe instructions and adjust the seasonings to your taste. If using canned beans, drain and rinse them before adding them to the sautéed onions and bacon.\n\n8. Grilling the pineapple: Preheat the grill to medium heat. Grill the pineapple rings for about 2-3 minutes per side until they have grill marks and are caramelized. Serve them warm with a scoop of ice cream.\n\nRemember to have all the necessary utensils, grilling tools, and serving platters ready before you start cooking. And most importantly, enjoy the process and have a great time with your friends!\n\nIf you have any more questions or need further assistance, feel free to ask. Happy cooking!",
+            "content_zh": "非常欢迎你！我很高兴你喜欢这个菜单。现在，让我们回顾一下一些准备技巧和说明，以确保一切都变得完美：\n\n1. 腌制肉类：确保在烧烤前至少腌制牛排和鸡肉几个小时。这将有助于使它们吸收风味并使它们更嫩。你可以提前准备腌料，然后将肉类冷藏，直到准备好烧烤。\n\n2. 准备烧烤架：彻底清洁烧烤架并轻轻涂上油以防粘。将烧烤预热至牛排和鸡肉的中高温，蔬菜的中温。\n\n3. 烤牛排：对于五分熟的牛排，每面烤约4-5分钟，视厚度而定。根据您喜欢的熟度程度调整烹饪时间。记得烤牛排前让其静置几分钟以保留其汁液。\n\n4. 烤鸡肉：鸡胸肉通常在中高温每面烤6-8分钟。鸡腿可能需要更长一点，每面约8-10分钟。确保内部温度达到165华氏度（74摄氏度）以确保安全食用。\n\n5. 烤蔬菜：烧烤蔬菜时要观察好，因为它们会很快熟。烹调时间将取决于蔬菜片的大小和厚度。烧烤至蔬菜变软且有焦糖状，通常约5-7分钟。\n\n6. 准备卷心菜沙拉：你可以提前准备卷心菜沙拉并在上菜前冷藏。只需在上菜前充分拌匀以均匀分配酱汁。\n\n7. 烘烤豆类：如果你在从头开始制作烤豆，遵循食谱说明并根据口味调整调味品。如果使用罐头豆，清洗并冲洗后添加到煎炒的洋葱和培根中。\n\n8. 烤菠萝：将烧烤预热至中温。每面烤菠萝圈约2-3分钟直到有烤痕且焦糖化。温热上菜并配上一勺冰淇淋。\n\n记得在开始烹饪之前准备好所有必需的器具、烧烤工具和上菜盘。最重要的是，享受这个过程并和朋友们度过美好时光！\n\n如果你有更多问题或需要进一步帮助，请随时询问。祝你烹饪愉快！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "barbecue-themed",
+        "grilled dishes"
+    ],
+    "preference_summary": [
+        "hearty",
+        "excited",
+        "barbecue-themed"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "45",
+            "zh": "45"
+        },
+        "Personality": [
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            },
+            {
+                "en": "Meticulous",
+                "zh": "细致"
+            },
+            {
+                "en": "Calm",
+                "zh": "冷静"
+            }
+        ],
+        "Occupation": {
+            "en": "Military personnel",
+            "zh": "军人"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Outdoor activities",
+                "zh": "户外活动"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Follows a balanced diet",
+                "zh": "均衡饮食"
+            },
+            {
+                "en": "Grilling",
+                "zh": "烧烤"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in volunteer activities",
+                "zh": "喜欢参与志愿活动"
+            },
+            {
+                "en": "Has a family",
+                "zh": "家庭生活"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

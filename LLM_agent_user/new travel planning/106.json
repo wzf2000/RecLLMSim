@@ -1,0 +1,274 @@
+{
+    "task": "new travel planning",
+    "preference_id": 41,
+    "task_context_id": 0,
+    "preference": "1. Gender: Female\n2. Age: 39\n3. Personality: Creative, spontaneous, and social\n4. Occupation: Event Planner\n5. Daily Interests and Hobbies: Networking, yoga, fashion\n6. Travel Habits: Travels for work, enjoys city breaks\n7. Dining Preferences: Loves gourmet food, enjoys wine tasting\n8. Spending Habits: Spends on high-end fashion and decor, invests in property\n9. Other Aspects: Lives in a city apartment, has a large social circle",
+    "preference_zh": "1. 性别：女性\n2. 年龄：39\n3. 个性：创意、自发、社交\n4. 职业：活动策划师\n5. 日常兴趣和爱好：社交、瑜伽、时尚\n6. 旅行习惯：出差旅行，喜欢城市短途旅行\n7. 用餐偏好：喜欢美食，喜欢品酒\n8. 消费习惯：购买高端时尚和装饰品，投资房产\n9. 其他方面：居住在城市公寓，拥有广泛的社交圈",
+    "task_context": "You are planning a weekend trip that will take place this summer. Your goal, with the help of LLM, is to refine and finalize your travel plans. This includes making detailed arrangements for accommodations, transportation, and your daily itinerary. Your final travel plan should be as comprehensive and realistic as possible, ensuring that it can be seamlessly implemented when the time comes.\nYour trip planning should take into consideration the specific destination as specified in the following requirements: a historical and cultural tour to Xi'an, the ancient capital of 13 dynasties. You should also consider your point of departure, your preferred mode of transportation to the destination, and the specific attractions or activities you wish to engage in. Remember to consider factors such as travel distance, travel time, and the opening hours of the attractions.",
+    "task_context_zh": "你正在计划一个将在今年夏天进行的周末旅行。你的目标是在LLM的帮助下完善和最终确定你的旅行计划。这包括对住宿、交通和每日行程的详细安排。你的最终旅行计划应尽可能全面和现实，并确保在时机成熟时能够顺利实施。你的行程规划应考虑到以下要求中指定的特定目的地：对西安的历史和文化之旅，西安是13个朝代的古都。你还应考虑你的出发地、前往目的地的首选交通方式以及你希望参与的具体景点或活动。记得考虑旅行距离、旅行时间以及景点的开放时间等因素。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hi there! I'm planning a historical and cultural tour to Xi'an this summer and I could use some help finalizing my travel plans. I need assistance with accommodations, transportation, and my daily itinerary. Could you help with that?",
+            "content_zh": "你好！我打算今年夏天去西安参加历史文化之旅，我需要一些帮助来最终确定我的旅行计划。我需要协助安排住宿、交通和每日行程。你能帮忙吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you plan your trip to Xi'an! To start, I'll need a bit more information:\n\n1. Where are you traveling from?\n2. How many days are you planning to spend in Xi'an?\n3. What is your budget range for accommodation, food, and other expenses?\n4. Do you have any specific interests or attractions you definitely want to include in your itinerary?\n5. Are you traveling alone or with others? If with others, how many and what are their ages? \n6. Do you have any dietary restrictions or preferences?\n\nThese details will allow me to provide a more personalized and detailed travel plan.",
+            "content_zh": "当然，我很乐意帮助您规划您的西安之旅！首先，我需要更多的信息： 1.您从哪里旅行来？ 2.您计划在西安停留多少天？ 3.您在住宿、饮食和其他费用方面的预算范围？ 4.您是否有任何特定的兴趣或景点一定要包括在您的行程中？ 5.您是独自旅行还是与他人同行？如果与他人同行，有多少人以及他们的年龄是多少？ 6.您有任何饮食限制或偏好吗？ 这些细节将使我能够提供更个性化和详细的旅行计划。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "I'm traveling from Shanghai. I'm planning to spend 5 days in Xi'an. For the budget, I'm looking at a comfortable range, not too extravagant but I'm willing to spend on experiences that are worth it. As for attractions, I definitely want to visit the Terracotta Army, the Ancient City Wall, and the Muslim Quarter.\n\nI'm traveling alone this time, no dietary restrictions but I do love gourmet food and wine. I should also mention that I'm really into fashion, so if there are any local markets or shops where I can find unique pieces, that would be wonderful!",
+            "content_zh": "我从上海出发。我计划在西安待5天。对于预算，我希望是一个舒适的价格范围，不要太奢华，但我愿意花钱去体验值得的东西。至于景点，我一定要参观兵马俑、古城墙和回民街。\n这次我是一个人旅行，没有饮食限制，但我喜欢美食和美酒。我还想提到，我对时尚很感兴趣，所以如果有当地的市场或店铺可以找到独特的衣物，那就太棒了！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "Thank you for the information! Here's a preliminary plan for your 5-day trip to Xi'an from Shanghai:\n\n**Day 1: Arrival and Settling In**\n- **Transportation:** You can take a high-speed train or a domestic flight from Shanghai to Xi'an. The flight is around 2 hours, while the train can take 6-7 hours but offers scenic views.\n- **Accommodation:** Consider staying in a comfortable and conveniently located hotel near the city center, close to the Bell Tower. This will give you easy access to most attractions and dining options. I can suggest specific hotels based on your preferences.\n- **Evening Activity:** Explore the area around your hotel, perhaps take a leisurely walk to the Bell Tower and Drum Tower, and have dinner at a nearby restaurant known for local delicacies.\n\n**Day 2: The Terracotta Army and Tang Paradise**\n- **Morning:** Visit the Terracotta Army early to avoid the crowds. It's about an hour's drive from the city, and you can use a taxi or a guided tour service.\n- **Lunch:** Try the local Shaanxi cuisine at a recommended restaurant near the Terracotta Army site.\n- **Afternoon:** Head back to the city and visit Tang Paradise, a cultural theme park where you can enjoy Tang Dynasty architecture and performances.\n- **Evening:** Dinner at a gourmet restaurant, where you can enjoy fine dining and wine.\n\n**Day 3: Ancient City Wall and Muslim Quarter**\n- **Morning:** Rent a bike and cycle on top of the Ancient City Wall. It's a great way to see the city and get some exercise.\n- **Lunch:** Eat at a well-reviewed restaurant in the Muslim Quarter. You'll find a fusion of Chinese and Middle Eastern flavors.\n- **Afternoon:** Explore the Muslim Quarter further, checking out the Great Mosque and shopping for unique fashion items in the bustling bazaar.\n- **Evening:** Enjoy a relaxed dinner and perhaps a traditional Shadow Puppet show.\n\n**Day 4: Shaanxi History Museum and Local Markets**\n- **Morning:** Visit the Shaanxi History Museum to learn more about the region's rich history.\n- **Lunch:** Sample some street food or visit a café that's popular with locals.\n- **Afternoon:** Explore local markets and fashion boutiques. The Shuyuanmen Ancient Culture Street is known for arts and crafts, and you might find unique fashion items there.\n- **Evening:** Consider a wine tasting experience if available, or a fine dining venue that offers a wine pairing with local cuisine.\n\n**Day 5: Mount Huashan Day Trip**\n- **Whole Day:** Take a day trip to Mount Huashan, one of China's Five Great Mountains, known for its breath-taking cliffs and views. It's about a 2-hour drive or high-speed train ride.\n- **Evening:** Return to Xi'an, have a casual dinner, and prepare for your return journey the next day.\n\n**Additional Notes:**\n- **Visas:** Make sure you have the necessary visas and that your passport is up to date.\n- **Health and Safety:** Pack any personal medication you need and be aware of the local emergency services just in case.\n- **Weather:** Summers in Xi'an can be quite hot, so pack light, breathable clothing, a hat, sunscreen, and plenty of water for hydration.\n- **Connectivity:** Consider getting a local SIM card or portable Wi-Fi for easy navigation and communication.\n\nPlease let me know if you would like more details on any of the above points, or if there's anything else you'd like to add or change!",
+            "content_zh": "谢谢您提供的信息！以下是您从上海到西安5天行程的初步计划： \n\n**第一天：到达和安顿**\n- **交通：**您可以乘坐从上海到西安的高铁或国内航班。飞行大约2小时，而火车可能需要6-7小时，但可以欣赏景色。 \n- **住宿：**考虑住在市中心附近的舒适便利的酒店，靠近钟楼。这将方便您前往大多数景点和餐饮场所。我可以根据您的偏好推荐具体的酒店。 \n- **晚间活动：**探索您酒店周围的地区，也许漫步到钟楼和鼓楼，然后在附近一家以当地美食闻名的餐厅享用晚餐。 \n\n**第二天：兵马俑和大唐芙蓉园**\n- **上午：**早些时候参观兵马俑，以避免人群。距离市区约一个小时的车程，您可以乘坐出租车或导游服务。 \n- **午餐：**尝试兵马俑附近一家推荐的陕西餐厅。 \n- **下午：**返回市区参观大唐芙蓉园，那里您可以欣赏唐代建筑和表演。 \n- **晚上：**在一家美食餐厅享用晚餐，并品尝美酒。 \n\n**第三天：古城墙和回民街**\n- **上午：**租一辆自行车在古城墙上骑行。这是欣赏城市风景和锻炼的好方式。 \n- **午餐：**在回民街一家口碑不错的餐厅用餐。您将发现中国和中东风味的融合。 \n- **下午：**进一步探索回民街，参观大清真寺，并在繁华的集市购物独特的时尚物品。 \n- **晚上：**享用悠闲的晚餐，也许还可以观赏传统的皮影戏。 \n\n**第四天：陕西历史博物馆和当地市场**\n- **上午：**参观陕西历史博物馆，了解更多关于该地区丰富历史的知识。 \n- **午餐：**品尝一些街边小吃，或者到当地受欢迎的咖啡馆。 \n- **下午：**探索当地市场和时装精品店。书院门古文化街以艺术和手工艺品而闻名，您可能会在那里找到独特的时尚物品。 \n- **晚上：**考虑如果有的话进行品酒体验，或者前往提供本地美食葡萄酒搭配的美食餐厅。 \n\n**第五天：华山一日游**\n- **整天：**前往华山，中国五岳之一，以其令人叹为观止的悬崖和景色而闻名。这里约有2小时车程或高铁。 \n- **晚上：**返回西安，享用一顿休闲的晚餐，准备第二天返回的旅程。 \n\n**额外注意事项：**\n- **签证：**确保您拥有必要的签证，并且您的护照是最新的。 \n- **健康和安全：**携带您需要的任何个人药物，并熟悉当地的紧急服务以备不时之需。 \n- **天气：**西安的夏天可能会很炎热，所以请携带轻便、透气的衣物、帽子、防晒霜和充足的水。 \n- **连接：**考虑获取本地SIM卡或便携式WiFi，以便轻松导航和通讯。 \n\n请告诉我如果您想要了解以上任何内容的更多细节，或者是否有其他您想添加或更改的事项！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Your plan sounds fantastic! I like the idea of staying near the Bell Tower for accessibility. Could you suggest a few hotels in that area that have a good reputation and comfortable amenities? I'd also appreciate restaurant recommendations for my first night's dinner, as I'd love to dive straight into the local cuisine! \n\nAs for transportation, I think I'd prefer the flight to save time. Could you help me find a suitable flight from Shanghai to Xi'an on my departure date and a return flight 5 days later? I prefer morning flights if possible.\n\nLastly, could you share more about the guided tour service to the Terracotta Army? I think it might be more informative than going on my own. Thanks!",
+            "content_zh": "你的计划听起来太棒了！我喜欢在钟楼附近住宿的想法，以便方便出行。你能否建议一些在该地区声誉良好，设施舒适的酒店？我也希望能得到一些餐厅推荐，因为我想直接享受当地美食！至于交通，我想我更喜欢飞机以节省时间。你能帮我找到适合我出发日期的从上海到西安的合适航班，以及5天后的返程航班吗？如果可能的话，我更倾向于早班机。最后，你能否多分享一些关于兵马俑导览服务的信息？我觉得这可能比自行游览更加有趣。谢谢！",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Certainly, I'm glad you liked the plan! Let's dive into the details.\n\n**Accommodations:**\n1. **Grand Mercure Xi'an on Renmin Square:** A well-rated, comfortable hotel with a great location. It offers spacious rooms, a fitness center, and several dining options.\n2. **Citadines Central Xi'an:** A modern apartment hotel with a kitchenette in each room. It's a short walk from the Bell Tower and Drum Tower.\n3. **Hilton Xi'an:** A bit more luxurious, this hotel offers an indoor pool, a fitness center, and a rooftop restaurant with panoramic city views.\n\n**Restaurant Recommendations:**\n1. **De Fa Chang Restaurant:** This place is famous for its dumplings. It's a great starting point to dive into local cuisine.\n2. **First Noodle Under The Sun:** A popular place for hand-pulled noodles, another local favorite.\n\n**Flights:**\nI'm sorry for the inconvenience, but as an AI, I'm not able to search real-time flight information. However, you should be able to find suitable flights on booking platforms like Skyscanner, Expedia, or directly on airline websites. Airlines such as China Eastern and Air China have daily flights between Shanghai and Xi'an. I recommend booking as early as possible for the best prices.\n\n**Guided Tour to Terracotta Army:**\nMany companies offer half-day or full-day guided tours to the Terracotta Army. These typically include hotel pickup and drop-off, entrance fees, and an English-speaking guide who can provide detailed information about the site's history and significance. Some tours also include stops at other attractions like the Banpo Museum or the Huaqing Hot Springs. You can find these tours on platforms like Viator or GetYourGuide.\n\nPlease let me know if you need more information on any of these points or if there's anything else you would like to know!",
+            "content_zh": "当然，我很高兴你喜欢这个计划！让我们深入了解细节。\n\n**住宿：**\n1. **西安人民广场美居酒店：** 一家评价很高、位置优越的舒适酒店。提供宽敞客房、健身中心和多个餐饮选择。\n2. **馨乐庭西安中心公寓酒店：** 每间客房都配有小厨房的现代公寓式酒店。距离钟楼和鼓楼只有很短的步行路程。\n3. **西安希尔顿酒店：** 作为更豪华的选择，该酒店设有室内游泳池、健身中心以及可欣赏城市全景的屋顶餐厅。\n\n**餐厅推荐：**\n1. **德发长餐厅：** 这家餐厅以其饺子而闻名。这是开始品尝当地美食的绝佳地点。\n2. **阳光下的第一道面馆：** 一家受欢迎的手工拉面店，另一家当地人的最爱。\n\n**航班：**\n很抱歉造成不便，但作为AI，我无法搜索实时航班信息。不过，你应该能在Skyscanner、Expedia等预订平台或航空公司网站上找到合适的航班。中国东方航空和中国国际航空每天都有上海到西安的航班。我建议尽早预订以获得最优惠的价格。\n\n**兵马俑导览团：**\n许多公司提供半日或全日的兵马俑导览团。通常包括酒店接送、门票和会提供有关遗址历史和意义的详细信息的英文导游。一些导览还包括其他景点的停留，比如半坡博物馆或华清池。你可以在Viator或GetYourGuide等平台上找到这些导览。\n\n如果你需要关于这些内容的更多信息，或者有其他需要了解的内容，请告诉我!",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "The Grand Mercure sounds delightful with its range of dining options, which is perfect for my gourmet inclinations. Please book me a room there with a view if possible, and I'd like to have access to the fitness center for my morning yoga routine.\n\nFor my first night, I'll make a reservation at De Fa Chang Restaurant; those dumplings sound like a dream! And, yes, a morning flight would be ideal—I'll look into booking one that departs from Shanghai and gets me to Xi'an with plenty of time to check in and explore.\n\nRegarding the guided tour, I like the idea of having an informed guide. I'll check out Viator and GetYourGuide for a tour that includes the Terracotta Army and some additional stops as you've suggested. A half-day tour sounds just right, giving me the afternoon to recover or explore on my own.\n\nThank you for all your help! Could you also recommend a place for wine tasting or a restaurant with a notable wine list for one of the evenings? I'd love to experience some local or regional wines if available.",
+            "content_zh": "在我所喜爱的美食选择范围内，美爵美居听起来很令人愉悦。如果可能的话，请为我预订一个可以看到风景的房间，并且我想在早晨进行瑜伽锻炼时能够使用健身中心。对于我的第一个晚上，我会在德发昌餐厅预订位置；那些饺子听起来像是梦想！而且，是的，一个早班航班会很理想——我会考虑预订一个从上海起飞并让我有充足时间办理登机手续和探索西安的航班。关于导览，我很喜欢有个知识渊博的导游的想法。我会查看Viator和GetYourGuide以找到一个包括兵马俑和一些其他景点的行程，正如你建议的那样。半天的旅行听起来正好，这样我下午就有时间恢复精力或者自行探索。谢谢你的所有帮助！你能否也向我推荐一个品酒或者有着显著葡萄酒品种的餐厅？如果有的话，我很乐意品尝当地或区域性的葡萄酒。",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "I'm delighted to hear that the plans are coming together nicely for you!\n\nWhile I can't make bookings directly, choosing the Grand Mercure Xi'an on Renmin Square for its dining options and fitness center amenities sounds like a perfect fit for your needs. I recommend contacting the hotel directly or using a reputable hotel booking platform to secure a room with a view and ensure that fitness center access is included.\n\nFor wine tasting or enjoying an evening with a notable wine list, Xi'an may not be as renowned as other regions for its local wines, but there are definitely places where you can enjoy a good selection of Chinese and international wines:\n\n1. **Louvre International Wine Cellar (卢浮宫国际酒窖):** This wine shop and bar offers a wide range of wines from around the world. While focusing more on international labels, it's a great place to relax and perhaps discover your new favorite wine.\n\n2. **The Tang Dynasty, Xi'an (大唐不夜城):** While primarily a place for cultural performances, the dining experience here is complemented by a selection of fine wines. It's an excellent opportunity to enjoy traditional Chinese performances while sipping on a good glass of wine.\n\n3. **Cyclist Restaurant:** Known for its laid-back atmosphere and good selection of wines, this place is perfect for a casual evening. It's a favorite among locals and tourists alike.\n\nWhile Xi'an might not have a strong local wine culture, these venues offer a great opportunity to enjoy a variety of wines during your stay. It might also be interesting to explore some Chinese wines; China's wine industry has been growing, and there are some notable vineyards producing quality wines, especially from regions like Ningxia and Shandong.\n\nRemember, dining and wine tasting experiences can also be a great way to meet people and share stories, so don't hesitate to ask the locals or your hotel concierge for additional recommendations once you're there.\n\nI hope this adds an enjoyable element to your evenings in Xi'an! If you have any more questions or need further assistance, feel free to ask.",
+            "content_zh": "很高兴听到你的计划进展顺利！虽然我不能直接预订，但在人民广场的西安维景国际大酒店选择用餐和健身中心设施听起来非常适合你的需求。我建议直接联系酒店或使用信誉良好的酒店预订平台预订带有景观的客房，并确保包括健身中心的使用权。\n对于品酒或享受拥有出色酒单的夜晚，西安也许不像其他地区一样以其当地葡萄酒闻名，但肯定有一些地方可以品尝到丰富的中国和国际葡萄酒：\n1. **卢浮宫国际酒窖：** 这家葡萄酒店和酒吧提供全球范围的葡萄酒。虽然更注重国际品牌，但这是一个放松身心的好地方，也许你能发现你的新最爱。\n2. **大唐不夜城: **虽然主要是文化表演的地方，这里的用餐体验配有一系列精品葡萄酒。这是一个绝佳的机会，在品尝美酒的同时欣赏传统中国表演。\n3. **骑士餐厅：** 以其悠闲的氛围和丰富的葡萄酒选择而闻名，这个地方非常适合闲暇的夜晚。它是当地人和游客的最爱。\n虽然西安可能没有强大的本地葡萄酒文化，但这些场所为你提供了一个绝佳的机会在逗留期间品尝各种葡萄酒。探索一些中国葡萄酒可能也很有趣；中国的葡萄酒产业一直在增长，尤其是宁夏和山东等地区生产出品质葡萄酒的知名葡萄园。\n记住，用餐和品酒体验也是结识新朋友和分享故事的好机会，所以一旦到了目的地，尽管向当地人或酒店礼宾部寻求额外推荐。\n希望这能为你在西安的夜晚增添愉快的元素！如果你有更多问题或需要进一步协助，请随时提问。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Your suggestions sound perfect! The Louvre International Wine Cellar definitely caught my attention—I'll make sure to visit. I'll also take your advice and try some Chinese wines; exploring new flavors is always exciting.\n\nYou've been extremely helpful in planning my trip! I feel much more prepared and excited about my upcoming journey to Xi'an. I'll be sure to take on the adventurous spirit of an event planner and make the most out of this historical and cultural tour.\n\nThank you for your assistance and detailed responses! I believe I have everything I need for now. I'll get started on booking my hotel, flight, and guided tour. Looking forward to this amazing trip!",
+            "content_zh": "你的建议听起来很完美！我一定会去参观卢浮宫国际酒窖，它确实吸引了我的注意。我也会采纳你的建议，尝试一些中国葡萄酒；探索新的口味总是令人兴奋的。\n\n在规划我的旅行方面，你帮助了我很多！我感觉更加充分地准备好并对我即将到来的西安之行感到兴奋。我一定会像活动策划者一样拥有冒险的精神，充分利用这次历史文化之旅。\n\n谢谢你的帮助和详细的回复！我相信我现在有了一切所需。我会开始预订酒店，机票和导游。期待这次美妙的旅行！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're most welcome! I'm thrilled that you found the information helpful and feel more prepared for your journey. Exploring Xi'an's rich history, culture, and culinary delights is bound to be an unforgettable experience. Your willingness to embrace the local flavors and traditions will surely enhance your trip.\n\nDon't hesitate to reach out if you have any more questions in the future or need assistance with any other travel plans. Have a fantastic trip to Xi'an, and safe travels! Enjoy every moment of your journey.",
+            "content_zh": "不客气！我很高兴您发现这些信息有帮助，并感到对旅行更有准备。探索西安丰富的历史、文化和美食必将是一次难忘的经历。您愿意去接受当地的风味和传统必定会增添您的旅行。如果将来有更多问题或需要帮助安排其他旅行计划，请随时联系我。祝您在西安旅行愉快，并一路平安！享受旅途的每一刻。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary": [
+        "historical tours",
+        "cultural experiences",
+        "gourmet food",
+        "wine tasting",
+        "fashion shopping"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "39",
+            "zh": "39"
+        },
+        "Personality": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Spontaneous",
+                "zh": "随性"
+            },
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on fashion",
+                "zh": "时尚支出"
+            },
+            {
+                "en": "Invests in real estate",
+                "zh": "房地产投资"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Has a large social circle",
+                "zh": "社交广泛"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_1120": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        }
+    }
+}

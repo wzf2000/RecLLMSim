@@ -1,0 +1,235 @@
+{
+    "task": "new travel planning",
+    "preference_id": 15,
+    "task_context_id": 9,
+    "preference": "1. Gender: Female\n2. Age: 30\n3. Personality: Ambitious, assertive, and confident\n4. Occupation: Real Estate Agent\n5. Daily Interests and Hobbies: Interior design, networking, fitness training\n6. Travel Habits: Prefers city breaks, enjoys luxury resorts\n7. Dining Preferences: Enjoys fine dining, loves trying new restaurants\n8. Spending Habits: Invests in high-end fashion, saves for property\n9. Other Aspects: Lives in a city apartment, has a high-stress lifestyle",
+    "preference_zh": "1. 性别：女\n2. 年龄：30\n3. 个性：有抱负，自信，自信\n4. 职业：房地产经纪人\n5. 日常兴趣和爱好：室内设计，社交，健身训练\n6. 旅行习惯：喜欢城市短途旅行，享受豪华度假村\n7. 就餐偏好：喜欢精致餐饮，喜欢尝试新餐厅\n8. 消费习惯：投资高端时尚，为房产存钱\n9. 其他方面：住在城市公寓，生活压力大",
+    "task_context": "You are planning a fortnight trip that will take place in December. Your goal, with the help of LLM, is to refine and finalize your travel plans. This includes making detailed arrangements for accommodations, transportation, and your daily itinerary. Your final travel plan should be as comprehensive and realistic as possible, ensuring that it can be seamlessly implemented when the time comes.\nYour trip planning should take into consideration the specific destination as specified in the following requirements: no specific destination restrictions. You should also consider your point of departure, your preferred mode of transportation to the destination, and the specific attractions or activities you wish to engage in. Remember to consider factors such as travel distance, travel time, and the opening hours of the attractions.",
+    "task_context_zh": "您正在计划一个将在十二月举行的两周行程。您的目标是在LLM的帮助下，进一步完善和最终确定您的旅行计划。这包括详细安排住宿、交通以及每日行程。您的最终旅行计划应尽可能全面和实际，以确保到时能够顺利实施。您的旅行规划应该考虑以下要求中指定的特定目的地：没有特定目的地限制。您还应考虑您的出发地，到达目的地的首选交通方式，以及您希望参与的具体景点或活动。请记得考虑诸如旅行距离、旅行时间和景点的开放时间等因素。",
+    "history": [
+        {
+            "role": "user",
+            "content": "I'm planning a fortnight trip in December and I need some assistance with my travel plans, including accommodations, transportations, and daily itinerary.",
+            "content_zh": "我打算在十二月进行两周的旅行，需要一些帮助来安排住宿、交通和每日行程。",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to assist you with that! To provide the best advice, I'll need a bit more information. \n\n1. Where are you planning to travel to? \n2. What is your current location (to help with flight suggestions)?\n3. What are your interests (e.g., sightseeing, hiking, museums, food, relaxation on the beach, etc.)?\n4. What is your budget range for this trip?\n5. Are you traveling alone or with others? If with others, how many and what are their ages?\n6. Do you have any preferred type of accommodation (e.g., hotel, hostel, vacation rental)?\n7. Do you have any dietary restrictions or preferences that should be considered?\n\nOnce I have these details, I can assist you further with your travel plans.",
+            "content_zh": "当然，我很乐意帮助您！为了提供最佳建议，我需要更多信息。\n1. 您计划前往哪里旅行？\n2. 您目前的位置是哪里（以便帮助提供建议）？\n3. 您的兴趣是什么（例如观光、徒步、博物馆、美食、海滩放松等）？\n4. 您此次旅行的预算范围是多少？\n5. 您是独自旅行还是与他人同行？如果与他人同行，有多少人以及他们的年龄是多少？\n6. 您有任何首选住宿类型吗（例如酒店、青年旅舍、度假租赁）？\n7. 您有任何饮食限制或偏好需要考虑吗？\n一旦我获得了这些细节，我可以帮助您进一步制定您的旅行计划。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "1. I'd like to explore Tokyo, Japan.\n2. I'm currently in New York City.\n3. I'm into sightseeing, fine dining, and would love to explore Japan's culture and tradition. I might also want to check out some real estate properties while I'm there.\n4. I'm willing to spend around $7,000 for this trip.\n5. I'll be traveling alone.\n6. I prefer staying at luxury hotels.\n7. I have no dietary restrictions. I love trying out new restaurants and local cuisines.",
+            "content_zh": "1. 我想探索日本东京。2. 我目前在纽约市。3. 我喜欢观光，美食，并且想探索日本的文化和传统。我也可能想在那里看看一些房地产。4. 我愿意在这次旅行中花费大约7000美元。5. 我将独自旅行。6. 我更喜欢住豪华酒店。7. 我没有饮食限制。我喜欢尝试新餐馆和当地美食。",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Fantastic choice! Tokyo is a vibrant city with a perfect blend of modernity and tradition, offering endless sightseeing opportunities, exquisite dining experiences, and a deep dive into Japanese culture. Based on the information you've provided, here's a preliminary plan for your fortnight trip in December, including accommodations, transportation, and a daily itinerary filled with activities matching your interests. We'll also touch upon the aspect of exploring real estate properties.\n\n### Before You Go:\n\n- **Visa Requirements:** As a New York City resident, assuming you hold a U.S. passport, you can enter Japan for short-term stays (up to 90 days) without a visa for tourism purposes.\n- **Health and Safety:** Ensure you're up-to-date with any vaccinations required and check travel advisories closer to your travel date. Japan is generally very safe, but standard precautions apply.\n- **Currency Exchange:** The currency in Japan is the Japanese Yen (JPY). It's wise to have some cash on hand, as not all places accept credit cards.\n\n### Flight from New York City to Tokyo:\n\n- **Airlines:** Consider direct flights with airlines like Japan Airlines or ANA for convenience. Round-trip economy tickets can be found for around $1,000-$1,500, but for a more luxurious experience, premium economy or business class will be higher.\n- **Departure:** Aim for a mid-week departure to potentially save on airfare.\n- **Arrival in Tokyo:** You'll most likely land at Narita International Airport or Haneda Airport. Haneda is closer to central Tokyo.\n\n### Accommodation:\n\nFor luxury stays, consider these hotels:\n- **Park Hyatt Tokyo:** Famous from \"Lost in Translation,\" offers unparalleled views and luxury.\n- **The Peninsula Tokyo:** Located near the Imperial Palace, it combines modern luxury with traditional Japanese elements.\n- **Andaz Tokyo Toranomon Hills:** A concept by Hyatt, offering a more boutique experience.\n\n### Transportation:\n\n- **From the Airport:** Both Narita and Haneda are well connected by train and bus to central Tokyo. For luxury and ease, consider booking a private car transfer.\n- **Getting Around:** Purchase a SUICA or PASMO card for convenient travel on public transport. Taxis are available but can be expensive for longer distances.\n\n### Itinerary Highlights:\n\n**Day 1-2:** Explore Central Tokyo\n- Visit the Imperial Palace, East Gardens.\n- Stroll through Ginza for upscale shopping and dining.\n- Evening in Shinjuku: Explore Omoide Yokocho and Golden Gai for a mix of tiny bars and eateries.\n\n**Day 3-4:** Culture and History\n- Asakusa: Visit Senso-ji Temple and Nakamise Shopping Street.\n- Ueno Park for museums like Tokyo National Museum.\n- Evening in Akihabara for modern pop culture.\n\n**Day 5-6:** Real Estate and Fine Dining\n- Schedule appointments with real estate agents specializing in foreign buyers.\n- Explore Tokyo's Michelin-starred restaurants like Sukiyabashi Jiro for sushi, or explore unique dining experiences in areas like Roppongi.\n\n**Day 7-9:** Tradition Meets Modernity\n- Day trip to Kamakura or Nikko for temples and traditional experiences.\n- Explore Harajuku for modern fashion and Takeshita Street.\n- Shibuya Crossing and Hachiko Statue.\n\n**Day 10-12:** Relaxation and Shopping\n- Visit Odaiba for leisure and entertainment, including hot springs at Oedo-Onsen-Monogatari.\n- Explore luxury shopping in Omotesando and Harajuku.\n\n**Day 13-14:** Final Touches\n- Any missed spots or revisit favorites.\n- Last-minute shopping in areas like Shinjuku or Ginza.\n\n### Budget Overview:\n\n- **Flight:** $1,500 (estimate for upgraded seating)\n- **Accommodation:** $350-$500/night x 14 = $4,900-$7,000\n- **Meals and Dining:** $1,000-$2,000 (including high-end dining experiences)\n- **Transportation, Entry Fees, Miscellaneous:** $600-$1,000\n\nGiven your budget of $7,000, you might want to adjust your accommodation preferences or dining choices. Opting for a mix of luxury and standard accommodations or being selective about fine dining experiences can help manage the budget effectively.\n\n### Real Estate Exploration:\n\n- **Contacting Agents:** Reach out to international real estate agencies with a presence in Tokyo ahead of your trip. They can arrange viewings and provide insights into the market for foreigners.\n\n### Additional Tips:\n\n- **Language:** While many people in Tokyo speak English, learning basic Japanese phrases can enhance your experience.\n- **Connectivity:** Consider renting a portable Wi-Fi device for easy internet access.\n- **Cultural Etiquette:** Familiarize yourself with basic Japanese etiquette, such as bowing and removing shoes when entering homes.\n\nWould you like more details on any part of the trip, or is there anything else you're curious about?",
+            "content_zh": "选择得很棒！东京是一个充满活力的城市，融合了现代与传统，提供了无尽的观光机会、精致的餐饮体验以及深入了解日本文化。根据您提供的信息，这是您十二月份两周行程的初步计划，包括住宿、交通以及符合您兴趣的每日行程安排。我们也将涉及探索房地产的方面。\n\n### 出发前：\n\n- **签证要求：** 作为纽约市居民，假设您持有美国护照，您可以无需签证以旅游为目的短期入境日本（最长可停留90天）。\n- **健康与安全：** 确保您接种了所需的疫苗并在出发前再次检查旅行警报。日本通常是非常安全的，但仍需采取标准预防措施。\n- **货币兑换：** 日本的货币是日元（JPY）。最好准备一些现金，因为并非所有地方都接受信用卡。\n\n### 从纽约市到东京的航班：\n\n- **航空公司：** 考虑选择日本航空公司或全日空等航空公司的直达航班以方便。经济舱的往返机票价格大约在1000-1500美元左右，但如果想要更奢华的体验，选择高级经济舱或商务舱会更高一些。\n- **出发：** 目标是选择周中出发以节省可能的机票费用。\n- **抵达东京：** 您很可能会降落在成田国际机场或羽田机场。羽田机场更靠近东京市中心。\n\n### 住宿：\n\n对于豪华住宿，考虑以下酒店：\n- **帕克凯悦东京：** 因电影《迷失东京》而闻名，提供无与伦比的景观和豪华体验。\n- **半岛东京：** 位于皇居附近，融合了现代豪华与日本传统元素。\n- **安达仕东京虎麟山：** 凯悦旗下的酒店概念，提供更多精品体验。\n\n### 交通：\n\n- **从机场出发：** 成田机场和羽田机场都有便利的火车和巴士通往东京市中心。为了更豪华和便利，考虑预订私人汽车接送服务。\n- **出行交通：** 购买一张SUICA或PASMO卡以便在公共交通上便利出行。虽然出租车可用，但对于较远的距离可能会昂贵。\n\n### 行程亮点：\n\n**第1-2天：** 探索东京市中心\n- 参观皇居和东御苑。\n- 在银座漫步，享受高档购物和餐饮。\n- 晚上在新宿：探索回忆横丁和Golden街，体验各种小酒吧和餐馆。\n\n**第3-4天：** 文化与历史\n- 浅草：参观浅草寺和仲见世商店街。\n- 上野公园，参观东京国立博物馆等博物馆。\n- 晚上在秋叶原感受现代流行文化。\n\n**第5-6天：** 房地产与美食\n- 安排与专门服务外国购房者的房地产经纪人的约会。\n- 探索东京的米其林星级餐厅，如寿司之神或在六本木等地探索独特的餐饮体验。\n\n**第7-9天：** 传统与现代相遇\n- 前往镰仓或日光进行一日游，参观寺庙和传统体验。\n- 探索原宿的现代时尚和竹下街。\n- 表参道十字路口和忠犬八公铜像。\n\n**第10-12天：** 休闲和购物\n- 参观台场，享受休闲娱乐，包括大江户温泉物语的温泉浴。\n- 探索表参道和原宿的奢华购物。\n\n**第13-14天：** 最后的收尾\n- 参观任何遗漏的景点或重游喜爱的地方。\n- 在新宿或银座等地进行最后的购物。\n\n### 预算概况：\n\n- **航班：** 1500美元（升级座位的估算价格）\n- **住宿：** 每晚350-500美元 x 14 = 4900-7000美元\n- **餐饮：** 1000-2000美元（包括高档餐饮体验）\n- **交通、门票、其他费用：** 600-1000美元\n\n鉴于您的预算为7000美元，您可能需要调整住宿偏好或餐饮选择。选择豪华和标准住宿的混合或对高档餐饮体验进行选择性，可以有效管理预算。\n\n### 房地产探索：\n\n- **联系经纪人：** 在出发之前联系在东京有业务的国际房地产机构。他们可以安排看房并提供外国人市场的见解。\n\n### 其他建议：\n\n- **语言：** 尽管东京许多人会讲英语，学习基本的日语短语可以增强您的体验。\n- **连接性：** 考虑租用便携式WiFi设备以方便接入互联网。\n- **文化礼仪：** 熟悉基本的日本礼仪，如鞠躬和进入住宅时脱鞋。\n\n您是否希望了解旅行的任何详细信息，或者是否还有其他您感兴趣的内容？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "As much as I appreciate the outline, I need to correct a couple of points for the accommodation and the budget. The hotels you've mentioned are certainly luxurious, but I'd prefer something a bit more contemporary and with a vibrant atmosphere, perhaps in the heart of Tokyo's nightlife or shopping districts. Can you suggest any hotels that might fit this description?\n\nAlso, regarding the budget, if we're looking at potentially $4,900 to $7,000 just for accommodations, that would exceed my total trip budget of $7,000. I need to keep the hotel costs lower, perhaps around $200-$300 per night, without sacrificing too much on the luxury and comfort I'm accustomed to. Could you provide options that align with this revised budget?\n\nFor the dining experiences, I'd love to have at least a couple of fine dining reservations at Michelin-starred restaurants penciled in, so including those within my budget is a priority.\n\nLastly, while the itinerary looks quite engaging, I'd like to ensure we incorporate some fitness activities as well. Maybe a high-end gym or a place where I can join fitness classes would be great. Can you adjust the itinerary to include this?",
+            "content_zh": "尽管我很感谢这个计划大纲，但我需要对住宿和预算做一些修改。你提到的酒店确实豪华，但我更希望能找到一些更现代化，拥有活力氛围的地方，也许在东京的夜生活区或购物区的中心地带。你能推荐符合这个描述的酒店吗？\n\n另外，关于预算，如果我们只是考虑住宿费用可能在4900到7000美元，那就会超出我的整个旅行预算7000美元。我需要降低酒店费用，也许每晚在200到300美元左右，不过不希望太多地牺牲我习惯的奢华和舒适。你能提供符合这一修改预算的选择吗？\n\n至于用餐体验，我希望至少能预订几家米其林星级餐厅的晚餐，所以将这些包括在我的预算内是首要任务。\n\n最后，虽然这个行程看起来很有吸引力，我希望确保我们还能安排一些健身活动。也许一个高端健身房或我可以参加健身课程的地方会很棒。你能调整行程来包括这一点吗？",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely, I understand your preferences better now and will adjust the plan accordingly. Let's focus on contemporary hotels with a vibrant atmosphere that fit within your revised accommodation budget, fine dining experiences, and incorporate fitness activities into your Tokyo visit.\n\n### Revised Accommodation Suggestions:\n\nGiven your preference for contemporary hotels in the heart of Tokyo's nightlife or shopping districts, and aiming to keep the cost within $200-$300 per night, here are a few options:\n\n1. **TRUNK (HOTEL) Shibuya:** A boutique hotel in the heart of Shibuya, known for its modern design and social atmosphere. It's close to the bustling nightlife and shopping areas, and offers a unique, stylish stay. Approximate cost: $250-$300 per night.\n\n2. **The Millennials Shibuya:** A futuristic hotel offering high-tech facilities with a focus on shared spaces and experiences. It's an innovative option for travelers who appreciate modern aesthetics and technology. Approximate cost: $100-$200 per night, depending on the room type.\n\n3. **Hotel KOÉ Tokyo:** Located in Shibuya, this hotel offers a contemporary stay with its own fashion brand, a café, and a music lounge. It's perfect for those looking to stay in a vibrant area with a unique blend of local culture and modern luxury. Approximate cost: $200-$300 per night.\n\n### Budget Revision:\n\nWith hotel costs adjusted to $200-$300 per night, your accommodation expenses for 14 nights would now be approximately $2,800-$4,200, freeing up more of your budget for dining and experiences.\n\n### Fine Dining Reservations:\n\nTokyo is home to numerous Michelin-starred restaurants that offer incredible culinary experiences. Here are two recommendations:\n\n1. **Ryugin:** Specializing in modern interpretations of traditional Japanese kaiseki cuisine, Ryugin offers an unforgettable dining experience. It's advisable to book well in advance. Approximate cost: $250-$350 per person.\n\n2. **Sukiyabashi Jiro:** Known worldwide, dining here offers an unparalleled sushi experience. Note that securing reservations can be challenging, and it's best to have your hotel concierge assist with booking. Approximate cost: $300+ per person.\n\nIncluding these two dining experiences, you should allocate approximately $600-$700 for your fine dining priorities, ensuring these fit within your overall budget.\n\n### Incorporating Fitness Activities:\n\nTokyo has several high-end gyms and studios where you can maintain your fitness routine. Consider the following:\n\n1. **Club 360:** Offering personal training, group classes, and a variety of fitness services, Club 360 caters to a diverse set of fitness needs and is popular among expats and locals alike.\n\n2. **Gold's Gym:** With multiple locations across Tokyo, including in Shibuya and Harajuku, Gold's Gym offers day passes for visitors looking for a comprehensive workout environment.\n\n3. **FeelCycle:** If you enjoy spinning classes, FeelCycle is a popular studio offering high-energy, music-driven workouts. It's a fun way to stay fit and experience a local fitness trend.\n\n### Adjusted Itinerary to Include Fitness:\n\n- **Morning Routine:** Incorporate morning fitness activities, such as a visit to Club 360 or Gold's Gym, or a jog around the Imperial Palace gardens, which is a popular spot among runners.\n\n- **Daytime and Evening Activities:** Continue with the cultural, sightseeing, and dining itinerary as planned, ensuring a holistic experience of Tokyo that balances indulgence with wellness.\n\nThis revised plan aims to keep your accommodation and dining within budget, ensuring you enjoy the contemporary vibe and vibrant nightlife of Tokyo, indulge in fine dining, and maintain your fitness routine. Would you like more details on any of these suggestions or further assistance with bookings and reservations?",
+            "content_zh": "当然，我现在更好地理解了您的偏好，并将相应调整计划。让我们专注于拥有充满活力氛围并符合您修订后住宿预算的现代化酒店，在东京进行 fine dining 体验，并将健身活动纳入您的东京行程中。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "This is much more aligned with my preferences, thank you. I particularly like the sound of the TRUNK (HOTEL) Shibuya. I think I'll go with that one. \n\nThe dining recommendations also sound exquisite. I'll certainly need your assistance in securing reservations at both Ryugin and Sukiyabashi Jiro. \n\nAs for the fitness activities, I love the idea of starting my day with a jog around the Imperial Palace gardens. I'll probably alternate that with sessions at Gold's Gym. \n\nJust one more thing, could you suggest a reliable real estate agency that I could get in touch with for my property exploration? I think I would like to schedule that for Day 5, after a workout and before dinner at Ryugin. \n\nOther than that, the plan sounds exciting and well thought out. Thank you!",
+            "content_zh": "这更符合我的喜好，谢谢。我特别喜欢TRUNK（HOTEL）Shibuya的声音。我想选择那个。餐厅推荐听起来也很精致。我肯定需要您的帮助来预订Ryugin和Sukiyabashi Jiro的位置。至于健身活动，我喜欢每天早上在皇宫花园跑步的想法。我可能会交替在Gold's Gym锻炼。还有一件事，您能建议我一个值得信赖的房地产中介吗？我想安排在第五天，锻炼后和Ryugin晚餐前进行。除此之外，计划听起来很激动人心，考虑周到。谢谢！",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "I'm glad to hear that the revised plan aligns well with your preferences!\n\nFor your accommodation, TRUNK (HOTEL) Shibuya is indeed a great choice, combining luxury with a unique, contemporary design and a superb location.\n\nAs for securing dinner reservations at Ryugin and Sukiyabashi Jiro, it's often best to have your hotel concierge assist with these as they can communicate directly with the restaurants in Japanese and have experience with these types of bookings. Once you have your travel dates and hotel booking confirmed, I recommend reaching out to the concierge at TRUNK (HOTEL) Shibuya to assist with these reservations.\n\nIn regards to the real estate agency, I recommend \"PLAZA HOMES\". They are a well-established real estate agency in Tokyo that specializes in serving foreign nationals, both for rentals and purchases. They have English-speaking staff and a good understanding of the needs and concerns of foreign buyers.\n\nRemember to reach out to them in advance to schedule appointments for Day 5 of your trip. Provide them with a brief on what you're looking for in terms of property type, location, budget, etc., so they can prepare a selection of properties for you to view. \n\nYour itinerary now looks well-rounded and exciting, with a good mix of culture, dining, fitness, and your personal interest in real estate. Have a fantastic trip to Tokyo! If you have any more questions or need further assistance, feel free to ask.",
+            "content_zh": "很高兴听到修改后的计划与您的喜好很合拍！\n关于您的住宿，TRUNK（HOTEL）Shibuya确实是一个很棒的选择，将奢华与独特的现代设计和绝佳的位置结合在一起。\n至于在Ryugin和Sukiyabashi Jiro预订晚餐，最好是让酒店礼宾部协助，因为他们可以直接与日本餐厅沟通，并且对这类预订有经验。一旦您的旅行日期和酒店预订已确认，我建议您联系TRUNK（HOTEL）Shibuya的礼宾部协助预订。\n至于房地产代理，我建议选择“PLAZA HOMES”。他们是一家在东京有着良好口碑的房地产代理，专门为外国人提供租赁和购买服务。他们有会讲英语的员工，并且很好了解外国买家的需求和关切。\n记得提前联系他们安排您在旅行的第五天的预约。向他们提供关于您希望购买的房产类型、位置、预算等的简要信息，这样他们就可以为您准备好一些房产选择。\n您的行程现在看起来周全而令人兴奋，包括了文化、美食、健身以及您对房地产的个人兴趣。祝您在东京度过一个美妙的旅程！如果您有更多问题或需要进一步帮助，请随时问我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary": [
+        "fitness activities",
+        "contemporary hotels",
+        "michelin-starred dining",
+        "property exploration"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 1
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "30",
+            "zh": "30"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Confident",
+                "zh": "自信"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Crafting",
+                "zh": "手工艺制作"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Luxury accommodation",
+                "zh": "豪华住宿"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on fashion",
+                "zh": "时尚支出"
+            },
+            {
+                "en": "Invests in real estate",
+                "zh": "房地产投资"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Has a high-stress lifestyle",
+                "zh": "生活压力大"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Both"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Both"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Both"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Both"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Both"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Both"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Both"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Both"
+        }
+    }
+}

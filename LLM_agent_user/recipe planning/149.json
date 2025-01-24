@@ -1,0 +1,254 @@
+{
+    "task": "recipe planning",
+    "preference_id": 94,
+    "task_context_id": 0,
+    "preference": "1. Gender: Male\n2. Age: 22\n3. Personality: Energetic, social, and optimistic\n4. Occupation: College Student\n5. Daily Interests and Hobbies: Playing basketball, partying, video gaming\n6. Travel Habits: Enjoys road trips with friends, attends music festivals\n7. Dining Preferences: Fast food lover, enjoys late-night snacks\n8. Spending Habits: Spends on concerts and entertainment, saves for education\n9. Other Aspects: Lives in a dorm, part of a college basketball team",
+    "preference_zh": "1. 性别：男\n2. 年龄：22\n3. 个性：充满活力，善交际，乐观\n4. 职业：大学生\n5. 日常兴趣爱好：打篮球，参加派对，玩游戏\n6. 旅行习惯：喜欢和朋友一起出去旅行，参加音乐节\n7. 饮食偏好：快餐爱好者，喜欢深夜小吃\n8. 消费习惯：在音乐会和娱乐活动上花钱，为教育存钱\n9. 其他方面：住在宿舍，是大学篮球队的一员",
+    "task_context": "You plan to prepare a meal at home for yourself. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家为自己准备一顿饭。你在烹饪方面并不很有技巧，经验也有限。因此，你想要请求LLM的帮助来制定菜谱，确定所需食材，并决定要做哪些菜。在规划过程中，你应该学习每道菜的完整准备过程以及准备菜的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hey there! I'm glad you're here. I could really use your help in preparing a meal at home. I don't have much experience in cooking, so I'm hoping you can guide me through the process. Are you up for it?",
+            "content_zh": "嘿！很高兴你在这里。我真的很需要你在家帮忙准备一顿饭。我在烹饪方面没什么经验，希望你可以指导我。你愿意吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you with your cooking adventure! Cooking can be a lot of fun, and with a little guidance, you'll be able to prepare a delicious meal at home. What type of cuisine or dish are you interested in making? Let me know, and we can get started!",
+            "content_zh": "当然，我很乐意帮助你进行烹饪冒险！烹饪可以很有趣，通过一点指导，你就能在家制作出美味的餐点。你对什么类型的菜系或者菜品感兴趣呢？告诉我，我们就可以开始了！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That's great! I'm open to trying different cuisines and dishes. Since I'm a college student, I'd like something that's relatively easy to make and doesn't require too many ingredients. Maybe something like a pasta dish or a stir-fry? What do you think?",
+            "content_zh": "太好了！我愿意尝试不同的烹饪和菜肴。因为我是大学生，我想要做起来比较容易而且不需要太多食材的东西。也许是意大利面或者炒菜？你觉得怎么样？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Those are both great options! Let's go with a simple pasta dish for now. How about a classic spaghetti aglio e olio? It's a traditional Italian dish that's quick, easy, and only requires a few ingredients. Here's a basic recipe to get you started:\n\nIngredients:\n- 8 oz spaghetti\n- 4 cloves of garlic, minced\n- 1/4 cup olive oil\n- 1/2 teaspoon red pepper flakes (adjust according to your spice preference)\n- Salt and pepper to taste\n- Optional toppings: grated Parmesan cheese, chopped parsley\n\nInstructions:\n1. Cook the spaghetti according to the package instructions until al dente (firm to the bite). Drain and set aside.\n2. In a large skillet, heat the olive oil over medium heat. Add the minced garlic and red pepper flakes, and sauté for about 2-3 minutes until the garlic turns golden and fragrant. Be careful not to burn the garlic.\n3. Add the cooked spaghetti to the skillet and toss it in the garlic-infused oil until well coated. Season with salt and pepper to taste.\n4. Remove from heat and serve the spaghetti in bowls. You can top it with grated Parmesan cheese and chopped parsley if desired.\n\nThat's it! It's a simple yet flavorful dish that you can easily customize to your liking. Feel free to add some cooked vegetables or protein like grilled chicken or shrimp if you want to make it heartier. Let me know if you have any questions or if you'd like to explore other recipes!",
+            "content_zh": "那两个都是很不错的选择！我们现在就做一个简单的意大利面料理吧。怎么样来一份经典的意大利蒜油意面？这是一道传统意大利菜肴，制作快捷简单，只需几种食材。下面是一个基本的食谱供你参考：\n\n食材：\n- 8盎司意大利面\n- 4瓣大蒜，切碎\n- 1/4杯橄榄油\n- 1/2茶匙红辣椒片（根据口味调整）\n- 盐和胡椒适量\n- 可选配料：磨碎的帕玛森奶酪，切碎的欧芹\n\n做法：\n1. 根据包装说明煮意大利面至al dente（有嚼劲）。沥干备用。\n2. 在大煎锅中，中火加热橄榄油。加入切碎的大蒜和红辣椒片，炒2-3分钟直至大蒜变金黄香气四溢。小心不要烧焦大蒜。\n3. 将煮熟的意大利面倒入煎锅中，拌匀蒜油，入味。根据口味加盐和胡椒。\n4. 关火，将意大利面盛入碗中。您可以根据需要撒上磨碎的帕玛森奶酪和切碎的欧芹。\n\n完成！这是一道简单却美味的菜肴，可以根据个人口味自行调整。如果想增加鲜蔬或烤鸡、烤虾等蛋白质食材让它更丰盛也可以。如果有任何问题或者想尝试其他食谱，请随时告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That sounds absolutely delicious! I love the simplicity of spaghetti aglio e olio. I can't wait to give it a try. The recipe and instructions you provided seem clear and easy to follow. I appreciate your suggestion!\n\nBefore we move on to the next dish, I have a quick question. Are there any dietary restrictions or preferences I should keep in mind for the upcoming dishes? It'll help me tailor the recipes accordingly.",
+            "content_zh": "听起来绝对美味！我喜欢意大利辣椒大蒜意面的简单风味。我迫不及待想要尝试一下。你提供的食谱和说明看起来清晰易懂。非常感谢你的建议！在我们继续下一个菜肴之前，我有一个快速问题。未来的菜肴中是否有任何饮食限制或偏好我需要考虑？这将帮助我相应地调整食谱。",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "I'm glad you liked the spaghetti aglio e olio recipe! As for dietary restrictions or preferences, it would be helpful to know if you have any specific dietary needs or if you follow any particular eating style, such as vegetarian, vegan, gluten-free, or dairy-free. That way, I can suggest recipes that align with your preferences and ensure you have a great cooking experience. Let me know, and I'll be happy to accommodate your needs!",
+            "content_zh": "很高兴您喜欢意大利蒜油意面的食谱！关于饮食限制或偏好，如果您有特定的饮食需求或者遵循任何特定的饮食风格，比如素食、纯素食、无麸质或无乳制品，那会非常有帮助。这样我就能推荐与您的喜好相符的食谱，确保您有愉快的烹饪体验。请告诉我，我很乐意满足您的需求！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for asking! I don't have any specific dietary restrictions or preferences, so feel free to suggest any recipes that you think would be enjoyable to make. I'm open to trying new things and exploring different flavors. Let's continue with the next dish! What do you have in mind?",
+            "content_zh": "谢谢你的询问！我没有任何特定的饮食限制或偏好，所以请随意建议任何你认为制作起来会很愉快的食谱。我愿意尝试新事物，探索不同的口味。让我们继续下一个菜品吧！你有什么想法？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great to hear that you're open to trying new things! How about we explore a popular and versatile dish like stir-fried noodles? It's a fantastic way to incorporate various ingredients and flavors into a quick and tasty meal. One popular option is Pad Thai, a Thai stir-fried noodle dish with a perfect balance of sweet, sour, and savory flavors. Here's a basic recipe to get you started:\n\nIngredients:\n- 8 oz rice noodles\n- 2 tablespoons vegetable oil\n- 2 cloves of garlic, minced\n- 1/2 cup firm tofu, cubed (optional)\n- 2 eggs, lightly beaten\n- 1 cup bean sprouts\n- 1/4 cup chopped green onions\n- 2 tablespoons crushed peanuts (optional)\n- Lime wedges for serving\n\nFor the sauce:\n- 3 tablespoons fish sauce (or soy sauce for a vegetarian/vegan version)\n- 2 tablespoons tamarind paste (or lime juice)\n- 2 tablespoons brown sugar\n- 1 tablespoon rice vinegar\n- 1/2 teaspoon chili flakes (adjust to your spice preference)\n\nInstructions:\n1. Cook the rice noodles according to the package instructions until they are tender but still slightly firm. Drain and set aside.\n2. In a small bowl, whisk together all the sauce ingredients until well combined.\n3. Heat the vegetable oil in a large skillet or wok over medium-high heat. Add the minced garlic and tofu (if using) and stir-fry for about 2 minutes until the tofu is slightly browned.\n4. Push the tofu and garlic to one side of the skillet and pour the beaten eggs into the other side. Scramble the eggs until they are cooked through, then mix them with the tofu and garlic.\n5. Add the cooked rice noodles to the skillet and pour the sauce over them. Toss everything together until the noodles are well coated with the sauce.\n6. Add the bean sprouts and green onions to the skillet and stir-fry for an additional 1-2 minutes until the bean sprouts are slightly wilted.\n7. Remove from heat and serve the Pad Thai in bowls. Garnish with crushed peanuts (if desired) and serve with lime wedges for squeezing over the noodles.\n\nPad Thai is a great base recipe, and you can customize it by adding your favorite vegetables, protein (such as shrimp, chicken, or tofu), or additional toppings like cilantro or extra chili flakes. Feel free to get creative and make it your own!\n\nIf you have any questions or need further assistance, just let me know. Happy cooking!",
+            "content_zh": "很高兴听到你愿意尝试新事物！我们来尝试一道受欢迎且多变的菜品吧，比如炒面！这是一个将各种食材和风味融合在一起的快速美味佳肴。其中一种受欢迎的选择是泰式炒面（Pad Thai），这是一道拥有甜、酸、咸味道完美平衡的泰式炒面菜品。以下是一个入门的简易食谱： \n\n食材： \n- 8盎司米粉 \n- 2汤匙植物油 \n- 2瓣大蒜，切碎 \n- 半杯硬豆腐，切块（可选） \n- 2个鸡蛋，轻轻打散 \n- 1杯豆芽 \n- 1/4杯切碎的青洋葱 \n- 2汤匙碎花生（可选） \n- 青柠檬角备用 \n\n调味汁： \n- 3汤匙鱼露（或酱油，适用于素食/纯素版本） \n- 2汤匙罗望子酱（或青柠汁） \n- 2汤匙红糖 \n- 1汤匙米醋 \n- 1/2茶匙辣椒片（根据个人口味调整） \n\n做法： \n1. 根据包装说明将米粉煮至嫩而仍略带坚果口感。捞出备用。 \n2. 在一个小碗中，搅拌均匀所有调味汁原料。 \n3. 在一个大煎锅或炒锅中，用中高火热油。加入切碎的大蒜和豆腐（如果使用），炒约2分钟直至豆腐略带金黄。 \n4. 将豆腐和大蒜推到锅的一侧，将打散的鸡蛋倒入另一侧。翻炒鸡蛋至熟透，然后将其与豆腐和大蒜混合。 \n5. 将煮熟的米粉加入锅中，倒入调味汁。将所有食材拌匀直至米粉完全裹上汁料。 \n6. 加入豆芽和青洋葱，继续炒约1-2分钟至豆芽略微软化。 \n7. 关火，将泰式炒面盛入碗中。根据喜好撒上碎花生，配以青柠檬角挤在面条上。 \n\n泰式炒面是一个很好的基础食谱，你可以根据喜好添加你喜爱的蔬菜、蛋白质（如虾、鸡肉或豆腐）或额外的配料如香菜或更多辣椒片。欢迎发挥创意，将其打造成你自己的风味！ \n\n如果你有任何问题或需要进一步帮助，请随时告诉我。祝你烹饪愉快！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for suggesting Pad Thai! It's a dish I've always enjoyed ordering at restaurants, but I've never tried making it myself. The recipe and instructions you provided seem straightforward and easy to follow. I appreciate your help!\n\nI'm excited to give it a try and experiment with different variations. The idea of adding vegetables, protein, and extra toppings like cilantro sounds fantastic. I'll definitely get creative with it!\n\nI think I have a good plan now for preparing a meal at home. I appreciate your assistance in creating these recipes and guiding me through the process. It's been a pleasure chatting with you! Thank you for your help.\n\n[System]: You're welcome! I'm glad I could assist you. If you have any more questions or need further help in the future, don't hesitate to reach out. Enjoy your cooking adventure and have a great meal!",
+            "content_zh": "谢谢你推荐泰式炒河粉！这是我在餐馆里一直喜欢点的一道菜，但我从来没有尝试过自己做。你提供的食谱和说明看起来简单易懂，容易跟随。我感谢你的帮助！\n\n我很兴奋去尝试并尝试不同的变化。增加蔬菜、蛋白质和香菜等额外配料听起来太棒了。我一定会发挥创意！\n\n我现在觉得我有一个很好的计划来在家里准备一顿饭了。感谢你在制作这些食谱并引导我整个过程中的帮助。很高兴和你聊天！谢谢你的帮助。\n\n[System]: 不客气！我很高兴能帮到你。如果你有更多问题或者将来需要进一步的帮助，请随时联系。享受你的烹饪之旅，美好的一餐！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "Thank you! It's been a pleasure helping you out. Don't hesitate to return whenever you need assistance with cooking or any other topic. Have a fantastic time preparing your meal, and I hope it turns out delicious. Enjoy your cooking journey, and take care!",
+            "content_zh": "谢谢！很高兴能帮助您。需要烹饪或其他方面的帮助时，随时可以回来。祝您烹饪愉快，希望您的餐点美味可口。享受烹饪的旅程，保重！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "easy",
+        "pasta",
+        "stir-fry"
+    ],
+    "preference_summary": [
+        "easy recipes",
+        "exploring flavors"
+    ],
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 0,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "22",
+            "zh": "22"
+        },
+        "Personality": [
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            },
+            {
+                "en": "Optimistic",
+                "zh": "乐观"
+            }
+        ],
+        "Occupation": {
+            "en": "Student",
+            "zh": "学生"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Playing video games",
+                "zh": "玩游戏"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Self-driving tour",
+                "zh": "自驾游"
+            },
+            {
+                "en": "Visiting exhibitions",
+                "zh": "看展"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Fast food",
+                "zh": "快餐"
+            },
+            {
+                "en": "Street food",
+                "zh": "街头小吃"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on entertainment",
+                "zh": "娱乐支出"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a dormitory",
+                "zh": "住在宿舍"
+            },
+            {
+                "en": "Active in sports activities",
+                "zh": "喜欢参与体育活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "3": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

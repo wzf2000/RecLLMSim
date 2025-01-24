@@ -1,0 +1,257 @@
+{
+    "task": "travel planning",
+    "preference_id": 4,
+    "task_context_id": 5,
+    "preference": "1. Gender: Male\n2. Age: 30\n3. Personality: Adventurous, outgoing, and humorous\n4. Occupation: Travel Blogger\n5. Daily Interests and Hobbies: Writing, trekking, surfing\n6. Travel Habits: Constantly on the move, enjoys offbeat destinations\n7. Dining Preferences: Enjoys street food, open to all types of cuisine\n8. Spending Habits: Allocates a large budget for travel, spends minimally on other things\n9. Other Aspects: Has a large online following, practices sustainable living",
+    "preference_zh": "1. 性别：男 2. 年龄：30 3. 个性：爱冒险，外向，幽默 4. 职业：旅行博主 5. 日常兴趣和爱好：写作，徒步旅行，冲浪 6. 旅行习惯：喜欢不断移动，喜欢独特目的地 7. 饮食偏好：喜欢街边小吃，乐于尝试各种美食 8. 消费习惯：给旅行留出很大预算，在其他方面花费很少 9. 其他方面：有很多网上粉丝，倡导可持续生活",
+    "task_context": "You are planning a thirty-day-long trip this summer, The trip has no specific destination restrictions. You would like to use LLM to help refine your travel plans. During this conversation, you will need to make arrangements for accommodations, transportation, and itinerary details. Your ultimate travel plan should be as comprehensive as possible, ensuring that you can realistically follow it when the time comes.",
+    "task_context_zh": "今年夏天你打算进行为期三十天的旅行，旅行没有特定的目的地限制。你希望使用LLM来帮助完善旅行计划。在这次对话中，你需要安排住宿、交通和行程细节。你最终的旅行计划应尽可能详尽，确保到时候可以实际执行。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hey there! I'm planning a thirty-day-long trip this summer, and I could really use your help in refining my travel plans. I want to make sure my trip is as comprehensive and realistic as possible. Are you up for the challenge?",
+            "content_zh": "嗨！我打算今年夏天进行一个为期三十天的旅行，我真的需要你的帮助来完善我的旅行计划。我想确保我的旅行尽可能全面和现实。你愿意接受挑战吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! I'd be more than happy to help you refine your travel plans for your upcoming thirty-day-long trip. Where are you planning to go? Do you have any specific destinations in mind, or are you open to suggestions? Let's start by discussing your interests and preferences, and we can work together to create a comprehensive and realistic itinerary for your trip.",
+            "content_zh": "绝对！我非常乐意帮助您完善即将开始的为期三十天的旅行计划。您打算去哪里？您有具体的目的地吗，还是愿意听取建议？让我们从讨论您的兴趣和喜好开始，然后我们一起制定一个全面且切实可行的行程安排。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That's great! I'm open to suggestions and don't have any specific destinations in mind yet. As an adventurous travel blogger, I love exploring offbeat places and immersing myself in unique experiences. I enjoy writing, trekking, and surfing, so any destinations that offer opportunities for these activities would be fantastic. I'm also a big fan of street food and trying different cuisines. I have a decent budget for this trip, so I'm open to considering various options. Where do you think would be some exciting places to visit?",
+            "content_zh": "太棒了！我乐于听取建议，还没有特定的目的地。作为一个热爱冒险的旅行博主，我喜欢探索不为人知的地方，沉浸在独特的体验中。我喜欢写作、徒步旅行和冲浪，所以任何提供这些活动机会的地方都很棒。我也是街头食品和尝试不同美食的忠实粉丝。这次旅行我有一个相当可观的预算，所以我愿意考虑各种选择。你认为哪些地方会是一些令人兴奋的旅游目的地呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That sounds like an amazing combination of interests! Based on your preferences, I have a few suggestions for exciting destinations that might pique your interest:\n\n1. Bali, Indonesia: Known for its stunning beaches, lush rice terraces, and vibrant culture, Bali offers excellent opportunities for surfing, trekking, and immersing yourself in local traditions. The island is also famous for its delicious street food and unique cuisine.\n\n2. Costa Rica: This Central American gem is a paradise for adventure seekers. With its diverse landscapes, you can enjoy activities like hiking through rainforests, surfing on beautiful coastlines, and even exploring volcanoes. Costa Rica is also renowned for its mouthwatering cuisine, especially the traditional \"casados\" and \"gallo pinto.\"\n\n3. Cape Town, South Africa: Combining natural beauty and urban charm, Cape Town offers a plethora of activities. You can hike up Table Mountain, explore the vibrant city streets, and catch some waves at the popular surfing spots. The city also boasts a diverse culinary scene, with a fusion of African, European, and Asian flavors.\n\n4. Lisbon, Portugal: This coastal city is a hidden gem for adventurous travelers. Besides its stunning architecture and charming streets, Lisbon offers excellent surfing opportunities in nearby towns like Cascais and Ericeira. You can also indulge in the local street food, such as the famous pastel de nata (custard tart) and bifanas (pork sandwiches).\n\n5. Hanoi, Vietnam: If you're looking to immerse yourself in a vibrant street food culture, Hanoi is a fantastic choice. Explore the bustling Old Quarter, try local delicacies like pho and banh mi, and take day trips to nearby trekking destinations like Sapa or Ha Long Bay for breathtaking scenery.\n\nThese are just a few suggestions to get you started. Let me know if any of these destinations catch your interest, and we can further refine your itinerary!",
+            "content_zh": "听起来像是一个令人惊叹的兴趣组合！根据您的偏好，我有一些建议关于令人兴奋的目的地，可能能引起您的兴趣：\n\n1. 巴厘岛，印度尼西亚：以其迷人的海滩、郁郁葱葱的稻田和充满活力的文化而闻名，巴厘岛提供了冲浪、徒步旅行以及融入当地传统的绝佳机会。该岛还以其美味的街头食品和独特的美食而闻名。\n\n2. 哥斯达黎加：这个中美洲明珠是冒险者的天堂。由于其多样化的景观，您可以享受徒步穿越热带雨林、在美丽的海岸线冲浪，甚至探索火山等活动。哥斯达黎加也以其令人垂涎的美食而闻名，尤其是传统的“卡萨多”和“加略品托”。\n\n3. 开普敦，南非：结合了自然之美和城市魅力，开普敦提供了大量的活动。您可以徒步登上桌山，探索充满活力的城市街道，以及在受欢迎的冲浪地点享受一些浪。这座城市还拥有多元化的美食场景，融合了非洲、欧洲和亚洲的风味。\n\n4. 里斯本，葡萄牙：这座滨海城市是探险旅行者的隐藏宝藏。除了其迷人的建筑和迷人的街道外，里斯本还提供了卓越的冲浪机会，比如卡什凯什和埃里塞拉等附近的城镇。您还可以尽情享受当地美食，比如著名的蛋挞、比法纳斯（猪肉三明治）等。\n\n5. 河内，越南：如果您想要沉浸在充满活力的街头美食文化中，河内是一个绝佳选择。探索熙熙攘攘的老城区，品尝像pho和banh mi这样的当地美食，并前往萨巴或下龙湾这样的徒步旅行目的地进行一日游，欣赏令人叹为观止的风景。\n\n这只是一些让您开始的建议。如果您对这些目的地中任何一个感兴趣，请告诉我，我们可以进一步完善您的行程！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Wow, these suggestions all sound incredible! I'm particularly intrigued by Bali, Costa Rica, Cape Town, Lisbon, and Hanoi. Each of them offers unique experiences that align with my interests. Let's dive a bit deeper into each destination and see which one would be the best fit for my thirty-day trip.\n\nFor Bali, what are some must-visit surf spots and trekking routes? Are there any specific areas known for their vibrant street food scene?\n\nIn Costa Rica, which national parks or hiking trails would you recommend for exploring the rainforests? And are there any coastal towns that are particularly great for surfing?\n\nRegarding Cape Town, what are some popular hiking trails with stunning views? Are there any lesser-known surfing spots that locals prefer?\n\nIn Lisbon, apart from the surf towns nearby, are there any specific neighborhoods or areas within the city that are known for their street food stalls and markets?\n\nLastly, in Hanoi, what are some recommended day trips for trekking? And are there any street food markets or areas that are a must-visit for food enthusiasts?\n\nI can't wait to hear your insights and recommendations!",
+            "content_zh": "哇，这些建议听起来都太棒了！我特别对巴厘岛、哥斯达黎加、开普敦、里斯本和河内感兴趣。每个目的地都提供了符合我的兴趣的独特体验。让我们深入了解每个目的地，看看哪一个最适合我30天的旅行。\n\n关于巴厘岛，有哪些必去的冲浪点和徒步路线？有没有任何因其丰富的街头美食而闻名的特定地区？\n\n在哥斯达黎加，您会推荐探索雨林的哪些国家公园或徒步径？有没有任何特别适合冲浪的海滨小镇？\n\n至于开普敦，有哪些观景迷人的热门徒步径？是否有当地人青睐的一些较不为人知的冲浪点？\n\n在里斯本，除了附近的冲浪小镇，城市内有哪些因其街头美食摊和集市而闻名的特定社区或地区？\n\n最后，在河内，有哪些推荐的徒步日游？有哪些街头美食集市或地区是美食爱好者必去的地方？\n\n我等不及想听到您的见解和推荐了！",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great choices! Let's explore each destination in more detail:\n\nBali: For surfing, Uluwatu, Canggu, and Padang Padang are popular spots with consistent waves. If you're looking for a trekking adventure, consider Mount Batur for a sunrise hike or Munduk for its stunning waterfalls and rice terraces. When it comes to street food, head to the bustling Seminyak or Denpasar night markets for a wide variety of local delicacies.\n\nCosta Rica: Manuel Antonio National Park is a must-visit for its beautiful rainforest trails and abundant wildlife. Another great option is Corcovado National Park, known for its untouched wilderness. For surfing, check out Tamarindo, Santa Teresa, or Jaco, which offer fantastic waves and a vibrant surf culture.\n\nCape Town: Table Mountain is a must-visit for hiking, offering breathtaking views of the city and the coastline. Lion's Head is another popular trail known for its panoramic vistas. For surfing, Muizenberg is a great spot for beginners, while experienced surfers might enjoy the challenges of Long Beach or Llandudno.\n\nLisbon: Apart from nearby surf towns like Cascais and Ericeira, Lisbon itself has a vibrant street food scene. The Time Out Market is a fantastic place to sample a wide range of local and international cuisines. The neighborhoods of Baixa and Bairro Alto also have numerous street food stalls and traditional markets like Mercado da Ribeira.\n\nHanoi: For trekking, Sapa is a popular choice, offering stunning rice terraces and ethnic minority villages. Another option is Ba Vi National Park, known for its lush forests and mountain trails. To experience Hanoi's street food culture, explore the bustling streets of the Old Quarter, where you'll find delicious dishes like bun cha, banh mi, and egg coffee.\n\nThese are just some highlights of each destination. Let me know which ones stand out to you, and we can further refine your itinerary based on your preferences!",
+            "content_zh": "不错的选择！让我们更详细地探索每个目的地：\n\n巴厘岛：对于冲浪者来说，Uluwatu、Canggu和Padang Padang是一些拥有一贯浪的热门地点。如果你正在寻找徒步探险，可以考虑前往巴都尔山欣赏日出徒步旅行或者前往Munduk欣赏其令人惊叹的瀑布和稻田梯田。接触街头美食时，您可以前往繁华的Seminyak或登巴萨夜市品尝当地各种美食。\n\n哥斯达黎加：曼努埃尔·安东尼奥国家公园是一个必去的地方，因为它拥有美丽的丛林小径和丰富的野生动植物。另一个不错的选择是科尔科瓦多国家公园，以其未受污染的荒野而闻名。对于冲浪者来说，不妨去Tamarindo、Santa Teresa或Jaco看看，那里有绝佳的浪和充满生机的冲浪文化。\n\n开普敦：桌山是一个必去之地，提供令人叹为观止的城市和海岸线景色。狮头山是另一条受欢迎的小径，以其全景视野而闻名。对于冲浪者来说，Muizenberg是初学者的好地方，而经验丰富的冲浪者可能会享受Long Beach或Llandudno提供的挑战。\n\n里斯本：除了附近的冲浪小镇卡斯凯什和埃里塞拉之外，里斯本本身也有丰富的街头食品景观。时代市场是一个品尝各种本地和国际美食的绝佳场所。 Baixa和Bairro Alto等社区还有许多街边小吃摊位和传统市场，如里贝拉市场。\n\n河内：对于徒步旅行者来说，萨帕是一个受欢迎的选择，提供美丽的稻田和少数民族村庄。另一个选择是巴维国家公园，以其郁郁葱葱的森林和山地小径而闻名。想要体验河内的街头食品文化，可以探索老城区熙熙攘攘的街道，那里有美味的菜肴，如bun cha、banh mi和鸡蛋咖啡。\n\n这些只是每个目的地的一些亮点。请告诉我您最感兴趣的地方，我们可以根据您的偏好进一步完善您的行程！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thanks for the detailed information! All of these destinations have their own unique appeal, but after considering your suggestions, I think I'm most drawn to Bali and Lisbon. Bali offers a great combination of surfing and trekking, and I'm excited to explore the vibrant street food scene there. Lisbon, on the other hand, seems like a fantastic city with nearby surf towns and a rich street food culture.\n\nSo, let's focus on Bali and Lisbon for now. I'd love to hear more about the specific activities, attractions, and accommodations you recommend for these destinations. Also, if there are any other considerations I should keep in mind while planning, please let me know!\n\nI'm getting more and more excited about this trip. Your help is greatly appreciated!",
+            "content_zh": "感谢详细的信息！所有这些目的地都有各自独特的魅力，但在考虑了你的建议后，我觉得我对巴厘岛和里斯本最感兴趣。巴厘岛提供了冲浪和徒步旅行的绝佳组合，我很兴奋去探索那里充满活力的街头美食文化。另一方面，里斯本似乎是一个拥有附近冲浪小镇和丰富街头美食文化的梦幻城市。\n\n所以，现在让我们专注于巴厘岛和里斯本。我很想了解你推荐的这些目的地的具体活动、景点和住宿。另外，如果在计划中需要注意的其他事项，请告诉我！\n\n我对这次旅行越来越兴奋。非常感谢你的帮助！",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Great choices! Bali and Lisbon are both fantastic destinations with a lot to offer. Let's dive into some specific recommendations for each:\n\nBali:\n1. Surfing: For surfing, make sure to spend time in Uluwatu, Canggu, and Padang Padang. You can take surf lessons, rent boards, and enjoy the consistent waves these spots offer.\n\n2. Trekking: Mount Batur is a popular choice for a sunrise hike. It's a relatively easy trek and rewards you with stunning views of the sunrise over the volcanic landscape. Munduk is another great option for trekking, known for its beautiful waterfalls and scenic rice terraces.\n\n3. Street Food: Seminyak and Denpasar night markets are excellent places to explore Bali's vibrant street food scene. You'll find a wide variety of local delicacies like nasi goreng (fried rice), satay, and babi guling (suckling pig).\n\nAs for accommodations, Bali has a range of options to suit different budgets and preferences. Seminyak and Canggu offer trendy beachside resorts and villas, while Ubud provides a more serene and cultural experience with its boutique hotels and guesthouses.\n\nLisbon:\n1. Surfing: Apart from Lisbon itself, nearby surf towns like Cascais and Ericeira are easily accessible. Cascais is known for its consistent waves and vibrant surf culture, while Ericeira is a World Surfing Reserve with a variety of breaks suitable for all levels.\n\n2. Street Food: The Time Out Market in Lisbon is a must-visit for food enthusiasts. It offers a wide range of local and international cuisines, allowing you to sample various dishes under one roof. In addition, neighborhoods like Baixa and Bairro Alto have numerous street food stalls and traditional markets where you can try local delicacies.\n\nFor accommodations in Lisbon, you can choose from charming boutique hotels in the historic center, modern apartments in trendy neighborhoods like Bairro Alto or Chiado, or even opt for a stay in Cascais or Ericeira if you prefer to be closer to the surf spots.\n\nWhen planning your trip, consider factors like transportation between destinations, weather conditions during your travel dates, and any specific activities or attractions you don't want to miss. It's also a good idea to check visa requirements and make sure your passport is valid for the duration of your trip.\n\nI'm glad I could help, and I'm sure you'll have an amazing time in Bali and Lisbon! Let me know if there's anything else I can assist you with.",
+            "content_zh": "很棒的选择！巴厘岛和里斯本都是令人难以置信的目的地，有很多值得探索的地方。让我们来看看每个地方的一些建议吧：\n\n巴厘岛：\n冲浪：想冲浪的话，一定要花时间去乌鲁瓦图、仓古和巴当巴当。你可以参加冲浪课程、租冲浪板，并享受这些地方提供的持续浪潮。\n\n徒步旅行：巴图尔山是看日出徒步的热门选择。这是一条相对容易的徒步路线，可以赏到火山景观的壮丽日出。蒙杜克是另一个徒步的好选择，以其美丽的瀑布和风景如画的稻田而闻名。\n\n街头美食：塞米纳克和登巴萨夜市是探索巴厘岛活力街头美食场景的绝佳地方。你会发现很多当地美食，如炒饭、沙嗲和扒猪。\n\n至于住宿，巴厘岛有各种预算和喜好的选择。塞米纳克和仓古提供时尚的沿海度假村和别墅，而乌布提供更为宁静和文化的体验，有其精品酒店和旅馆。\n\n里斯本：\n冲浪：除里斯本本身外，附近的冲浪小镇如卡什凯什和埃里塞拉都很容易到达。卡什凯什以其持续的浪潮和充满活力的冲浪文化而闻名，而埃里塞拉是世界冲浪保护区，拥有适合各个水平的各种浪点。\n\n街头美食：里斯本的时代市场是美食爱好者必去的地方。这里提供各种当地和国际美食，让你可以在一个地方尝试各种美食。此外，像巴西亚和巴伊罗奥图这样的社区有许多街头美食摊和传统市场，你可以尝试当地美食。\n\n在里斯本住宿，你可以选择历史中心迷人的精品酒店，时尚社区如巴伊罗奥图或基亚多的现代公寓，或者如果你更靠近冲浪区的话，还可以选择在卡什凯什或埃里塞拉住宿。\n\n在计划旅行时，要考虑到目的地之间交通、旅行日期的天气状况，以及任何你不想错过的特定活动或景点。还有必须检查签证要求，确保护照在旅行期间有效。\n\n我很高兴能帮上忙，我相信你在巴厘岛和里斯本会度过美妙的时光！如果还有其他问题需要帮助，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you so much for the detailed recommendations! Surfing in Uluwatu, Canggu, and Padang Padang in Bali sounds like a dream, and I'm definitely adding Mount Batur and Munduk to my trekking list. Exploring the street food scene in Seminyak and Denpasar night markets will be a culinary adventure.\n\nIn Lisbon, I can't wait to visit the Time Out Market and indulge in a variety of cuisines. Surfing in Cascais and exploring the street food stalls in neighborhoods like Baixa and Bairro Alto will be highlights of my trip.\n\nI'll make sure to consider transportation between destinations, weather conditions, and any specific activities or attractions I don't want to miss. Checking visa requirements and ensuring my passport is valid is also on my to-do list.\n\nOnce again, thank you for your assistance! You've been incredibly helpful in refining my travel plans. I'm feeling more excited than ever about this trip.",
+            "content_zh": "非常感谢您提供的详细建议！在巴厘岛的乌鲁瓦图、田园谷和巴东巴东冲浪听起来像个梦想，我一定会把巴图尔火山和芒杜克加入到我的徒步旅行清单上。在塞米亚克和登巴萨的夜市探索街头美食场景将是一次烹饪冒险。\n\n在里斯本，我迫不及待想参观“Time Out市场”并尽情享受各种美食。在卡什凯什冲浪和探索像巴伊萨和巴伊罗阿尔托这样的街头美食摊区将是我旅行的亮点。\n\n我会考虑好各个目的地之间的交通、天气状况以及任何我不想错过的特定活动或景点。检查签证要求并确保我的护照有效也在我的待办清单上。\n\n再次感谢您的帮助！您对我的旅行计划进行了非常有益的完善。我对这次旅行感到比以往任何时候都更加兴奋。",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could help refine your travel plans and that you're feeling excited about your upcoming trip. It sounds like you have a fantastic itinerary in the making, with plenty of surfing, trekking, and culinary adventures ahead.\n\nRemember to do some research on the best times to visit each destination to ensure you make the most of your experience. Bali and Lisbon have their own unique charms, and I'm sure you'll have an incredible time exploring both.\n\nIf you have any more questions or need further assistance while planning your trip, feel free to ask. Have a wonderful time on your thirty-day adventure, and safe travels! Enjoy every moment of your journey.",
+            "content_zh": "不客气！很高兴能帮助您完善旅行计划，并且您对即将到来的旅行感到兴奋。听起来您正在制定一个精彩的行程，有很多冲浪、徒步和美食探险等待着。记得要对每个目的地的最佳访问时间进行一些研究，以确保您尽可能充分体验。巴厘岛和里斯本各有独特的魅力，我相信您将在探索两者时度过难忘的时光。如果您在规划旅行过程中有任何更多问题或需要进一步帮助，请随时提出。祝您在这三十天的冒险中度过美好时光，一路平安！享受旅程中的每一刻。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "offbeat destinations",
+        "adventurous activities",
+        "street food",
+        "comprehensive planning",
+        "surfing"
+    ],
+    "preference_summary": [
+        "surfing",
+        "trekking",
+        "street food"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 0,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "30",
+            "zh": "30"
+        },
+        "Personality": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            },
+            {
+                "en": "Humorous",
+                "zh": "幽默"
+            }
+        ],
+        "Occupation": {
+            "en": "Content creator",
+            "zh": "自媒体工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Writing",
+                "zh": "写作"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Street food",
+                "zh": "街头小吃"
+            },
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "For travel",
+                "zh": "用于旅行"
+            },
+            {
+                "en": "Frugal",
+                "zh": "节俭"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Managing personal media platforms",
+                "zh": "经营自媒体"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

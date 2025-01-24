@@ -1,0 +1,293 @@
+{
+    "task": "travel planning",
+    "preference_id": 26,
+    "task_context_id": 5,
+    "preference": "1. Gender: Male\n2. Age: 45\n3. Personality: Disciplined, methodical, and calm\n4. Occupation: Military Officer\n5. Daily Interests and Hobbies: Fitness training, reading military history, fishing\n6. Travel Habits: Travels for work, enjoys camping and outdoor activities\n7. Dining Preferences: Prefers hearty meals, enjoys grilling\n8. Spending Habits: Invests in home security systems, saves for children's education\n9. Other Aspects: Active in veterans' organizations, has a family",
+    "preference_zh": "1. 性别：男性\n2. 年龄：45岁\n3. 个性：纪律严明、条理清晰、沉静冷静\n4. 职业：军官\n5. 日常兴趣爱好：健身训练、阅读军事历史、钓鱼\n6. 旅行习惯：出差旅行、喜欢露营和户外活动\n7. 餐饮偏好：喜欢丰盛的餐点、喜欢烧烤\n8. 消费习惯：投资家庭安全系统、为子女教育存钱\n9. 其他方面：积极参与军人组织、有家庭",
+    "task_context": "You are planning a thirty-day-long trip this summer, The trip has no specific destination restrictions. You would like to use LLM to help refine your travel plans. During this conversation, you will need to make arrangements for accommodations, transportation, and itinerary details. Your ultimate travel plan should be as comprehensive as possible, ensuring that you can realistically follow it when the time comes.",
+    "task_context_zh": "你计划在今年夏天进行为期三十天的旅行。这次旅行没有具体的目的地限制。你想使用LLM来帮助完善你的旅行计划。在这次对话中，你需要安排住宿、交通和行程细节。你的最终旅行计划应尽可能全面，确保在时机成熟时能够实际执行。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I'm in the process of planning a thirty-day-long trip this summer and I could use some assistance in refining my travel plans. I would like to discuss accommodations, transportation, and itinerary details. Can you help me with that?",
+            "content_zh": "你好！很高兴你来了。我正在规划今年夏天的一个为期三十天的旅行，我想在细化我的旅行计划方面寻求一些帮助。我想讨论住宿、交通和行程细节。你可以帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be happy to help you refine your travel plans for your upcoming thirty-day trip this summer. Planning a trip can be exciting but also overwhelming, so let's break it down and discuss accommodations, transportation, and itinerary details. Where are you planning to go on your trip?",
+            "content_zh": "你好！我很乐意帮助你完善这个夏天即将到来的为期30天的旅行计划。规划一次旅行可能会令人兴奋，但也会让人感到不知所措，所以让我们分解一下，并讨论一下住宿、交通和行程细节。你打算在旅行中去哪里？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance. Since the trip has no specific destination restrictions, I'm open to exploring various options. I enjoy camping and outdoor activities, so destinations with natural beauty and opportunities for adventure would be great. Do you have any recommendations for places that fit this description?",
+            "content_zh": "谢谢您提供协助。由于此行没有特定目的地限制，我愿意探索各种选择。我喜欢露营和户外活动，所以拥有自然美景和冒险机会的目的地将会很棒。您有没有推荐符合这个描述的地方？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That sounds like a fantastic way to spend your summer trip! There are numerous destinations around the world that offer stunning natural beauty and opportunities for outdoor adventure. Here are a few recommendations:\n\n1. Banff National Park, Canada: Known for its breathtaking landscapes, Banff offers hiking, camping, and wildlife spotting in the heart of the Canadian Rockies.\n\n2. Patagonia, Argentina/Chile: This region is famous for its rugged mountains, glaciers, and vast open spaces. You can go hiking, trekking, or even explore the stunning Torres del Paine National Park.\n\n3. Queenstown, New Zealand: Nestled in the Southern Alps, Queenstown is an adventure lover's paradise. You can try bungee jumping, skydiving, hiking, and enjoy the stunning scenery of lakes and mountains.\n\n4. Yosemite National Park, USA: Located in California, Yosemite is known for its iconic granite cliffs, waterfalls, and ancient sequoia trees. It offers various outdoor activities like hiking, rock climbing, and camping.\n\n5. Iceland: With its otherworldly landscapes, Iceland is a nature enthusiast's dream. You can explore glaciers, waterfalls, geothermal hot springs, and even go on a road trip along the famous Ring Road.\n\nThese are just a few suggestions, and there are many more options depending on your preferences and budget. Let me know if any of these destinations spark your interest, and we can further discuss accommodations, transportation, and itinerary details for your trip!",
+            "content_zh": "听起来像是度过美好暑假的好方式！世界各地有许多提供惊人自然美景和户外探险机会的目的地。以下是一些建议： 1. 加拿大班夫国家公园：以其令人惊叹的风景而闻名，班夫国家公园位于加拿大落基山脉的心脏地带，提供徒步旅行、露营和观赏野生动物的机会。 2. 阿根廷/智利巴塔哥尼亚：该地区以其崎岖的山脉、冰川和广阔的开阔地而闻名。您可以前往徒步旅行、跋山涉水，甚至探索壮观的托雷斯德尔潘尼国家公园。 3. 新西兰皇后镇：坐落在南阿尔卑斯山脉中，皇后镇是冒险者的天堂。您可以尝试蹦极、跳伞、徒步旅行，并享受湖泊和山脉的美景。 4. 美国约塞米蒂国家公园：位于加利福尼亚州，约塞米蒂以其标志性的花岗岩悬崖、瀑布和古老的红杉树而闻名。这里提供徒步、攀岩和露营等各种户外活动。 5. 冰岛：凭借其超凡脱俗的景观，冰岛是自然爱好者的梦想之地。您可以探索冰川、瀑布、地热温泉，甚至沿着著名的环岛公路进行公路旅行。 这只是一些建议，根据您的喜好和预算，还有许多其他选择。如果这些目的地中有任何一个引起了您的兴趣，请告诉我，我们可以进一步讨论您的行程中的住宿、交通和计划细节！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the wonderful suggestions! All of these destinations sound amazing, and I'm particularly drawn to Banff National Park and Patagonia. Both offer stunning natural beauty and plenty of opportunities for outdoor adventure. Let's focus on Banff National Park for now. Could you please provide some recommendations for accommodations in the area?",
+            "content_zh": "谢谢您提供的精彩建议！所有这些目的地听起来都很棒，我特别喜欢班夫国家公园和巴塔哥尼亚。它们都提供令人惊叹的自然美景和丰富的户外冒险机会。现在让我们先聚焦于班夫国家公园。您能否提供一些该地区住宿的推荐呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! Banff National Park is a stunning destination, and you'll have a great time exploring its natural beauty. When it comes to accommodations, there are several options to consider, depending on your preferences and budget. Here are a few recommendations:\n\n1. Fairmont Banff Springs: This iconic luxury hotel offers a grand experience with its castle-like architecture and stunning mountain views. It's located near the town of Banff and provides easy access to hiking trails and other attractions.\n\n2. Lake Louise Inn: Situated near the picturesque Lake Louise, this hotel offers a range of room options and amenities. It's a great choice if you want to be close to the lake and enjoy activities like hiking, canoeing, or skiing, depending on the season.\n\n3. Tunnel Mountain Resort: If you prefer a more rustic experience, this resort offers cozy cabins and chalets nestled in the woods. It's a peaceful retreat with beautiful surroundings, and it's still close to the town of Banff.\n\n4. Hostels and Campgrounds: If you're on a budget or enjoy camping, Banff has several hostels and campgrounds to choose from. The HI-Banff Alpine Centre is a popular hostel option, while Tunnel Mountain Campgrounds offer a more traditional camping experience.\n\nThese are just a few options, and there are many more accommodations available in and around Banff National Park. It's advisable to book in advance, especially during the summer season when it can get quite busy. Let me know if you'd like more information about any of these options or if you have any other specific requirements!",
+            "content_zh": "当然！班夫国家公园是一个令人惊叹的目的地，您将在探索其自然之美时度过美好时光。在住宿方面，根据您的偏好和预算，有几种选择。以下是一些建议： 1. 费尔蒙班夫泉景酒店：这家标志性的豪华酒店以其城堡般的建筑和壮丽的山景为特色，位于班夫镇附近，可方便前往徒步小径和其他景点。 2. 路易斯湖客栈：位于风景如画的路易斯湖附近，这家酒店提供多种客房选择和设施。如果您想靠近湖泊，并享受徒步、划船或滑雪等活动，根据季节而定，这是一个不错的选择。 3. 隧道山度假村：如果您更喜欢原生态的体验，这家度假村提供舒适的小木屋和木屋，坐落在树林中。这是一个环境优美的宁静避难所，并且离班夫镇仍然很近。 4. 青年旅社和露营地：如果您预算有限或喜欢露营，班夫有几家青年旅社和露营地可供选择。HI班夫阿尔卑斯中心是一个受欢迎的青年旅社选择，而隧道山露营地提供更传统的露营体验。 这只是一些选择，班夫国家公园及周边有多种住宿选择。特别是在夏季可能会非常繁忙时，建议提前预订。如果您想了解更多有关这些选择的信息或有其他具体要求，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed accommodation recommendations! The Fairmont Banff Springs and Lake Louise Inn both sound like excellent options, offering different experiences. I think I'll go with the Lake Louise Inn since it's close to the beautiful Lake Louise and provides easy access to hiking and other outdoor activities. Now, let's move on to discussing transportation. What would you suggest for getting around Banff National Park and its surrounding areas?",
+            "content_zh": "非常感谢您详细的住宿推荐！Fairmont Banff Springs和Lake Louise Inn听起来都是很棒的选择，提供不同的体验。我想我会选择Lake Louise Inn，因为它靠近美丽的路易斯湖，便于前往徒步和其他户外活动。现在，让我们继续讨论交通方式。您会建议在班夫国家公园及周边地区移动采取什么交通方式？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great choice with the Lake Louise Inn! It's a wonderful location near the stunning Lake Louise. Now, let's talk about transportation options in Banff National Park and its surrounding areas.\n\n1. Car Rental: Renting a car gives you the most flexibility and freedom to explore the park at your own pace. There are several car rental agencies available in Calgary, which is the nearest major airport to Banff. Having a car allows you to easily access various hiking trails, scenic drives, and other attractions in the park.\n\n2. Shuttle Services: If you prefer not to drive, there are shuttle services available that can transport you from Calgary or other nearby towns to Banff. These shuttles usually operate on a scheduled basis and can be a convenient option for getting around the area.\n\n3. Public Transportation: Banff itself has a local bus service called Roam Transit, which provides transportation within the town and to some nearby attractions. However, note that public transportation options within the park itself are limited, so it may not be the most convenient option for exploring the more remote areas.\n\n4. Guided Tours: Another option is to join guided tours or excursions that take you to various points of interest in Banff National Park. These tours often include transportation and are a great way to learn about the park's history, wildlife, and highlights from knowledgeable guides.\n\nIt's worth noting that during peak season, the park can get quite busy, so it's advisable to plan your transportation in advance and be prepared for potential crowds. Additionally, if you plan on doing any hiking or exploring off the beaten path, ensure you have the necessary permits and are aware of any safety guidelines.\n\nLet me know if you have any more questions or if there's anything else I can assist you with!",
+            "content_zh": "与路易斯湖酒店是一个很好的选择！它位于靠近令人惊叹的路易斯湖的美妙地理位置。现在，让我们谈谈班夫国家公园及周边地区的交通选择。\n\n1. 租车：租车是您在自己的节奏探索公园时获得最大灵活性和自由的选择。卡尔加里有几家租车公司，这是离班夫最近的主要机场。有了汽车，您可以轻松进入各种徒步步道、风景优美的道路和公园中的其他景点。\n\n2. 班车服务：如果您不想开车，可以选择提供从卡尔加里或其他附近城镇到班夫的班车服务。这些班车通常按计划运营，是在该地区移动的便利选项。\n\n3. 公共交通：班夫本身有一个名为Roam Transit的当地巴士服务，提供城镇内和到一些附近景点的交通。然而，请注意，公园内部的公共交通选项有限，因此可能不是探索更偏远地区的最方便选择。\n\n4. 导游游览：另一个选择是参加导游游览，带您前往班夫国家公园的各个景点。这些游览通常包括交通服务，是了解公园历史、野生动物和重点内容的很好途径。\n\n值得注意的是，在旺季，公园可能会相当拥挤，建议提前计划您的交通，并做好应对潜在人群的准备。此外，如果您计划进行任何徒步旅行或探索非常规路线，请确保您有必要的许可证并了解任何安全准则。\n\n如果您有更多问题或需要任何帮助，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed transportation options! Renting a car seems like the most flexible choice, allowing me to explore Banff National Park and its surrounding areas at my own pace. I'll definitely look into renting a car from Calgary, as it provides easy access to the park. Now, let's move on to planning the itinerary. What are some must-see attractions and activities in Banff National Park that you would recommend?",
+            "content_zh": "感谢您提供详细的交通选择！租车似乎是最灵活的选择，让我可以按自己的步调探索班夫国家公园及其周边地区。我肯定会考虑从卡尔加里租车，因为这样方便进入公园。现在，让我们继续计划行程。您会推荐班夫国家公园必看的景点和活动吗？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! Renting a car will indeed give you the flexibility to explore Banff National Park and its surroundings at your own pace. Now, let's dive into some must-see attractions and activities in Banff National Park:\n\n1. Lake Louise: This stunning turquoise lake is a true gem. Take a leisurely stroll along the lakeshore, hike up to the Lake Agnes Tea House, or rent a canoe to experience the beauty up close.\n\n2. Moraine Lake: Known for its vibrant blue color and breathtaking mountain backdrop, Moraine Lake is another must-visit spot. Take a hike around the lake or simply soak in the awe-inspiring views.\n\n3. Johnston Canyon: This popular hiking trail takes you through a beautiful canyon with waterfalls and scenic viewpoints. It's a relatively easy hike and offers great photo opportunities.\n\n4. Banff Gondola and Sulphur Mountain: Ride the Banff Gondola to the top of Sulphur Mountain for panoramic views of the surrounding peaks and valleys. There are also hiking trails to explore if you're up for a bit of adventure.\n\n5. Peyto Lake: Located along the Icefields Parkway, Peyto Lake is famous for its stunning glacial-fed turquoise waters. A short hike will take you to a viewpoint where you can marvel at the breathtaking scenery.\n\n6. Columbia Icefield: Take a guided tour or walk on the Athabasca Glacier, one of the largest icefields in North America. It's a unique experience to see and learn about the glaciers up close.\n\n7. Banff Townsite: Don't forget to explore the charming town of Banff itself. It offers a variety of restaurants, shops, and art galleries. You can also relax in the Banff Upper Hot Springs for a rejuvenating soak.\n\nThese are just a few highlights, and there are many more trails, viewpoints, and natural wonders to discover in Banff National Park. Be sure to check trail conditions and any necessary permits before embarking on hikes or activities. Enjoy planning your itinerary, and let me know if you need any more recommendations or assistance!",
+            "content_zh": "不客气！租车确实能让您有机会以自己的步调探索班夫国家公园及其周边地区。现在，让我们深入了解班夫国家公园中的一些必看景点和活动：\n\n1. 路易斯湖：这个令人惊叹的绿松石色湖泊是一颗真正的明珠。沿着湖边悠闲漫步，徒步到艾格尼斯湖茶屋，或租一艘独木舟近距离感受其美丽。\n\n2. 莫雷恩湖：以其充满活力的蓝色和令人叹为观止的山景而闻名，莫雷恩湖是另一个必游之地。徒步漫游湖泊周围或简单地欣赏令人惊叹的景色。\n\n3. 约翰斯顿峡谷：这条受欢迎的徒步小道带您穿越一个美丽的峡谷，有瀑布和景观观景点。这是一次相对简单的徒步旅行，提供了很好的拍照机会。\n\n4. 班夫缆车和硫磺山：搭乘班夫缆车到达硫磺山顶部，可以欣赏周围山峰和山谷的全景。如果您愿意冒险，还有徒步旅行线路可以探索。\n\n5. 佩托湖：位于冰原大道上，佩托湖以其令人叹为观止的冰川喂养的绿松石色水域而闻名。稍作徒步就能到达一个观景台，在那里您可以欣赏令人惊叹的风景。\n\n6. 哥伦比亚冰原：参加导游游览或步行在阿萨巴斯卡冰川上，这是北美最大的冰原之一。亲眼见证和了解冰川的独特经历。\n\n7. 班夫镇：不要忘记探索班夫镇的迷人之处。这里有各种餐馆、商店和艺术画廊。您还可以在班夫上温泉放松身心。\n\n这只是一些亮点，班夫国家公园中还有许多更多的步道、景点和自然奇观等待您探索。在进行徒步或活动前，请务必检查步道条件和任何必需的许可证。祝您计划行程愉快，如果您需要更多建议或帮助，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the fantastic recommendations! I'm thrilled to explore these must-see attractions in Banff National Park. Lake Louise, Moraine Lake, and Johnston Canyon all sound like incredible spots to visit. I'll make sure to include them in my itinerary. The Banff Gondola and Sulphur Mountain also seem like a great way to enjoy panoramic views. And I can't miss the chance to explore the Columbia Icefield and experience walking on the Athabasca Glacier. Lastly, I'll make time to explore the town of Banff itself and relax in the Banff Upper Hot Springs. Thank you for your help in planning my itinerary!",
+            "content_zh": "非常感谢您的精彩推荐！我很高兴能够探索班夫国家公园这些必游景点。路易斯湖、莫雷恩湖和约翰斯顿峡谷听起来都是非常值得参观的地方。我一定会把它们加入我的行程中。班夫缆车和硫磺山似乎也是欣赏全景的好去处。当然，我不能错过探索哥伦比亚冰原并体验步行在阿萨巴斯卡冰川上的机会。最后，我会抽出时间探索班夫镇本身并在班夫上部温泉放松一下。感谢您在规划我的行程中的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you found the recommendations helpful. Including Lake Louise, Moraine Lake, Johnston Canyon, the Banff Gondola, the Columbia Icefield, and exploring the town of Banff itself will make for an amazing itinerary. You'll have the opportunity to experience the stunning natural beauty of Banff National Park and enjoy some relaxing moments in the hot springs.\n\nRemember to check for any specific guidelines or permits required for certain activities, especially when it comes to hiking and glacier exploration. It's always good to be prepared and stay safe during your adventures.\n\nIf you have any more questions or need further assistance while planning your trip, feel free to ask. Have a fantastic time exploring Banff National Park and creating unforgettable memories!",
+            "content_zh": "非常欢迎！我很高兴你觉得这些建议有用。包括路易斯湖、莫林湖、约翰斯顿峡谷、班夫缆车、哥伦比亚冰原，以及探索班夫镇本身将构成一个令人惊叹的行程。你将有机会体验班夫国家公园的令人惊叹的自然美景，并在温泉中享受一些放松的时刻。请记得检查是否需要针对某些活动的特定指南或许可证，尤其是在徒步旅行和冰川探险方面。在冒险过程中，做好准备并保持安全总是明智的选择。如果在规划旅行时有更多问题或需要进一步帮助，请随时提问。祝您在探索班夫国家公园和创造难忘回忆的过程中度过美好的时光！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for all your help and guidance in planning my trip to Banff National Park! I appreciate your assistance and the valuable information you provided. I'm excited to explore the stunning natural beauty and create unforgettable memories. I'll make sure to check for any specific guidelines and permits needed for the activities I plan to undertake.\n\nIf I have any more questions or need further assistance, I'll definitely reach out. Thank you once again for your support!\n",
+            "content_zh": "非常感谢您在规划我去班夫国家公园的旅行中所提供的所有帮助和指导！我感谢您的协助和提供的宝贵信息。我很兴奋要去探索令人惊叹的自然美景，并创造难忘的回忆。我会确保查看我计划进行的活动所需的任何特定指南和许可证。如果我有任何问题或需要进一步帮助，我一定会联系您。再次感谢您的支持！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could assist you in planning your trip to Banff National Park. It's a remarkable destination, and I'm sure you'll have an incredible time exploring its natural beauty and creating lasting memories.\n\nRemember, I'm here to help if you have any more questions or need further assistance at any point. Feel free to reach out, and I'll be more than happy to assist you. Have a fantastic trip, and enjoy every moment of your adventure in Banff National Park! Safe travels!",
+            "content_zh": "非常欢迎！我很高兴能帮助您规划前往班夫国家公园的行程。这是一个非凡的目的地，我相信您一定会在探索其自然之美和创造持久记忆的过程中度过难忘的时光。记住，如果您有任何问题或需要进一步帮助，我会一直在这里为您提供支持。随时联系我，我会非常乐意帮助您。祝您在班夫国家公园的冒险中度过美好的时光！祝旅途平安！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "camping",
+        "outdoor activities",
+        "natural beauty",
+        "hiking",
+        "flexible transportation"
+    ],
+    "preference_summary": [
+        "flexible transportation",
+        "car rental",
+        "must-see attractions"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 1,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "45",
+            "zh": "45"
+        },
+        "Personality": [
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            },
+            {
+                "en": "Meticulous",
+                "zh": "细致"
+            },
+            {
+                "en": "Calm",
+                "zh": "冷静"
+            }
+        ],
+        "Occupation": {
+            "en": "Military personnel",
+            "zh": "军人"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Outdoor activities",
+                "zh": "户外活动"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Follows a balanced diet",
+                "zh": "均衡饮食"
+            },
+            {
+                "en": "Grilling",
+                "zh": "烧烤"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in volunteer activities",
+                "zh": "喜欢参与志愿活动"
+            },
+            {
+                "en": "Has a family",
+                "zh": "家庭生活"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

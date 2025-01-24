@@ -1,0 +1,239 @@
+{
+    "task": "recipe planning",
+    "preference_id": 17,
+    "task_context_id": 3,
+    "preference": "1. Gender: Female\n2. Age: 26\n3. Personality: Free-spirited, creative, and outgoing\n4. Occupation: Musician\n5. Daily Interests and Hobbies: Writing songs, playing instruments, attending concerts\n6. Travel Habits: Tours for performances, enjoys cultural festivals\n7. Dining Preferences: Enjoys vegan food, loves trying local cuisines\n8. Spending Habits: Spends on musical equipment, saves for recording sessions\n9. Other Aspects: Lives in a shared artist loft, active in local music scene",
+    "preference_zh": "1. 性别：女性\n2. 年龄：26\n3. 个性：自由奔放，富有创造力，外向\n4. 职业：音乐人\n5. 日常兴趣和爱好：创作歌曲，演奏乐器，参加音乐会\n6. 旅行习惯：为演出而旅行，喜欢文化节庆\n7. 餐饮偏好：喜欢素食，热衷尝试本地美食\n8. 消费习惯：在音乐设备上花钱，为录音会话存钱\n9. 其他方面：住在艺术家共享的阁楼，活跃于当地音乐圈",
+    "task_context": "You plan to prepare a meal at home for yourself and your loved one. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家为自己和所爱的人准备一顿饭。作为一个有一定烹饪专长的厨师，你希望在创建食谱、确定需要的食材以及决定制作哪些菜肴方面寻求LLM的帮助。在规划过程中，你应该学习每道菜的完整准备过程和准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I would love some help in planning a meal for myself and my loved one. Since I enjoy cooking and experimenting with different flavors, I thought it would be great to create a special and delicious meal. Could you assist me in coming up with a recipe and deciding what dishes to make?",
+            "content_zh": "你好！很高兴你在这里。我想请你帮忙规划一顿我和我爱人的晚餐。由于我喜欢烹饪和尝试不同的口味，我觉得可以创作一顿特别美味的餐。你可以帮我想出一个食谱并决定做什么菜吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be delighted to help you plan a special and delicious meal for you and your loved one. Cooking and experimenting with flavors can be so much fun! Let's start by discussing what kind of cuisine or specific flavors you and your loved one enjoy. Are there any dietary restrictions or preferences I should consider?",
+            "content_zh": "你好！我很高兴帮助您为您和您的爱人策划一顿特别美味的晚餐。烹饪和尝试各种口味可以让人乐在其中！让我们先讨论一下您和您的爱人喜欢什么种类的美食或特定口味。有什么饮食限制或偏好我需要考虑吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That sounds great! We both enjoy trying different cuisines, and I have a preference for vegan food. So it would be wonderful if we could incorporate some plant-based dishes into the meal. As for dietary restrictions, we don't have any specific ones to consider. We're open to exploring new flavors and dishes. What do you suggest we make?",
+            "content_zh": "听起来很棒！我们都喜欢尝试不同的美食，我更倾向于素食。所以如果我们能在餐食中加入一些植物为基础的菜肴就很棒了。至于饮食限制，我们没有特定的限制需要考虑。我们乐于探索新的口味和菜肴。你觉得我们应该做什么？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Fantastic! Incorporating plant-based dishes into the meal is a great idea. It opens up a world of possibilities! How about we create a three-course meal consisting of an appetizer, main course, and dessert? Here's a suggestion:\n\nFor the appetizer, we could make a refreshing Watermelon and Mint Salad. It's light, vibrant, and perfect for setting the tone of the meal.\n\nFor the main course, we could prepare a flavorful Vegan Thai Green Curry with tofu and vegetables. This dish is aromatic, creamy, and packed with delicious Thai flavors. Serve it with steamed jasmine rice or noodles for a complete meal.\n\nFinally, for dessert, we can indulge in a decadent Vegan Chocolate Mousse. It's rich, velvety, and surprisingly easy to make using ingredients like avocado, cocoa powder, and maple syrup.\n\nHow does this sound? Let me know if you have any specific preferences or if you'd like alternative suggestions for any of the courses!",
+            "content_zh": "太棒了！在餐食中加入植物性菜肴是一个很好的主意。它打开了无限的可能性！我们来制作一个包括开胃菜、主菜和甜点的三道菜吧？这里有一个建议：\n\n对于开胃菜，我们可以做一个清爽的西瓜薄荷沙拉。它清淡、充满活力，是很好的开启餐食的一道菜。\n\n对于主菜，我们可以准备一份美味的素食泰式青咖喱，里面加入豆腐和蔬菜。这道菜香气扑鼻，口感细腻，充满了美味的泰式风味。配上蒸香米或面条，就是一顿完整的餐食。\n\n最后，对于甜点，我们可以品尝一份丰盛的素食巧克力慕斯。它浓郁、细腻，使用诸如鳄梨、可可粉和枫糖浆等食材制作起来出奇的简单。\n\n这听起来怎么样？如果你有任何特别的偏好，或者想要为任何一道菜提供替代建议，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Wow, that sounds like an amazing three-course meal! I love the combination of flavors and the fact that it's all plant-based. The Watermelon and Mint Salad sounds refreshing and perfect for starting the meal. The Vegan Thai Green Curry sounds absolutely delicious, and I think serving it with jasmine rice would be a great choice. And ending the meal with a rich and creamy Vegan Chocolate Mousse sounds like the perfect sweet treat!\n\nI don't have any specific preferences or alternative suggestions at the moment. I think your choices are spot-on. Could you please share the complete recipes for each dish, including the ingredients and preparation process?",
+            "content_zh": "哇，那聽起來像是一頓令人驚嘆的三道菜！我喜歡口味的組合以及所有都是植物基礎的事實。西瓜和薄荷沙拉聽起來清爽，非常適合開胃。純素泰式青咖喱聽起來絕對美味，我認為搭配茉莉香米是一個不錯的選擇。最後用濃郁奶油的純素巧克力慕斯來結束餐點，聽起來像是完美的甜點享受！\n\n我目前並沒有特定的喜好或替代建議。我認為你的選擇非常好。請問你可以分享每道菜的完整食譜嗎，包括材料和製作過程？",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! Here are the complete recipes for each dish:\n\n1. Watermelon and Mint Salad:\nIngredients:\n- 4 cups cubed watermelon\n- 1/2 cup fresh mint leaves, chopped\n- 1/4 cup red onion, thinly sliced\n- 1/4 cup vegan feta cheese, crumbled (optional)\n- Juice of 1 lime\n- Salt and pepper to taste\n\nInstructions:\n1. In a large bowl, combine the watermelon, mint leaves, red onion, and vegan feta cheese (if using).\n2. Squeeze the lime juice over the salad and gently toss to combine.\n3. Season with salt and pepper to taste.\n4. Refrigerate for at least 30 minutes before serving to allow the flavors to meld together. Serve chilled.\n\n2. Vegan Thai Green Curry:\nIngredients:\n- 1 tablespoon vegetable oil\n- 1 onion, thinly sliced\n- 2 garlic cloves, minced\n- 1 tablespoon grated ginger\n- 2 tablespoons Thai green curry paste\n- 1 can (13.5 oz) coconut milk\n- 1 cup vegetable broth\n- 1 block of firm tofu, cubed\n- 2 cups mixed vegetables (such as bell peppers, broccoli, carrots, and snap peas)\n- 2 tablespoons soy sauce\n- 1 tablespoon brown sugar (optional)\n- Fresh basil leaves and lime wedges for garnish\n- Cooked jasmine rice or noodles for serving\n\nInstructions:\n1. Heat the vegetable oil in a large pan or wok over medium heat.\n2. Add the sliced onion, minced garlic, and grated ginger. Sauté until fragrant and the onion is translucent.\n3. Stir in the Thai green curry paste and cook for another minute.\n4. Pour in the coconut milk and vegetable broth, stirring well to combine.\n5. Add the tofu and mixed vegetables to the pan. Simmer for about 10-15 minutes, or until the vegetables are tender and the flavors have melded together.\n6. Stir in the soy sauce and brown sugar (if using), adjusting the flavors to your taste.\n7. Serve the curry over cooked jasmine rice or noodles. Garnish with fresh basil leaves and lime wedges.\n\n3. Vegan Chocolate Mousse:\nIngredients:\n- 2 ripe avocados\n- 1/4 cup cocoa powder\n- 1/4 cup maple syrup or agave nectar\n- 1 teaspoon vanilla extract\n- Pinch of salt\n- Optional toppings: shaved dark chocolate, berries, or coconut whipped cream\n\nInstructions:\n1. Scoop out the flesh of the avocados and place them in a blender or food processor.\n2. Add the cocoa powder, maple syrup, vanilla extract, and salt.\n3. Blend until smooth and creamy, scraping down the sides as needed.\n4. Taste and adjust the sweetness if desired by adding more maple syrup.\n5. Transfer the mousse to serving bowls or glasses and refrigerate for at least 1 hour to chill and set.\n6. Before serving, you can top the mousse with shaved dark chocolate, berries, or a dollop of coconut whipped cream if desired.\n\nEnjoy preparing and savoring this delightful three-course meal with your loved one! Let me know if you have any more questions or need further assistance.",
+            "content_zh": "绝对！以下是每道菜的完整食谱：\n\n1. 西瓜薄荷沙拉：\n材料：\n- 4杯切块的西瓜\n- 1/2杯新鲜薄荷叶，切碎\n- 1/4杯红洋葱，切薄片\n- 1/4杯纯素飞达奶酪，碎（可选）\n- 1个酸橙的汁\n- 适量盐和胡椒\n\n说明：\n1. 在一个大碗中，混合西瓜、薄荷叶、红洋葱和纯素飞达奶酪（如果使用）。\n2. 挤些酸橙汁在沙拉上，轻轻拌匀。\n3. 根据口味加盐和胡椒。\n4. 冷藏至少30分钟以便味道融合在一起。冷藏后食用。\n\n2. 素食泰式青咖喱：\n材料：\n- 1汤匙植物油\n- 1个洋葱，切薄片\n- 2颗大蒜，磨碎\n- 1汤匙姜末\n- 2汤匙泰式青咖喱酱\n- 1罐（13.5盎司）椰浆\n- 1杯蔬菜高汤\n- 1块硬豆腐，切块\n- 2杯混合蔬菜（如甜椒、西兰花、胡萝卜和荷兰豆）\n- 2汤匙酱油\n- 1汤匙红糖（可选）\n- 新鲜九层塔叶和酸橙块作装饰\n- 煮熟的泰国香米或面条\n\n说明：\n1. 在大平底锅或炒锅中用中火加热植物油。\n2. 加入切碎的洋葱、蒜末和姜末。煸炒至香和洋葱变透明。\n3. 拌入泰式青咖喱酱，再煮1分钟。\n4. 倒入椰浆和蔬菜高汤，搅拌均匀。\n5. 把豆腐和混合蔬菜加入锅内。煨煮大约10-15分钟，或直至蔬菜变软，味道融合。\n6. 拌入酱油和红糖（如果使用），调整口味。\n7. 把咖喱盛在煮熟的泰国香米或面条上。装饰新鲜九层塔叶和酸橙块。\n\n3. 素食巧克力慕斯：\n材料：\n- 2个熟阿伏伐多\n- 1/4杯可可粉\n- 1/4杯枫糖浆或龙舌兰糖浆\n- 1茶匙香草精\n- 盐\n- 可选配料：刨碎的黑巧克力、浆果或椰子奶油\n\n说明：\n1. 舀出阿伏伐多的果肉放入搅拌器或食品加工机中。\n2. 加入可可粉、枫糖浆、香草精和盐。\n3. 搅拌直至顺滑、奶糊，需要时擦拭碗壁。\n4. 根据您的口味尝试并调整甜度，添加更多枫糖浆。\n5. 将慕斯舀到碗或杯中，冷藏至少1小时冷却。\n6. 食用前，如果需要可以在慕斯上撒刨碎的黑巧克力、浆果或一勺椰子奶油作为装饰。\n\n享受这顿美味的三道菜与您所爱的人一起准备和品尝！如果您有更多问题或需要进一步协助，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you so much for providing the complete recipes! They all sound absolutely delicious, and I'm excited to try them out. I appreciate your help in planning this special meal. I'll make sure to follow the recipes and enjoy the process of preparing each dish.\n\nIf I have any further questions or need more assistance, I'll be sure to reach out. Thank you again for your guidance!",
+            "content_zh": "非常感谢您提供完整的食谱！它们听起来都非常美味，我很期待尝试。感谢您帮助规划这顿特别的餐点。我会确保遵循食谱，享受准备每道菜的过程。如果我有任何问题或需要更多帮助，我一定会联系您。再次感谢您的指导！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you found the recipes appealing, and I'm sure you'll do a fantastic job preparing them. Enjoy the process and the wonderful flavors that await you and your loved one.\n\nIf you have any more questions or need assistance in the future, don't hesitate to reach out. I'm here to help. Have a wonderful time cooking and creating a memorable meal together!",
+            "content_zh": "非常欢迎！我很高兴你对食谱感兴趣，我相信你会做得很棒。享受制作的过程和等待着你和你所爱的人的美妙味道。\n如果你有更多问题或将来需要帮助，请不要犹豫与我联系。我会在这里帮助你。祝你们在烹饪和一起制作难忘美味餐点的过程中度过美好时光！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "vegan",
+        "plant-based",
+        "refreshing"
+    ],
+    "preference_summary": [
+        "cooking",
+        "thai cuisine",
+        "chocolate"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "26",
+            "zh": "26"
+        },
+        "Personality": [
+            {
+                "en": "Spontaneous",
+                "zh": "随性"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            }
+        ],
+        "Occupation": {
+            "en": "Artist",
+            "zh": "艺术工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Writing",
+                "zh": "写作"
+            },
+            {
+                "en": "Playing instruments",
+                "zh": "演奏乐器"
+            },
+            {
+                "en": "Listening to music",
+                "zh": "听音乐"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Cultural trips",
+                "zh": "文化旅行"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Vegan",
+                "zh": "素食"
+            },
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on entertainment",
+                "zh": "娱乐支出"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Active in music activities",
+                "zh": "喜欢参与音乐活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

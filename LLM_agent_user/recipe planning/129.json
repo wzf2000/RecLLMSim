@@ -1,0 +1,240 @@
+{
+    "task": "recipe planning",
+    "preference_id": 17,
+    "task_context_id": 7,
+    "preference": "1. Gender: Female\n2. Age: 26\n3. Personality: Free-spirited, creative, and outgoing\n4. Occupation: Musician\n5. Daily Interests and Hobbies: Writing songs, playing instruments, attending concerts\n6. Travel Habits: Tours for performances, enjoys cultural festivals\n7. Dining Preferences: Enjoys vegan food, loves trying local cuisines\n8. Spending Habits: Spends on musical equipment, saves for recording sessions\n9. Other Aspects: Lives in a shared artist loft, active in local music scene",
+    "preference_zh": "1. 性别：女性\n2. 年龄：26岁\n3. 个性：自由奔放，富有创造力，外向\n4. 职业：音乐人\n5. 日常兴趣爱好：写歌曲，演奏乐器，参加音乐会\n6. 旅行习惯：巡回演出，喜欢文化节庆\n7. 饮食偏好：喜欢素食，喜欢品尝当地美食\n8. 消费习惯：购买音乐设备，为录音会话存钱\n9. 其他方面：住在共享的艺术家阁楼，活跃于当地音乐圈",
+    "task_context": "You plan to prepare a meal at home to celebrate your birthday with about 10 close friends. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家里为庆祝生日与大约10位亲近的朋友准备一顿饭。你是一位技艺精湛的厨师，有一些专业知识。因此，你想要请求LLM帮助创建菜谱，确定所需食材，以及决定做什么菜。在计划过程中，你应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm so glad you asked. I'm planning to prepare a special meal at home to celebrate my birthday with about 10 of my closest friends. I'm a skilled cook, but I'd love some help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Can you assist me with that?",
+            "content_zh": "你好！很高兴你问。我打算在家里为我最亲近的大约10个朋友庆祝生日，准备一顿特别的餐点。我是一名熟练的厨师，但我希望在创造食谱、确定必要的食材和决定要做什么菜肴方面得到一些帮助。你可以帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you plan your special birthday meal! Celebrating with your closest friends sounds like a wonderful idea. What type of cuisine or theme are you thinking of for your meal? That will help us narrow down the options and create a memorable menu.",
+            "content_zh": "当然，我很乐意帮助您计划您的特别生日餐！与您最亲近的朋友一起庆祝听起来是一个美妙的主意。您打算选择哪种菜系或主题呢？这将帮助我们缩小选择范围并创造一个难忘的菜单。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance! Since I enjoy trying different cuisines, I thought it would be fun to have a vegan feast with a variety of dishes. I want to showcase the flavors and versatility of plant-based ingredients. So, a vegan-themed birthday meal would be perfect! What do you think?",
+            "content_zh": "非常感谢您提供帮助！由于我喜欢尝试不同的美食，我觉得举办一个纯素宴会，品尝各种佳肴会很有趣。我希望展示植物基食材的口味和多样性。因此，一个以纯素为主题的生日餐会会很完美！您觉得呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That sounds fantastic! A vegan-themed birthday meal is a great way to celebrate while highlighting the delicious possibilities of plant-based cooking. With so many vibrant and flavorful ingredients available, you'll have plenty of options to create a diverse and exciting menu. Let's start by brainstorming some dishes. Are there any specific flavors, cuisines, or dietary restrictions we should consider?",
+            "content_zh": "那听起来太棒了！一个以素食为主题的生日餐是庆祝的绝佳方式，同时也突出了基于植物的烹饪所能带来的美味可能性。有这么多鲜艳和富有风味的食材可供选择，你将有大量的选项来创建一个多样化和令人兴奋的菜单。让我们开始头脑风暴一些菜品吧。有没有任何特定的口味、菜系或饮食限制我们应该考虑的？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "Translation Problem Fixed"
+            },
+            "content_zh_old": "听起来太棒了！以纯素为主题的生日大餐是庆祝的好方法，同时突显植物食物烹饪的美味可能性。有这么多充满活力和美味的食材可供选择，您将有很多选项来创造多样化和令人兴奋的菜单。让我们开始讨论一些菜肴。有没有特定口味、烹饪方法或饮食限制需要考虑的？"
+        },
+        {
+            "role": "user",
+            "content": "Thank you for your enthusiasm! I'm open to exploring different flavors and cuisines. As for dietary restrictions, I don't have any specific ones, but it would be great if we could include some gluten-free options for one of my friends who has a gluten sensitivity. Other than that, I'm excited to try out new and exciting flavors. Let's get creative with the menu!",
+            "content_zh": "谢谢你的热情！我乐于尝试不同的口味和菜系。至于饮食限制，我没有特定的，但如果我们能包括一些无麸质选项给我一个对麸质过敏的朋友就太好了。除此之外，我很兴奋尝试新奇的口味。让我们在菜单上做些创意吧！",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! We can definitely create a menu that accommodates your friend's gluten sensitivity. Here are some ideas for a vegan feast with a variety of dishes:\n\n1. Appetizers:\n   - Stuffed Mushroom Caps: Filled with a savory mixture of chopped vegetables, herbs, and breadcrumbs made from gluten-free bread.\n   - Spicy Chickpea Fritters: Crispy and flavorful fritters made with chickpea flour, spices, and fresh herbs.\n\n2. Main Course:\n   - Thai Green Curry: A fragrant and creamy curry made with coconut milk, Thai green curry paste, and an assortment of vegetables like bell peppers, broccoli, and tofu.\n   - Lentil Shepherd's Pie: A hearty and comforting dish with a base of lentils, topped with mashed sweet potatoes or cauliflower.\n\n3. Sides:\n   - Quinoa Salad: A refreshing salad with cooked quinoa, mixed vegetables, fresh herbs, and a tangy dressing.\n   - Roasted Brussels Sprouts: Tossed in olive oil, garlic, and spices, then roasted until crispy and caramelized.\n\n4. Dessert:\n   - Vegan Chocolate Cake: A rich and decadent chocolate cake made with plant-based ingredients like almond milk, coconut oil, and flaxseed meal as an egg substitute.\n   - Fresh Fruit Platter: A colorful assortment of seasonal fruits for a light and refreshing option.\n\nRemember to adjust the recipes according to the number of guests and their appetites. Additionally, feel free to add your own personal touch to these ideas and modify them to suit your taste preferences. I hope this gives you a good starting point for planning your vegan feast!",
+            "content_zh": "绝对可以！我们肯定可以为您的朋友的麸质敏感问题设计一份菜单。以下是一些关于丰富菜肴的素食宴会的想法：\n\n1. 开胃菜：\n- 酿蘑菇帽：内含由切碎的蔬菜、香料和用无麸质面包屑制成的面包屑混合料填充。\n- 香辣鹰嘴豆小饼：利用鹰嘴豆粉、香料和新鲜香草制成的脆口和味道浓郁的小饼。\n\n2. 主菜：\n- 泰式绿咖喱：使用椰奶、泰式绿咖喱酱和各种蔬菜（如青椒、西兰花和豆腐）制成的芳香而奶油味的咖喱。\n- 扁豆牧羊人馅饼：以扁豆为底，覆盖上土豆泥或椰菜花制成的厚实温馨的一道菜。\n\n3. 配菜：\n- 藜麦沙拉：煮熟的藜麦、混合蔬菜、鲜香草和酸酸的调味酱制成的清爽沙拉。\n- 烤布鲁塞尔芽：用橄榄油、大蒜和香料拌匀，然后烤至金黄脆口。\n\n4. 甜点：\n- 素巧克力蛋糕：使用杏仁奶、椰子油和亚麻籽磨成的替代蛋的植物基原料制成的浓香巧克力蛋糕。\n- 新鲜水果拼盘：色彩缤纷的时令水果拼盘，提供清爽清新的选择。\n\n记得根据宾客人数和胃口调整菜谱。此外，随意加入您个人的想法，并根据口味喜好进行修改。希望这为您规划素食宴会提供了一个良好的起点！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Wow, these ideas sound absolutely amazing! I love the variety and creativity in each dish. The stuffed mushroom caps and spicy chickpea fritters would make fantastic appetizers. The Thai green curry and lentil shepherd's pie sound like flavorful and satisfying main courses. And the quinoa salad and roasted Brussels sprouts would be perfect sides to complement the meal. For dessert, the vegan chocolate cake and fresh fruit platter sound delightful.\n\nThank you so much for your suggestions! I'm feeling really inspired by these ideas. I'll definitely make adjustments based on the number of guests and their preferences. This menu is going to impress my friends for sure!\n\nIs there a specific order in which you recommend preparing these dishes? And do you have any additional tips or suggestions for me as I plan and prepare this feast?\n",
+            "content_zh": "哇，这些想法听起来绝对令人惊叹！我喜欢每道菜中的多样性和创意。蘑菇帽和辣鹰嘴豆炸饼会是美味的开胃菜。泰式青咖喱和扁豆牧羊人派听起来口味浓郁且令人满足。石榴藜麦沙拉和烤布鲁塞尔芽将是完美的配菜。至于甜点，素食巧克力蛋糕和新鲜水果拼盘听起来令人愉悦。\n\n非常感谢您的建议！我对这些想法感到非常受启发。我一定会根据客人的人数和他们的喜好进行调整。这个菜单肯定会让我的朋友们留下深刻印象！\n\n您推荐准备这些菜肴的特定顺序吗？在我筹划和准备这顿盛宴时，您有什么额外的建议或提示吗？",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm thrilled that you're feeling inspired by the menu ideas. Your friends are in for a treat!\n\nWhen it comes to the order of preparation, here's a suggested timeline:\n\n1. Start by preparing any make-ahead components or marinades the day before your birthday celebration. This could include preparing the Thai green curry paste or marinating the tofu for the curry.\n\n2. On the day of the celebration, begin by making the vegan chocolate cake. This will allow it ample time to cool before you frost it.\n\n3. While the cake is baking, you can prepare the stuffed mushroom caps and set them aside.\n\n4. Next, move on to the lentil shepherd's pie. Cook the lentils and prepare the mashed sweet potatoes or cauliflower topping. Assemble the pie and set it aside.\n\n5. Prepare the quinoa salad and let it chill in the refrigerator to allow the flavors to meld.\n\n6. Just before your guests arrive, roast the Brussels sprouts and keep them warm.\n\n7. When it's time to serve the main course, heat up the Thai green curry, ensuring all the vegetables and tofu are cooked to perfection.\n\n8. Finally, assemble the spicy chickpea fritters and serve them alongside the stuffed mushroom caps as appetizers.\n\nFor additional tips and suggestions:\n\n- Consider creating a detailed shopping list to ensure you have all the necessary ingredients. It's always helpful to double-check your pantry and make note of any staples you may need to restock.\n\n- If you have any time constraints, try to prepare dishes that can be made ahead of time or require minimal last-minute cooking. This will help you manage your time better and reduce stress.\n\n- Don't hesitate to delegate tasks to your friends if they offer to help. It can make the cooking process more enjoyable and efficient.\n\n- Make sure to communicate with your gluten-sensitive friend to ensure their needs are met. You can also label gluten-free dishes to avoid any confusion during the meal.\n\n- Lastly, have fun and enjoy the process! Cooking for loved ones is a wonderful way to celebrate, so embrace the joy of creating a memorable feast.\n\nI hope these tips and suggestions help you plan and prepare your vegan feast. Enjoy your birthday celebration and have an amazing time with your friends!",
+            "content_zh": "非常欢迎您！我很高兴您对菜单想法感到激动。您的朋友们将有美味佳肴！\n\n在准备顺序方面，这里是一个建议的时间表：\n1.首先，开始准备任何提前制作的成分或腌料，并在生日庆祝活动前一天。这可能包括准备泰式青咖喱酱或为咖喱腌制豆腐。\n2.在庆祝活动当天，首先制作素巧克力蛋糕。这将为它冷却提供充分时间，以便您可以涂抹霜。\n3.在烘烤蛋糕时，您可以准备填充的蘑菇帽并将其放在一边。\n4.接着，继续制作扁豆牧羊人派。煮扁豆并准备土豆泥或花菜顶层。组合派并将其放在一边。\n5.准备藜麦沙拉并让其在冰箱中冷却，以便调味品融合。\n6.在客人到达之前，烤一下甜甜圈并保持温暖。\n7.当是时候上主菜时，加热泰式青咖喱，确保所有蔬菜和豆腐煮得完美。\n8.最后，组合辛辣鹰嘴豆煎饼并将它们与填充的蘑菇帽一起作为开胃菜供应。\n\n对于其他提示和建议：\n- 考虑创建一个详细的购物清单以确保您有所有必要的食材。最好再次检查您的食材室，并记下您可能需要补充存货的任何基本食材。\n- 如果时间有限，尽量准备可以提前制作或需要较少临时烹饪的菜肴。这将帮助您更好地管理时间并减轻压力。\n- 如果朋友们提出帮忙，请不要犹豫地委派任务。这可以使烹饪过程更加愉快和高效。\n- 确保与对面对麸质过敏的朋友沟通，以确保他们的需求得到满足。您还可以标记无麸质的菜肴，以避免用餐时的混乱。\n- 最后，尽情享受这个过程！为爱的人烹饪是庆祝的美好方式，所以拥抱创造一个难忘盛宴的乐趣。\n\n希望这些建议和提示能帮助您规划和准备您的素食筵席。享受您的生日庆祝活动，并与朋友们度过一个美好的时光！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "vegan",
+        "gluten-free",
+        "variety"
+    ],
+    "preference_summary": [
+        "inspired",
+        "vegan",
+        "diverse"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 1,
+        "Practical Usefulness": 2,
+        "Diversity": 1
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "26",
+            "zh": "26"
+        },
+        "Personality": [
+            {
+                "en": "Spontaneous",
+                "zh": "随性"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            }
+        ],
+        "Occupation": {
+            "en": "Artist",
+            "zh": "艺术工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Writing",
+                "zh": "写作"
+            },
+            {
+                "en": "Playing instruments",
+                "zh": "演奏乐器"
+            },
+            {
+                "en": "Listening to music",
+                "zh": "听音乐"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Cultural trips",
+                "zh": "文化旅行"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Vegan",
+                "zh": "素食"
+            },
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on entertainment",
+                "zh": "娱乐支出"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Active in music activities",
+                "zh": "喜欢参与音乐活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

@@ -1,0 +1,277 @@
+{
+    "task": "travel planning",
+    "preference_id": 64,
+    "task_context_id": 7,
+    "preference": "1. Gender: Male\n2. Age: 65\n3. Personality: Wise, patient, and friendly\n4. Occupation: Retired Teacher\n5. Daily Interests and Hobbies: Reading, writing memoirs, bird watching\n6. Travel Habits: Enjoys cruises, visits grandchildren in different states\n7. Dining Preferences: Enjoys traditional dishes, loves grilling\n8. Spending Habits: Spends on home improvement tools, saves for healthcare\n9. Other Aspects: Volunteers at a local community center, has a pet dog",
+    "preference_zh": "1. 性别：男性\n2. 年龄：65\n3. 个性：睿智、耐心、友好\n4. 职业：退休教师\n5. 每日兴趣爱好：阅读、写回忆录、观鸟\n6. 旅行习惯：喜欢乘游轮、拜访居住在不同州的孙子孙女\n7. 餐饮偏好：喜欢传统菜肴、喜欢烧烤\n8. 消费习惯：购买家居改善工具，为医疗保健存钱\n9. 其他方面：在当地社区中心做志愿者，有一只宠物狗",
+    "task_context": "You are planning a two-day-long trip this winter, The trip has no specific destination restrictions. You would like to use LLM to help refine your travel plans. During this conversation, you will need to make arrangements for accommodations, transportation, and itinerary details. Your ultimate travel plan should be as comprehensive as possible, ensuring that you can realistically follow it when the time comes.",
+    "task_context_zh": "你正在计划这个冬天的一次为期两天的旅行，这次旅行没有具体的目的地限制。你希望使用LLM来帮助完善你的旅行计划。在这次对话中，你需要安排住宿、交通和行程细节。你最终的旅行计划应尽可能全面，确保当时你能够实际执行它。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I'm currently planning a two-day trip this winter and I could use some assistance in refining my travel plans. I'm open to any suggestions or recommendations you might have.",
+            "content_zh": "你好！很高兴你在这里。我目前正在计划这个冬天的一个双日旅行，希望你能帮助我完善旅行计划。欢迎你提出任何建议或推荐。",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'm here to help you with your travel plans. That's exciting that you're planning a two-day trip this winter! Could you let me know a bit more about your preferences? Where are you thinking of going, and what are your interests? Are you more inclined towards a city getaway, a nature retreat, or something else entirely? The more details you provide, the better I can assist you with tailored suggestions and recommendations.",
+            "content_zh": "你好！我来帮你安排旅行计划。很高兴你打算这个冬天进行一次为期两天的旅行！你可以告诉我更多关于你的喜好吗？你打算去哪里，你对什么感兴趣？你更倾向于城市游，自然度假，还是其他完全不同的选择？提供的细节越多，我就能更好地提供量身定制的建议和推荐。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for your willingness to assist me! I'm open to different options for my trip and don't have any specific destination in mind. However, considering my love for bird watching and nature, a nature retreat sounds appealing. I enjoy peaceful environments where I can relax and appreciate the beauty of the outdoors. If you have any suggestions for destinations that offer a serene natural setting, I would love to hear them!",
+            "content_zh": "谢谢你愿意帮助我！我对我的旅行有不同的选择，并没有特定的目的地。然而，考虑到我对观鸟和大自然的热爱，自然度假听起来很吸引人。我喜欢宁静的环境，在那里我可以放松身心，欣赏户外的美景。如果你有任何提供宁静自然环境的目的地建议，我很乐意听听！",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "A nature retreat sounds wonderful for your trip! If you're a bird-watching enthusiast, there are several destinations that offer serene natural settings with abundant birdlife. Here are a few suggestions for your consideration:\n\n1. Costa Rica: Known for its rich biodiversity, Costa Rica is a bird-watcher's paradise. The country has numerous national parks and reserves, such as Monteverde Cloud Forest Reserve and Tortuguero National Park, where you can spot a wide variety of bird species.\n\n2. Galapagos Islands, Ecuador: The Galapagos Islands are famous for their unique wildlife, including a diverse range of bird species. You can explore the islands and observe fascinating birds like the blue-footed booby, Galapagos penguin, and waved albatross.\n\n3. Everglades National Park, Florida, USA: The Everglades is a vast subtropical wilderness with an incredible array of birdlife. You can take a boat tour or hike along the trails to spot birds like herons, egrets, roseate spoonbills, and the elusive Everglade snail kite.\n\n4. Kruger National Park, South Africa: If you're interested in combining bird watching with a safari experience, Kruger National Park is a fantastic choice. The park is known for its diverse bird population, including raptors, storks, and numerous colorful species.\n\n5. Queenstown, New Zealand: Nestled in the Southern Alps, Queenstown offers breathtaking natural beauty. You can explore the nearby Fiordland National Park, known for its stunning fjords and birdlife like the kea, tui, and bellbird.\n\nThese are just a few options, but there are many more destinations around the world that would cater to your love for bird watching and nature. Let me know if any of these appeal to you, or if you'd like more information on any specific location!",
+            "content_zh": "大自然度假听起来对您的旅行很棒！如果您是一个热爱观鸟的爱好者，有几个目的地提供宁静的自然环境和丰富的鸟类。以下是几个建议供您考虑： 1.哥斯达黎加：以其丰富的生物多样性而闻名，哥斯达黎加是观鸟者的天堂。该国有许多国家公园和保护区，如蒙特维德云雾森林保护区和托图格罗国家公园，您可以在这里看到各种各样的鸟类。 2.厄瓜多尔加拉帕戈斯群岛：加拉帕戈斯群岛以其独特的野生动物而闻名，其中包括各种鸟类。您可以探索这些岛屿，并观察到蓝脚鲣鸟、加拉帕戈斯企鹅和海浪信天翁等迷人的鸟类。 3.美国佛罗里达州的恒通国家公园：恒通是一个广阔的亚热带荒野，有惊人的鸟类。您可以乘船游览或沿着小径徒步，观察到鹭鸟、白鹭、玫瑰勺嘴鹮和难以捉摸的恒通蜗鹞等鸟类。 4.南非克鲁格国家公园：如果您有兴趣将观鸟与野生动物园体验相结合，克鲁格国家公园是一个绝佳的选择。这个公园以其多样化的鸟类群而闻名，包括猛禽、鹳和许多色彩斑斓的物种。 5.新西兰皇后镇：坐落在南阿尔卑斯山脉中的皇后镇提供了令人惊叹的自然美景。您可以探索附近的菲厄德兰国家公园，以其壮丽的峡湾和凯阿鹦鹉、图伊和钟鸟等鸟类而闻名。 这些只是一些选择，但世界各地还有许多目的地适合您热爱观鸟和大自然的心。如果您感兴趣，请告诉我，或者如果您想要了解特定位置的更多信息，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the wonderful suggestions! All of these destinations sound fantastic, and I appreciate the variety you've provided. I'm particularly intrigued by the idea of visiting Costa Rica and exploring its national parks and reserves. The rich biodiversity there would surely make for an unforgettable bird-watching experience. I think I'll focus on planning my trip to Costa Rica for now. \n\nNow, let's move on to accommodations. Do you have any recommendations for cozy and nature-oriented accommodations in Costa Rica? I prefer comfortable and peaceful places that allow me to truly immerse myself in the natural surroundings.",
+            "content_zh": "谢谢你美妙的建议！所有这些目的地听起来都很棒，我很感激你提供的多样性。我对访问哥斯达黎加和探索其国家公园和自然保护区的想法特别感兴趣。那里丰富的生物多样性肯定会让鸟类观察成为一个令人难忘的经历。我想我现在会专注于规划我去哥斯达黎加的旅行。\n现在，让我们继续谈论住宿。你有没有哥斯达黎加温馨而注重自然的住宿推荐？我喜欢舒适和宁静的地方，让我真正融入自然环境。",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Costa Rica is indeed a fantastic choice for a nature retreat, especially for bird watching! When it comes to accommodations, there are several options that offer a cozy and nature-oriented experience. Here are a few recommendations for you:\n\n1. Treehouse Lodges: Costa Rica is known for its unique treehouse accommodations, where you can stay amidst the treetops and enjoy a truly immersive experience in nature. Places like Finca Bellavista and Tree Houses Hotel Costa Rica offer cozy and eco-friendly treehouse accommodations.\n\n2. Ecolodges: Costa Rica is home to many ecolodges that blend harmoniously with the natural environment. Lapa Rios Ecolodge in the Osa Peninsula and Pacuare Lodge near the Pacuare River are renowned for their sustainable practices and stunning natural surroundings.\n\n3. Wildlife Reserves: Some wildlife reserves in Costa Rica offer on-site accommodations, allowing you to stay right in the heart of nature. For example, Monteverde Cloud Forest Reserve has lodges like Hotel Belmar and El Establo, offering comfortable stays with easy access to bird-watching trails.\n\n4. Rainforest Lodges: If you're looking for a rainforest experience, consider staying at lodges located in or near rainforest areas. Selva Verde Lodge in Sarapiquí and La Quinta de Sarapiquí Lodge in Puerto Viejo de Sarapiquí are popular options, offering a tranquil setting amidst lush greenery.\n\n5. Beachfront Eco Resorts: Costa Rica also has stunning beachfront properties that prioritize sustainability and offer a serene natural setting. Look into places like Latitude 10 Resort in Santa Teresa or Florblanca Resort in Santa Teresa/Mal Pais for a mix of beach and nature experiences.\n\nThese are just a few examples, and Costa Rica offers a wide range of accommodations that cater to nature enthusiasts. Make sure to check the amenities, reviews, and proximity to bird-watching areas when making your decision. Happy planning, and I hope you have an amazing time in Costa Rica!",
+            "content_zh": "哥斯达黎加确实是一个理想的自然度假胜地，尤其适合观鸟！在住宿方面，有几个提供舒适和以自然为导向体验的选择。以下是一些推荐给您的地方：\n1. 树屋旅馆：哥斯达黎加以其独特的树屋住宿而闻名，您可以住在树梢之间，享受在自然中的沉浸式体验。像Finca Bellavista和哥斯达黎加树屋酒店这样的地方提供舒适和环保的树屋住宿。\n2. 生态旅馆：哥斯达黎加有许多与自然环境和谐融合的生态旅馆。奥萨半岛的拉帕里奥斯生态度假村和帕夸雷河附近的帕夸雷旅馆以其可持续的做法和迷人的自然环境而闻名。\n3. 野生动物保护区：哥斯达黎加的一些野生动物保护区提供现场住宿，让您可以住在自然的中心。例如，蒙特维德云雾森林保护区有像贝尔马尔酒店和埃斯塔布洛这样的住宿设施，提供舒适的住宿环境，便于观鸟。\n4. 雨林小屋：如果您想体验雨林，可以考虑住在位于或靠近雨林地区的小屋。萨拉皮基的塞尔瓦韦德小屋和萨拉皮基港的拉金塔德萨拉皮基小屋是受欢迎的选择，提供在郁郁葱葱的绿色环境中享受宁静的环境。\n5. 海滨生态度假胜地：哥斯达黎加还拥有注重可持续性并提供宁静自然环境的迷人海滨物业。可以考虑住在圣特雷萨的Latitude 10度假村或圣特雷萨/马尔帕斯的Florblanca度假村，体验海滩和自然的结合。\n这仅是一些例子，哥斯达黎加提供适合自然爱好者的各种住宿选择。在做决定时，请务必检查设施、评论和周围观鸟区的距离。祝您旅途愉快，希望您在哥斯达黎加度过美好的时光！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the wonderful recommendations! I love the idea of staying in a treehouse or an ecolodge to truly immerse myself in the natural environment of Costa Rica. The options you mentioned, like Finca Bellavista and Lapa Rios Ecolodge, sound perfect for what I have in mind. I'll definitely look into these accommodations and consider their amenities, reviews, and proximity to bird-watching areas before making a decision.\n\nNow, let's move on to transportation. What would you suggest as the best mode of transportation for getting around in Costa Rica? I want to ensure that it's convenient and allows me to explore different bird-watching spots and natural attractions.",
+            "content_zh": "非常感谢您的精彩推荐！我喜欢住在树屋或生态小屋的想法，真正沉浸在哥斯达黎加的自然环境中。您提到的选择，如Finca Bellavista和Lapa Rios生态小屋，听起来正是我想要的。在做决定之前，我一定会仔细考虑这些住宿的设施、评价和它们距离观鸟区域的便利程度。\n现在，让我们谈谈交通。您会建议在哥斯达黎加四处游玩的最佳交通工具是什么？我想确保它方便并且让我可以探索不同的观鸟点和自然景点。",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "In Costa Rica, there are a few transportation options that can help you conveniently explore different bird-watching spots and natural attractions. Here are some suggestions:\n\n1. Renting a Car: Renting a car gives you the most flexibility and freedom to explore at your own pace. Costa Rica has a well-developed road network, and having a car allows you to reach remote bird-watching locations and national parks. Just keep in mind that some areas may have unpaved roads, so consider renting a 4x4 vehicle for better maneuverability.\n\n2. Private Transfers: If you prefer not to drive, you can arrange private transfers between destinations. This option provides convenience and comfort, as a driver will take you directly to your desired locations. It's a good choice if you want to relax and enjoy the scenery without worrying about navigation.\n\n3. Local Buses: Costa Rica has an extensive public bus system that connects major towns and cities. While buses may not be the fastest option, they are an affordable way to travel between destinations. However, keep in mind that they may not always take you directly to bird-watching spots or remote areas, so you might need to plan for additional transportation or hikes to reach specific locations.\n\n4. Guided Tours: Another option is to join guided tours specifically focused on bird watching. These tours typically include transportation, knowledgeable guides, and visits to prime bird-watching locations. It's a great way to learn from experts and ensure you don't miss out on any important sightings.\n\nConsider your comfort level, budget, and the specific locations you plan to visit when deciding on the best mode of transportation. A combination of different options might work well too, depending on your itinerary. Remember to check road conditions, travel times, and any permits required for certain areas. Enjoy your bird-watching adventure in Costa Rica!",
+            "content_zh": "在哥斯达黎加，有几种交通选择可以帮助您方便地探索不同的鸟类观察点和自然景点。以下是一些建议： 1.租车：租车让您在自己的节奏下探索灵活性最大，自由度最高。哥斯达黎加有发达的道路网络，有车可以让您到达偏远的鸟类观察地点和国家公园。只需记住，有些地区可能是未铺装的道路，所以可以考虑租用四驱车以获得更好的操纵性。 2.私人接送：如果您不愿意开车，可以安排目的地之间的私人接送。这种选择提供了便利和舒适，因为司机会直接带您到达您想去的地点。如果您想要放松并欣赏风景而不用担心导航，这是一个很好的选择。 3.当地巴士：哥斯达黎加有一个广泛的公共巴士系统，连接主要城镇和城市。虽然巴士可能不是最快的选择，但它们是一个经济实惠的旅行方式。但是，请记住，它们可能并不能直接带您到达观鸟点或偏远地区，因此您可能需要计划额外的交通工具或徒步旅行才能到达特定地点。 4.导游团：另一种选择是加入专门关注观鸟的导游团。这些导游团通常包括交通工具、知识丰富的导游以及拜访主要鸟类观察地点。这是一个向专家学习和确保您不会错过任何重要观看的好方法。 在决定最佳交通方式时，请考虑您的舒适水平、预算和计划访问的具体地点。根据您的行程，不同选择的组合也可能很有效。记得检查路况、行车时间以及某些地区是否需要许可证。在哥斯达黎加享受观鸟之旅吧！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed transportation suggestions! Renting a car seems like a great option to have the flexibility to explore different bird-watching spots and natural attractions at my own pace. I'll make sure to consider renting a 4x4 vehicle to navigate any unpaved roads and reach remote locations easily.\n\nAdditionally, I'll also look into guided tours specifically focused on bird watching. It would be wonderful to learn from experts and ensure that I don't miss out on any important sightings.\n\nNow, let's move on to planning the itinerary. Considering my love for bird watching and nature, what are some must-visit bird-watching spots in Costa Rica that I should include in my two-day trip? I want to make the most of my time and have a fulfilling bird-watching experience.\n",
+            "content_zh": "感谢详细的交通建议！租车似乎是一个很好的选择，可以灵活探索不同的观鸟点和自然景点。我将确保考虑租一辆四驱车，以便在未铺设的道路上驾驶，轻松到达偏远地区。\n另外，我还会寻找专门关注观鸟的导游团。能够向专家学习并确保不错过任何重要的鸟类鉴赏，这将是一件美妙的事情。\n现在，让我们开始规划行程。考虑到我对观鸟和大自然的热爱，哥斯达黎加有哪些必去的观鸟点在我的两天行程中应该包括？我想充分利用时间，并享受一个充实的观鸟体验。",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Costa Rica is blessed with an abundance of bird-watching spots, making it a paradise for bird enthusiasts. Here are some must-visit bird-watching spots that you should consider including in your two-day trip:\n\n1. Monteverde Cloud Forest Reserve: This renowned reserve is famous for its rich biodiversity, including a wide variety of bird species. Explore the trails and keep an eye out for the resplendent quetzal, three-wattled bellbird, and many other colorful birds.\n\n2. Tortuguero National Park: Known for its incredible wildlife and nesting turtles, Tortuguero is also a fantastic bird-watching destination. Take a boat tour through the canals, where you can spot herons, egrets, kingfishers, and even toucans.\n\n3. La Selva Biological Station: Located in the Sarapiquí region, this research station is a haven for bird watchers. The diverse habitats here attract numerous species, including tanagers, motmots, antbirds, and woodpeckers.\n\n4. Carara National Park: Situated between the Pacific coast and the Central Valley, Carara is home to an impressive array of birdlife. Look out for scarlet macaws, toucans, trogons, and hummingbirds as you explore the trails.\n\n5. Palo Verde National Park: This wetland reserve is a paradise for water birds. Take a boat tour along the Tempisque River, and you'll have the opportunity to see herons, spoonbills, ibises, and various migratory species.\n\n6. Arenal Volcano National Park: While primarily known for its volcano, Arenal is also a great spot for bird watching. Explore the trails around the volcano and keep an eye out for toucans, parrots, and other species.\n\nRemember that these are just a few highlights, and there are many more bird-watching spots throughout Costa Rica. Depending on your preferences and the specific region you'll be exploring, you can tailor your itinerary to include the spots that interest you the most. Enjoy your bird-watching adventure in Costa Rica!",
+            "content_zh": "哥斯达黎加拥有丰富的观鸟景点，使之成为鸟类爱好者的天堂。以下是您在两天行程中应考虑包括的必游观鸟景点：\n\n1. 蒙特维德云雾森林保护区：这个著名的保护区以其丰富的生物多样性而闻名，包括各种不同的鸟类。探索小径，并留意彩林侏儒鹦鹉、三声皱喉钟鸟和许多其他色彩鲜艳的鸟类。\n\n2. 托图格罗国家公园：托图格罗以其令人难以置信的野生动物和筑巢海龟闻名，也是一个绝佳的观鸟目的地。乘船穿越运河，您可以发现苍鹭、白鹭、翠鸟，甚至巨嘴鸟。\n\n3. 拉塞尔瓦生物站：位于萨拉皮吉地区，这个研究站是鸟类观察者的天堂。这里多样化的栖息地吸引了众多物种，包括唐纳哥雀、扇尾蜂鸟、蚁鸟和啄木鸟。\n\n4. 卡拉拉国家公园：位于太平洋海岸和中央山谷之间，卡拉拉拥有令人印象深刻的鸟类群落。在探索小径的过程中留意红金刚鹦鹉、巨嘴鸟、鹟和蜂鸟。\n\n5. 帕洛韦尔德国家公园：这个湿地保护区是水鸟的天堂。沿着坦皮斯河乘船游览，您将有机会看到苍鹭、勺嘴鹬、朱鹭和各种候鸟物种。\n\n6. 阿雷纳尔火山国家公园：阿雷纳尔主要以其火山而闻名，同时也是一个观鸟的好地方。探索火山周围的小径，并留意巨嘴鸟、鹦鹉和其他物种。\n\n请记住这些只是一些亮点，哥斯达黎加还有许多观鸟景点。根据您的喜好和即将探索的具体地区，您可以为自己的行程选择最感兴趣的景点。在哥斯达黎加尽情享受观鸟之旅吧！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the fantastic suggestions! I'm thrilled to have such a diverse range of bird-watching spots to choose from in Costa Rica. Monteverde Cloud Forest Reserve and Tortuguero National Park definitely sound like must-visit locations for their incredible birdlife. I'll make sure to include them in my itinerary.\n\nI'll also look into La Selva Biological Station, Carara National Park, Palo Verde National Park, and Arenal Volcano National Park to see which ones align with my interests and the regions I'll be exploring.\n\nThank you for your assistance in refining my travel plans. I feel much more confident and excited about my upcoming trip to Costa Rica. I appreciate your help!\n\n[System]: You're welcome! I'm glad I could assist you in refining your travel plans. If you have any more questions or need further assistance, feel free to ask. Have a fantastic trip to Costa Rica and enjoy your bird-watching adventure! Safe travels!\n",
+            "content_zh": "谢谢你提供这么棒的建议！我很激动能在哥斯达黎加有这么多多样化的观鸟地点可供选择。蒙特维德云雾森林保护区和托尔图吉罗国家公园听起来确实是不可错过的地方，因为那里拥有令人惊叹的鸟类生态。我会确保把它们列入我的行程表。我还会查看拉塞尔瓦生物站、卡拉拉国家公园、帕洛韦尔德国家公园和阿雷纳尔火山国家公园，看看哪些地点符合我的兴趣和我将要探索的地区。谢谢你帮助我完善旅行计划。我对即将到来的哥斯达黎加之行更有信心和兴奋。感谢你的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "Thank you! I'm glad I could help. If you have any more questions or need further assistance in the future, don't hesitate to ask. Have an amazing trip to Costa Rica and enjoy your bird-watching adventure! Safe travels and take care!",
+            "content_zh": "谢谢！我很高兴能帮助到你。如果你有更多问题或在将来需要进一步协助时，不要犹豫问我。祝你在哥斯达黎加度过美好的旅程，享受观鸟之旅！旅途平安，注意安全！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "bird watching",
+        "nature retreat",
+        "eco-friendly accommodations"
+    ],
+    "preference_summary": [
+        "bird watching",
+        "costa rica",
+        "treehouse/ecolodge",
+        "renting a 4x4",
+        "guided tours"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "65",
+            "zh": "65"
+        },
+        "Personality": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Patient",
+                "zh": "耐心"
+            },
+            {
+                "en": "Friendly",
+                "zh": "友善"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Writing",
+                "zh": "写作"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Visiting family",
+                "zh": "探亲"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Grilling",
+                "zh": "烧烤"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in volunteer activities",
+                "zh": "喜欢参与志愿活动"
+            },
+            {
+                "en": "Keeping small animals",
+                "zh": "养小动物"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 2,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

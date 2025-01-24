@@ -1,0 +1,239 @@
+{
+    "task": "recipe planning",
+    "preference_id": 71,
+    "task_context_id": 3,
+    "preference": "1. Gender: Female\n2. Age: 40\n3. Personality: Disciplined, meticulous, and calm\n4. Occupation: Yoga Instructor\n5. Daily Interests and Hobbies: Meditation, reading self-help books, organic farming\n6. Travel Habits: Prefers wellness retreats, enjoys nature-based destinations\n7. Dining Preferences: Strictly vegan, prefers organic food\n8. Spending Habits: Invests in health and wellness products, prefers quality over quantity\n9. Other Aspects: Practices minimalism, has a home studio",
+    "preference_zh": "1. 性别：女性\n2. 年龄：40岁\n3. 个性： 守纪律，细心，沉稳\n4. 职业：瑜伽教练\n5. 日常兴趣爱好： 冥想，阅读自助书籍，有机农业\n6. 旅行习惯： 偏好健康疗养地，喜欢大自然环境\n7. 饮食喜好： 严格素食，偏好有机食品\n8. 消费习惯： 投资于健康和健康产品，质量高于数量\n9. 其他方面： 实践简约主义，拥有家庭工作室",
+    "task_context": "You plan to prepare a meal at home for yourself and your loved one. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "您计划在家为自己和您所爱的人准备一顿饭。作为一个技艺娴熟的厨师，您想要请求LLM的帮助来制定菜谱、确定所需食材，以及决定要做什么菜。在规划过程中，您应该学习每道菜的完整制作过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I need some assistance with planning a meal for myself and my loved one. I have some cooking expertise, but I'd appreciate your help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Could you assist me with that?",
+            "content_zh": "你好！很高兴你在这里。我需要一些关于为我和我所爱的人计划一顿饭的帮助。我有一些烹饪的经验，但我需要你的帮助来创造一个食谱，确定必要的食材，并决定做哪些菜。你可以帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you plan a special meal for you and your loved one! Let's start by discussing what kind of cuisine or specific dishes you have in mind. Do you have any preferences or dietary restrictions? And are you looking for a multi-course meal or something simpler?",
+            "content_zh": "当然，我很乐意帮助您为您和您的爱人策划一顿特别的餐食！让我们先讨论一下您心中想要什么类型的菜系或具体的菜肴。您有任何偏好或饮食限制吗？您是想要多道菜的正餐还是简单些的呢？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering to help! I appreciate it. I have a few preferences and dietary restrictions that I would like to consider. First, I strictly follow a vegan diet, so all the dishes should be plant-based. Secondly, I prefer organic ingredients whenever possible. As for the type of cuisine, I enjoy a variety of flavors, but I lean towards Mediterranean and Asian cuisines. I would love to create a multi-course meal to make it extra special. What do you suggest?",
+            "content_zh": "感谢您提供帮助！我很感激。我有一些偏好和饮食限制需要考虑。首先，我严格遵循纯素食，所以所有的菜肴都应该以植物为基础。其次，我尽可能选择有机食材。至于烹饪类型，我喜欢各种口味，但更偏爱地中海和亚洲美食。我想要创造一顿多道菜的餐点，让它变得更加特别。您有什么建议呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! A vegan multi-course meal with Mediterranean and Asian influences sounds like a delicious and diverse combination. Here's a suggested menu that incorporates both cuisines:\n\nAppetizer:\n- Mediterranean Mezze Platter: Include items like hummus, baba ganoush, tabbouleh, olives, and stuffed grape leaves. Serve with warm pita bread or crispy vegetable crudités.\n\nSoup:\n- Thai Coconut Curry Soup: A creamy and flavorful soup made with coconut milk, Thai curry paste, vegetables, and herbs like lemongrass and ginger. You can add tofu or mushrooms for extra texture.\n\nSalad:\n- Greek Salad with Tofu Feta: A refreshing salad with crisp lettuce, cucumber, tomatoes, red onion, Kalamata olives, and a homemade tofu feta cheese. Dress it with a simple lemon-olive oil vinaigrette.\n\nMain Course:\n- Vegan Eggplant Moussaka: A Mediterranean classic made with layers of roasted eggplant, tomato sauce, and a creamy vegan béchamel sauce. It's a hearty and satisfying main dish.\n\n- Asian Stir-Fry with Tofu: Choose your favorite vegetables like bell peppers, broccoli, snow peas, and carrots, and stir-fry them with marinated tofu and a flavorful sauce. Serve it over steamed jasmine rice or noodles.\n\nDessert:\n- Mango Sticky Rice: A popular Thai dessert made with sweet sticky rice, fresh mango slices, and a drizzle of coconut sauce. It's a tropical and indulgent way to end the meal.\n\nRemember to adjust the portion sizes according to your preferences and the number of guests. Also, feel free to modify the recipes to suit your taste and add any additional elements you think would complement the meal. Enjoy your special dinner!",
+            "content_zh": "太棒了！带有地中海和亚洲风味的纯素多道菜餐听起来像是美味且多样化的组合。以下是一个融合了两种美食文化的推荐菜单：\n\n开胃菜：\n- 地中海餐盘：包括鹰嘴豆泥、烤茄子泥、塔布勒、橄榄和填充葡萄叶等。搭配温热的皮塔面包或脆蔬菜条。\n\n汤品：\n- 泰式椰奶咖喱汤：由椰奶、泰式咖喱酱、蔬菜和柠檬草、姜等香料熬制而成的浓郁汤品。您可以添加豆腐或蘑菇增加口感。\n\n沙拉：\n- 希腊沙拉配豆腐羊奶酪：用爽脆的生菜、黄瓜、西红柿、红洋葱、卡拉马塔橄榄和自制豆腐羊奶酪制成的清爽沙拉。用简单的柠檬橄榄油醋汁调味。\n\n主菜：\n- 纯素茄子慕斯卡：地中海经典美食，由烤茄子、番茄酱和奶味纯素白汁层叠制成。这是一道丰盛美味的主菜。\n- 豆腐炒菜：选择您喜欢的蔬菜如甜椒、西兰花、荷兰豆和胡萝卜，与腌制豆腐一起炒制，淋上美味酱汁。搭配蒸米饭或面条。\n\n甜点：\n- 芒果糯米饭：一道受欢迎的泰式甜点，用甜糯米、新鲜芒果片和椰奶酱淋制而成。这是一个热带风味浓郁的美味方式来结束一顿饭。\n\n请根据您的喜好和客人人数调整食物份量。同时，随意调整食谱以适应您的口味，并添加您认为会增色添香的元素。愿您享受美好的晚餐！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the wonderful suggestions! The menu sounds absolutely delightful, and I appreciate the mix of Mediterranean and Asian flavors. I think it will make for a memorable meal. I'll make sure to adjust the portion sizes accordingly and add any personal touches to the recipes. I can't wait to try them out! Thank you again for your help.\n",
+            "content_zh": "非常感谢您美妙的建议！菜单听起来绝对令人愉悦，我欣赏其中地中海和亚洲风味的混合。我相信这将会是一顿难忘的晚餐。我会确保根据情况调整份量，并为食谱添加个人的特别味道。我迫不及待想尝试它们！再次感谢您的帮助。",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you liked the menu. Adding personal touches and making adjustments to suit your taste is a great idea. It'll make the meal even more special. I hope you and your loved one have a fantastic time cooking and enjoying the delicious food together. If you have any more questions or need further assistance, feel free to ask. Happy cooking and bon appétit!",
+            "content_zh": "不客气！我很高兴你喜欢菜单。添加个人风格并做出调整以适合你的口味是一个很棒的主意。这会让餐点变得更加特别。希望你和你的爱人在一起烹饪和享用美味的食物时度过美好的时光。如果你有任何问题或需要进一步的帮助，请随时询问。祝烹饪愉快，胃口好！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for your kind words and support! I'm feeling confident and excited about preparing this special meal now. I appreciate your offer to assist further if needed. I'll make sure to reach out if any questions arise during the cooking process. Thank you once again, and have a wonderful day!\n",
+            "content_zh": "感谢您的好话和支持！我现在感到信心十足，为准备这顿特别的餐感到兴奋。如果需要，我感谢您提供进一步的帮助。在烹饪过程中出现任何问题，我会确保与您联系。再次感谢，祝您度过美好的一天！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could help you feel confident and excited about your meal. Don't hesitate to reach out if you need any further assistance or have any questions along the way. I'm here to help. Enjoy your cooking experience and have a fantastic day too!",
+            "content_zh": "不用客气！我很高兴能帮助你在用餐时感到自信和兴奋。如果你需要进一步的帮助或者在使用过程中有任何问题，请随时联系我。我在这里帮忙。享受烹饪的乐趣，祝你度过美好的一天！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "vegan",
+        "organic",
+        "multi-course"
+    ],
+    "preference_summary": [
+        "vegan",
+        "organic",
+        "mediterranean/asian"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "40",
+            "zh": "40"
+        },
+        "Personality": [
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            },
+            {
+                "en": "Meticulous",
+                "zh": "细致"
+            },
+            {
+                "en": "Calm",
+                "zh": "冷静"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Prefers calm and serene locations",
+                "zh": "喜欢宁静"
+            },
+            {
+                "en": "Nature-based destinations",
+                "zh": "自然风光"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Vegan",
+                "zh": "素食"
+            },
+            {
+                "en": "Healthy food",
+                "zh": "健康饮食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Prefers quality over quantity",
+                "zh": "质量大于数量"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "No description",
+                "zh": "无符合描述"
+            },
+            {
+                "en": "Living in one’s own house",
+                "zh": "有房产"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

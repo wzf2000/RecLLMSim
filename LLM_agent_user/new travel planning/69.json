@@ -1,0 +1,239 @@
+{
+    "task": "new travel planning",
+    "preference_id": 21,
+    "task_context_id": 9,
+    "preference": "1. Gender: Female\n2. Age: 36\n3. Personality: Calm, nurturing, and patient\n4. Occupation: Kindergarten Teacher\n5. Daily Interests and Hobbies: Reading children's books, crafting, gardening\n6. Travel Habits: Prefers family-friendly destinations, enjoys nature parks\n7. Dining Preferences: Enjoys homemade meals, loves baking\n8. Spending Habits: Spends on educational toys and books, saves for family vacations\n9. Other Aspects: Volunteers at a local community center, has two children",
+    "preference_zh": "1.性别：女性 2.年龄：36 3.个性：平静、 nurturing、耐心 4.职业：幼儿园教师 5.日常兴趣和爱好：阅读儿童书籍、手工艺、园艺 6.旅行习惯：偏好家庭友好的目的地，喜欢自然公园 7.餐饮偏好：喜欢自制餐，热爱烘焙 8.消费习惯：购买教育玩具和书籍，为家庭度假存钱 9.其他方面：在当地社区中心做志愿者，有两个孩子",
+    "task_context": "You are planning a fortnight trip that will take place in December. Your goal, with the help of LLM, is to refine and finalize your travel plans. This includes making detailed arrangements for accommodations, transportation, and your daily itinerary. Your final travel plan should be as comprehensive and realistic as possible, ensuring that it can be seamlessly implemented when the time comes.\nYour trip planning should take into consideration the specific destination as specified in the following requirements: no specific destination restrictions. You should also consider your point of departure, your preferred mode of transportation to the destination, and the specific attractions or activities you wish to engage in. Remember to consider factors such as travel distance, travel time, and the opening hours of the attractions.",
+    "task_context_zh": "您正在计划一个将在十二月举行的两周行程。您的目标是在LLM的帮助下，进一步完善和最终确定您的旅行计划。这包括详细安排住宿、交通以及每日行程。您的最终旅行计划应尽可能全面和实际，以确保到时能够顺利实施。您的旅行规划应该考虑以下要求中指定的特定目的地：没有特定目的地限制。您还应考虑您的出发地，到达目的地的首选交通方式，以及您希望参与的具体景点或活动。请记得考虑诸如旅行距离、旅行时间和景点的开放时间等因素。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm planning a fortnight trip for my family in December. I'm a bit overwhelmed with all the details and I need your help to finalize the travel plans. We don't have a specific destination in mind. We prefer a family-friendly place, preferably with nature parks or similar attractions. Could you suggest a few destinations that might be a good fit for us?",
+            "content_zh": "你好！我正在计划十二月份为我的家人安排为期两周的旅行。我被所有这些细节所压倒，需要你的帮助来最后确定旅行计划。我们没有特定的目的地。我们更喜欢一个适合全家的地方，最好有自然公园或类似的景点。你可以给我们推荐几个可能适合我们的目的地吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help! To ensure that I provide the best recommendations, could you please share a bit more information:\n\n1. Where will you be traveling from?\n2. How many are in your family and what are their ages? This will help me consider age-appropriate activities.\n3. What's your approximate budget for the trip? This will help me suggest destinations and accommodations that fit your budget.\n4. Do you have a preference for domestic or international travel?\n5. If you're open to international travel, do all family members have valid passports? \n\nOnce I have this information, I can start suggesting some destinations that suit your preferences.",
+            "content_zh": "当然，我很乐意帮助！为了能提供最好的建议，您能否分享更多一些信息呢？：\n1.您将从哪里出发旅行？\n2.您家有多少人，年龄分别是多少？这将帮助我考虑适合不同年龄人群的活动。\n3.您此行的大致预算是多少？这将帮助我建议符合您预算的目的地和住宿。\n4.您有国内旅行或是国际旅行的偏好吗？\n5.如果您愿意国际旅行，您与家人的护照都是有效的吗？\n一旦我得到这些信息，我就可以开始建议一些符合您喜好的目的地了。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "1. We will be traveling from New York City.\n2. We are a family of four. My husband and I have two children, one is 5 and the other is 8 years old.\n3. Our budget for the trip is around $5000.\n4. We are open to both domestic and international travel.\n5. Yes, all of us have valid passports.\n\nI hope this information helps. I'm looking forward to your suggestions.",
+            "content_zh": "1. 我们将从纽约市出发旅行。2. 我们是一个四口之家。我和我的丈夫有两个孩子，一个是5岁，另一个是8岁。3. 我们的旅行预算大约在5000美元左右。4. 我们愿意考虑国内和国际旅行。5. 是的，我们全家都有有效护照。希望这些信息有所帮助。期待您的建议。",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Thank you for providing the details! Considering your starting point, preferences, and other factors, here are a few family-friendly destinations that cater to nature lovers and offer a mix of adventures suitable for both adults and children:\n\n### Domestic Options:\n\n1. **Orlando, Florida**: Known for its theme parks, Orlando also has beautiful nature parks and reserves. The weather in December is mild and pleasant, perfect for exploring the outdoors. Attractions include Walt Disney World, Universal Studios, and the Kennedy Space Center. You can also take a day trip to the nearby Everglades National Park for a nature adventure.\n\n2. **San Diego, California**: With its warm climate, beautiful beaches, and attractions like the San Diego Zoo, Balboa Park, and SeaWorld, San Diego offers a mix of nature and entertainment. The city is also known for its family-friendly vibe and has several parks and beaches perfect for children.\n\n### International Options:\n\n1. **Costa Rica**: Known for its lush rainforests, stunning beaches, and wildlife, Costa Rica is an excellent destination for families interested in nature and adventure. You can explore national parks, go zip-lining, and enjoy beach activities. Costa Rica is also known for its commitment to conservation and sustainability, offering educational experiences for children.\n\n2. **Banff, Canada**: If you're up for a winter wonderland adventure, Banff National Park in Alberta offers breathtaking mountain landscapes, ice skating, snowshoeing, and skiing opportunities. The town of Banff provides cozy accommodation options, and the park's natural beauty is unmatched. It's a fantastic way to experience the great outdoors and enjoy winter activities.\n\n### Budget Considerations:\n- **Flights**: For international destinations, flights will consume a significant portion of your budget. Booking well in advance and looking for deals can help manage costs.\n- **Accommodation**: Consider staying in vacation rentals or family-friendly hotels that offer kitchen facilities to save on meals.\n- **Activities**: Look for family passes or discounts for attractions to help stretch your budget further.\n\n### Next Steps:\n- **Choose a Destination**: Based on the options above, let me know which destination interests you the most, and I can help with a more detailed itinerary, including specific attractions, accommodation options, and travel tips.\n- **Travel Insurance**: Consider purchasing travel insurance, especially for international travel, to cover any unforeseen circumstances.\n\nPlease let me know your thoughts or if you have any other preferences, and I'll be happy to tailor the suggestions further!",
+            "content_zh": "感谢您提供了详细信息！考虑到您的出发点、偏好和其他因素，以下是一些适合自然爱好者的家庭友好目的地，提供适合成人和儿童的混合冒险体验：\n\n### 国内选择：\n\n1. **佛罗里达奥兰多**：奥兰多以其主题公园而闻名，同时还拥有美丽的自然公园和保护区。十二月的天气温和宜人，非常适合户外探索。景点包括迪士尼乐园、环球影城和肯尼迪航天中心。您还可以前往附近的埃沃格莱兹国家公园进行自然探险一日游。\n\n2. **加利福尼亚圣迭戈**：圣迭戈气候温暖，拥有美丽的海滩和景点，如圣迭戈动物园、巴尔博亚公园和海洋世界，为您提供自然和娱乐的组合。这座城市还因其适合家庭的氛围而闻名，有一些适合儿童的公园和海滩。\n\n### 国际选择：\n\n1. **哥斯达黎加**：以其郁郁葱葱的热带雨林、迷人的海滩和野生动物而闻名，哥斯达黎加是家庭寻求自然和冒险体验的极佳目的地。您可以探索国家公园、体验空中索道，以及享受海滩活动。哥斯达黎加还因其致力于保护和可持续发展而闻名，为儿童提供教育体验。\n\n2. **加拿大班夫**：如果您正在寻找一个冬季仙境冒险，阿尔伯塔的班夫国家公园提供了令人叹为观止的山脉风景、滑冰、雪鞋和滑雪机会。班夫镇提供舒适的住宿选择，而公园的自然美景则无与伦比。这是体验大自然、享受冬季活动的绝佳方式。\n\n### 预算考虑：\n- **机票**：对于国际目的地，机票将占据您预算的相当部分。提前预订并寻找优惠可以帮助控制成本。\n- **住宿**：考虑住在度假租赁或提供厨房设施的家庭友好酒店，以节省用餐费用。\n- **活动**：寻找家庭通行证或景点优惠，以进一步节约您的预算。\n\n### 下一步：\n- **选择目的地**：根据以上选项，请告诉我您最感兴趣的目的地，我可以帮助您制定更详细的行程，包括具体景点、住宿选择和旅行提示。\n- **旅行保险**：考虑购买旅行保险，尤其是对于国际旅行，以应对任何不可预见的情况。\n\n请告诉我您的想法或其他偏好，我很乐意进一步调整建议！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the suggestions! The idea of a winter wonderland in Banff, Canada, really appeals to us. It seems like a great opportunity for the kids to experience snow activities and for us to enjoy the breathtaking landscapes. Could you help me plan a more detailed itinerary for Banff, including accommodation options that are family-friendly and have kitchen facilities, as well as a guide on how to manage our budget effectively there? Additionally, some tips on ensuring we're prepared for the cold weather would be great!",
+            "content_zh": "谢谢你的建议！加拿大班夫的冬季仙境的想法确实很吸引我们。这似乎是孩子们体验雪地活动的绝佳机会，而我们也能欣赏令人叹为观止的风景。你能帮我规划班夫更详细的行程吗，包括适合家庭的住宿选择和厨房设施，同时还有如何有效管理我们的预算的指南吗？另外，一些关于如何应对寒冷天气的小贴士也会很棒！",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Wonderful choice! Banff, Canada, in December, will offer a truly magical winter experience. Here's a detailed plan for your family trip, focusing on accommodation, activities, budget management, and cold-weather preparations.\n\n### Duration:\n- **Travel Dates**: Assuming a 14-day trip, including travel days. Given your starting point in New York City, a day to travel each way is reasonable.\n\n### Flights:\n- **NYC to Calgary**: The closest major airport to Banff is Calgary International Airport. Look for direct flights or those with minimal layovers to ease travel with children.\n- **Budget Tip**: Book flights as early as possible to secure the best rates. Use flight comparison tools to find deals.\n\n### Transportation:\n- **Car Rental**: Renting a car from Calgary Airport is recommended. This provides flexibility to explore Banff and the surrounding areas at your own pace. Make sure to request a vehicle with winter tires.\n- **Budget Tip**: Book your car rental in advance and look out for offers from various rental companies.\n\n### Accommodation:\n- **Family-Friendly Options with Kitchen Facilities**:\n  - **Hidden Ridge Resort**: Offers condo-style units with full kitchens, a hot pool, and stunning views.\n  - **Banff Rocky Mountain Resort**: Provides spacious rooms and suites with kitchenettes, an indoor pool, and family activities.\n  - **Douglas Fir Resort & Chalets**: Known for its family-friendly amenities, including kitchens in all rooms, an indoor waterpark, and easy access to outdoor activities.\n\n- **Budget Management**:\n  - **Accommodation**: Booking directly or using vacation rental websites can sometimes offer better deals than booking sites.\n  - **Meals**: Utilize your accommodation's kitchen facilities to prepare meals, significantly reducing food expenses.\n\n### Itinerary Highlights:\n- **Day 1-2**: Arrival and settling in. Explore the town of Banff, visit the Banff Park Museum, and enjoy the local cuisine.\n- **Day 3-5**: Skiing or snowboarding lessons for the family at Sunshine Village or Lake Louise Ski Resort. Non-ski days can be spent exploring snowshoeing trails or ice skating on Lake Louise.\n- **Day 6**: Take a day trip to Johnston Canyon for an ice walking experience; guided tours are available.\n- **Day 7-8**: Relaxation and leisure. Explore the Banff Upper Hot Springs or take a scenic drive to Yoho National Park if conditions allow.\n- **Day 9-11**: More snow activities or a visit to the Whyte Museum to learn about the Canadian Rockies' history. Consider a dog sledding tour for a unique family experience.\n- **Day 12-13**: Free days for shopping, dining, or additional snow activities. Check out the local event calendar for any festivals or special events.\n- **Day 14**: Return to Calgary and fly back to NYC.\n\n### Cold Weather Preparations:\n- **Clothing**: Invest in quality thermal underwear, waterproof snow jackets and pants, gloves, beanies, and snow boots for the entire family.\n- **Gear**: Renting ski or snowboard equipment in Banff is straightforward, but booking in advance can save time.\n- **Health**: Keep moisturizers, lip balms, and sunscreen (yes, for winter too!) handy to protect against cold and sun exposure at high altitudes.\n- **Safety**: Always check weather and road conditions before heading out, especially for drives or outdoor activities.\n\n### Final Tips:\n- **Booking Activities**: Many activities should be booked in advance, especially during the holiday season, to ensure availability.\n- **Local SIM Card**: Consider purchasing a Canadian SIM card for easier communication and navigation if your current plan doesn't cover Canada.\n- **Stay Flexible**: Winter weather can be unpredictable; having backup plans or indoor activities in case of extreme weather is wise.\n\nThis itinerary provides a blend of outdoor adventure and relaxation, making the most of your winter wonderland experience in Banff. If you have any specific activities in mind or need further details, feel free to ask!",
+            "content_zh": "精彩的选择！十二月的加拿大班夫将为您提供真正神奇的冬季体验。以下是您的家庭旅行详细计划，重点关注住宿、活动、预算管理和防寒准备。 \n\n### 行程安排：\n- **旅行日期**：假设包括旅行日在内为期14天的行程。以您在纽约市的出发点为准，每天一天的旅行时间是合理的。 \n\n### 航班：\n- **纽约至卡尔加里**：离班夫最近的大型机场是卡尔加里国际机场。寻找直飞航班或停留时间最短的航班，以便方便带着孩子旅行。 \n- **预算贴士**：尽早预订航班以确保最佳价格。使用航班比较工具寻找优惠。 \n\n### 交通：\n- **租车**：建议从卡尔加里机场租车。这样可以灵活探索班夫及周边地区。务必要求配备冬季轮胎的车辆。 \n- **预算贴士**：提前预订租车，并留意各租车公司的优惠。 \n\n### 住宿：\n- **带厨房设施的适合家庭的选择**：\n  - **隐藏岭度假村**：提供带全套厨房、热水池和美景的公寓式客房单元。\n  - **班夫落基山度假村**：提供宽敞的客房和套房，配备小厨房、室内游泳池和家庭活动。\n  - **道格拉斯冷杉度假村及别墅**：以家庭友好设施著称，所有客房均配备厨房、室内水上乐园，并且方便参加户外活动。 \n- **预算管理**：\n  - **住宿**：直接预订或使用度假租赁网站有时会比预订网站提供更优惠的价格。\n  - **餐饮**：利用住宿的厨房设施准备餐食，可大大减少餐饮开支。 \n\n### 行程亮点：\n- **第1-2天**：抵达并安定下来。探索班夫镇，参观班夫公园博物馆，并享受当地美食。\n- **第3-5天**：在阳光村或路易斯湖滑雪或学滑雪的日子。非滑雪日可在雪鞋登山径上探索或在路易斯湖上滑冰。 \n- **第6天**：前往约翰斯顿峡谷进行冰上徒步体验；可参加导游团。 \n- **第7-8天**：休闲放松。欣赏班夫上温泉或者若条件允许可进行到尤霍国家公园的风景驱车之旅。 \n- **第9-11天**：更多的雪上活动或参观怀特博物馆了解加拿大洛矶山脉的历史。考虑进行狗拉雪橇之旅，尝试独特的家庭体验。 \n- **第12-13天**：自由购物、品尝美食或额外的雪上活动。查看当地活动日历以了解任何节日或特别活动。 \n- **第14天**：返回卡尔加里并飞回纽约市。 \n\n### 防寒准备：\n- **服装**：为全家购买高品质的保暖内衣、防水雪衣裤、手套、毛帽和雪地靴。 \n- **装备**：在班夫租赁滑雪或滑雪板装备很方便，但提前预订可省时。 \n- **健康**：随身携带保湿霜、唇膏和防晒霜（对，冬天也需要！）以在高海拔地区保护免受寒冷和阳光暴露。 \n- **安全**：在外出前始终检查天气和道路状况，特别是前往驱车或户外活动的时候。 \n\n### 最后建议：\n- **预订活动**：许多活动应提前预订，特别是在假期季节，以确保可用性。 \n- **本地SIM卡**：如果您目前的套餐不包括加拿大的通信和导航，考虑购买一张加拿大SIM卡以便更轻松地沟通和导航。\n- **保持灵活**：冬季天气容易变化，有备用计划或室内活动以备极端天气是明智的。 \n\n此行程安排融合了户外探险和休闲，充分利用您在班夫的冬季仙境体验。如果您有特定的活动想法或需要进一步的细节，请随时提问！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "This is fantastic! Thank you so much for the detailed plan. The accommodation options seem perfect for our needs. I really appreciate the budget tips and cold-weather preparation advice. It's also great that you've considered some indoor activities and relaxation time in the itinerary. \n\nI do have a couple of more questions: \n\n1. For the car rental, do you think we need a larger vehicle like an SUV, or would a standard car be sufficient?\n2. Could you recommend some family-friendly restaurants or eateries in Banff where we can try local cuisine? Also, where can we shop for groceries to prepare meals at our accommodation?\n3. For the skiing or snowboarding lessons, are there specific programs for young children?\n4. Is there any specific paperwork or permissions needed for the dog sledding tour?\n\nThank you for your help in planning this trip!",
+            "content_zh": "太棒了！非常感谢你提供了详细的计划。住宿选择看起来非常适合我们的需求。我真的很感谢你提供的预算建议和防寒建议。很高兴你在行程中考虑了一些室内活动和放松时间。\n我还有一些问题：\n1. 租车的话，你觉得我们需要一辆像SUV这样更大的车，还是标准车就足够了？\n2. 你能推荐班夫一些适合家庭的餐馆或小吃店吗？我们想尝试当地美食。还有，我们可以在哪里购物准备住宿时需要的食材？\n3. 滑雪或滑雪板课程有没有专门给小孩的项目？\n4. 狗拉雪橇游览需要特定的文件或许可证吗？\n感谢你在计划这次旅行中的帮助！",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "I'm glad to hear that you found the information helpful! Let's address your additional questions:\n\n1. **Car Rental**: Weather conditions in Banff during December can be quite snowy and icy. While the roads are usually well maintained, a larger vehicle like an SUV with good ground clearance and winter tires can handle these conditions better and provide extra safety. It would also offer more space for your luggage and any equipment you might rent.\n\n2. **Eateries & Groceries**: \n   - **Family-Friendly Restaurants**: Some popular options include The Grizzly House (known for its fondue), Park Distillery (offers a kids menu), and Bear Street Tavern (famous for its pizzas). For a quick bite, try BeaverTails for their namesake pastries.\n   - **Groceries**: You can shop at Banff's local grocery stores - Banff Springs Market or IGA. Both offer a variety of fresh produce, meats, dairy, bakery items, and more.\n\n3. **Ski/Snowboard Lessons**: Both Sunshine Village and Lake Louise Ski Resort offer ski and snowboard programs designed specifically for children. These include group lessons, private lessons, and multi-day camps. They provide a safe and fun learning environment for kids of all skill levels.\n\n4. **Dog Sledding**: No specific paperwork should be needed for the dog sledding tour. However, tours should be booked in advance as they can fill up quickly. It's essential to ensure that the tour company follows ethical practices regarding the treatment of dogs. Companies like Kingmik Dog Sled Tours or Snowy Owl Sled Dog Tours are known for their commitment to dog welfare.\n\nRemember, it's always a good idea to check in advance with any activities that you're booking, particularly those involving animals or outdoor adventures, to make sure there are no age restrictions or additional requirements that might apply to your family.\n\nPlease let me know if you have any more questions or need further assistance!",
+            "content_zh": "很高兴听到您发现这些信息很有帮助！让我们来回答您的额外问题：\n\n1. **租车**：12月份班夫的天气条件可能会非常多雪和多冰。虽然道路通常得到很好的维护，但较大的车辆，比如搭载着良好离地间隙和冬季轮胎的SUV可以更好地处理这些条件并提供额外的安全。它还可以提供更多的空间来放置您的行李和您可能租用的任何设备。\n\n2. **餐馆和杂货店**：\n   - **适合家庭的餐馆**：一些受欢迎的选择包括The Grizzly House（以其火锅而闻名）、Park Distillery（提供儿童菜单）和Bear Street Tavern（以其披萨而闻名）。想要快速的小吃可以尝试BeaverTails的他们的名字面包点心。\n   - **杂货店**：您可以在班夫本地的杂货店——班夫泉市场或IGA购物。两者都提供各种新鲜农产品、肉类、乳制品、烘焙食品等。\n\n3. **滑雪/滑板课程**：阳光山庄和路易斯湖滑雪胜地都为儿童量身定制了滑雪和滑板课程。这些包括小组课程、私人课程和多天营地。它们为各种技能水平的儿童提供了一个安全和有趣的学习环境。\n\n4. **雪橇犬拉雪橇**：进行雪橇犬拉雪橇游览不需要特定的文件。但是，游览应该提前预订，因为它们可能会很快被预订满。确保游览公司遵守有关对待狗的道德实践非常重要。像Kingmik Dog Sled Tours或Snowy Owl Sled Dog Tours这样的公司以对狗的福利承诺而闻名。\n\n请记住，提前检查您预订的任何活动总是一个好主意，特别是涉及动物或户外冒险的活动，以确保不会有适用于您的家庭的年龄限制或额外要求。\n\n如果您有更多问题或需要进一步帮助，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary": [
+        "car type",
+        "family-friendly dining",
+        "children's snow programs",
+        "dog sledding paperwork"
+    ],
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 0,
+        "Memorization": 1,
+        "Detail Level": 1,
+        "Practical Usefulness": 1,
+        "Diversity": 1
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "36",
+            "zh": "36"
+        },
+        "Personality": [
+            {
+                "en": "Calm",
+                "zh": "冷静"
+            },
+            {
+                "en": "Friendly",
+                "zh": "友善"
+            },
+            {
+                "en": "Patient",
+                "zh": "耐心"
+            }
+        ],
+        "Occupation": {
+            "en": "Educators",
+            "zh": "教师"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Crafting",
+                "zh": "手工艺制作"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Family vacations",
+                "zh": "家庭旅行"
+            },
+            {
+                "en": "Nature-based destinations",
+                "zh": "自然风光"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Baking",
+                "zh": "烘焙"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on books",
+                "zh": "购买书籍"
+            },
+            {
+                "en": "For travel",
+                "zh": "用于旅行"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in volunteer activities",
+                "zh": "喜欢参与志愿活动"
+            },
+            {
+                "en": "Has a family",
+                "zh": "家庭生活"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Broad"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Broad"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 2,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

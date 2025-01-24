@@ -1,0 +1,271 @@
+{
+    "task": "recipe planning",
+    "preference_id": 73,
+    "task_context_id": 7,
+    "preference": "1. Gender: Female\n2. Age: 60\n3. Personality: Independent, strong-willed, and resilient\n4. Occupation: Retired Civil Servant\n5. Daily Interests and Hobbies: Walking, bird-watching, reading newspapers\n6. Travel Habits: Enjoys cruises, visits family in different states\n7. Dining Preferences: Prefers traditional dishes, enjoys baking\n8. Spending Habits: Spends on home improvement, saves for healthcare\n9. Other Aspects: Active in local community, has a pet dog",
+    "preference_zh": "1. 性别：女性\n2. 年龄：60\n3. 个性：独立，意志坚强，有韧性\n4. 职业：退休公务员\n5. 日常兴趣和爱好：散步，观鸟，阅读报纸\n6. 旅行习惯：喜欢乘坐游轮，拜访不同州的家人\n7. 餐饮偏好：喜欢传统菜肴，喜欢烘焙\n8. 消费习惯：花钱在家庭改善上，为医疗保健存钱\n9. 其他方面：活跃在当地社区，有一只宠物狗",
+    "task_context": "You plan to prepare a meal at home to celebrate your birthday with about 10 close friends. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家为庆祝生日和约10位亲密朋友准备一顿饭。你是一个技术娴熟的厨师。因此，你想要请求LLM的帮助来制定食谱，确定所需的食材以及决定要做哪些菜。在规划过程中，你应该学习每道菜的完整制作过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here to assist me. I'm planning to prepare a meal at home to celebrate my birthday with about 10 close friends. I have some cooking expertise, but I could use your help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Are you up for the challenge?",
+            "content_zh": "你好！我很高兴你能来帮助我。我计划在家里为我和大约10个亲近的朋友庆祝生日。我有一些烹饪经验，但我需要你的帮助来制定食谱，确定所需食材，以及决定要做哪些菜。你愿意接受这个挑战吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'm more than happy to help you plan your birthday meal. Cooking for friends is always a great way to celebrate! Let's start by discussing the type of cuisine you'd like to serve. Are you looking for something specific, like Italian, Mexican, Asian, or perhaps a fusion of different flavors?",
+            "content_zh": "你好！我很高兴帮助您规划生日用餐。为朋友做饭总是一个很棒的庆祝方式！我们先谈谈您想要提供的菜肴类型。您是想要特定的菜系，比如意大利菜、墨西哥菜、亚洲菜，还是不同风味的融合呢？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance. I appreciate it. For my birthday meal, I would like to stick to traditional dishes that I enjoy. I'm thinking of a classic American-style menu with some comfort food options. That way, it will be familiar and enjoyable for my guests. What do you think?",
+            "content_zh": "谢谢您提供帮助。我很感激。对于我的生日餐，我想要坚持我喜欢的传统菜肴。我考虑做一个经典的美式菜单，加上一些舒适的食物选择。这样，对我的客人来说会更加熟悉和愉快。您觉得呢？",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "That sounds like a fantastic plan! Classic American comfort food is always a crowd-pleaser. Let's brainstorm some dishes that will make your birthday meal memorable. How about starting with some appetizers? You could serve a platter of crispy chicken wings with various dipping sauces, or maybe some loaded potato skins topped with cheese, bacon, and sour cream. These options are always a hit at gatherings. What do you think?",
+            "content_zh": "听起来像个棒极了的计划！经典的美式舒适食物总是让人喜欢。让我们一起想一些会让你的生日大餐难忘的菜肴。要不从一些开胃菜开始怎么样？你可以摆出一盘脆鸡翅配各种蘸酱，或者也许一些装满芝士、培根和酸奶油的马铃薯皮。这些选择总是聚会中的热门。你觉得怎么样？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "I like your suggestions for appetizers! Crispy chicken wings with dipping sauces and loaded potato skins sound delicious and perfect for starting off the meal. Let's go with those options. Now, moving on to the main course, I'm thinking of serving a classic dish like roasted chicken with mashed potatoes and gravy. It's a comforting and satisfying choice. What do you think?",
+            "content_zh": "我喜欢你关于开胃菜的建议！脆皮鸡翅配蘸酱和装满马铃薯皮听起来很美味，很适合开始用餐。让我们选择这些选项。现在，继续到主菜，我考虑要提供经典菜品，比如烤鸡配土豆泥和酱汁。这是一种令人感到舒适和满足的选择。你觉得怎么样？",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "Roasted chicken with mashed potatoes and gravy is a timeless classic for a reason! It's a hearty and delicious main course that your guests will surely enjoy. To make it even more special, you can add some roasted vegetables like carrots, Brussels sprouts, or green beans. The combination of tender chicken, creamy mashed potatoes, flavorful gravy, and roasted veggies will create a well-rounded and satisfying meal. Does that sound good to you?",
+            "content_zh": "烤鸡配土豆泥和肉汁是经典的美食！这是一道丰盛美味的主菜，你的客人一定会喜欢。为了让它更加特别，你可以加入一些烤蔬菜，比如胡萝卜、欧洲甘蓝或青豆。嫩鸡肉、奶油土豆泥、美味的肉汁和烤蔬菜的搭配将会构成一顿丰盛而满足的晚餐。你觉得怎么样？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the suggestion! Roasted chicken with mashed potatoes, gravy, and roasted vegetables sounds like a perfect main course. It's a well-rounded and comforting meal that I'm sure my guests will love. Now, let's move on to dessert. Since I enjoy baking, I'd like to make a special birthday cake. I'm thinking of a classic chocolate cake with layers of rich chocolate ganache and creamy frosting. What do you think?",
+            "content_zh": "谢谢你的建议！烤鸡配土豆泥、酱汁和烤蔬菜听起来就是一个完美的主菜。这是一顿丰盛舒适的餐食，我相信我的客人会喜欢。现在，让我们转移到甜点上。由于我喜欢烘焙，我想做一个特别的生日蛋糕。我考虑做一个传统的巧克力蛋糕，里面有浓郁的巧克力奶油和奶油霜。你觉得如何？",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "Oh, a classic chocolate cake with layers of chocolate ganache and creamy frosting sounds absolutely divine! It's a timeless choice that is sure to be a hit. You can decorate it with some sprinkles or even add a personalized touch with a message or candles on top. With your baking expertise, I'm confident that your homemade birthday cake will be a showstopper. Is there anything else you'd like to add to the dessert menu, like ice cream or a fruit salad, to provide some variety for your guests?",
+            "content_zh": "哦，一款拥有巧克力甘纳许和奶油霜层的经典巧克力蛋糕听起来绝对美味！这是一个永恒的选择，肯定会受欢迎。你可以用一些彩糖装饰，甚至在顶部添加一条个性化信息或蜡烛。凭借你的烘焙专业知识，我确信你的自制生日蛋糕肯定会成为焦点。您还想在甜点菜单上添加其他内容，比如冰淇淋或水果沙拉吗？为了给您的客人提供一些不同口味的选择?",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the kind words! A classic chocolate cake with layers of ganache and creamy frosting will indeed be a showstopper. To add some variety to the dessert menu, I think serving a scoop of vanilla ice cream alongside the cake would be a great idea. The combination of warm cake and cold ice cream is always a delightful contrast. It would be a simple yet satisfying addition. What do you think?",
+            "content_zh": "感谢您的美言！一个经典的巧克力蛋糕，带有层层巧克力酱和奶油霜，确实会成为一款耀眼的甜点。为了丰富甜点菜单，我认为在蛋糕旁边加一勺香草冰淇淋是个好主意。温暖的蛋糕和冰冷的冰淇淋的组合总是一种愉悦的对比。这将是一个简单但令人满足的增加。您觉得呢？",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "I couldn't agree more! Serving a scoop of vanilla ice cream alongside the rich and decadent chocolate cake is a fantastic idea. The contrast of temperatures and flavors will create a delightful experience for your guests. Plus, it's a classic combination that many people enjoy. You could also offer some toppings like chocolate sauce, caramel sauce, or even some fresh berries for those who want to customize their dessert. It's a great way to provide options while keeping it simple and delicious. Is there anything else I can assist you with for your birthday meal planning?",
+            "content_zh": "我非常同意！在浓郁和丰盛的巧克力蛋糕旁边再添一勺香草冰淇淋是个绝妙的主意。温度和口味的对比将为您的客人带来愉快的体验。除此之外，这也是许多人喜欢的经典组合。您还可以提供一些配料，如巧克力酱，焦糖酱，甚至一些新鲜的浆果，供那些想要定制甜点的人选择。这是为您的生日餐计划提供帮助的另一个好方法。我还能为您提供其他帮助吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the suggestion! Offering toppings like chocolate sauce, caramel sauce, and fresh berries is a wonderful idea to provide some customization options for the dessert. It will definitely add an extra touch of deliciousness to the vanilla ice cream and chocolate cake combination. I appreciate all your help in planning my birthday meal. I think we have covered everything I needed assistance with. Thank you so much for your support and guidance!\n",
+            "content_zh": "感谢你的建议！提供巧克力酱、焦糖酱和新鲜莓果等配料是为甜点提供一些个性化选择的绝妙主意。这绝对会为香草冰淇淋和巧克力蛋糕的组合增添额外的美味。感谢你在策划我的生日大餐中所提供的所有帮助。我想我们已经涉及了我需要协助的所有事项。非常感谢你的支持和指导！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could help you plan your birthday meal. It sounds like it's going to be a delicious and memorable celebration with your close friends. If you have any more questions or need further assistance in the future, don't hesitate to reach out. Enjoy your birthday and have a fantastic time with your friends!",
+            "content_zh": "不客气！很高兴能帮助你筹划生日餐，听起来会是和亲密朋友一起度过美味难忘的庆祝活动。如果将来有更多问题或需要进一步帮助，请随时联系我。祝你生日快乐，与朋友们度过愉快的时光！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "classic",
+        "american-style",
+        "comforting"
+    ],
+    "preference_summary": [
+        "american-style",
+        "comfort food",
+        "baking dessert"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 0,
+        "Practical Usefulness": 1,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "60",
+            "zh": "60"
+        },
+        "Personality": [
+            {
+                "en": "Independent",
+                "zh": "独立"
+            },
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Visiting family",
+                "zh": "探亲"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Baking",
+                "zh": "烘焙"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Organizes community activities",
+                "zh": "组织社区活动"
+            },
+            {
+                "en": "Keeping small animals",
+                "zh": "养小动物"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Depth",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

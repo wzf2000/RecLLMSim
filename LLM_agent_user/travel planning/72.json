@@ -1,0 +1,279 @@
+{
+    "task": "travel planning",
+    "preference_id": 96,
+    "task_context_id": 1,
+    "preference": "1. Gender: Male\n2. Age: 45\n3. Personality: Disciplined, meticulous, and calm\n4. Occupation: Air Traffic Controller\n5. Daily Interests and Hobbies: Model aircraft building, reading aviation magazines, playing chess\n6. Travel Habits: Prefers staycations, enjoys airshows\n7. Dining Preferences: Prefers fine dining, enjoys a variety of cuisines\n8. Spending Habits: Invests in model aircraft, saves for children's education\n9. Other Aspects: Active in professional organizations, has a family",
+    "preference_zh": "1. 性别：男性\n2. 年龄：45岁\n3. 个性：有纪律性、细致、沉稳\n4. 职业：空中交通管制员\n5. 日常兴趣爱好：模型飞机制作、阅读航空杂志、下棋\n6. 旅行习惯：偏爱宅度假，喜欢看航空展\n7. 用餐偏好：偏爱高档餐厅，喜欢各种美食\n8. 消费习惯：投资模型飞机，为子女教育存钱\n9. 其他方面：积极参与专业组织，有家庭",
+    "task_context": "You are planning a two-day-long trip this summer, The trip has no specific destination restrictions. You would like to use LLM to help refine your travel plans. During this conversation, you will need to make arrangements for accommodations, transportation, and itinerary details. Your ultimate travel plan should be as comprehensive as possible, ensuring that you can realistically follow it when the time comes.",
+    "task_context_zh": "今年夏天你正在计划一次为期两天的旅行，这次旅行没有特定的目的地限制。你希望使用LLM来帮助完善旅行计划。在这次对话中，你需要安排住宿、交通和行程细节。你的最终旅行计划应尽可能全面，确保到时候能够真实地按照计划执行。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here to assist me. I'm planning a two-day trip this summer and I would like your help in refining my travel plans. I need assistance with accommodations, transportation, and creating a comprehensive itinerary. Can you help me with that?",
+            "content_zh": "你好！很高兴你在这里帮我。我打算今年夏天进行一次为期两天的旅行，希望能请你帮忙完善我的旅行计划。我需要帮助安排住宿、交通以及制定一个全面的行程安排。你能帮助我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be happy to help you with your travel plans. To get started, could you please let me know the destination you have in mind for your two-day trip?",
+            "content_zh": "你好！我很乐意帮助您制定旅行计划。首先，请告诉我您计划两天旅行的目的地是哪里？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance. Since I mentioned earlier that there are no specific destination restrictions for my trip, I am open to suggestions. I'm looking for a destination that offers a variety of activities and attractions to make the most of my two-day trip. What are your suggestions?",
+            "content_zh": "谢谢你提供帮助。既然我之前提到了我的旅行没有特定目的地限制，我愿意听取建议。我正在寻找一个提供各种活动和景点的目的地，以充分利用我两天的旅行。你有什么建议呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That's great! Since you're open to suggestions, I have a few destinations in mind that offer a wide range of activities and attractions for a memorable two-day trip. Here are three options:\n\n1. San Francisco, California: This vibrant city has something for everyone. You can explore iconic landmarks like the Golden Gate Bridge and Alcatraz Island, visit cultural hotspots like Chinatown and the Mission District, and enjoy the bustling waterfront at Fisherman's Wharf. Don't forget to try some delicious seafood and take a scenic drive along the Pacific Coast Highway.\n\n2. New York City, New York: The Big Apple is a city that never sleeps and is perfect for a jam-packed two-day adventure. You can visit famous landmarks like Times Square, Central Park, and the Statue of Liberty. Explore world-class museums such as the Metropolitan Museum of Art and the Museum of Modern Art. Enjoy Broadway shows, indulge in diverse cuisine, and take a stroll through neighborhoods like SoHo and Greenwich Village.\n\n3. Vancouver, Canada: If you're looking for a mix of urban and natural beauty, Vancouver is a fantastic choice. Explore Stanley Park, visit Granville Island's vibrant market, and take a walk along the picturesque seawall. You can also venture to nearby attractions like Grouse Mountain or go on a day trip to Whistler for outdoor adventures.\n\nThese are just a few ideas to get you started. Let me know which destination interests you the most, and we can move forward with planning accommodations, transportation, and creating an itinerary!",
+            "content_zh": "太棒了！既然您愿意接受建议，我有几个目的地希望您考虑，这些地方都提供多样化的活动和景点，适合难忘两天的旅行。以下是三个选择：\n\n1. 加利福尼亚州旧金山：这座充满活力的城市适合每个人。您可以探索标志性的地标，如金门大桥和奥尔卡特拉兹岛，参观唐人街和米甸区等文化热点，体验渔人码头繁忙的海滨氛围。不要忘记尝试一些美味的海鲜，并沿着太平洋海岸公路进行一次风景秀丽的驾车之旅。\n\n2. 纽约州纽约市：大苹果是一座不夜城，非常适合两天紧凑的探险。您可以参观时代广场、中央公园和自由女神像等著名地标，探索如大都会艺术博物馆和现代艺术博物馆等世界级博物馆。欣赏百老汇的表演，品尝多元化美食，漫步索霍和格林尼治村等社区。\n\n3. 加拿大温哥华：如果您想要城市和自然美景兼具的目的地，温哥华是一个绝佳的选择。探索斯坦利公园，参观格兰维尔岛的繁华市场，沿着风景如画的堤岸散步。您还可以前往附近的景点如格鲁斯山或者进行到惠斯勒一日游，体验户外探险。\n\n这仅是一些开头的想法。请告知您最感兴趣的目的地，我们可以继续安排住宿、交通和制定行程！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the suggestions! All three destinations sound appealing, but I think I'll go with San Francisco, California for my two-day trip. The combination of iconic landmarks, cultural hotspots, and the opportunity to drive along the Pacific Coast Highway really caught my attention. Let's proceed with planning accommodations first. What are some options for accommodations in San Francisco?",
+            "content_zh": "谢谢您的建议！这三个目的地都很吸引人，但我想我会选择加利福尼亚州旧金山作为我的两天之行。标志性地标、文化热点以及沿着太平洋海岸公路驾驶的机会的组合真的引起了我的注意。让我们先开始规划住宿。旧金山有哪些住宿选择？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Excellent choice! San Francisco is a fantastic destination with a lot to offer. When it comes to accommodations, the city has a wide range of options to suit different budgets and preferences. Here are a few suggestions:\n\n1. Union Square: This area is a popular choice for tourists due to its central location and proximity to shopping, dining, and entertainment options. You'll find a variety of hotels in different price ranges, from luxury options like The Westin St. Francis to more budget-friendly choices like Hotel Nikko or Hotel Zeppelin.\n\n2. Fisherman's Wharf: If you want to be close to the waterfront and enjoy the lively atmosphere, Fisherman's Wharf is a great option. Hotels like Hotel Zephyr and Argonaut Hotel offer stunning views of the bay and are within walking distance of popular attractions like Pier 39 and Alcatraz Island.\n\n3. Embarcadero: This area is known for its beautiful waterfront promenade and proximity to the Ferry Building Marketplace. Hotels like Hyatt Regency San Francisco and Hotel Vitale offer modern accommodations with fantastic views of the Bay Bridge and easy access to public transportation.\n\n4. SoMa (South of Market): If you prefer a more trendy and vibrant neighborhood, SoMa is a good choice. It's home to many tech companies, museums, and trendy restaurants. Hotels like The St. Regis San Francisco and Hotel Zetta offer luxurious accommodations in this area.\n\nThese are just a few options to consider. It's important to check availability, read reviews, and consider your budget when making your final decision. Let me know if you need any further assistance with accommodations or if you're ready to move on to transportation planning!",
+            "content_zh": "很棒的选择！旧金山是一个拥有很多魅力的目的地。在选择住宿时，这个城市有各种不同预算和喜好的选项。以下是一些建议： 1. 旧金山联合广场：这个地区是游客的热门选择，因为它位于市中心，并临近购物，餐饮，娱乐设施。您会发现各种价格不同的酒店，从豪华的选择如威斯汀圣弗朗西斯酒店到更实惠的选择如尼克酒店或 Zepplin 酒店。 2. 渔人码头：如果您想靠近海滨并享受生动的氛围，渔人码头是一个不错的选择。酒店如西菲尔酒店和海盗酒店提供海湾的壮丽景色，并步行距离内有很多热门景点，如39号码头和惩教所岛。 3. 环市街：这个地区以其美丽的海滨长廊和临近轮渡大厦市场而闻名。凯悦旧金山酒店和维泰尔酒店提供现代化的住宿，可欣赏巴伊桥的美景，并可方便乘坐公共交通。 4. 索马（市场以南）：如果您更喜欢时尚和充满活力的社区，索马是一个不错的选择。这里拥有许多科技公司，博物馆和时尚餐厅。圣雷吉斯旧金山酒店和齐默酒店在这一地区提供豪华的住宿。 这只是一些考虑的选项。在做最终决定时，请注意查看可用性，阅读评论并考虑预算。如果您需要任何关于住宿的帮助或者准备继续规划交通，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the accommodation suggestions! I appreciate the variety of options you provided. After considering my budget and preferences, I think I'll go with a hotel in the Union Square area. It seems like a convenient location with plenty of amenities nearby. Now, let's move on to transportation planning. What are the best options for getting around in San Francisco during my two-day trip?",
+            "content_zh": "谢谢您的住宿建议！我感谢您提供的多种选择。考虑了我的预算和偏好后，我想我会选择联合广场地区的一家酒店。这个地点看起来非常方便，附近有很多便利设施。现在，让我们继续交通规划。在我两天的旅行中，圣弗朗西斯科有哪些最好的交通方式？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great choice! Union Square is indeed a convenient location with easy access to various amenities. Now, let's discuss transportation options in San Francisco. Here are a few ways to get around the city:\n\n1. Public Transportation: San Francisco has an extensive public transportation system, including buses, streetcars, and cable cars. The Muni system is the primary mode of public transportation, and it can take you to most major attractions in the city. You can purchase a Clipper Card or individual tickets to use on buses, streetcars, and cable cars.\n\n2. BART (Bay Area Rapid Transit): BART is a regional train system that connects San Francisco to other parts of the Bay Area. It's a convenient option if you plan to explore areas outside of the city, such as Berkeley or Oakland.\n\n3. Ride-Sharing Services: Services like Uber and Lyft are widely available in San Francisco and provide a convenient way to get around the city. They can be particularly useful if you're traveling in a group or have specific time constraints.\n\n4. Walking: San Francisco is a walkable city, especially in neighborhoods like Union Square, Fisherman's Wharf, and Chinatown. Exploring on foot allows you to soak in the city's unique charm and discover hidden gems along the way.\n\n5. Bike Rentals: If you enjoy cycling, renting a bike is a fantastic way to explore San Francisco. You can rent bikes from various rental shops or make use of bike-sharing programs like Ford GoBike.\n\nIt's worth noting that parking in San Francisco can be challenging and expensive, so if you're not planning to venture outside the city, it's generally more convenient to rely on public transportation and walking. However, if you do decide to rent a car, be prepared for traffic and limited parking options.\n\nLet me know if you have any other questions or if you're ready to move on to creating your itinerary!",
+            "content_zh": "非常棒的选择！联合广场确实是一个便利的地点，便于前往各种设施。现在，让我们讨论旧金山的交通选择。以下是您在城市中移动的几种方式：\n\n1. 公共交通：旧金山拥有庞大的公共交通系统，包括公共汽车、有轨电车和缆车。Muni系统是主要的公共交通方式，可以带您到达城市内的大多数主要景点。您可以购买Clipper卡或单张车票在公共汽车、有轨电车和缆车上使用。\n\n2. BART（湾区快速交通）：BART是一个将旧金山与湾区其他地区连接起来的地区火车系统。如果您计划探索城市之外的地区，比如柏克莱或奥克兰，这是一个方便的选择。\n\n3. 顺风车服务：像Uber和Lyft这样的服务在旧金山广泛可用，并提供了一个便利的方式在城市中移动。如果您是在团体中旅行或有特定的时间限制，它们会特别有用。\n\n4. 步行：旧金山是一个适合步行的城市，尤其是在联合广场、渔人码头和唐人街等社区。徒步探索让您可以享受这座城市独特的魅力，并发现一路上隐藏的宝藏。\n\n5. 自行车租赁：如果您喜欢骑行，租一辆自行车是探索旧金山的绝佳方式。您可以从各种租车店租赁自行车，或者利用像Ford GoBike这样的共享单车计划。\n\n值得注意的是，旧金山的停车可能会有挑战性和昂贵，因此如果您不计划在城市外漫步，通常更方便依赖公共交通和步行。不过，如果您决定租车，要做好交通拥堵和有限的停车选择的准备。\n\n如果您有任何其他问题，或者已经准备好开始制定您的行程，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed transportation options! I appreciate the variety of choices available in San Francisco. Considering the convenience and the walkability of the city, I think I'll primarily rely on public transportation and walking during my two-day trip. It seems like the best way to explore the city and avoid the challenges of parking. Now, let's move on to creating the itinerary. What are some must-see attractions and activities that I should include in my two-day plan for San Francisco?",
+            "content_zh": "谢谢你提供了详细的交通选择！我很感激旧金山提供的多样化选择。考虑到这座城市的便利性和步行便捷性，我想在我两天的旅行中主要依靠公共交通和步行。这似乎是探索城市和避免停车挑战的最佳方式。现在，让我们继续制定行程。在旧金山两天行程中，有哪些必看的景点和活动值得我包括呢？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! Relying on public transportation and walking is a great choice for exploring San Francisco. Now, let's dive into creating your itinerary with some must-see attractions and activities:\n\nDay 1:\n1. Start your day with a visit to the iconic Golden Gate Bridge. You can walk or bike across the bridge for stunning views of the city and the bay.\n\n2. Head to Fisherman's Wharf, where you can explore Pier 39, known for its lively atmosphere, street performers, and sea lion sightings. Don't miss the chance to try some fresh seafood!\n\n3. Take a ferry to Alcatraz Island and tour the infamous Alcatraz prison. It's recommended to book your tickets in advance, as they can sell out quickly.\n\n4. After returning from Alcatraz, explore Ghirardelli Square, famous for its delicious chocolate treats. Indulge in a hot fudge sundae or pick up some souvenirs.\n\nDay 2:\n1. Start your day in Chinatown, the oldest and one of the largest Chinatowns in the United States. Explore the vibrant streets, visit historic temples, and try some authentic Chinese cuisine.\n\n2. Head to Union Square, where you can shop at high-end boutiques, department stores, and enjoy the lively atmosphere of this central hub.\n\n3. Visit the beautiful and serene Japanese Tea Garden in Golden Gate Park. Take a stroll through the meticulously manicured gardens, enjoy some tea, and immerse yourself in the tranquil surroundings.\n\n4. End your trip with a scenic drive along the Pacific Coast Highway. You can rent a car or take a guided tour to enjoy the stunning coastal views and visit charming seaside towns like Half Moon Bay or Pacifica.\n\nOf course, this is just a sample itinerary, and you can customize it based on your interests and preferences. San Francisco has so much to offer, including museums, neighborhoods like Haight-Ashbury and the Mission District, and culinary delights. Be sure to check the opening hours and any specific requirements for attractions you plan to visit.\n\nIf you have any specific interests or additional questions, feel free to let me know, and I'll be happy to assist you further!",
+            "content_zh": "不客氣！依靠公共交通和步行是探索舊金山的絕佳選擇。現在，讓我們深入探討創建您的行程，包括一些必看景點和活動： 第1天： 1. 開始您的一天，參觀標誌性的金門大橋。您可以步行或騎自行車穿過橋梁，欣賞城市和海灣的美景。 2. 前往漁人碼頭，您可以探索第39號碼頭，這裡以其熱鬧的氣氛、街頭藝人和海獅著名。不要錯過嘗試新鮮海鮮的機會！ 3. 搭乘渡輪前往惡名昭著的惡魔島，參觀臭名昭著的惡魔監獄。建議提前預訂門票，因為門票可能會很快售罄。 4. 從惡魔島返回後，探索吉拉德利廣場，以其美味的朱古力甜點而聞名。沉醉於熱巧克力淋醬冰淇淋或購買一些紀念品。 第2天： 1. 開始您的一天，探索唐人街，這是美國最古老和最大的唐人街之一。探索充滿活力的街道，參觀歷史悠久的寺廟，並品嘗正宗的中國美食。 2. 前往聯合廣場，在這裡您可以購物高端精品店、百貨公司，並享受這個中心樞紐的熱鬧氛圍。 3. 參觀金門公園內美麗寧靜的日本茶園。漫步在精心修剪的花園中，享受一些茶，沉浸在宁静的環境中。 4. 最後，沿著太平洋海岸公路開一段風景如畫的旅程。您可以租車或參加導覽團，欣賞壯麗的海岸景觀，並參觀像半月灣或太平洋這樣的迷人海濱小鎮。 當然，這只是樣本行程，您可以根據自己的興趣和喜好進行定制。舊金山提供了許多精彩，包括博物館、海特-艾什伯里和使命區等社區，以及各種美食。請務必查看您計劃參觀的景點的開放時間和任何具體要求。 如果您有特定的興趣或額外的問題，請隨時告訴我，我將樂意為您提供幫助！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed itinerary! I really appreciate the thought you put into it. The suggested attractions and activities cover a good mix of iconic landmarks, cultural experiences, and scenic beauty. I will definitely include these in my two-day plan for San Francisco.\n\nOne additional question I have is about dining options. As someone who enjoys fine dining and exploring different cuisines, are there any specific restaurants or food experiences you recommend in San Francisco?\n\nThank you for your assistance so far!",
+            "content_zh": "谢谢你详细的行程安排！我真的很感激你所付出的心思。推荐的景点和活动涵盖了标志性地标、文化体验和风景美景的很好组合。我一定会在我的旧金山两天计划中包括这些内容。\n我还有一个额外的问题，关于用餐选择。作为一个喜欢精致餐饮和探索不同美食的人，你推荐旧金山有哪些特定的餐厅或美食体验吗？\n感谢你迄今为止的帮助！",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! I'm glad you found the itinerary helpful. San Francisco is renowned for its diverse culinary scene, so you're in for a treat! Here are a few restaurant recommendations and food experiences to consider during your visit:\n\n1. The Ferry Building Marketplace: This foodie haven is home to various artisanal food shops, gourmet eateries, and a farmers' market. You can sample local delicacies, grab a quick bite, or indulge in a sit-down meal. Don't miss out on the famous Blue Bottle Coffee or the mouthwatering offerings at Hog Island Oyster Co.\n\n2. Chinatown: San Francisco's Chinatown offers a plethora of dining options. You can find everything from traditional dim sum spots like Great Eastern Restaurant to modern Chinese fusion cuisine at Mister Jiu's. Exploring the narrow alleys and discovering hidden gems is part of the experience.\n\n3. Mission District: This vibrant neighborhood is known for its diverse culinary scene. Try the famous Mission-style burritos at La Taqueria or indulge in contemporary Mexican cuisine at Cala. For a sweet treat, don't miss the famous ice cream at Bi-Rite Creamery.\n\n4. North Beach: This Italian neighborhood is a great place to enjoy delicious Italian food. Head to Tony's Pizza Napoletana for award-winning pizzas or visit Mama's on Washington Square for a classic American breakfast with an Italian twist.\n\n5. Michelin-Starred Restaurants: If you're looking for fine dining experiences, San Francisco has several Michelin-starred restaurants. Some notable options include Quince, Saison, Benu, and Atelier Crenn. These establishments offer exceptional culinary experiences but may require reservations in advance.\n\n6. Food Tours: Consider joining a food tour to explore multiple culinary establishments and get a taste of the city's diverse offerings. Companies like Edible Excursions and Avital Tours offer guided tours that take you to different neighborhoods, highlighting local favorites and hidden gems.\n\nRemember to check the opening hours, make reservations when necessary, and consider any dietary preferences or restrictions you may have. San Francisco's food scene is constantly evolving, so don't hesitate to ask locals or check online for the latest recommendations during your visit.\n\nI hope you have an amazing time exploring the culinary delights of San Francisco! If you have any more questions or need further assistance, feel free to ask.",
+            "content_zh": "不客气！我很高兴你觉得这个行程有帮助。旧金山以其多元化的美食场景闻名，所以你将有一段美好的时光！以下是一些餐厅推荐和美食体验，希望你在访问期间考虑一下：\n1. 渡船大厦市场：这个美食天堂拥有各种各样的手工美食店、美食餐厅和农贸市场。你可以尝试当地的美食，快速品尝，或者进行入座用餐。不要错过著名的蓝瓶咖啡或者Hog Island Oyster Co.的令人垂涎的美食。\n2. 唐人街：旧金山的唐人街提供了众多的用餐选择。你可以找到从传统的点心餐厅如大东方餐厅到现代中式融合菜肴如Mister Jiu's的一切。探索狭窄的巷道，发现隐藏的宝藏也是体验的一部分。\n3. 任务区：这个充满活力的社区以其多元化的美食场景而闻名。在La Taqueria尝试著名的任务式卷饼，或者在Cala尽情享用当代墨西哥美食。作为甜点，请不要错过Bi-Rite Creamery著名的冰淇淋。\n4. 北海滩：这个意大利社区是享用美味意大利美食的好地方。前往Tony's Pizza Napoletana品尝屡获殊荣的比萨，或者前往Mama's on Washington Square享用带有意大利风味的传统美式早餐。\n5. 米其林星级餐厅：如果你正在寻找精致的用餐体验，旧金山有几家米其林星级餐厅。一些值得注意的选择包括Quince、Saison、Benu和Atelier Crenn。这些餐厅提供卓越的美食体验，但可能需要提前预订。\n6. 美食之旅：考虑加入一次美食之旅，探索多个美食机构，品尝城市多样化的美食。像Edible Excursions和Avital Tours这样的公司提供导游服务，带你去不同的社区，突出当地的最爱和隐藏的宝藏。\n请记得检查营业时间，必要时预订，并考虑你可能有的任何饮食偏好或限制。旧金山的美食场景不断发展，所以在访问期间，随时问当地人或在网上查看最新推荐。\n我希望你在探索旧金山的美食美味时度过愉快的时光！如果你有更多问题或需要进一步帮助，请随时问。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "iconic landmarks",
+        "cultural hotspots",
+        "variety of activities",
+        "convenient location",
+        "public transportation"
+    ],
+    "preference_summary": [
+        "san francisco",
+        "union square accommodations",
+        "public transportation",
+        "must-see attractions",
+        "fine dining"
+    ],
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "45",
+            "zh": "45"
+        },
+        "Personality": [
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            },
+            {
+                "en": "Meticulous",
+                "zh": "细致"
+            },
+            {
+                "en": "Calm",
+                "zh": "冷静"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Crafting",
+                "zh": "手工艺制作"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Playing chess",
+                "zh": "下棋"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Prefers calm and serene locations",
+                "zh": "喜欢宁静"
+            },
+            {
+                "en": "Visiting exhibitions",
+                "zh": "看展"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on entertainment",
+                "zh": "娱乐支出"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in academic activities",
+                "zh": "喜欢参与学术活动"
+            },
+            {
+                "en": "Has a family",
+                "zh": "家庭生活"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        }
+    }
+}

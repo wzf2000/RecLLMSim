@@ -1,0 +1,236 @@
+{
+    "task": "recipe planning",
+    "preference_id": 51,
+    "task_context_id": 3,
+    "preference": "1. Gender: Female\n2. Age: 35\n3. Personality: Extroverted, spontaneous, and creative\n4. Occupation: Freelance Photographer\n5. Daily Interests and Hobbies: Photography, yoga, visiting art galleries\n6. Travel Habits: Loves international travel, prefers cultural and historical sites\n7. Dining Preferences: Foodie, enjoys trying different cuisines\n8. Spending Habits: Spends on experiences rather than material goods\n9. Other Aspects: Active in social causes, owns a vintage camera collection",
+    "preference_zh": "1. 性别：女性\n2. 年龄：35\n3. 个性：外向，自发，有创造力\n4. 职业：自由摄影师\n5. 日常兴趣爱好：摄影，瑜伽，参观艺术画廊\n6. 旅行习惯：热爱国际旅行，更喜欢文化和历史遗址\n7. 餐饮偏好：美食家，喜欢尝试不同的美食\n8. 消费习惯：在经历上花费，而不是物质商品\n9. 其他方面：积极参与社会事业，拥有复古相机收藏",
+    "task_context": "You plan to prepare a meal at home for yourself and your loved one. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家为自己和你所爱的人准备一顿饭。你是一位拥有一定烹饪技能的厨师。因此，你想要请求LLM的帮助，共同创作食谱，确定所需食材，以及决定要做什么菜。在规划过程中，你应该学习每道菜的完整准备过程，以及适当的制作菜品顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I need your help in preparing a special meal for myself and my loved one. I'm a skilled cook and would love to create a memorable dining experience. Can you assist me in creating a recipe, determining the necessary ingredients, and deciding what dishes to make?",
+            "content_zh": "你好！很高兴你在这里。我需要你帮助我准备一顿特别的餐食给我和我所爱的人。我是一位熟练的厨师，希望能创造一次难忘的用餐体验。你能帮我制定菜谱，确定需要的食材，以及决定做哪些菜吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'm thrilled to assist you in creating a special meal for your loved one. Let's start by brainstorming some ideas for the menu. Are there any particular cuisines or flavors you and your loved one enjoy? And do you have any dietary restrictions or preferences I should keep in mind?",
+            "content_zh": "你好！我很高兴能帮助你为你所爱的人准备一顿特别的餐点。让我们开始头脑风暴，为菜单想一些点子。有没有你和你所爱的人特别喜欢的菜系或者口味？还有，有没有任何饮食限制或偏好我应该注意的？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "Translation Problem Fixed"
+            },
+            "content_zh_old": "你好！很高兴能帮助您为您所爱的人打造一顿特别的餐点。让我们先开始头脑风暴一些菜单的想法。您和您的爱人喜欢特别的美食或口味吗？您有任何饮食忌讳或喜好需要我考虑吗？"
+        },
+        {
+            "role": "user",
+            "content": "Hello! We both enjoy trying different cuisines, so I'm open to exploring various options. As for flavors, we both appreciate bold and vibrant tastes. Luckily, we don't have any dietary restrictions, so we have a lot of flexibility in choosing dishes. Let's focus on creating a menu that showcases our adventurous palates and highlights our love for flavors from around the world.",
+            "content_zh": "你好！我们都喜欢尝试不同的美食，所以我乐意尝试各种选择。至于口味，我们都喜欢浓烈而鲜明的味道。幸运的是，我们没有任何饮食限制，因此在选择菜肴方面有很大的灵活性。让我们专注于创建一个展示我们的冒险口味并凸显我们对世界各地口味的热爱的菜单。",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That sounds fantastic! With your love for bold and vibrant flavors, I have a few ideas for a multi-course menu that will take you on a culinary journey. How does this sound?\n\nAppetizer:\n- Thai-inspired Coconut Shrimp Soup: A fragrant and creamy soup with succulent shrimp, coconut milk, lemongrass, and a hint of chili for a kick.\n\nSalad:\n- Mediterranean Watermelon Salad: A refreshing combination of juicy watermelon, feta cheese, mint leaves, and a drizzle of balsamic glaze. It's a delightful mix of sweet and savory flavors.\n\nMain Course:\n- Indian Butter Chicken: Tender chicken cooked in a rich and creamy tomato-based sauce, flavored with aromatic spices like garam masala, turmeric, and fenugreek. Serve it with basmati rice and naan bread for a complete meal.\n\nSide Dish:\n- Moroccan Spiced Roasted Vegetables: A medley of roasted vegetables like carrots, bell peppers, and zucchini, seasoned with Moroccan spices such as cumin, coriander, and cinnamon. It adds a burst of flavors and colors to the plate.\n\nDessert:\n- French Crème Brûlée: A classic, velvety custard dessert with a caramelized sugar crust. It's elegant, indulgent, and the perfect way to end your special meal.\n\nThese dishes offer a mix of Thai, Mediterranean, Indian, Moroccan, and French flavors, ensuring a diverse and adventurous dining experience. Let me know if you'd like more details or if there's anything specific you'd like to modify or add!",
+            "content_zh": "听起来太棒了！凭借您对大胆和充满活力口味的热爱，我有一些关于多道菜单的想法，这将带您展开一次美食之旅。您觉得怎么样呢？\n\n开胃菜：\n- 泰式椰汁虾汤：香浓可口的汤中有鲜美的虾肉、椰奶、柠檬草和一点辣味。\n\n沙拉：\n- 地中海西瓜沙拉：清爽的甜西瓜、菲达奶酪、薄荷叶和一丝香醋酱的完美组合。甜中带有一丝咸香。\n\n主菜：\n- 印度牛油鸡：嫩鸡肉在浓郁的番茄酱中烹饪，调味有香料如印度咖喱、姜黄和莞麦。配以香浮饭和印度烤饼，美餐一顿。\n\n配菜：\n- 摩洛哥风味烤蔬菜：胡萝卜、甜椒和西葫芦等经过烤制后搭配摩洛哥香料如孜然、芫荽和肉桂。为盘中增添了丰富的味道和色彩。\n\n甜点：\n- 法式焦糖布丁：经典的丝滑卡仕达布丁，带有焦糖涂层。优雅、奢华，是结束您特别餐的完美方式。\n\n这些菜肴融合了泰国、地中海、印度、摩洛哥和法国口味，确保您拥有多样化和冒险性的用餐体验。如果您需要更多细节或有任何特别需求或修改，欢迎告知我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Wow, your menu suggestions sound absolutely delightful! I love the mix of flavors and cuisines you've incorporated. The Thai-inspired Coconut Shrimp Soup as the appetizer sounds like a great way to start the meal with its creamy and fragrant qualities. The Mediterranean Watermelon Salad adds a refreshing touch with the combination of watermelon, feta cheese, and mint.\n\nMoving on to the main course, the Indian Butter Chicken is a fantastic choice. The rich and creamy tomato sauce with aromatic spices is always a crowd-pleaser. Pairing it with basmati rice and naan bread sounds perfect.\n\nFor the side dish, the Moroccan Spiced Roasted Vegetables will provide a wonderful burst of flavors and colors. The combination of roasted vegetables with Moroccan spices sounds absolutely delicious.\n\nAnd finally, the French Crème Brûlée for dessert is a classic and elegant choice. The creamy custard with its caramelized sugar crust will surely be a delightful end to the meal.\n\nI must say, I'm quite impressed with the menu you've put together. I wouldn't change a thing! It's a perfect blend of flavors and cuisines. Thank you for your suggestions!",
+            "content_zh": "哇，你的菜单建议听起来绝对令人愉悦！我喜欢你所融合的各种口味和菜系。开胃菜泰式椰奶虾汤听起来是一个美妙的开始，带着奶香和清香。地中海西瓜沙拉搭配西瓜、费达奶酪和薄荷，增添了一抹清新的味道。\n\n接下来是主菜，印度奶油鸡肉是一个绝妙的选择。浓郁奶油番茄酱和香料的结合总是受人欢迎。搭配印度香米和烤馕面包听起来完美。\n\n作为配菜，摩洛哥香料烤蔬菜将带来丰富的口味和色彩。烤蔬菜与摩洛哥香料的组合听起来非常美味。\n\n最后，法式焦糖布丁作为甜点是一个经典而优雅的选择。奶油焦糖布丁一定会是一顿美餐的美妙结尾。\n\n我必须说，我对你精心策划的菜单印象深刻。我不会改变任何事情！这是口味和菜系的完美融合。谢谢你的建议！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you're happy with the menu suggestions. It's always exciting to create a diverse and flavorful dining experience. With this menu, you'll be able to showcase your culinary skills and create a memorable meal for your loved one.\n\nTo ensure everything goes smoothly, it's a good idea to make a list of the necessary ingredients and double-check your pantry to see what you already have. If there's anything you need help with, such as specific recipes or cooking techniques, feel free to ask. I'm here to assist you every step of the way. Enjoy preparing the meal, and I hope you and your loved one have a truly special dining experience!",
+            "content_zh": "不客气！我很高兴你对菜单建议感到满意。创造多样且口感丰富的用餐体验总是令人兴奋的。有了这个菜单，你将能展示你的烹饪技能，为你所爱的人打造一个令人难忘的美食体验。\n为了确保一切顺利进行，最好列出所需的食材清单，并仔细检查你的厨房看看你已经拥有什么了。如果有什么你需要帮忙的，比如具体的食谱或烹饪技术，请随时问。我会在每个步骤中都协助你。祝你准备美食时愉快，希望你和你所爱的人有一个真正特别的用餐体验！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you so much for your guidance! I'll definitely make a list of the necessary ingredients and check my pantry to ensure I have everything I need. If I have any questions about specific recipes or techniques while preparing the meal, I'll be sure to ask for your assistance.\n\nI'm really looking forward to creating this special dining experience for my loved one. Your support has been invaluable, and I'm grateful for your help in making this meal memorable. Thank you once again, and I'll make sure to enjoy the process and savor the flavors.",
+            "content_zh": "非常感谢您的指导！我一定会列出所需的食材并检查我的食品储藏室，确保我有我需要的一切。如果在准备餐点时有任何特定食谱或技术方面的问题，我一定会向您寻求帮助。 我真的很期待为我所爱的人创造这个特别的用餐体验。 您的支持无价，我感激您帮助我让这顿饭变得难忘。 再次感谢您，我会确保享受这个过程并品尝美味。",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're most welcome! I'm glad I could be of help. Don't hesitate to reach out if you have any questions or need assistance with anything while preparing the meal. Remember to enjoy the process and have fun exploring the flavors and techniques. Cooking for someone you care about is a wonderful way to show your love and create lasting memories.\n\nI wish you the best of luck in creating this special dining experience. I'm sure your loved one will appreciate the effort and enjoy the delicious meal you'll prepare. Bon appétit!",
+            "content_zh": "不客气！很高兴我能帮到你。如果你在准备餐食时有任何问题或需要帮助，请不要犹豫，随时联系我。记得享受整个过程，玩味各种风味和技巧。为关心的人烹饪是展示你的爱意和创造美好回忆的好方式。\n祝你创造出特别的用餐体验一切顺利。我相信你所爱的人会感激你的努力，享受你将要准备的美味佳肴。祝你胃口好！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "bold flavors",
+        "international cuisine",
+        "adventurous"
+    ],
+    "preference_summary": [
+        "bold",
+        "vibrant",
+        "adventurous"
+    ],
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 1,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "35",
+            "zh": "35"
+        },
+        "Personality": [
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            },
+            {
+                "en": "Spontaneous",
+                "zh": "随性"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Occupation": {
+            "en": "Artist",
+            "zh": "艺术工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Photography",
+                "zh": "摄影"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "International travel",
+                "zh": "国际旅行"
+            },
+            {
+                "en": "Cultural trips",
+                "zh": "文化旅行"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Focus on experience",
+                "zh": "注重消费体验"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in volunteer activities",
+                "zh": "喜欢参与志愿活动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

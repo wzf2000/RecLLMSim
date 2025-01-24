@@ -1,0 +1,274 @@
+{
+    "task": "new travel planning",
+    "preference_id": 60,
+    "task_context_id": 5,
+    "preference": "1. Gender: Male\n2. Age: 35\n3. Personality: Ambitious, assertive, and confident\n4. Occupation: Real Estate Agent\n5. Daily Interests and Hobbies: Networking, fitness training, golf\n6. Travel Habits: Travels for work, enjoys city breaks\n7. Dining Preferences: Enjoys fine dining, loves trying new restaurants\n8. Spending Habits: Invests in high-end fashion, saves for property\n9. Other Aspects: Lives in a city apartment, has a high-stress lifestyle",
+    "preference_zh": "1. 性别：男性\n2. 年龄：35岁\n3. 个性：有雄心壮志，自信而果断\n4. 职业：房地产经纪人\n5. 每日兴趣爱好：社交活动，健身训练，高尔夫\n6. 旅行习惯：出差旅行，喜欢城市短途旅行\n7. 用餐偏好：喜爱美食，喜欢尝试新餐厅\n8. 消费习惯：投资高端时尚，为购置房产而存钱\n9. 其他方面：居住在城市公寓，生活压力很大",
+    "task_context": "You are planning a month-long trip that will take place this summer. Your goal, with the help of LLM, is to refine and finalize your travel plans. This includes making detailed arrangements for accommodations, transportation, and your daily itinerary. Your final travel plan should be as comprehensive and realistic as possible, ensuring that it can be seamlessly implemented when the time comes.\nYour trip planning should take into consideration the specific destination as specified in the following requirements: no specific destination restrictions. You should also consider your point of departure, your preferred mode of transportation to the destination, and the specific attractions or activities you wish to engage in. Remember to consider factors such as travel distance, travel time, and the opening hours of the attractions.",
+    "task_context_zh": "您正在计划一个将在今年夏天进行的为期一个月的旅行。您的目标是在LLM的帮助下完善和最终确定您的旅行计划。这包括对住宿、交通和每日行程的详细安排。您的最终旅行计划应尽可能全面和现实，确保在到达时间时可以顺利实施。您的旅行规划应考虑以下特定目的地的需求：没有特定目的地的限制。您还应考虑您的出发地、到达目的地的首选交通方式，以及您希望参与的特定景点或活动。请记得考虑诸如旅行距离、旅行时间和景点开放时间等因素。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Well, I'm planning a month-long trip for this summer. I don't have any specific destination restrictions, so I'm open to suggestions. Knowing my lifestyle and interests, what places would you recommend?",
+            "content_zh": "嗯，我正在计划今年夏天进行一个月长的旅行。我没有特定的目的地限制，所以我愿意听取建议。了解我的生活方式和兴趣爱好，你会推荐什么地方呢？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! To start, could you please share a bit more about your interests and lifestyle? For instance, are you more inclined towards nature, culture, adventure, or relaxation? Do you enjoy activities like hiking, art and museums, beach lounging, or exploring local cuisines? Additionally, it would be helpful to know your starting location and if you have any budget constraints for this trip. This will help me tailor the perfect travel recommendations for you.",
+            "content_zh": "太好了！首先，你能分享一些关于你的兴趣和生活方式吗？比如说，你更偏向自然、文化、冒险还是放松？你喜欢徒步旅行、艺术和博物馆、海滩休闲或者探索当地美食吗？另外，知道你的出发地点以及预算限制对这次旅行会很有帮助。这将帮助我为你量身定制最完美的旅行建议。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "I'm a real estate agent in New York City, and I would say I'm more inclined towards culture and relaxation. I don't mind a bit of adventure too. I enjoy golfing and fitness training, so incorporating those into the trip would be great. As for budget, I'm not too constrained, but I prefer to invest wisely. I'm looking for a trip that's worth the investment. I'd also prefer to travel by plane.",
+            "content_zh": "我是纽约市的房地产经纪人，我更倾向于文化和放松。我也不介意一点冒险。我喜欢打高尔夫和健身训练，所以把这些纳入旅行计划会很棒。至于预算，我并不太受限制，但我更愿意明智地投资。我正在寻找一次值得投资的旅行。我也更愿意乘飞机旅行。",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Thanks for sharing your preferences. Based on your interests in culture, relaxation, golfing, and fitness, I would recommend considering the following destinations:\n\n1. **Spain**: Spain is rich in culture and history, from the art of Picasso and Gaudí to Flamenco dancing and bullfighting. There are numerous beautiful cities to explore, including Barcelona, Madrid, Valencia, and Seville. Spain also has some of the world's top golf courses, and the weather is usually favorable for outdoor activities. For relaxation, there are beautiful beaches in Costa del Sol and the Balearic Islands.\n\n2. **Italy**: Italy offers a splendid mix of culture, history, and relaxation. Rome, Florence, and Venice are must-visit cities for their art, architecture, and history. Italy is also known for its vineyards and incredible cuisine. There are excellent golf courses in Italy, and the country is small enough that you could stay in one place and visit many.\n\n3. **Australia**: If you're up for a longer flight, Australia could be an exciting choice. It's a great spot for golfing and fitness activities, with its stunning landscapes and outdoor lifestyle. Cities like Sydney and Melbourne are rich in cultural experiences, and you can also enjoy the unique wildlife and beautiful beaches.\n\n4. **California, USA**: If you prefer to stay within the US, California offers a variety of experiences - from the cultural attractions in Los Angeles and San Francisco, to golfing in Pebble Beach, to wine tasting in Napa Valley, and relaxation along the scenic coastline.\n\nPlease let me know if any of these destinations resonate with you, or if you'd like other suggestions!",
+            "content_zh": "感谢分享您的偏好。根据您对文化、放松、高尔夫和健身的兴趣，我建议考虑以下目的地：\n\n1. 西班牙：西班牙在文化和历史上非常丰富，从毕加索和高迪的艺术到弗拉明戈舞和斗牛。有许多美丽的城市可以探索，包括巴塞罗那、马德里、瓦伦西亚和塞维利亚。西班牙还拥有世界顶级的高尔夫球场，而且天气通常非常适合户外活动。放松的话，科斯塔德尔索尔和巴利阿里群岛有美丽的海滩。\n\n2. 意大利：意大利提供了文化、历史和放松的绝妙组合。罗马、佛罗伦萨和威尼斯是必去的城市，因为它们的艺术、建筑和历史。意大利还以其葡萄园和令人难以置信的美食而闻名。意大利有出色的高尔夫球场，而且这个国家的面积小得足以你可以待在一个地方并参观许多地方。\n\n3. 澳大利亚：如果你愿意乘坐更长的飞行，澳大利亚可能是一个令人兴奋的选择。它是高尔夫和健身活动的理想之地，拥有令人惊叹的景观和户外生活方式。悉尼和墨尔本等城市丰富多样的文化体验，你也可以享受独特的野生动物和美丽的海滩。\n\n4. 美国加利福尼亚州：如果你更愿意待在美国境内，加利福尼亚州提供了各种体验-从洛杉矶和旧金山的文化景点，到皮博尔滩的高尔夫球，到纳帕谷的品酒，以及沿着风景秀丽的海岸线放松。\n\n请告诉我这些目的地中是否有任何一个与您产生共鸣，或者您是否想要其他建议！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Spain really catches my interest, especially considering its rich culture, history, and the opportunity to play on some of the top golf courses. Plus, I've never been there, so it would be a new experience for me. Let's focus on Spain for my month-long trip. Can you help me draft a more detailed plan, including cities to visit, accommodations, and maybe a daily itinerary that includes cultural spots, some of the best golf courses, and also allows for relaxation and exploration of local cuisine?",
+            "content_zh": "西班牙真的引起了我的兴趣，特别考虑到它丰富的文化、历史，以及有机会在一些顶级高尔夫球场上打球。而且，我以前从来没有去过那里，所以对我来说会是一个全新的体验。让我们把注意力集中在西班牙，为我一个月的旅行制定一个更详细的计划，包括要访问的城市、住宿、也许还有每日行程，包括文化景点、一些最好的高尔夫球场，也能让我放松并探索当地美食的机会。",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely, Spain is a wonderful choice! Here is a rough itinerary for a month-long trip:\n\n**Week 1 - Madrid and Surroundings**\n\n- **Day 1-4**: Explore Madrid. Visit cultural spots like the Prado Museum, Royal Palace, Retiro Park, and more. Spend an evening experiencing a traditional Flamenco show.\n- **Day 5**: Day trip to Toledo, a UNESCO world heritage site known for its rich history and coexistence of Christian, Muslim, and Jewish cultures.\n- **Day 6**: Relaxation day. Enjoy Madrid's cafes and shops. \n- **Day 7**: Play golf at the Club de Campo Villa de Madrid, one of the best golf courses in Spain.\n\n*Accommodation Suggestion*: The Westin Palace, Madrid. It's centrally located and has a fitness center.\n\n**Week 2 - Valencia**\n\n- **Day 8-10**: Travel to Valencia and explore the city. Visit the City of Arts and Sciences, Valencia Cathedral, and the Central Market.\n- **Day 11-12**: Enjoy the beach and local cuisine like Paella, which originated from Valencia.\n- **Day 13**: Play golf at El Saler Golf Club, one of Spain's top golf courses.\n- **Day 14**: Relaxation day. Explore the city at your own pace.\n\n*Accommodation Suggestion*: Caro Hotel, Valencia. This hotel is centrally located and has a fitness center.\n\n**Week 3 - Barcelona**\n\n- **Day 15-18**: Explore Barcelona. Visit famous landmarks like the Sagrada Familia, Park Guell, and Gothic Quarter. Don't miss the Picasso Museum.\n- **Day 19**: Day trip to Montserrat, a beautiful monastery located on top of a mountain.\n- **Day 20**: Play golf at the Real Club de Golf El Prat, one of Spain's oldest courses.\n- **Day 21**: Relaxation day. Enjoy Barcelona's beaches and local cuisine.\n\n*Accommodation Suggestion*: Hotel Arts Barcelona. It offers a luxury spa and fitness center, perfect for relaxation and keeping up with your fitness.\n\n**Week 4 - Seville and Costa del Sol**\n\n- **Day 22-24**: Travel to Seville. Explore the Alcazar, Seville Cathedral, and Plaza de España. Enjoy a traditional Flamenco show.\n- **Day 25-26**: Travel to Costa del Sol for beautiful beaches and golf. Play golf at Valderrama Golf Club, one of the best in Europe.\n- **Day 27-28**: Relaxation days. Enjoy the beautiful beaches of Costa del Sol.\n- **Day 29**: Return to Madrid for your flight back to New York.\n- **Day 30**: Departure day.\n\nPlease note, this is just a suggested itinerary and can be adjusted as per your preference. Also, you might need to book golf courses in advance as they can get busy. Let me know if this plan works for you or if you'd like any changes.",
+            "content_zh": "西班牙绝对是一个精彩的选择！以下是一个为期一个月的旅行粗略行程：\n\n**第1周-马德里及周边**\n\n- **第1-4天**：探索马德里。参观普拉多博物馆、王宫皇家、雷蒂罗公园等文化景点。晚上欣赏传统的佛拉明戈舞表演。\n- **第5天**：前往托莱多进行一日游，这是一个以丰富历史和基督教、穆斯林和犹太文化共存而闻名的联合国教科文组织世界遗产地。\n- **第6天**：休息日。享受马德里的咖啡馆和商店。\n- **第7天**：在马德里维拉俱乐部高尔夫球场打高尔夫球，这是西班牙最好的高尔夫球场之一。\n\n*住宿建议*：马德里威斯汀皇宫酒店。地理位置中心，设有健身中心。\n\n**第2周-瓦伦西亚**\n\n- **第8-10天**：前往瓦伦西亚并探索城市。参观艺术与科学城、瓦伦西亚大教堂和中央市场。\n- **第11-12天**：享受海滩和来自瓦伦西亚的菜肴，如源自瓦伦西亚的菜肴帕埃拉。\n- **第13天**：在艾尔萨莱尔高尔夫俱乐部打高尔夫球，这是西班牙顶级高尔夫球场之一。\n- **第14天**：休息日。按自己的步调探索城市。\n\n*住宿建议*：瓦伦西亚卡罗酒店。这家酒店地理位置中心，设有健身中心。\n\n**第3周-巴塞罗那**\n\n- **第15-18天**：探索巴塞罗那。参观著名景点如圣家堂、吉尔公园和哥特区。别错过毕加索博物馆。\n- **第19天**：前往蒙特塞拉特进行一日游，这是一个坐落在山顶上的美丽修道院。\n- **第20天**：在El Prat皇家高尔夫俱乐部打高尔夫球，这是西班牙最古老的高尔夫球场之一。\n- **第21天**：休息日。享受巴塞罗那的海滩和当地美食。\n\n*住宿建议*：巴塞罗那艾茵斯酒店。它提供豪华spa和健身中心，非常适合放松和保持健康。\n\n**第4周-塞维利亚和阳光海岸**\n\n- **第22-24天**：前往塞维利亚。探索阿尔卡萨、塞维利亚大教堂和西班牙广场。欣赏传统的佛拉明戈舞表演。\n- **第25-26天**：前往阳光海岸享受美丽的海滩和高尔夫球。在Valderrama高尔夫俱乐部打高尔夫球，这是欧洲最好的高尔夫球场之一。\n- **第27-28天**：休息日。享受阳光海岸美丽的海滩。\n- **第29天**：返回马德里，乘机返回纽约。\n- **第30天**：离开。请注意，这只是建议行程，可以根据您的喜好进行调整。此外，您可能需要提前预订高尔夫球场，因为它们可能会很忙。让我知道这个计划对您是否合适，或者您是否需要任何更改。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "This is excellent! I really like the itinerary you've put together for me. I can already see myself exploring the rich culture of Spain, playing golf, and relaxing on the stunning beaches of Costa del Sol. However, I also want to explore the local cuisine in each city, as I love trying new restaurants and dishes. Could you recommend some of the top restaurants in each city, preferably those that offer fine dining experiences? I'd also appreciate it if you could recommend some local dishes I should try in each city.",
+            "content_zh": "太棒了！我真的很喜欢你为我准备的行程。我已经可以想象自己在探索西班牙丰富的文化，打高尔夫，和在科斯塔德尔索尔的迷人海滩上放松了。然而，我也想探索每个城市的当地美食，因为我喜欢尝试新的餐馆和菜肴。你可以推荐一些每个城市顶级餐厅吗，最好是那些提供精致用餐体验的？我也会很感激你如果你能推荐一些我应该在每个城市尝试的当地菜肴。",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely, Spain is renowned for its diverse and delectable cuisine. Here are some top restaurants and local dishes to try in each city:\n\n**Madrid:**\n- **Restaurants**: \n  - **DiverXO**: The only restaurant in Madrid with three Michelin stars, offering an avant-garde dining experience by Chef David Muñoz.\n  - **Botín**: Recognized by the Guinness Book of Records as the oldest restaurant in the world, famed for its roast suckling pig.\n  - **Santceloni**: A two Michelin-starred restaurant that offers an exquisite gastronomic experience.\n- **Local Dishes**: Cocido Madrileño (a traditional chickpea-based stew), Callos a la Madrileña (a spicy tripe dish), and for dessert, Churros con Chocolate.\n\n**Valencia:**\n- **Restaurants**: \n  - **El Poblet**: A restaurant with two Michelin stars, offering innovative dishes inspired by traditional Valencian cuisine.\n  - **Ricard Camarena Restaurant**: Another two Michelin-starred restaurant, known for its creative and high-quality dishes.\n- **Local Dishes**: Paella Valenciana (the original paella with rabbit, chicken, and green beans), Horchata (a refreshing drink made from tiger nuts), and Fideuà (a noodle dish similar to paella).\n\n**Barcelona:**\n- **Restaurants**: \n  - **Lasarte**: A three Michelin-starred restaurant, where chef Martín Berasategui offers innovative Basque cuisine.\n  - **ABaC**: Another three Michelin-starred restaurant that provides a modern culinary experience.\n- **Local Dishes**: Escudella i Carn d'Olla (a Catalan stew), Botifarra amb mongetes (Catalan sausage with white beans), and Crema Catalana (a dessert similar to crème brûlée).\n\n**Seville:**\n- **Restaurants**: \n  - **Abantal**: Seville's sole Michelin-starred restaurant, offering contemporary Andalusian cuisine.\n  - **Ovejas Negras**: A highly-regarded tapas restaurant, providing a modern twist on traditional Spanish tapas.\n- **Local Dishes**: Gazpacho or Salmorejo (both are cold tomato-based soups, with the latter being thicker and often served with hard-boiled eggs and jamón), and Rabo de Toro (oxtail stew).\n\n**Costa del Sol:**\n- **Restaurants**: \n  - **Dani García**: A three Michelin-starred restaurant in Marbella, offering an innovative take on traditional Andalusian dishes.\n  - **El Lago**: A one Michelin-starred restaurant in Marbella, known for its modern Mediterranean cuisine.\n- **Local Dishes**: Pescaíto frito (a variety of fried fish), Espeto de Sardinas (sardines skewered and grilled over a pit of coals), and for dessert, Tarta Malagueña (a cake from Malaga).\n\nRemember that many fine dining restaurants require reservations, often well in advance, so make sure to book ahead of time. Also, be sure to inform the restaurant of any dietary restrictions you may have.\n\nEnjoy your culinary journey through Spain! If you need further assistance or have other questions, feel free to ask.",
+            "content_zh": "西班牙以其多样化和美味的美食而闻名。以下是每个城市中一些顶级餐厅和当地菜肴要尝试的地方：\n\n**马德里：**\n- **餐厅：**\n  - **DiverXO：** 马德里唯一一家拥有三颗米其林星的餐厅，由大厨David Muñoz提供前卫的用餐体验。\n  - **Botín：** 被吉尼斯世界纪录认定为世界上最古老的餐厅，以其烤乳猪而闻名。\n  - **Santceloni：** 一家获得两颗米其林星的餐厅，提供精致的美食体验。\n- **当地菜肴：** Cocido Madrileño（一道传统的鹰嘴豆炖菜），Callos a la Madrileña（一道辛辣的肚子菜肴），甜点可尝试Churros con Chocolate。\n\n**瓦伦西亚：**\n- **餐厅：**\n  - **El Poblet：** 一家拥有两颗米其林星的餐厅，提供受传统瓦伦西亚美食启发的创新菜肴。\n  - **Ricard Camarena Restaurant：** 另一家获得两颗米其林星的餐厅，以其创意和高品质菜肴而闻名。\n- **当地菜肴：** Paella Valenciana（原汁原味的兔肉、鸡肉和青豆海鲜饭），Horchata（一种用虎松制成的清凉饮料），以及Fideuà（与海鲜饭类似的面条菜肴）。\n\n**巴塞罗那：**\n- **餐厅：**\n  - **Lasarte：** 一家拥有三颗米其林星的餐厅，厨师Martín Berasategui提供创新的巴斯克美食。\n  - **ABaC：** 又一家获得三颗米其林星的餐厅，提供现代烹饪体验。\n- **当地菜肴：** Escudella i Carn d'Olla（加泰罗尼亚炖菜），Botifarra amb mongetes（加泰罗尼亚香肠配白豆），甜点Crema Catalana（类似于焦糖布丁的甜点）。\n\n**塞维利亚：**\n- **餐厅：**\n  - **Abantal：** 塞维利亚唯一一家获得米其林星的餐厅，提供现代安达卢西亚美食。\n  - **Ovejas Negras：** 一家备受推崇的塔帕斯餐厅，提供对传统西班牙小吃的现代演绎。\n- **当地菜肴：** Gazpacho或Salmorejo（均为冷番茄汤，后者更浓稠，通常与煮鸡蛋和火腿一起食用），以及Rabo de Toro（牛尾炖菜）。\n\n**阳光海岸：**\n- **餐厅：**\n  - **Dani García：** 马贝拉的三星米其林餐厅，提供对传统安达卢西亚菜肴的创新解读。\n  - **El Lago：** 马贝拉的一星米其林餐厅，以现代地中海美食而闻名。\n- **当地菜肴：** Pescaíto frito（各种炸鱼），Espeto de Sardinas（串烤沙丁鱼），甜点Tarta Malagueña（马拉加蛋糕）。\n\n请记住，许多高级餐厅需要提前预订，因此一定要提前预订。另外，请务必告知餐厅您可能有的任何饮食限制。\n\n享受您在西班牙的美食之旅！如果您需要进一步的帮助或有其他问题，请随时问。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "This is fantastic, thank you! The restaurant selections and local dishes you've recommended sound absolutely delicious. I'll make sure to book those restaurants in advance. I'm really looking forward to this trip now, more so with these culinary experiences to anticipate. If I have any more questions or need further adjustments to my itinerary, I'll reach out. Thanks again for your help in planning this incredible journey.",
+            "content_zh": "太棒了，谢谢你！你推荐的餐厅和当地菜肴听起来都非常美味。我一定会提前预订这些餐厅。现在我更期待这次旅行了，尤其是有这些美食体验。如果我有更多问题或需要调整行程，我会联系你的。再次感谢你帮我计划这次不可思议的旅程。",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad to hear that you're looking forward to your trip. Spain will certainly provide you with an amazing array of experiences, from its rich culture and history to its delectable cuisine and excellent golf courses. Please don't hesitate to reach out if you have any more questions or need further assistance. I wish you a fantastic and unforgettable trip to Spain! Safe travels!",
+            "content_zh": "非常欢迎！很高兴听到你期待你的旅行。西班牙一定会给你带来丰富多彩的体验，从其丰富的文化和历史到其美味的美食和优秀的高尔夫球场。如果你有任何更多的问题或需要进一步的帮助，请不要犹豫。我祝你在西班牙有一个美妙且难忘的旅程！一路平安！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary": [
+        "monthly trips",
+        "golfing",
+        "fitness training",
+        "cultural experiences",
+        "fine dining"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "35",
+            "zh": "35"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Confident",
+                "zh": "自信"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on fashion",
+                "zh": "时尚支出"
+            },
+            {
+                "en": "Invests in real estate",
+                "zh": "房地产投资"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Has a high-stress lifestyle",
+                "zh": "生活压力大"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_1120": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 2,
+            "context_dependency": 5,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        }
+    }
+}

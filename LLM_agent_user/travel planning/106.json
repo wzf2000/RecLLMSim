@@ -1,0 +1,284 @@
+{
+    "task": "travel planning",
+    "preference_id": 70,
+    "task_context_id": 5,
+    "preference": "1. Gender: Male\n2. Age: 33\n3. Personality: Adventurous, outgoing, and humorous\n4. Occupation: Wildlife Photographer\n5. Daily Interests and Hobbies: Photography, trekking, bird watching\n6. Travel Habits: Constantly on the move, enjoys offbeat destinations\n7. Dining Preferences: Enjoys local cuisines, open to all types of food\n8. Spending Habits: Spends on photography gear, saves for future travels\n9. Other Aspects: Practices sustainable living, has a pet dog",
+    "preference_zh": "1. 性别：男性\n2. 年龄：33\n3. 个性：冒险，外向，幽默\n4. 职业：野生动物摄影师\n5. 日常兴趣爱好：摄影，徒步旅行，观鸟\n6. 旅行习惯：经常在路上，喜欢偏远目的地\n7. 餐饮偏好：喜欢当地美食，愿意尝试各种食物\n8. 消费习惯：花钱在摄影器材上，为未来旅行存钱\n9. 其他方面：践行可持续生活，养有一只宠物狗",
+    "task_context": "You are planning a thirty-day-long trip this summer, The trip has no specific destination restrictions. You would like to use LLM to help refine your travel plans. During this conversation, you will need to make arrangements for accommodations, transportation, and itinerary details. Your ultimate travel plan should be as comprehensive as possible, ensuring that you can realistically follow it when the time comes.",
+    "task_context_zh": "你打算在今年夏天进行为期三十天的旅行，这次旅行没有特定目的地限制。你希望使用LLM来帮助完善你的旅行计划。在这次对话中，你将需要安排住宿、交通和行程细节。你的最终旅行计划应尽可能全面，确保到时候可以实际按照计划行动。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here to assist me. I'm planning a thirty-day-long trip this summer, and I could use some help refining my travel plans. I'm looking for recommendations on accommodations, transportation, and itinerary details. Are you up for the challenge?",
+            "content_zh": "你好！很高兴你在这里帮助我。我计划今年夏天进行一个为期三十天的旅行，我需要帮助优化我的旅行计划。我想要得到关于住宿、交通和行程细节的推荐。你愿意接受这个挑战吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'm absolutely up for the challenge of helping you refine your travel plans. I'll do my best to assist you with recommendations on accommodations, transportation, and itinerary details for your thirty-day-long trip this summer. Where are you planning to go?",
+            "content_zh": "你好！我完全准备好帮助你完善你的旅行计划。我会尽力为你提供关于住宿、交通和行程细节的建议，帮助你安排这个夏天为期三十天的旅行。你打算去哪里呢？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for your enthusiasm! Since I enjoy exploring offbeat destinations, I'm open to suggestions for my trip. I don't have any specific destination restrictions, so I'm looking for unique and adventurous places to visit. Where would you recommend I go?",
+            "content_zh": "谢谢您的热情！由于我喜欢探索不寻常的目的地，我愿意接受关于我的旅行建议。我没有特定的目的地限制，所以我正在寻找独特而充满冒险精神的地方。您会推荐我去哪里呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That's fantastic! Exploring offbeat destinations can lead to some truly memorable experiences. Here are a few unique and adventurous places you might consider for your trip:\n\n1. Iceland: Known for its stunning landscapes, waterfalls, geothermal hot springs, and the famous Northern Lights, Iceland offers a perfect blend of adventure and natural beauty.\n\n2. Bhutan: This small Himalayan kingdom is renowned for its untouched landscapes, ancient monasteries, and vibrant Buddhist culture. It's a great destination for trekking, exploring remote villages, and experiencing a different way of life.\n\n3. Patagonia, Argentina/Chile: If you're up for breathtaking scenery and outdoor activities, Patagonia is a must-visit. Hike through Torres del Paine National Park, explore the Perito Moreno Glacier, and immerse yourself in the rugged beauty of this region.\n\n4. Namibia: With its vast deserts, stunning sand dunes, and unique wildlife, Namibia offers a truly otherworldly experience. Go on a safari in Etosha National Park, visit the towering dunes of Sossusvlei, and marvel at the beauty of the Skeleton Coast.\n\n5. Laos: For a more off-the-beaten-path Southeast Asian experience, Laos is a hidden gem. Explore the ancient city of Luang Prabang, cruise along the Mekong River, and discover the stunning Kuang Si Waterfalls.\n\nThese are just a few suggestions, but there are countless other adventurous destinations out there. Let me know if any of these pique your interest, and we can dive into more details!",
+            "content_zh": "太棒了！探索不寻常的目的地可以带来一些真正难忘的经历。以下是一些您可能考虑在旅行中的独特和冒险的地方：\n\n1. 冰岛：以其令人惊叹的风景、瀑布、地热温泉和著名的极光而闻名，冰岛提供了冒险和自然美的完美融合。\n\n2. 不丹：这个小小的喜马拉雅王国以其未经触摸的风景、古老的寺庙和充满活力的佛教文化而闻名。这是一个徒步旅行、探索偏远村庄和体验不同生活方式的绝佳目的地。\n\n3. 阿根廷/智利的巴塔哥尼亚：如果你喜欢壮丽的风景和户外活动，巴塔哥尼亚是一个必去之地。徒步穿越托雷斯德尔佩纳国家公园，探索佩里托莫雷诺冰川，并沉浸在这个地区的崎岖美丽中。\n\n4. 纳米比亚：凭借其广阔的沙漠、令人惊叹的沙丘和独特的野生动物，纳米比亚提供了一种真正超凡脱俗的体验。在埃托沙国家公园进行野生动物园游，参观索素斯夫雷沙丘，欣赏骷髅海岸的美景。\n\n5. 老挝：对于更偏远的东南亚体验，老挝是一个隐藏的宝石。探索朗勃拉邦古城，沿湄公河游船，发现令人惊叹的瀑布库昂西。\n\n这只是一些建议，但还有无数其他冒险目的地等待着您。如果其中任何一个引起了您的兴趣，请告诉我，我们可以深入了解更多细节！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Wow, these suggestions sound amazing! I'm particularly intrigued by Iceland and Bhutan. The stunning landscapes and unique cultural experiences in both places appeal to me. Let's focus on Iceland for now. Can you help me with accommodations and transportation options there?",
+            "content_zh": "哇，这些建议听起来太棒了！我特别对冰岛和不丹感到好奇。这两个地方的绝美风景和独特的文化体验吸引了我。现在让我们先专注在冰岛。你可以帮我安排那里的住宿和交通吗？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! Iceland is a fantastic choice, and I'd be happy to help you with accommodations and transportation options.\n\nAccommodations in Iceland range from budget-friendly hostels to luxury hotels and unique options like guesthouses and farm stays. Here are a few recommendations:\n\n1. Reykjavik: As the capital city, Reykjavik offers a wide range of accommodations, including hotels, guesthouses, and apartments. It's a great base for exploring the city's vibrant culture and nearby attractions.\n\n2. Selfoss: Located in the south of Iceland, Selfoss is a charming town with various accommodation options. It's a convenient base for exploring the Golden Circle, which includes popular sights like the Geysir geothermal area and Gullfoss waterfall.\n\n3. Vik: This small coastal village in the south of Iceland offers stunning black sand beaches and easy access to attractions like the Skógafoss and Seljalandsfoss waterfalls. Accommodations here include hotels, guesthouses, and cottages.\n\nAs for transportation, renting a car is highly recommended in Iceland as it allows you to have the freedom to explore at your own pace. There are several car rental companies available at Keflavik International Airport and in Reykjavik. Just keep in mind that driving conditions can vary, so it's essential to check the weather and road conditions before setting off.\n\nAlternatively, if you prefer not to drive, there are also guided tours and public transportation options available. Buses and domestic flights can take you to various parts of the country, and guided tours can provide a convenient way to explore popular attractions.\n\nLet me know if you have any specific preferences or if there's anything else I can assist you with regarding your Iceland trip!",
+            "content_zh": "当然！冰岛是一个很棒的选择，我很乐意帮助您安排住宿和交通。 \n\n在冰岛，住宿选择从价格实惠的青年旅舍到豪华酒店以及独特的选择如民宿和农家住宿都有。以下是一些建议： \n\n1. 雷克雅未克：作为首都，雷克雅未克提供各种住宿选择，包括酒店、民宿和公寓。这里是探索城市充满活力文化和附近景点的绝佳基地。 \n\n2. 塞尔福斯：位于冰岛南部的塞尔福斯是一个迷人的小镇，有各种住宿选择。这里是探索黄金圈的便捷基地，其中包括吉斯尔间歇泉地热区和古尔福斯瀑布等热门景点。 \n\n3. 维克：这个位于冰岛南部的小海滨村庄拥有迷人的黑沙滩和易达的景点，如斯科加瀑布和塞尔亚兰瀑布。这里的住宿选择包括酒店、民宿和小木屋。 \n\n至于交通，强烈建议在冰岛租车，因为这样可以让您自由自在地按照自己的节奏探索。凯夫拉维克国际机场和雷克雅未克都有几家汽车租赁公司可供选择。请记住，行车条件可能不同，因此在出发前检查天气和道路状况很重要。 \n\n另外，如果您不愿意自驾，也有导游旅行和公共交通选择。汽车和国内航班可以带您前往国家各地，而导游旅行可以为您提供探索热门景点的便利方式。 \n\n请告诉我您是否有任何特殊偏好，或者需要关于冰岛旅行的任何其他帮助！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed recommendations! Renting a car sounds like a great option for exploring Iceland at my own pace, so I'll definitely consider that. As for accommodations, I think I'll start by looking into options in Reykjavik and Selfoss. I prefer a comfortable and convenient place to stay, so any specific recommendations within those areas would be helpful.\n\nAdditionally, I'm curious about any unique activities or attractions in Iceland that I shouldn't miss during my thirty-day trip. I'm particularly interested in opportunities for wildlife photography and experiencing the natural wonders of the country. Can you suggest any must-visit places or specific activities that align with those interests?\n\nThank you for your assistance so far!",
+            "content_zh": "感谢您提供的详细建议！租车听起来是探索冰岛、按自己的节奏行动的好选择，所以我肯定会考虑的。至于住宿，我打算先看看雷克雅未克和赛尔福斯的选择。我更偏向于舒适便利的住所，所以如果在这些地区内有任何具体建议，我会很感激。\n另外，我对冰岛的独特活动或景点很好奇，我在我为期三十天的行程中不容错过。我特别感兴趣于野生动物摄影和体验国家的自然奇观。您能推荐一些符合这些兴趣的必游景点或具体活动吗？\n感谢您目前的帮助！",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! I'm glad you found the recommendations helpful. Here are some specific accommodation options in Reykjavik and Selfoss that offer comfort and convenience:\n\nReykjavik:\n1. CenterHotel Plaza: Located in the heart of Reykjavik, this hotel offers comfortable rooms and is within walking distance of popular attractions, restaurants, and shops.\n\n2. Canopy by Hilton Reykjavik City Centre: This modern hotel is centrally located and provides a cozy atmosphere, comfortable rooms, and a rooftop bar with panoramic views of the city.\n\nSelfoss:\n1. Hotel Selfoss & Spa: This hotel offers comfortable rooms, an on-site spa, and a restaurant. It's conveniently located near the Golden Circle attractions and provides easy access to the south coast.\n\n2. Guesthouse Garun: A charming guesthouse located in Selfoss, offering comfortable rooms and a cozy atmosphere. It's a great option for a more budget-friendly stay.\n\nNow, let's talk about the unique activities and attractions in Iceland that align with your interests in wildlife photography and natural wonders:\n\n1. Jökulsárlón Glacier Lagoon: Located in southeastern Iceland, this stunning glacial lagoon is a photographer's paradise. You can capture incredible shots of icebergs floating in the lagoon and even spot seals.\n\n2. Snæfellsnes Peninsula: Known as \"Iceland in Miniature,\" this peninsula offers diverse landscapes, including volcanic craters, black sand beaches, and picturesque mountains. It's a great place for wildlife photography, especially birdwatching.\n\n3. Westfjords: This remote region in northwest Iceland is home to dramatic fjords, towering cliffs, and abundant birdlife. It's an excellent spot for birdwatching and capturing stunning coastal landscapes.\n\n4. Myvatn Nature Reserve: Located in northern Iceland, this area is known for its geothermal activity, volcanic landscapes, and diverse bird species. You can photograph unique geological formations, such as pseudocraters and lava fields.\n\n5. Whale Watching: Iceland is renowned for its whale-watching opportunities. Head to places like Husavik or Reykjavik for a chance to see these majestic creatures up close and capture some incredible shots.\n\nRemember to check the best times to visit these locations for wildlife photography, as some species may have specific seasons or migration patterns.\n\nI hope these suggestions inspire you! Let me know if you have any more questions or if there's anything else I can assist you with regarding your Iceland trip.",
+            "content_zh": "不客气！很高兴你觉得推荐有帮助。这里有一些在雷克雅未克和塞尔福斯提供舒适便利的特定住宿选择：\n\n雷克雅未克：\n1. CenterHotel Plaza：位于雷克雅未克市中心，这家酒店提供舒适的客房，并且步行距离内有流行景点、餐厅和商店。\n\n2. Canopy by Hilton Reykjavik City Centre：这家现代化酒店位于市中心，提供舒适的客房，温馨的氛围以及带有城市全景的屋顶酒吧。\n\n塞尔福斯：\n1. Hotel Selfoss & Spa：这家酒店提供舒适的客房，设有内部温泉和餐厅。地理位置便利，靠近黄金圈景点，方便前往南海岸。\n\n2. Guesthouse Garun：这家迷人的旅馆位于塞尔福斯，提供舒适的客房和温馨的氛围。这是一个更经济实惠的住宿选择。\n\n现在，让我们谈谈与您对野生动物摄影和自然奇观兴趣相符的冰岛独特活动和景点：\n\n1. 冰川湖乔克尔萨龙：位于冰岛东南部，这个令人惊叹的冰川湖是摄影师的天堂。您可以拍摄漂浮在湖中的冰山，并甚至看到海豹。\n\n2. 斯奈菲斯半岛：被称为“缩微版冰岛”，这个半岛提供多样化的景观，包括火山口、黑沙滩和风景如画的山脉。这是一个非常适合野生动物摄影，尤其是观鸟的地方。\n\n3. 西峡湾：这个位于冰岛西北部的偏远地区拥有壮丽的峡湾、陡峭的悬崖和丰富的鸟类。这是一个观鸟和拍摄惊人海岸景观的绝佳地点。\n\n4. 麦芬自然保护区：位于冰岛北部，这个地区以地热活动、火山景观和多样的鸟类而闻名。您可以拍摄独特的地质形态，如伪火山口和熔岩原。\n\n5. 观鲸：冰岛以观鲸机会闻名。前往胡萨维克或雷克雅未克，有机会近距离看到这些雄伟的生物，并拍摄一些令人难以置信的镜头。\n\n请记得查看最佳野生动物摄影的最佳时间，因为一些物种可能有特定的季节或迁徙模式。\n\n希望这些建议能给您灵感！如果您有更多问题或需要我为您的冰岛之行提供任何帮助，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the specific accommodation recommendations in Reykjavik and Selfoss. I'll look into those options to find the best fit for my stay.\n\nThe suggestions for unique activities and attractions in Iceland are fantastic! Jökulsárlón Glacier Lagoon and Snæfellsnes Peninsula sound particularly intriguing for wildlife photography. I'll definitely make sure to plan my visit to those areas accordingly. Exploring the Westfjords and Myvatn Nature Reserve also seem like incredible opportunities to capture Iceland's natural beauty.\n\nI'll keep in mind the best times to visit these locations for wildlife photography and plan my itinerary accordingly. This is shaping up to be an exciting trip!\n\nIs there anything else you recommend I consider or any specific details I should keep in mind while planning my trip to Iceland?\n\nThank you for your help so far!\n",
+            "content_zh": "感谢您在雷克雅未克和塞尔福斯的具体住宿推荐。我会查看这些选项，找到最适合我的住宿地点。\n\n冰岛独特活动和景点的建议太棒了！尤库尔萨尔龙冰川湖和斯奈菲尔斯半岛听起来尤为吸引我拍摄野生动物照片。我一定会确保计划好我的访问这些地区的行程。探索西峡湾和米湖自然保护区也似乎是捕捉冰岛自然美景的绝佳机会。\n\n我将考虑到最佳的拍摄野生动物照片的时间，并据此规划我的行程。这将是一次激动人心的旅行！\n\n在计划我到冰岛旅行时，您还有其他推荐或特别需要注意的细节吗？\n\n迄今为止的帮助，我非常感谢！",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! I'm glad you found the suggestions helpful. Planning your visit to Jökulsárlón Glacier Lagoon, Snæfellsnes Peninsula, the Westfjords, and Myvatn Nature Reserve will surely provide you with some incredible photo opportunities.\n\nWhen planning your trip to Iceland, here are a few additional things to consider:\n\n1. Weather and Season: Iceland's weather can be unpredictable, so be prepared for changing conditions. Summer (June to August) offers longer days and milder weather, making it a popular time to visit. However, keep in mind that it can still be chilly, especially near glaciers and in higher elevations.\n\n2. Safety: Iceland's natural landscapes are beautiful but can also be challenging to navigate. Pay attention to safety guidelines, follow marked trails, and be cautious near cliffs, glaciers, and other potentially hazardous areas. It's always a good idea to check weather and road conditions before heading out.\n\n3. Budget: Iceland can be quite expensive, so it's essential to plan your budget accordingly. Consider the costs of accommodations, meals, transportation, and activities when estimating your expenses. Also, keep in mind that some attractions may require an entrance fee.\n\n4. Reservations: During peak tourist season, it's advisable to make reservations in advance for accommodations, car rentals, and popular activities. This ensures you have the best options and availability.\n\n5. Itinerary Flexibility: While it's great to have a planned itinerary, it's also good to allow for some flexibility. Weather conditions or unexpected discoveries may alter your plans, so be open to adjusting your schedule as needed.\n\nLastly, don't forget to pack appropriate clothing and gear for your trip, including layers, waterproof clothing, sturdy shoes, and camera equipment for wildlife photography.\n\nI hope these additional tips help you plan your trip to Iceland smoothly! If you have any more questions or need further assistance, feel free to ask. Have a fantastic time exploring Iceland's natural wonders and capturing its beauty through your lens!",
+            "content_zh": "不客气！很高兴你觉得这些建议有帮助。计划你的游览冰岛之旅到约克尔松冰河湖、斯奈山半岛、西峡湾和米湖自然保护区，一定会给你提供一些令人难以置信的拍照机会。在计划你的冰岛之行时，以下是一些额外需要考虑的事项：1. 天气和季节：冰岛的天气可能难以预测，因此要做好应对变化的准备。夏季（6月至8月）提供较长的白昼和较暖和的天气，因此是一个受欢迎的游览时间。但要记住，天气仍可能寒冷，尤其是在冰河附近和较高海拔地区。2. 安全：冰岛的自然景观很美丽，但也可能让人面临挑战。注意安全指南，遵循标记的小径，并在靠近悬崖、冰川和其他可能危险的区域时保持警惕。出发前检查天气和道路条件总是个好主意。3. 预算：冰岛可能相当昂贵，因此有必要相应规划你的预算。在估算费用时要考虑住宿、餐饮、交通和活动的成本。另外，要记住，有些景点可能需要门票。4. 预订：在旅游旺季，建议提前预订住宿、租车和热门活动。这确保你有最佳选择和可用性。5. 行程灵活性：虽然拟定一个行程表很好，但也要允许一些灵活性。天气条件或意外发现可能改变你的计划，因此要愿意根据需要调整你的行程。最后，不要忘记为你的旅行准备适当的服装和装备，包括层次服装、防水服装、坚固鞋子和用于野生动物摄影的摄影装备。希望这些建议有助于你顺利计划你的冰岛之行！如果有更多问题或需要进一步帮助，请随时提问。祝你在探索冰岛的自然奇觇并通过你的镜头捕捉其美丽时光愉快！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "exploring offbeat destinations",
+        "unique activities",
+        "wildlife photography",
+        "renting a car"
+    ],
+    "preference_summary": [
+        "iceland",
+        "car rental",
+        "wildlife photography",
+        "jökulsárlón",
+        "snæfellsnes peninsula"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 0,
+        "Memorization": 1,
+        "Detail Level": 1,
+        "Practical Usefulness": 1,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "33",
+            "zh": "33"
+        },
+        "Personality": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            },
+            {
+                "en": "Humorous",
+                "zh": "幽默"
+            }
+        ],
+        "Occupation": {
+            "en": "Artist",
+            "zh": "艺术工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Photography",
+                "zh": "摄影"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on tech gadgets",
+                "zh": "科技产品"
+            },
+            {
+                "en": "For travel",
+                "zh": "用于旅行"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Keeping small animals",
+                "zh": "养小动物"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_1120": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

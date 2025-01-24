@@ -1,0 +1,207 @@
+{
+    "task": "recipe planning",
+    "preference_id": 88,
+    "task_context_id": 4,
+    "preference": "1. Gender: Male\n2. Age: 50\n3. Personality: Ambitious, assertive, and driven\n4. Occupation: Investment Banker\n5. Daily Interests and Hobbies: Reading financial news, golfing, wine tasting\n6. Travel Habits: Frequently travels for work, prefers luxury hotels\n7. Dining Preferences: Enjoys fine dining, prefers protein-rich diet\n8. Spending Habits: High spender, invests in real estate\n9. Other Aspects: Has a large social circle, enjoys public speaking",
+    "preference_zh": "1. 性别：男性\n2. 年龄：50\n3. 个性：有雄心壮志、果断、进取\n4. 职业：投资银行家\n5. 日常兴趣爱好：阅读财经新闻、高尔夫、品酒\n6. 旅行习惯：经常出差旅行，偏好豪华酒店\n7. 饮食偏好：喜欢高级餐厅，偏好富含蛋白质的饮食\n8. 消费习惯：消费较高，投资房地产\n9. 其他：社交圈较大，喜欢公开演讲",
+    "task_context": "You plan to prepare a meal at home and invite three close friends to join you. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家里准备一顿饭，并邀请三个亲密的朋友一起加入。你在烹饪方面并不很擅长，经验有限。因此，你想要请求LLM帮助你创建食谱，确定所需的食材，并决定要做什么菜。在计划过程中，你应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here to assist me. I'm planning to prepare a meal at home and invite three close friends to join me. However, I'm not very skilled in cooking and have limited experience. I was hoping you could help me create a recipe, determine the necessary ingredients, and decide what dishes to make. Can you assist me with that?",
+            "content_zh": "你好！很高兴你能帮助我。我打算在家准备一顿饭，并邀请三个亲密的朋友加入我。然而，我在烹饪方面不是很有技巧，经验也有限。我希望你能帮我制定食谱，确定所需食材，并决定做什么菜。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you plan your meal and come up with some delicious recipes! Let's start by considering what kind of cuisine or dishes you and your friends enjoy. Are there any dietary restrictions or preferences I should keep in mind? And do you have any particular ingredients or flavors in mind?",
+            "content_zh": "当然，我很乐意帮助您规划餐饮，并想出一些美味的食谱！让我们首先考虑您和朋友喜欢的菜系或菜肴。您有任何饮食限制或偏好我需要注意吗？您是否有特定的食材或口味在心中？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance. Since I enjoy a protein-rich diet, I would prefer dishes that incorporate meat or seafood. As for my friends, they don't have any specific dietary restrictions, but they generally enjoy a variety of flavors. I'm open to different cuisines, so feel free to suggest some options that you think would be suitable.",
+            "content_zh": "感谢您提供帮助。由于我喜欢富含蛋白质的饮食，我更喜欢包含肉类或海鲜的菜肴。至于我的朋友们，他们没有特定的饮食限制，但他们通常喜欢各种口味。我乐意尝试不同的美食，所以随时可以建议一些您认为合适的选择。",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! With those preferences in mind, let's brainstorm some ideas for your meal. How about a three-course menu that includes an appetizer, a main course, and a dessert? Here's a suggestion:\n\nAppetizer: Bacon-Wrapped Shrimp Skewers\n- Ingredients: Large shrimp, bacon slices, lemon juice, garlic powder, salt, and pepper.\n- This appetizer is simple yet delicious. Wrap each shrimp with a slice of bacon, season with garlic powder, salt, and pepper, and then grill or bake them until the bacon is crispy and the shrimp is cooked through. Serve with a squeeze of fresh lemon juice.\n\nMain Course: Herb-Crusted Pork Tenderloin with Roasted Vegetables\n- Ingredients: Pork tenderloin, fresh herbs (such as rosemary, thyme, and sage), garlic, olive oil, salt, pepper, potatoes, carrots, and Brussels sprouts.\n- Rub the pork tenderloin with a mixture of chopped herbs, garlic, salt, pepper, and olive oil. Sear the tenderloin on all sides in a hot pan, then transfer it to the oven to finish cooking. Meanwhile, toss the potatoes, carrots, and Brussels sprouts with olive oil, salt, and pepper, and roast them until golden and tender.\n\nDessert: Berry Parfait with Vanilla Cream\n- Ingredients: Mixed berries (such as strawberries, blueberries, and raspberries), Greek yogurt, honey, vanilla extract, granola, and mint leaves (optional).\n- Layer the mixed berries with a mixture of Greek yogurt, honey, and vanilla extract in serving glasses. Top with some granola for crunch and garnish with mint leaves if desired. It's a refreshing and light dessert option.\n\nThese dishes should be relatively easy to prepare, and they offer a nice variety of flavors and textures. Let me know if you like these suggestions, or if you'd like more options or specific recipes for any of the dishes!",
+            "content_zh": "太好了！考虑到这些偏好，让我们一起为您的餐点想想点子。怎么样一个包括开胃菜、主菜和甜点的三道菜单？这里有个建议：\n\n开胃菜：培根虾串\n- 食材：大虾、培根片、柠檬汁、大蒜粉、盐和胡椒。\n- 这个开胃菜简单而美味。每只虾用一片培根包裹，撒上大蒜粉、盐和胡椒，然后烤或烤箱烤至培根酥脆、虾熟透。配上一勺新鲜柠檬汁。\n\n主菜：香草烤猪柳配烤蔬菜\n- 食材：猪柳、新鲜香草（如迷迭香、百里香、鼠尾草）、大蒜、橄榄油、盐、胡椒、土豆、胡萝卜和甘蓝。\n- 用切碎香草、大蒜、盐、胡椒和橄榄油擦拭猪柳。在热锅中煎猪柳各面，然后将其移到烤箱烤至完成烹饪。同时，用橄榄油、盐和胡椒拌土豆、胡萝卜和甘蓝，烤至金黄酥软。\n\n甜点：草莓奶酪杯配香草奶油\n- 食材：混合浆果（如草莓、蓝莓、覆盆子）、希腊酸奶、蜂蜜、香草提取物、燕麦片和薄荷叶（可选）。\n- 在杯中层叠混合浆果和蜂蜜、香草提取物调制的希腊酸奶。撒上一些燕麦片增加脆脆口感，如果愿意，用薄荷叶装饰。这是一款清新、清淡的甜点选择。\n\n这些菜肴准备起来相对简单，口味和口感丰富多样。如果您喜欢这些建议，或者想要更多选择或针对任何菜肴的具体食谱，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "protein-rich",
+        "meat",
+        "seafood"
+    ],
+    "preference_summary": [
+        "meat",
+        "seafood",
+        "variety of flavors"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 1,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 1
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "50",
+            "zh": "50"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Confident",
+                "zh": "自信"
+            }
+        ],
+        "Occupation": {
+            "en": "Financial worker",
+            "zh": "金融工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Luxury accommodation",
+                "zh": "豪华住宿"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Healthy food",
+                "zh": "健康饮食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "High spender",
+                "zh": "高消费"
+            },
+            {
+                "en": "Invests in real estate",
+                "zh": "房地产投资"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Has a large social circle",
+                "zh": "社交广泛"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "1": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Both"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        }
+    }
+}

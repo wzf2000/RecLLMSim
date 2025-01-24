@@ -66,28 +66,7 @@
         "other_aspects": [
             "住在宿舍",
             "生活压力大"
-        ],
-        "complete_tid": {
-            "旅行规划": [
-                32,
-                13,
-                21
-            ],
-            "技能学习规划": [
-                0,
-                8,
-                15
-            ],
-            "礼物准备": [
-                9,
-                8,
-                1
-            ],
-            "菜谱规划": [
-                2,
-                4
-            ]
-        }
+        ]
     },
     "questionnaire": [
         {
@@ -165,6 +144,35 @@
     "strategy_human_V2": {
         "final": {
             "order": "Breadth",
+            "feedback": "NoFeedback"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "question_broadness": 2,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "3": {
+            "question_broadness": 2,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        }
+    },
+    "strategy_human_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
             "feedback": "NoFeedback"
         }
     }

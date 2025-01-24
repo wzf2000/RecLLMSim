@@ -1,0 +1,254 @@
+{
+    "task": "recipe planning",
+    "preference_id": 47,
+    "task_context_id": 3,
+    "preference": "1. Gender: Female\n2. Age: 60\n3. Personality: Independent, strong-willed, and resilient\n4. Occupation: Retired Civil Servant\n5. Daily Interests and Hobbies: Walking, bird-watching, reading newspapers\n6. Travel Habits: Enjoys cruises, visits family in different states\n7. Dining Preferences: Prefers traditional dishes, enjoys baking\n8. Spending Habits: Spends on home improvement, saves for healthcare\n9. Other Aspects: Active in local community, has a pet dog",
+    "preference_zh": "1. 性别：女性\n2. 年龄：60\n3. 个性：独立、坚强、有韧性\n4. 职业：退休公务员\n5. 日常兴趣爱好：散步、观鸟、读报纸\n6. 旅行习惯：喜欢乘坐游轮，拜访不同州的家人\n7. 饮食偏好：偏爱传统菜肴，喜欢烘焙\n8. 消费习惯：花钱在家居改善上，为医疗保健存钱\n9. 其他方面：积极参与社区活动，有一只宠物狗",
+    "task_context": "You plan to prepare a meal at home for yourself and your loved one. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "您计划为自己和爱人在家里准备一顿饭。您是一位有一定烹饪技术的厨师。因此，您希望请求LLM的帮助，制定食谱，确定所需食材，并决定做什么菜。在规划过程中，您应该了解每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I would appreciate your help in planning a meal for myself and my loved one. I enjoy cooking and would like to create a special meal. Could you assist me in creating a recipe, determining the necessary ingredients, and deciding what dishes to make?",
+            "content_zh": "你好！很高兴你在这里。我希望你能帮助我为我和我所爱的人计划一顿饭。我喜欢烹饪，想要做一顿特别的饭菜。你能帮我制定一个食谱、确定所需食材，以及决定要做哪些菜吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be more than happy to help you plan a special meal for you and your loved one. Cooking together and sharing a delicious meal can be a wonderful experience. Let's start by discussing some details. What type of cuisine or specific dishes do you and your loved one enjoy? Are there any dietary restrictions or preferences I should consider?",
+            "content_zh": "你好！我很乐意帮助你为你和你爱人策划一顿特别的大餐。一起烹饪并分享美味佳肴可以是一次美妙的体验。让我们从讨论一些细节开始吧。你和你爱人喜欢哪种菜系或具体菜肴？有没有任何饮食限制或偏好我应该考虑的？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance! We both enjoy traditional dishes, so let's stick to that. As for dietary restrictions, luckily we don't have any. We're open to trying new flavors and ingredients, so feel free to be creative with the recipe. What do you suggest we make for our special meal?",
+            "content_zh": "谢谢您提供帮助！我们都喜欢传统菜肴，所以让我们坚持这一点。至于饮食限制，幸运的是我们没有任何限制。我们愿意尝试新的口味和食材，所以可以随意在配方上进行创意。您建议我们为特别的餐点做什么呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! Traditional dishes can be a fantastic choice for a special meal. How about we create a three-course meal consisting of an appetizer, main course, and dessert? Here's a suggestion:\n\nAppetizer: Bruschetta with Tomato and Basil\n- Ingredients:\n  - Baguette or Italian bread\n  - Ripe tomatoes\n  - Fresh basil leaves\n  - Garlic cloves\n  - Extra-virgin olive oil\n  - Balsamic vinegar (optional)\n  - Salt and pepper to taste\n\nMain Course: Chicken Parmesan\n- Ingredients:\n  - Chicken breasts\n  - All-purpose flour\n  - Eggs\n  - Breadcrumbs\n  - Parmesan cheese\n  - Mozzarella cheese\n  - Marinara sauce\n  - Olive oil\n  - Salt and pepper to taste\n\nDessert: Tiramisu\n- Ingredients:\n  - Ladyfingers\n  - Strong brewed coffee or espresso\n  - Mascarpone cheese\n  - Eggs\n  - Sugar\n  - Cocoa powder for dusting\n\nThese dishes are classic and delicious. They also allow for some customization to suit your tastes. Let me know if you'd like the detailed recipes for each dish, and I can provide those as well.",
+            "content_zh": "太棒了！传统菜肴可以是一顿特别餐的绝佳选择。我们来创造一个由开胃菜、主菜和甜点组成的三道菜的套餐如何？以下是一个建议：\n\n开胃菜：番茄香草意式脆面\n- 食材：\n  - 法棍面包或意大利面包\n  - 熟番茄\n  - 新鲜罗勒叶\n  - 大蒜瓣\n  - 特级初榨橄榄油\n  - 巴尔萨米克醋（可选）\n  - 盐和胡椒粉适量\n\n主菜：帕米森鸡\n- 食材：\n  - 鸡胸肉\n  - 多用途面粉\n  - 鸡蛋\n  - 面包屑\n  - 帕玛森奶酪\n  - 马苏里拉奶酪\n  - 玛丽娜拉酱\n  - 橄榄油\n  - 盐和胡椒粉适量\n\n甜点：提拉米苏\n- 食材：\n  - 手指饼干\n  - 浓缩咖啡或浓缩咖啡\n  - 马斯卡彭奶酪\n  - 鸡蛋\n  - 白砂糖\n  - 可可粉用于撒装饰\n\n这些菜肴经典而美味。它们也可以根据个人口味进行一些定制。请告诉我如果您想要每道菜的详细食谱，我也可以提供。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That sounds like a wonderful three-course meal! I love the idea of starting with bruschetta, followed by chicken Parmesan, and finishing off with tiramisu. Those dishes are indeed classic and delicious choices. I would appreciate it if you could provide me with the detailed recipes for each dish. I'm excited to try them out!\n",
+            "content_zh": "听起来像是一顿美妙的三道菜！我喜欢从意大利烤面包开始，然后是帕尔玛炸鸡，最后以提拉米苏结束的想法。这些菜肴确实是经典而美味的选择。如果您能提供每道菜的详细食谱，我将不胜感激。我很兴奋地想尝试它们！",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! Here are the detailed recipes for each dish:\n\nBruschetta with Tomato and Basil:\n\n1. Preheat your oven to 375°F (190°C).\n2. Slice the baguette or Italian bread into 1/2-inch thick slices.\n3. Place the bread slices on a baking sheet and brush both sides with olive oil.\n4. Toast the bread in the preheated oven for about 10 minutes, or until golden and crispy.\n5. While the bread is toasting, dice the tomatoes and finely chop the basil leaves.\n6. In a bowl, combine the diced tomatoes, chopped basil, minced garlic (1-2 cloves), a drizzle of olive oil, and a splash of balsamic vinegar (if desired).\n7. Season the tomato mixture with salt and pepper to taste.\n8. Once the bread slices are done toasting, let them cool slightly, then top each slice with a spoonful of the tomato and basil mixture.\n9. Serve immediately and enjoy!\n\nChicken Parmesan:\n\n1. Preheat your oven to 375°F (190°C).\n2. Season the chicken breasts with salt and pepper on both sides.\n3. Set up three shallow bowls: one with all-purpose flour, one with beaten eggs, and one with a mixture of breadcrumbs and grated Parmesan cheese (about a 1:1 ratio).\n4. Dredge each chicken breast in flour, then dip it into the beaten eggs, and finally coat it with the breadcrumb and Parmesan mixture, pressing gently to adhere.\n5. Heat olive oil in a large skillet over medium heat.\n6. Cook the breaded chicken breasts in the skillet for about 3-4 minutes on each side, or until golden brown.\n7. Transfer the chicken breasts to a baking dish and top each breast with marinara sauce and shredded mozzarella cheese.\n8. Bake in the preheated oven for about 20 minutes, or until the chicken is cooked through and the cheese is melted and bubbly.\n9. Serve the chicken Parmesan with a side of pasta or a fresh salad.\n\nTiramisu:\n\n1. Brew a strong cup of coffee or espresso and let it cool.\n2. In a mixing bowl, whisk together the mascarpone cheese, sugar, and egg yolks until smooth and creamy.\n3. In a separate bowl, beat the egg whites until stiff peaks form.\n4. Gently fold the beaten egg whites into the mascarpone mixture.\n5. Dip each ladyfinger into the cooled coffee or espresso, making sure not to soak them for too long to avoid sogginess.\n6. Layer the soaked ladyfingers in a serving dish or individual glasses.\n7. Spread a layer of the mascarpone mixture over the ladyfingers.\n8. Repeat the layers until all the ingredients are used, finishing with a layer of mascarpone mixture on top.\n9. Dust the top with cocoa powder.\n10. Refrigerate for at least 4 hours, or overnight, to allow the flavors to meld together.\n11. Serve chilled and enjoy the creamy and flavorful tiramisu!\n\nI hope you and your loved one enjoy preparing and savoring this special meal together. Let me know if you have any more questions or need further assistance!",
+            "content_zh": "当然！这里是每道菜的详细食谱：\n\n番茄香蒜面包片：\n1. 将烤箱预热至375°F（190°C）。\n2. 将法棍或意大利面包切成1/2英寸厚的片状。\n3. 将面包片放在烤盘上，双面刷上橄榄油。\n4. 在预热的烤箱中烤面包大约10分钟，或直到金黄脆脆。\n5. 烤面包时，将番茄切成丁，香蒜叶切碎。\n6. 在一个碗中混合番茄丁、切碎的香蒜叶、蒜蓉（1-2瓣）、一点橄榄油和一点香醋（可选）。\n7. 根据口味调味盐和胡椒调味番茄混合物。\n8. 一旦面包片烤好，稍微冷却后，在每片上加入一勺番茄和香蒜混合物。\n9. 立即食用！\n\n帕尔玛鸡肉：\n1. 将烤箱预热至375°F（190°C）。\n2. 在鸡胸肉上双面撒上盐和胡椒。\n3. 准备三个浅碗：一个装通用面粉，一个装打散的鸡蛋，一个装面包屑和磨碎的帕尔玛奶酪混合物（大约1:1比例）。\n4. 将每块鸡胸肉在面粉中涂抹，然后蘸入鸡蛋，最后裹上面包屑和帕尔玛奶酪混合物，轻轻按压使其粘合。\n5. 在平底锅中用中火热油。\n6. 在平底锅中煎炸鸡胸肉约3-4分钟，直到金黄。\n7. 将鸡胸肉移到烤盘中，每块鸡胸上加入番茄酱和撕碎的奶酪。\n8. 在预热的烤箱中烤约20分钟，直到鸡肉煮熟，奶酪融化和起泡。\n9. 与意面或新鲜沙拉一起上菜。\n\n提拉米苏：\n1. 冲一杯浓咖啡或浓缩咖啡，待凉。\n2. 在一个混合碗中，搅拌马斯卡彭奶酪、糖和蛋黄至光滑奶油状。\n3. 在另一个碗中，将蛋清打发至硬性发泡。\n4. 缓慢将打发的蛋清轻轻拌入马斯卡彭混合物中。\n5. 将每块手指饼干蘸入冷却的咖啡或浓缩咖啡中，确保不要浸泡太久以避免变软。\n6. 在盘子或玻璃杯中层叠浸透的手指饼干。\n7. 在手指饼干上涂抹一层马斯卡彭混合物。\n8. 重复这些层，直到所有配料用完，最后以一层马斯卡彭混合物结束。\n9. 在顶部撒上一层可可粉。\n10. 冷藏至少4小时，或过夜，使口味融合。\n11. 冷藏后上菜，享用美味的提拉米苏！\n\n希望您和您的爱人一起享受准备和品尝这顿特别的晚餐。如果您有更多问题或需要进一步帮助，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for providing the detailed recipes for each dish. I appreciate the step-by-step instructions. I'm sure preparing and enjoying this meal will be a delightful experience. I'll make sure to follow the recipes closely. If I have any further questions or need assistance during the preparation, I'll reach out. Thank you again for your help!\n",
+            "content_zh": "感谢您提供每道菜的详细食谱。我很感谢这一步步指导。我相信准备并享受这顿饭将是一次愉快的体验。我会确保严格按照食谱进行操作。如果在准备过程中有任何进一步的问题或需要帮助，我会联系您。再次感谢您的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you found the recipes helpful. I'm confident that you'll do a fantastic job preparing this special meal. Remember, cooking should be enjoyable, so don't hesitate to reach out if you have any questions or need assistance along the way. I'm here to help. Enjoy your time together and savor the delicious meal!",
+            "content_zh": "不客气！我很高兴你觉得这些食谱有帮助。我相信你会做出一顿非常美味的特别餐。记住，烹饪应该是个享受，所以如果你有任何问题或需要帮助，请随时联系我。我在这里帮忙。享受你们在一起的时光，品尝美味的餐点！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for your kind words and support! I appreciate your assistance in planning this special meal. I will definitely reach out if I need any further help. I'm looking forward to enjoying the cooking process and the delicious meal with my loved one. Take care and have a great day!\n",
+            "content_zh": "感谢您的美言和支持！我感谢您在筹划这顿特别的餐饮上的帮助。如果我需要进一步帮助，我一定会联系您。我期待着和我所爱的人一起享受烹饪过程和美味的餐点。保重，祝您有个美好的一天！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! It was my pleasure to assist you. I'm glad I could help in planning this special meal for you and your loved one. Enjoy the cooking process, create beautiful memories, and savor the delicious meal together. If you have any more questions or need assistance in the future, don't hesitate to reach out. Take care and have a wonderful day!",
+            "content_zh": "非常欢迎！能帮助你是我的荣幸。很高兴能帮助你计划这顿特别的餐食，与你所爱的人共享。享受烹饪的过程，创造美好的回忆，一起品尝美味的餐食。如果将来有任何问题或需要帮助，请随时联系我。注意保重，祝你有个美好的一天！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "bruschetta",
+        "chicken parmesan",
+        "tiramisu"
+    ],
+    "preference_summary": [
+        "new flavors",
+        "creative recipes"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "60",
+            "zh": "60"
+        },
+        "Personality": [
+            {
+                "en": "Independent",
+                "zh": "独立"
+            },
+            {
+                "en": "Determined",
+                "zh": "坚定"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Visiting family",
+                "zh": "探亲"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Baking",
+                "zh": "烘焙"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Organizes community activities",
+                "zh": "组织社区活动"
+            },
+            {
+                "en": "Keeping small animals",
+                "zh": "养小动物"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

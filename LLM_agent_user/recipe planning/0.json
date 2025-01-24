@@ -1,0 +1,280 @@
+{
+    "task": "recipe planning",
+    "preference_id": 98,
+    "task_context_id": 4,
+    "preference": "1. Gender: Male\n2. Age: 50\n3. Personality: Ambitious, assertive, and driven\n4. Occupation: Political Consultant\n5. Daily Interests and Hobbies: Reading political news, golfing, wine tasting\n6. Travel Habits: Frequently travels for work, prefers luxury hotels\n7. Dining Preferences: Enjoys fine dining, prefers protein-rich diet\n8. Spending Habits: High spender, invests in real estate\n9. Other Aspects: Has a large social circle, enjoys public speaking",
+    "preference_zh": "1. 性别：男 2. 年龄：50 3. 个性：雄心勃勃、果断、有动力 4. 职业：政治顾问 5. 日常兴趣和爱好：阅读政治新闻、高尔夫、品酒 6. 旅行习惯：经常出差，喜欢豪华酒店 7. 餐饮偏好：享受精致餐饮，喜欢富含蛋白质的食物 8. 消费习惯：大额消费者，投资房地产 9. 其他方面：社交圈广阔，热衷公开演讲",
+    "task_context": "You plan to prepare a meal at home and invite three close friends to join you. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家准备一顿饭，邀请三个密友一起参加。你不是很擅长烹饪，经验有限。因此，你想请LLM帮忙制定食谱，确定所需食材，以及决定要做哪些菜。在规划过程中，你应该学会每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I'm looking to prepare a meal at home and invite three close friends to join me. However, I'm not very skilled in cooking and have limited experience. I was hoping you could help me create a recipe, determine the necessary ingredients, and decide what dishes to make. Can you assist me with that?",
+            "content_zh": "你好！很高兴你在这里。我想在家里准备一顿饭，请三个好朋友一起加入。然而，我在烹饪方面并不擅长，经验也有限。希望你能帮我制定食谱，确定所需食材，并决定做什么菜。你能帮助我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you with that! Cooking for friends can be a wonderful experience, and with a little guidance, you'll be able to prepare a delicious meal. Let's start by thinking about what kind of cuisine or dishes you and your friends enjoy. Do you have any preferences or dietary restrictions we should consider?",
+            "content_zh": "当然，我很乐意帮助您！为朋友们做饭可以是一次美妙的经历，有一点指导，您就能准备出一顿美味的餐食。让我们首先考虑一下您和朋友喜欢哪种菜系或菜肴。您有什么偏好或饮食限制需要考虑吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for your offer to help! I appreciate your enthusiasm. As for preferences, I enjoy a protein-rich diet, so dishes with a good amount of protein would be great. My friends have diverse tastes, so it would be best to have a variety of options. One of them is vegetarian, so it would be great to include a vegetarian dish as well. As for dietary restrictions, none of us have any specific allergies or intolerances.",
+            "content_zh": "感谢您的帮助提议！我很感激您的热情。至于偏好，我喜欢富含蛋白质的饮食，所以含有丰富蛋白质的菜肴会很棒。我的朋友们口味各异，最好提供多样选择。其中一个是素食者，所以包括素食菜肴会很好。至于饮食限制，我们都没有特定的过敏或不耐受情况。",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That's great to know! With those preferences in mind, how about we plan a menu that includes a protein-rich main dish, a vegetarian option, and a couple of sides? This way, you'll have a well-rounded meal that caters to everyone's tastes.\n\nFor the protein-rich main dish, a classic option could be a roast chicken. It's relatively simple to prepare and always a crowd-pleaser. You'll need a whole chicken, olive oil, salt, pepper, and any additional herbs or spices you enjoy.\n\nFor the vegetarian dish, how about a flavorful vegetable stir-fry? You can use a variety of colorful vegetables like bell peppers, broccoli, carrots, mushrooms, and snap peas. Add some garlic, ginger, soy sauce, and a touch of honey or maple syrup for a delicious sauce.\n\nAs for the sides, you could make a quinoa salad with roasted vegetables and feta cheese. Roast some cherry tomatoes, zucchini, and red onions in the oven with olive oil, salt, and pepper, then mix them with cooked quinoa and crumbled feta cheese. It's a nutritious and tasty option.\n\nAnother side dish idea is garlic roasted potatoes. Cut some potatoes into small cubes, toss them with olive oil, minced garlic, salt, and pepper, then roast them in the oven until crispy and golden brown.\n\nFor dessert, something simple yet satisfying could be a fruit salad with a drizzle of honey and a sprinkle of mint leaves.\n\nHow does this menu sound to you? Let me know if you have any preferences or if there's anything else you'd like to include!",
+            "content_zh": "知道这个消息很棒！考虑到这些喜好，我们计划一个包括高蛋白主菜、素食选择和几样配菜的菜单怎么样？这样，你们将会吃到每个人都喜欢的饭菜。\n作为高蛋白主菜，经典的选择可以是烤鸡。这种做法相对简单，而且总是受人喜爱。你需要整只鸡、橄榄油、盐、胡椒和你喜欢的其他香料。\n作为素食菜肴，为什么不试试味道丰富的蔬菜炒？你可以使用各种色彩鲜艳的蔬菜，像是彩椒、西兰花、胡萝卜、蘑菇和豌豆。加入一些大蒜、姜、酱油以及一点点蜂蜜或枫糖浆，做出美味的调味汁。\n至于配菜，你可以做一个烤蔬菜奎诺亚沙拉配上菲达奶酪。在烤箱里用橄榄油、盐、胡椒烤一些樱桃番茄、西葫芦和红洋葱，然后和煮熟的奎诺亚和碎菲达奶酪拌在一起。这是一个有营养又美味的选择。\n另一个配菜的想法是大蒜烤土豆。将土豆切成小方块，和橄榄油、蒜末、盐、胡椒一起拌匀，然后在烤箱中烤至金黄酥脆。\n甜点方面，一些简单但又让人满足的是加上蜂蜜和薄荷叶撒在上面的水果沙拉。\n这个菜单听起来怎么样？如果你有任何偏好或者想要添加进来的东西，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Wow, that sounds like a fantastic menu! I really appreciate your thoughtful suggestions. The roast chicken as the main dish and the vegetable stir-fry as the vegetarian option both sound delicious and cater to everyone's preferences. The quinoa salad with roasted vegetables and feta cheese and the garlic roasted potatoes would make excellent sides to complement the main dishes. Lastly, the fruit salad for dessert is a light and refreshing choice. I'm impressed with your planning!\n\nI think this menu covers all the bases and provides a good balance of flavors and textures. I don't have any specific preferences or additional dishes in mind, so I'm happy to go with your suggestions. Thank you for your help so far!",
+            "content_zh": "哇，那听起来像一个棒极了的菜单！我真的很感激你周到的建议。烤鸡作为主菜，蔬菜炒菜作为素食选择都听起来很美味，迎合了每个人的口味。烤蔬菜和羊奶酪奎诺沙拉，蒜烤土豆会是非常好的配菜来搭配主菜。最后，水果沙拉作为甜点是一个清爽又美好的选择。我对你的策划印象深刻！\n\n我认为这个菜单涵盖了所有的基础，并提供了良好的口味和口感平衡。我没有任何特别的喜好或额外的菜品想法，所以我很高兴接受你的建议。谢谢你迄今为止的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you like the menu. It's always a good idea to have a balanced selection of dishes to cater to different tastes, and I'm confident your friends will enjoy this meal.\n\nNow let's talk about the necessary ingredients. Here's a list to get you started:\n\nMain Dish:\n- Whole chicken\n- Olive oil\n- Salt\n- Pepper\n- Herbs or spices of your choice (such as rosemary, thyme, or paprika)\n\nVegetarian Stir-Fry:\n- Assorted vegetables of your choice (bell peppers, broccoli, carrots, mushrooms, snap peas, etc.)\n- Garlic\n- Ginger\n- Soy sauce\n- Honey or maple syrup\n\nQuinoa Salad with Roasted Vegetables and Feta Cheese:\n- Quinoa\n- Cherry tomatoes\n- Zucchini\n- Red onions\n- Olive oil\n- Salt\n- Pepper\n- Feta cheese\n\nGarlic Roasted Potatoes:\n- Potatoes (preferably a variety suitable for roasting, like Yukon Gold or Russet)\n- Olive oil\n- Garlic\n- Salt\n- Pepper\n\nFor the fruit salad, you can choose a variety of your favorite fruits. Some popular options include strawberries, blueberries, grapes, melons, and citrus fruits. You may also want to have some honey and fresh mint leaves on hand for garnishing.\n\nRemember to check your pantry for any ingredients you may already have, and make a shopping list for the rest. And don't hesitate to ask if you need any cooking tips or further assistance along the way. Enjoy your meal with your friends!",
+            "content_zh": "非常欢迎您！我很高兴您喜欢菜单。拥有平衡的不同口味选择的菜肴总是一个好主意，我相信您的朋友们会喜欢这顿饭。\n现在让我们谈谈必要的食材。这里是一个入门清单：\n\n主菜：\n- 整只鸡\n- 橄榄油\n- 盐\n- 胡椒\n- 您选择的香草或香料（如迷迭香、百里香或红椒粉）\n\n素炒菜：\n- 您选择的各种蔬菜（甜椒、西兰花、胡萝卜、蘑菇、豌豆荚等）\n- 大蒜\n- 姜\n- 酱油\n- 蜂蜜或枫糖浆\n\n烤蔬菜奶酪奎诺阿沙拉：\n- 藜麦\n- 樱桃番茄\n- 绿皮西葫芦\n- 红洋葱\n- 橄榄油\n- 盐\n- 胡椒\n- 费塔奶酪\n\n蒜蓉烤土豆：\n- 土豆（最好是适合烘烤的品种，如尤金金或鲁塞特）\n- 橄榄油\n- 大蒜\n- 盐\n- 胡椒\n\n水果沙拉，您可以选择各种您喜爱的水果。一些受欢迎的选择包括草莓、蓝莓、葡萄、甜瓜和柑橘类水果。您可能还想准备一些蜂蜜和新鲜薄荷叶作装饰。\n\n请记得检查您的食品储藏室是否有任何您已经有的食材，并为剩下的制作购物清单。如果您需要任何烹饪技巧或进一步帮助，请毫不犹豫地询问。与朋友们一起享受美食吧！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for providing the comprehensive list of ingredients! It's really helpful to have everything listed out like this. I'll make sure to check my pantry and create a shopping list for the remaining items.\n\nI appreciate your offer to provide cooking tips and further assistance. I might need some guidance along the way, especially when it comes to preparing the main dish and the vegetarian stir-fry. I'll definitely reach out if any questions come up.\n\nOnce again, thank you for your help in planning this meal. I'm feeling more confident now, and I'm excited to cook for my friends. I'll make sure to create a memorable dining experience for them.",
+            "content_zh": "感谢您提供详尽的食材清单！像这样列出所有食材确实很有帮助。我会检查我的食品储藏室，为剩下的食材制作购物清单。\n\n我欣赏您提供烹饪技巧和进一步的帮助。在准备主菜和素炒时，我可能需要一些指导。如果有任何问题，我一定会联系您。\n\n再次感谢您在规划这顿饭上的帮助。我现在感觉更有信心，我很兴奋可以为朋友做饭。我一定会为他们创造一个难忘的用餐体验。",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could help you feel more confident about your cooking plans. Cooking for friends is a wonderful way to create lasting memories, and I'm sure your meal will be fantastic.\n\nIf you have any questions or need guidance while preparing the main dish or the vegetarian stir-fry, don't hesitate to reach out. I'm here to assist you every step of the way. Remember to enjoy the process and have fun in the kitchen!\n\nI wish you the best of luck with your cooking adventure and hope you and your friends have a fantastic time together. If you need any further assistance or have any other questions, feel free to ask. Happy cooking and enjoy your meal with your friends!",
+            "content_zh": "非常欢迎！很高兴能帮助你对自己的烹饪计划更有信心。为朋友做饭是创造美好回忆的好方式，我相信你的餐点会很棒。如果在准备主菜或蔬菜炒菜时有任何问题或需要指导，请随时联系我。我会在每一个步骤中协助你。记得享受过程，在厨房里玩得开心！祝你烹饪冒险一切顺利，希望你和朋友们度过美好时光。如果需要进一步帮助或有其他问题，请随时询问。祝你烹饪愉快，与朋友共享美食！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you so much for your support and well wishes! I truly appreciate your guidance and assistance throughout this planning process. I'm feeling motivated and ready to take on the challenge of cooking for my friends.\n\nI'll make sure to keep your offer in mind if I need any further assistance or have additional questions. Your presence has been invaluable in helping me prepare for this meal.\n\nOnce again, thank you for your help, and I hope you have a wonderful day!",
+            "content_zh": "非常感谢你的支持和美好的祝愿！我真的很感激你在整个计划过程中的指导和帮助。我感到很有动力，准备好迎接为朋友们烹饪的挑战。\n如果我需要进一步的帮助或有其他问题，我一定会记住你的提供。你的存在对帮助我准备这顿饭是无价的。\n再次感谢你的帮助，希望你有一个美好的一天！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could be of help, and I'm confident that you'll do a fantastic job cooking for your friends. Remember, cooking is all about experimentation and enjoying the process.\n\nIf you ever need assistance in the future or have any other questions, feel free to reach out. I'm here to support you. Have a wonderful time preparing and sharing your meal with your friends, and I hope you all have a fantastic day too! Happy cooking!",
+            "content_zh": "不客气！我很高兴能帮到你，并且我相信你会为朋友做出美味佳肴。记住，烹饪就是关于尝试和享受整个过程。如果未来有任何需要帮助或其他问题，请随时联系我。我在这里支持你。祝你愉快地准备和分享美食给朋友，希望你们今天也都过得愉快！开心下厨吧！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "protein-rich",
+        "variety",
+        "vegetarian"
+    ],
+    "preference_summary": [
+        "vegetarian options",
+        "variety"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "50",
+            "zh": "50"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Confident",
+                "zh": "自信"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Luxury accommodation",
+                "zh": "豪华住宿"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Healthy food",
+                "zh": "健康饮食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "High spender",
+                "zh": "高消费"
+            },
+            {
+                "en": "Invests in real estate",
+                "zh": "房地产投资"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Has a large social circle",
+                "zh": "社交广泛"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "DepthBreadth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_1120": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 5,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

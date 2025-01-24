@@ -1,0 +1,293 @@
+{
+    "task": "new travel planning",
+    "preference_id": 15,
+    "task_context_id": 5,
+    "preference": "1. Gender: Female\n2. Age: 30\n3. Personality: Ambitious, assertive, and confident\n4. Occupation: Real Estate Agent\n5. Daily Interests and Hobbies: Interior design, networking, fitness training\n6. Travel Habits: Prefers city breaks, enjoys luxury resorts\n7. Dining Preferences: Enjoys fine dining, loves trying new restaurants\n8. Spending Habits: Invests in high-end fashion, saves for property\n9. Other Aspects: Lives in a city apartment, has a high-stress lifestyle",
+    "preference_zh": "1. 性别：女\n2. 年龄：30\n3. 个性：有抱负，自信，自信\n4. 职业：房地产经纪人\n5. 日常兴趣和爱好：室内设计，社交，健身训练\n6. 旅行习惯：喜欢城市短途旅行，享受豪华度假村\n7. 就餐偏好：喜欢精致餐饮，喜欢尝试新餐厅\n8. 消费习惯：投资高端时尚，为房产存钱\n9. 其他方面：住在城市公寓，生活压力大",
+    "task_context": "You are planning a month-long trip that will take place this summer. Your goal, with the help of LLM, is to refine and finalize your travel plans. This includes making detailed arrangements for accommodations, transportation, and your daily itinerary. Your final travel plan should be as comprehensive and realistic as possible, ensuring that it can be seamlessly implemented when the time comes.\nYour trip planning should take into consideration the specific destination as specified in the following requirements: no specific destination restrictions. You should also consider your point of departure, your preferred mode of transportation to the destination, and the specific attractions or activities you wish to engage in. Remember to consider factors such as travel distance, travel time, and the opening hours of the attractions.",
+    "task_context_zh": "您正在计划一个将在今年夏天进行的为期一个月的旅行。您的目标是在LLM的帮助下完善和最终确定您的旅行计划。这包括对住宿、交通和每日行程的详细安排。您的最终旅行计划应尽可能全面和现实，确保在到达时间时可以顺利实施。您的旅行规划应考虑以下特定目的地的需求：没有特定目的地的限制。您还应考虑您的出发地、到达目的地的首选交通方式，以及您希望参与的特定景点或活动。请记得考虑诸如旅行距离、旅行时间和景点开放时间等因素。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello LLM, I am planning a month-long trip for the upcoming summer. I need to finalize detailed arrangements for accommodations, transportation, and a daily itinerary. I don't have a specific destination in mind yet, so could you suggest some places that would align with my preferences? I enjoy city breaks, luxury resorts, fine dining, and places that offer opportunities for networking and fitness training. Let's aim for a comprehensive and realistic plan.",
+            "content_zh": "你好LLM，我正在计划接下来夏天一个月的旅行。我需要最终确定住宿、交通和每日行程的详细安排。我还没有特定的目的地，所以你能否给我一些建议，符合我的喜好？我喜欢城市休闲、豪华度假村、美食餐厅，以及提供社交和健身培训机会的地方。让我们制定一个全面而现实的计划。",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be glad to assist you with your travel plans. It sounds like you have a good idea of what you're looking for in your trip. \n\nSince you're looking for city breaks, luxury resorts, fine dining, networking opportunities and fitness training, you might consider destinations that are cosmopolitan, yet also offer high-end leisure experiences. Cities like Dubai, Miami, Singapore, or Sydney could be an excellent fit for your preferences.\n\nHowever, to provide more personalized recommendations, I need some additional information:\n\n1. Where are you currently located? This will help in determining flight routes and travel times.\n2. What is your budget range for this trip? Knowing this will help me suggest suitable accommodation, dining, and activities.\n3. Do you have any passport or visa restrictions? This will help in selecting an accessible destination for you.\n4. Do you have any health considerations or dietary restrictions I should be aware of while planning?\n5. What kind of networking opportunities are you looking for? Are they business-related, or more casual social networking?\n\nOnce I have this information, I can start putting together a detailed travel plan for you.",
+            "content_zh": "你好！我很高兴能协助您的旅行计划。听起来您已经对您的旅行有了很好的想法。\n\n因为您正在寻找城市短途旅行、豪华度假村、精致餐饮、社交机会和健身培训，您可以考虑那些既有都市气息又能提供高端休闲体验的目的地。像迪拜、迈阿密、新加坡或悉尼这样的城市可能非常适合您的偏好。\n\n然而，为了提供更加个性化的建议，我需要一些额外的信息：\n\n1. 您目前所在的位置是哪里？这将有助于确定航线和旅行时间。\n2. 您此次旅行的预算范围是多少？知道这一点将帮助我为您建议合适的住宿、餐饮和活动。\n3. 您是否有护照或签证限制？这将有助于为您选择一个可达的目的地。\n4. 您是否有任何健康考虑或饮食限制我在规划时应该注意的？\n5. 您正在寻找什么样的社交机会？它们是商务相关的，还是更加休闲的社交网络？\n\n一旦我有了这些信息，我就可以开始为您制定详细的旅行计划了。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the suggestions. I am currently located in New York City. My budget for this trip is around $10,000 - $15,000. I don't have any passport or visa restrictions. As for health considerations, I don't have any dietary restrictions but I would prefer places where I can continue my fitness training. Regarding networking opportunities, I'd like to meet people from the real estate and interior design industry since it aligns with my occupation and interests. I hope this information helps.",
+            "content_zh": "谢谢您的建议。我目前位于纽约市。我这次旅行的预算大约在10,000 - 15,000美元。我没有任何护照或签证限制。至于健康考虑，我没有任何饮食限制，但我更喜欢那些可以继续我的健身训练的地方。关于社交机会，我想认识来自房地产和室内设计行业的人，因为这符合我的职业和兴趣。希望这些信息对您有帮助。",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Thank you for providing the additional details. Based on your preferences, I suggest considering Miami or Los Angeles in the US, or if you're open to international travel, Dubai or Singapore. These cities are known for their luxury resorts, fine dining, and fitness facilities. They also have vibrant real estate and interior design industries, where you could find ample networking opportunities.\n\nHere's a brief overview of each:\n\n1. **Miami**: Known for its beach resorts, vibrant nightlife, and diverse food scene. It has a booming real estate market, and it's a hub for art and design, particularly during the annual Art Basel event.\n\n2. **Los Angeles**: Offers a mix of luxury resorts, celebrity-endorsed fitness centers, and high-end dining options. The city is also a hot spot for interior design trends, with numerous exhibitions and trade shows taking place throughout the year.\n\n3. **Dubai**: This city is synonymous with luxury. It has world-class resorts, gourmet dining experiences, and state-of-the-art fitness centers. Dubai also has a thriving real estate market and hosts the annual International Design Exhibition.\n\n4. **Singapore**: Known for its luxurious hotels, fine dining, and modern fitness facilities. The city-state has a robust real estate sector and hosts several design-related events throughout the year.\n\nI'll start putting together a more detailed itinerary based on your chosen destination. Could you let me know which destination you're leaning towards? Additionally, do you have any preferences for the type of accommodation (e.g., hotel, serviced apartment, resort) and the mode of transportation (e.g., rental car, public transportation, taxis)?",
+            "content_zh": "感谢您提供额外的细节。根据您的喜好，我建议考虑美国的迈阿密或洛杉矶，或者如果您愿意国际旅行，迪拜或新加坡。这些城市以其豪华度假村、精致餐饮和健身设施而闻名。它们还拥有充满活力的房地产和室内设计产业，您可以在这里找到充足的社交机会。以下是每个城市的简要概述：\n\n1. **迈阿密**：以其海滩度假村、充满活力的夜生活和多样化的美食而闻名。它拥有蓬勃发展的房地产市场，并且在每年的巴塞尔艺术展期间成为艺术和设计的中心。\n\n2. **洛杉矶**：提供豪华度假村、名人认可的健身中心和高端餐饮选择。这个城市也是室内设计趋势的热点，一年中举办多次展览和交易会。\n\n3. **迪拜**：这座城市与奢华同义。它拥有世界一流的度假村、美食体验和最先进的健身中心。迪拜还有蓬勃发展的房地产市场，并承办每年的国际设计展览。\n\n4. **新加坡**：以其豪华酒店、精致餐饮和现代健身设施而闻名。这个城邦拥有强大的房地产领域，并在一年中举办多个与设计相关的活动。我将根据您选择的目的地开始拟定更详细的行程。您可以告诉我倾向于哪个目的地吗？此外，您对住宿类型（如酒店、服务公寓、度假村）和交通方式（如租车、公共交通、出租车）有任何偏好吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "All four destinations sound fantastic and align well with my interests. However, given that I am in New York City, I think I'll opt for Miami to minimize travel time and maximize the time I can spend enjoying the city and networking. Also, I would prefer to stay in a luxury resort with a reputable fitness center and spa facilities on-site. I'm looking for a place that offers a sense of escape but also has high-end amenities and services. As for transportation, I'd like to have the flexibility of a rental car for part of the trip but would also be open to using taxis or rideshare services when convenient. Can you help me find such a resort and outline a potential itinerary that includes real estate and design networking events, fine dining experiences, and some leisure activities?",
+            "content_zh": "所有四个目的地听起来都很棒，也与我的兴趣很相符。但考虑到我现在在纽约市，我想我会选择迈阿密，以缩短旅行时间，最大限度地享受城市和社交的时间。此外，我希望能住在一家配备有声誉好的健身中心和spa设施的豪华度假村。我想要一个提供逃避感的地方，同时也拥有高端设施和服务。至于交通，我希望能在旅程的一部分灵活地租一辆汽车，但也愿意在方便的时候使用出租车或共乘服务。您能帮我找到这样的度假村，并概述一个包括房地产和设计社交活动、高级餐饮体验和一些休闲活动的潜在行程吗？",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely, Miami is a fantastic choice, and I can definitely assist with that. Here's a preliminary plan:\n\n**Accommodation:** A luxury resort in Miami that fits your description is the 1 Hotel South Beach. It's an upscale resort with a prime beachfront location, several pools, a high-end spa, and a well-equipped fitness center. They also have a rooftop bar and a few dining options on-site.\n\n**Transportation:** I suggest you rent a car from a reputable company like Enterprise or Hertz. They often have offices at the airport for easy pick-up and drop-off. For inner-city travel or nights out, using Uber or Lyft would be convenient.\n\nNow, let's move on to the itinerary.\n\n**Day 1-7:** Spend the first week acclimatizing to the city. Enjoy the resort amenities, explore the local area, and visit fitness centers like Anatomy at 1220 for group classes or personal training. For dining, try places like Joe's Stone Crab, Stubborn Seed, or The Capital Grille.\n\n**Day 8-14:** Attend networking events. The Miami Association of Realtors regularly hosts events that you might find interesting. Also, design showrooms like the Miami Design District offer events and showcases that could provide networking opportunities. \n\n**Day 15-21:** Continue attending networking events, but also take time to enjoy some of Miami's attractions. Visit the Vizcaya Museum and Gardens, take an art deco tour in South Beach, or explore the vibrant neighborhoods of Wynwood and Little Havana.\n\n**Day 22-28:** For the last week, it might be a good idea to wind down and focus on relaxation and fitness. Spend more time at the resort's spa and fitness center, try some watersports, or take yoga classes at the beach.\n\n**Day 29-30:** Pack up and prepare for your departure. Make sure to return the rental car and confirm your airport transportation.\n\nRemember, this is a preliminary plan and can be adjusted based on your feedback or specific events happening during your stay. I'd recommend checking the event calendars of industry organizations closer to your travel date to align your itinerary with their schedules. \n\nDoes this plan sound appealing to you? Would you like any adjustments or additions?",
+            "content_zh": "当然，迈阿密是一个绝佳的选择，我一定可以帮你。这是一个初步计划：\n\n**住宿：**符合你要求的迈阿密豪华度假胜地是1 Hotel South Beach。这是一家高档度假胜地，位置绝佳，拥有数个游泳池、高端水疗中心和设施齐全的健身中心。它们还有一个顶楼酒吧和一些餐饮选择。\n\n**交通：**我建议你从企业或赫兹等信誉良好的公司租车。他们经常在机场设有办公室，方便取车和还车。在市区旅行或夜生活时，使用优步或莱茵特别方便。\n\n现在，让我们继续制定行程。\n\n**第1-7天：**花第一个星期适应这座城市。享受度假胜地的设施，探索当地地区，并参观1220解剖学的健身中心进行团体课程或私人训练。用餐方面，可以尝试Joe's Stone Crab、Stubborn Seed或The Capital Grille等地方。\n\n**第8-14天：**参加社交活动。迈阿密房地产协会经常举办你可能感兴趣的活动。此外，像迈阿密设计区这样的设计展厅提供可能带来社交机会的活动和展示。\n\n**第15-21天：**继续参加社交活动，但也抽出时间去享受一些迈阿密的景点。参观维兹凯亚博物馆和花园，在南海滩进行艺术装饰风格之旅，或探索温伍德和小哈瓦那这些充满活力的社区。\n\n**第22-28天：**在最后一周，放松和专注于健身是一个好主意。在度假胜地的水疗中心和健身中心多花些时间，尝试一些水上运动，或在海滩上上瑜伽课。\n\n**第29-30天：**整理行装，为你的离开做准备。确保归还租车，并确认你的机场交通。\n\n记住，这是一个初步计划，可以根据你的反馈或逗留期间发生的特定事件进行调整。我建议在你的出行日期更近的时候，检查行业组织的活动日历，以便根据他们的时间表调整你的行程。\n\n这个计划听起来对你吸引吗？你需要进行任何调整或添加吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "This preliminary plan sounds great and aligns with what I was looking for. The 1 Hotel South Beach looks fantastic and has the amenities I'm looking for. I appreciate your suggestions for dining and fitness centers. The suggestion to attend events hosted by the Miami Association of Realtors and visiting the Miami Design District is also valuable. The mix of networking, leisure activities, and relaxation during the last week is a nice touch. However, I would also like to include a few days of shopping for high-end fashion. Can you suggest some premium shopping destinations in Miami?",
+            "content_zh": "这个初步计划听起来很棒，符合我的期望。1 Hotel South Beach看起来很棒，设施也是我想要的。感谢你对餐饮和健身中心的建议。参加迈阿密房地产经纪人协会举办的活动并参观迈阿密设计区的建议也很有价值。在最后一周参与社交活动、休闲活动和放松的混合是一种不错的安排。不过，我也想包括几天高端时尚购物。你能给我在迈阿密一些高端购物目的地的建议吗？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely, Miami is well known for its high-end shopping experiences. Here are a few premier shopping destinations that you could consider:\n\n1. **Bal Harbour Shops**: This is Miami's most exclusive shopping destination, featuring high-end brands like Chanel, Gucci, Prada, and Valentino. It's an open-air shopping center with beautiful tropical landscaping.\n\n2. **Miami Design District**: In addition to design showrooms, the Miami Design District is a luxury shopping hub. You'll find stores like Hermes, Christian Dior, and Louis Vuitton among others. There's also a great selection of upscale dining options in the area.\n\n3. **Aventura Mall**: One of the largest shopping centers in the US, Aventura Mall hosts a mix of high-end and mainstream stores. Luxury brands here include Givenchy, Cartier, and Tiffany & Co.\n\nI recommend you schedule your shopping days during the second and third week of your trip. This way, you'll have settled into the rhythm of the city and can take your time to explore these shopping destinations.\n\nDoes that sound like a plan? Or is there anything else you'd like to include in your itinerary?",
+            "content_zh": "当然，迈阿密以其高端购物体验而闻名。以下是几个您可以考虑的高级购物目的地：\n\n1.巴尔哈伊购物中心：这是迈阿密最独家的购物目的地，拥有香奈儿、古驰、普拉达和华伦天奴等高端品牌。这是一个美丽的热带风景开放式购物中心。\n\n2. 迈阿密设计区：除了设计展厅，迈阿密设计区还是一个奢华购物中心。您会发现爱马仕、克里斯汀·迪奥和路易·威登等品牌店。该地区还有众多高档餐饮选择。\n\n3. 阿文图拉购物中心：作为美国最大的购物中心之一，阿文图拉购物中心拥有高端和主流品牌店。这里的奢侈品牌包括纪梵希、卡地亚和蒂凡尼。\n\n我建议您在旅行的第二和第三周安排购物日。这样，您就可以适应城市的节奏，并有时间探索这些购物目的地。\n\n这听起来像计划吗？或者您是否还有其他想要包括在您的行程中的建议？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That sounds perfect. The shopping destinations you suggested are exactly what I was looking for. Including them in the second and third week of my trip makes sense. I think we have covered almost everything for a comprehensive travel plan. However, I would like to know if there are any specific fine dining restaurants in Miami that you would recommend for a real estate agent like me. It would be great if these places also offer opportunities for networking.",
+            "content_zh": "听起来非常完美。你建议的购物地点正是我想要的。把它们安排在我旅行的第二和第三周是有道理的。我认为我们已经几乎涵盖了一个全面的旅行计划。但是，我想知道迈阿密是否有任何特别推荐给像我这样的房地产经纪人的高级餐厅。如果这些地方还提供社交交流的机会的话，那就太棒了。",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "Certainly, Miami’s dining scene is renowned for its variety and quality. Here are a few upscale dining establishments that are popular with professionals and could offer networking opportunities:\n\n1. **Zuma**: Located in downtown Miami, Zuma offers a sophisticated twist on traditional Japanese cuisine. It's a popular spot for business lunches and dinners.\n\n2. **The Forge**: This iconic Miami Beach restaurant is a favorite among local and visiting professionals. The Forge is known for its wine cellar and its innovative menu.\n\n3. **Komodo**: Located in the bustling Brickell neighborhood, Komodo is a three-story indoor/outdoor eatery and lounge that combines contemporary Southeast Asian cuisine with a South Florida vibe. It attracts a trendy, upscale crowd.\n\n4. **Estiatorio Milos**: Known for its fresh seafood, Estiatorio Milos offers a unique dining experience in Miami's South Beach area. It's often frequented by professionals in various industries.\n\n5. **Joe's Stone Crab**: While it's a more casual dining experience compared to the other recommendations, Joe's Stone Crab is an institution in Miami. It's been open for over 100 years and is popular among locals and visitors alike. You never know who you might run into.\n\nSince networking can often happen unexpectedly, it's a good idea to be prepared with business cards and be ready to engage in conversation wherever you go. Miami is a vibrant, bustling city with ample opportunities for making connections.\n\nDoes this provide the information you were looking for? Is there anything else you need help with for your travel plan?",
+            "content_zh": "当然，迈阿密的餐饮场所以其种类和质量而闻名。以下是一些受专业人士欢迎且可能提供社交机会的高档餐厅：1. **Zuma**：位于迈阿密市中心，Zuma提供对传统日本料理的精致诠释。这是一个受商务午餐和晚餐欢迎的热门场所。2. **The Forge**：这家标志性的迈阿密海滩餐厅是本地和来访的专业人士的最爱。The Forge以其酒窖和创新菜单而闻名。3. **Komodo**：位于繁华的Brickell社区，Komodo是一家三层楼的室内/室外餐厅和酒廊，融合了现代东南亚美食和南佛罗里达的氛围。它吸引了时尚高档的人群。4. **Estiatorio Milos**：以新鲜海鲜而闻名，Estiatorio Milos在迈阿密南海滩地区提供独特的就餐体验。它经常受到来自各行各业的专业人士的光顾。5. **Joe's Stone Crab**：与其他推荐相比，Joe's Stone Crab是一种更为休闲的就餐体验，但它在迈阿密是一座名副其实的机构。它已经开业100多年，深受当地人和游客的欢迎。你永远不知道可能会遇到谁。由于社交往往会在不经意间发生，最好准备好名片，并随时准备在任何地方参与对话。迈阿密是一个充满活力、繁华的城市，为建立人际关系提供了充足的机会。这提供了您寻找的信息吗？您还需要为您的旅行计划提供帮助吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Yes, this is very helpful. Your restaurant recommendations are spot on, and the diversity of options from Japanese to Southeast Asian and seafood is appealing. I will make sure to bring plenty of business cards and keep an open mind for networking at these venues. It seems we have a solid plan coming together.\n\nBefore we wrap up, could you please remind me to check event calendars for any real estate or interior design events occurring during my stay? Also, let's reserve a day for a possible real estate conference or seminar that I might want to attend. It would be ideal to have that flexibility in my itinerary.\n\nOtherwise, I think we have a comprehensive plan, and I'm quite pleased with how this is shaping up. Thank you for your assistance!",
+            "content_zh": "是的，这非常有帮助。您的餐厅推荐很准确，从日本料理到东南亚菜和海鲜的多样选择很吸引人。我会确保带上足够的名片，并保持开放的心态，在这些场所进行人脉拓展。看起来我们正在制定一个扎实的计划。在我们结束之前，您可以提醒我检查一下活动日历，看看在我逗留期间是否有任何房地产或室内设计活动？另外，我们把一天保留给我可能想要参加的房地产会议或研讨会吧。能够在我的行程安排中有这种灵活性会很理想。否则，我认为我们已经制定了一个全面的计划，我对计划的进展非常满意。谢谢您的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "I'm glad to hear that you're happy with the plan! \n\nCertainly, I would remind you to check the event calendars of organizations like the Miami Association of Realtors, the American Society of Interior Designers (Florida South Chapter), and the event schedule for the Miami Design District. This will help you stay updated on any real estate or interior design events happening during your stay.\n\nAs for reserving a day for a possible real estate conference or seminar, how about we keep the schedule flexible during the second week of your trip? This would be the period when you start attending networking events and visiting design showrooms, so it would be an ideal time to participate in a conference or seminar as well.\n\nI'm thrilled to have been able to assist you in planning this trip! If you have any more questions or need further assistance as your travel dates approach, don't hesitate to reach out. Enjoy your stay in Miami, and I hope it proves to be a successful and enriching experience for you!",
+            "content_zh": "很高兴听到你对计划感到满意！当然，我想提醒你检查像迈阿密房地产经纪协会、美国室内设计师协会（佛罗里达南部分会）以及迈阿密设计区的活动日历。这将帮助你随时了解在你逗留期间发生的任何房地产或室内设计活动。\n至于预留一天参加可能的房地产会议或研讨会，我们在你旅行的第二周保持日程灵活如何？这将是你开始参加社交活动和参观设计展厅的时间段，所以参加会议或研讨会也是一个理想的时间。\n能够帮助您计划这次旅行我感到非常激动！如果你有更多问题或需要在旅行日期临近时的进一步帮助，请不要犹豫联系我。祝你在迈阿密过得愉快，并希望对你来说是一个成功丰富的体验！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary": [
+        "fine dining",
+        "networking",
+        "fitness training",
+        "high-end fashion shopping"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 0,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "30",
+            "zh": "30"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Confident",
+                "zh": "自信"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Crafting",
+                "zh": "手工艺制作"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Luxury accommodation",
+                "zh": "豪华住宿"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on fashion",
+                "zh": "时尚支出"
+            },
+            {
+                "en": "Invests in real estate",
+                "zh": "房地产投资"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Has a high-stress lifestyle",
+                "zh": "生活压力大"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Both"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_1120": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        }
+    }
+}

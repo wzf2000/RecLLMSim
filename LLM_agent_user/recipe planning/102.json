@@ -1,0 +1,240 @@
+{
+    "task": "recipe planning",
+    "preference_id": 43,
+    "task_context_id": 4,
+    "preference": "1. Gender: Female\n2. Age: 45\n3. Personality: Compassionate, patient, and nurturing\n4. Occupation: Nurse\n5. Daily Interests and Hobbies: Gardening, knitting, volunteering\n6. Travel Habits: Prefers staycations or short trips to the countryside\n7. Dining Preferences: Prefers home-cooked meals, follows a balanced diet\n8. Spending Habits: Saves for retirement, spends on family and grandchildren\n9. Other Aspects: Regularly attends church, has a book club membership",
+    "preference_zh": "1. 性别：女性\n2. 年龄：45\n3. 个性：富有同情心，耐心，有爱心\n4. 职业：护士\n5. 日常兴趣和爱好：园艺，编织，志愿者工作\n6. 旅行习惯：喜欢在家附近度假或去乡间短途旅行\n7. 饮食偏好：喜欢家常菜，坚持均衡饮食\n8. 消费习惯：为退休存钱，花钱给家人和孙子、孙女\n9. 其他方面：定期去教堂，加入了读书俱乐部",
+    "task_context": "You plan to prepare a meal at home and invite three close friends to join you. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家准备一顿饭，并邀请三个亲近的朋友一起加入。你在烹饪方面并不很熟练，经验有限。因此，你想请LLM帮助你制定食谱，确定所需食材，并决定要做哪些菜。在计划过程中，你应该学习每道菜的完整准备过程以及准备菜品的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you reached out. I'm actually in need of some help with planning a meal at home. I want to invite three close friends over, but I'm not very skilled in cooking and have limited experience. I would appreciate your assistance in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Can you help me with that?",
+            "content_zh": "你好！很高兴你联系我。实际上我需要一些在家准备餐食的帮助。我想邀请三个亲密的朋友来我家，但我在烹饪方面技能有限，经验也不丰富。我会感激你帮助我创建食谱，确定所需食材，以及决定要做哪些菜。你可以帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you plan a meal for your gathering with friends! Cooking for loved ones is a great way to spend time together and create lasting memories. Let's start by brainstorming some ideas for the menu. Do you have any preferences or dietary restrictions we should consider?",
+            "content_zh": "当然，我很乐意帮助您为与朋友聚会计划一顿饭！为所爱的人烹饪是一起共度时光并创造持久回忆的好方式。让我们从头脑风暴一些菜单的想法开始吧。您有任何口味偏好或饮食限制需要我们考虑吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your help, I appreciate it! When it comes to the menu, I prefer home-cooked meals and generally follow a balanced diet. I don't have any specific dietary restrictions, but it would be great to have some healthy options. As for my friends, they enjoy a variety of cuisines, so we can be flexible with the choices. What ideas do you have in mind for the menu?",
+            "content_zh": "感谢您提供帮助，我非常感激！在菜单方面，我更喜欢家常菜，通常遵循均衡饮食。我没有特殊的饮食限制，但希望有些健康选择。至于我的朋友，他们喜欢各种不同的美食，所以我们在选择上可以灵活变通。您对菜单有什么想法呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "That's great! With a preference for home-cooked meals and a balanced diet, we can create a delicious and healthy menu that will impress your friends. Here's a suggestion for a three-course meal:\n\nAppetizer: Bruschetta with Tomato and Basil\n- Ingredients: Baguette, ripe tomatoes, fresh basil, garlic, olive oil, balsamic vinegar, salt, and pepper.\n- This classic Italian appetizer is easy to make and bursting with fresh flavors. It's a great way to start the meal.\n\nMain Course: Baked Lemon Herb Salmon\n- Ingredients: Salmon fillets, lemon, fresh herbs (such as dill, parsley, or thyme), garlic, olive oil, salt, and pepper.\n- This dish is not only delicious but also healthy. The salmon is baked with a flavorful herb and lemon marinade, resulting in a moist and tender fish.\n\nSide Dish: Roasted Garlic Parmesan Asparagus\n- Ingredients: Fresh asparagus, garlic, olive oil, grated Parmesan cheese, salt, and pepper.\n- Roasting asparagus brings out its natural sweetness, and the addition of garlic and Parmesan adds a delightful flavor to this simple side dish.\n\nFor dessert, you can either go for a store-bought option or try something simple like fresh fruit salad or a scoop of your favorite ice cream.\n\nHow does this menu sound to you? Let me know if you have any other preferences or if you'd like to make any changes!",
+            "content_zh": "太棒了！在偏爱家庭烹饪餐点和均衡饮食的基础上，我们可以制作出一份令人印象深刻的美味健康菜单，让您的朋友惊叹不已。这里有一个三道菜的建议：\n\n开胃菜：番茄香脆面包\n- 食材：法棍面包、熟番茄、新鲜罗勒、大蒜、橄榄油、意大利黑醋、盐和胡椒。\n- 这道经典的意大利开胃菜制作简单，充满新鲜美味。这是一顿美餐的绝佳开始。\n\n主菜：柠檬香草烤三文鱼\n- 食材：三文鱼片、柠檬、新鲜香草（如莳萝、欧芹或百里香）、大蒜、橄榄油、盐和胡椒。\n- 这道菜不仅美味，而且健康。三文鱼烤制时加入了香草和柠檬的味道，使鱼肉变得湿润嫩滑。\n\n配菜：烤大蒜帕尔马芦笋\n- 食材：新鲜芦笋、大蒜、橄榄油、帕尔马干酪碎、盐和胡椒。\n- 烤芦笋能凸显其天然甜味，加入大蒜和帕尔马干酪让这简单的配菜更加美味。\n\n至于甜点，您可以选择购买现成的或尝试一些简单的选择，例如新鲜水果沙拉或一勺您喜爱的冰淇淋。\n\n这个菜单听起来如何？如果您有其他喜好或想要进行任何改动，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That menu sounds absolutely delightful! I love the idea of starting with bruschetta, as it's always a crowd-pleaser. The baked lemon herb salmon sounds both healthy and flavorful, and I'm sure my friends will enjoy it. Roasted garlic Parmesan asparagus as a side dish sounds perfect to complement the main course. For dessert, I think a fresh fruit salad would be a light and refreshing way to end the meal. Thank you for your suggestions!\n\nNow, let's move on to the preparation process. Can you guide me through the steps for each dish, starting with the bruschetta?",
+            "content_zh": "那个菜单听起来绝对令人愉悦!我喜欢以意大利烤面包开始，因为它总是受欢迎的。烤柠檬草香鲑鱼既健康又美味，我相信我的朋友们会喜欢的。作为配菜的烤大蒜帕马森芦笋听起来完美，可以搭配主菜。甜点的话，我觉得一个新鲜水果沙拉会是一个轻盈清爽的餐后方式。谢谢你的建议！现在让我们继续准备过程。你能指导我逐步制作每道菜吗，从意大利烤面包开始吗？",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! I'm glad you liked the menu. Now, let's dive into the preparation process for each dish, starting with the bruschetta:\n\nBruschetta with Tomato and Basil:\n\n1. Preheat your oven to 400°F (200°C).\n2. Slice the baguette into ½-inch thick slices.\n3. Place the slices on a baking sheet and drizzle them with olive oil.\n4. Toast the bread in the preheated oven for about 5-7 minutes or until golden brown and crispy.\n5. While the bread is toasting, dice the ripe tomatoes and finely chop the fresh basil.\n6. In a bowl, combine the diced tomatoes, chopped basil, minced garlic, a drizzle of olive oil, a splash of balsamic vinegar, and salt and pepper to taste. Mix everything together.\n7. Once the bread is toasted, remove it from the oven and let it cool slightly.\n8. Spoon the tomato and basil mixture onto each slice of bread.\n9. Serve the bruschetta immediately and enjoy!\n\nNext, let's move on to the main course:\n\nBaked Lemon Herb Salmon:\n\n1. Preheat your oven to 375°F (190°C).\n2. In a small bowl, combine the juice of one lemon, minced garlic, chopped fresh herbs (such as dill, parsley, or thyme), olive oil, salt, and pepper.\n3. Place the salmon fillets on a baking sheet lined with parchment paper or aluminum foil.\n4. Pour the lemon herb marinade over the salmon, making sure to coat each fillet evenly.\n5. Bake the salmon in the preheated oven for about 12-15 minutes, or until the salmon is cooked through and flakes easily with a fork.\n6. Once cooked, remove the salmon from the oven and let it rest for a few minutes before serving.\n\nNow, let's move on to the side dish:\n\nRoasted Garlic Parmesan Asparagus:\n\n1. Preheat your oven to 425°F (220°C).\n2. Trim the woody ends of the asparagus spears.\n3. Place the asparagus on a baking sheet and drizzle with olive oil.\n4. Sprinkle minced garlic, grated Parmesan cheese, salt, and pepper over the asparagus.\n5. Toss everything together to coat the asparagus evenly.\n6. Roast the asparagus in the preheated oven for about 10-12 minutes, or until tender and slightly crispy.\n7. Remove the asparagus from the oven and serve it immediately.\n\nFor the fruit salad dessert, simply wash and cut a variety of fresh fruits (such as berries, melons, and citrus fruits) into bite-sized pieces. Combine them in a bowl and serve chilled.\n\nI hope these instructions are clear and helpful! If you have any further questions or need more guidance, feel free to ask.",
+            "content_zh": "不客气！我很高兴你喜欢菜单。现在，让我们深入每道菜的准备过程，从意式烤面包开始：\n\n番茄香蒜面包块：\n\n1. 预热烤箱至400°F（200°C）。\n2. 把法棍切成厚度为半英寸的薄片。\n3. 把薄片放在烤盘上，淋上橄榄油。\n4. 把面包在预热的烤箱中烤约5-7分钟，或者直到金黄色和脆脆为止。\n5. 在烤面包的同时，将成熟的番茄切成丁，新鲜罗勒切碎。\n6. 在一个碗里，将切成丁的番茄、切碎的罗勒、切碎的大蒜、一点橄榄油、一点意大利香醋、盐和胡椒混合在一起。搅拌均匀。\n7. 一旦面包烤好，从烤箱中取出，稍微冷却。\n8. 将番茄和罗勒混合物勺在每片面包上。\n9. 立即端上番茄香蒜面包块，享用！\n\n下面，让我们继续主菜：\n\n柠檬香草烤三文鱼：\n\n1. 预热烤箱至375°F（190°C）。\n2. 在一个小碗中，将一个柠檬的汁、切碎的大蒜、切碎的新鲜香草（如莳萝、欧芹或百里香）、橄榄油、盐和胡椒混合在一起。\n3. 把三文鱼片放在铺有烤纸或锡箔纸的烤盘上。\n4. 把柠檬香草腌料倒在三文鱼上，确保每片鱼均匀涂抹。\n5. 在预热的烤箱中烤三文鱼约12-15分钟，或者直到熟透并用叉子轻松松开。\n6. 烹饪完毕后，从烤箱中取出三文鱼，稍微静置几分钟后再上桌。\n\n现在，让我们继续配菜：\n\n烤蒜味帕玛森芦笋：\n\n1. 预热烤箱至425°F（220°C）。\n2. 裁掉芦笋尖部的硬梗。\n3. 把芦笋放在烤盘上，淋上橄榄油。\n4. 撒上切碎的大蒜、磨碎的帕玛森奶酪、盐和胡椒。\n5. 搅拌均匀以使芦笋均匀裹上调料。\n6. 在预热的烤箱中烤芦笋约10-12分钟，或者直到嫩而微脆。\n7. 从烤箱中取出芦笋，立即上桌。\n\n至于水果沙拉甜点，只需清洗和切割各种新鲜水果（如浆果、甜瓜和柑橘类水果）成一口大小的块。放在碗里，冷藏后即可享用。\n\n希望这些说明清晰有用！如果您有任何进一步问题或需要更多指导，请随时询问。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "healthy",
+        "variety"
+    ],
+    "preference_summary": [
+        "healthy",
+        "home-cooked",
+        "variety"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "45",
+            "zh": "45"
+        },
+        "Personality": [
+            {
+                "en": "Friendly",
+                "zh": "友善"
+            },
+            {
+                "en": "Patient",
+                "zh": "耐心"
+            }
+        ],
+        "Occupation": {
+            "en": "Medical staff",
+            "zh": "医护人员"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Crafting",
+                "zh": "手工艺制作"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Prefers calm and serene locations",
+                "zh": "喜欢宁静"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Follows a balanced diet",
+                "zh": "均衡饮食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Active in academic activities",
+                "zh": "喜欢参与学术活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_1120": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

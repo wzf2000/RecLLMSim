@@ -86,15 +86,7 @@
         "other_aspects": [
             "养小动物",
             "喜欢参与学术活动"
-        ],
-        "complete_tid": {
-            "旅行规划": [
-                32
-            ],
-            "技能学习规划": [
-                4
-            ]
-        }
+        ]
     },
     "questionnaire": [
         {
@@ -172,6 +164,35 @@
     "strategy_human_V2": {
         "final": {
             "order": "BreadthDepth",
+            "feedback": "Negative"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Both"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Both"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Both"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Both"
+        }
+    },
+    "strategy_human_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
             "feedback": "Negative"
         }
     }

@@ -1,0 +1,239 @@
+{
+    "task": "recipe planning",
+    "preference_id": 58,
+    "task_context_id": 0,
+    "preference": "1. Gender: Male\n2. Age: 22\n3. Personality: Energetic, social, and adventurous\n4. Occupation: College Student\n5. Daily Interests and Hobbies: Playing basketball, partying, video gaming\n6. Travel Habits: Enjoys road trips with friends, attends music festivals\n7. Dining Preferences: Fast food lover, enjoys late-night snacks\n8. Spending Habits: Spends on concerts and entertainment, saves for education\n9. Other Aspects: Lives in a dorm, part of a college sports team",
+    "preference_zh": "1. 性别：男性\n2. 年龄：22\n3. 个性：精力充沛、社交、爱冒险\n4. 职业：大学生\n5. 日常兴趣爱好：打篮球、参加派对、玩视频游戏\n6. 旅行习惯：喜欢和朋友一起进行公路旅行，参加音乐节\n7. 饮食偏好：快餐爱好者，喜欢吃宵夜\n8. 消费习惯：花钱在音乐会和娱乐活动上，为教育存钱\n9. 其他方面：住在宿舍，是大学运动队的一员",
+    "task_context": "You plan to prepare a meal at home for yourself. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家为自己准备一顿饭。你在烹饪方面并不很熟练，经验有限。因此，你想请求LLM帮助你制定食谱，确定必要的食材，以及决定制作哪些菜肴。在规划过程中，你应该学习每道菜的完整准备过程，以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I'm looking to prepare a meal at home, but I don't have much experience in cooking. I was hoping you could help me create a recipe, determine the necessary ingredients, and guide me on what dishes to make. Can you assist me with that?",
+            "content_zh": "你好！很高兴你来了。我想在家准备一顿饭，但是我在烹饪方面没有太多经验。我希望你能帮助我制定一个食谱，确定所需的食材，并指导我要做什么菜。你能帮助我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you with that! Cooking can be a lot of fun, and I'm here to assist you every step of the way. Let's start by determining what kind of meal you'd like to prepare. Are you in the mood for something specific, like pasta, chicken, or maybe even a vegetarian dish?",
+            "content_zh": "当然，我很乐意帮助您！烹饪可以很有趣，我会在每一个步骤上帮助您。让我们首先确定您想要准备哪种食物。您是否想要做一些特定的食物，比如意大利面、鸡肉，或者甚至素食菜肴呢？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "I'm actually in the mood for something hearty and filling. How about we go with a chicken dish? It's versatile and can be prepared in various ways. What do you think?",
+            "content_zh": "我其实想吃一些丰盛可口的东西。我们来选个鸡肉菜怎么样？它很多变，可以用不同的方式烹饪。你觉得呢？",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "That sounds like a great choice! Chicken is indeed versatile and can be prepared in numerous delicious ways. How about we make a classic dish like Chicken Parmesan? It's hearty, filling, and relatively easy to prepare. Here's a simple recipe to get you started:\n\nIngredients:\n- 2 boneless, skinless chicken breasts\n- 1 cup breadcrumbs (you can use seasoned or plain)\n- 1/2 cup grated Parmesan cheese\n- 1/2 teaspoon dried basil\n- 1/2 teaspoon dried oregano\n- 1/2 teaspoon garlic powder\n- Salt and pepper to taste\n- 1/2 cup all-purpose flour\n- 2 eggs, beaten\n- Olive oil for frying\n- 1 cup marinara sauce\n- 1 cup shredded mozzarella cheese\n- Fresh basil or parsley for garnish (optional)\n\nInstructions:\n1. Preheat your oven to 375°F (190°C).\n2. In a shallow bowl, mix together the breadcrumbs, grated Parmesan cheese, dried basil, dried oregano, garlic powder, salt, and pepper.\n3. Place the flour in a separate shallow bowl, and the beaten eggs in another.\n4. Coat each chicken breast in flour, shaking off any excess. Dip it into the beaten eggs, allowing any excess to drip off, and then press it into the breadcrumb mixture, ensuring it's evenly coated.\n5. Heat a generous amount of olive oil in a large skillet over medium-high heat. Once the oil is hot, carefully place the breaded chicken breasts in the skillet and cook for about 3-4 minutes on each side, or until golden brown.\n6. Transfer the chicken breasts to a baking dish and spoon marinara sauce over each piece. Sprinkle shredded mozzarella cheese on top.\n7. Bake in the preheated oven for about 20-25 minutes, or until the chicken is cooked through and the cheese is melted and bubbly.\n8. Remove from the oven and let it rest for a few minutes. Garnish with fresh basil or parsley if desired.\n9. Serve the Chicken Parmesan with pasta, garlic bread, or a side salad for a complete meal.\n\nI hope you enjoy making and devouring this delicious Chicken Parmesan! Let me know if you have any questions or if there's anything else I can assist you with.",
+            "content_zh": "听起来是个很棒的选择！鸡肉确实很多变，可以用很多美味的方式来烹饪。我们做一个经典的菜肴，比如巴马干酪鸡肉吧？它很有营养，饱腹感强，而且相对容易准备。以下是一个简单的食谱供参考：\n\n食材：\n- 2块去骨去皮的鸡胸肉\n- 1杯面包糠（您可以使用调味或原味）\n- 1/2杯巴马干酪碎\n- 1/2茶匙干罗勒\n- 1/2茶匙干牛至\n- 1/2茶匙大蒜粉\n- 适量盐和胡椒\n- 1/2杯多用途面粉\n- 2个打散的鸡蛋\n- 橄榄油煎炸用\n- 1杯番茄酱\n- 1杯切碎的莫扎里拉奶酪\n- 新鲜罗勒或欧芹装饰（可选）\n\n烹饪步骤：\n1. 将烤箱预热至375°F（190°C）。\n2. 在一个浅碗中，将面包糠、巴马干酪碎、干罗勒、干牛至、大蒜粉、盐和胡椒混合在一起。\n3. 将面粉放在另一个浅碗中，蛋液放在另一个碗中。\n4. 将每块鸡胸肉沾上面粉，抖掉多余的面粉。然后蘸入鸡蛋液中，让多余的液体滴下，然后按压到面包糠混合物中，确保均匀覆盖。\n5. 在一个大平底锅中用适量橄榄油中火加热。一旦油热，小心地将涂了面包糠的鸡胸肉放入平底锅中，每面煎约3-4分钟，或直到金黄色。\n6. 将鸡胸肉转移至烤盘，并在每块上勺入番茄酱。撒上切碎的莫扎里拉奶酪。\n7. 在预热的烤箱中烘烤约20-25分钟，或直到鸡肉煮熟，奶酪融化并起泡。\n8. 从烤箱中取出，让其静置几分钟。如有需要，用新鲜罗勒或欧芹装饰。\n9. 将巴马干酪鸡肉与意大利面、大蒜面包或沙拉一起享用，组成一餐。\n\n希望您享受制作和享用这道美味的巴马干酪鸡肉！如果有任何问题或需要帮助，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Wow, that recipe sounds amazing! I appreciate the detailed instructions and the option to garnish with fresh basil or parsley. Chicken Parmesan is definitely a classic dish that I can't wait to try. Thank you for providing such a thorough recipe. I'll make sure to follow the steps carefully. \n\nNow, since we're planning a meal, it's important to consider the appropriate order in which to prepare the dishes. Should I focus solely on the Chicken Parmesan, or would you like suggestions for accompanying dishes as well?",
+            "content_zh": "哇，那个食谱听起来太棒了！我很感激详细的说明和可以用新鲜罗勒或欧芹装饰的选择。意大利炸鸡肉绝对是一道经典的菜肴，我迫不及待想尝试。谢谢你提供这么详细的食谱。我会确保认真地按照步骤进行。\n现在，我们正在策划一顿饭，考虑到烹饪菜肴的适当顺序是很重要的。我是应该专注于意大利炸鸡肉，还是您想要配菜的建议呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! I'm glad you liked the recipe. Now, let's talk about the order of preparing the dishes for your meal. Since Chicken Parmesan is the main course, it's a good idea to focus on that first. Here's a suggested order of preparation:\n\n1. Start by preheating your oven to 375°F (190°C) as mentioned in the Chicken Parmesan recipe.\n2. While the oven is preheating, proceed with breading and frying the chicken breasts according to the recipe instructions.\n3. Once the chicken is browned and crispy, transfer it to a baking dish, spoon marinara sauce over each piece, and sprinkle shredded mozzarella cheese on top.\n4. Place the Chicken Parmesan in the preheated oven and let it bake for 20-25 minutes until the chicken is cooked through and the cheese is melted and bubbly.\n5. While the Chicken Parmesan is baking, you can prepare any accompanying dishes you'd like to serve. Here are a few suggestions:\n   - Pasta: Cook your favorite pasta according to the package instructions. You can serve the Chicken Parmesan on top of the pasta or alongside it.\n   - Garlic Bread: Slice a baguette or Italian bread, spread some butter or garlic butter on each slice, and toast them in the oven until golden and crispy.\n   - Side Salad: Prepare a simple green salad with your choice of lettuce, tomatoes, cucumbers, and any other veggies you like. Toss it with your favorite dressing.\n6. Once the Chicken Parmesan is done baking, remove it from the oven and let it rest for a few minutes.\n7. Plate the Chicken Parmesan alongside the pasta, garlic bread, and/or side salad.\n8. Garnish the Chicken Parmesan with fresh basil or parsley, if desired.\n9. Serve everything while it's still warm and enjoy your homemade meal!\n\nRemember, feel free to customize the meal to your liking by adding or substituting any dishes you prefer. Cooking should be a fun and creative experience. If you have any more questions or need further assistance, don't hesitate to ask. Happy cooking!",
+            "content_zh": "不客气！我很高兴你喜欢这个食谱。现在，让我们谈谈为你的晚餐准备菜肴的顺序。由于Parmesan鸡是主菜，因此首先专注于这个是个好主意。以下是建议的准备顺序：\n1. 首先按照Parmesan鸡食谱中提到的内容将烤箱预热至375°F（190°C）。 \n2. 在烤箱预热时，根据食谱说明，对鸡胸部进行包裹和煎炸。 \n3. 一旦鸡肉变得金黄香脆，将其移至烤盘，每块上勺入意大利番茄酱，撒上切碎的马苏里拉奶酪。 \n4. 将Parmesan鸡放入预热的烤箱中，烘烤20-25分钟，直到鸡肉煮熟，奶酪融化起泡。 \n5. 在制作Parmesan鸡的过程中，您可以准备任何您想要的伴菜。以下是一些建议：\n   - 意大利面：根据包装说明煮您最喜欢的意大利面。您可以将Parmesan鸡放在意大利面上或一起享用。 \n   - 大蒜面包：切片长棍面包或意大利面包，在每片面包上涂些黄油或蒜黄油，然后在烤箱中烤至金黄香脆。 \n   - 配菜沙拉：准备一个简单的绿色沙拉，用您喜欢的生菜、番茄、黄瓜和其他蔬菜拌上您喜爱的调味料。 \n6. 一旦Parmesan鸡烤好，从烤箱中取出，静置几分钟。 \n7. 将Parmesan鸡与意大利面，大蒜面包和/或配菜沙拉放在盘子里。 \n8. 如果需要，用新鲜的罗勒或欧芹点缀Parmesan鸡。 \n9. 在所有食物还温热时享用您的家常晚餐！\n请记住，随意根据您的口味定制这顿饭，添加或替换任何您喜欢的菜肴。烹饪应该是一种有趣和创造性的体验。如果您有更多问题或需要进一步协助，请随时问我。祝您烹饪愉快！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for providing a clear order of preparation for the meal. I appreciate the suggestions for accompanying dishes like pasta, garlic bread, and a side salad. It's great to have a well-rounded meal with different elements. I'll make sure to follow the steps and prepare everything in the suggested order.\n\nI'm feeling more confident now about cooking this meal. Thank you for your assistance and guidance. If I have any more questions or need further help, I'll definitely reach out. Happy cooking to me!\n\n[System]: You're welcome! I'm glad I could assist you. Enjoy your cooking and have a fantastic meal. Remember, I'm here to help anytime you need it. Happy cooking and have a great day!\n",
+            "content_zh": "谢谢您提供清晰的餐前准备顺序。我很感激您建议搭配意大利面、大蒜面包和一份沙拉。有各种元素的餐点真是太棒了。我会确保按照步骤，按照建议的顺序准备好一切。\n\n现在我对烹饪这顿饭感到更有信心了。谢谢您的帮助和指导。如果有任何问题或需要进一步帮助，我一定会联系您。祝自己烹饪愉快！\n\n[System]: 不客气！我很高兴能帮助您。享受烹饪，美美地享用一顿美味佳肴。记住，我随时可以帮助您。祝您烹饪愉快，度过美好的一天！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "Thank you! I'm glad I could help. Don't hesitate to reach out if you have any more questions or need further assistance in the future. Enjoy your cooking and have a wonderful meal! Have a great day too!",
+            "content_zh": "谢谢！我很高兴能帮到您。如果您有任何更多的问题或未来需要进一步帮助，请不要犹豫联系我。享受烹饪，美味的一餐！也祝您有个美好的一天！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "chicken parmesan",
+        "pasta",
+        "garlic bread"
+    ],
+    "preference_summary": [
+        "confident",
+        "guided",
+        "ready"
+    ],
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "22",
+            "zh": "22"
+        },
+        "Personality": [
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Occupation": {
+            "en": "Student",
+            "zh": "学生"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Playing video games",
+                "zh": "玩游戏"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Self-driving tour",
+                "zh": "自驾游"
+            },
+            {
+                "en": "Visiting exhibitions",
+                "zh": "看展"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Fast food",
+                "zh": "快餐"
+            },
+            {
+                "en": "Street food",
+                "zh": "街头小吃"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on entertainment",
+                "zh": "娱乐支出"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a dormitory",
+                "zh": "住在宿舍"
+            },
+            {
+                "en": "Active in sports activities",
+                "zh": "喜欢参与体育活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

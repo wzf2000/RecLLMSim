@@ -1,0 +1,235 @@
+{
+    "task": "recipe planning",
+    "preference_id": 13,
+    "task_context_id": 4,
+    "preference": "1. Gender: Female\n2. Age: 47\n3. Personality: Creative, independent, and adventurous\n4. Occupation: Jewelry Designer\n5. Daily Interests and Hobbies: Sketching designs, visiting art galleries, pottery\n6. Travel Habits: Travels for inspiration, enjoys visiting exotic locations\n7. Dining Preferences: Enjoys exotic and unique cuisines, loves seafood\n8. Spending Habits: Spends on unique materials for designs, invests in art pieces\n9. Other Aspects: Runs her own boutique, organizes art workshops",
+    "preference_zh": "1. 性别: 女性\n2. 年龄: 47\n3. 个性: 创造性，独立，冒险\n4. 职业: 珠宝设计师\n5. 日常兴趣爱好: 设计素描，参观艺术画廊，制陶\n6. 旅行习惯: 为灵感而旅行，喜欢参观异国风情的地方\n7. 饮食偏好: 喜欢异国风味和独特菜肴，喜爱海鲜\n8. 消费习惯: 花费在设计独特材料上，投资艺术品\n9. 其他方面: 经营自己的精品店，组织艺术研讨会",
+    "task_context": "You plan to prepare a meal at home and invite three close friends to join you. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家准备一顿饭，并邀请三个亲密的朋友一起加入。你在烹饪方面并不很擅长，经验有限。因此，你希望请LLM帮忙创建食谱，确定所需的食材，并决定做什么菜。在规划过程中，你应当学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I would like your help in planning a meal at home. I want to invite three close friends over, but I'm not very skilled in cooking and have limited experience. I would appreciate your guidance in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Can you help me with that?",
+            "content_zh": "你好！很高兴你在这里。我想请你帮忙规划一顿在家的餐。我想邀请三位亲近的朋友过来，但我在烹饪方面并不很擅长，经验也有限。希望你能帮忙在创建食谱、确定所需食材和决定要做的菜肴方面给予指导。你可以帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be happy to help you plan a meal for your friends. Cooking can be a fun and rewarding experience, even if you're not very skilled. Let's start by brainstorming some ideas for a delicious and relatively simple meal. What type of cuisine or dishes do you and your friends enjoy?",
+            "content_zh": "你好！我很乐意帮助你为朋友们规划一顿饭。即使你不是很熟练，烹饪也可以是一种有趣和有益的体验。让我们先来一起想想一些美味而相对简单的饭菜的主意。你和朋友们喜欢哪种菜系或菜肴？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That's great! I enjoy exploring exotic and unique cuisines, and seafood is always a favorite of mine. My friends also appreciate trying new and interesting dishes. So, let's focus on creating a meal with those elements in mind. What are some ideas you have for dishes that we could make?",
+            "content_zh": "太棒了！我喜欢探索异国情调和独特的美食，海鲜一直是我的最爱。我的朋友们也喜欢尝试新奇有趣的菜肴。所以，让我们专注于制作一顿带有这些元素的饭菜。你有什么关于我们可以制作的菜肴的想法？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! Since you're interested in seafood and exploring unique cuisines, how about creating a fusion-inspired seafood meal? Here's an idea for a three-course meal that incorporates different flavors and textures:\n\nAppetizer: Thai-inspired Shrimp Lettuce Wraps\n- Ingredients: Shrimp, lettuce leaves, carrots, cucumbers, fresh herbs (such as cilantro and mint), lime juice, soy sauce, honey, garlic, ginger, peanuts (optional).\n- Instructions: Marinate the shrimp in a mixture of soy sauce, honey, garlic, and ginger. Sauté the shrimp until cooked, then assemble the wraps by placing the cooked shrimp, julienned carrots, cucumbers, and fresh herbs on lettuce leaves. Drizzle with lime juice and sprinkle with crushed peanuts for added crunch.\n\nMain Course: Mediterranean-inspired Baked Salmon with Lemon-Dill Sauce\n- Ingredients: Salmon fillets, lemon juice, olive oil, garlic, fresh dill, salt, pepper.\n- Instructions: Preheat the oven and prepare a baking dish. Place the salmon fillets in the dish and season with salt, pepper, minced garlic, and a drizzle of olive oil. Squeeze fresh lemon juice over the fillets and sprinkle with chopped dill. Bake in the oven until the salmon is cooked through and flakes easily.\n\nDessert: Tropical Fruit Parfait\n- Ingredients: Fresh tropical fruits (such as mango, pineapple, and kiwi), Greek yogurt, honey, granola.\n- Instructions: Layer diced fruits, Greek yogurt, and a drizzle of honey in individual serving glasses. Repeat the layers, ending with a dollop of yogurt on top. Sprinkle granola over the yogurt for added texture. Chill in the refrigerator until ready to serve.\n\nThese dishes should provide a balance of flavors and showcase different cooking techniques. They are also relatively simple to prepare, allowing you to focus on enjoying the meal with your friends. Let me know if you'd like more details or if there's anything else I can assist you with!",
+            "content_zh": "太棒了！既然你对海鲜感兴趣并愿意尝试独特的美食，不如试试创作一道融合灵感的海鲜大餐吧？以下是一个融合不同口味和质地的三道菜式的想法：\n\n开胃菜：泰式虾生菜卷\n- 食材：虾、生菜叶、胡萝卜、黄瓜、新鲜香草（如香菜和薄荷）、酸橙汁、酱油、蜂蜜、大蒜、姜、花生（可选）。\n- 做法：将虾用酱油、蜂蜜、大蒜和姜拌匀腌制。煎熟虾后，将煮熟的虾、胡萝卜丝、黄瓜和新鲜香草放在生菜叶上制成卷。淋上酸橙汁，再撒上磨碎的花生增加口感。\n\n主菜：地中海风味的柠檬莳萨蒙鱼\n- 食材：鲑鱼片、柠檬汁、橄榄油、大蒜、新鲜莳萨、盐、胡椒。\n- 做法：预热烤箱并准备烤盘。将鲑鱼片放入烤盘，撒上盐、胡椒、切碎的大蒜和一些橄榄油。挤上新鲜柠檬汁，撒上切碎的莳萨。在烤箱中烤至鱼熟透且易碎。\n\n甜点：热带水果酸奶杯\n- 食材：新鲜热带水果（如芒果、菠萝和猕猴桃）、希腊酸奶、蜂蜜、谷物粒。\n- 做法：在个别的容器中分层放入切成丁的水果、希腊酸奶和少许蜂蜜。重复叠放，最后在顶部加一勺酸奶。在酸奶上撒上一些谷物粒增加质地。冷藏至准备食用。\n\n这些菜肴应该能提供口味的平衡，并展示不同的烹饪技巧。它们相对简单易做，让你可以专注于与朋友共享美餐。如果你希望了解更多细节或需要其他帮助，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Wow, those ideas sound absolutely delicious! I love the fusion concept you've incorporated into each course. The Thai-inspired Shrimp Lettuce Wraps for the appetizer sound light and refreshing, while the Mediterranean-inspired Baked Salmon with Lemon-Dill Sauce for the main course adds a touch of elegance. And the Tropical Fruit Parfait for dessert is a perfect way to end the meal with a sweet and refreshing treat.\n\nI appreciate the detailed instructions you provided for each dish. It seems like a well-rounded meal that will surely impress my friends. I think I have a clear plan now, but if I have any questions during the preparation, may I reach out to you for further guidance?\n\nThank you for your help so far!",
+            "content_zh": "哇，那些想法听起来绝对美味！我喜欢你在每道菜中融合的概念。开胃菜中泰式灵感的虾生菜卷听起来清爽可口，而地中海风味的柠檬莳萝焗三文鱼主菜增添了一丝优雅。甜点的热带水果拼盘是以甜美清爽的方式结束这顿饭。感谢你为每道菜提供的详细说明。这似乎是一顿让我的朋友们印象深刻的饭菜。我现在有一个清晰的计划，但如果在准备过程中遇到任何问题，我可以联系你寻求进一步指导吗？谢谢你迄今为止的帮助！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! I'm here to help you every step of the way. If you have any questions or need further guidance while preparing the meal, please feel free to reach out to me. I'm more than happy to assist you with any additional information, tips, or troubleshooting you may need.\n\nCooking can sometimes be an adventure, and it's normal to have questions or encounter unexpected situations. Just remember to have fun and enjoy the process. Your friends will appreciate the effort you put into creating a delicious and memorable meal.\n\nGood luck with your cooking adventure, and I hope you and your friends have a fantastic time enjoying the meal together!",
+            "content_zh": "当然！我会在你的每一步旁边提供帮助。如果在准备餐点时有任何问题或需要进一步的指导，请随时与我联系。我很乐意为你提供任何额外信息、贴士或解决方案。\n烹饪有时候就像一场冒险，遇到问题或意外情况是很正常的。记得要享受这个过程。你的朋友们会感激你为创造美味和难忘的餐点所付出的努力。\n祝你在烹饪冒险中好运，希望你和你的朋友们一起享受美好时光！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you so much for your support and encouragement! I truly appreciate your willingness to help me throughout the cooking process. I'm feeling more confident and excited about preparing this meal for my friends.\n\nI'll make sure to reach out if I have any questions or need any further guidance. Cooking can indeed be an adventure, and I'm ready to embrace it. I want to create a memorable experience for my friends, and your assistance is invaluable.\n\nOnce again, thank you for your help, and I'll be sure to let you know how everything turns out. Have a wonderful day!\n",
+            "content_zh": "非常感谢您的支持和鼓励！我真的很感激您愿意在整个烹饪过程中帮助我。我对为朋友准备这顿饭感到更加自信和兴奋。\n如果有任何问题或需要进一步指导，我会及时与您联系。烹饪确实是一次冒险，我已经准备好迎接挑战。我希望为朋友们创造一个难忘的体验，您的帮助是无价的。\n再次感谢您的帮助，我一定会告诉您一切的进展。祝您有一个美好的一天！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could help boost your confidence and excitement for this cooking adventure. I have no doubt that you'll create a fantastic meal for your friends, and I'm excited to hear how everything turns out.\n\nRemember, cooking is not just about the end result, but also about the journey and the joy of sharing a meal together. Embrace the process, have fun, and don't hesitate to reach out if you need any assistance along the way.\n\nWishing you a wonderful time with your friends, and I look forward to hearing all about your successful meal! Have a fantastic day as well!",
+            "content_zh": "不用客气！我很高兴能帮助增加你对这次烹饪冒险的信心和兴奋。我毫不怀疑你会为你的朋友们做出一顿美味的餐点，我很期待听到一切的发展。\n记住，烹饪不仅仅是终点的成果，也关乎旅程和一起分享美食的快乐。拥抱这个过程，玩得开心，如果需要任何帮助，不要犹豫与我联系。\n祝你和朋友们度过愉快的时光，期待听到你成功厨艺的全部细节！也祝你今天过得愉快！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "exotic",
+        "seafood",
+        "fusion"
+    ],
+    "preference_summary": [
+        "confident",
+        "ready",
+        "thankful"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 1,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 1,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "47",
+            "zh": "47"
+        },
+        "Personality": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Independent",
+                "zh": "独立"
+            }
+        ],
+        "Occupation": {
+            "en": "Artist",
+            "zh": "艺术工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Painting",
+                "zh": "绘画"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Crafting",
+                "zh": "手工艺制作"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Cultural trips",
+                "zh": "文化旅行"
+            },
+            {
+                "en": "International travel",
+                "zh": "国际旅行"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            },
+            {
+                "en": "Seafood",
+                "zh": "海鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Invests in art pieces",
+                "zh": "购买艺术品"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Organizes community activities",
+                "zh": "组织社区活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

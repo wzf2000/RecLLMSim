@@ -1,0 +1,207 @@
+{
+    "task": "recipe planning",
+    "preference_id": 94,
+    "task_context_id": 3,
+    "preference": "1. Gender: Male\n2. Age: 22\n3. Personality: Energetic, social, and optimistic\n4. Occupation: College Student\n5. Daily Interests and Hobbies: Playing basketball, partying, video gaming\n6. Travel Habits: Enjoys road trips with friends, attends music festivals\n7. Dining Preferences: Fast food lover, enjoys late-night snacks\n8. Spending Habits: Spends on concerts and entertainment, saves for education\n9. Other Aspects: Lives in a dorm, part of a college basketball team",
+    "preference_zh": "1.性别：男性  2.年龄：22岁  3.个性：充满活力、社交和乐观  4.职业：大学生  5.日常兴趣爱好：打篮球、参加派对、玩电子游戏  6.旅行习惯：喜欢和朋友一起去旅行、参加音乐节  7.餐饮偏好：快餐爱好者、喜欢深夜零食  8.消费习惯：在音乐会和娱乐方面花钱，为教育存钱  9.其他方面：住在宿舍，是大学篮球队的一员",
+    "task_context": "You plan to prepare a meal at home for yourself and your loved one. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家里为自己和你所爱的人准备一顿饭。你是一个技艺精湛的厨师，对烹饪有一定的经验。因此，你想要请求LLM的帮助来制定配方，确定必需的食材，以及决定要做什么菜。在计划过程中，你应该学习每道菜的完整制作过程以及准备这些菜的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I could use your help in planning a meal for myself and my loved one. I consider myself a skilled cook, but I'm looking for some inspiration and guidance. Would you be able to help me create a recipe, determine the necessary ingredients, and decide what dishes to make?",
+            "content_zh": "你好！很高兴你在这里。我想请你帮忙为我和我爱的人计划一顿餐。我认为我是一个熟练的厨师，但我正在寻找一些灵感和指导。你能帮我创造一个食谱，确定所需的食材，并决定做什么菜吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be happy to help you plan a delicious meal for you and your loved one. Let's start by brainstorming some ideas. What type of cuisine or specific dishes are you interested in? Do you have any dietary restrictions or preferences? And are there any ingredients you'd like to use or avoid?",
+            "content_zh": "你好！我很乐意帮你和你的另一半计划一顿美味的餐点。让我们从头脑风暴一些想法开始吧。你对什么类型的美食或具体的菜肴感兴趣？你有任何食物限制或偏好吗？还有你想要使用或避免的食材吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Hey there! Thanks for offering to help. We're open to trying different cuisines, but let's go with something comforting and flavorful for tonight. As for dietary restrictions, we don't have any specific ones, so feel free to suggest anything. We're both pretty adventurous eaters. Oh, and we love using fresh ingredients, so if you have any ideas that incorporate those, that would be great!",
+            "content_zh": "嘿！感谢你提供帮助。我们愿意尝试不同的美食，但今晚让我们选择一些令人愉悦和美味的食物吧。至于饮食限制，我们没有特别要求，所以随便建议任何东西。我们都是很具冒险精神的食客。哦，我们喜欢使用新鲜食材，如果你有任何能包含这些的想法，那就太好了！",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! Comforting and flavorful sounds like a fantastic choice. How about we go for a Mediterranean-inspired menu? It offers a wide range of fresh ingredients and bold flavors. Here's a suggestion for a three-course meal:\n\nAppetizer: Greek Salad\nIngredients:\n- Ripe tomatoes, diced\n- Cucumber, diced\n- Red onion, thinly sliced\n- Kalamata olives, pitted and halved\n- Feta cheese, crumbled\n- Fresh parsley, chopped\n- Extra virgin olive oil\n- Lemon juice\n- Salt and pepper to taste\n\nInstructions:\n1. In a large bowl, combine tomatoes, cucumber, red onion, olives, and feta cheese.\n2. Drizzle with olive oil and lemon juice.\n3. Season with salt and pepper.\n4. Toss gently to combine.\n5. Garnish with fresh parsley before serving.\n\nMain Course: Lemon Herb Roasted Chicken with Roasted Vegetables\nIngredients:\n- Chicken thighs or breasts\n- Lemons\n- Fresh rosemary\n- Fresh thyme\n- Garlic cloves, minced\n- Olive oil\n- Salt and pepper\n- Assorted vegetables (carrots, potatoes, bell peppers, etc.)\n\nInstructions:\n1. Preheat the oven to 400°F (200°C).\n2. In a bowl, combine minced garlic, olive oil, juice of one lemon, chopped rosemary, thyme leaves, salt, and pepper.\n3. Rub the chicken with the marinade, ensuring it's well coated.\n4. Slice the remaining lemon and place the slices on top of the chicken.\n5. Arrange the chicken and vegetables on a baking sheet.\n6. Roast in the oven for about 30-40 minutes or until the chicken is cooked through and the vegetables are tender.\n\nDessert: Honey and Pistachio Baklava\nIngredients:\n- Phyllo pastry sheets\n- Pistachios, finely chopped\n- Honey\n- Butter, melted\n- Ground cinnamon (optional)\n\nInstructions:\n1. Preheat the oven to 350°F (175°C).\n2. Layer the phyllo pastry sheets, brushing melted butter between each layer.\n3. Sprinkle a layer of finely chopped pistachios on top.\n4. Repeat the layering process until you run out of phyllo and pistachios.\n5. Cut the baklava into desired shapes (triangles or squares).\n6. Drizzle honey generously over the top.\n7. Bake in the oven for about 25-30 minutes or until golden brown.\n8. Optional: Sprinkle ground cinnamon on top before serving.\n\nI hope you and your loved one enjoy this Mediterranean-inspired meal! Let me know if you need any further assistance or if you have any other questions.",
+            "content_zh": "太棒了！令人舒心和美味听起来是一个极好的选择。我们来尝试一下地中海风味的菜单如何？它提供了许多新鲜食材和浓郁的味道。以下是一份三道菜的建议：\n\n开胃菜：希腊沙拉\n食材：\n- 成熟番茄，切丁\n- 黄瓜，切丁\n- 红洋葱，切薄片\n- 卡拉玛橄榄，去核并切半\n- 费达奶酪，碎\n- 新鲜欧芹，切碎\n- 特级初榨橄榄油\n- 柠檬汁\n- 盐和胡椒适量\n\n制作方法：\n1. 在一个大碗中，将番茄、黄瓜、红洋葱、橄榄和费达奶酪混合。\n2. 洒上橄榄油和柠檬汁。\n3. 根据口味加盐和胡椒。\n4. 轻轻拌匀。\n5. 上桌前撒上新鲜欧芹。\n\n主菜：柠檬香草烤鸡配烤蔬菜\n食材：\n- 鸡腿或鸡胸\n- 柠檬\n- 新鲜迷迭香\n- 新鲜百里香\n- 蒜瓣，切碎\n- 橄榄油\n- 盐和胡椒\n- 各种蔬菜（胡萝卜、土豆、灯笼辣椒等）\n\n制作方法：\n1. 烤箱预热至400°F（200°C）。\n2. 在一个碗中，混合切碎的大蒜、橄榄油、柠檬汁、切碎的迷迭香、百里香叶、盐和胡椒。\n3. 用腌料涂抹鸡肉，确保均匀涂抹。\n4. 将剩余的柠檬切片放在鸡肉上方。\n5. 将鸡肉和蔬菜摆放在烤盘上。\n6. 在烤箱中烤约30-40分钟，直到鸡肉煮熟，蔬菜变软。\n\n甜点：蜂蜜开心果卷\n食材：\n- 酥皮\n- 开心果，切碎\n- 蜂蜜\n- 融化黄油\n- 肉桂粉（可选）\n\n制作方法：\n1. 烤箱预热至350°F（175°C）。\n2. 将酥皮层叠在一起，每层之间涂抹融化黄油。\n3. 在顶部撒上一层切碎的开心果。\n4. 重复叠加过程直至酥皮和开心果用完。\n5. 将卷切割成所需的形状（三角形或正方形）。\n6. 在顶部大量淋上蜂蜜。\n7. 在烤箱中烤约25-30分钟，直到呈金黄色。\n8. 可选：上桌前撒上肉桂粉。\n\n希望你和你的爱人喜欢这顿地中海风味的餐点！如果需要任何进一步的帮助或有其他问题，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "comforting",
+        "flavorful",
+        "fresh ingredients"
+    ],
+    "preference_summary": [
+        "comforting",
+        "adventurous eaters",
+        "fresh ingredients"
+    ],
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 1,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 1
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "22",
+            "zh": "22"
+        },
+        "Personality": [
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            },
+            {
+                "en": "Optimistic",
+                "zh": "乐观"
+            }
+        ],
+        "Occupation": {
+            "en": "Student",
+            "zh": "学生"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Playing video games",
+                "zh": "玩游戏"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Self-driving tour",
+                "zh": "自驾游"
+            },
+            {
+                "en": "Visiting exhibitions",
+                "zh": "看展"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Fast food",
+                "zh": "快餐"
+            },
+            {
+                "en": "Street food",
+                "zh": "街头小吃"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on entertainment",
+                "zh": "娱乐支出"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a dormitory",
+                "zh": "住在宿舍"
+            },
+            {
+                "en": "Active in sports activities",
+                "zh": "喜欢参与体育活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Broad"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 2,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

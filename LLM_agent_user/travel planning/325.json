@@ -1,0 +1,272 @@
+{
+    "task": "travel planning",
+    "preference_id": 38,
+    "task_context_id": 1,
+    "preference": "1. Gender: Male\n2. Age: 22\n3. Personality: Energetic, social, and optimistic\n4. Occupation: College Student\n5. Daily Interests and Hobbies: Playing soccer, partying, video gaming\n6. Travel Habits: Enjoys road trips with friends, attends music festivals\n7. Dining Preferences: Fast food lover, enjoys late-night snacks\n8. Spending Habits: Spends on concerts and entertainment, saves for education\n9. Other Aspects: Lives in a dorm, part of a college soccer team",
+    "preference_zh": "1.性别：男性\n2.年龄：22\n3.性格：活泼、社交、乐观\n4.职业：大学生\n5.日常兴趣爱好：踢足球、参加派对、打视频游戏\n6.旅行习惯：喜欢和朋友一起进行公路旅行，参加音乐节\n7.饮食偏好：快餐爱好者，喜欢吃夜宵\n8.消费习惯：花钱在音乐会和娱乐活动上，为教育存钱\n9.其他方面：住在宿舍，是大学足球队的一员",
+    "task_context": "You are planning a two-day-long trip this summer, The trip has no specific destination restrictions. You would like to use LLM to help refine your travel plans. During this conversation, you will need to make arrangements for accommodations, transportation, and itinerary details. Your ultimate travel plan should be as comprehensive as possible, ensuring that you can realistically follow it when the time comes.",
+    "task_context_zh": "你打算在今年夏季进行一次为期两天的旅行，这次旅行没有特定的目的地限制。你想使用LLM来帮助优化你的旅行计划。在这次对话中，你需要安排住宿、交通和行程细节。你的最终旅行计划应尽可能全面，确保到时候你能实际按计划行动。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here to assist me. I'm planning a two-day trip this summer and I would love your help in refining my travel plans. I have no specific destination in mind, so I'm open to suggestions. I'm looking for recommendations on accommodations, transportation, and itinerary details. Can you help me with that?",
+            "content_zh": "你好！很高兴你能在这里帮助我。我打算今年夏天进行一次为期两天的旅行，希望你能帮我完善我的旅行计划。我还没有特定目的地，所以我乐意听取建议。我希望能得到关于住宿、交通和行程细节的推荐。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be more than happy to help you plan your two-day trip this summer. It's great that you're open to suggestions, as there are so many amazing places to explore. To get started, could you let me know your general location or any preferences you have? For example, are you looking for a beach getaway, a city adventure, or perhaps a nature retreat?",
+            "content_zh": "你好！我很乐意帮助你计划这个夏天的两天之行。很高兴你愿意接受建议，因为有很多令人惊叹的地方可以探索。要开始计划，你可以告诉我你的大致位置或者你有什么偏好吗？例如，你是想要海滩度假还是城市探险，或者可能是自然度假？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That's a great question! Since I enjoy road trips with friends, I'm open to any type of destination. However, let's go with a beach getaway for this trip. I think it would be fun to relax by the ocean and enjoy some water activities. What do you think?",
+            "content_zh": "这是一个很棒的问题！既然我喜欢和朋友一起去公路旅行，我对任何类型的目的地都很开放。但是，让我们选择一个海滩度假为这次旅行吧。我觉得在海边放松并享受一些水上活动会很有趣。你觉得呢？",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "A beach getaway sounds fantastic! Relaxing by the ocean and enjoying water activities can be a great way to spend your two-day trip. Based on that, I have a few suggestions for you:\n\n1. Santa Barbara, California: Known for its beautiful beaches, Santa Barbara offers a charming coastal experience. You can relax on the sandy shores, go kayaking or paddleboarding, and explore the vibrant downtown area.\n\n2. Outer Banks, North Carolina: This string of barrier islands boasts stunning beaches and a rich history. You can visit the famous Cape Hatteras Lighthouse, take a boat tour to see wild horses on the beach, and try your hand at fishing or surfing.\n\n3. Gulf Shores, Alabama: With its white sandy beaches and crystal-clear waters, Gulf Shores is a popular destination for beach lovers. You can lounge on the beach, go dolphin watching, or even try your hand at deep-sea fishing.\n\nNow, let's talk about accommodations. Are you looking for a specific type of lodging, such as a hotel, vacation rental, or something else? And do you have any preferences regarding budget or amenities?",
+            "content_zh": "海滩度假听起来太棒了！在海边放松，享受水上活动是度过两天旅行的好方法。基于此，我有一些建议给你：\n\n1. 加利福尼亚州圣巴巴拉：以其美丽的海滩而闻名，圣巴巴拉提供迷人的海岸体验。您可以在沙滩上放松，划皮划艇或划桨板，探索热闹的市中心。\n\n2. 北卡罗来纳州外滩：这串隔离岛屿拥有令人惊叹的海滩和丰富的历史。您可以参观著名的哈特拉斯角灯塔，乘船游览看野马在沙滩上，尝试钓鱼或冲浪。\n\n3. 阿拉巴马州墨西哥海滩：以其白色沙滩和水晶般清澈的海水而闻名，墨西哥海滩是海滩爱好者的热门目的地。您可以在海滩上躺着，看海豚，甚至尝试深海钓鱼。\n\n现在，让我们谈谈住宿。您是否在寻找特定类型的住宿，比如酒店、度假租赁或其他什么？您是否有关于预算或设施的任何偏好？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Those are some great suggestions! I'm leaning towards Santa Barbara, California for this trip. The combination of beautiful beaches and a vibrant downtown area sounds perfect for a beach getaway.\n\nAs for accommodations, I'm open to different options. I think a hotel would be convenient, considering the short duration of the trip. It would be great to find a hotel that's close to the beach and offers amenities like a pool and maybe even a beachfront view. In terms of budget, I'm looking for something reasonably priced, as I'm a college student. Any suggestions for hotels in Santa Barbara that fit this description?\n\nBy the way, I'm really excited about this trip! Can't wait to soak up the sun and enjoy the beach activities.",
+            "content_zh": "这些建议都很棒！我倾向于选择加利福尼亚州的圣巴巴拉作为这次旅行目的地。美丽的海滩和充满活力的市中心区域的结合听起来非常适合度假。至于住宿，我对不同的选择都持开放态度。考虑到旅行时间短暂，我认为选择酒店会比较方便。最好能找到一家靠近海滩、设有游泳池甚至海滨景观的酒店。在预算方面，我希望找到价格合理的住宿，因为我是一名大学生。对于符合这一描述的圣巴巴拉酒店有什么建议吗？顺便说一句，对这次旅行我真的很兴奋！迫不及待地想要享受阳光和海滩活动。",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Santa Barbara is a fantastic choice for a beach getaway! It offers a great combination of beautiful beaches and a lively downtown area. Now, let's find you a suitable hotel that meets your preferences.\n\nHere are a few hotel recommendations in Santa Barbara that are close to the beach, offer amenities like a pool, and have reasonable prices:\n\n1. Best Western Plus Beachside Inn: This hotel is located just steps away from West Beach and offers comfortable rooms, a heated outdoor pool, and complimentary breakfast. It's also within walking distance of Stearns Wharf and downtown Santa Barbara.\n\n2. Harbor View Inn: Situated near the beach and Stearns Wharf, the Harbor View Inn offers a beachfront pool, hot tub, and beautiful ocean views. While it might be slightly pricier, it's definitely worth considering for a more luxurious experience.\n\n3. West Beach Inn: This hotel is located across the street from the beach and offers comfortable rooms, a heated outdoor pool, and complimentary breakfast. It's also within walking distance of downtown Santa Barbara's shops and restaurants.\n\nRemember to check the availability and rates for your desired travel dates, as prices may vary. It's always a good idea to book in advance to secure your preferred accommodations.\n\nI'm glad you're excited about your trip! Santa Barbara has a lot to offer, and I'm sure you'll have a wonderful time soaking up the sun and enjoying the beach activities. If you need any more information or assistance with your itinerary, feel free to ask!",
+            "content_zh": "圣巴巴拉是一个非常棒的海滩度假胜地！它提供了美丽的海滩和繁华的市中心的完美结合。现在，让我们帮您找到一个符合您偏好的合适酒店。\n以下是一些建议的圣巴巴拉酒店，靠近海滩，提供设施如游泳池，并且价格合理:\n1. Best Western Plus Beachside Inn： 这家酒店距离西海滩仅几步之遥，提供舒适的客房、一个加热的室外游泳池和免费早餐。同时步行即可到达Stearns Wharf和圣巴巴拉市中心。\n2. Harbor View Inn： 位于海滩和Stearns Wharf附近，Harbor View Inn提供海滨游泳池、热水浴缸和美丽海洋景观。虽然价格可能稍微贵一些，但绝对值得考虑，为您提供更加豪华的体验。\n3. West Beach Inn： 这家酒店位于街对面的海滩旁，提供舒适的客房、一个加热的室外游泳池和免费早餐。同时步行即可到达圣巴巴拉市中心的商店和餐厅。\n请记得检查您期望的旅行日期的可用性和价格，因为价格可能有所不同。提前预订以确保您偏好的住宿是一个不错的主意。\n很高兴您对这次旅行感到兴奋！圣巴巴拉有很多东西可以提供，我相信您会度过一个愉快的时光，在阳光下享受海滩活动。如果您需要更多信息或行程安排的帮助，请随时问我们！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the hotel recommendations in Santa Barbara! All three options sound great, and I appreciate the variety in terms of location and amenities. I'll definitely check their availability and rates for my desired travel dates. I might lean towards the Best Western Plus Beachside Inn or the West Beach Inn due to their proximity to the beach and downtown area.\n\nNow that accommodations are sorted, let's move on to transportation. Since I enjoy road trips, I'm thinking of driving to Santa Barbara. However, I'm open to other transportation options if you have any suggestions. What do you think would be the most convenient and enjoyable mode of transportation for this trip?\n\nI'm really looking forward to this beach getaway! The idea of relaxing by the ocean and exploring downtown Santa Barbara sounds amazing.",
+            "content_zh": "感谢您在圣巴巴拉的酒店推荐！这三个选择都很棒，我很欣赏它们的位置和设施的多样性。我一定会检查它们在我期望的旅行日期的可用性和价格。也许我会倾向于住在Best Western Plus Beachside Inn或West Beach Inn，因为它们靠近海滩和市中心。\n现在住宿问题解决了，我们可以继续讨论交通方式。由于我喜欢自驾游，我打算开车去圣巴巴拉。但是，如果您有其他交通方式的建议，我也会考虑。您认为哪种交通方式对这次旅行来说最方便和愉快？\n我真的很期待这次海滩度假！沐浴在海洋旁边并探索圣巴巴拉市中心的想法听起来很棒。",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "Driving to Santa Barbara sounds like a great idea, especially if you enjoy road trips! It gives you the flexibility to explore the surrounding areas and have your own transportation during your stay. Plus, the drive along the California coast can be quite scenic and enjoyable.\n\nIf you decide to drive, make sure to plan your route in advance and check for any road closures or construction updates. The coastal drive along Highway 1, also known as the Pacific Coast Highway, offers stunning views and is a popular choice for road trips.\n\nHowever, if you prefer not to drive or if the distance is too far, another convenient option is to take a train or bus to Santa Barbara. Amtrak operates train services to Santa Barbara, and it can be a relaxing and scenic way to travel. Alternatively, you can check for bus services like Greyhound or local regional buses that connect to Santa Barbara.\n\nRegardless of the mode of transportation you choose, I'm sure you'll have a fantastic time on your beach getaway in Santa Barbara. The combination of relaxing by the ocean and exploring downtown sounds like the perfect way to unwind. If you have any more questions or need further assistance, feel free to ask!",
+            "content_zh": "开车去圣巴巴拉听起来是个好主意，尤其是如果你喜欢公路旅行的话！这样你就可以灵活地探索周边地区，并在你停留期间拥有自己的交通工具。另外，沿加利福尼亚海岸的驾驶之旅可以非常风景如画且令人愉悦。如果你决定开车，确保提前规划你的路线，并检查是否有任何道路封闭或施工更新。沿着1号公路（也被称为太平洋海岸公路）的沿海驾驶提供了令人惊叹的景色，是公路旅行的热门选择。然而，如果你不愿意开车或者距离太远，另一个方便的选择是乘坐火车或巴士去圣巴巴拉。Amtrak运营着前往圣巴巴拉的火车服务，这可以是一种放松且风景如画的旅行方式。或者，你可以查看像Greyhound或当地区域巴士这样的巴士服务，它们提供前往圣巴巴拉的连接。无论你选择哪种交通方式，我相信你在圣巴巴拉的海滩度假将会非常愉快。在海边放松和探索市中心的结合听起来像是放松的完美方式。如果你有任何其他问题或需要进一步的帮助，请随时提问！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "Translation Problem Fixed"
+            },
+            "content_zh_old": "开车去圣巴巴拉听起来是个好主意，尤其是如果你喜欢公路旅行！这样可以灵活地探索周边地区，并在逗留期间拥有自己的交通工具。此外，沿着加利福尼亚海岸驾驶可以是非常风景优美和愉快的。如果你决定开车，一定要提前规划路线并检查是否有道路封闭或施工更新。沿着1号公路（太平洋海岸公路）的海岸线驾驶可以欣赏美景，是公路旅行的热门选择。然而，如果您不想开车或距离太远，另一个方便的选择是乘火车或公共汽车前往圣巴巴拉。美铁提供到圣巴巴拉的火车服务，这可以是一个轻松和风景优美的旅行方式。或者，您可以查看灰狗或当地地区巴士等公共汽车服务，连接到圣巴巴拉。无论您选择哪种交通方式，我相信您在圣巴巴拉的海滩度假中会度过美好的时光。在大海边放松身心和探索市中心似乎是缓解压力的完美方式。如果您有更多问题或需要进一步协助，请随时询问！"
+        },
+        {
+            "role": "user",
+            "content": "Driving along the California coast on Highway 1 does sound like a scenic and enjoyable option. I'll definitely plan my route and check for any updates before hitting the road. The train and bus options are also worth considering, especially if I want a more relaxed and hassle-free journey.\n\nI appreciate your assistance in helping me refine my travel plans so far. Now, let's move on to the itinerary details. Since I have two days, I'd like to make the most of my time in Santa Barbara. What are some must-visit attractions or activities that you would recommend? I'm open to exploring the beaches, trying out local cuisine, and experiencing any unique landmarks or events.\n\nI'm really excited about this trip and can't wait to create some unforgettable memories. Thank you for your help!\n",
+            "content_zh": "沿着加利福尼亚州1号公路驾驶确实听起来是一个风景优美且愉快的选择。在出发前，我肯定会规划好我的路线并检查是否有任何更新。火车和公交车也是值得考虑的选择，特别是如果我想要一个更轻松和无忧无虑的旅程。感谢您在帮助我完善我的旅行计划方面的协助。现在，让我们继续讨论行程细节。由于我有两天时间，我希望能充分利用我在圣巴巴拉的时间。您会推荐一些必去的景点或活动吗？我愿意探索海滩，品尝当地美食，并体验任何独特的地标或活动。我对这次旅行感到非常兴奋，迫不及待地想创造一些难忘的回忆。谢谢您的帮助！",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're welcome! I'm glad I could help you with your travel plans so far. Now, let's dive into the itinerary details for your two-day trip to Santa Barbara.\n\nDay 1:\n- Start your day by exploring the beautiful beaches in Santa Barbara. East Beach and West Beach are popular choices, offering soft sand and picturesque views. You can relax, soak up the sun, and even try some beach activities like swimming or beach volleyball.\n- After spending some time at the beach, head to Stearns Wharf. This historic pier offers stunning views of the coastline, shops, restaurants, and even a small aquarium. Enjoy a leisurely stroll along the pier and grab a bite to eat at one of the seafood restaurants.\n- In the afternoon, explore the downtown area of Santa Barbara. State Street is the main thoroughfare, lined with shops, boutiques, cafes, and restaurants. Take a walk, do some shopping, and indulge in some delicious local cuisine.\n- If you're interested in history and culture, consider visiting the Santa Barbara Mission. This iconic landmark is known as the \"Queen of the Missions\" and offers beautiful architecture, gardens, and a museum that provides insights into the area's history.\n\nDay 2:\n- Start your second day with a visit to the Santa Barbara Zoo. This small yet charming zoo is home to a variety of animals and offers a great experience for all ages.\n- For some outdoor adventure, consider hiking in the nearby Santa Ynez Mountains. The Inspiration Point Trail or the Seven Falls Trail are popular options, offering scenic views and a chance to connect with nature.\n- In the evening, explore the Funk Zone. This vibrant neighborhood is known for its artsy vibe, wine tasting rooms, breweries, galleries, and unique shops. It's a great place to relax, enjoy live music, and sample some local wines.\n- End your trip with a beautiful sunset view at Butterfly Beach. Located in nearby Montecito, this beach offers stunning views and is a perfect spot to unwind and reflect on your trip.\n\nRemember, this is just a suggested itinerary, and you can tailor it to your preferences and time constraints. Santa Barbara has so much to offer, from its beautiful beaches to its vibrant downtown area and cultural landmarks. I'm sure you'll create some unforgettable memories on your beach getaway!\n\nIf you have any more questions or need further assistance, feel free to ask. Have a fantastic trip!",
+            "content_zh": "不客气！很高兴能帮助你安排好旅行计划至此。现在，让我们来深入了解你在圣巴巴拉两天行程的具体安排。\n\n第1天：\n- 开始你的一天，探索圣巴巴拉市的美丽海滩。东滩和西滩是受欢迎的选择，提供细软的沙滩和风景如画的景色。你可以放松身心，沐浴阳光，甚至尝试一些海滩活动，如游泳或沙滩排球。\n- 在海滩度过一段时间后，前往斯特恩斯码头。这个历史悠久的码头提供着沿岸壮丽的景色，有商店、餐厅，甚至还有一个小型水族馆。沿着码头漫步，到其中一家海鲜餐厅品尝美食。\n- 下午，探索圣巴巴拉市中心地区。州街是主要的街道，街道两旁有商店、精品店、咖啡馆和餐馆。散步、购物，并品尝一些美味的当地美食。\n- 如果你对历史和文化感兴趣，考虑参观圣巴巴拉教堂。这座标志性的地标被誉为“教区之后”，提供着美丽的建筑、花园和一座博物馆，展示当地历史。\n\n第2天：\n- 第二天开始，参观圣巴巴拉动物园。这个规模虽小但迷人的动物园是各年龄段旅行者的理想选择。\n- 想要进行户外探险，可以考虑在附近的圣亚尼斯山脉徒步。灵感点步道或七级瀑布步道是受欢迎的选择，提供着美丽的景观和与大自然连接的机会。\n- 傍晚时分，去探索Funk区。这个充满活力的社区以其艺术氛围、品酒室、酿酒厂、艺术馆和独特商店而闻名。这里是放松、欣赏现场音乐和品尝本地葡萄酒的好地方。\n- 结束你的旅行，在蝴蝶海滩欣赏美丽的日落景色。这个位于附近蒙特西托的海滩提供了令人惊叹的景色，是一个完美的地方放松身心，回顾你的旅程。\n\n请记住，这只是一份建议行程，你可以根据自己的喜好和时间安排来调整。圣巴巴拉有很多美丽的海滩、充满活力的市区和充满文化底蕴的地标等着您探索。我相信你将在这个海滩度假中留下一些难忘的回忆！\n\n如果你有更多问题或需要进一步的帮助，请随时问我。祝你旅途愉快！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed itinerary suggestions! I love how you've included a mix of beach relaxation, exploring downtown, and even some outdoor adventure. The Santa Barbara Mission and the Funk Zone sound particularly interesting, and I'll make sure to visit them.\n\nI'll take your suggestions into consideration and plan my two-day itinerary accordingly. I'm really excited about this trip and can't wait to experience all that Santa Barbara has to offer. Thank you for your help in refining my travel plans!\n\nIf I have any more questions or need further assistance, I'll be sure to reach out. Thanks again for your guidance!\n",
+            "content_zh": "非常感谢您提供详细的行程建议！我喜欢您包括了海滩放松、市区探索甚至一些户外冒险的混合体验。圣芭芭拉教堂和时尚区听起来特别有趣，我一定会去参观的。我会考虑您的建议并相应安排我的两天行程。我对这次旅行感到非常兴奋，迫不及待地想体验圣芭芭拉所提供的一切。感谢您帮助我完善旅行计划！如果有更多问题或需要进一步帮助，我一定会联系您。再次感谢您的指导！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you found the itinerary suggestions helpful. It sounds like you have a great plan in mind, and I'm sure you'll have an amazing time exploring Santa Barbara.\n\nRemember to check the opening hours and any specific guidelines or restrictions for the attractions you plan to visit, as they may have certain protocols in place due to the ongoing pandemic.\n\nIf you have any more questions or need further assistance while planning your trip or during your time in Santa Barbara, don't hesitate to reach out. I'm here to help. Have a fantastic beach getaway and enjoy creating wonderful memories in Santa Barbara! Safe travels!",
+            "content_zh": "非常欢迎！我很高兴你觉得旅行建议有帮助。听起来你已经有一个很好的计划，我相信你在圣巴巴拉会度过美好的时光。请记得查看景点的开放时间以及任何特定的指导方针或限制，因为它们可能由于持续的疫情而实施特定的规定。如果在规划旅程或在圣巴巴拉期间需要更多帮助或有更多问题，请随时联系我。愿你度过一个美妙的海滩之旅，享受在圣巴巴拉创造美好回忆！安全的旅程！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "beach relaxation",
+        "exploring downtown",
+        "local cuisine"
+    ],
+    "preference_summary": [
+        "beach getaway",
+        "water activities",
+        "scenic drive"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "22",
+            "zh": "22"
+        },
+        "Personality": [
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            },
+            {
+                "en": "Optimistic",
+                "zh": "乐观"
+            }
+        ],
+        "Occupation": {
+            "en": "Student",
+            "zh": "学生"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Playing video games",
+                "zh": "玩游戏"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Self-driving tour",
+                "zh": "自驾游"
+            },
+            {
+                "en": "Visiting exhibitions",
+                "zh": "看展"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Fast food",
+                "zh": "快餐"
+            },
+            {
+                "en": "Street food",
+                "zh": "街头小吃"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on entertainment",
+                "zh": "娱乐支出"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a dormitory",
+                "zh": "住在宿舍"
+            },
+            {
+                "en": "Active in sports activities",
+                "zh": "喜欢参与体育活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 2,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 2,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 2,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

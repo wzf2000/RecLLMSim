@@ -1,0 +1,203 @@
+{
+    "task": "recipe planning",
+    "preference_id": 6,
+    "task_context_id": 0,
+    "preference": "1. Gender: Male\n2. Age: 50\n3. Personality: Knowledgeable, curious, and thoughtful\n4. Occupation: University Professor\n5. Daily Interests and Hobbies: Reading, writing research papers, chess\n6. Travel Habits: Attends international conferences, enjoys visiting museums\n7. Dining Preferences: Prefers quiet, cozy restaurants, enjoys wine tasting\n8. Spending Habits: Spends on books and educational materials, saves for the future\n9. Other Aspects: Member of several academic societies, enjoys classical music",
+    "preference_zh": "1. 性别：男性\n2. 年龄：50岁\n3. 个性：博学、好奇、深思\n4. 职业：大学教授\n5. 日常兴趣爱好：阅读、撰写研究论文、下棋\n6. 旅行习惯：参加国际会议、喜欢参观博物馆\n7. 就餐偏好：喜欢安静、舒适的餐厅、喜欢品酒\n8. 消费习惯：购买书籍和教育材料、为将来存钱\n9. 其他方面：多个学术社团成员、喜欢古典音乐",
+    "task_context": "You plan to prepare a meal at home for yourself. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你打算在家为自己准备一顿饭。你在烹饪方面并不很有经验，经验有限。因此，你想要请LLM帮助你创建食谱，确定必需的食材，并决定要做哪些菜。在规划过程中，你应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I would appreciate your help in creating a recipe and planning a meal for myself at home. I don't have much experience in cooking, so I could use some guidance. Are you able to assist me with that?",
+            "content_zh": "你好！很高兴你在这里。我希望你能帮我制定食谱并计划在家里用餐。我在做饭方面经验不多，所以需要一些指导。你能帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be happy to help you with creating a recipe and planning a meal. Cooking can be a lot of fun, and I'm here to guide you through the process. Let's start by figuring out what type of meal you'd like to make. Are you in the mood for something specific, or do you have any dietary preferences or restrictions?",
+            "content_zh": "你好！很高兴帮助您创建食谱和计划餐食。烹饪可以是一件很有趣的事情，我将在这里引导您完成整个过程。让我们首先确定您想制作什么类型的餐食。您是否有特定的口味，或者是否有任何饮食偏好或限制？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for offering your assistance. As a university professor, I often have busy days, so I prefer meals that are relatively quick and easy to prepare. I'm open to different cuisines, but I tend to lean towards Mediterranean or Asian flavors. I don't have any dietary restrictions, but I try to maintain a balanced and healthy diet. What do you suggest based on these preferences?",
+            "content_zh": "谢谢您提供帮助。作为一名大学教授，我经常忙碌，所以我更喜欢准备相对快捷、容易的饭菜。我愿意尝试不同的美食，但我更倾向于地中海或亚洲口味。我没有任何饮食限制，但我努力保持均衡和健康的饮食。根据这些喜好，您有什么建议呢？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! Based on your preferences, I have a delicious and easy recipe in mind that combines Mediterranean and Asian flavors. How about making a Mediterranean-inspired grilled chicken with a side of stir-fried vegetables and quinoa?\n\nHere's a step-by-step breakdown of the recipe:\n\n1. Mediterranean Grilled Chicken:\n   - Ingredients:\n     - 2 boneless, skinless chicken breasts\n     - 2 tablespoons olive oil\n     - 2 cloves garlic, minced\n     - 1 teaspoon dried oregano\n     - Juice of 1 lemon\n     - Salt and pepper to taste\n\n   - Instructions:\n     1. Preheat your grill or grill pan over medium-high heat.\n     2. In a small bowl, mix together the olive oil, minced garlic, dried oregano, lemon juice, salt, and pepper.\n     3. Place the chicken breasts in a shallow dish and pour the marinade over them, making sure they are well-coated. Let them marinate for about 15-20 minutes.\n     4. Grill the chicken breasts for about 6-8 minutes per side or until they are cooked through and have nice grill marks. Remove from heat and let them rest for a few minutes before slicing.\n\n2. Stir-Fried Vegetables:\n   - Ingredients:\n     - 2 cups mixed vegetables (such as bell peppers, broccoli, carrots, snap peas)\n     - 1 tablespoon sesame oil\n     - 2 cloves garlic, minced\n     - 1 tablespoon soy sauce\n     - 1 teaspoon honey (optional)\n     - Salt and pepper to taste\n\n   - Instructions:\n     1. Heat the sesame oil in a large skillet or wok over medium-high heat.\n     2. Add the minced garlic and stir-fry for about 30 seconds until fragrant.\n     3. Add the mixed vegetables and stir-fry for about 4-5 minutes until they are crisp-tender.\n     4. In a small bowl, mix together the soy sauce and honey. Pour the mixture over the vegetables and stir-fry for another minute or until the sauce coats the vegetables evenly. Season with salt and pepper to taste.\n\n3. Quinoa:\n   - Ingredients:\n     - 1 cup quinoa\n     - 2 cups water or vegetable broth\n     - Salt to taste\n\n   - Instructions:\n     1. Rinse the quinoa under cold water to remove any bitterness.\n     2. In a saucepan, bring the water or vegetable broth to a boil. Add the quinoa and a pinch of salt.\n     3. Reduce the heat to low, cover the saucepan, and let the quinoa simmer for about 15 minutes or until all the liquid is absorbed.\n     4. Fluff the quinoa with a fork before serving.\n\nOnce everything is ready, plate the sliced grilled chicken alongside the stir-fried vegetables and quinoa. You can garnish the chicken with a squeeze of fresh lemon juice and some chopped fresh herbs like parsley or cilantro, if desired.\n\nI hope you enjoy this flavorful and healthy meal! Let me know if you have any questions or need further assistance.",
+            "content_zh": "好极了！根据您的喜好，我有一个美味又简单的食谱，在这个食谱中将地中海和亚洲风味结合在一起。您觉得做一个地中海风格的烤鸡配炒蔬菜和藜麦怎么样？\n\n以下是食谱的步骤：\n1. 地中海风味烤鸡：\n- 食材：\n- 2块去骨，去皮鸡胸肉\n- 2汤匙橄榄油\n- 2瓣大蒜，切碎\n- 1茶匙干牛至\n- 1个柠檬的果汁\n- 适量盐和胡椒\n- 做法：\n1. 在中高火上预热烧烤架或平底锅。\n2. 在一个小碗中，将橄榄油，切碎的大蒜，干牛至，柠檬汁，盐和胡椒混合在一起。\n3. 将鸡胸肉放在浅盘中，倒入腌料，确保均匀涂抹。让它们腌制15-20分钟。\n4. 每面煎6-8分钟，直至煮熟并有烤痕。熟透后离火，稍微休息片刻后切片。\n\n2. 炒蔬菜：\n- 食材：\n- 2杯混合蔬菜（如彩椒，西兰花，胡萝卜，豌豆）\n- 1汤匙芝麻油\n- 2瓣大蒜，切碎\n- 1汤匙酱油\n- 1茶匙蜂蜜（可选）\n- 盐和胡椒\n- 做法：\n1. 在大锅或炒锅中倒入芝麻油，中高火加热。\n2. 加入切碎的大蒜，翻炒约30秒直至散发香味。\n3. 加入混合蔬菜，翻炒4-5分钟至嫩脆。\n4. 将酱油和蜂蜜混合在一起倒入蔬菜中，继续翻炒1分钟直至均匀裹上酱汁。根据口味加盐和胡椒。\n\n3. 藜麦：\n- 食材：\n- 1杯藜麦\n- 2杯水或蔬菜高汤\n- 盐\n- 做法：\n1. 用冷水冲洗藜麦以去除苦味。\n2. 锅中煮沸水或蔬菜高汤，加入藜麦和少许盐。\n3. 转小火，盖上锅盖，让藜麦煮约15分钟或直至吸收所有水分。\n4. 上桌前用叉子拨松藜麦。\n\n当一切准备好时，将切片烤鸡与炒蔬菜和藜麦摆盘。如果需要，您可以在鸡肉上加一点新鲜柠檬汁和一些欣欣向荣的香菜或香菜碎。\n\n希望您喜欢这道美味又健康的餐！如果您有任何问题或需要进一步帮助，请随时告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "mediterranean",
+        "asian",
+        "quick"
+    ],
+    "preference_summary": [
+        "quick preparation",
+        "mediterranean",
+        "healthy"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 1,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "50",
+            "zh": "50"
+        },
+        "Personality": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Occupation": {
+            "en": "Educators",
+            "zh": "教师"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Writing",
+                "zh": "写作"
+            },
+            {
+                "en": "Playing chess",
+                "zh": "下棋"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Visiting museums",
+                "zh": "参观博物馆"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on books",
+                "zh": "购买书籍"
+            },
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in academic activities",
+                "zh": "喜欢参与学术活动"
+            },
+            {
+                "en": "Active in music activities",
+                "zh": "喜欢参与音乐活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "Breadth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

@@ -1,0 +1,249 @@
+{
+    "task": "recipe planning",
+    "preference_id": 2,
+    "task_context_id": 3,
+    "preference": "1. Gender: Male\n2. Age: 45\n3. Personality: Ambitious, driven, and assertive\n4. Occupation: CEO of a startup\n5. Daily Interests and Hobbies: Reading business books, golfing, networking\n6. Travel Habits: Frequently travels for business, prefers luxury hotels\n7. Dining Preferences: Enjoys fine dining, prefers protein-rich diet\n8. Spending Habits: High spender, invests in stocks\n9. Other Aspects: Has a large social circle, enjoys public speaking",
+    "preference_zh": "1. 性别：男\n2. 年龄：45\n3. 个性：有雄心壮志、进取、果断\n4. 职业：一家初创公司的首席执行官\n5. 日常兴趣爱好：阅读商业书籍、打高尔夫球、社交网络\n6. 出行习惯：经常出差，偏爱豪华酒店\n7. 用餐喜好：喜欢高级餐饮，偏爱富含蛋白质的饮食\n8. 消费习惯：较高消费者，投资股市\n9. 其他方面：社交圈较广，喜欢演讲",
+    "task_context": "You plan to prepare a meal at home for yourself and your loved one. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家里为自己和爱人准备一顿饭。你是一位技艺高超的厨师，因此希望请LLM帮忙制定菜谱，确定所需食材，以及决定要做的菜品。在计划过程中，你应该学习每道菜的完整准备过程以及准备菜品的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you asked. I need your help in planning a special meal for myself and my loved one. I consider myself a skilled cook and would like to create a memorable dining experience. Can you assist me in creating a recipe, determining the necessary ingredients, and deciding what dishes to make?",
+            "content_zh": "你好！很高兴你要求帮助。我需要你帮忙规划一顿特别的餐饮，我和我心爱的人。我认为自己是一个技术娴熟的厨师，想要创造一个难忘的用餐体验。你能帮我创建一个食谱、确定必要的食材和决定要做什么菜吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! I'd be more than happy to assist you in planning a special meal for you and your loved one. Creating a memorable dining experience sounds wonderful! Could you please let me know a few details to get started? \n\n1. What type of cuisine are you interested in? Italian, Asian, Mediterranean, etc.?\n2. Are there any dietary restrictions or preferences I should consider?\n3. Do you have any specific dishes in mind, or would you like some suggestions?\n4. How many courses would you like to include in your meal?\n5. Are there any ingredients you'd like to incorporate or avoid?\n\nOnce I have these details, I can help you come up with a delicious and memorable menu for your special occasion!",
+            "content_zh": "你好！我很乐意帮助你为你和你所爱的人策划一顿特别的晚餐。打造一个值得回味的用餐体验听起来很美妙！请告诉我一些细节，让我们开始吧！\n1. 你对什么类型的美食感兴趣？意大利、亚洲、地中海等？\n2. 有任何饮食限制或偏好我应该考虑吗？\n3. 你有什么特定的菜肴考虑了吗，还是想听听我的建议？\n4. 你想在你的晚餐中包括多少道菜？\n5. 有任何你想要或避免的食材吗？\n一旦我知道这些细节，我就能帮你拟定一份美味且令人难忘的菜单，为你的特殊场合提供帮助！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for your willingness to assist me. Here are the details you requested:\n\n1. I'm open to different cuisines, but let's go with a fusion of Mediterranean and Asian flavors to create an interesting blend.\n2. There are no dietary restrictions, but I'd prefer a protein-rich meal to keep it healthy and satisfying.\n3. I don't have any specific dishes in mind, so I'm open to your suggestions based on the chosen cuisines.\n4. Let's go with a three-course meal: appetizer, main course, and dessert.\n5. I'd like to avoid seafood in this particular meal, but other than that, feel free to incorporate any ingredients you think will work well.\n\nI'm excited to see what delicious menu you come up with!",
+            "content_zh": "感谢您愿意帮助我。以下是您要求的细节：1. 我喜欢尝试不同的美食，但让我们选择地中海和亚洲口味的融合，创造一个有趣的融合。2. 没有特殊的饮食限制，但我更喜欢蛋白质丰富的餐点，以保持健康和满足。3. 我没有特定的菜肴在心里，所以我愿意听取您基于所选美食的建议。4. 让我们来一份三道菜的餐点：开胃菜、主菜和甜点。5. 在这个特别的餐点中，我想避免海鲜，但除此之外，请随意加入您认为合适的任何食材。我很期待看到您拟定的美味菜单！",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Great! A fusion of Mediterranean and Asian flavors can create a unique and exciting dining experience. Here's a menu suggestion for your three-course meal:\n\nAppetizer: Greek-inspired Stuffed Grape Leaves with a Twist\n- Ingredients:\n  - Grape leaves\n  - Ground lamb or chicken\n  - Cooked quinoa\n  - Finely chopped onion, garlic, and parsley\n  - Lemon juice\n  - Olive oil\n  - Salt and pepper\n- Instructions:\n  1. Mix the ground meat, cooked quinoa, chopped onion, garlic, parsley, lemon juice, olive oil, salt, and pepper in a bowl.\n  2. Take a grape leaf and place a spoonful of the mixture in the center. Fold the sides inward and roll it tightly.\n  3. Repeat until all the mixture is used.\n  4. Steam or bake the stuffed grape leaves until cooked through.\n  5. Serve with a side of tzatziki sauce for dipping.\n\nMain Course: Teriyaki Glazed Chicken with Mediterranean Couscous\n- Ingredients:\n  - Chicken breasts or thighs\n  - Teriyaki sauce\n  - Olive oil\n  - Garlic powder\n  - Salt and pepper\n  - Couscous\n  - Chopped tomatoes, cucumbers, olives, and feta cheese\n  - Lemon juice\n  - Fresh herbs like mint and parsley for garnish\n- Instructions:\n  1. Marinate the chicken in teriyaki sauce, olive oil, garlic powder, salt, and pepper for at least 30 minutes.\n  2. Grill or pan-sear the chicken until cooked through, basting with the marinade for extra flavor.\n  3. Prepare the couscous according to package instructions and let it cool slightly.\n  4. Toss the couscous with the chopped tomatoes, cucumbers, olives, feta cheese, lemon juice, olive oil, salt, and pepper.\n  5. Serve the teriyaki glazed chicken on a bed of Mediterranean couscous, garnished with fresh herbs.\n\nDessert: Baklava Cheesecake Bites\n- Ingredients:\n  - Phyllo dough\n  - Cream cheese\n  - Sugar\n  - Lemon zest\n  - Chopped walnuts or pistachios\n  - Honey\n- Instructions:\n  1. Preheat the oven and prepare a mini muffin tin.\n  2. Layer the mini muffin cups with phyllo dough, brushing each layer with melted butter.\n  3. In a bowl, mix cream cheese, sugar, and lemon zest until smooth.\n  4. Fill each phyllo cup with the cream cheese mixture and sprinkle chopped walnuts or pistachios on top.\n  5. Bake until the phyllo is golden and crisp.\n  6. Drizzle honey over the cheesecake bites before serving.\n\nI hope this menu suits your taste! Feel free to make any adjustments or let me know if you have any other preferences. Enjoy your special meal!",
+            "content_zh": "太棒了！地中海和亚洲风味的融合可以打造独特和令人兴奋的用餐体验。以下是一个三道菜菜单建议：\n\n头盘：带有一点花样的希腊风味葡萄叶包\n- 食材：\n  - 葡萄叶\n  - 碎羊肉或鸡肉\n  - 煮熟的藜麦\n  - 细切洋葱、大蒜和欧芹\n  - 柠檬汁\n  - 橄榄油\n  - 盐和胡椒\n- 做法：\n  1. 在碗中将碎肉、煮熟的藜麦、切碎的洋葱、大蒜、欧芹、柠檬汁、橄榄油、盐和胡椒混合在一起。\n  2. 取一片葡萄叶，在中间放上一勺混合物。将两侧向内折叠并紧紧卷起。\n  3. 重复直到所有混合物用完。\n  4. 蒸或烘烤葡萄叶包直到煮熟。\n  5. 与泰兹齐奇酱一起享用。\n\n主菜：太妃鸡腿带地中海风味的小麦\n- 食材：\n  - 鸡胸肉或鸡腿\n  - 照烧酱\n  - 橄榄油\n  - 大蒜粉\n  - 盐和胡椒\n  - 中东小麦\n  - 切碎的番茄、黄瓜、橄榄和羊奶干酪\n  - 柠檬汁\n  - 薄荷和欧芹等新鲜香草作为装饰\n- 做法：\n  1. 使用照烧酱、橄榄油、大蒜粉、盐和胡椒腌制鸡肉至少30分钟。\n  2. 烤或平底锅煎鸡肉直到煮熟，用腌料涂抹增添额外风味。\n  3. 按照包装说明准备小麦并稍微放凉。\n  4. 将小麦与切碎的番茄、黄瓜、橄榄、羊奶干酪、柠檬汁、橄榄油、盐和胡椒拌匀。\n  5. 将太妃照烧鸡腿放在地中海风味小麦上，装饰以新鲜香草。\n\n甜点：带有蜂蜜的巴克拉瑚蕊蛋糕\n- 食材：\n  - 酥皮\n  - 奶油奶酪\n  - 糖\n  - 柠檬皮屑\n  - 切碎的核桃或开心果\n  - 蜜糖\n- 做法：\n  1. 预热烤箱并准备迷你松饼模具。\n  2. 在迷你松饼杯中放上酥皮，每一层刷上融化的黄油。\n  3. 在一个碗中，将奶油奶酪、糖和柠檬皮屑混合至顺滑。\n  4. 将每个酥皮杯填满奶油奶酪混合物并在顶部撒上切碎的核桃或开心果。\n  5. 烤至酥皮呈金黄色并变脆。\n  6. 在上菜前在奶酪蛋糕上淋上蜜糖。\n\n希望这个菜单符合您的口味！随时可以调整或告诉我您是否有其他喜好。享受您的特别餐！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the menu suggestions! I appreciate the fusion of Mediterranean and Asian flavors in each course. However, I would like to make a couple of adjustments to better suit my preferences:\n\nFor the appetizer, instead of stuffed grape leaves, could we go with a Mediterranean-inspired Bruschetta with a twist? I'd like to use grilled eggplant as the base and top it with a combination of diced tomatoes, fresh basil, feta cheese, and a drizzle of balsamic glaze.\n\nAs for the main course, I love the idea of Teriyaki Glazed Chicken, but I'd like to substitute the couscous with a flavorful Asian-inspired stir-fried vegetable medley. It could include snap peas, bell peppers, carrots, and mushrooms, seasoned with soy sauce, ginger, and garlic.\n\nLastly, for the dessert, the Baklava Cheesecake Bites sound delightful! I wouldn't change a thing there.\n\nThank you for your understanding, and I'm excited to try out this modified menu!",
+            "content_zh": "谢谢您的菜单建议！我很欣赏每道菜里地中海和亚洲风味的融合。不过，我想要做一些调整以更符合我的口味：\n\n对于开胃菜，我们可以选择地中海风味的带有特色的意式面包片（Bruschetta），而不是填充的葡萄叶？我想用烤茄子作为底部，上面撒上切碎的番茄、新鲜罗勒、羊奶芝士和少许意大利香醋。\n\n至于主菜，我喜欢照烧鸡肉的想法，但是我想用风味浓郁的亚洲式炒蔬菜来替代小米。可以用荷兰豆、彩椒、胡萝卜和蘑菇，加入酱油、生姜和大蒜调味。\n\n最后，甜点方面，拔卡瓦（Baklava）芝士蛋糕小块听起来很美味！我在那里不会做任何改动。\n\n谢谢您的理解，我很期待尝试这个改良后的菜单！",
+            "intent": "Others",
+            "intent_zh": "其他"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! I'm glad you're customizing the menu to suit your preferences. Here are the adjusted recipes based on your requests:\n\nAppetizer: Mediterranean-inspired Grilled Eggplant Bruschetta\n- Ingredients:\n  - Eggplant, sliced into rounds\n  - Olive oil\n  - Diced tomatoes\n  - Chopped fresh basil\n  - Crumbled feta cheese\n  - Balsamic glaze\n  - Salt and pepper\n- Instructions:\n  1. Preheat a grill or grill pan over medium-high heat.\n  2. Brush the eggplant slices with olive oil and season with salt and pepper.\n  3. Grill the eggplant slices for a few minutes on each side until tender and grill marks appear.\n  4. In a bowl, combine diced tomatoes, chopped basil, crumbled feta cheese, olive oil, salt, and pepper.\n  5. Place a spoonful of the tomato mixture on top of each grilled eggplant slice.\n  6. Drizzle with balsamic glaze before serving.\n\nMain Course: Teriyaki Glazed Chicken with Asian Stir-Fried Vegetable Medley\n- Ingredients:\n  - Chicken breasts or thighs\n  - Teriyaki sauce\n  - Olive oil\n  - Garlic powder\n  - Salt and pepper\n  - Snap peas, trimmed\n  - Bell peppers, sliced\n  - Carrots, julienned\n  - Mushrooms, sliced\n  - Soy sauce\n  - Fresh ginger, grated\n  - Garlic, minced\n  - Sesame oil (optional)\n- Instructions:\n  1. Marinate and cook the chicken as mentioned in the previous recipe.\n  2. In a wok or large skillet, heat olive oil over medium-high heat.\n  3. Add the snap peas, bell peppers, carrots, and mushrooms to the pan and stir-fry for a few minutes until crisp-tender.\n  4. In a small bowl, mix soy sauce, grated ginger, minced garlic, and sesame oil (if using).\n  5. Pour the sauce over the vegetables and stir-fry for another minute or two until the flavors meld together.\n  6. Serve the teriyaki glazed chicken alongside the Asian stir-fried vegetable medley.\n\nDessert: Baklava Cheesecake Bites (unchanged)\n\nI hope these adjustments better suit your preferences! Feel free to let me know if you have any further modifications or if there's anything else I can assist you with. Enjoy your special meal!",
+            "content_zh": "绝对没问题!很高兴您定制了菜单以满足您的喜好。以下是根据您的要求调整的食谱：\n\n开胃菜：地中海风味烤茄子布鲁斯凯塔\n- 食材：\n  - 茄子，切成圆片\n  - 橄榄油\n  - 西红柿丁\n  - 切碎的新鲜罗勒\n  - 碎羊乳酪\n  - 香醋酱\n  - 盐和胡椒\n- 做法：\n  1. 在中高火预热烤架或烤盘。\n  2. 用橄榄油刷茄子片，撒盐和胡椒。\n  3. 将茄子片烤数分钟，直至两面变软并出现烤痕。\n  4. 在一个碗中，将西红柿丁、切碎的罗勒、碎羊乳酪、橄榄油、盐和胡椒混合。\n  5. 在每个烤过的茄子片上放上一勺番茄混合物。\n  6. 送上香醋酱后食用。\n\n主菜：照烧鸡肉与亚洲炒时蔬拼盘\n- 食材：\n  - 鸡胸肉或鸡腿肉\n  - 照烧酱\n  - 橄榄油\n  - 大蒜粉\n  - 盐和胡椒\n  - 削好边的豌豆\n  - 青椒，切片\n  - 胡萝卜，切丝\n  - 蘑菇，切片\n  - 酱油\n  - 姜蓉\n  - 大蒜蓉\n  - 芝麻油（可选）\n- 做法：\n  1. 按前述食谱腌制和烹饪鸡肉。\n  2. 在炒锅或大型煎锅中，中高火热橄榄油。\n  3. 将豌豆、青椒、胡萝卜和蘑菇加入锅中炒数分钟直至半生熟。\n  4. 在一个小碗中，混合酱油、姜蓉、大蒜蓉和芝麻油（如使用）。\n  5. 将酱汁倒入蔬菜中，翻炒一至两分钟直至融合。\n  6. 将照烧鸡肉和亚洲炒时蔬一起上桌。\n\n甜点：巴克拉瓦芝士蛋糕块（未变动）\n\n希望这些调整更符合您的口味！如果您有任何进一步修改或需要帮助的地方，请随时告诉我。祝您用餐愉快！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "mediterranean-inspired",
+        "asian flavors",
+        "stir-fried vegetables"
+    ],
+    "preference_summary": [
+        "adjusted",
+        "protein-rich",
+        "excited"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 1,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "45",
+            "zh": "45"
+        },
+        "Personality": [
+            {
+                "en": "Ambitious",
+                "zh": "上进"
+            },
+            {
+                "en": "Confident",
+                "zh": "自信"
+            }
+        ],
+        "Occupation": {
+            "en": "Startup founder",
+            "zh": "创业者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Luxury accommodation",
+                "zh": "豪华住宿"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Healthy food",
+                "zh": "健康饮食"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "High spender",
+                "zh": "高消费"
+            },
+            {
+                "en": "Invests in stocks",
+                "zh": "股票"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Has a large social circle",
+                "zh": "社交广泛"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "DepthBreadth",
+            "feedback": "Both"
+        },
+        "1": {
+            "order": "DepthBreadth",
+            "feedback": "Both"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Both"
+        },
+        "3": {
+            "order": "DepthBreadth",
+            "feedback": "Both"
+        }
+    },
+    "strategy_1120": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Both"
+        }
+    }
+}

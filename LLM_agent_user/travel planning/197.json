@@ -1,0 +1,271 @@
+{
+    "task": "travel planning",
+    "preference_id": 14,
+    "task_context_id": 1,
+    "preference": "1. Gender: Male\n2. Age: 55\n3. Personality: Calm, patient, and caring\n4. Occupation: Pediatrician\n5. Daily Interests and Hobbies: Reading medical journals, gardening, playing golf\n6. Travel Habits: Prefers calm and serene locations, enjoys family vacations\n7. Dining Preferences: Enjoys comfort food, prefers home-cooked meals\n8. Spending Habits: Saves for retirement, spends on gardening tools\n9. Other Aspects: Active in local community health programs, has a family",
+    "preference_zh": "1.性别: 男性\n2.年龄: 55\n3.性格: 冷静、有耐心、贴心\n4.职业: 儿科医生\n5.日常兴趣爱好: 阅读医学期刊、园艺、打高尔夫\n6.旅行习惯: 喜欢宁静和平静的地方，享受家庭度假\n7.饮食偏好: 喜欢舒适美食，更喜欢家常菜\n8.消费习惯: 为退休存钱，花在园艺工具上\n9.其他方面: 积极参与当地社区健康计划, 有家人",
+    "task_context": "You are planning a two-day-long trip this summer, The trip has no specific destination restrictions. You would like to use LLM to help refine your travel plans. During this conversation, you will need to make arrangements for accommodations, transportation, and itinerary details. Your ultimate travel plan should be as comprehensive as possible, ensuring that you can realistically follow it when the time comes.",
+    "task_context_zh": "你打算今年夏天进行为期两天的旅行，这次旅行没有特定的目的地限制。你希望使用LLM来帮助完善你的旅行计划。在这次对话中，你需要安排住宿、交通和行程细节。你的最终旅行计划应尽可能全面，确保到时候你可以实际执行。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here to help. I'm planning a two-day trip this summer and I would appreciate your assistance in refining my travel plans. I need help with accommodations, transportation, and itinerary details. Can you guide me through these aspects?",
+            "content_zh": "你好！很高兴你来这里帮忙。我计划今年夏天进行一个两天的旅行，希望可以请你帮我优化我的旅行计划。我需要帮助安排住宿、交通和行程细节。你能帮我指导这些方面吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you with your travel plans! Two days can be a great opportunity for a mini adventure. Could you let me know the destination you have in mind for your trip? That way, we can start working on accommodations, transportation, and itinerary details specific to that location.",
+            "content_zh": "当然，我很乐意帮你规划旅行！两天的时间可以是一次很棒的迷你冒险。请告诉我你计划旅行的目的地是哪里？这样我们就可以开始安排住宿、交通和行程细节，以确保符合该地点的特定需求。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for your prompt response. Since I don't have any specific destination in mind, I'm open to suggestions. As someone who prefers calm and serene locations, I'm looking for a place where I can relax and unwind. It would be great if you could suggest a destination that offers a peaceful environment and perhaps some natural beauty.",
+            "content_zh": "感谢您的及时回复。由于我还没有具体目的地在脑海中，我很愿意听取建议。作为一个喜欢宁静和宜人地方的人，我正在寻找一个可以让我轻松放松的地方。如果您能推荐一个提供宁静环境和一些自然美景的目的地，那将是很棒的。",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Sure! If you're looking for a calm and serene destination with natural beauty, I have a few suggestions for you:\n\n1. Sedona, Arizona, USA: Known for its stunning red rock formations, Sedona offers breathtaking landscapes and a tranquil atmosphere. You can explore hiking trails, visit spiritual sites, and indulge in spa treatments for a truly relaxing experience.\n\n2. Queenstown, New Zealand: Nestled amidst the Southern Alps, Queenstown is a picturesque destination with serene lakes, majestic mountains, and charming villages. You can enjoy activities like hiking, boating, or simply taking in the breathtaking scenery.\n\n3. Bali, Indonesia: Bali is famous for its lush green landscapes, beautiful beaches, and spiritual retreats. You can relax on pristine beaches, visit ancient temples, explore rice terraces, and rejuvenate with traditional spa treatments.\n\n4. Kyoto, Japan: Known for its traditional charm and serene gardens, Kyoto offers a peaceful atmosphere and a chance to explore Japanese culture. You can visit tranquil temples, stroll through beautiful gardens, and indulge in traditional tea ceremonies.\n\nThese are just a few suggestions, but there are many other serene destinations to consider. Let me know if any of these catch your interest, or if you have any preferences regarding the region or type of accommodation you prefer!",
+            "content_zh": "当然！如果您正在寻找一个宁静宜人的目的地，享受自然之美，我有几个建议给您：\n\n1. 美国亚利桑那州塞多纳：以其令人惊叹的红岩地貌而闻名，塞多纳提供了壮丽的风景和宁静的氛围。您可以探索徒步旅行路线，参观灵性场所，享受水疗，获得真正放松的体验。\n\n2. 新西兰皇后镇：坐落在南阿尔卑斯山脉之间，皇后镇是一个风景如画的目的地，有宁静的湖泊、雄伟的山脉和迷人的村庄。您可以享受徒步、划船等活动，或者干脆欣赏壮丽的风景。\n\n3. 印度尼西亚巴厘岛：巴厘岛以其郁郁葱葱的绿色风景、美丽的海滩和灵性修行而闻名。您可以在原始海滩上放松身心，参观古老寺庙，探索稻田梯田，并享受传统水疗。\n\n4. 日本京都：以其传统魅力和宁静的花园而闻名，京都提供了宁静的氛围和探索日本文化的机会。您可以参观宁静的寺庙，漫步美丽的花园，并享受传统茶道仪式。\n\n这些仅仅是一些建议，还有许多其他宁静的目的地值得考虑。如果您对这些有兴趣，或者对您喜欢的地区或类型的住宿有任何特殊偏好，请告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the wonderful suggestions! All of them sound appealing, but I think Sedona, Arizona, USA, with its stunning red rock formations, would be a great choice for a serene and relaxing trip. The idea of exploring hiking trails and indulging in spa treatments sounds perfect for unwinding. \n\nNow, let's move on to accommodations. Could you please suggest a few options for accommodations in Sedona? I'm looking for a comfortable and peaceful place to stay, preferably with a beautiful view of the surroundings.",
+            "content_zh": "谢谢你的精彩建议！它们听起来都很吸引人，但我觉得美国亚利桑那州塞多纳市的令人惊叹的红岩岩层将是一个宁静放松之旅的绝佳选择。探索远足径和尽情享受水疗理疗的想法对放松非常完美。\n现在，让我们继续谈论住宿安排。你能否建议一些在塞多纳的住宿选择呢？我正在寻找一个舒适宁静的住所，最好附带美丽的景色。",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Sedona is indeed a fantastic choice! Here are a few accommodations in Sedona that offer comfort, serenity, and beautiful views:\n\n1. Enchantment Resort: Nestled in Boynton Canyon, Enchantment Resort offers luxurious casitas and suites with stunning views of the red rock formations. The resort also features a spa, multiple dining options, and access to hiking trails.\n\n2. L'Auberge de Sedona: Situated along Oak Creek, L'Auberge de Sedona provides a peaceful retreat with cozy cottages and elegant suites. You can enjoy the serene surroundings, indulge in spa treatments, and dine at their award-winning restaurant.\n\n3. Amara Resort and Spa: Located in Uptown Sedona, Amara Resort and Spa offers contemporary rooms with views of the red rocks or the surrounding creek. The resort features a spa, a pool, and a restaurant with outdoor seating.\n\n4. Sedona Rouge Hotel and Spa: This boutique hotel offers comfortable rooms and suites with a touch of Southwestern charm. It boasts a spa, a heated outdoor pool, and a rooftop terrace with panoramic views of the red rocks.\n\nThese are just a few options to consider, and each offers a unique experience. Be sure to check their websites or read reviews to find the one that suits your preferences and budget.",
+            "content_zh": "塞多娜确实是一个很棒的选择！以下是塞多娜的一些住宿选择，提供舒适、宁静和美丽的景色：\n1. 神秘度假村：坐落在博因顿峡谷，神秘度假村提供豪华的小屋和套房，享有红色岩石形成的壮丽景色。度假村设有水疗中心、多个餐饮选项和通往徒步径的通道。\n2. 赛唐娜乐舍：坐落在橡树溪旁，赛唐娜乐舍提供舒适的小屋和优雅的套房，是一个宁静的避风港。您可以在宁静的环境中享受，沉浸在水疗护理中，并在其屡获殊荣的餐厅用餐。\n3. 阿玛拉度假村和水疗中心：位于塞多娜市中心，阿玛拉度假村和水疗中心提供享有红色岩石或周围小溪景色的现代客房。度假村设有水疗中心、游泳池以及一个设有户外座位的餐厅。\n4. 塞多红色酒店和水疗中心：这家精品酒店提供带有西南部风情特色的舒适客房和套房。酒店拥有水疗中心、室外恒温泳池，以及一个可欣赏红色岩石全景的屋顶露台。\n这些只是一些值得考虑的选择，每个都提供独特的体验。请务必查看他们的网站或阅读评论，找到符合您偏好和预算的选项。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the wonderful accommodation suggestions in Sedona! They all sound fantastic, and I appreciate the variety of options. After considering them, I think I'll go with L'Auberge de Sedona. The cozy cottages and elegant suites, along with the serene surroundings and spa treatments, seem like the perfect combination for a relaxing stay.\n\nNow, let's move on to transportation. Since Sedona is located in Arizona, I assume flying into a nearby airport would be the most convenient option. Could you please suggest the best airport to fly into for my trip to Sedona?",
+            "content_zh": "谢谢你在塞多纳提供的精彩住宿建议！它们都听起来太棒了，我很感激有这么多选择。经过考虑，我想我会选择塞多纳奥贝日酒店。温馨的小屋和优雅的套房，加上宁静的环境和水疗护理，似乎是一个放松的完美组合。现在，让我们继续谈谈交通。由于塞多纳位于亚利桑那州，我认为飞往附近机场会是最方便的选择。你能否请建议我飞往塞多纳的最佳机场？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're making a great choice with L'Auberge de Sedona! It's a wonderful place to unwind and enjoy the beauty of Sedona.\n\nWhen it comes to flying into Sedona, the most convenient option is to fly into Phoenix Sky Harbor International Airport (PHX). It is the largest airport in Arizona and offers a wide range of flight options from various destinations. From Phoenix, it's approximately a two-hour drive to Sedona.\n\nOnce you arrive at Phoenix Sky Harbor, you have a few options for getting to Sedona. Renting a car is the most popular choice as it gives you the flexibility to explore the area at your own pace. There are several car rental companies available at the airport.\n\nIf you prefer not to drive, you can also consider booking a shuttle service from the airport to Sedona. Companies like Arizona Shuttle and Ace Xpress Shuttle offer shared and private transportation options.\n\nKeep in mind that while flying into Phoenix is the most common choice, there is also a smaller airport closer to Sedona called Flagstaff Pulliam Airport (FLG). However, flight options to Flagstaff are more limited, so Phoenix Sky Harbor is usually the recommended airport for most travelers.\n\nI hope this helps with your transportation plans! Let me know if you have any further questions or need assistance with anything else.",
+            "content_zh": "选择住在塞多纳洛贝日酒店是一个很棒的选择！这里是一个放松和享受塞多纳美景的绝佳之地。\n当你计划飞往塞多纳时，最方便的选择是飞往菲尼克斯天港国际机场（PHX）。这是亚利桑那州最大的机场，提供来自各个目的地的广泛航班选择。从菲尼克斯到塞多纳的车程约为两个小时。\n一旦抵达菲尼克斯天港，您有几种前往塞多纳的选择。租车是最受欢迎的选择，因为它可以让您以自己的节奏探索这个地区。机场有几家汽车租赁公司可供选择。\n如果您不想自己开车，也可以考虑预订从机场到塞多纳的班车服务。像亚利桑那班车和Ace Xpress班车这样的公司提供共乘和私人交通选择。\n请注意，尽管飞往菲尼克斯是最常见的选择，但距离塞多纳更近的还有一个较小的机场叫做弗拉格斯塔夫普利安机场（FLG）。然而，飞往弗拉格斯塔夫的航班选择更有限，因此菲尼克斯天港通常是大多数旅行者推荐的机场。\n希望这些信息对您的交通计划有所帮助！如果您有任何进一步的问题或需要帮助，请告诉我。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed information! Flying into Phoenix Sky Harbor International Airport and renting a car seems like the most convenient option for me. It will give me the flexibility to explore the area at my own pace, which I appreciate.\n\nNow that we have accommodations and transportation sorted, let's move on to planning the itinerary. Since I have two days in Sedona, I would like to make the most of my time there. Could you suggest a sample itinerary that includes some key attractions or activities that I shouldn't miss during my visit?\n",
+            "content_zh": "感谢提供详细信息！飞往凤凰城天港国际机场租车似乎是对我来说最方便的选择。这将使我有灵活性以我自己的节奏探索该地区，我很感激。现在我们已经解决了住宿和交通工具的问题，让我们继续规划行程。由于我在塞多纳待两天，我想充分利用我在那里的时间。您能否提出一个包含一些主要景点或活动的示例行程，以确保我在访问期间不要错过？",
+            "intent": "Planning",
+            "intent_zh": "规划"
+        },
+        {
+            "role": "assistant",
+            "content": "Certainly! Here's a sample itinerary for your two-day trip to Sedona:\n\nDay 1:\n- Morning: Start your day with a leisurely breakfast at L'Auberge de Sedona to fuel up for the day.\n- Mid-Morning: Begin your exploration by visiting the Chapel of the Holy Cross, a stunning architectural marvel built into the red rocks. Take in the panoramic views and enjoy the peaceful atmosphere.\n- Lunchtime: Head to one of the charming restaurants in Uptown Sedona, such as The Hudson or Elote Café, for a delightful lunch.\n- Afternoon: Spend the afternoon exploring the iconic Cathedral Rock. You can either hike the Cathedral Rock Trail for a moderate challenge or simply enjoy the scenic views from the Red Rock Crossing area.\n- Evening: Indulge in a relaxing spa treatment at L'Auberge de Sedona's spa or enjoy a romantic dinner at their award-winning restaurant, Cress on Oak Creek.\n\nDay 2:\n- Morning: Wake up early to catch the sunrise at Airport Mesa, one of the best viewpoints in Sedona. The breathtaking views and tranquil surroundings make it a perfect spot to start your day.\n- Mid-Morning: After breakfast, head to the Boynton Canyon Trail for a scenic hike. This trail offers stunning views of the red rock formations and the opportunity to connect with nature.\n- Lunchtime: Grab a quick bite at one of the local cafes or pack a picnic lunch to enjoy amidst the beautiful surroundings.\n- Afternoon: Visit the famous Bell Rock and Courthouse Butte Loop Trail, which offers a relatively easy hike with incredible views. You can also explore the nearby Bell Rock Pathway for a more leisurely walk.\n- Evening: Wrap up your trip with a visit to the Tlaquepaque Arts & Shopping Village. This charming outdoor shopping area features art galleries, boutiques, and restaurants. Enjoy a leisurely stroll and perhaps pick up some souvenirs.\n\nOf course, this is just a suggested itinerary, and you can customize it based on your preferences and the time you have available. Sedona offers plenty of natural beauty and serene spots, so take your time to relax, soak in the atmosphere, and enjoy the tranquility of this beautiful destination.",
+            "content_zh": "当然！以下是您两天前往塞多纳的行程示例：第一天： - 早晨：在L'Auberge de Sedona悠闲享用早餐，为一天充电。 - 上午：开始探索，参观圣十字教堂，这是一座建在红岩中的令人惊叹的建筑奇迹。欣赏全景，享受宁静的氛围。 - 午餐时间：前往塞多纳市中心的迷人餐厅之一，如The Hudson或Elote Café，享用美味午餐。 - 下午：下午探索标志性的大教堂岩（Cathedral Rock）。您可以选择徒步穿过Cathedral Rock小径，体验适度的挑战，或者只是从红岩交汇区欣赏风景。 - 晚上：在L'Auberge de Sedona的水疗中心享受放松的水疗，或者在他们屡获殊荣的餐厅Cress on Oak Creek享用浪漫晚餐。第二天： - 早晨：早起观赏日出，前往机场台塑，这是塞多纳最好的观景点之一。惊人的景色和宁静的环境使其成为开始新一天的理想场所。 - 上午中旬：用完早餐后，前往Boynton Canyon小径进行一段景色秀丽的徒步旅行。该小径提供了美丽的红岩景观，以及与大自然相连的机会。 - 午餐时间：在当地咖啡馆随便吃点东西，或者准备野餐午餐，享受美丽的环境。 - 下午：参观著名的Bell Rock和Courthouse Butte Loop小径，这条小径提供相对简单的徒步路线，并提供令人难以置信的景色。您还可以探索附近的Bell Rock Pathway，进行更悠闲的步行。 - 晚上：结束您的旅行，前往Tlaquepaque艺术与购物村。这个迷人的室外购物区拥有艺术画廊、精品店和餐厅。悠闲漫步，也许还可以带回一些纪念品。当然，这只是一个建议的行程，您可以根据自己的喜好和可用时间进行定制。塞多纳拥有大量自然美景和宁静之处，所以请花时间放松，沉浸氛围，享受这个美丽目的地的宁静。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed itinerary! It sounds like a perfect balance of exploring the natural beauty of Sedona and enjoying some relaxation time. I particularly like the idea of catching the sunrise at Airport Mesa and visiting the Tlaquepaque Arts & Shopping Village.\n\nWith the accommodations, transportation, and itinerary details sorted, I feel confident and excited about my upcoming trip to Sedona. Thank you so much for your assistance in refining my travel plans!\n\nIs there anything else you would suggest or any additional tips you think would be helpful for my trip to Sedona?",
+            "content_zh": "谢谢您提供详细的行程！听起来在探索塞多纳的自然美景和享受放松时光之间取得了完美的平衡。我特别喜欢在机场台地看日出和参观特拉克帕克艺术与购物村的想法。\n\n现在住宿、交通和行程细节都已安排好，我对即将到来的塞多纳之行感到自信和兴奋。非常感谢您在完善我的旅行计划方面的帮助！\n\n您还有什么其他建议或任何额外的提示对我去塞多纳旅行会有帮助吗？",
+            "intent": "Search & Recommendation",
+            "intent_zh": "检索+推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad I could help you refine your travel plans for Sedona. It sounds like you have a fantastic trip ahead of you!\n\nHere are a few additional tips to make the most of your time in Sedona:\n\n1. Dress appropriately: Sedona can have varying temperatures, so it's a good idea to dress in layers. Comfortable walking shoes are a must, especially if you plan on hiking or exploring the trails.\n\n2. Stay hydrated: The desert climate in Sedona can be quite dry, so make sure to drink plenty of water throughout the day to stay hydrated, especially during hikes and outdoor activities.\n\n3. Capture the beauty: Don't forget to bring your camera or smartphone to capture the stunning landscapes and red rock formations. Sedona offers countless photo opportunities, so be prepared to take some memorable shots.\n\n4. Sunrise and sunset: Consider waking up early at least one morning to catch the sunrise and experience the magical colors that light up the red rocks. Sunsets are equally breathtaking, so find a scenic spot to watch the sky transform.\n\n5. Explore beyond the main attractions: While the suggested itinerary covers some key attractions, don't be afraid to venture off the beaten path and explore lesser-known areas. Sedona is full of hidden gems waiting to be discovered.\n\n6. Respect the environment: Sedona is a place of natural beauty, so be mindful of the environment and practice Leave No Trace principles. Respect the trails, pack out any trash, and be considerate of wildlife and other visitors.\n\nI hope these tips help enhance your trip to Sedona! If you have any more questions or need further assistance, feel free to ask. Enjoy your serene and relaxing getaway!",
+            "content_zh": "非常欢迎！很高兴能帮助您完善前往塞多纳的旅行计划。听起来您将会有一次美妙的旅行！以下是一些建议，帮助您充分利用在塞多纳的时间：\n\n1. 穿着得当：塞多纳的温度变化较大，建议穿多层衣物。舒适的步行鞋是必备品，尤其是如果您计划远足或探索小径。\n\n2. 保持水分：塞多纳的沙漠气候十分干燥，记得全天喝足够的水以保持水分，特别是在远足和户外活动期间。\n\n3. 捕捉美景：别忘了带上相机或智能手机，拍摄迷人的风景和红岩岩石。塞多纳提供无数拍照机会，准备好拍下一些难忘的照片。\n\n4. 日出和日落：考虑至少早起一次，欣赏日出，体验照亮红岩的神奇色彩。日落同样壮观，找一个景色优美的地方观赏天空的变化。\n\n5. 探索主要景点之外：尽管建议的行程包括一些主要景点，但不要害怕冒险探索鲜为人知的地区。塞多纳隐藏着等待被发现的珍贵宝藏。\n\n6. 尊重环境：塞多纳是一个充满自然美的地方，请注意环境并遵守“不留痕迹”原则。尊重小径，收拾垃圾，并考虑野生动物和其他游客。\n\n希望这些建议有助于提升您在塞多纳的旅行体验！如果您有更多问题或需要进一步帮助，请随时问我。祝您享受宁静轻松的度假！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "hiking",
+        "spa",
+        "nature"
+    ],
+    "preference_summary": [
+        "natural beauty",
+        "hiking",
+        "spa treatments"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Male",
+            "zh": "男"
+        },
+        "Age": {
+            "en": "55",
+            "zh": "55"
+        },
+        "Personality": [
+            {
+                "en": "Calm",
+                "zh": "冷静"
+            },
+            {
+                "en": "Patient",
+                "zh": "耐心"
+            },
+            {
+                "en": "Friendly",
+                "zh": "友善"
+            }
+        ],
+        "Occupation": {
+            "en": "Medical staff",
+            "zh": "医护人员"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Reading",
+                "zh": "阅读"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Prefers calm and serene locations",
+                "zh": "喜欢宁静"
+            },
+            {
+                "en": "Family vacations",
+                "zh": "家庭旅行"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Saves for future",
+                "zh": "为未来储蓄"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Active in volunteer activities",
+                "zh": "喜欢参与志愿活动"
+            },
+            {
+                "en": "Has a family",
+                "zh": "家庭生活"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

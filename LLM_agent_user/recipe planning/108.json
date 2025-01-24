@@ -1,0 +1,241 @@
+{
+    "task": "recipe planning",
+    "preference_id": 97,
+    "task_context_id": 0,
+    "preference": "1. Gender: Female\n2. Age: 32\n3. Personality: Creative, independent, and adventurous\n4. Occupation: Independent Filmmaker\n5. Daily Interests and Hobbies: Film making, visiting film festivals, photography\n6. Travel Habits: Travels for inspiration, enjoys visiting film locations\n7. Dining Preferences: Enjoys exotic and unique cuisines, loves seafood\n8. Spending Habits: Spends on film equipment, invests in film projects\n9. Other Aspects: Runs a film club, organizes film workshops",
+    "preference_zh": "1. 性别：女性\n2. 年龄：32\n3. 个性：有创造力，独立，爱冒险\n4. 职业：独立电影制作者\n5. 日常兴趣爱好：拍摄电影，参观电影节，摄影\n6. 旅行习惯：为了灵感而旅行，喜欢参观电影拍摄地\n7. 饮食倾向：喜欢异国风味和独特的美食，热爱海鲜\n8. 消费习惯：投资于电影设备，投资于电影项目\n9. 其他方面：经营一个电影俱乐部，组织电影工作坊",
+    "task_context": "You plan to prepare a meal at home for yourself. You aren't very skilled in cooking, with limited cooking experience. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_zh": "你计划在家为自己准备一顿饭。你在烹饪方面并不很擅长，经验有限。因此，你想请求LLM的帮助，制定食谱，确定所需食材，以及决定要做的菜。在计划过程中，你应该学习每道菜的完整准备过程，以及准备菜肴的适当顺序。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello! I'm glad you're here. I would like your help in planning a meal at home for myself. I don't have much experience in cooking, so I could use some guidance in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Can you help me with that?",
+            "content_zh": "你好！很高兴你在这里。我想请你帮忙为我在家计划一顿饭。我没有太多的烹饪经验，所以需要一些指导来创建食谱，确定所需的食材，并决定要做什么菜。你可以帮我吗？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course, I'd be happy to help you plan a meal at home! Cooking can be a lot of fun, and with a little guidance, you'll be able to prepare a delicious meal. Let's start by discussing what type of cuisine or flavors you enjoy. Do you have any dietary restrictions or preferences? And what ingredients do you currently have in your kitchen?",
+            "content_zh": "当然，我很乐意帮助您计划在家吃一顿饭！烹饪可以是一件很有趣的事情，通过一点指导，您就能做出美味的菜肴。我们先谈谈您喜欢的是哪种菜系或口味。您有任何饮食限制或偏好吗？您目前厨房里有什么食材？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That sounds great! I'm always up for trying new and unique cuisines. I particularly enjoy seafood, so incorporating that into the meal would be fantastic. As for dietary restrictions, I don't have any specific ones, but I prefer to have a balanced meal with plenty of vegetables. As for the ingredients I have in my kitchen, I have some basic staples like rice, pasta, olive oil, spices, and a variety of vegetables. What do you suggest I make with these ingredients?",
+            "content_zh": "听起来很棒！我总是乐于尝试新颖独特的美食。我特别喜欢海鲜，所以把海鲜加入餐食中会很棒。至于饮食限制，我没有特别的限制，但我更喜欢均衡饮食，多吃蔬菜。至于我厨房里有的食材，我有一些基本的食材，如大米、面食、橄榄油、香料和各种蔬菜。您建议我用这些食材做些什么呢？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Seafood is a great choice, and it pairs well with vegetables for a balanced meal. How about making a delicious seafood stir-fry with rice? Here's a simple recipe to get you started:\n\nIngredients:\n- 200g of your choice of seafood (such as shrimp, scallops, or a mix)\n- 2 cups of cooked rice\n- 1 tablespoon of olive oil (or any cooking oil you have)\n- 1 onion, sliced\n- 2 cloves of garlic, minced\n- 1 bell pepper, sliced\n- 1 carrot, julienned\n- 1 zucchini, sliced\n- 1 cup of broccoli florets\n- 2 tablespoons of soy sauce\n- 1 tablespoon of oyster sauce (optional)\n- Salt and pepper to taste\n\nInstructions:\n1. Heat the oil in a large skillet or wok over medium-high heat.\n2. Add the onion and garlic, and sauté until fragrant and translucent.\n3. Add the seafood to the skillet and cook until it's no longer translucent and is cooked through. Remove the seafood from the skillet and set it aside.\n4. In the same skillet, add the bell pepper, carrot, zucchini, and broccoli. Stir-fry for a few minutes until the vegetables are tender-crisp.\n5. Add the cooked rice to the skillet and stir-fry for a few more minutes, breaking up any clumps.\n6. Return the cooked seafood to the skillet and add the soy sauce and oyster sauce (if using). Toss everything together until well combined.\n7. Season with salt and pepper to taste.\n8. Serve your delicious seafood stir-fry with rice hot and enjoy!\n\nFeel free to adjust the vegetables or add any additional spices or herbs you have on hand to personalize the dish. Let me know if you have any more questions or if there's anything else I can assist you with!",
+            "content_zh": "海鲜是一个不错的选择，搭配蔬菜可以做出一顿平衡的餐点。要不要试试用大米做一道美味的海鲜炒饭呢？以下是一个简单的食谱供您参考：\n\n食材：\n- 200克您喜欢的海鲜（比如虾、扇贝或混合海鲜）\n- 2杯煮熟的大米\n- 1汤匙橄榄油（或您有的任何食用油）\n- 1个洋葱，切片\n- 2瓣大蒜，切碎\n- 1个灯笼椒，切片\n- 1根胡萝卜，切丝\n- 1根西葫芦，切片\n- 1杯西兰花花束\n- 2汤匙酱油\n- 1汤匙蚝油（可选）\n- 适量盐和胡椒\n\n做法：\n1. 在大平底锅或炒锅中用中高火加热油。\n2. 加入洋葱和大蒜，炒至香脆和半透明。\n3. 将海鲜加入平底锅中煮，直到不再呈半透明并煮熟。将海鲜从锅中取出备用。\n4. 同一个锅里，加入灯笼椒、胡萝卜、西葫芦和西兰花。炒几分钟，直到蔬菜变软但仍保持爽脆。\n5. 将煮熟的大米加入锅中，再炒几分钟，打散任何团块。\n6. 把煮熟的海鲜放回锅中，加入酱油和蚝油（如有）。搅拌至均匀混合。\n7. 根据个人口味加入盐和胡椒调味。\n8. 热着享用您的美味海鲜炒饭！\n\n随意调整蔬菜或添加任何您手边有的额外香料或草药来个性化这道菜。如果有更多问题或需要任何帮助，请随时告诉我！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "That sounds absolutely delicious! I love the idea of a seafood stir-fry with rice. It's a great way to incorporate vegetables and create a balanced meal. I'll definitely give this recipe a try. Thank you so much for your help! Is there anything else you suggest I make or any tips you have for me?",
+            "content_zh": "听起来绝对美味！我喜欢海鲜炒饭的想法。这是一个很好的方法来融入蔬菜，做一个均衡的餐。我一定会试试这个食谱。非常感谢你的帮助！你还有其他建议或者技巧吗？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "You're very welcome! I'm glad you liked the idea. Cooking can be a lot of fun, especially when you're trying new recipes. Here are a few additional tips to keep in mind:\n\n1. Experiment with flavors: Don't be afraid to try different herbs, spices, or sauces to add more depth to your dishes. You can explore different cuisines and flavor profiles to make your meals more exciting.\n\n2. Prep ingredients beforehand: Before you start cooking, make sure to chop, slice, and prep all your ingredients. This will make the cooking process smoother and more enjoyable.\n\n3. Taste as you go: While following a recipe is helpful, remember to taste your food as you cook. This way, you can adjust the seasoning or flavors to suit your preferences.\n\n4. Don't be discouraged by mistakes: Cooking is a learning process, and it's natural to make mistakes along the way. Embrace them as opportunities to learn and improve your skills.\n\n5. Have fun and be creative: Cooking is an art, so don't be afraid to get creative and make the recipes your own. Feel free to add or substitute ingredients based on your taste and what you have available.\n\nI hope these tips help you in your culinary adventures! If you have any more questions or need further assistance, feel free to ask. Happy cooking!",
+            "content_zh": "非常欢迎！我很高兴你喜欢这个想法。烹饪可以很有趣，特别是当你尝试新食谱时。以下是一些额外的提示要记住：\n\n1. 尝试不同的口味：不要害怕尝试不同的香草、香料或酱料，以增加菜肴的层次感。你可以探索不同的烹饪风格和口味来让你的餐点更加有趣。\n\n2. 提前准备食材：在开始烹饪之前，确保切好、切片和准备所有食材。这将使烹饪过程更顺利、更愉快。\n\n3. 边烹饪边品尝：虽然遵循食谱是有帮助的，但要记得在烹饪时品尝食物。这样，你可以根据自己的口味来调整调味料或口味。\n\n4. 不要因错误而气馁：烹饪是一个学习过程，在路上犯错误是很正常的。把它们当作学习和提高技能的机会。\n\n5. 玩得开心，发挥创造力：烹饪是一门艺术，所以不要害怕发挥创意，让食谱变成你自己的。随意添加或替换食材，根据你的口味和现有材料。\n\n希望这些提示能帮助你在烹饪探险中！如果你有更多问题或需要进一步协助，欢迎提问。祝愉快烹饪！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary_old": [
+        "exotic cuisines",
+        "seafood",
+        "stir-fry"
+    ],
+    "preference_summary": [
+        "adventurous",
+        "seafood",
+        "healthy"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 0
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "32",
+            "zh": "32"
+        },
+        "Personality": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Independent",
+                "zh": "独立"
+            }
+        ],
+        "Occupation": {
+            "en": "Artist",
+            "zh": "艺术工作者"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Photography",
+                "zh": "摄影"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Cultural trips",
+                "zh": "文化旅行"
+            },
+            {
+                "en": "Visiting exhibitions",
+                "zh": "看展"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            },
+            {
+                "en": "Seafood",
+                "zh": "海鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on tech gadgets",
+                "zh": "科技产品"
+            },
+            {
+                "en": "Spends on entertainment",
+                "zh": "娱乐支出"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Organizes community activities",
+                "zh": "组织社区活动"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        }
+    },
+    "strategy_1120": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        }
+    }
+}

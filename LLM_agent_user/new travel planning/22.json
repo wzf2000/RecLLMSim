@@ -1,0 +1,229 @@
+{
+    "task": "new travel planning",
+    "preference_id": 41,
+    "task_context_id": 9,
+    "preference": "1. Gender: Female\n2. Age: 39\n3. Personality: Creative, spontaneous, and social\n4. Occupation: Event Planner\n5. Daily Interests and Hobbies: Networking, yoga, fashion\n6. Travel Habits: Travels for work, enjoys city breaks\n7. Dining Preferences: Loves gourmet food, enjoys wine tasting\n8. Spending Habits: Spends on high-end fashion and decor, invests in property\n9. Other Aspects: Lives in a city apartment, has a large social circle",
+    "preference_zh": "1. 性别：女性\n2. 年龄：39\n3. 个性：创意、自发、社交\n4. 职业：活动策划师\n5. 日常兴趣和爱好：社交、瑜伽、时尚\n6. 旅行习惯：出差旅行，喜欢城市短途旅行\n7. 用餐偏好：喜欢美食，喜欢品酒\n8. 消费习惯：购买高端时尚和装饰品，投资房产\n9. 其他方面：居住在城市公寓，拥有广泛的社交圈",
+    "task_context": "You are planning a fortnight trip that will take place in December. Your goal, with the help of LLM, is to refine and finalize your travel plans. This includes making detailed arrangements for accommodations, transportation, and your daily itinerary. Your final travel plan should be as comprehensive and realistic as possible, ensuring that it can be seamlessly implemented when the time comes.\nYour trip planning should take into consideration the specific destination as specified in the following requirements: no specific destination restrictions. You should also consider your point of departure, your preferred mode of transportation to the destination, and the specific attractions or activities you wish to engage in. Remember to consider factors such as travel distance, travel time, and the opening hours of the attractions.",
+    "task_context_zh": "您正在计划一个将在十二月举行的两周行程。您的目标是在LLM的帮助下，进一步完善和最终确定您的旅行计划。这包括详细安排住宿、交通以及每日行程。您的最终旅行计划应尽可能全面和实际，以确保到时能够顺利实施。您的旅行规划应该考虑以下要求中指定的特定目的地：没有特定目的地限制。您还应考虑您的出发地，到达目的地的首选交通方式，以及您希望参与的具体景点或活动。请记得考虑诸如旅行距离、旅行时间和景点的开放时间等因素。",
+    "history": [
+        {
+            "role": "user",
+            "content": "Hello there! I'm looking to plan a two-week trip in December. I haven't decided on a specific destination yet, but I'm open to suggestions. I enjoy lively cities, networking events, gourmet dining, and wine tasting. I also love to engage in yoga wherever I go. What places would you recommend for such a vacation?",
+            "content_zh": "你好！我想在十二月计划一次为期两周的旅行。我还没有决定具体的目的地，但我愿意听取建议。我喜欢热闹的城市、社交活动、美食餐饮和品酒。我也喜欢无论在哪里都参与瑜伽。你会推荐哪些地方适合这样的假期呢？",
+            "intent_zh": "规划",
+            "intent": "Planning"
+        },
+        {
+            "role": "assistant",
+            "content": "Hello! It sounds like you're looking for a well-rounded city experience with a mix of social networking, food and wine exploration, and wellness activities. Considering your interests, I'd suggest considering the following destinations:\n\n1. San Francisco, USA: Known for its tech scene, it's a great place for networking. It also has a vibrant food scene, world-class wineries nearby in Napa Valley, and plenty of yoga studios.\n\n2. Barcelona, Spain: A lively city with fantastic networking opportunities, especially in the startup scene. Spanish cuisine is superb, and the wine regions of Priorat and Penedes are nearby. There's also a thriving yoga community.\n\n3. Melbourne, Australia: A city known for its cosmopolitan vibe, foodie culture and excellent wine regions close by like Yarra Valley. Plenty of yoga retreats are available too.\n\nCould you let me know your current location? It will help me advise better on travel durations and any potential visa requirements. Also, do you have a preferred budget for your trip? This will assist me in suggesting accommodation and other activities.",
+            "content_zh": "你好！听起来你正在寻找一个包括社交网络、美食和葡萄酒探索以及健康活动的综合性城市体验。考虑到你的兴趣，我建议考虑以下目的地：\n\n1. 美国旧金山：以其科技氛围闻名，是一个很好的社交网络场所。旧金山还有着充满活力的美食界，纳帕谷的世界级葡萄酒庄园，以及众多瑜伽工作室。\n\n2. 西班牙巴塞罗那：一个充满活力的城市，拥有出色的社交网络机会，尤其是在初创企业领域。西班牙美食精湛，普里奥拉特和佩内德斯的葡萄酒产区也在附近。此外，瑜伽社区也很繁荣。\n\n3. 澳大利亚墨尔本：以其大都市氛围、美食文化和象亚拉河谷等附近优秀的葡萄酒产区而闻名。此外，还有丰富的瑜伽度假胜地。\n\n你能告诉我你目前的位置吗？这将有助于我更好地建议旅行时间和潜在签证要求。同时，你对旅行预算有偏好吗？这将帮助我建议住宿和其他活动。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "I'm currently based in New York, USA. My budget for the trip is around $5000, but I'm willing to go a bit over if the experience is worth it. I'm leaning towards Barcelona; I've always wanted to experience the Spanish culture, and the fact that it has such a vibrant scene for networking and yoga makes it even more attractive. Could you help me with more details about traveling to Barcelona in December? It would be great if you could provide information about visa requirements, flight options, and the weather around that time.",
+            "content_zh": "我目前在美国纽约。 我的旅行预算大约是5000美元，但如果经验值得的话，我愿意多花点钱。 我倾向于巴塞罗那； 我一直想体验西班牙文化，而且它在社交和瑜伽方面有如此活跃的场景，这使它更具吸引力。 你能帮我了解更多关于在十二月去巴塞罗那的细节吗？ 如果你能提供关于签证要求、航班选项和当时天气的信息，那就太好了。",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely! Barcelona is a fantastic choice and offers plenty to do.\n\n**Visa Requirements:**\nAs a U.S. citizen, you do not need a visa for tourist or business stays of up to 90 days in Spain (or any other member countries in the Schengen area). Just ensure your passport is valid for at least three months beyond your planned date of departure.\n\n**Flight Options:**\nThere are several airlines that operate flights from New York to Barcelona. Airlines such as Delta, American Airlines, and Iberia have direct flights. The flight duration is approximately 7-8 hours for a direct flight. Prices can vary greatly depending on when you book, but you can expect to pay in the region of $500-$1000 for a round trip in economy class. To get the best deal, I would recommend booking your flight at least 2-3 months in advance.\n\n**Weather:**\nIn December, Barcelona experiences mild winter weather. The average high temperature is around 15°C (59°F), and the average low is about 8°C (46°F). It's a relatively dry month with occasional rain. The city will be decorated for Christmas, adding a festive vibe.\n\nI can help you plan the details of your stay in Barcelona next, such as accommodations, attractions, and a potential day-by-day itinerary. Are you interested in staying in a hotel or are you open to options like Airbnb? Also, are there any specific attractions in Barcelona you already have in mind?",
+            "content_zh": "当然！巴塞罗那是一个绝妙的选择，提供了很多事情可做。\n\n签证要求：\n作为美国公民，您在西班牙（或申根区其他成员国）可以进行最长90天的旅游或商务停留，无需签证。只需确保您的护照在计划离境日期至少还有三个月的有效期。\n\n航班选择：\n有几家航空公司从纽约飞往巴塞罗那。达美航空、美国航空和伊比利亚航空等航空公司有直飞航班。直飞航程大约为7-8小时。价格可能会因预订时间而有很大差异，但您可以期待在经济舱往返机票方面支付大约500美元至1000美元左右。为了获得最佳交易，我建议您至少提前2-3个月预订您的航班。\n\n天气：\n12月份，巴塞罗那经历温和的冬季天气。平均最高温度约为15°C（59°F），平均最低温度约为8°C（46°F）。这是一个相对干燥的月份，偶尔会有雨。这个时候城市会因圣诞节而装饰一新，增添了一份节日氛围。\n\n接下来我可以帮您计划巴塞罗那住宿、景点和潜在的逐日行程的细节。您有兴趣住在酒店还是愿意考虑Airbnb之类的选择？此外，您已经有心目中巴塞罗那的具体景点了吗？",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for the detailed information! Yes, let's move onto the details of my stay. I prefer staying in boutique hotels, preferably ones that have a unique charm to them. As for attractions, I've heard about La Sagrada Familia and Park Guell, so I'd like to include those in my itinerary. I also want to visit some local markets for fresh food and wine, and attend a few networking events if possible. A day trip to a nearby wine region would be lovely too. Could you help me plan this out?",
+            "content_zh": "感谢您提供的详细信息！是的，让我们继续讨论我入住的细节。我比较喜欢住精品酒店，最好是那种具有独特魅力的。至于景点，我听说过圣家堂和凯尔公园，所以我想把它们包括在我的行程中。我还想去一些当地的市场买新鲜食物和葡萄酒，如果可能的话参加一些社交活动。去附近的葡萄酒产区进行一日游也很不错。您能帮我规划一下吗？",
+            "intent": "Recommendation",
+            "intent_zh": "推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "Certainly! Here’s a preliminary plan for your two-week stay in Barcelona:\n\n**Accommodation:**\nBoutique hotels in Barcelona are plentiful, offering unique experiences and personalized service. You might consider:\n\n- Hotel Neri: This is a boutique hotel set in a historical building right in the Gothic Quarter.\n- Casa Camper: A trendy option in the Raval neighborhood, known for its modern design and central location.\n- Mercer Hotel Barcelona: A luxury hotel with a historic feel, located near the Cathedral.\n\n**Itinerary Highlights:**\n\n**Week 1:**\n\n- **Day 1:** Arrive in Barcelona, check into your hotel, and spend the day acclimating. Enjoy a light evening stroll on La Rambla and have dinner at a local tapas bar.\n  \n- **Day 2:** Visit La Sagrada Familia in the morning (book tickets in advance). In the afternoon, explore the nearby L'Eixample district, which is famous for its modernist architecture.\n\n- **Day 3:** Head to Park Guell in the morning (advance booking required). Afterward, explore the charming neighborhood of Gracia nearby.\n\n- **Day 4:** Take a yoga class in the morning at a local studio, followed by a visit to the Boqueria Market for fresh foods and lunch. Spend your afternoon wandering the Gothic Quarter and possibly attending a networking event in the evening.\n\n- **Day 5:** Day trip to a wine region like Penedes or Priorat. Book a guided tour that includes transportation, tastings, and perhaps a vineyard lunch.\n\n- **Day 6:** Visit the Picasso Museum and the surrounding Born district. Later, enjoy gourmet dining at one of Barcelona's Michelin-starred restaurants.\n\n- **Day 7:** Free day for leisure, shopping, or additional networking opportunities.\n\n**Week 2:**\n\n- **Day 8:** Attend a morning yoga session, then explore the Sant Antoni neighborhood and its market.\n\n- **Day 9:** Visit Montjuïc Hill, take in the views from the Castle, visit the Joan Miró Foundation, and the Magic Fountain in the evening.\n\n- **Day 10:** Take a cooking class to learn how to make traditional Catalan dishes.\n\n- **Day 11:** Visit the beaches of Barceloneta and perhaps try a seafood paella by the waterfront.\n\n- **Day 12:** Spend a leisurely morning at a café, then visit the Barcelona Cathedral and the nearby history museum.\n\n- **Day 13:** Free day to explore more of the city at your own pace or to attend additional events.\n\n- **Day 14:** Pack up, check out, and head to the airport for your flight home.\n\n**Networking Events:**\nBarcelona has a vibrant startup and business scene. Check out platforms like Meetup.com or Eventbrite for events during your stay. Also, consider joining expat groups on Facebook to get leads on networking opportunities.\n\n**Local Markets:**\nApart from the Boqueria Market, you can visit the Mercat de Sant Antoni and Mercat de la Concepció for fresh food and wine.\n\n**Wine Tasting:**\nFor your day trip to a wine region, consider booking with a local tour operator that specializes in wine tours. They can offer a curated experience including transport, guided tours, and tastings.\n\nRemember to book your attractions and activities in advance, especially things like La Sagrada Familia and Park Guell, which require timed entry tickets.\n\nLet me know if you want to adjust anything or if you have any specific needs for your boutique hotel, like a spa or a particular view, and I can refine these recommendations.",
+            "content_zh": "当然可以！以下是您在巴塞罗那两周逗留的初步计划：\n\n**住宿：**\n\n巴塞罗那的精品酒店琳琅满目，提供独特的体验和个性化的服务。您可以考虑以下选择：\n\n- Neri酒店：这是一家位于哥特区的历史建筑内的精品酒店。\n- Casa Camper：在拉瓦尔街区的时尚选择，以其现代设计和中心位置而闻名。\n- Mercer Hotel Barcelona：一家奢华的酒店，具有历史感，靠近大教堂。\n\n**行程亮点：**\n\n**第一周：**\n\n- **第1天：** 抵达巴塞罗那，入住酒店，一整天适应环境。在拉姆布拉大道上轻松漫步，晚餐可以在当地的酒吧享用小吃。\n\n- **第2天：** 上午参观圣家堂（提前预订门票）。下午探索附近莱甡普尔区，以其现代主义建筑而闻名。\n\n- **第3天：** 上午前往瓜尔公园（需要提前预订）。之后，探索附近迷人的格拉西亚街区。\n\n- **第4天：** 上午在当地工作室上瑜伽课，然后参观博凯利亚市场购买新鲜食品和午餐。下午漫步哥特区，可能晚上出席一个社交活动。\n\n- **第5天：** 前往彭德斯或普里奥拉等葡萄酒产区进行一日游。预订包括交通、品酒和可能还有葡萄园午餐的导览游。\n\n- **第6天：** 参观毕加索博物馆及周边的博恩区。晚些时候，在巴塞罗那的米其林星餐厅享用美食。\n\n- **第7天：** 闲暇时间，可以用于购物或参加更多社交活动。\n\n**第二周：**\n\n- **第8天：** 参加早晨瑜伽课程，然后探索圣安东尼区及其市场。\n\n- **第9天：** 参观蒙吉克山，从城堡欣赏美景，参观米罗基金会和晚上的魔术喷泉。\n\n- **第10天：** 参加烹饪课，学习如何制作传统的加泰罗尼亚菜肴。\n\n- **第11天：** 参观巴塞罗内塔海滩，并尝试在海滨品尝海鲜炒饭。\n\n- **第12天：** 在咖啡馆度过悠闲的上午，然后参观巴塞罗那大教堂和附近的历史博物馆。\n\n- **第13天：** 闲暇日，可以按自己的节奏探索城市或参加额外活动。\n\n- **第14天：** 收拾行李，退房，前往机场搭乘返程航班。\n\n**社交活动：**\n\n巴塞罗那拥有充满活力的创业和商业环境。在您逗留期间，请查看Meetup.com或Eventbrite等平台的活动。此外，考虑加入Facebook上的外籍人士团体，以获得社交机会的线索。\n\n**本地市场：**\n\n除了博凯利亚市场，您还可以参观圣安东尼市场和康塞普西奥市场购买新鲜食品和葡萄酒。\n\n**品酒：**\n\n对于前往葡萄酒产区的一日游，考虑与专门从事葡萄酒之旅的当地旅行社预订。他们可以提供包括交通、导览和品酒的定制体验。\n\n请记得提前预订您的景点和活动，尤其是像圣家堂和瓜尔公园这样需要预约的地方。\n\n如果您对精品酒店有任何特殊需求，比如spa或特定的景观，请告诉我，我可以优化这些建议。",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        },
+        {
+            "role": "user",
+            "content": "Thank you for this detailed plan, it's extremely helpful! I love the idea of staying in the Gothic Quarter; the Hotel Neri seems like my kind of place. For the day trip to the wine region, a guided tour with transportation and tastings sounds perfect. And I'll definitely look into the events on Meetup.com and Eventbrite.\n\nJust a couple of things I'd like to adjust - could we swap the cooking class on Day 10 with a fashion shopping day? I've heard Barcelona has some great boutiques. Also, I'd like to have a few more yoga sessions spread throughout the week; maybe we could include them in the free days? Other than that, everything looks fantastic!",
+            "content_zh": "谢谢您提供这么详细的计划，非常有帮助！我喜欢留在哥特区的想法；尼利酒店看起来就是我喜欢的地方。对于葡萄酒区的一日游，提供交通和品酒的导游团听起来非常完美。我一定会关注在Meetup.com和Eventbrite上的活动。 \n只有一点需要调整 - 在第10天我们能把烹饪课和时尚购物日交换吗？我听说巴塞罗那有一些很棒的精品店。另外，我想在这周里增加几次瑜伽课程；也许我们可以把它们安排在休息日？除此之外，一切看起来都很棒！",
+            "intent": "Search",
+            "intent_zh": "检索"
+        },
+        {
+            "role": "assistant",
+            "content": "Of course! Here's the revised itinerary incorporating your adjustments:\n\n**Accommodation:**\nYou've chosen Hotel Neri in the Gothic Quarter, which is a fantastic choice for its charm and location.\n\n**Revised Itinerary:**\n\n**Week 1:**\n\n- **Days 1-7:** Remain as previously planned, with the addition of looking into yoga sessions available nearby Hotel Neri for your free mornings or evenings. Barcelona has numerous yoga studios that offer drop-in classes, such as Yoga & Yoga Barcelona and The Garage by Veronica Blume, both not far from the Gothic Quarter.\n\n**Week 2:**\n\n- **Day 8:** Start with a morning yoga session. Explore Sant Antoni market and neighborhood as planned.\n\n- **Day 9-11:** As previously planned, with yoga sessions on your free mornings/evenings, if desired.\n\n- **Day 12:** Fashion Shopping Day. Barcelona is known for its boutiques and designer stores. For unique finds, explore the boutiques in the El Born district. Another great area is Passeig de Gràcia, where you'll find both high-end brands and unique local designers. The Gracia neighborhood is also a good choice for more independent boutiques.\n\n- **Day 13:** Use this free day to enjoy any additional yoga sessions, revisit any parts of the city you loved, or perhaps do some last-minute shopping.\n\n- **Day 14:** Departure.\n\n**Yoga Sessions:**\nOn your free days and perhaps some mornings, consider integrating yoga sessions into your schedule. This will not only give you the flexibility to maintain your practice but also allow you to experience the local wellness culture. \n\n**Fashion Shopping:**\nFor your fashion shopping day, the El Born and Gracia neighborhoods are fantastic for finding unique pieces and exploring local fashion. You might also enjoy the boutiques along Passeig de Gràcia for a mix of luxury and local brands.\n\n**Final Notes:**\n- Remember to book your wine region day trip in advance to secure your spot.\n- For networking events, keep an eye on Meetup.com and Eventbrite as events can pop up closer to your travel dates.\n- It's a good idea to book yoga classes in advance, especially if the studios are popular or offer limited spaces.\n\nThis plan should give you a balanced mix of structured activities and free time, allowing you to explore Barcelona at your own pace while indulging in your interests. If you have any more questions or need further adjustments, feel free to ask. Enjoy your trip!",
+            "content_zh": "当然！以下是调整后的行程安排：\n\n**住宿：**\n您选择了哥特区的内里酒店，这是一个迷人且位置优越的绝佳选择。\n\n**调整后的行程：**\n\n**第1周：**\n- **第1-7天：** 保持之前的计划，并在附近的内里酒店寻找早上或晚上的瑜伽课程。巴塞罗那有许多瑜伽工作室提供临时课程，比如Yoga & Yoga Barcelona和Veronica Blume的The Garage，都离哥特区不远。\n\n**第2周：**\n- **第8天：** 早上参加瑜伽课程。按计划探索圣安东尼市场和周边地区。\n- **第9-11天：** 按计划进行，并在自由时间进行瑜伽课程，如有需要。\n- **第12天：** 时尚购物日。巴塞罗那以其精品店和设计师专卖店而闻名。要找到独特的物品，可以探索出生区的精品店。另一个不错的地方是格拉西亚大道，您可以找到高端品牌和独特的当地设计师。格拉西亚地区也是探索更多独立精品店的好选择。\n- **第13天：** 利用这一自由日享受额外的瑜伽课程，重温您喜爱的城市景点，或者进行最后时刻的购物。\n- **第14天：** 离开。\n\n**瑜伽课程：**\n在您的空闲日和也许一些早晨，考虑将瑜伽课程融入您的行程。这不仅可以让您有弹性地保持练习，还能让您体验当地的健康文化。\n\n**时尚购物：**\n对于您的时尚购物日，出生区和格拉西亚地区是寻找独特物品和探索本地时尚的绝佳地方。您可能还会喜欢格拉西亚大道上的精品店，那里有豪华品牌和当地品牌的混合。\n\n**最后提示：**\n- 记得提前预订葡萄酒产区的一日游，以确保您的位置。\n- 对于社交活动，留意Meetup.com和Eventbrite，因为活动可能在您的旅行日期更近时出现。\n- 提前预订瑜伽课程是个好主意，尤其是如果工作室很受欢迎或提供有限的空间。\n\n这一计划应该给您提供了结构化活动和自由时间的平衡混合，让您可以自己的节奏探索巴塞罗那，尽情享受您的兴趣。如果您还有任何问题或需要进一步调整，请随时问。祝您旅途愉快！",
+            "hallucination": {
+                "hallucination": false,
+                "memo": "No Hallucination"
+            }
+        }
+    ],
+    "conflict": false,
+    "preference_summary": [
+        "fashion shopping day",
+        "more yoga sessions"
+    ],
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 1,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
+    },
+    "profile_mapped": {
+        "Gender": {
+            "en": "Female",
+            "zh": "女"
+        },
+        "Age": {
+            "en": "39",
+            "zh": "39"
+        },
+        "Personality": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Spontaneous",
+                "zh": "随性"
+            },
+            {
+                "en": "Extroverted",
+                "zh": "外向"
+            }
+        ],
+        "Occupation": {
+            "en": "Others",
+            "zh": "其他"
+        },
+        "Daily Interests and Hobbies": [
+            {
+                "en": "Others",
+                "zh": "其他"
+            },
+            {
+                "en": "Sports",
+                "zh": "运动"
+            }
+        ],
+        "Travel Habits": [
+            {
+                "en": "Frequently travels for work",
+                "zh": "经常出差"
+            },
+            {
+                "en": "Others",
+                "zh": "其他"
+            }
+        ],
+        "Dining Preferences": [
+            {
+                "en": "Loves trying new cuisines",
+                "zh": "尝鲜"
+            }
+        ],
+        "Spending Habits": [
+            {
+                "en": "Spends on fashion",
+                "zh": "时尚支出"
+            },
+            {
+                "en": "Invests in real estate",
+                "zh": "房地产投资"
+            }
+        ],
+        "Other Aspects": [
+            {
+                "en": "Living in a rented house",
+                "zh": "租房"
+            },
+            {
+                "en": "Has a large social circle",
+                "zh": "社交广泛"
+            }
+        ]
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V2": {
+        "final": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "1": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "2": {
+            "order": "BreadthDepth",
+            "feedback": "Positive"
+        },
+        "3": {
+            "order": "BreadthDepth",
+            "feedback": "Both"
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 2,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    }
+}

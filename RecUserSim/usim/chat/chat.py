@@ -19,6 +19,7 @@ CONFIG = init_config()
 
 class Chatbot:
     def __init__(self, model: str, temperature: float = 0.5, json_mode: bool = False, **kwargs) -> None:
+        self.model_name: str = model
         if temperature is None:
             temperature = 0.5
         self.temperature: float = temperature
@@ -74,7 +75,7 @@ def chat(chatbot: Chatbot):
         response = chatbot.ask(
             prompt=query,
         )
-        logger.info(f"ChatGPT: {response}")
+        logger.info(f"{chatbot.model_name}: {response}")
 
 def get_chatbot(config: dict = CONFIG, model: str = None, temperature: float = None, **kwargs):
     if temperature is not None:
@@ -89,7 +90,7 @@ def single_turn_chat(chatbot: Chatbot, chat_id: int, query: str, output: bool = 
         prompt=query,
     )
     if output:
-        logger.info(f"ChatGPT{chat_id}: {response}")
+        logger.info(f"ChatBot{chat_id} ({chatbot.model_name}): {response}")
     return response
 
 def default_process(x: str) -> str:
@@ -111,14 +112,15 @@ def multi_chat(prompt1_list: str, prompt2_list: str, ending: Callable[[str], boo
         chatbot2 = get_chatbot(config)
     logger.info('Stage: Prompt Before Start')
     for prompt1 in prompt1_list:
-        logger.info(f'Prompt for ChatGPT1: {prompt1}')
+        logger.info(f'Prompt for ChatBot1 ({chatbot1.model_name}): {prompt1}')
         response1 = single_turn_chat(chatbot1, 1, prompt1, output=True)
     for prompt2 in prompt2_list:
-        logger.info(f'Prompt for ChatGPT2: {prompt2}')
+        logger.info(f'Prompt for ChatBot2 ({chatbot2.model_name}): {prompt2}')
         response2 = single_turn_chat(chatbot2, 2, prompt2, output=True)
     logger.info('Stage: Conversation Start')
-    logger.info(f"ChatGPT2: {response2}")
-    for _ in range(max_turn):
+    logger.info(f"ChatBot2 ({chatbot2.model_name}): {response2}")
+    for turn in range(max_turn):
+        logger.info('Turn: {}'.format(turn + 1))
         response1 = single_turn_chat(chatbot1, 1, process1(response2))
         response2 = single_turn_chat(chatbot2, 2, process2(response1))
         # if the user wants to end the conversation(contain the ending string), then end the conversation
@@ -129,4 +131,4 @@ def multi_chat(prompt1_list: str, prompt2_list: str, ending: Callable[[str], boo
 
 if __name__ == '__main__':
     init()
-    multi_chat([], ['Any sentences?'], ending=lambda x: 'goodbye' in x.lower(), max_turn=5)
+    multi_chat([], ['Any sentences?'], ending=lambda x: 'goodbye' in x.lower(), max_turn=2, model1='gemini-1.5-pro-latest', model2='gemini-1.5-pro-latest')
