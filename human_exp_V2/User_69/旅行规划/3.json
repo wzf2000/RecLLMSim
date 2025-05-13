@@ -1,0 +1,123 @@
+{
+    "chat_model": "gpt-4-turbo-preview",
+    "history": [
+        {
+            "role": "user",
+            "content": "我计划在明年的寒假要去欧洲旅行，我前期需要准备什么住宿应该选择哪里？交通怎么规划？旅行时间表应该怎么安排？需要注意什么事项。应该去哪里玩。"
+        },
+        {
+            "role": "assistant",
+            "content": "计划去欧洲旅行是一个令人兴奋的决定！以下是一些建议，帮助你准备这次旅行：\n\n### 前期准备\n1. **签证**：确认你需要申请哪个国家的签证（如申根签证），并提前准备相关材料。\n2. **护照**：确保护照在有效期内，并在旅行结束后至少还有六个月的有效期。\n3. **保险**：购买旅行保险，涵盖医疗、行李遗失、航班取消等。\n4. **货币**：了解将访问国家的货币，并提前兑换一些现金。也可考虑带国际信用卡。\n\n### 住宿选择\n1. **酒店**：适合希望获得舒适和服务的旅行者。\n2. **民宿（Airbnb）**：适合希望体验当地生活的旅行者。\n3. **青年旅舍**：适合预算有限的背包客。\n4. **注意事项**：提前预订，查看评价，选择交通便利、安全的区域。\n\n### 交通规划\n1. **火车**：欧洲火车网络发达，考虑购买欧洲铁路通票（Eurail Pass）。\n2. **飞机**：对于长距离旅行，廉价航空公司如Ryanair、EasyJet是不错的选择。\n3. **公共交通**：在城市内，地铁和公交车是便捷的选择。\n4. **租车**：如果计划自驾游，提前了解当地的交通规则和停车情况。\n\n### 旅行时间表安排\n1. **灵活性**：留有余地，以便调整计划。\n2. **重点景点**：列出必去景点，并合理安排时间。\n3. **休息时间**：避免过于紧凑的行程，留出时间休息和自由活动。\n\n### 注意事项\n1. **天气**：寒假期间欧洲部分地区较冷，准备保暖衣物。\n2. **语言**：学习一些基本的当地语言短语，如问候、谢谢等。\n3. **安全**：注意个人财物安全，避免前往偏僻或不安全的区域。\n4. **文化礼仪**：尊重当地的文化和习俗。\n\n### 推荐景点\n1. **法国巴黎**：埃菲尔铁塔、卢浮宫。\n2. **意大利罗马**：斗兽场、梵蒂冈。\n3. **西班牙巴塞罗那**：圣家堂、哥特区。\n4. **德国柏林**：柏林墙、勃兰登堡门。\n5. **英国伦敦**：大本钟、伦敦眼。\n\n根据你的兴趣和时间，可以选择不同的城市和景点。希望你的欧洲旅行愉快！",
+            "hallucination": "否",
+            "satisfaction": "5"
+        }
+    ],
+    "task_context": "你计划在明年的寒假/春节期间进行一场为期两周的旅行，预期进行环欧洲旅行，现在你希望借助大语言模型来完善你的旅行计划。在对话中你需要完成住宿、出行交通和旅行时间表等的安排。你的最终旅行计划应当尽量完善，做到可以真实按照计划出行。",
+    "task_type": "旅行规划",
+    "profile": {
+        "gender": "Male",
+        "age": 20,
+        "background": "工程与应用科学",
+        "personality": [
+            "乐观",
+            "幽默",
+            "友善",
+            "外向"
+        ],
+        "occupation": "学生",
+        "daily_interests": [
+            "网购",
+            "运动",
+            "下棋"
+        ],
+        "travel_habits": [
+            "户外活动",
+            "参观博物馆",
+            "自驾游"
+        ],
+        "dining_preferences": [
+            "健康饮食",
+            "街头小吃",
+            "均衡饮食"
+        ],
+        "spending_habits": [
+            "节俭",
+            "为未来储蓄"
+        ],
+        "other_aspects": [
+            "喜欢参与音乐活动",
+            "家庭生活",
+            "住在宿舍"
+        ]
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "详细"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "很有用"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "结果多样"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 2,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "question_broadness": 2,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "3": {
+            "question_broadness": 2,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    }
+}

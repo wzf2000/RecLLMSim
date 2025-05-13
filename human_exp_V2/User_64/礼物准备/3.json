@@ -1,0 +1,148 @@
+{
+    "chat_model": "deepseek-v3",
+    "history": [
+        {
+            "role": "user",
+            "content": "最近，你想去拜访好久未见的一位外祖母，我希望送她一份礼物，你有什么推荐"
+        },
+        {
+            "role": "user",
+            "content": "最近，你想去拜访好久未见的一位外祖母，我希望送她一份礼物，你有什么推荐"
+        }
+    ],
+    "task_context": "最近，你想去拜访好久未见的一位长辈（根据自身情况设定，如祖父母，外祖父母等），你希望在拜访时带上一份礼物，你的预算在200元左右。为此你希望向大语言模型寻求建议，通过对话确定礼物的购买或制作方式，最终的预算大致符合要求即可。",
+    "task_type": "礼物准备",
+    "profile": {
+        "gender": "Male",
+        "age": 22,
+        "background": "自然科学",
+        "personality": [
+            "乐观",
+            "自信",
+            "外向",
+            "坚定"
+        ],
+        "occupation": "学生",
+        "daily_interests": [
+            "运动",
+            "阅读"
+        ],
+        "travel_habits": [
+            "自然风光",
+            "文化旅行",
+            "户外活动",
+            "参观博物馆"
+        ],
+        "dining_preferences": [
+            "健康饮食",
+            "街头小吃"
+        ],
+        "spending_habits": [
+            "注重消费体验",
+            "股票",
+            "为未来储蓄"
+        ],
+        "other_aspects": [
+            "住在宿舍",
+            "喜欢参与体育活动"
+        ],
+        "complete_tid": {
+            "旅行规划": [
+                4,
+                0,
+                1,
+                2,
+                3
+            ],
+            "技能学习规划": [
+                0,
+                2,
+                3,
+                1
+            ],
+            "菜谱规划": [
+                0,
+                3,
+                1,
+                2
+            ],
+            "礼物准备": [
+                1,
+                2,
+                4,
+                5,
+                0
+            ]
+        }
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "简略"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "不可用"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "结果单一"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "question_broadness": 2,
+            "context_dependency": 1,
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    }
+}

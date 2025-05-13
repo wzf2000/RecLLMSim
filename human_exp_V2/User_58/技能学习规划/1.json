@@ -1,0 +1,157 @@
+{
+    "chat_model": "gemini-2.0-pro-exp-02-05",
+    "history": [
+        {
+            "role": "user",
+            "content": "我最近由于工作需要，想要在一个月内学习Java编程语言。我已经有了C语言和Python的基础。我希望你帮我制定一份学习规划，包括学习进度安排和学习资源推荐。"
+        },
+        {
+            "role": "assistant",
+            "content": "好的，考虑到你已经有C语言和Python的基础，一个月内学习Java编程是可行的，但需要高强度、高效率的学习。下面我为你制定一份详细的学习计划，包括进度安排和资源推荐：\n\n**学习目标**\n\n*   **核心目标：** 能够独立编写简单的Java程序，理解面向对象编程的核心概念（类、对象、继承、多态、接口、抽象类），熟悉Java常用类库（集合、IO、异常处理等），并能进行简单的数据库操作。\n*   **进阶目标（可选）：** 了解Java多线程编程、网络编程基础，熟悉常用的Java开发工具（如IntelliJ IDEA），了解Java Web开发基础（Servlet、JSP）。\n\n**学习规划（四周）**\n\n**第一周：Java基础入门**\n\n*   **Day 1-2: Java环境搭建与基础语法**\n    *   安装JDK（Java Development Kit）和配置环境变量。\n    *   选择一个IDE（推荐IntelliJ IDEA Community Edition，免费且强大）。\n    *   学习Java基本语法：数据类型、变量、运算符、控制流程（if-else, for, while, switch-case）、数组。\n    *   **资源：**\n        *   **官方文档：** [Java SE Documentation](https://docs.oracle.com/en/java/javase/index.html) （权威但可能稍显枯燥，适合查阅）\n        *   **在线教程：**\n            *   [菜鸟教程 - Java教程](https://www.runoob.com/java/java-tutorial.html) （中文，适合快速入门）\n            *   [廖雪峰的官方网站 - Java教程](https://www.liaoxuefeng.com/wiki/1252599548343744) （中文，讲解清晰，有实例）\n            *   [Java Programming for Beginners – Full Course](https://www.youtube.com/watch?v=A74TOX803D0&pp=ygUMamF2YSBmdWxsIA%3D%3D) （Youtube, freeCodeCamp.org）\n        *   **书籍（可选）：**\n            *   《Java核心技术 卷I》（Core Java Volume I--Fundamentals）：经典教材，内容全面深入，但可能不适合一个月速成。\n            *   《Head First Java》（中文版：《深入浅出Java》）：图文并茂，易于理解，适合初学者。\n\n*   **Day 3-4: 面向对象编程基础**\n    *   理解类和对象的概念。\n    *   学习类的定义、成员变量、成员方法、构造方法。\n    *   掌握对象的创建和使用。\n    *   理解封装（Encapsulation）的概念和实现。\n    *   **资源：**\n        *   继续使用第一周的资源，重点关注面向对象部分。\n        *   [Java Object Oriented Programming – Full Course](https://www.youtube.com/watch?v=qF_4lFBPHoU&pp=ygUVamF2YSBvb2ogZnVsbCBjb3Vyc2U%3D) （Youtube, Alex Lee）\n\n*   **Day 5-7: 继承、多态、接口与抽象类**\n    *   学习继承（Inheritance）的概念和实现（extends关键字）。\n    *   理解方法重写（Override）和方法重载（Overload）。\n    *   学习多态（Polymorphism）的概念和实现（父类引用指向子类对象）。\n    *   掌握接口（Interface）的定义和实现（implements关键字）。\n    *   理解抽象类（Abstract Class）的概念和使用。\n    *   **资源：**\n        *   继续使用第一周的资源。\n        *   [Java Inheritance Tutorial](https://www.youtube.com/watch?v=Gh-LcoKs-Jo&pp=ygUUamF2YSBpbmhlcml0YW5jZSA%3D) （Youtube, Bro Code）\n        *   [Java Polymorphism](https://www.youtube.com/watch?v=j-KbANjQJOY&pp=ygUUamF2YSBwb2x5bW9ycGhpc20g) （Youtube, Bro Code）\n\n**第二周：Java核心类库**\n\n*   **Day 8-9: 常用类与集合框架**\n    *   学习String、StringBuilder、StringBuffer类的使用。\n    *   学习日期和时间相关的类（Date, Calendar, LocalDate, LocalTime, LocalDateTime）。\n    *   掌握Java集合框架：\n        *   List接口及其实现类（ArrayList, LinkedList）。\n        *   Set接口及其实现类（HashSet, TreeSet）。\n        *   Map接口及其实现类（HashMap, TreeMap）。\n        *   理解迭代器（Iterator）的使用。\n    *   **资源：**\n        *   [Java Collections Tutorial](https://www.youtube.com/watch?v=EdFv_tLAVvM&pp=ygUVamF2YSBjb2xsZWN0aW9ucyA%3D) （Youtube, Nelson Djalo）\n\n*   **Day 10-11: 异常处理**\n    *   理解异常的概念和分类（Exception, Error）。\n    *   学习try-catch-finally语句块的使用。\n    *   掌握throws和throw关键字。\n    *   了解自定义异常。\n    *   **资源：**\n        *   [Java Exceptions - Crash Course](https://www.youtube.com/watch?v=K-WhJ_P5hQs&pp=ygURYmF2YSBleGNlcHRpb25zIA%3D%3D) （Youtube, Bro Code）\n\n*   **Day 12-14: 输入输出（IO）**\n    *   学习File类的使用。\n    *   掌握字节流（InputStream, OutputStream）和字符流（Reader, Writer）的使用。\n    *   了解缓冲流（BufferedInputStream, BufferedOutputStream, BufferedReader, BufferedWriter）的使用。\n    *   学习对象序列化（Serializable接口）。\n    *   **资源：**\n        *   [Java IO Tutorial](https://www.youtube.com/watch?v=D_q-JOaK-rw&pp=ygUJamF2YSBpbyB0dXRvcmlhbCA%3D) （Youtube, Cave of Programming）\n\n**第三周：Java高级特性与数据库**\n\n*   **Day 15-17: 多线程编程（选学）**\n    *   理解线程的概念和生命周期。\n    *   学习创建线程的两种方式（继承Thread类、实现Runnable接口）。\n    *   了解线程同步（synchronized关键字、Lock接口）。\n    *   理解线程间通信（wait(), notify(), notifyAll()）。\n    *   **资源：**\n        *   [Java Multithreading – Full Course](https://www.youtube.com/watch?v=r_MbozD32eo&pp=ygUUamF2YSBtdWx0aXRocmVhZGluZw%3D%3D) （Youtube, Amigoscode）\n\n*   **Day 18-19: 网络编程基础（选学）**\n    *   了解Socket编程的基本概念。\n    *   学习使用ServerSocket和Socket类进行简单的TCP通信。\n    *   **资源：**\n        *   [Java Network Programming - Chat Server](https://www.youtube.com/watch?v=gLfuZrrfKes&pp=ygUVamF2YSBuZXR3b3JrIHByb2dyYW0%3D) （Youtube, CodeWithHarry）\n\n*   **Day 20-21: 数据库操作（JDBC）**\n    *   了解JDBC的概念和原理。\n    *   学习使用JDBC连接数据库（以MySQL为例）。\n    *   掌握使用Statement和PreparedStatement执行SQL语句。\n    *   学习处理查询结果（ResultSet）。\n    *   **资源：**\n        *   [Java JDBC Tutorial](https://www.youtube.com/watch?v=eYF-qa_q-ZY&pp=ygUJamF2YSBqZGJjIHR1dG9yaWFsIA%3D%3D) （Youtube, Telusko）\n        *   安装MySQL数据库和MySQL Connector/J驱动。\n\n**第四周：Java Web基础与项目实践**\n\n*   **Day 22-24: Java Web基础（Servlet、JSP）（选学）**\n    *   了解Web应用程序的基本概念。\n    *   学习Servlet的生命周期和基本使用。\n    *   学习JSP的基本语法和常用标签。\n    *   了解Tomcat服务器的配置和使用。\n    *   **资源：**\n        *   [Java Servlets and JSP Tutorial](https://www.youtube.com/watch?v=OuBUUkQfBYM&pp=ygUVamF2YSBzZXJ2bGV0cyBhbmQganNwIA%3D%3D) （Youtube, Telusko）\n        *   下载并安装Tomcat服务器。\n\n*   **Day 25-28: 项目实践**\n    *   选择一个简单的项目进行实践，例如：\n        *   简单的计算器程序。\n        *   控制台版的图书管理系统（使用集合存储图书信息）。\n        *   控制台版的学生成绩管理系统（使用集合存储学生信息，并可以进行简单的查询和统计）。\n        *   基于JDBC的简单数据库应用（例如用户管理系统）。\n    *   将前三周学到的知识综合运用到项目中。\n\n**学习建议**\n\n*   **保持高强度：** 每天至少投入4-6小时进行学习，确保学习进度。\n*   **多动手实践：** 编程是实践性很强的学科，一定要多敲代码，多做练习。\n*   **及时复习：** 每周结束时，回顾本周所学内容，巩固知识点。\n*   **善用资源：** 充分利用网络资源、书籍、官方文档等。\n*   **遇到问题及时解决：** 可以通过搜索引擎、Stack Overflow等途径寻求帮助。\n*   **保持积极心态：** 学习过程中遇到困难是正常的，不要轻易放弃。\n\n**重要提示**\n\n*   由于时间紧迫，这份计划的强度较大，你需要根据自己的实际情况进行调整。\n*   如果时间允许，可以深入学习某些方面，例如多线程、网络编程、Web开发等。\n*   不要只看不练，一定要多写代码，多做项目。\n\n祝你学习顺利！\n",
+            "hallucination": "否",
+            "satisfaction": "5"
+        },
+        {
+            "role": "user",
+            "content": "你有一些比较系统化的教程推荐给我吗？"
+        },
+        {
+            "role": "assistant",
+            "content": "好的，考虑到你需要在一个月内系统化地学习Java，并且已经有C和Python的基础，我为你推荐以下几个我认为比较优秀的、系统化的教程资源。这些资源涵盖了从入门到进阶的不同层次，你可以根据自己的进度和需求进行选择：\n\n**1. 视频教程（推荐）**\n\n*   **B站 - 尚硅谷Java零基础教程（宋红康版）:**\n    *   **链接:** [https://www.bilibili.com/video/BV1Kb411W75N](https://www.bilibili.com/video/BV1Kb411W75N)\n    *   **特点:**\n        *   非常全面的Java基础教程，内容详尽，讲解细致，适合零基础或基础薄弱的同学。\n        *   宋红康老师讲课风格深入浅出，易于理解，注重基础知识的讲解和代码实践。\n        *   配套资料齐全（课件、笔记、源码），方便学习。\n        *   虽然是“零基础”教程，但实际上内容覆盖面很广，从Java SE基础到高级特性都有涉及。\n    *   **注意:** 视频较长，需要耐心学习，建议结合练习进行。\n\n*   **YouTube - freeCodeCamp.org - Java Programming for Beginners – Full Course:**\n    *   **链接:** [https://www.youtube.com/watch?v=A74TOX803D0](https://www.youtube.com/watch?v=A74TOX803D0)\n    *   **特点:**\n        *   英文讲解，语速适中，适合有一定英语基础的同学。\n        *   内容全面，从基础语法到面向对象编程都有涵盖。\n        *   注重实践，每个知识点都有相应的代码示例。\n        *   freeCodeCamp.org 是一个非常优秀的编程学习平台，有很多高质量的免费教程。\n\n*   **YouTube - Telusko - Java Tutorial for Beginners:**\n    *   **链接:** [https://www.youtube.com/playlist?list=PLsyeobzWxl7pFZoGT1NbZJpywedeyzyaf](https://www.youtube.com/playlist?list=PLsyeobzWxl7pFZoGT1NbZJpywedeyzyaf)\n    *   **特点：**\n        *   Navin Reddy (Telusko) 的Java系列教程在YouTube上非常受欢迎。\n        *   讲解风格幽默风趣，易于理解。\n        *   内容涵盖Java基础、面向对象、集合框架、多线程、JDBC、Servlet/JSP等。\n        *   适合有一定编程基础的同学快速入门Java。\n\n**2. 在线互动教程**\n\n*   **Codecademy - Learn Java:**\n    *   **链接:** [https://www.codecademy.com/learn/learn-java](https://www.codecademy.com/learn/learn-java)\n    *   **特点:**\n        *   互动式学习，边学边练，非常适合初学者。\n        *   内容从基础语法到面向对象编程都有涉及。\n        *   提供在线代码编辑器，可以直接在网页上编写和运行Java代码。\n        *   有免费部分和付费部分，免费部分已经足够入门。\n\n*   **JetBrains Academy (Hyperskill):**\n    *   **链接:** [https://hyperskill.org/](https://hyperskill.org/)\n    *   **特点:**\n        *   JetBrains Academy是由IntelliJ IDEA的开发公司JetBrains推出的学习平台。\n        *   提供基于项目的学习方式，通过完成一个个小项目来学习Java。\n        *   内容涵盖Java Core、Java Backend、Kotlin等多个方向。\n        *   有免费试用期，之后需要付费。\n\n**3. 文字教程**\n\n*   **廖雪峰的官方网站 - Java教程:**\n    *   **链接:** [https://www.liaoxuefeng.com/wiki/1252599548343744](https://www.liaoxuefeng.com/wiki/1252599548343744)\n    *   **特点:**\n        *   中文教程，讲解清晰，语言简洁。\n        *   内容全面，从Java基础到Web开发都有涉及。\n        *   注重实践，每个知识点都有相应的代码示例。\n        *   适合有一定编程基础的同学快速入门Java。\n\n*   **菜鸟教程 - Java教程:**\n    *   **链接:** [https://www.runoob.com/java/java-tutorial.html](https://www.runoob.com/java/java-tutorial.html)\n    *   **特点:**\n        *   中文教程，适合快速入门。\n        *   内容比较基础，适合初学者。\n        *   提供在线工具，可以在网页上直接编译和运行Java代码。\n\n**选择建议**\n\n*   **如果你更喜欢看视频学习：** 强烈推荐尚硅谷的Java教程（中文）或freeCodeCamp.org的Java教程（英文）。\n*   **如果你喜欢互动式学习：** 可以尝试Codecademy或JetBrains Academy。\n*   **如果你更喜欢阅读文字教程：** 廖雪峰的Java教程和菜鸟教程都是不错的选择。\n\n**学习方法建议**\n\n1.  **选择一个主要教程，坚持学完。** 不要频繁更换教程，以免造成知识体系的混乱。\n2.  **结合多个教程进行学习。** 不同的教程可能有不同的讲解方式和侧重点，结合起来学习可以更全面地理解知识。\n3.  **一定要多动手实践。** 编程是实践性很强的学科，只有通过不断地编写代码，才能真正掌握Java。\n4.  **遇到问题及时解决。** 可以通过搜索引擎、Stack Overflow、Java社区等途径寻求帮助。\n\n祝你学习顺利！\n",
+            "hallucination": "否",
+            "satisfaction": "5"
+        },
+        {
+            "role": "user",
+            "content": "我希望前半个月用一个系统的教程学习Java的基本概念，后半个月学习网络、多线程和数据库，并完成一个项目。请你再给我安排一份学习规划。"
+        },
+        {
+            "role": "assistant",
+            "content": "好的，根据你的新需求，我为你重新调整了学习规划，前半个月集中精力学习Java核心概念，后半个月深入学习网络、多线程、数据库，并结合项目实践：\n\n**总体目标**\n\n*   **前半个月（基础）：** 掌握Java核心语法、面向对象编程、常用类库（集合、IO、异常处理）。\n*   **后半个月（进阶+实践）：** 掌握Java多线程、网络编程基础、JDBC数据库操作，并完成一个综合性项目。\n\n**学习规划（四周，更精细划分）**\n\n**第一周：Java基础与面向对象**\n\n*   **Day 1-3: Java基础语法**\n    *   Java环境搭建（JDK、IDE：IntelliJ IDEA）。\n    *   数据类型、变量、运算符、表达式。\n    *   控制流程（if-else, for, while, switch-case）。\n    *   数组（一维、多维）。\n    *   方法（定义、调用、参数传递、返回值）。\n    *   **资源：**\n        *   **主教程（选择其一）：**\n            *   尚硅谷Java零基础教程（宋红康版） - 前面的章节\n            *   freeCodeCamp.org - Java Programming for Beginners – Full Course - 前面的部分\n            *   廖雪峰的官方网站 - Java教程 - 基础部分\n        *   **辅助：** 菜鸟教程 - Java教程（快速查阅）\n\n*   **Day 4-7: 面向对象编程**\n    *   类与对象（定义、创建、成员变量、成员方法、构造方法）。\n    *   封装（private、public、protected、默认访问修饰符）。\n    *   继承（extends、super、方法重写）。\n    *   多态（父类引用指向子类对象、instanceof运算符）。\n    *   抽象类（abstract）与接口（interface）。\n    *   **资源：**\n        *   继续使用第一周的主教程，重点关注面向对象部分。\n        *   **辅助：**\n            *   YouTube - Alex Lee - Java Object Oriented Programming – Full Course\n            *   YouTube - Bro Code - Java Inheritance Tutorial, Java Polymorphism\n\n**第二周：Java核心类库**\n\n*   **Day 8-9: 常用类**\n    *   String、StringBuilder、StringBuffer。\n    *   日期与时间（Date, Calendar, LocalDate, LocalTime, LocalDateTime）。\n    *   包装类（Integer, Double等）。\n    *   Math类。\n    *   **资源：**\n        *   继续使用第一周的主教程。\n        *   **辅助：** Java官方文档（查阅API）\n\n*   **Day 10-12: 集合框架**\n    *   Collection接口（List, Set）。\n    *   List实现类（ArrayList, LinkedList）。\n    *   Set实现类（HashSet, TreeSet）。\n    *   Map接口（HashMap, TreeMap）。\n    *   迭代器（Iterator）。\n    *   泛型（Generics）。\n    *   **资源：**\n        *   主教程的相关章节。\n        *   **辅助：** YouTube - Nelson Djalo - Java Collections Tutorial\n\n*   **Day 13-14: 异常处理与IO**\n    *   异常的概念与分类（Exception, Error）。\n    *   try-catch-finally。\n    *   throws, throw。\n    *   自定义异常。\n    *   File类。\n    *   字节流（InputStream, OutputStream）。\n    *   字符流（Reader, Writer）。\n    *   缓冲流。\n    *   **资源：**\n        *   主教程的相关章节。\n        *   **辅助：**\n            *   YouTube - Bro Code - Java Exceptions - Crash Course\n            *   YouTube - Cave of Programming - Java IO Tutorial\n\n**第三周：多线程、网络编程、数据库**\n\n*   **Day 15-17: 多线程**\n    *   线程的概念、生命周期。\n    *   创建线程（Thread, Runnable）。\n    *   线程同步（synchronized, Lock）。\n    *   线程通信（wait, notify, notifyAll）。\n    *   线程池（ExecutorService）。\n    *   **资源：**\n        *   YouTube - Amigoscode - Java Multithreading – Full Course\n        *   廖雪峰的官方网站 - Java教程 - 多线程部分\n\n*   **Day 18-19: 网络编程**\n    *   网络基础知识（IP地址、端口、协议）。\n    *   Socket编程（TCP）。\n    *   ServerSocket, Socket。\n    *   简单的客户端/服务器程序。\n    *   **资源：**\n        *   YouTube - CodeWithHarry - Java Network Programming - Chat Server\n        *   廖雪峰的官方网站 - Java教程 - 网络编程部分\n\n*   **Day 20-21: 数据库（JDBC）**\n    *   数据库基础（SQL语句：SELECT, INSERT, UPDATE, DELETE）。\n    *   JDBC API。\n    *   连接数据库（MySQL）。\n    *   Statement, PreparedStatement。\n    *   ResultSet。\n    *   数据库连接池（可选）。\n    *   **资源：**\n        *   YouTube - Telusko - Java JDBC Tutorial\n        *   MySQL官方文档\n        *   安装MySQL数据库和MySQL Connector/J\n\n**第四周：项目实践**\n\n*   **Day 22-28: 项目开发**\n    *   **项目选择（建议）：**\n        *   **基于Socket的聊天室程序（多人聊天）：** 综合运用多线程、网络编程、IO。\n        *   **图书管理系统（数据库版）：** 综合运用JDBC、集合、IO、面向对象。\n        *   **学生成绩管理系统（数据库版）：** 类似图书管理系统。\n    *   **项目步骤：**\n        1.  **需求分析：** 明确项目的功能、界面、数据存储方式。\n        2.  **设计：** 数据库设计（如果需要）、类设计、模块划分。\n        3.  **编码：** 分模块逐步实现功能。\n        4.  **测试：** 单元测试、集成测试。\n        5.  **调试与优化：** 解决bug，提高性能。\n    *   **资源：**\n        *   GitHub（参考类似项目的源码）。\n        *   Stack Overflow（解决编程问题）。\n\n**学习建议**\n\n*   **严格执行计划：** 前半个月务必打好基础，后半个月才能顺利进行。\n*   **代码量保证：** 每天都要编写一定量的代码，保持手感。\n*   **项目驱动：** 尽早开始构思项目，带着问题学习，更有针对性。\n*   **善用调试工具：** IntelliJ IDEA的调试功能非常强大，学会使用可以大大提高效率。\n*   **不要怕出错：** 错误是学习过程中最好的老师，从错误中学习，才能更快进步。\n\n**重要提示**\n\n*   一个月时间非常紧迫，这份计划已经非常紧凑，你需要付出大量的时间和精力。\n*   如果时间不够，可以适当调整项目难度，或者先完成核心功能。\n*   学习过程中遇到困难，及时寻求帮助，不要钻牛角尖。\n\n祝你学习顺利，成功完成项目！\n",
+            "hallucination": "否",
+            "satisfaction": "5"
+        }
+    ],
+    "task_context": "你在最近由于学习/工作需要（如科研、社工等），想要在一个月内加强一项技能（根据自身情况设定，如计算机相关的编程语言，工程设计相关的软件等），你之前在这方面有一定的基础，现在需要进一步地加强学习，现在你希望借助大语言模型来完成你的学习规划。在对话中你需要完成学习进度安排、学习资源整理等，学习过程应当考虑到你现有的技能水平，符合人的学习规律。你的最终方案应当尽量完善，做到可以真实按照规划学习。",
+    "task_type": "技能学习规划",
+    "profile": {
+        "gender": "Male",
+        "age": 22,
+        "background": "信息科学与技术",
+        "personality": [
+            "乐观",
+            "幽默",
+            "友善",
+            "随性"
+        ],
+        "occupation": "学生",
+        "daily_interests": [
+            "听音乐",
+            "玩游戏"
+        ],
+        "travel_habits": [
+            "户外活动",
+            "自然风光",
+            "国际旅行",
+            "家庭旅行"
+        ],
+        "dining_preferences": [
+            "烧烤",
+            "中式美食",
+            "尝鲜",
+            "街头小吃"
+        ],
+        "spending_habits": [
+            "娱乐支出",
+            "质量大于数量",
+            "注重消费体验",
+            "用于旅行"
+        ],
+        "other_aspects": [
+            "住在宿舍",
+            "独自生活"
+        ],
+        "complete_tid": {
+            "旅行规划": [
+                1,
+                2,
+                0,
+                3,
+                4
+            ],
+            "技能学习规划": [
+                0
+            ]
+        }
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "详细"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "很有用"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "结果多样"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "question_broadness": 5,
+            "context_dependency": 4,
+            "feedback": "NoFeedback"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Both"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    }
+}

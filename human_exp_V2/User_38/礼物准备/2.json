@@ -1,0 +1,146 @@
+{
+    "chat_model": "deepseek-v3",
+    "history": [
+        {
+            "role": "user",
+            "content": "最近，女生节快到了，我想为我的老婆挑选一份节日礼物，"
+        },
+        {
+            "role": "assistant",
+            "content": "为你的老婆挑选女生节礼物是一件非常贴心的事情，以下是一些建议，希望能帮助你找到合适的礼物：\n\n### 1. **个性化首饰**\n   - **定制项链或手链**：可以选择刻有你们名字、纪念日或特殊符号的首饰，既有纪念意义又很实用。\n   - **珍珠耳环**：经典且优雅，适合日常佩戴。\n\n### 2. **美容护肤套装**\n   - **高端护肤品**：如果她喜欢护肤，可以选择她常用的品牌或尝试一些高端护肤品。\n   - **SPA体验券**：让她享受一次放松的SPA体验，缓解日常压力。\n\n### 3. **时尚单品**\n   - **设计师包包**：如果她喜欢时尚，可以选择一款她心仪已久的设计师包包。\n   - **围巾或丝巾**：适合春季的时尚单品，既实用又美观。\n\n### 4. **电子产品**\n   - **智能手表**：如果她对科技感兴趣，可以选择一款功能丰富的智能手表。\n   - **无线耳机**：方便她日常使用，提升生活品质。\n\n### 5. **体验类礼物**\n   - **旅行套餐**：如果时间允许，可以计划一次短途旅行，享受二人世界。\n   - **烹饪课程**：如果她喜欢烹饪，可以报名参加一次烹饪课程，学习新技能。\n\n### 6. **书籍或杂志订阅**\n   - **她喜欢的书籍**：如果她喜欢阅读，可以选择她感兴趣的书籍或杂志订阅。\n\n### 7. **手写情书**\n   - **手写情书**：虽然简单，但充满心意，表达你对她的爱和感激之情。\n\n### 8. **家居用品**\n   - **香薰机**：帮助她放松身心，提升居家氛围。\n   - **高品质床品**：提升睡眠质量，让她每天都能享受舒适的睡眠。\n\n### 9. **健康类礼物**\n   - **健身器材**：如果她喜欢运动，可以选择一些家用健身器材。\n   - **健康食品**：如有机食品、坚果礼盒等，关心她的健康。\n\n### 10. **定制照片书**\n   - **照片书**：将你们的珍贵回忆制作成一本照片书，既有纪念意义又很温馨。\n\n### 小贴士：\n- **了解她的喜好**：选择礼物时，最重要的是了解她的兴趣和需求，这样才能选到最合适的礼物。\n- **包装和惊喜**：精美的包装和意外的惊喜会让礼物更加特别。\n\n希望这些建议能帮助你为老婆挑选到一份让她感到幸福和惊喜的女生节礼物！",
+            "hallucination": "否",
+            "satisfaction": "5"
+        }
+    ],
+    "task_context": "最近，男生节/女生节快到了，你想为你的同班同学/同事/实验室同学挑选一份节日礼物，你的预算在300元以内。为此你希望向大语言模型寻求建议，通过对话确定礼物的购买或制作方式，最终的预算大致符合要求即可。",
+    "task_type": "礼物准备",
+    "profile": {
+        "gender": "Male",
+        "age": 19,
+        "background": "工程与应用科学",
+        "personality": [
+            "乐观",
+            "幽默",
+            "上进",
+            "自信"
+        ],
+        "occupation": "学生",
+        "daily_interests": [
+            "摄影",
+            "玩游戏",
+            "听音乐",
+            "阅读"
+        ],
+        "travel_habits": [
+            "户外活动",
+            "自然风光",
+            "看展",
+            "美食之旅"
+        ],
+        "dining_preferences": [
+            "健康饮食",
+            "尝鲜",
+            "中式美食",
+            "均衡饮食"
+        ],
+        "spending_habits": [
+            "购买书籍",
+            "用于旅行",
+            "注重消费体验"
+        ],
+        "other_aspects": [
+            "住在宿舍",
+            "社交广泛",
+            "经营自媒体",
+            "喜欢参与学术活动"
+        ],
+        "complete_tid": {
+            "旅行规划": [
+                4,
+                1,
+                0,
+                2,
+                3
+            ],
+            "技能学习规划": [
+                0,
+                2,
+                1,
+                3
+            ],
+            "礼物准备": [
+                4
+            ]
+        }
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "一般"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "有一定参考"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "一般"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 2,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "question_broadness": 2,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "question_broadness": 2,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        }
+    }
+}

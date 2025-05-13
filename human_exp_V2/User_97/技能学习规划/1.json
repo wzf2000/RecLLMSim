@@ -1,0 +1,132 @@
+{
+    "chat_model": "gemini-2.0-pro-exp-02-05",
+    "history": [
+        {
+            "role": "user",
+            "content": "我是程序员，近期想快速入门web3，初步看了2个web3公开课了，现在想要实战solana，给个学习计划"
+        },
+        {
+            "role": "assistant",
+            "content": "好的，作为一名程序员，你已经有了一定的基础，加上看过Web3公开课，入门Solana会相对容易。下面是一个为你定制的Solana实战学习计划，注重快速上手和实践：\n\n**核心目标：**\n\n*   理解Solana的核心概念（账户模型、程序、交易、指令等）\n*   掌握Rust基础（Solana智能合约主要使用Rust编写）\n*   能够编写、部署和测试简单的Solana程序\n*   熟悉Solana生态中的常用工具和资源\n\n**学习计划（预计2-4周，可根据自身情况调整）：**\n\n**第一周：基础入门与环境搭建**\n\n1.  **Solana官方文档快速过一遍 (1-2天):**\n    *   重点关注：\n        *   **概念部分:** 理解账户模型、程序（Program）、交易（Transaction）、指令（Instruction）、租金（Rent）等核心概念。\n        *   **开发概述:** 了解Solana的开发流程、工具链。\n    *   链接：[https://docs.solana.com/](https://docs.solana.com/)\n\n2.  **Rust基础快速入门 (2-3天):**\n    *   如果你已经熟悉Rust，可以跳过这部分。\n    *   如果不熟悉，重点学习以下内容：\n        *   基本数据类型、变量、常量\n        *   控制流（if/else, loops）\n        *   函数、模块\n        *   结构体、枚举\n        *   所有权、借用、生命周期（Solana程序开发中非常重要）\n        *   错误处理（Result, Option）\n    *   学习资源：\n        *   Rust官方文档（The Rust Programming Language）：[https://doc.rust-lang.org/book/](https://doc.rust-lang.org/book/)\n        *   Rust by Example：[https://doc.rust-lang.org/rust-by-example/](https://doc.rust-lang.org/rust-by-example/)\n        *   B站或其他视频平台的Rust入门教程\n\n3.  **Solana开发环境搭建 (1天):**\n    *   安装Rust和Cargo\n    *   安装Solana CLI工具\n    *   配置本地验证器（Local Validator）用于测试\n    *   安装Solana Web3.js（用于与Solana区块链交互的JavaScript库，可选，如果你想做前端）\n    *   官方文档：[https://docs.solana.com/cli/install-solana-cli-tools](https://docs.solana.com/cli/install-solana-cli-tools)\n\n**第二周：编写与部署第一个Solana程序**\n\n1.  **学习Solana程序结构 (1天):**\n    *   入口点（Entrypoint）\n    *   处理指令（Processing Instructions）\n    *   账户操作\n    *   错误处理\n    *   官方文档：[https://docs.solana.com/developing/on-chain-programs/overview](https://docs.solana.com/developing/on-chain-programs/overview)\n\n2.  **编写一个简单的Solana程序 (2-3天):**\n    *   可以从一个简单的“Hello, World!”程序开始，例如：\n        *   创建一个程序，该程序接收一个账户作为输入。\n        *   在程序中，将该账户的数据设置为“Hello, World!”。\n        *   编写测试用例，验证程序的功能。\n    *   可以参考Solana官方示例：[https://github.com/solana-labs/example-helloworld](https://github.com/solana-labs/example-helloworld)\n\n3.  **部署和测试程序 (1-2天):**\n    *   使用Solana CLI将程序部署到本地验证器。\n    *   使用Solana CLI或Web3.js与程序交互，发送交易。\n    *   学习使用Solana Explorer查看交易和账户状态。\n\n**第三周：进阶学习与实践**\n\n1.  **学习Anchor框架 (2-3天):**\n    *   Anchor是一个Solana程序开发框架，可以简化程序开发，提高安全性。\n    *   学习Anchor的基本概念、语法和常用宏。\n    *   使用Anchor重写之前的“Hello, World!”程序。\n    *   Anchor官方文档：[https://www.anchor-lang.com/](https://www.anchor-lang.com/)\n\n2.  **学习Solana Program Library (SPL) (2-3天):**\n    *   SPL是一组预先构建的Solana程序，提供了常见的功能，如Token操作、NFT等。\n    *   学习如何使用SPL Token Program创建和管理Token。\n    *   学习如何使用SPL Associated Token Account Program。\n    *   SPL文档：[https://spl.solana.com/](https://spl.solana.com/)\n\n3. **阅读其他项目的代码 (1-2天):**\n   *   在Github中搜索Solana相关项目, 重点阅读其合约代码, 理解其他项目是如何组织合约代码的.\n\n**第四周：项目实战与生态探索**\n\n1.  **开发一个更复杂的Solana程序 (3-4天):**\n    *   可以尝试实现以下功能：\n        *   一个简单的去中心化交易所（DEX）\n        *   一个NFT铸造和交易程序\n        *   一个链上投票程序\n    *   在开发过程中，不断学习和应用Solana的各种特性。\n\n2.  **探索Solana生态 (2-3天):**\n    *   了解Solana生态中的各种项目，如DeFi、NFT、GameFi等。\n    *   学习如何使用Solana钱包（Phantom, Solflare等）。\n    *   参与Solana社区，与其他开发者交流。\n\n**学习资源补充：**\n\n*   **Solana Cookbook:** 提供了许多Solana开发中的常见问题的解决方案。 [https://solanacookbook.com/](https://solanacookbook.com/)\n*   **Project Serum:** 一个基于Solana的去中心化交易所，可以学习其架构和代码。[https://projectserum.com/](https://projectserum.com/)\n*   **Metaplex:** 一个基于Solana的NFT标准和工具集。[https://www.metaplex.com/](https://www.metaplex.com/)\n*   **Solana中文开发者社区:** 可以在微信群、论坛等地方找到。\n\n**重要提示：**\n\n*   **安全第一：** 在编写Solana程序时，务必注意安全性，避免常见的漏洞。\n*   **持续学习：** Web3和Solana生态发展迅速，要保持持续学习的态度。\n*   **多实践：** 实践是最好的学习方式，多写代码，多参与项目。\n*   **善用工具:** 熟练使用`solana`命令行工具, 以及`cargo`等Rust工具.\n\n祝你在Solana的学习之旅中取得成功！\n",
+            "hallucination": "否",
+            "satisfaction": "5"
+        }
+    ],
+    "task_context": "你在最近由于学习/工作需要（如科研、社工等），想要在一个月内加强一项技能（根据自身情况设定，如计算机相关的编程语言，工程设计相关的软件等），你之前在这方面有一定的基础，现在需要进一步地加强学习，现在你希望借助大语言模型来完成你的学习规划。在对话中你需要完成学习进度安排、学习资源整理等，学习过程应当考虑到你现有的技能水平，符合人的学习规律。你的最终方案应当尽量完善，做到可以真实按照规划学习。",
+    "task_type": "技能学习规划",
+    "profile": {
+        "gender": "Male",
+        "age": 29,
+        "background": "信息科学与技术",
+        "personality": [
+            "内向"
+        ],
+        "occupation": "工程师",
+        "daily_interests": [
+            "养宠物",
+            "玩游戏"
+        ],
+        "travel_habits": [
+            "参观历史遗迹",
+            "自然风光"
+        ],
+        "dining_preferences": [
+            "均衡饮食",
+            "中式美食"
+        ],
+        "spending_habits": [
+            "节俭",
+            "质量大于数量"
+        ],
+        "other_aspects": [
+            "租房",
+            "养小动物"
+        ],
+        "complete_tid": {
+            "旅行规划": [
+                2,
+                4,
+                0,
+                1,
+                3
+            ],
+            "技能学习规划": [
+                3,
+                2
+            ],
+            "礼物准备": [
+                3
+            ]
+        }
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "详细"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "很有用"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "结果多样"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Depth",
+            "context": "High",
+            "question": "Specific"
+        }
+    }
+}

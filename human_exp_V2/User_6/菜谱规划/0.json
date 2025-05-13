@@ -1,0 +1,154 @@
+{
+    "chat_model": "gpt-4-turbo-preview",
+    "history": [
+        {
+            "role": "user",
+            "content": "今天周末 我打算做两个菜自己一个人吃"
+        },
+        {
+            "role": "assistant",
+            "content": "听起来是个不错的计划！做饭可以很放松，也能享受美食。你打算做什么菜呢？如果需要一些建议或者食谱，我很乐意提供帮助哦。",
+            "hallucination": "无法判断",
+            "satisfaction": "3",
+            "reason": "其它"
+        },
+        {
+            "role": "user",
+            "content": "我是一个新手 打算做两个不辣的菜"
+        },
+        {
+            "role": "assistant",
+            "content": "太好了！以下是两个简单且不辣的菜谱，适合新手尝试：\n\n1. **蒜蓉西兰花**\n   - **材料**：西兰花1颗，蒜2-3瓣，橄榄油或植物油，盐，少许酱油（可选）。\n   - **做法**：\n     1. 将西兰花洗净后切成小朵。\n     2. 烧开一锅水，加入少许盐，将西兰花焯水约2-3分钟，然后捞出沥干。\n     3. 大蒜切成蒜末。\n     4. 在锅中加热适量油，放入蒜末炒香。\n     5. 加入西兰花翻炒，调入盐和酱油，继续炒2-3分钟即可。\n\n2. **番茄炒蛋**\n   - **材料**：鸡蛋2-3个，番茄2个，盐，糖，植物油。\n   - **做法**：\n     1. 鸡蛋打散，加少许盐搅匀。\n     2. 番茄洗净后切块。\n     3. 在锅中加热适量油，倒入蛋液煎至凝固，炒散后盛出备用。\n     4. 锅中再加一点油，放入番茄块翻炒，加入少许盐和糖调味。\n     5. 番茄炒软后，加入炒好的鸡蛋，混合翻炒均匀即可。\n\n这两个菜简单易做，而且营养丰富。希望你能享受烹饪的过程！如果有任何问题或需要更多建议，请随时告诉我。",
+            "hallucination": "否",
+            "satisfaction": "4"
+        },
+        {
+            "role": "user",
+            "content": "家里没有西兰花了还有其他推荐嘛"
+        },
+        {
+            "role": "assistant",
+            "content": "当然可以！如果没有西兰花，你可以试试以下这道简单又美味的菜：\n\n**清炒胡萝卜豆角**\n\n- **材料**：胡萝卜1根，豆角（也叫四季豆）200克，蒜2瓣，盐，植物油。\n- **做法**：\n  1. 将胡萝卜去皮切成薄片，豆角洗净后切成段。\n  2. 大蒜切成蒜末。\n  3. 在锅中加热适量油，放入蒜末炒香。\n  4. 加入胡萝卜片和豆角段，翻炒均匀。\n  5. 加入少许盐，继续翻炒至蔬菜变软熟透，大约5-7分钟。\n  6. 根据个人口味调整调料，炒匀后即可出锅。\n\n这道菜色彩丰富，口感清脆，而且做法简单，非常适合新手尝试。希望你喜欢！如果还有其他问题或需要更多建议，欢迎随时问我。",
+            "hallucination": "否",
+            "satisfaction": "4"
+        }
+    ],
+    "task_context": "假设现在是一个周末，你打算做1-2个菜自己一个人吃，你的厨艺水平根据自身情况而定。为此你想要找大语言模型帮忙制定菜谱，确定需要用到哪些食材，以及要制作的菜品。在规划中你应当得知每一道菜完整的制作流程和合适的菜品制作顺序。",
+    "task_type": "菜谱规划",
+    "profile": {
+        "gender": "Male",
+        "age": 20,
+        "background": "其他",
+        "personality": [
+            "乐观",
+            "友善",
+            "上进"
+        ],
+        "occupation": "学生",
+        "daily_interests": [
+            "听音乐",
+            "看电视",
+            "玩游戏"
+        ],
+        "travel_habits": [
+            "美食之旅",
+            "文化旅行",
+            "户外活动"
+        ],
+        "dining_preferences": [
+            "健康饮食",
+            "中式美食",
+            "烘焙"
+        ],
+        "spending_habits": [
+            "用于旅行",
+            "科技产品"
+        ],
+        "other_aspects": [
+            "喜欢参与音乐活动",
+            "住在宿舍"
+        ],
+        "complete_tid": {
+            "旅行规划": [
+                4
+            ],
+            "礼物准备": [
+                1,
+                0
+            ],
+            "菜谱规划": [
+                1
+            ]
+        }
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "详细"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "很有用"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "结果多样"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "question_broadness": 2,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Sequential",
+            "order": "Breadth",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Sequential",
+            "order": "Depth",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Sequential",
+            "order": "Breadth",
+            "context": "High",
+            "question": "Specific"
+        }
+    }
+}

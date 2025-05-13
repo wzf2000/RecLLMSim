@@ -1,0 +1,162 @@
+{
+    "chat_model": "deepseek-v3",
+    "history": [
+        {
+            "role": "user",
+            "content": "我需要一个月内加强java这门编程语言，帮我指定计划和学习进度安排"
+        },
+        {
+            "role": "assistant",
+            "content": "以下是一个 **30天高强度Java提升计划**，分为 **基础巩固 → 进阶技能 → 实战应用** 三个阶段，每天投入 **3-4小时**（可根据自身基础调整节奏）。  \n\n---\n\n### **📅 第一周：核心基础与面向对象（Day 1-7）**\n**目标**：扎实语法基础，深入理解OOP、集合、异常处理。  \n**每日安排**：  \n- **上午**（1.5h）：学习理论 + 代码示例  \n- **下午/晚上**（1.5h）：动手练习 + 小项目  \n\n| 天数 | 学习内容 | 实践任务 |\n|------|----------|----------|\n| **Day 1** | Java语法回顾（数据类型、运算符、流程控制） | 编写计算器程序（控制台版） |\n| **Day 2** | 面向对象基础（类、对象、封装、继承、多态） | 设计“动物类”继承体系（猫/狗子类） |\n| **Day 3** | 高级OOP（接口、抽象类、静态/final关键字） | 实现“支付系统”（接口：支付宝/微信支付） |\n| **Day 4** | 异常处理（try-catch-finally、自定义异常） | 完善计算器，处理输入错误异常 |\n| **Day 5** | 集合框架（List/Set/Map、迭代器） | 学生管理系统（用ArrayList存储数据） |\n| **Day 6** | 泛型与枚举 | 改造学生管理系统，增加泛型约束 |\n| **Day 7** | 复习 + 查漏补缺 | 综合练习：图书管理系统（控制台版） |\n\n---\n\n### **📅 第二周：进阶与Java生态（Day 8-14）**  \n**目标**：掌握IO、多线程、JDBC、基础设计模式。  \n**每日安排**：  \n- **上午**（1.5h）：学习理论 + 阅读源码（如ArrayList）  \n- **下午/晚上**（1.5h）：实战编码  \n\n| 天数 | 学习内容 | 实践任务 |\n|------|----------|----------|\n| **Day 8** | 文件IO（字节流/字符流、NIO基础） | 实现文件复制工具 + 日志记录器 |\n| **Day 9** | 多线程（Thread/Runnable、synchronized） | 模拟多线程抢票系统 |\n| **Day 10** | 线程池（ExecutorService）与并发工具类 | 优化抢票系统，使用线程池 |\n| **Day 11** | JDBC（CRUD、PreparedStatement） | 连接MySQL，实现学生管理系统数据库版 |\n| **Day 12** | 设计模式（单例、工厂、策略模式） | 用单例模式实现日志工具类 |\n| **Day 13** | Java8新特性（Lambda、Stream API） | 用Stream重构学生管理系统的查询功能 |\n| **Day 14** | 复习 + 单元测试（JUnit） | 为图书管理系统编写单元测试 |\n\n---\n\n### **📅 第三周：框架与工具（Day 15-21）**  \n**目标**：掌握Spring Boot基础、REST API开发、基础数据库交互。  \n\n| 天数 | 学习内容 | 实践任务 |\n|------|----------|----------|\n| **Day 15** | Maven依赖管理 + Spring Boot入门 | 搭建Spring Boot项目，输出\"Hello World\" |\n| **Day 16** | Spring MVC（@Controller/@RestController） | 开发一个TODO列表API（GET/POST） |\n| **Day 17** | Spring Data JPA（ORM基础） | 用JPA实现学生管理系统的数据库操作 |\n| **Day 18** | RESTful API设计（HTTP方法、状态码） | 扩展TODO API（PUT/DELETE） |\n| **Day 19** | 项目结构分层（Controller/Service/DAO） | 重构TODO项目，分层处理逻辑 |\n| **Day 20** | 复习 + 整合Swagger文档 | 为API自动生成文档 |\n| **Day 21** | 综合练习 | 开发简易博客系统（文章增删改查） |\n\n---\n\n### **📅 第四周：项目实战与优化（Day 22-30）**  \n**目标**：完成一个完整项目，学习性能调优与面试题。  \n\n| 天数 | 学习内容 | 实践任务 |\n|------|----------|----------|\n| **Day 22-24** | **项目实战1**：电商系统（用户/商品/订单模块） | 技术栈：Spring Boot + JPA + MySQL |\n| **Day 25** | 项目优化（缓存Redis、日志SLF4J） | 为电商系统添加Redis缓存商品数据 |\n| **Day 26-27** | **项目实战2**：天气查询API（调用第三方API） | 技术栈：Spring Boot + RestTemplate |\n| **Day 28** | JVM基础（内存模型、GC算法） | 用VisualVM监控项目内存 |\n| **Day 29** | 面试题冲刺（集合/多线程/Spring原理） | 刷《Java核心技术》经典题目 |\n| **Day 30** | 总结 + 简历项目包装 | 整理GitHub仓库，撰写项目文档 |\n\n---\n\n### **📌 关键建议**  \n1. **代码量优先**：每天至少手写200行代码，拒绝只看不练。  \n2. **Git管理**：用Git记录每日进度（[GitHub](https://github.com/)）。  \n3. **及时反馈**：遇到问题优先查官方文档（[Oracle Java Docs](https://docs.oracle.com/javase/8/docs/technotes/guides/)），或提问（Stack Overflow）。  \n4. **延伸学习**：碎片时间用APP辅助（如“Java编程思想”电子书、“Codewars”刷题）。  \n\n**坚持30天，你会明显感受到提升！** 如需调整节奏，可适当延长实战阶段时间。",
+            "hallucination": "否",
+            "satisfaction": "5"
+        },
+        {
+            "role": "user",
+            "content": "网上谁的课程比较好"
+        },
+        {
+            "role": "assistant",
+            "content": "学习Java的优质课程资源很多，但要根据你的学习阶段（入门/进阶/实战）和偏好（视频/文档/互动）选择。以下是 **国内外口碑较好的课程和讲师推荐**，覆盖免费和付费内容：\n\n---\n\n### **📚 国内平台（中文）**\n#### **1. 入门级（零基础友好）**\n- **《Java零基础入门》- 尚硅谷（B站）**  \n  - **特点**：免费、超详细、配套代码全，适合绝对新手。  \n  - **链接**：[B站搜索“尚硅谷Java零基础”](https://www.bilibili.com/)  \n\n- **《Java核心技术》- 黑马程序员（B站/官网）**  \n  - **特点**：项目驱动教学，涵盖JavaSE到基础框架。  \n\n#### **2. 进阶级（设计模式、并发等）**\n- **《Java高并发编程》- 马士兵（腾讯课堂）**  \n  - **特点**：深入多线程、JUC包，适合面试冲刺。  \n\n- **《Java设计模式》- 慕课网（小傅哥）**  \n  - **特点**：结合开源框架源码讲解，代码质量高。  \n  - **链接**：[慕课网搜索“小傅哥”](https://www.imooc.com/)  \n\n#### **3. 框架与项目实战**\n- **《SpringBoot开发电商项目》- 廖雪峰（官网）**  \n  - **特点**：实战导向，适合快速上手Spring Boot。  \n  - **链接**：[廖雪峰官方网站](https://www.liaoxuefeng.com/)  \n\n- **《谷粒商城》- 尚硅谷（B站）**  \n  - **特点**：分布式电商全栈项目，覆盖微服务、Redis等。  \n\n---\n\n### **🌍 国外平台（英文）**\n#### **1. 系统性学习（免费+付费）**\n- **《Java Programming and Software Engineering》- Coursera（杜克大学）**  \n  - **特点**：英文授课，适合打基础，证书含金量高。  \n  - **链接**：[Coursera课程页](https://www.coursera.org/)  \n\n- **《Java Masterclass》- Udemy（Tim Buchalka）**  \n  - **特点**：超全内容（70+小时），常打折至￥50左右。  \n\n#### **2. 实战与面试**\n- **《Java Multithreading》- Udemy（Michael Pogrebinsky）**  \n  - **特点**：用动画演示多线程原理，直观易懂。  \n\n- **《Grokking the Java Interview》- Educative（付费）**  \n  - **特点**：专注面试高频题，互动式练习。  \n\n---\n\n### **💡 选课建议**\n1. **新手优先选中文课程**：尚硅谷、黑马的B站免费课足够入门。  \n2. **进阶看项目质量**：选择带真实项目（如电商、博客）的课程，避免纯理论。  \n3. **英文好可冲国外课**：Coursera/Udemy的课程更新快，技术更前沿。  \n4. **搭配书籍**：  \n   - 《Java核心技术 卷I》（基础）  \n   - 《Effective Java》（最佳实践）  \n   - 《深入理解Java虚拟机》（JVM进阶）  \n\n---\n\n### **🚀 其他资源**\n- **刷题**：LeetCode（Java标签）、牛客网（国内面试题）。  \n- **文档**：  \n  - [Oracle官方Java教程](https://docs.oracle.com/javase/tutorial/)  \n  - [Spring官方指南](https://spring.io/guides)  \n- **社区**：Stack Overflow、掘金、知乎（问题答疑）。  \n\n**关键点**：选一个适合你当前阶段的课程 **坚持看完+动手敲代码**，比囤积课程更重要！",
+            "hallucination": "否",
+            "satisfaction": "4"
+        },
+        {
+            "role": "user",
+            "content": "刷题网站有什么推荐"
+        },
+        {
+            "role": "assistant",
+            "content": "以下是针对 **Java编程** 和 **算法面试** 的 **优质刷题网站推荐**，分为 **国内** 和 **国外** 两类，根据你的需求选择最适合的平台：\n\n---\n\n### **📌 国内刷题网站（中文友好）**\n#### **1. [LeetCode 力扣（中文版）](https://leetcode.cn/)**\n- **适合人群**：准备国内大厂面试（字节、腾讯、阿里等）  \n- **特点**：\n  - 中文界面，题目按难度分类（简单/中等/困难）  \n  - **《剑指Offer》《热题100》** 等大厂高频题单  \n  - 支持Java语言，社区讨论活跃（题解丰富）  \n\n#### **2. [牛客网](https://www.nowcoder.com/)**\n- **适合人群**：校招/社招笔试模拟、Java专项练习  \n- **特点**：\n  - 国内公司**真题题库**（华为、美团等）  \n  - 有**编程题+选择题**（适合笔试准备）  \n  - **面试经验分享**板块（可了解公司考察重点）  \n\n#### **3. [AcWing](https://www.acwing.com/)**\n- **适合人群**：算法基础较弱，需要系统学习  \n- **特点**：\n  - **《算法基础课》+《算法提高课》**（付费但口碑极佳）  \n  - 题目分类清晰（动态规划、图论等）  \n  - 适合从零开始刷题，有配套视频讲解  \n\n---\n\n### **🌍 国外刷题网站（英文为主）**\n#### **1. [LeetCode（国际版）](https://leetcode.com/)**\n- **适合人群**：准备外企（Google、Meta等）或国际化公司  \n- **特点**：\n  - 题目更新更快，**英文面试高频题**更多  \n  - **每周竞赛**（锻炼限时编码能力）  \n  - 支持多语言（Java提交流畅）  \n\n#### **2. [HackerRank](https://www.hackerrank.com/)**\n- **适合人群**：练习Java语法+算法  \n- **特点**：\n  - 分模块练习（**Java语言专项**、数据结构等）  \n  - 部分公司用HackerRank进行**在线笔试**  \n\n#### **3. [Codeforces](https://codeforces.com/)**\n- **适合人群**：想挑战高难度算法题  \n- **特点**：\n  - 竞赛制刷题，题目偏**竞赛级难度**  \n  - 适合ACM选手或高阶算法提升  \n\n---\n\n### **💡 其他实用工具**\n1. **可视化调试工具**  \n   - [VisuAlgo](https://visualgo.net/)：动态演示算法执行过程（如排序、BFS/DFS）。  \n2. **面试模拟**  \n   - [Pramp](https://www.pramp.com/)：免费模拟技术面试（英文）。  \n3. **本地IDE刷题插件**  \n   - **LeetCode插件**（VS Code/IntelliJ）：直接在IDE中刷题。  \n\n---\n\n### **🚀 刷题策略建议**\n1. **新手入门**：  \n   - 先刷 **LeetCode《热题100》** 或 **《剑指Offer》**（国内高频题）。  \n   - 按标签分类练习（如数组→链表→二叉树）。  \n2. **进阶提升**：  \n   - 每周参加 **LeetCode周赛** 或 **Codeforces比赛**。  \n   - 重点突破 **动态规划**、**回溯算法** 等难点。  \n3. **面试冲刺**：  \n   - 用 **牛客网** 模拟公司真题，限时练习。  \n\n---\n\n**总结**：  \n- **国内求职** → 力扣 + 牛客网 + AcWing  \n- **国外/外企** → LeetCode国际版 + HackerRank  \n- **竞赛/高阶** → Codeforces  \n\n坚持每天刷 **2-3题**（注重质量而非数量），并总结错题本！",
+            "hallucination": "否",
+            "satisfaction": "5"
+        },
+        {
+            "role": "user",
+            "content": "在帮我细化时间安排"
+        },
+        {
+            "role": "assistant",
+            "content": "以下是一个 **30天高强度Java刷题+实战计划**，每天 **2小时刷题 + 2小时项目/复盘**（可根据自身情况调整），分为 **基础夯实 → 算法突破 → 项目冲刺** 三个阶段，精确到每日任务。\n\n---\n\n### **📅 第一周：基础语法与数据结构（Day 1-7）**\n**目标**：熟练使用Java语法，掌握核心数据结构（数组/链表/栈/队列/哈希）。  \n**每日安排**：  \n- **刷题时间**（2h）：按主题专项突破  \n- **实战/复盘**（2h）：结合小项目巩固知识点  \n\n| 天数 | 刷题重点（LeetCode/牛客） | 题目示例（每题至少手写2遍） | 实战任务 |\n|------|----------------|----------------|----------------|\n| **Day 1** | **数组操作** | [26. 删除有序数组重复项](https://leetcode.cn/problems/remove-duplicates-from-sorted-array/) <br> [88. 合并两个有序数组](https://leetcode.cn/problems/merge-sorted-array/) | 用数组实现学生成绩管理系统（增删改查） |\n| **Day 2** | **字符串处理** | [125. 验证回文串](https://leetcode.cn/problems/valid-palindrome/) <br> [14. 最长公共前缀](https://leetcode.cn/problems/longest-common-prefix/) | 开发字符串加密工具（反转/大小写转换） |\n| **Day 3** | **链表基础** | [206. 反转链表](https://leetcode.cn/problems/reverse-linked-list/) <br> [141. 环形链表](https://leetcode.cn/problems/linked-list-cycle/) | 用链表实现LRU缓存（伪代码+流程图） |\n| **Day 4** | **栈与队列** | [20. 有效的括号](https://leetcode.cn/problems/valid-parentheses/) <br> [225. 用队列实现栈](https://leetcode.cn/problems/implement-stack-using-queues/) | 实现计算器（支持加减乘除优先级） |\n| **Day 5** | **哈希表应用** | [1. 两数之和](https://leetcode.cn/problems/two-sum/) <br> [387. 字符串中的第一个唯一字符](https://leetcode.cn/problems/first-unique-character-in-a-string/) | 统计项目代码中的关键词频率 |\n| **Day 6** | **递归与分治** | [70. 爬楼梯](https://leetcode.cn/problems/climbing-stairs/) <br> [169. 多数元素](https://leetcode.cn/problems/majority-element/) | 用递归实现文件目录遍历 |\n| **Day 7** | **复习+模拟** | 限时完成3道综合题（如数组+字符串+哈希组合题） | 复盘错题，整理代码模板 |\n\n---\n\n### **📅 第二周：算法核心突破（Day 8-14）**  \n**目标**：掌握排序/二分/DFS/BFS/动态规划等算法思想。  \n**关键技巧**：画图分析 → 伪代码 → 边界检查 → 复杂度优化  \n\n| 天数 | 刷题重点 | 题目示例 | 实战任务 |\n|------|----------|----------|----------|\n| **Day 8** | **排序算法** | [912. 排序数组](https://leetcode.cn/problems/sort-an-array/)（手写快排/归并）<br>[75. 颜色分类](https://leetcode.cn/problems/sort-colors/) | 性能对比：比较不同排序算法耗时 |\n| **Day 9** | **二分查找** | [704. 二分查找](https://leetcode.cn/problems/binary-search/)<br>[34. 在排序数组中查找元素的第一个和最后一个位置](https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/) | 优化学生成绩查询系统（二分替代遍历） |\n| **Day 10** | **DFS/BFS** | [200. 岛屿数量](https://leetcode.cn/problems/number-of-islands/)<br>[102. 二叉树的层序遍历](https://leetcode.cn/problems/binary-tree-level-order-traversal/) | 实现迷宫寻路算法（控制台可视化） |\n| **Day 11** | **动态规划（一）** | [53. 最大子数组和](https://leetcode.cn/problems/maximum-subarray/)<br>[70. 爬楼梯](https://leetcode.cn/problems/climbing-stairs/) | 设计理财收益计算器（递推公式） |\n| **Day 12** | **动态规划（二）** | [322. 零钱兑换](https://leetcode.cn/problems/coin-change/)<br>[300. 最长递增子序列](https://leetcode.cn/problems/longest-increasing-subsequence/) | 复盘DP题，整理“状态转移方程”模板 |\n| **Day 13** | **贪心算法** | [455. 分发饼干](https://leetcode.cn/problems/assign-cookies/)<br>[122. 买卖股票的最佳时机 II](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/) | 用贪心优化任务调度系统 |\n| **Day 14** | **模拟笔试** | 牛客网《剑指Offer》精选10题（限时90分钟） | 分析错题，总结面试技巧 |\n\n---\n\n### **📅 第三周：项目实战+面试题（Day 15-30）**  \n**目标**：通过项目整合知识点，冲刺高频面试题。  \n\n#### **阶段1：Spring Boot项目（Day 15-21）**\n- **每日安排**：  \n  - **上午**（1.5h）：项目开发（按模块拆分）  \n  - **下午**（1.5h）：刷面试题  \n  - **晚上**（1h）：复盘+技术博客记录  \n\n| 天数 | 项目模块 | 面试题重点 |\n|------|----------|----------|\n| **Day 15** | 搭建Spring Boot电商框架（用户模块） | HashMap源码/JVM内存模型 |\n| **Day 16** | 实现JWT登录鉴权 | 线程池参数/锁优化 |\n| **Day 17** | 商品CRUD（Spring Data JPA） | MySQL索引/事务隔离级别 |\n| **Day 18** | 订单模块（Redis缓存） | Redis持久化/缓存击穿 |\n| **Day 19** | 集成Swagger接口文档 | CAP理论/分布式ID生成 |\n| **Day 20** | 压测优化（JMeter） | 垃圾回收算法/Spring循环依赖 |\n| **Day 21** | 部署上线（Docker） | 项目难点总结（STAR法则） |\n\n#### **阶段2：算法冲刺（Day 22-30）**\n- **每日任务**：  \n  - **刷3道高频题**（按公司分类）  \n  - **模拟面试**（用Pramp或找伙伴）  \n\n| 天数 | 重点题型 | 公司真题示例 |\n|------|----------|----------|\n| **Day 22** | 二叉树 | [101. 对称二叉树](https://leetcode.cn/problems/symmetric-tree/)（字节） |\n| **Day 23** | 回溯算法 | [46. 全排列](https://leetcode.cn/problems/permutations/)（腾讯） |\n| **Day 24** | 设计题 | [146. LRU缓存](https://leetcode.cn/problems/lru-cache/)（阿里） |\n| **Day 25** | 图论 | [207. 课程表](https://leetcode.cn/problems/course-schedule/)（微软） |\n| **Day 26** | 海量数据 | 10亿数据找TopK（华为） |\n| **Day 27** | 系统设计 | 短链系统设计（美团） |\n| **Day 28-30** | 全真模拟 | 每日2场限时Mock面试 |\n\n---\n\n### **📌 关键执行原则**\n1. **刷题质量 > 数量**：每道题吃透3个维度——  \n   - 暴力解法 → 最优解 → 同类题型举一反三  \n2. **项目亮点提炼**：准备3个技术深挖点（如JWT安全机制、Redis缓存策略）。  \n3. **时间管理技巧**：  \n   - 用番茄钟（25分钟专注+5分钟休息）  \n   - 早晚各1小时复盘（错题本+技术笔记）  \n\n**附：工具推荐**  \n- 代码管理：[GitHub](https://github.com/)（每日提交）  \n- 效率工具：[Notion](https://www.notion.so/)（进度跟踪表）  \n- 面试模拟：[Interviewing.io](https://interviewing.io/)（外企适用）  \n\n坚持这个计划，30天后你会明显感受到质的飞跃！",
+            "hallucination": "否",
+            "satisfaction": "4"
+        },
+        {
+            "role": "user",
+            "content": "笔记软件哪个好用"
+        },
+        {
+            "role": "assistant",
+            "content": "以下是针对 **程序员/学习者** 的 **高效笔记软件推荐**，根据需求分类整理，涵盖 **代码友好型、知识管理、轻量化** 等场景，并附上优缺点和适用人群：\n\n---\n\n### **📌 一、全能型知识管理（适合系统化学习）**\n#### 1. **Obsidian**  \n- **特点**：  \n  - 本地Markdown存储，支持双向链接、知识图谱。  \n  - 插件丰富（可嵌入代码块、绘图、任务管理）。  \n- **优点**：隐私性强、适合长期知识沉淀。  \n- **缺点**：多端同步需付费。  \n- **适用**：喜欢折腾插件、构建个人知识库的用户。  \n\n#### 2. **Notion**  \n- **特点**：  \n  - 数据库+页面自由组合，支持表格、看板、日历视图。  \n  - 协作功能强大（团队共享、评论）。  \n- **优点**：颜值高、模板丰富（技术文档、学习计划模板）。  \n- **缺点**：依赖网络，国内访问偶尔不稳定。  \n- **适用**：需要多端同步、团队协作或项目管理。  \n\n#### 3. **Logseq**  \n- **特点**：  \n  - 大纲笔记+块引用，适合碎片化记录。  \n  - 开源免费，支持本地存储。  \n- **优点**：轻量级、快速记录灵感。  \n- **缺点**：移动端体验一般。  \n- **适用**：习惯大纲式笔记的用户（类似Workflowy）。  \n\n---\n\n### **📌 二、代码友好型（程序员专属）**\n#### 1. **Typora + VS Code**  \n- **组合方案**：  \n  - **Typora**：极简Markdown编辑器（实时渲染）。  \n  - **VS Code**：通过插件（如Foam）实现笔记联动。  \n- **优点**：完美支持代码高亮、Git版本控制。  \n- **适用**：需要写技术博客或代码注释的用户。  \n\n#### 2. **Joplin**  \n- **特点**：  \n  - 开源Markdown笔记，支持终端插件、加密同步。  \n- **优点**：全平台支持、可自建同步服务器。  \n- **缺点**：界面较老旧。  \n- **适用**：注重隐私和开源的开发者。  \n\n---\n\n### **📌 三、轻量化快速记录**\n#### 1. **Simplenote**  \n- **特点**：纯文本笔记，秒速启动。  \n- **优点**：跨平台、历史版本回溯。  \n- **缺点**：功能单一。  \n- **适用**：临时代码片段或灵感记录。  \n\n#### 2. **Apple Notes（苹果备忘录）**  \n- **特点**：系统级集成，支持表格、扫描文档。  \n- **优点**：iPhone/Mac无缝同步。  \n- **缺点**：仅限苹果生态。  \n\n---\n\n### **📌 四、云协作与闪卡记忆**\n#### 1. **语雀（国内推荐）**  \n- **特点**：阿里出品，支持Markdown、画板、团队空间。  \n- **优点**：中文优化好，适合技术文档沉淀。  \n\n#### 2. **Anki**  \n- **特点**：闪卡记忆工具，支持代码片段复习。  \n- **适用**：需要背诵算法题或面试题的用户。  \n\n---\n\n### **💡 选择建议**  \n1. **个人知识库** → Obsidian/Notion  \n2. **代码+笔记结合** → Typora + VS Code  \n3. **极简快速记录** → Simplenote/Apple Notes  \n4. **团队协作** → 语雀/Notion  \n\n**附：效率技巧**  \n- 用 **标签/分类** 管理笔记（如`#算法`、`#项目复盘`）。  \n- 定期导出备份（防止服务停更）。",
+            "hallucination": "否",
+            "satisfaction": "5"
+        }
+    ],
+    "task_context": "你在最近由于学习/工作需要（如科研、社工等），想要在一个月内加强一项技能（根据自身情况设定，如计算机相关的编程语言，工程设计相关的软件等），你之前在这方面有一定的基础，现在需要进一步地加强学习，现在你希望借助大语言模型来完成你的学习规划。在对话中你需要完成学习进度安排、学习资源整理等，学习过程应当考虑到你现有的技能水平，符合人的学习规律。你的最终方案应当尽量完善，做到可以真实按照规划学习。",
+    "task_type": "技能学习规划",
+    "profile": {
+        "gender": "Male",
+        "age": 21,
+        "background": "信息科学与技术",
+        "personality": [
+            "乐观",
+            "耐心",
+            "幽默",
+            "友善"
+        ],
+        "occupation": "学生",
+        "daily_interests": [
+            "养宠物",
+            "玩游戏",
+            "下棋"
+        ],
+        "travel_habits": [
+            "美食之旅",
+            "看展",
+            "喜欢宁静"
+        ],
+        "dining_preferences": [
+            "均衡饮食",
+            "健康饮食",
+            "街头小吃"
+        ],
+        "spending_habits": [
+            "节俭",
+            "为未来储蓄"
+        ],
+        "other_aspects": [
+            "住在宿舍",
+            "社交广泛"
+        ]
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "详细"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "很有用"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "结果多样"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 2,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "question_broadness": 2,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "question_broadness": 2,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        },
+        "3": {
+            "question_broadness": 1,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "3": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        }
+    }
+}

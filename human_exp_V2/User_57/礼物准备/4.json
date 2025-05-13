@@ -1,0 +1,150 @@
+{
+    "chat_model": "gpt-4-turbo-preview",
+    "history": [
+        {
+            "role": "user",
+            "content": "我好朋友马上结婚了，我不知道该准备什么礼物"
+        },
+        {
+            "role": "assistant",
+            "content": "为好朋友的婚礼准备礼物是一个表达祝福和心意的好机会。以下是一些建议，可能会帮助你找到合适的礼物：\n\n1. **个性化礼物**：考虑定制一件礼物，比如刻有他们名字或结婚日期的相框、杯子或抱枕等。\n\n2. **家居用品**：高质量的床上用品、厨具或家居装饰品通常是实用且受欢迎的选择。\n\n3. **体验类礼物**：为他们预订一场特别的体验，比如双人晚餐、SPA日或短途旅行，让他们在婚后享受美好时光。\n\n4. **艺术品或装饰品**：如果他们喜欢艺术，可以选择一幅画或雕塑，增添他们新家的氛围。\n\n5. **礼品卡**：如果不确定他们的具体喜好，可以选择一家他们喜欢的商店或餐厅的礼品卡，让他们自由选择。\n\n6. **现金红包**：在很多文化中，现金红包是传统而受欢迎的结婚礼物。\n\n7. **个性化影集或视频**：收集你们共同的照片或视频，制作一个影集或视频，记录你们的友谊和他们的爱情故事。\n\n选择礼物时，考虑他们的喜好和需求，以及你们之间的关系，相信无论是什么礼物，他们都会感受到你的祝福和心意。",
+            "hallucination": "否",
+            "satisfaction": "5"
+        },
+        {
+            "role": "user",
+            "content": "现金红包会不会不太好"
+        },
+        {
+            "role": "assistant",
+            "content": "现金红包在许多文化中是非常常见且受欢迎的结婚礼物，因为它不仅实用，还能让新婚夫妇根据自己的需要来使用这笔钱。在一些情况下，现金红包甚至被视为最合适的礼物选择之一。\n\n如果你担心现金红包显得不够个性化，可以考虑以下几点：\n\n1. **附上一张祝福卡**：在红包里附上一张写满祝福和心意的卡片，表达你对他们的美好祝愿。\n\n2. **选择特别的红包**：使用一个设计精美或有特殊意义的红包袋，增加礼物的仪式感。\n\n3. **搭配小礼物**：可以在送现金红包的同时，再附上一件小礼物，比如一对可爱的杯子或一束鲜花，以增加个人色彩。\n\n总的来说，现金红包是一个非常实用和受欢迎的选择，只要用心准备，相信你的朋友一定会感受到你的祝福和心意。",
+            "hallucination": "否",
+            "satisfaction": "5"
+        },
+        {
+            "role": "user",
+            "content": "我觉得也可以，那就封个红包吧，这样也不用担心了"
+        },
+        {
+            "role": "assistant",
+            "content": "API 错误，请稍后再试",
+            "hallucination": "是",
+            "satisfaction": "1",
+            "reason": "其它"
+        },
+        {
+            "role": "user",
+            "content": "我觉得也可以，那就封个红包吧，这样也不用担心了"
+        },
+        {
+            "role": "assistant",
+            "content": "API 错误，请稍后再试",
+            "hallucination": "是",
+            "satisfaction": "1",
+            "reason": "其它"
+        }
+    ],
+    "task_context": "最近，你的好友/同事/同学即将结婚，你想为TA准备一份结婚礼物，你的预算在1000元左右。为此你希望向大语言模型寻求建议，通过对话确定礼物的购买或制作方式，最终的预算大致符合要求即可。",
+    "task_type": "礼物准备",
+    "profile": {
+        "gender": "Female",
+        "age": 20,
+        "background": "工程与应用科学",
+        "personality": [
+            "乐观",
+            "独立",
+            "耐心",
+            "友善"
+        ],
+        "occupation": "学生",
+        "daily_interests": [
+            "听音乐",
+            "演奏乐器"
+        ],
+        "travel_habits": [
+            "美食之旅",
+            "参观历史遗迹",
+            "自然风光"
+        ],
+        "dining_preferences": [
+            "烘焙",
+            "烧烤"
+        ],
+        "spending_habits": [
+            "注重消费体验"
+        ],
+        "other_aspects": [
+            "家庭生活"
+        ]
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "详细"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "不可用"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "结果单一"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 2,
+            "feedback": "Both"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Sequential",
+            "order": "Depth",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Sequential",
+            "order": "Depth",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Sequential",
+            "order": "Depth",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Sequential",
+            "order": "Depth",
+            "context": "Low",
+            "question": "Specific"
+        }
+    }
+}

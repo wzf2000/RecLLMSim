@@ -1,0 +1,148 @@
+{
+    "chat_model": "deepseek-v3",
+    "history": [
+        {
+            "role": "user",
+            "content": "我对法语有比较浓厚的兴趣，我想花一年左右的时间来学习法语，我没有基础，是一个初学者，我希望你帮我安排一下学习规划"
+        },
+        {
+            "role": "assistant",
+            "content": "很高兴你对法语感兴趣！以下是一个为期一年的法语学习规划，适合初学者。这个规划分为四个阶段，每个阶段大约三个月，目标是帮助你从零基础到能够进行基本的日常交流。\n\n### **第一阶段：基础入门（第1-3个月）**\n**目标：掌握法语发音、基础语法和简单日常用语。**\n\n1. **发音与字母：**\n   - 学习法语字母表，掌握每个字母的发音。\n   - 熟悉法语的特殊发音规则，如鼻音、连读等。\n   - 使用语音学习工具（如Forvo、YouTube发音教程）练习发音。\n\n2. **基础词汇：**\n   - 学习常用词汇，如数字、颜色、家庭成员、日常用品等。\n   - 每天记忆10-15个新单词，使用Anki或Quizlet等工具进行复习。\n\n3. **基础语法：**\n   - 学习法语的基本语法结构，如名词的性别（阳性/阴性）、单复数变化、动词变位（être, avoir, aller等常用动词）。\n   - 了解基本的句子结构（主语-动词-宾语）。\n\n4. **日常对话：**\n   - 学习简单的日常用语，如问候、自我介绍、询问时间、购物等。\n   - 使用语言",
+            "hallucination": "否",
+            "satisfaction": "4"
+        },
+        {
+            "role": "user",
+            "content": "其他三个阶段呢"
+        },
+        {
+            "role": "user",
+            "content": "其他三个阶段安排呢"
+        },
+        {
+            "role": "user",
+            "content": "我对法语有比较浓厚的兴趣，我想花一年左右的时间来学习法语，我没有基础，是一个初学者，我希望你帮我安排一下学习规划"
+        },
+        {
+            "role": "user",
+            "content": "我对法语有比较浓厚的兴趣，我想花一年左右的时间来学习法语，我没有基础，是一个初学者，我希望你帮我安排一下学习规划"
+        }
+    ],
+    "task_context": "你在最近由于自身兴趣，想要通过一年左右的时间来学习一门外语（根据自身情况设定），你之前在这方面没有基础，是一个初学者，现在你希望借助大语言模型来完成你的学习规划。在对话中你需要完成学习进度安排、学习资源整理等，学习过程应当考虑到你现有的技能水平，符合人的学习规律。你的最终方案应当尽量完善，做到可以真实按照规划学习。",
+    "task_type": "技能学习规划",
+    "profile": {
+        "gender": "Male",
+        "age": 20,
+        "background": "信息科学与技术",
+        "personality": [
+            "友善",
+            "随性",
+            "幽默",
+            "乐观"
+        ],
+        "occupation": "学生",
+        "daily_interests": [
+            "摄影",
+            "听音乐",
+            "玩游戏"
+        ],
+        "travel_habits": [
+            "自然风光",
+            "文化旅行",
+            "参观博物馆"
+        ],
+        "dining_preferences": [
+            "外卖",
+            "烧烤",
+            "海鲜"
+        ],
+        "spending_habits": [
+            "注重消费体验",
+            "用于旅行",
+            "为未来储蓄"
+        ],
+        "other_aspects": [
+            "无符合描述"
+        ],
+        "complete_tid": {
+            "旅行规划": [
+                4,
+                0,
+                1
+            ],
+            "技能学习规划": [
+                1
+            ]
+        }
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "是"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "简略"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "有一定参考"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "一般"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 2,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "question_broadness": 1,
+            "context_dependency": 4,
+            "feedback": "NoFeedback"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Broad"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    }
+}

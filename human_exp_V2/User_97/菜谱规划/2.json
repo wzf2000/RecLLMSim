@@ -1,0 +1,142 @@
+{
+    "chat_model": "claude-3-7-sonnet-20250219",
+    "history": [
+        {
+            "role": "user",
+            "content": "春节期间做4,5个小菜，推荐一下，别太难"
+        },
+        {
+            "role": "assistant",
+            "content": "# 春节期间简易家常菜推荐\n\n以下是几道适合春节期间制作的简单家常菜，制作不复杂但很有节日气氛：\n\n## 1. 红烧肉\n**材料**：五花肉、姜片、葱段、八角、桂皮、冰糖\n**简易做法**：\n- 五花肉切块焯水去腥\n- 锅中放油，加入冰糖炒至焦糖色\n- 放入肉块煸炒上色\n- 加入姜片、葱段、八角、桂皮等香料\n- 加入适量水和酱油，炖煮40分钟左右至肉烂\n\n## 2. 蒜蓉蒸虾\n**材料**：鲜虾、蒜末、葱花、生抽\n**简易做法**：\n- 虾去头去壳留尾，背部划开去虾线\n- 蒜末、葱花铺在虾上\n- 淋上生抽和少许料酒\n- 蒸5-8分钟即可\n\n## 3. 糖醋里脊\n**材料**：里脊肉、胡萝卜、青椒、番茄酱、白糖、醋\n**简易做法**：\n- 里脊切条，用盐、料酒、淀粉腌制10分钟\n- 裹上淀粉炸至金黄\n- 锅中放少许油，炒香胡萝卜和青椒\n- 加入番茄酱、白糖、醋调成糖醋汁\n- 倒入炸好的里脊翻炒均匀即可\n\n## 4. 清蒸鱼\n**材料**：鲜鱼、姜丝、葱丝、蒸鱼豉油\n**简易做法**：\n- 鱼洗净，在两侧划几刀\n- 放入姜片腌制10分钟去腥\n- 铺上姜丝蒸8-10分钟\n- 取出后撒上葱丝，浇上热油和蒸鱼豉油即可\n\n## 5. 蒜蓉炒青菜\n**材料**：青菜(菠菜/小白菜/油菜)、蒜末\n**简易做法**：\n- 青菜洗净切段\n- 锅中油热后放入蒜末爆香\n- 放入青菜快速翻炒\n- 加盐调味即可\n\n这些菜色搭配既有荤有素，制作也不复杂，很适合春节期间家庭聚餐使用。祝您春节快乐！",
+            "hallucination": "否",
+            "satisfaction": "5"
+        }
+    ],
+    "task_context": "假设现在是春节期间，你打算在家中做4-5个菜和父母一起吃，你的厨艺水平根据自身情况而定。为此你想要找大语言模型帮忙制定菜谱，确定需要用到哪些食材，以及要制作的菜品。在规划中你应当得知每一道菜完整的制作流程和合适的菜品制作顺序。",
+    "task_type": "菜谱规划",
+    "profile": {
+        "gender": "Male",
+        "age": 29,
+        "background": "信息科学与技术",
+        "personality": [
+            "内向"
+        ],
+        "occupation": "工程师",
+        "daily_interests": [
+            "养宠物",
+            "玩游戏"
+        ],
+        "travel_habits": [
+            "参观历史遗迹",
+            "自然风光"
+        ],
+        "dining_preferences": [
+            "均衡饮食",
+            "中式美食"
+        ],
+        "spending_habits": [
+            "节俭",
+            "质量大于数量"
+        ],
+        "other_aspects": [
+            "租房",
+            "养小动物"
+        ],
+        "complete_tid": {
+            "旅行规划": [
+                2,
+                4,
+                0,
+                1,
+                3
+            ],
+            "技能学习规划": [
+                3,
+                2,
+                1,
+                0
+            ],
+            "礼物准备": [
+                3,
+                4,
+                0,
+                2,
+                5,
+                1
+            ],
+            "菜谱规划": [
+                0
+            ]
+        }
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "详细"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "很有用"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "结果多样"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "1": {
+            "information_request": "Sequential",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Broad"
+        }
+    }
+}

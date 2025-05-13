@@ -1,0 +1,175 @@
+{
+    "chat_model": "deepseek-v3",
+    "history": [
+        {
+            "role": "user",
+            "content": "我最近因为科研要求，准备学习R语言。我的主要用途是用R语言进行数据清洗、数据分析。最重要的是用R进行作图。我希望能用1个月左右时间速成一下，你帮我做一下学习进度规划把"
+        },
+        {
+            "role": "user",
+            "content": "我最近因为科研要求，准备学习R语言。我的主要用途是用R语言进行数据清洗、数据分析。最重要的是用R进行作图。我希望能用1个月左右时间速成一下，你帮我做一下学习进度规划把"
+        },
+        {
+            "role": "assistant",
+            "content": "好的！根据你的需求，我为你设计了一个为期1个月的R语言学习进度规划，重点放在数据清洗、数据分析和作图上。这个规划分为4个阶段，每个阶段1周，逐步深入。你可以根据自己的时间灵活调整。\n\n---\n\n### **第1周：R语言基础与数据导入**\n**目标**：熟悉R语言基础语法，掌握数据导入和基本操作。  \n1. **R语言基础**  \n   - 安装R和RStudio。  \n   - 学习R的基本语法：变量、数据类型、向量、矩阵、列表、数据框。  \n   - 学习常用函数（如`c()`, `sum()`, `mean()`, `length()`等）。  \n   - 学习控制结构（如`if-else`, `for`, `while`）。  \n2. **数据导入与查看**  \n   - 学习读取数据文件（如CSV、Excel、TXT）：`read.csv()`, `read.table()`, `readxl::read_excel()`。  \n   - 学习查看数据：`head()`, `tail()`, `str()`, `summary()`。  \n3. **简单数据处理**  \n   - 学习数据框的基本操作：选择列、筛选行、排序、去重。  \n   - 练习使用`dplyr`包中的`select()`, `filter()`, `arrange()`, `mutate()`, `summarize()`。  \n\n**学习资源**：  \n- R语言官方文档：[https://cran.r-project.org/](https://cran.r-project.org/)  \n- 《R for Data Science》第1-4章：[https://r4ds.had.co.nz/](https://r4ds.had.co.nz/)  \n\n---\n\n### **第2周：数据清洗与预处理**\n**目标**：掌握数据清洗和预处理的基本技能，为后续分析做准备。  \n1. **数据清洗**  \n   - 处理缺失值：`is.na()`, `na.omit()`, `tidyr::drop_na()`。  \n   - 处理重复值：`duplicated()`, `distinct()`。  \n   - 数据类型转换：`as.numeric()`, `as.character()`, `as.factor()`。  \n2. **数据变换**  \n   - 学习`tidyr`包：`pivot_longer()`, `pivot_wider()`。  \n   - 学习字符串处理：`stringr`包中的`str_replace()`, `str_split()`, `str_detect()`。  \n3. **数据合并**  \n   - 学习数据合并：`merge()`, `dplyr::left_join()`, `dplyr::inner_join()`。  \n\n**学习资源**：  \n- 《R for Data Science》第5-9章  \n- `dplyr`和`tidyr`官方文档：[https://dplyr.tidyverse.org/](https://dplyr.tidyverse.org/)  \n\n---\n\n### **第3周：数据分析与统计基础**\n**目标**：掌握基本的数据分析方法和统计技能。  \n1. **描述性统计**  \n   - 学习计算均值、中位数、标准差、分位数等。  \n   - 使用`dplyr::group_by()`和`summarize()`进行分组统计。  \n2. **统计检验**  \n   - 学习基本统计检验：t检验（`t.test()`）、卡方检验（`chisq.test()`）、相关性分析（`cor()`）。  \n3. **数据探索**  \n   - 学习使用`ggplot2`绘制基本图表（散点图、柱状图、箱线图）。  \n   - 学习使用`summary()`和`table()`快速探索数据。  \n\n**学习资源**：  \n- 《R for Data Science》第10-12章  \n- `ggplot2`官方文档：[https://ggplot2.tidyverse.org/](https://ggplot2.tidyverse.org/)  \n\n---\n\n### **第4周：高级作图与项目实践**\n**目标**：掌握高级作图技巧，完成一个小型数据分析项目。  \n1. **高级作图**  \n   - 深入学习`ggplot2`：添加标题、标签、主题、颜色、图例等。  \n   - 学习绘制复杂图表：热图、密度图、多图组合（`facet_wrap()`）。  \n   - 学习使用`patchwork`或`cowplot`包进行多图排版。  \n2. **项目实践**  \n   - 选择一个科研相关的数据集，完成数据清洗、分析和可视化。  \n   - 撰写一份简单的分析报告（可以使用R Markdown）。  \n\n**学习资源**：  \n- 《ggplot2: Elegant Graphics for Data Analysis》  \n- R Markdown官方文档：[https://rmarkdown.rstudio.com/](https://rmarkdown.rstudio.com/)  \n\n---\n\n### **额外建议**\n1. **每天练习**：每天至少花1-2小时学习和练习，动手写代码是关键。  \n2. **使用R Markdown**：从第2周开始，尝试用R Markdown记录你的学习笔记和分析过程。  \n3. **参考案例**：在GitHub或Kaggle上找一些R语言数据分析项目，学习他人的代码思路。  \n\n如果你能坚持按照这个规划学习，1个月后应该能够熟练使用R语言进行数据清洗、分析和作图。加油！",
+            "hallucination": "否",
+            "satisfaction": "3",
+            "reason": "不够细致"
+        },
+        {
+            "role": "user",
+            "content": "我觉得可以多加一些作图的练习，然后压缩一下前面数据处理部分的时间"
+        },
+        {
+            "role": "assistant",
+            "content": "非常好的建议！既然你对作图的需求更高，我们可以适当压缩数据处理部分的时间，增加作图的练习时间。以下是调整后的学习进度规划，重点突出作图部分：\n\n---\n\n### **第1周：R语言基础与数据导入**\n**目标**：快速掌握R语言基础语法和数据导入，为后续学习打基础。  \n1. **R语言基础**（2天）  \n   - 安装R和RStudio。  \n   - 学习R的基本语法：变量、数据类型、向量、矩阵、列表、数据框。  \n   - 学习常用函数（如`c()`, `sum()`, `mean()`, `length()`等）。  \n2. **数据导入与查看**（2天）  \n   - 学习读取数据文件（如CSV、Excel、TXT）：`read.csv()`, `read.table()`, `readxl::read_excel()`。  \n   - 学习查看数据：`head()`, `tail()`, `str()`, `summary()`。  \n3. **简单数据处理**（1天）  \n   - 学习数据框的基本操作：选择列、筛选行、排序、去重。  \n   - 练习使用`dplyr`包中的`select()`, `filter()`, `arrange()`, `mutate()`, `summarize()`。  \n4. **基础作图**（2天）  \n   - 学习使用`ggplot2`绘制基本图表：散点图、柱状图、箱线图。  \n   - 学习添加标题、标签、颜色等基本美化操作。  \n\n**学习资源**：  \n- 《R for Data Science》第1-4章  \n- `ggplot2`官方文档：[https://ggplot2.tidyverse.org/](https://ggplot2.tidyverse.org/)  \n\n---\n\n### **第2周：数据清洗与基础作图**\n**目标**：掌握数据清洗的基本技能，同时加强基础作图的练习。  \n1. **数据清洗**（2天）  \n   - 处理缺失值：`is.na()`, `na.omit()`, `tidyr::drop_na()`。  \n   - 处理重复值：`duplicated()`, `distinct()`。  \n   - 数据类型转换：`as.numeric()`, `as.character()`, `as.factor()`。  \n2. **数据变换**（1天）  \n   - 学习`tidyr`包：`pivot_longer()`, `pivot_wider()`。  \n   - 学习字符串处理：`stringr`包中的`str_replace()`, `str_split()`, `str_detect()`。  \n3. **基础作图进阶**（4天）  \n   - 深入学习`ggplot2`：添加图例、主题、多图组合（`facet_wrap()`）。  \n   - 练习绘制复杂图表：热图、密度图、折线图。  \n   - 学习使用`patchwork`或`cowplot`包进行多图排版。  \n\n**学习资源**：  \n- 《R for Data Science》第5-9章  \n- `ggplot2`官方文档  \n\n---\n\n### **第3周：数据分析与高级作图**\n**目标**：掌握基本的数据分析方法，重点练习高级作图技巧。  \n1. **描述性统计**（1天）  \n   - 学习计算均值、中位数、标准差、分位数等。  \n   - 使用`dplyr::group_by()`和`summarize()`进行分组统计。  \n2. **统计检验**（1天）  \n   - 学习基本统计检验：t检验（`t.test()`）、卡方检验（`chisq.test()`）、相关性分析（`cor()`）。  \n3. **高级作图**（5天）  \n   - 学习绘制高级图表：热图、地图、网络图。  \n   - 学习使用`ggplot2`扩展包（如`ggrepel`, `ggthemes`）美化图表。  \n   - 练习将数据分析结果通过图表直观展示。  \n\n**学习资源**：  \n- 《ggplot2: Elegant Graphics for Data Analysis》  \n- `ggplot2`扩展包文档  \n\n---\n\n### **第4周：项目实践与作图优化**\n**目标**：完成一个数据分析项目，优化作图效果。  \n1. **项目实践**（3天）  \n   - 选择一个科研相关的数据集，完成数据清洗、分析和可视化。  \n   - 使用`ggplot2`绘制多种图表，展示分析结果。  \n2. **作图优化**（2天）  \n   - 学习如何优化图表的美观性和可读性。  \n   - 学习使用R Markdown生成包含图表和分析结果的报告。  \n3. **总结与复习**（2天）  \n   - 复习所学内容，整理学习笔记。  \n   - 尝试解决一些实际科研问题，巩固技能。  \n\n**学习资源**：  \n- R Markdown官方文档：[https://rmarkdown.rstudio.com/](https://rmarkdown.rstudio.com/)  \n- Kaggle上的R语言项目案例  \n\n---\n\n### **调整后的重点**\n- **压缩数据处理时间**：将数据处理部分压缩到前两周，重点学习常用操作。  \n- **增加作图练习**：从第1周开始引入作图内容，并在后续每周增加作图练习时间。  \n- **项目实践**：第4周通过项目实践将所学内容融会贯通。  \n\n按照这个规划，你可以在1个月内掌握R语言的基础数据处理技能，同时重点提升作图能力。加油！如果有任何问题，随时可以问我！",
+            "hallucination": "否",
+            "satisfaction": "4"
+        },
+        {
+            "role": "user",
+            "content": "我希望你能把画图学习的具体计划进行细化，现在的太笼统了。你可以推荐几个现在在医学类文章、多组学研究中比较热门的图标呈现方式，然后为我着重介绍和安排一下这些内容的学习"
+        },
+        {
+            "role": "assistant",
+            "content": "非常好的建议！医学类文章和多组学研究中有一些非常热门的图表呈现方式，这些图表能够直观地展示复杂的数据关系和分析结果。我会根据这些热门图表类型，细化你的画图学习计划，并推荐相关资源和工具。\n\n---\n\n### **热门图表类型推荐**\n以下是医学类文章和多组学研究中常见的图表类型：\n1. **热图（Heatmap）**：用于展示基因表达、蛋白质丰度等多组学数据的聚类和差异。  \n2. **火山图（Volcano Plot）**：用于展示差异表达分析结果，突出显著差异的基因或蛋白质。  \n3. **主成分分析图（PCA Plot）**：用于展示样本在多维空间中的分布，反映组间差异。  \n4. **箱线图（Boxplot）**：用于展示组间数据的分布和差异。  \n5. **网络图（Network Plot）**：用于展示基因、蛋白质或代谢物之间的相互作用关系。  \n6. **生存曲线（Kaplan-Meier Curve）**：用于展示患者生存分析结果。  \n7. **富集分析图（Enrichment Plot）**：用于展示基因集富集分析（GSEA）或通路富集分析结果。  \n\n---\n\n### **细化后的画图学习计划**\n以下是针对这些图表类型的具体学习安排：\n\n---\n\n#### **第1周：基础作图与热图**\n**目标**：掌握基础作图技能，学习绘制热图。  \n1. **基础作图**（2天）  \n   - 学习`ggplot2`基础语法：`ggplot()`, `aes()`, `geom_point()`, `geom_bar()`。  \n   - 练习绘制散点图、柱状图、箱线图。  \n2. **热图**（3天）  \n   - 学习使用`pheatmap`或`ComplexHeatmap`包绘制热图。  \n   - 学习如何对数据进行标准化和聚类。  \n   - 练习在热图中添加注释（如样本分组、基因分类）。  \n3. **美化图表**（2天）  \n   - 学习使用`ggplot2`主题（`theme()`）美化图表。  \n   - 学习添加标题、标签、图例等。  \n\n**学习资源**：  \n- `pheatmap`包文档：[https://cran.r-project.org/web/packages/pheatmap/](https://cran.r-project.org/web/packages/pheatmap/)  \n- `ComplexHeatmap`包文档：[https://jokergoo.github.io/ComplexHeatmap/](https://jokergoo.github.io/ComplexHeatmap/)  \n\n---\n\n#### **第2周：火山图与PCA图**\n**目标**：掌握火山图和PCA图的绘制方法。  \n1. **火山图**（3天）  \n   - 学习使用`ggplot2`绘制火山图。  \n   - 学习如何标记显著差异的基因或蛋白质。  \n   - 练习调整颜色、形状和大小以突出关键点。  \n2. **PCA图**（3天）  \n   - 学习使用`prcomp()`或`FactoMineR`包进行主成分分析。  \n   - 学习使用`ggplot2`绘制PCA图。  \n   - 练习添加样本分组信息和置信椭圆。  \n3. **美化与优化**（1天）  \n   - 学习使用`ggrepel`包添加标签，避免重叠。  \n   - 学习调整图表布局和颜色主题。  \n\n**学习资源**：  \n- `ggplot2`官方文档  \n- `FactoMineR`包文档：[http://factominer.free.fr/](http://factominer.free.fr/)  \n\n---\n\n#### **第3周：网络图与生存曲线**\n**目标**：掌握网络图和生存曲线的绘制方法。  \n1. **网络图**（3天）  \n   - 学习使用`igraph`或`ggraph`包绘制网络图。  \n   - 学习如何构建基因或蛋白质相互作用网络。  \n   - 练习调整节点大小、颜色和边的粗细。  \n2. **生存曲线**（3天）  \n   - 学习使用`survival`包进行生存分析。  \n   - 学习使用`ggsurvplot`包绘制Kaplan-Meier曲线。  \n   - 练习添加风险表和P值。  \n3. **美化与优化**（1天）  \n   - 学习使用`ggthemes`包优化图表风格。  \n   - 学习调整图表的字体和布局。  \n\n**学习资源**：  \n- `igraph`包文档：[https://igraph.org/r/](https://igraph.org/r/)  \n- `ggsurvplot`包文档：[https://rpkgs.datanovia.com/survminer/](https://rpkgs.datanovia.com/survminer/)  \n\n---\n\n#### **第4周：富集分析图与项目实践**\n**目标**：掌握富集分析图的绘制方法，完成一个数据分析项目。  \n1. **富集分析图**（3天）  \n   - 学习使用`clusterProfiler`包进行基因集富集分析（GSEA）。  \n   - 学习使用`enrichplot`包绘制富集分析图（如条形图、点图、网络图）。  \n   - 练习调整颜色和布局以突出显著通路。  \n2. **项目实践**（3天）  \n   - 选择一个多组学数据集，完成数据清洗、分析和可视化。  \n   - 使用上述图表类型展示分析结果。  \n3. **总结与优化**（1天）  \n   - 复习所学内容，整理学习笔记。  \n   - 优化图表的美观性和可读性。  \n\n**学习资源**：  \n- `clusterProfiler`包文档：[https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html](https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html)  \n- `enrichplot`包文档：[https://bioconductor.org/packages/release/bioc/html/enrichplot.html](https://bioconductor.org/packages/release/bioc/html/enrichplot.html)  \n\n---\n\n### **学习建议**\n1. **动手实践**：每个图表类型都要动手写代码，尝试调整参数和美化图表。  \n2. **参考案例**：在PubMed或GitHub上找一些医学类文章和多组学研究，学习他们的图表呈现方式。  \n3. **使用R Markdown**：将你的代码和分析结果整理成R Markdown文档，方便分享和复现。  \n\n按照这个细化后的计划，你可以在1个月内掌握医学类文章和多组学研究中常用的图表绘制方法。如果有任何问题，随时可以问我！",
+            "hallucination": "否",
+            "satisfaction": "5"
+        },
+        {
+            "role": "user",
+            "content": "哪些网站上能找到学习画图所需的数据集呢？帮我推荐几个"
+        },
+        {
+            "role": "assistant",
+            "content": "以下是一些可以找到学习画图所需数据集的网站，特别是适合医学类和多组学研究的数据集。这些网站提供了丰富的数据资源，可以帮助你练习绘制热图、火山图、PCA图、网络图等热门图表。\n\n---\n\n### **1. Kaggle**\n**网址**：[https://www.kaggle.com/](https://www.kaggle.com/)  \n**特点**：Kaggle 是一个数据科学竞赛平台，提供了大量的公开数据集，涵盖医学、生物信息学、多组学等领域。  \n**推荐数据集**：  \n- **TCGA（癌症基因组图谱）**：包含多种癌症的基因表达、突变和临床数据。  \n- **COVID-19 数据集**：包含与 COVID-19 相关的临床和基因组数据。  \n- **Bioinformatics Datasets**：专门用于生物信息学分析的数据集。  \n\n---\n\n### **2. GEO（Gene Expression Omnibus）**\n**网址**：[https://www.ncbi.nlm.nih.gov/geo/](https://www.ncbi.nlm.nih.gov/geo/)  \n**特点**：GEO 是一个由 NCBI 维护的基因表达数据库，包含大量的基因表达谱数据和相关元数据。  \n**推荐数据集**：  \n- **差异表达分析数据集**：适合练习火山图和热图。  \n- **多组学数据集**：包含基因表达、甲基化、蛋白质组学等多组学数据。  \n\n---\n\n### **3. TCGA（The Cancer Genome Atlas）**\n**网址**：[https://www.cancer.gov/tcga](https://www.cancer.gov/tcga)  \n**特点**：TCGA 是一个专注于癌症研究的数据库，提供了多种癌症类型的基因组、转录组、表观组和临床数据。  \n**推荐数据集**：  \n- **基因表达数据**：适合练习热图和火山图。  \n- **生存分析数据**：适合练习生存曲线（Kaplan-Meier 曲线）。  \n\n---\n\n### **4. ArrayExpress**\n**网址**：[https://www.ebi.ac.uk/arrayexpress/](https://www.ebi.ac.uk/arrayexpress/)  \n**特点**：ArrayExpress 是一个由 EBI 维护的功能基因组学数据库，包含基因表达、甲基化、ChIP-seq 等数据。  \n**推荐数据集**：  \n- **基因表达数据集**：适合练习热图和 PCA 图。  \n- **多组学数据集**：适合练习网络图和富集分析图。  \n\n---\n\n### **5. GTEx（Genotype-Tissue Expression）**\n**网址**：[https://gtexportal.org/home/](https://gtexportal.org/home/)  \n**特点**：GTEx 提供了人类多种组织的基因表达数据，适合研究基因表达的组织特异性。  \n**推荐数据集**：  \n- **基因表达数据**：适合练习热图和箱线图。  \n- **eQTL 数据**：适合练习网络图。  \n\n---\n\n### **6. KEGG（Kyoto Encyclopedia of Genes and Genomes）**\n**网址**：[https://www.kegg.jp/](https://www.kegg.jp/)  \n**特点**：KEGG 是一个生物信息学资源数据库，包含基因、通路、疾病等信息，适合富集分析。  \n**推荐数据集**：  \n- **通路数据**：适合练习富集分析图。  \n- **基因网络数据**：适合练习网络图。  \n\n---\n\n### **7. STRING**\n**网址**：[https://string-db.org/](https://string-db.org/)  \n**特点**：STRING 是一个蛋白质相互作用数据库，适合构建基因或蛋白质网络图。  \n**推荐数据集**：  \n- **蛋白质相互作用数据**：适合练习网络图。  \n\n---\n\n### **8. cBioPortal**\n**网址**：[https://www.cbioportal.org/](https://www.cbioportal.org/)  \n**特点**：cBioPortal 是一个癌症基因组学数据平台，提供了多种癌症的基因组和临床数据。  \n**推荐数据集**：  \n- **癌症基因组数据**：适合练习热图、火山图和生存曲线。  \n\n---\n\n### **9. Open Science Framework (OSF)**\n**网址**：[https://osf.io/](https://osf.io/)  \n**特点**：OSF 是一个开放科学平台，提供了多种研究领域的数据集。  \n**推荐数据集**：  \n- **医学和生物信息学数据集**：适合练习多种图表类型。  \n\n---\n\n### **10. Figshare**\n**网址**：[https://figshare.com/](https://figshare.com/)  \n**特点**：Figshare 是一个开放数据平台，提供了多种研究领域的数据集。  \n**推荐数据集**：  \n- **多组学数据集**：适合练习热图、火山图和网络图。  \n\n---\n\n### **11. UCSC Xena**\n**网址**：[https://xena.ucsc.edu/](https://xena.ucsc.edu/)  \n**特点**：UCSC Xena 提供了一个整合的癌症基因组学数据分析平台，包含 TCGA、GTEx 等数据。  \n**推荐数据集**：  \n- **癌症基因组数据**：适合练习热图、火山图和生存曲线。  \n\n---\n\n### **12. GEO2R**\n**网址**：[https://www.ncbi.nlm.nih.gov/geo/geo2r/](https://www.ncbi.nlm.nih.gov/geo/geo2r/)  \n**特点**：GEO2R 是 GEO 的一个在线分析工具，可以直接分析 GEO 数据集并生成差异表达结果。  \n**推荐数据集**：  \n- **差异表达数据集**：适合练习火山图和热图。  \n\n---\n\n### **13. Synapse**\n**网址**：[https://www.synapse.org/](https://www.synapse.org/)  \n**特点**：Synapse 是一个开放数据平台，提供了多种生物医学数据集。  \n**推荐数据集**：  \n- **多组学数据集**：适合练习热图、网络图和富集分析图。  \n\n---\n\n### **14. SRA（Sequence Read Archive）**\n**网址**：[https://www.ncbi.nlm.nih.gov/sra](https://www.ncbi.nlm.nih.gov/sra)  \n**特点**：SRA 是一个高通量测序数据数据库，适合分析基因表达和变异数据。  \n**推荐数据集**：  \n- **RNA-seq 数据**：适合练习热图和火山图。  \n\n---\n\n### **15. 1000 Genomes Project**\n**网址**：[https://www.internationalgenome.org/](https://www.internationalgenome.org/)  \n**特点**：1000 Genomes Project 提供了人类基因组变异数据，适合研究群体遗传学。  \n**推荐数据集**：  \n- **基因组变异数据**：适合练习网络图和 PCA 图。  \n\n---\n\n### **学习建议**\n1. **选择适合的数据集**：根据你的学习目标和图表类型选择合适的数据集。  \n2. **动手实践**：下载数据集后，尝试用 R 语言进行数据清洗、分析和可视化。  \n3. **参考案例**：在 PubMed 或 GitHub 上找一些相关研究，学习他们的数据处理和图表呈现方式。  \n\n希望这些资源能帮助你找到合适的数据集，顺利完成画图学习！如果有其他问题，随时可以问我！",
+            "hallucination": "否",
+            "satisfaction": "5"
+        }
+    ],
+    "task_context": "你在最近由于学习/工作需要（如科研、社工等），想要在一个月内加强一项技能（根据自身情况设定，如计算机相关的编程语言，工程设计相关的软件等），你之前在这方面有一定的基础，现在需要进一步地加强学习，现在你希望借助大语言模型来完成你的学习规划。在对话中你需要完成学习进度安排、学习资源整理等，学习过程应当考虑到你现有的技能水平，符合人的学习规律。你的最终方案应当尽量完善，做到可以真实按照规划学习。",
+    "task_type": "技能学习规划",
+    "profile": {
+        "gender": "Male",
+        "age": 23,
+        "background": "医学与健康科学",
+        "personality": [
+            "内向",
+            "随性",
+            "坚定"
+        ],
+        "occupation": "医护人员",
+        "daily_interests": [
+            "摄影",
+            "听音乐",
+            "运动"
+        ],
+        "travel_habits": [
+            "自然风光",
+            "自驾游",
+            "户外活动"
+        ],
+        "dining_preferences": [
+            "快餐",
+            "均衡饮食",
+            "健康饮食",
+            "海鲜"
+        ],
+        "spending_habits": [
+            "质量大于数量",
+            "科技产品",
+            "高消费",
+            "娱乐支出"
+        ],
+        "other_aspects": [
+            "住在宿舍",
+            "喜欢参与体育活动",
+            "喜欢参与志愿活动",
+            "生活压力大"
+        ],
+        "complete_tid": {
+            "旅行规划": [
+                4,
+                2,
+                1,
+                3,
+                0
+            ],
+            "技能学习规划": [
+                0,
+                3,
+                2
+            ]
+        }
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "详细"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "有一定参考"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "结果多样"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "1": {
+            "question_broadness": 5,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 4,
+            "feedback": "Positive"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 4,
+            "feedback": "Both"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Breadth",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    }
+}

@@ -1,0 +1,123 @@
+{
+    "chat_model": "deepseek-v3",
+    "history": [
+        {
+            "role": "user",
+            "content": "女生节要到了，准备给实验室的女生准备一份礼物 大概300块钱，实验室有两个女生，请给出一个方案"
+        },
+        {
+            "role": "assistant",
+            "content": "根据你的预算（300元，2位女生），可以兼顾实用性和仪式感，以下是一份高性价比方案供参考：\n\n---\n\n### **方案一：精致实用组合（人均150元）**\n1. **定制科研小工具**  \n   - **无线充电器+姓名刻字**（约80元/人）  \n     选简约北欧风款式，刻上她们名字或学号，实验室充电超实用。  \n   - **分子结构项链/耳钉**（约60元/人）  \n     送化学/生物相关学科元素的饰品（如DNA、苯环），淘宝搜“科学元素首饰”。\n\n2. **高颜值零食花束**  \n   - 用她们爱吃的零食（巧克力、果冻等）+ 少量鲜花包装成小花束（人均10元材料费），手写贺卡更暖心。\n\n---\n\n### **方案二：放松体验套装（人均150元）**\n1. **实验室解压礼盒**  \n   - **迷你加湿器**（50元）+ **香薰蜡烛/精油**（30元）+ **眼罩**（20元），适合长期盯实验的女生。  \n   - **手账本+科研主题胶带**（50元），记录实验日志超实用。\n\n2. **奶茶/咖啡券+手写卡**  \n   - 附赠一张星巴克或喜茶电子券（约30元），写上“实验累了记得犒劳自己”。\n\n---\n\n### **方案三：双人共享礼包（总预算300元）**\n1. **实验室共用礼物**  \n   - **便携咖啡机**（200元）放实验室公用，搭配两盒挂耳咖啡（100元）。  \n   - **定制钥匙扣**（20元/人）刻上“Lab Queen”之类趣味文字。\n\n2. **拍照惊喜**  \n   - 用拍立得（实验室若有）为她们拍张合照，贴在贺卡上写：“女生节快乐！实验数据漂亮，笑容更要漂亮~”\n\n---\n\n### **Tips：**\n- **提前打听偏好**：若她们不爱甜食/咖啡，可换成无糖茶包或水果。  \n- **包装小心机**：用透明礼品盒+拉菲草，成本低但显高级。  \n- **贺卡内容**：简短真诚即可，比如“感谢你让实验室更美好~”。\n\n按这个思路，既能满足实用需求，又能体现节日专属感，避免过于私人化的尴尬。",
+            "hallucination": "否",
+            "satisfaction": "4"
+        }
+    ],
+    "task_context": "最近，男生节/女生节快到了，你想为你的同班同学/同事/实验室同学挑选一份节日礼物，你的预算在300元以内。为此你希望向大语言模型寻求建议，通过对话确定礼物的购买或制作方式，最终的预算大致符合要求即可。",
+    "task_type": "礼物准备",
+    "profile": {
+        "gender": "Male",
+        "age": 25,
+        "background": "医学与健康科学",
+        "personality": [
+            "耐心",
+            "幽默",
+            "友善",
+            "随性"
+        ],
+        "occupation": "医护人员",
+        "daily_interests": [
+            "网购",
+            "听音乐"
+        ],
+        "travel_habits": [
+            "美食之旅",
+            "国际旅行",
+            "豪华住宿"
+        ],
+        "dining_preferences": [
+            "日式美食",
+            "海鲜",
+            "中式美食",
+            "街头小吃"
+        ],
+        "spending_habits": [
+            "娱乐支出",
+            "质量大于数量",
+            "用于旅行"
+        ],
+        "other_aspects": [
+            "有房产",
+            "独自生活"
+        ]
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "一般"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "有一定参考"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "结果多样"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        }
+    }
+}

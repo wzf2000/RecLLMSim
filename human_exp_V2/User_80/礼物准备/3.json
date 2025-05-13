@@ -1,0 +1,150 @@
+{
+    "chat_model": "gpt-4-turbo-preview",
+    "history": [
+        {
+            "role": "user",
+            "content": "我想去拜访一个长辈，他是一个德高望周的教授现在已经退许多年，但是我的预算只有200远"
+        },
+        {
+            "role": "assistant",
+            "content": "拜访这样一位德高望重的长辈，心意比礼物本身更为重要。即使预算有限，你仍然可以选择一些既有意义又得体的礼物。以下是一些建议：\n\n1. **茶叶或咖啡**：如果他喜欢喝茶或咖啡，可以选择一款优质的茶叶或咖啡豆，这是一种经典且实用的礼物。\n\n2. **书籍**：选择一本他可能感兴趣的书籍，特别是与他专业相关或他退休后可能感兴趣的领域。\n\n3. **手写贺卡**：亲手写一张贺卡，表达你对他的敬意和祝福，这种心意往往更能打动人心。\n\n4. **水果篮**：准备一个简单的水果篮，健康又实用。\n\n5. **文房四宝**：如果他喜欢书法或绘画，可以选择一些高质量的文房用品。\n\n6. **手工艺品**：选择一些具有文化特色的小型手工艺品，既有纪念意义又不昂贵。\n\n无论选择什么礼物，最重要的是你对他的尊重和感激之情。与他分享你的近况和对他工作的敬仰，可能会比任何物质礼物更让他感动。",
+            "hallucination": "否",
+            "satisfaction": "3",
+            "reason": "不够多样"
+        },
+        {
+            "role": "user",
+            "content": "他已经八十多岁了"
+        },
+        {
+            "role": "assistant",
+            "content": "对于一位八十多岁的长辈，选择礼物时可以更加注重实用性和温馨感。以下是一些适合的建议：\n\n1. **舒适的围巾或披肩**：选择一款柔软舒适的围巾或披肩，适合在家中使用，也能在外出时保暖。\n\n2. **保健品或营养品**：可以选择一些适合老年人使用的保健品，如维生素、钙片或护肝护眼的营养品，但要确保是他可以安全食用的。\n\n3. **护手霜或护肤品**：老年人的皮肤较为干燥，可以选择一款温和滋润的护手霜或护肤品。\n\n4. **助听器电池或放大镜**：如果他有使用助听器或阅读的需要，这些实用的小物件可能会对他有帮助。\n\n5. **音乐或电影光盘**：如果他喜欢音乐或电影，选择一些经典的音乐CD或电影DVD。\n\n6. **温馨的家居用品**：如毛毯、靠垫等，增加生活的舒适度。\n\n记得在拜访时多花时间陪伴他，和他聊聊天，分享一些生活中的趣事和变化，这种精神上的关怀对他来说可能更为珍贵。",
+            "hallucination": "否",
+            "satisfaction": "4"
+        }
+    ],
+    "task_context": "最近，你想去拜访好久未见的一位长辈（根据自身情况设定，如祖父母，外祖父母等），你希望在拜访时带上一份礼物，你的预算在200元左右。为此你希望向大语言模型寻求建议，通过对话确定礼物的购买或制作方式，最终的预算大致符合要求即可。",
+    "task_type": "礼物准备",
+    "profile": {
+        "gender": "Female",
+        "age": 25,
+        "background": "人文与艺术",
+        "personality": [
+            "乐观",
+            "独立",
+            "上进",
+            "随性"
+        ],
+        "occupation": "艺术工作者",
+        "daily_interests": [
+            "摄影",
+            "手工艺制作",
+            "玩游戏"
+        ],
+        "travel_habits": [
+            "看展",
+            "文化旅行",
+            "经常出差"
+        ],
+        "dining_preferences": [
+            "中式美食",
+            "外卖",
+            "尝鲜"
+        ],
+        "spending_habits": [
+            "质量大于数量",
+            "科技产品",
+            "为未来储蓄"
+        ],
+        "other_aspects": [
+            "租房",
+            "独自生活",
+            "经营自媒体"
+        ],
+        "complete_tid": {
+            "旅行规划": [
+                0,
+                2,
+                3,
+                4,
+                1
+            ],
+            "技能学习规划": [
+                2,
+                3,
+                0,
+                1
+            ]
+        }
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "一般"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "有一定参考"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "结果单一"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Broad"
+        }
+    }
+}

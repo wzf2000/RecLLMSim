@@ -1,0 +1,123 @@
+{
+    "chat_model": "gpt-4-turbo-preview",
+    "history": [
+        {
+            "role": "user",
+            "content": "我准备给自己做一顿午餐，就给我自己一个人吃不用太多。我平时也会做饭，请给我一个菜谱，标出做法和价格，我不吃葱，菠萝过敏"
+        },
+        {
+            "role": "assistant",
+            "content": "当然可以！以下是一个简单美味的午餐菜谱：香煎三文鱼配蒜香菠菜。\n\n### 材料：\n- 三文鱼柳 150克 （约30元）\n- 菠菜 100克 （约3元）\n- 大蒜 2瓣 （约0.5元）\n- 橄榄油 适量 （约1元）\n- 盐 适量\n- 黑胡椒 适量\n- 柠檬 1/4个 （约1元）\n\n### 总价格：\n大约35.5元\n\n### 做法：\n\n#### 1. 准备工作：\n- 三文鱼柳用清水冲洗干净，用厨房纸巾擦干水分。\n- 菠菜洗净，去除老叶。\n- 大蒜切成薄片。\n- 柠檬切成小块备用。\n\n#### 2. 煎三文鱼：\n1. 在三文鱼表面均匀撒上盐和黑胡椒，静置几分钟。\n2. 平底锅中加入适量橄榄油，中火加热。\n3. 将三文鱼皮朝下放入锅中，煎约3-4分钟，直到皮酥脆。\n4. 翻面后再煎2-3分钟，至鱼肉完全熟透。\n5. 将煎好的三文鱼取出，放在盘中备用。\n\n#### 3. 炒菠菜：\n1. 利用煎三文鱼剩下的油脂，加入大蒜片，炒香。\n2. 放入菠菜，快速翻炒，加入少许盐调味。\n3. 菠菜炒软后，关火，将炒好的菠菜放在三文鱼旁边。\n\n#### 4. 装盘：\n- 在三文鱼上挤上一点柠檬汁，增加清香。\n- 可以根据个人口味再加一些黑胡椒。\n\n这样，一份简单又美味的香煎三文鱼配蒜香菠菜就完成了！希望你喜欢这个菜谱，享受美味午餐！",
+            "hallucination": "否",
+            "satisfaction": "4"
+        }
+    ],
+    "task_context": "假设现在是一个周末，你打算做1-2个菜自己一个人吃，你的厨艺水平根据自身情况而定。为此你想要找大语言模型帮忙制定菜谱，确定需要用到哪些食材，以及要制作的菜品。在规划中你应当得知每一道菜完整的制作流程和合适的菜品制作顺序。",
+    "task_type": "菜谱规划",
+    "profile": {
+        "gender": "Male",
+        "age": 25,
+        "background": "医学与健康科学",
+        "personality": [
+            "耐心",
+            "幽默",
+            "友善",
+            "随性"
+        ],
+        "occupation": "医护人员",
+        "daily_interests": [
+            "网购",
+            "听音乐"
+        ],
+        "travel_habits": [
+            "美食之旅",
+            "国际旅行",
+            "豪华住宿"
+        ],
+        "dining_preferences": [
+            "日式美食",
+            "海鲜",
+            "中式美食",
+            "街头小吃"
+        ],
+        "spending_habits": [
+            "娱乐支出",
+            "质量大于数量",
+            "用于旅行"
+        ],
+        "other_aspects": [
+            "有房产",
+            "独自生活"
+        ]
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "详细"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "很有用"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "结果多样"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        },
+        "3": {
+            "question_broadness": 5,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        }
+    }
+}

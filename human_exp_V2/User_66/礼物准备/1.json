@@ -1,0 +1,137 @@
+{
+    "chat_model": "claude-3-7-sonnet-20250219",
+    "history": [
+        {
+            "role": "user",
+            "content": "我要给学生时期的老师礼物，预算大概在500块左右。不知道怎么给礼物比较好"
+        },
+        {
+            "role": "assistant",
+            "content": "# 给老师礼物的建议\n\n为学生时期的老师准备礼物是表达感谢的美好方式。以下是一些符合您500元预算的建议：\n\n## 礼物选择\n\n1. **精致茶具套装** - 适合喜欢品茶的老师\n2. **优质钢笔或笔记本套装** - 实用且有品质\n3. **精选书籍** - 根据老师的兴趣选择\n4. **小型智能设备** - 如蓝牙音箱或电子相册\n5. **手工艺品** - 具有纪念意义的艺术品\n6. **保健礼盒** - 如茶叶、坚果或保健品组合\n\n## 送礼方式\n\n1. **亲自拜访** - 提前约定时间，面对面表达感谢\n2. **同学聚会时赠送** - 如有同学聚会，可在大家面前赠送\n3. **附上感谢卡片** - 无论何种礼物，附上一张表达您感激之情的卡片\n\n记住，礼物的价值不仅在于物品本身，更在于您的感恩之心和对老师的尊重。",
+            "hallucination": "否",
+            "satisfaction": "2",
+            "reason": "不够细致"
+        }
+    ],
+    "task_context": "最近，教师节快到了，你想为你（学生时期）的导师/班主任挑选一份节日礼物，你的预算在500元左右。为此你希望向大语言模型寻求建议，通过对话确定礼物的购买或制作方式，最终的预算大致符合要求即可。",
+    "task_type": "礼物准备",
+    "profile": {
+        "gender": "Male",
+        "age": 29,
+        "background": "人文与艺术",
+        "personality": [
+            "内向",
+            "悲观",
+            "上进",
+            "细致",
+            "坚定"
+        ],
+        "occupation": "艺术工作者",
+        "daily_interests": [
+            "绘画",
+            "玩游戏",
+            "听音乐",
+            "摄影"
+        ],
+        "travel_habits": [
+            "参观历史遗迹",
+            "自然风光",
+            "看展",
+            "参观博物馆"
+        ],
+        "dining_preferences": [
+            "健康饮食",
+            "烘焙",
+            "均衡饮食"
+        ],
+        "spending_habits": [
+            "质量大于数量",
+            "科技产品"
+        ],
+        "other_aspects": [
+            "组织社区活动",
+            "养小动物"
+        ],
+        "complete_tid": {
+            "技能学习规划": [
+                2,
+                1,
+                0,
+                3
+            ],
+            "礼物准备": [
+                3
+            ]
+        }
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "一般"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "不可用"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "结果单一"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "question_broadness": 2,
+            "context_dependency": 1,
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Specific"
+        }
+    }
+}

@@ -1,0 +1,144 @@
+{
+    "chat_model": "claude-3-7-sonnet-20250219",
+    "history": [
+        {
+            "role": "user",
+            "content": "好友结婚1000元礼品，好友是艺术创作者"
+        },
+        {
+            "role": "assistant",
+            "content": "# 为艺术创作者好友的婚礼礼物建议（预算1000元）\n\n既然您的好友是艺术创作者，可以考虑以下几类礼物，这些礼物既有创意又能体现您的心意：\n\n## 创作相关礼物\n- **高品质艺术用品套装**：根据他们的艺术领域（如绘画、书法、雕塑等）选择专业工具\n- **限量版艺术书籍**：与他们创作领域相关的精装画册或技法书\n- **创意工作室小物件**：如特色台灯、创意收纳解决方案\n\n## 艺术收藏品\n- **小型艺术品**：来自新锐艺术家的小幅作品\n- **艺术衍生品**：知名艺术家授权的限量版周边\n- **手工艺品**：如手工玻璃制品、陶瓷艺术品等\n\n## 体验式礼物\n- **艺术工作坊体验券**：两人可以一起参加的特色工作坊\n- **艺术展览年卡**：当地艺术馆或博物馆的会员资格\n- **艺术旅行基金**：为他们未来的艺术考察旅行提供一部分资金\n\n## 定制礼物\n- **定制艺术工具**：刻有他们名字的专业工具\n- **个性化艺术收纳方案**：根据他们创作需求定制的收纳系统\n- **定制相框**：可以用来展示他们自己的作品\n\n选择时可以考虑他们的具体艺术领域和个人喜好，这样礼物会更加贴心和有意义。",
+            "hallucination": "否",
+            "satisfaction": "4"
+        }
+    ],
+    "task_context": "最近，你的好友/同事/同学即将结婚，你想为TA准备一份结婚礼物，你的预算在1000元左右。为此你希望向大语言模型寻求建议，通过对话确定礼物的购买或制作方式，最终的预算大致符合要求即可。",
+    "task_type": "礼物准备",
+    "profile": {
+        "gender": "Male",
+        "age": 38,
+        "background": "人文与艺术",
+        "personality": [
+            "独立",
+            "外向",
+            "幽默",
+            "细致"
+        ],
+        "occupation": "艺术工作者",
+        "daily_interests": [
+            "绘画",
+            "摄影",
+            "看电视",
+            "听音乐",
+            "玩游戏"
+        ],
+        "travel_habits": [
+            "自然风光",
+            "户外活动",
+            "家庭旅行",
+            "自驾游"
+        ],
+        "dining_preferences": [
+            "烧烤",
+            "日式美食",
+            "街头小吃",
+            "中式美食"
+        ],
+        "spending_habits": [
+            "质量大于数量",
+            "购买书籍",
+            "用于旅行"
+        ],
+        "other_aspects": [
+            "有房产"
+        ],
+        "complete_tid": {
+            "旅行规划": [
+                0,
+                4,
+                1,
+                3,
+                2
+            ],
+            "技能学习规划": [
+                1,
+                2,
+                0,
+                3
+            ],
+            "礼物准备": [
+                1
+            ]
+        }
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "简略"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "有一定参考"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "一般"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Negative"
+        },
+        "3": {
+            "question_broadness": 5,
+            "context_dependency": 2,
+            "feedback": "NoFeedback"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Sequential",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Sequential",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Sequential",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Specific"
+        }
+    }
+}

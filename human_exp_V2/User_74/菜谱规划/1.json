@@ -1,0 +1,123 @@
+{
+    "chat_model": "gpt-4-turbo-preview",
+    "history": [
+        {
+            "role": "user",
+            "content": "我现在准备做一个两人餐，为周末吃，我平常也做菜，请你给一个两人份的菜谱，我不吃葱。给出做菜流程和大致话费"
+        },
+        {
+            "role": "assistant",
+            "content": "当然可以！以下是一个简单的两人份中式晚餐菜谱，不包含葱：\n\n### 菜单\n1. **蒜香鸡翅**\n2. **清炒西兰花**\n3. **蒸米饭**\n\n### 食材清单\n- **蒜香鸡翅**\n  - 鸡翅中：6-8个\n  - 大蒜：4-5瓣\n  - 生抽：2汤匙\n  - 老抽：1汤匙\n  - 蜂蜜：1汤匙\n  - 盐和胡椒：适量\n  - 食用油：适量\n\n- **清炒西兰花**\n  - 西兰花：1小颗\n  - 大蒜：2瓣\n  - 盐：适量\n  - 食用油：适量\n\n- **蒸米饭**\n  - 大米：1杯\n  - 水：适量\n\n### 做菜流程\n\n#### 蒜香鸡翅\n1. **腌制鸡翅**：\n   - 将鸡翅洗净，用厨房纸吸干水分。\n   - 大蒜切末，加入鸡翅中。\n   - 加入生抽、老抽、蜂蜜、盐和胡椒，搅拌均匀。\n   - 腌制至少30分钟，最好腌制2小时以上以便入味。\n\n2. **煎鸡翅**：\n   - 加热锅，加入适量食用油。\n   - 将鸡翅放入锅中，用中火煎至两面金黄熟透，大约每面煎5-7分钟。\n\n#### 清炒西兰花\n1. **准备西兰花**：\n   - 西兰花切成小朵，用清水洗净。\n   - 大蒜切片。\n\n2. **炒制**：\n   - 锅中加热适量油，加入蒜片爆香。\n   - 放入西兰花翻炒，加入少许盐调味。\n   - 加入少量水，盖上锅盖焖煮2-3分钟，至西兰花变软但仍保持翠绿。\n\n#### 蒸米饭\n1. **洗米**：\n   - 大米用清水淘洗干净。\n\n2. **蒸煮**：\n   - 将大米和适量水放入电饭煲中，启动蒸饭程序。\n\n### 大致花费\n- 鸡翅中：约20元\n- 西兰花：约8元\n- 大米：约2元\n- 调料（大蒜、生抽、老抽、蜂蜜等）：约5元（根据已有情况可能不需要额外购买）\n\n**总计：约35元**\n\n这是一份简单又美味的两人餐，希望你喜欢！如果有任何食材需要替换或调整，也可以根据个人口味进行修改。祝你周末愉快，享受美食！",
+            "hallucination": "否",
+            "satisfaction": "5"
+        }
+    ],
+    "task_context": "假设现在是十一期间，你打算做2-3个菜和npy/爱人/好友两个人一起吃，你的厨艺水平根据自身情况而定。为此你想要找大语言模型帮忙制定菜谱，确定需要用到哪些食材，以及要制作的菜品。在规划中你应当得知每一道菜完整的制作流程和合适的菜品制作顺序。",
+    "task_type": "菜谱规划",
+    "profile": {
+        "gender": "Male",
+        "age": 25,
+        "background": "医学与健康科学",
+        "personality": [
+            "耐心",
+            "幽默",
+            "友善",
+            "随性"
+        ],
+        "occupation": "医护人员",
+        "daily_interests": [
+            "网购",
+            "听音乐"
+        ],
+        "travel_habits": [
+            "美食之旅",
+            "国际旅行",
+            "豪华住宿"
+        ],
+        "dining_preferences": [
+            "日式美食",
+            "海鲜",
+            "中式美食",
+            "街头小吃"
+        ],
+        "spending_habits": [
+            "娱乐支出",
+            "质量大于数量",
+            "用于旅行"
+        ],
+        "other_aspects": [
+            "有房产",
+            "独自生活"
+        ]
+    },
+    "questionnaire": [
+        {
+            "query": "在对话过程中，对方是否有发生对前文出现遗忘的情况",
+            "summary": "Memorization",
+            "option": "否"
+        },
+        {
+            "query": "总体来说，对方给出的回答结果和描述有多详细，此处的详细指单个选项（如某个菜/旅游目的地）的介绍详细程度",
+            "summary": "Detail",
+            "option": "详细"
+        },
+        {
+            "query": "总体来说，对方给出的回答对你现实中真实遇到类似的问题有多少参考和使用价值",
+            "summary": "Availability",
+            "option": "很有用"
+        },
+        {
+            "query": "请从对话整体为对方回答的多样性打分",
+            "summary": "Diversity",
+            "option": "结果多样"
+        }
+    ],
+    "strategy_V3": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "NoFeedback"
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 3,
+            "feedback": "Positive"
+        }
+    },
+    "strategy": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    }
+}
