@@ -6,6 +6,7 @@ import numpy as np
 from tqdm import tqdm
 from openai import OpenAI, LengthFinishReasonError
 from pydantic import BaseModel
+from argparse import ArgumentParser
 
 from data_util import ModelType, item_translation
 from evaluate_util import compute_metrics
@@ -115,11 +116,29 @@ def work(X_train: list[str], y_train: np.ndarray, X_test: list[str], y_test: np.
     y_scores = np.array([predict(model_name, history, labels, item) for history in tqdm(X_test, desc=f'Predicting {item}')])
     return compute_metrics(y_test, y_scores)
 
+def parse_args():
+    parser = ArgumentParser()
+    parser.add_argument('-m', '--model', type=str, required=True)
+    parser.add_argument('-t', '--type', type=str, required=True, choices=['sim', 'sim2human', 'human', 'human2sim', 'sim2human2', 'human2sim', 'human2sim2'])
+    parser.add_argument('-l', '--language', type=str, default='zh', choices=['zh', 'en'])
+    args = parser.parse_args()
+    return args
+
 if __name__ == '__main__':
-    pass
-    # exp_sim('gpt-4o-2024-08-06', ModelType.LLM, work, 'zh')
-    # exp_human('gpt-4o-2024-08-06', ModelType.LLM, work)
-    # exp_sim2human('gpt-4o-2024-08-06', ModelType.LLM, work)
-    # exp_human2sim('gpt-4o-2024-08-06', ModelType.LLM, work)
-    exp_sim2human2('gpt-4o-2024-08-06', ModelType.LLM, work)
-    # exp_human2sim('gpt-4o-2024-08-06', ModelType.LLM, work)
+    args = parse_args()
+    if args.type == 'sim':
+        exp_sim(args.model, ModelType.LLM, work, args.language)
+    elif args.type == 'human':
+        exp_human(args.model, ModelType.LLM, work)
+    elif args.type == 'sim2human':
+        exp_sim2human(args.model, ModelType.LLM, work)
+    elif args.type == 'human2sim':
+        exp_human2sim(args.model, ModelType.LLM, work)
+    elif args.type == 'sim2human2':
+        exp_sim2human2(args.model, ModelType.LLM, work)
+    elif args.type == 'human2sim':
+        exp_human2sim(args.model, ModelType.LLM, work)
+    elif args.type == 'human2sim2':
+        exp_human2sim2(args.model, ModelType.LLM, work)
+    else:
+        raise NotImplementedError

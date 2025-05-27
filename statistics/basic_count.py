@@ -2,7 +2,7 @@ import os
 import json
 import tiktoken
 
-from utils import SIM_DIR, HUMAN_DIR
+from utils import SIM_DIR, HUMAN_DIR, HUMAN_DIR_V2
 
 tokenizer = tiktoken.encoding_for_model('gpt-4-turbo-preview')
 
@@ -49,7 +49,7 @@ def get_sim_data(task: str | None = None, language: str = 'en') -> list[list[dic
             if language == 'en':
                 history = [{
                     'role': utt['role'],
-                    'content': utt['content']
+                    'content': utt['content'],
                 } for utt in data['history']]
             else:
                 history = [{
@@ -67,22 +67,27 @@ def get_human_data(task: str | None = None) -> list[list[dict[str, str]]]:
     else:
         tasks = [task]
     convs: list[list[dict[str, str]]] = []
-    users = os.listdir(HUMAN_DIR)
-    for user in users:
-        for task in tasks:
-            if not os.path.exists(os.path.join(HUMAN_DIR, user, task)):
-                continue
-            files = os.listdir(os.path.join(HUMAN_DIR, user, task))
-            files = [file for file in files if file.endswith('.json')]
-            files.sort(key=lambda x: x.split('.')[0])
-            for file in files:
-                with open(os.path.join(HUMAN_DIR, user, task, file), 'r') as f:
-                    data = json.load(f)
-                history = [{
-                    'role': utt['role'],
-                    'content': utt['content']
-                } for utt in data['history']]
-                convs.append(history)
+
+    def update(dir_name: str):
+        users = os.listdir(dir_name)
+        for user in users:
+            for task in tasks:
+                if not os.path.exists(os.path.join(dir_name, user, task)):
+                    continue
+                files = os.listdir(os.path.join(dir_name, user, task))
+                files = [file for file in files if file.endswith('.json')]
+                files.sort(key=lambda x: x.split('.')[0])
+                for file in files:
+                    with open(os.path.join(dir_name, user, task, file), 'r') as f:
+                        data = json.load(f)
+                    history = [{
+                        'role': utt['role'],
+                        'content': utt['content']
+                    } for utt in data['history']]
+                    convs.append(history)
+
+    update(HUMAN_DIR)
+    update(HUMAN_DIR_V2)
     return convs
 
 def turns(conv: list[dict[str, str]]) -> int:
@@ -120,9 +125,10 @@ if __name__ == '__main__':
             scenario = ' '.join(scenario)
         sim_stats = statistics(sim_data)
         human_stats = statistics(human_data)
+        print(sim_stats["convs"], human_stats["convs"])
         output = f'''\\midrule
-        \\multirow{{2}}{{*}}{{{scenario}}} & Simu. & {sim_stats["convs"]} & {sim_stats["turns"]:.2f} & {sim_stats["avg_user_tokens"]:.2f} & {sim_stats["avg_user_tokens_turn"]:.2f} & {sim_stats["avg_assistant_tokens_turn"]:.2f} \\\\
-        & Human & {human_stats["convs"]} & {human_stats["turns"]:.2f} & {human_stats["avg_user_tokens"]:.2f} & {human_stats["avg_user_tokens_turn"]:.2f} & {human_stats["avg_assistant_tokens_turn"]:.2f} \\\\
+        \\multirow{{2}}{{*}}{{{scenario}}} & Agent & {sim_stats["turns"]:.2f} & {sim_stats["avg_user_tokens"]:.2f} & {sim_stats["avg_user_tokens_turn"]:.2f} & {sim_stats["avg_assistant_tokens_turn"]:.2f} \\\\
+        & Human & {human_stats["convs"]} & {human_stats["avg_user_tokens"]:.2f} & {human_stats["avg_user_tokens_turn"]:.2f} & {human_stats["avg_assistant_tokens_turn"]:.2f} \\\\
         '''
         print(output)
         while input('Continue? (y/n) ') != 'y':

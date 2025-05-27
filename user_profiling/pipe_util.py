@@ -1,3 +1,5 @@
+import torch
+import random
 import numpy as np
 from enum import Enum
 from typing import Callable
@@ -6,6 +8,16 @@ from sklearn.model_selection import train_test_split
 
 from data_util import get_sim_data, get_human_data, ModelType
 from log_util import add_log, ExpType
+
+def set_seed(seed: int):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    torch.use_deterministic_algorithms(True)
+    torch.cuda.empty_cache()
 
 desc_translated = {
     "personality": {
@@ -210,8 +222,8 @@ human_attributes = {
     ]
 }
 
-def split_train_test(X: list[str], y: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-    return train_test_split(X, y, test_size=0.2, random_state=42)
+def split_train_test(X: list[str], y: list) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    return train_test_split(np.array(X), np.array(y), test_size=0.2, random_state=42)
 
 def work_sim(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], language: str = 'en', task: str | None = None, **kwargs) -> None:
     X, y = get_sim_data(item, language, task, model_type)
@@ -245,10 +257,11 @@ def work_sim2human2(item: str, model_name: str, model_type: ModelType, work: Cal
     report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
     add_log(item, model_name, ExpType.SIM2HUMAN2, report)
 
-def work_sim2human3(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, **kwargs) -> None:
-    X_human, y_human = get_human_data(item, task, model_type)
+def work_sim2human3(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
+    X_human, y_human = get_human_data(item, task, model_type, data_version, chat_model)
     _, X_test, _, y_test = split_train_test(X_human, y_human)
     X_train, y_train = get_sim_data(item, 'zh', task, model_type, filtered=True)
+    print(len(y_train), len(y_test))
     y = y_train + y_test
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
@@ -258,19 +271,32 @@ def work_sim2human3(item: str, model_name: str, model_type: ModelType, work: Cal
     report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
     add_log(item, model_name, ExpType.SIM2HUMAN3, report)
 
-def work_human(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, **kwargs) -> None:
-    X, y = get_human_data(item, task, model_type)
+def work_human(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, samples: int = -1, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
+    X, y = get_human_data(item, task, model_type, data_version, chat_model)
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
     X_train, X_test, y_train, y_test = split_train_test(X, y)
-    report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
-    add_log(item, model_name, ExpType.HUMAN, report)
+    if samples != -1:
+        # sample samples from X_train
+        assert 0 < samples <= len(X_train), f"Samples should be between 0 and {len(X_train)}"
+        set_seed(42)
+        indices = np.random.choice(len(X_train), samples, replace=False)
+        X_train = X_train[indices]
+        y_train = y_train[indices]
+        ckpt_dir_name = f'human_{samples}_{item}'
+    else:
+        ckpt_dir_name = f'human_{item}'
+    report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, ckpt_dir_name=ckpt_dir_name, **kwargs)
+    if samples > 0:
+        add_log(item, model_name, ExpType.HUMAN, report, samples=samples)
+    else:
+        add_log(item, model_name, ExpType.HUMAN, report)
 
-def work_sim4human(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, **kwargs) -> None:
+def work_sim4human(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
     X_sim, y_sim = get_sim_data(item, 'zh', task, model_type)
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
-    X_human, y_human = get_human_data(item, task, model_type)
+    X_human, y_human = get_human_data(item, task, model_type, data_version, chat_model)
     X_train, X_test, y_train, y_test = split_train_test(X_human, y_human)
     X_train = np.concatenate((X_sim, X_train))
     y_train = np.concatenate((y_sim, y_train))
@@ -283,11 +309,11 @@ def work_sim4human(item: str, model_name: str, model_type: ModelType, work: Call
     report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
     add_log(item, model_name, ExpType.SIM4HUMAN, report)
 
-def work_sim4human2(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, **kwargs) -> None:
+def work_sim4human2(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
     X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, filtered=True)
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
-    X_human, y_human = get_human_data(item, task, model_type)
+    X_human, y_human = get_human_data(item, task, model_type, data_version, chat_model)
     X_train, X_test, y_train, y_test = split_train_test(X_human, y_human)
     X_train = np.concatenate((X_sim, X_train))
     y_train = np.concatenate((y_sim, y_train))
@@ -300,11 +326,11 @@ def work_sim4human2(item: str, model_name: str, model_type: ModelType, work: Cal
     report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
     add_log(item, model_name, ExpType.SIM4HUMAN2, report)
 
-def work_sim4human3(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, **kwargs) -> None:
+def work_sim4human3(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
     X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, filtered=True)
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
-    X_human, y_human = get_human_data(item, task, model_type)
+    X_human, y_human = get_human_data(item, task, model_type, data_version, chat_model)
     X_train, X_test, y_train, y_test = split_train_test(X_human, y_human)
     # downsample sim data
     _, X_sim, _, y_sim = train_test_split(X_sim, y_sim, test_size=0.2, random_state=42)
@@ -320,18 +346,29 @@ def work_sim4human3(item: str, model_name: str, model_type: ModelType, work: Cal
     add_log(item, model_name, ExpType.SIM4HUMAN3, report)
 
 def sample(X: np.ndarray, y: np.ndarray, num_sample: int) -> tuple[np.ndarray, np.ndarray]:
+    np.random.seed(42)
     train_size = len(X)
     sample_size = min(num_sample, train_size)
     indices = np.random.choice(train_size, sample_size, replace=False)
     return X[indices], y[indices]
 
-def work_sim4human4(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, ratio: float = 1.0, **kwargs) -> None:
+def work_sim4human4(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, samples: int = -1, ratio: float = 1.0, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
     X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, filtered=True)
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
     original_size = len(X_sim)
-    X_human, y_human = get_human_data(item, task, model_type)
+    X_human, y_human = get_human_data(item, task, model_type, data_version, chat_model)
     X_train, X_test, y_train, y_test = split_train_test(X_human, y_human)
+    if samples != -1:
+        # sample samples from X_train
+        assert 0 < samples <= len(X_train), f"Samples should be between 0 and {len(X_train)}"
+        set_seed(42)
+        indices = np.random.choice(len(X_train), samples, replace=False)
+        X_train = X_train[indices]
+        y_train = y_train[indices]
+        ckpt_dir_name = f'sim4human4_{samples}_{item}_{ratio}'
+    else:
+        ckpt_dir_name = f'sim4human4_{item}_{ratio}'
     # downsample sim data
     human_train_size = len(X_train)
     sim_train_size = int(human_train_size * ratio)
@@ -344,16 +381,19 @@ def work_sim4human4(item: str, model_name: str, model_type: ModelType, work: Cal
     train_size = len(X_train)
     y_train = y[:train_size]
     y_test = y[train_size:]
-    report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
-    log_name = f'{item}-{ratio if sim_train_size < original_size else "full"}'
-    add_log(log_name, model_name, ExpType.SIM4HUMAN4, report)
+    report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, ckpt_dir_name=ckpt_dir_name, **kwargs)
+    log_name = f'{item}'
+    if samples > 0:
+        add_log(log_name, model_name, ExpType.SIM4HUMAN4, report, samples=samples, ratio=ratio if sim_train_size < original_size else "full")
+    else:
+        add_log(log_name, model_name, ExpType.SIM4HUMAN4, report, ratio=ratio if sim_train_size < original_size else "full")
 
 class HotCold(Enum):
     HOT = 'hot'
     COLD = 'cold'
     BOTH = 'both'
 
-def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, ratio: float = 1.0, hot_cold: HotCold = HotCold.HOT, topk: int = 3, **kwargs) -> None:
+def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, samples: int = -1, ratio: float = 1.0, hot_cold: HotCold = HotCold.HOT, topk: int = 3, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
     if hot_cold == HotCold.HOT:
         attributes = human_attributes[item][:topk]
     elif hot_cold == HotCold.COLD:
@@ -368,9 +408,9 @@ def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Cal
         X_filtered = []
         y_filtered = []
         for i, label in enumerate(y):
-            label = [desc_translated[item_name][attr] for attr in label]
-            label = set(label)
-            if any([attr in label for attr in attributes]):
+            translated_label = [desc_translated[item_name][attr] for attr in label]
+            translated_label = set(translated_label)
+            if any([attr in translated_label for attr in attributes]):
                 X_filtered.append(X[i])
                 y_filtered.append(label)
         return X_filtered, y_filtered
@@ -380,8 +420,18 @@ def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Cal
     original_size = len(X_sim)
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
-    X_human, y_human = get_human_data(item, task, model_type)
+    X_human, y_human = get_human_data(item, task, model_type, data_version, chat_model)
     X_train, X_test, y_train, y_test = split_train_test(X_human, y_human)
+    if samples != -1:
+        # sample samples from X_train
+        assert 0 < samples <= len(X_train), f"Samples should be between 0 and {len(X_train)}"
+        set_seed(42)
+        indices = np.random.choice(len(X_train), samples, replace=False)
+        X_train = X_train[indices]
+        y_train = y_train[indices]
+        ckpt_dir_name = f'sim4human5_{samples}_{item}_{hot_cold.value}_{topk}_{ratio}'
+    else:
+        ckpt_dir_name = f'sim4human5_{item}_{hot_cold.value}_{topk}_{ratio}'
     # downsample sim data
     human_train_size = len(X_train)
     sim_train_size = int(human_train_size * ratio)
@@ -390,17 +440,21 @@ def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Cal
         full = True
     else:
         full = False
-    log_name = f'{item}-{hot_cold.value}-{topk}-{"full" if full else ratio}'
+    log_name = f'{item}'
     X_train = np.concatenate((X_sim, X_train))
     y_train = np.concatenate((y_sim, y_train))
     y = np.concatenate((y_train, y_test))
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
+    print(f"Number of labels: {len(mlb.classes_)}")
     train_size = len(X_train)
     y_train = y[:train_size]
     y_test = y[train_size:]
-    report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
-    add_log(log_name, model_name, ExpType.SIM4HUMAN5, report)
+    report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, ckpt_dir_name=ckpt_dir_name, **kwargs)
+    if samples > 0:
+        add_log(log_name, model_name, ExpType.SIM4HUMAN5, report, samples=samples, hc=hot_cold.value, topk=topk, ratio=ratio if sim_train_size < original_size else "full")
+    else:
+        add_log(log_name, model_name, ExpType.SIM4HUMAN5, report, hc=hot_cold.value, topk=topk, ratio="full" if full else ratio)
 
 def work_human2sim(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, **kwargs) -> None:
     X_train, y_train = get_human_data(item, task, model_type)
@@ -426,10 +480,16 @@ def work_human2sim2(item: str, model_name: str, model_type: ModelType, work: Cal
     report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
     add_log(item, model_name, ExpType.HUMAN2SIM2, report)
 
-def exp(model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], work_func: Callable[[str, ModelType, Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]]], None], **kwargs):
-    items = ['Personality', 'Daily Interests and Hobbies', 'Travel Habits', 'Dining Preferences', 'Spending Habits']
+def exp(model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], work_func: Callable[[str, ModelType, Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]]], None], only_all: bool = False, items: list[str] | None = None, **kwargs):
+    if items is None:
+        items = ['Personality', 'Daily Interests and Hobbies', 'Travel Habits', 'Dining Preferences', 'Spending Habits']
+    else:
+        assert only_all is True, "only_all should be True when items is not None"
+        assert all([item in ['Personality', 'Daily Interests and Hobbies', 'Travel Habits', 'Dining Preferences', 'Spending Habits'] for item in items]), "items should be a subset of the default items"
     for item in items:
         work_func(item, model_name, model_type, work, **kwargs)
+    if only_all:
+        return
     work_func('Travel Habits', model_name, model_type, work, 'travel planning', **kwargs)
     work_func('Dining Preferences', model_name, model_type, work, 'recipe planning', **kwargs)
     work_func('Spending Habits', model_name, model_type, work, 'preparing gifts', **kwargs)

@@ -17,11 +17,16 @@ class ExpType(Enum):
     HUMAN2SIM = 'human2sim'
     HUMAN2SIM2 = 'human2sim2'
 
-def get_log_file(model_name: str, exp_type: ExpType) -> str:
-    return os.path.join(log_dir, exp_type.value, f'{model_name}.csv')
+def get_log_file(model_name: str, exp_type: ExpType, **kwargs: dict) -> str:
+    # sort the keys of kwargs
+    sorted_kwargs = sorted(kwargs.items(), key=lambda x: x[0])
+    suffix = '_'.join([f'{k}_{v}' for k, v in sorted_kwargs])
+    if suffix:
+        suffix = '_' + suffix
+    return os.path.join(log_dir, exp_type.value, f'{model_name}{suffix}.log')
 
-def add_log(item: str, model_name: str, exp_type: ExpType, result: dict[str, float], cls: bool = False):
-    log_file = get_log_file(model_name, exp_type)
+def add_log(item: str, model_name: str, exp_type: ExpType, result: dict[str, float], cls: bool = False, **kwargs: dict):
+    log_file = get_log_file(model_name, exp_type, **kwargs)
     if not os.path.exists(log_file):
         os.makedirs(os.path.dirname(log_file), exist_ok=True)
         with open(log_file, 'w') as f:

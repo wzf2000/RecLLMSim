@@ -1,6 +1,7 @@
 import os
 import json
 from openai import LengthFinishReasonError, OpenAI
+from tenacity import retry, stop_after_attempt, wait_fixed
 
 from output_format import StrategyV1, StrategyV2, StrategyV3
 
@@ -163,34 +164,37 @@ def get_prompt(text: str, human: bool, version: int) -> str:
     prompt = prompt.replace('[Insert Dialogue Here]', text)
     return prompt
 
-def cls(text: str, model: str, version: int, human: bool) -> StrategyV1 | StrategyV2 | StrategyV3:
+@retry(stop=stop_after_attempt(5), wait=wait_fixed(2))
+def cls(text: str, model: str, version: int, human: bool, n: int = 3) -> list[StrategyV1 | StrategyV2 | StrategyV3]:
     input_text = get_prompt(text, human, version)
-    try:
-        response = client.beta.chat.completions.parse(
-            model=model,
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You are a skilled conversational analyst."
-                },
-                {
-                    "role": "user",
-                    "content": input_text
-                }
-            ],
-            temperature=0.0,
-            response_format=return_type_list[version - 1],
-        ).choices[0].message
-        if response.parsed:
-            return response.parsed
-        elif response.refusal:
-            print("Refusal!")
-            return cls(text)
-    except LengthFinishReasonError as e:
-        print(f"Too many tokens: {e}")
-    except Exception as e:
-        print(f"Error: {e}")
-    return cls(text)
+    response = client.beta.chat.completions.parse(
+        model=model,
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a skilled conversational analyst."
+            },
+            {
+                "role": "user",
+                "content": input_text
+            }
+        ],
+        temperature=0.0,
+        response_format=return_type_list[version - 1],
+        n=n,
+    )
+    for choice in response.choices:
+        if choice.finish_reason == LengthFinishReasonError:
+            print(f"Length finish reason error: {choice}")
+            raise ValueError("Length finish reason error.")
+        if choice.message.parsed is None:
+            print(f"Response parsing failed: {choice}")
+            raise ValueError("Response parsing failed.")
+    ret = [choice.message.parsed for choice in response.choices]
+    if len(ret) != n:
+        print(f"Response length mismatch: {len(ret)} != {n}")
+        raise ValueError("Response length mismatch.")
+    return ret
 
 def ensemble_answer(answer1: str | int, answer2: str | int, answer3: str | int) -> str | int:
     if isinstance(answer1, str):
@@ -199,25 +203,27 @@ def ensemble_answer(answer1: str | int, answer2: str | int, answer3: str | int) 
         elif answer2 == answer3:
             return answer2
         else:
+            print(f"Disagreement: {answer1}, {answer2}, {answer3}")
             assert False, f"{answer1}, {answer2}, {answer3}"
     else:
         # If max - min <= 2, return the average
         if max(answer1, answer2, answer3) - min(answer1, answer2, answer3) <= 2:
             return (answer1 + answer2 + answer3) // 3 + (1 if (answer1 + answer2 + answer3) % 3 == 2 else 0)
         else:
+            print(f"Disagreement: {answer1}, {answer2}, {answer3}")
             assert False, f"{answer1}, {answer2}, {answer3}"
 
+@retry(stop=stop_after_attempt(5), wait=wait_fixed(2))
 def multi_cls(text: str, model: str, version: int, human: bool) -> dict[str, dict[str, str | int]]:
-    strategy1 = cls(text, model, version, human).model_dump()
-    strategy2 = cls(text, model, version, human).model_dump()
-    strategy3 = cls(text, model, version, human).model_dump()
-    keys = strategy1.keys()
+    strategies = cls(text, model, version, human, n=3)
+    strategies = [strategy.model_dump() for strategy in strategies]
+    keys = strategies[0].keys()
     final_strategy = {}
     for key in keys:
-        final_strategy[key] = ensemble_answer(strategy1[key], strategy2[key], strategy3[key])
+        final_strategy[key] = ensemble_answer(strategies[0][key], strategies[1][key], strategies[2][key])
     return {
         'final': final_strategy,
-        '1': strategy1,
-        '2': strategy2,
-        '3': strategy3
+        '1': strategies[0],
+        '2': strategies[1],
+        '3': strategies[2]
     }

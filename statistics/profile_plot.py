@@ -6,11 +6,14 @@ from scipy.stats import entropy
 from collections import Counter
 
 from read_profile import get_sim_profile, get_human_profile
+from utils import HUMAN_DIR, HUMAN_DIR_V2
 
-plt.rcParams['font.family'] = 'Times New Roman'
+# plt.rcParams['font.family'] = 'Times New Roman'
 
 df1 = get_sim_profile()
-df2 = get_human_profile()
+df2 = get_human_profile(HUMAN_DIR)
+df3 = get_human_profile(HUMAN_DIR_V2)
+df2 = pd.concat([df2, df3], ignore_index=True)
 
 features = ['daily_interests', 'travel_habits', 'dining_preferences', 'spending_habits']
 feature_labels = ['Daily Interests', 'Travel Habits', 'Dining Preferences', 'Spending Habits']
@@ -25,6 +28,14 @@ def plot_tag_distribution(ax: plt.Axes, counter1: Counter, counter2: Counter, ti
     """绘制标签分布对比图"""
     # 获取所有唯一标签
     all_tags = sorted(set(list(counter1.keys()) + list(counter2.keys())))
+
+    # 输出 counter1 与 counter2 top5 的重合度
+    top5_counter1 = counter1.most_common(5)
+    top5_counter2 = counter2.most_common(5)
+    top5_tags1 = [tag for tag, _ in top5_counter1]
+    top5_tags2 = [tag for tag, _ in top5_counter2]
+    overlap = len(set(top5_tags1) & set(top5_tags2))
+    print(f"Top 5 overlap: {overlap} / 5")
 
     # 准备数据
     group1_counts = [counter1.get(tag, 0) for tag in all_tags]
@@ -51,12 +62,12 @@ plt.figure(figsize=(20, 5))
 plt.subplot(1, 4, 1)
 interests_dist1 = analyze_multilabel_distribution(df1['daily_interests'])
 interests_dist2 = analyze_multilabel_distribution(df2['daily_interests'])
-plot_tag_distribution(plt.gca(), interests_dist1, interests_dist2, 'Daily Interests Distribution', 'upper left')
+plot_tag_distribution(plt.gca(), interests_dist1, interests_dist2, 'Daily Interests Distribution', 'upper right')
 
 plt.subplot(1, 4, 2)
 dining_dist1 = analyze_multilabel_distribution(df1['dining_preferences'])
 dining_dist2 = analyze_multilabel_distribution(df2['dining_preferences'])
-plot_tag_distribution(plt.gca(), dining_dist1, dining_dist2, 'Dining Preferences Distribution', 'upper left')
+plot_tag_distribution(plt.gca(), dining_dist1, dining_dist2, 'Dining Preferences Distribution', 'upper center')
 
 plt.subplot(1, 4, 3)
 travel_dist1 = analyze_multilabel_distribution(df1['travel_habits'])
@@ -66,7 +77,7 @@ plot_tag_distribution(plt.gca(), travel_dist1, travel_dist2, 'Travel Habits Dist
 plt.subplot(1, 4, 4)
 spending_dist1 = analyze_multilabel_distribution(df1['spending_habits'])
 spending_dist2 = analyze_multilabel_distribution(df2['spending_habits'])
-plot_tag_distribution(plt.gca(), spending_dist1, spending_dist2, 'Spending Habits Distribution', 'upper left')
+plot_tag_distribution(plt.gca(), spending_dist1, spending_dist2, 'Spending Habits Distribution', 'upper center')
 
 def create_co_occurrence_matrix(series: pd.Series, feature_name: str) -> pd.DataFrame:
     """创建标签共现矩阵"""
