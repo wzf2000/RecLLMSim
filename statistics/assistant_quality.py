@@ -21,6 +21,7 @@ task_translation_reverse = {
 }
 
 rating_keys = ['Detail Level', 'Practical Usefulness', 'Diversity']
+rating_keys_satisfaction = ['detail', 'utility', 'diversity']
 rating_keys_mapping = {
     'Detail Level': 'Detail',
     'Practical Usefulness': 'Availability',
@@ -37,8 +38,9 @@ rating_mapping = {
     '结果单一': 0,
 }
 
-def get_sim_quality() -> dict[str, list[int]]:
-    tasks = ['new travel planning', 'preparing gifts', 'travel planning', 'recipe planning', 'skills learning planning']
+def get_sim_quality(tasks: list[str] | None = None, self_report: bool = False) -> dict[str, list[int]]:
+    if tasks is None:
+        tasks = ['new travel planning', 'preparing gifts', 'travel planning', 'recipe planning', 'skills learning planning']
     quality = {key: [] for key in rating_keys}
     for task in tasks:
         files = os.listdir(os.path.join(SIM_DIR, task))
@@ -47,18 +49,25 @@ def get_sim_quality() -> dict[str, list[int]]:
         for file in files:
             with open(os.path.join(SIM_DIR, task, file), 'r') as f:
                 data = json.load(f)
-            for key in rating_keys:
-                quality[key].append(data['rating'][key])
+            if self_report:
+                for origin_key, key in zip(rating_keys, rating_keys_satisfaction):
+                    quality[origin_key].append(data['satisfaction'][key])
+            else:
+                for key in rating_keys:
+                    quality[key].append(data['rating'][key])
     return quality
 
-def get_human_quality() -> dict[str, list[int]]:
-    tasks = ['preparing gifts', 'travel planning', 'recipe planning', 'skills learning planning']
+def get_human_quality(tasks: list[str] | None = None) -> dict[str, list[int]]:
+    if tasks is None:
+        tasks = ['preparing gifts', 'travel planning', 'recipe planning', 'skills learning planning']
     quality = {key: [] for key in rating_keys}
 
     def update(dir: str):
         users = os.listdir(dir)
         for user in users:
             for task in tasks:
+                if task not in task_translation_reverse:
+                    continue
                 task = task_translation_reverse[task]
                 if not os.path.exists(os.path.join(dir, user, task)):
                     continue
@@ -154,38 +163,47 @@ def plot(ax: plt.Axes, labels: list[str], sizes: list[int], title: str, legend: 
     ax.set_title(title, fontsize=30, fontweight='bold')
 
 if __name__ == '__main__':
-    # quality_data = get_sim_quality()
-    # quality_data = get_human_quality()
-    # plot subplots
-    # fig, axs = plt.subplots(1, len(rating_keys), figsize=(15, 6))
-    # for i, key in enumerate(rating_keys):
-    #     # plot pie chart
-    #     counter = Counter(quality_data[key])
-    #     labels = list(counter.keys())
-    #     sizes = list(counter.values())
-    #     plot(axs[i], labels, sizes, key, legend=(i == len(rating_keys) - 1))
-    # plt.tight_layout()
-    # plt.savefig(os.path.join('figures', 'assistant_quality.pdf'))
-    quality_data_by_model = get_human_quality_by_model()
+    for tasks in [['new travel planning', 'preparing gifts', 'travel planning', 'recipe planning', 'skills learning planning'], ['new travel planning', 'travel planning'], ['recipe planning'], ['preparing gifts'], ['skills learning planning']]:
+        quality_data = get_sim_quality(tasks, self_report=True)
+        # quality_data = get_human_quality(tasks)
+        # plot subplots
+        fig, axs = plt.subplots(1, len(rating_keys), figsize=(15, 6))
+        output = ''
+        for i, key in enumerate(rating_keys):
+            # plot pie chart
+            counter = Counter(quality_data[key])
+            total = sum(counter.values())
+            for rating in [0, 1, 2]:
+                output += f'{counter[rating] / total:.2%}\t'
+            avg_rating = sum(rating * counter[rating] for rating in [0, 1, 2]) / total
+            output += f'{avg_rating:.3f}\t'
+            # labels = list(counter.keys())
+            # sizes = list(counter.values())
+            # plot(axs[i], labels, sizes, key, legend=(i == len(rating_keys) - 1))
+        output = output.strip()
+        print(output)
+        # plt.tight_layout()
+        # plt.savefig(os.path.join('figures', 'assistant_quality.pdf'))
+    # quality_data_by_model = get_human_quality_by_model()
     # Output the mean scores of each model for each rating
     # Latex Table
-    print("\\begin{table}[htbp]")
-    print("\\centering")
-    print('\\begin{threeparttable}[c]')
-    print("\\begin{tabular}{|c|c|c|c|}")
-    print("\\toprule")
-    print("\\textbf{Model} & \\textbf{Detail Level} & \\textbf{Practical Usefulness} & \\textbf{Diversity} \\\\")
-    print("\\midrule")
-    models = quality_data_by_model[rating_keys[0]].keys()
-    for model in models:
-        print(f"\\textbf{{{model}}} & ", end="")
-        for key in rating_keys:
-            mean = np.mean(quality_data_by_model[key][model])
-            print(f"{mean:.4f} & ", end="")
-        print("\\\\")
-    print('\\bottomrule')
-    print("\\end{tabular}")
-    print("\\end{threeparttable}")
-    print("\\caption{Quality of human assistant responses by model}")
-    print("\\label{tab:assistant_quality_by_model}")
-    print("\\end{table}")
+    # print("\\begin{table}[htbp]")
+    # print("\\centering")
+    # print('\\begin{threeparttable}[c]')
+    # print("\\begin{tabular}{|c|c|c|c|}")
+    # print("\\toprule")
+    # print("\\textbf{Model} & \\textbf{Detail Level} & \\textbf{Practical Usefulness} & \\textbf{Diversity} \\\\")
+    # print("\\midrule")
+    # models = quality_data_by_model[rating_keys[0]].keys()
+    # for model in models:
+    #     print(f"\\textbf{{{model}}} & ", end="")
+    #     for key in rating_keys:
+    #         mean = np.mean(quality_data_by_model[key][model])
+    #         print(f"{mean:.4f} & ", end="")
+    #     print("\\\\")
+    # print('\\bottomrule')
+    # print("\\end{tabular}")
+    # print("\\end{threeparttable}")
+    # print("\\caption{Quality of human assistant responses by model}")
+    # print("\\label{tab:assistant_quality_by_model}")
+    # print("\\end{table}")
