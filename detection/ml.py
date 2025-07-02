@@ -33,11 +33,22 @@ class MLModel:
         X_encoded = self.vectorizer.transform(X_test)
         return self.model.predict(X_encoded)
 
-def evaluate_ml(train_data: list[dict], test_data: list[dict], vectorizer: str = 'tfidf', model_name: str = 'RF', profile: bool = False) -> tuple[float, float]:
+def evaluate_ml(train_data: list[dict], test_data: list[dict], vectorizer: str = 'tfidf', model_name: str = 'RF', profile: bool = False, return_model: bool = False) -> tuple[float, float] | MLModel:
     X_train, y_train = preprocess_data_ml(train_data, profile=profile)
     X_test, y_test = preprocess_data_ml(test_data, profile=profile)
     model = MLModel(vectorizer=vectorizer, model_name=model_name)
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
     print(f"Model: {model_name}, Vectorizer: {vectorizer}")
-    return evaluate(y_pred, y_test)
+    if return_model:
+        return model
+    else:
+        return evaluate(y_pred, y_test)
+
+def train_predict_ml(train_data: list[dict], predict_data: list[dict], vectorizer: str = 'tfidf', model_name: str = 'RF', profile: bool = False) -> np.ndarray:
+    X_train, y_train = preprocess_data_ml(train_data, profile=profile)
+    X_predict, _ = preprocess_data_ml(predict_data, profile=profile)
+    model = MLModel(vectorizer=vectorizer, model_name=model_name)
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_predict)
+    return y_pred

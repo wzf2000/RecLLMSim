@@ -57,10 +57,12 @@ def preprocess_data_lm(data_list: list[dict], regression: bool = False, profile:
     y = np.array([data['ground_truth'] for data in data_list], dtype=np.float32 if regression else np.int64)
     return X, y
 
-def preprocess_data_ml(data_list: list[dict], profile: bool = False) -> tuple[list[str], np.ndarray]:
+def preprocess_data_ml(data_list: list[dict], profile: bool = False, labels: bool = True) -> tuple[list[str], np.ndarray] | list[str]:
     def tokenize(text: str) -> str:
         return ' '.join(jieba.cut(text))
 
     X = [tokenize(data['history'] + data['profile'] if profile else data['history']) for data in data_list]
+    if not labels:
+        return X
     y = np.array([data['ground_truth'] for data in data_list])
     return X, y

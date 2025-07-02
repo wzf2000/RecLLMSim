@@ -17,6 +17,28 @@ client = OpenAI(
 )
 
 @retry(stop=stop_after_attempt(3), wait=wait_fixed(3))
+def generate(messages: list[dict[str, str]], model: str) -> str:
+    response = client.chat.completions.create(
+        model=model,
+        messages=messages,
+        temperature=0.6,
+        timeout=60,
+    ).choices[0].message
+    if response.content:
+        content = response.content.strip()
+        if content.startswith('<think>'):
+            content = content.split('</think>')[1].strip()
+        if content.startswith('```json') and content.endswith('```'):
+            content = content[7:-3].strip()
+        return content
+    elif response.refusal:
+        print(f"Refusal: {response.refusal}")
+        assert False, "Refusal"
+    else:
+        print("Error!")
+        assert False, "Error"
+
+@retry(stop=stop_after_attempt(3), wait=wait_fixed(3))
 def predict(messages: list[dict[str, str]], model: str) -> tuple[int, str]:
     response = client.chat.completions.create(
         model=model,
@@ -87,6 +109,18 @@ def _predict_process(messages_list: list[list[dict[str, str]]], model: str, outp
             except Exception as e:
                 print(f"Index {future_to_index[future]} failed with error: {e}")
     return predictions
+
+def get_messages(input_prompt: str) -> list[dict[str, str]]:
+    return [
+        {
+            "role": "system",
+            "content": "You are a skilled conversational analyst."
+        },
+        {
+            "role": "user",
+            "content": input_prompt
+        }
+    ]
 
 def predict_llm(prompts: list[str], model: str, output_file: str) -> list[int]:
     messages_list = []

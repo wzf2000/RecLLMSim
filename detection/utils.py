@@ -4,15 +4,16 @@ import random
 import numpy as np
 
 api_config_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'api_config.json')
+SIM_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'LLM_agent_user')
 HUMAN_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'human_exp_V2')
 
-def conv_format(history: list[dict[str, str]]) -> str:
+def conv_format(history: list[dict[str, str]], content_field: str = 'content') -> str:
     text = ''
     for turn in history:
-        if turn['role'] == 'user':
-            text += f'User: {turn["content"]}\n\n'
+        if turn['role'] == 'user' or turn['role'] == 'USER':
+            text += f'User: {turn[content_field]}\n\n' if content_field in turn else f'User: {turn["text"]}\n\n'
         else:
-            text += f'System: {turn["content"]}\n\n'
+            text += f'System: {turn[content_field]}\n\n' if content_field in turn else f'System: {turn["text"]}\n\n'
     return text
 
 def get_profile(profile: dict) -> str:

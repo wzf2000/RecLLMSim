@@ -57,9 +57,12 @@ def get_reason_data(sample: bool = False, training: bool = True) -> tuple[list[d
                         'user': user,
                         'file_path': os.path.join(dir_name, user, task, file),
                         'history': conv_format(data['history'][:i + 1]),
+                        'origin_response': data['history'][i]['content'],
+                        'user_response': data['history'][i + 1]['content'] if i + 1 < len(data['history']) else '',
                         'origin_history': data['history'][:i + 1],
                         'profile': get_profile(data['profile']),
                         'task_context': data['task_context'],
+                        'satisfaction': satisfaction,
                         'ground_truth': gt_map[gt]
                     })
     print(f"Total data: {len(data_list)}")
@@ -116,9 +119,12 @@ def get_reason_data2(sample: bool = False, training: bool = True) -> tuple[list[
                         'user': user,
                         'file_path': os.path.join(dir_name, user, task, file),
                         'history': conv_format(data['history'][:i + 1]),
+                        'origin_response': data['history'][i]['content'],
+                        'user_response': data['history'][i + 1]['content'] if i + 1 < len(data['history']) else '',
                         'origin_history': data['history'][:i + 1],
                         'profile': get_profile(data['profile']),
                         'task_context': data['task_context'],
+                        'satisfaction': satisfaction,
                         'ground_truth': gt_map[gt]
                     })
     total_len = sum([len(user_data_list[user]) for user in user_data_list])
