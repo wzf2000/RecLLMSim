@@ -2,7 +2,10 @@ import os
 import json
 import streamlit as st
 
-from output_format import InformationRequest, Context, Question, OrderV2, Feedback, Rating
+from output_format import (
+    InformationRequest, Context, Question, OrderV2, Feedback, Rating,
+    Explanation, Promise, Politeness, Formality
+)
 from basic_info import SIM_DIR, HUMAN_DIR
 
 def label_single(history: list[dict[str, str]], version: int, human: bool = False) -> dict[str, str]:
@@ -30,12 +33,17 @@ def label_single(history: list[dict[str, str]], version: int, human: bool = Fals
             strategy['final']['question_broadness'] = st.select_slider('Question Broadness', options=[Rating.One.value, Rating.Two.value, Rating.Three.value, Rating.Four.value, Rating.Five.value])
             strategy['final']['context_dependency'] = st.select_slider('Context Dependency', options=[Rating.One.value, Rating.Two.value, Rating.Three.value, Rating.Four.value, Rating.Five.value])
             strategy['final']['feedback'] = st.selectbox('Feedback', [Feedback.NoFeedback.value, Feedback.Positive.value, Feedback.Negative.value, Feedback.Both.value])
+        elif version == 4:
+            strategy['final']['explanation'] = st.selectbox('Explanation', [Explanation.Frequent.value, Explanation.Rare.value, Explanation.NoExplanation.value])
+            strategy['final']['promise'] = st.selectbox('Promise', [Promise.HavePromise.value, Promise.NoPromise.value])
+            strategy['final']['politeness'] = st.selectbox('Politeness', [Politeness.Polite.value, Politeness.Neutral.value, Politeness.Impolite.value])
+            strategy['final']['formality'] = st.selectbox('Formality', [Formality.Oral.value, Formality.Formal.value])
         if st.button('Submit'):
             return strategy
         else:
             return {}
 
-def label_sim(version: int, strategy_name: str, compare_name: str, sample: bool = False):
+def label_sim(version: int, strategy_name: str, compare_name: str, sample: int):
     dir_name = SIM_DIR
     task_list = ['new travel planning', 'preparing gifts', 'travel planning', 'recipe planning', 'skills learning planning']
 
@@ -44,8 +52,7 @@ def label_sim(version: int, strategy_name: str, compare_name: str, sample: bool 
     files = os.listdir(os.path.join(dir_name, task))
     files = [file for file in files if file.endswith('.json')]
     files.sort(key=lambda x: x.split('.')[0])
-    if sample:
-        files = files[:10]
+    files = files[:sample] if sample > 0 else files
 
     right = {}
 
@@ -69,22 +76,41 @@ def label_sim(version: int, strategy_name: str, compare_name: str, sample: bool 
     for key in right:
         st.markdown(f'{key}: {sum(right[key]) / len(right[key])} ({sum(right[key])} / {len(right[key])})')
 
-def label_human(version: int, strategy_name: str, compare_name: str, sample: bool = False):
-    dir_name = HUMAN_DIR
+def label_human(version: int, strategy_name: str, compare_name: str, sample: int):
+    dir_name1 = HUMAN_DIR
+    dir_name2 = os.path.join(HUMAN_DIR, '..', 'human_exp_V2')
     task_list = ['旅行规划', '礼物准备', '菜谱规划', '技能学习规划']
-    users = os.listdir(dir_name)
-    users.sort()
+    users1 = os.listdir(dir_name1)
+    users1 = [user for user in users1 if os.path.isdir(os.path.join(dir_name1, user))]
+    users1.sort()
+    users2 = os.listdir(dir_name2)
+    users2 = [user for user in users2 if os.path.isdir(os.path.join(dir_name2, user))]
+    users2.sort()
+
+    part1_len = len(users1)
+    part2_len = len(users2)
+    belongs = [1] * part1_len + [2] * part2_len
+    users = users1 + users2
+    # shuffule users & belongs
+    import random
+    random.seed(42)  # For reproducibility
+    combined = list(zip(users, belongs))
+    random.shuffle(combined)
+    users, belongs = zip(*combined)
 
     task = st.selectbox('Task', task_list)
 
-    users = [user for user in users if os.path.exists(os.path.join(dir_name, user, task))]
-    if sample:
-        users = users[:10]
+    users = users[:sample] if sample > 0 else users
+    belongs = belongs[:sample] if sample > 0 else belongs
 
     right = {}
     errors = {}
 
-    for i, user in enumerate(users):
+    for i, (user, belong) in enumerate(zip(users, belongs)):
+        if belong == 1:
+            dir_name = dir_name1
+        else:
+            dir_name = dir_name2
         if not os.path.exists(os.path.join(dir_name, user, task)):
             continue
         files = os.listdir(os.path.join(dir_name, user, task))
@@ -124,13 +150,13 @@ def label_human(version: int, strategy_name: str, compare_name: str, sample: boo
 def main():
     st.set_page_config(page_title='Human Label', layout='wide')
     st.sidebar.markdown('### Version')
-    version = st.sidebar.selectbox('Version', [1, 2, 3])
-    sample = st.sidebar.checkbox('Sample')
+    version = st.sidebar.selectbox('Version', [1, 2, 3, 4])
+    sample = st.sidebar.number_input('Sample Size', min_value=0, max_value=2500, value=10, step=1)
 
     st.sidebar.markdown('### Mode')
     mode = st.sidebar.selectbox('Mode', ['Simulation', 'Human'])
-    strategy_name = 'strategy_human' if version == 1 else 'strategy_human_V2' if version == 2 else 'strategy_human_V3'
-    compare_name = 'strategy' if version == 1 else 'strategy_V2' if version == 2 else 'strategy_V3'
+    strategy_name = 'strategy_human' if version == 1 else 'strategy_human_V2' if version == 2 else 'strategy_human_V3' if version == 3 else 'strategy_human_V4'
+    compare_name = 'strategy' if version == 1 else 'strategy_V2' if version == 2 else 'strategy_V3' if version == 3 else 'strategy_V4'
 
     if mode == 'Simulation':
         label_sim(version, strategy_name, compare_name, sample)

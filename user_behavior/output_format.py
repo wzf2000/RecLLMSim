@@ -1,6 +1,9 @@
 from enum import Enum
 from pydantic import BaseModel
 
+class StrategyType(BaseModel):
+    pass
+
 class InformationRequest(str, Enum):
     Planning = 'Planning'
     Sequential = 'Sequential'
@@ -24,19 +27,37 @@ class OrderV2(str, Enum):
     DepthBreadth = 'DepthBreadth'
     BreadthDepth = 'BreadthDepth'
 
+class Explanation(str, Enum):
+    Frequent = 'Frequent'
+    Rare = 'Rare'
+    NoExplanation = 'NoExplanation'
+
+class Promise(str, Enum):
+    HavePromise = 'HavePromise'
+    NoPromise = 'NoPromise'
+
 class Feedback(str, Enum):
     NoFeedback = 'NoFeedback'
     Positive = 'Positive'
     Negative = 'Negative'
     Both = 'Both'
 
-class StrategyV1(BaseModel):
+class Politeness(str, Enum):
+    Polite = 'Polite'
+    Neutral = 'Neutral'
+    Impolite = 'Impolite'
+
+class Formality(str, Enum):
+    Oral = 'Oral'
+    Formal = 'Formal'
+
+class StrategyV1(StrategyType):
     information_request: InformationRequest
     order: OrderV1
     context: Context
     question: Question
 
-class StrategyV2(BaseModel):
+class StrategyV2(StrategyType):
     order: OrderV2
     feedback: Feedback
 
@@ -47,7 +68,17 @@ class Rating(int, Enum):
     Four = 4
     Five = 5
 
-class StrategyV3(BaseModel):
+class StrategyV3(StrategyType):
     question_broadness: Rating
     context_dependency: Rating
     feedback: Feedback
+
+class StrategyV4(StrategyType):
+    context_dependency: Rating
+    explanation: Explanation
+    promise: Promise
+    feedback: Feedback
+    politeness: Politeness
+    formality: Formality
+
+strategy_list: list[type[StrategyType]] = [StrategyV1, StrategyV2, StrategyV3, StrategyV4]

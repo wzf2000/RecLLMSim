@@ -47,5 +47,7 @@ def count_filed(strategy_field: str, heads: list[str]):
 if __name__ == '__main__':
     file_dir = OUTPUT_DIR
     os.makedirs(file_dir, exist_ok=True)
-    count_filed('strategy_V3', ['question_broadness_1', 'question_broadness_2', 'question_broadness_3', 'question_broadness_4', 'question_broadness_5', 'context_dependency_1', 'context_dependency_2', 'context_dependency_3', 'context_dependency_4', 'context_dependency_5', 'feedback_NoFeedback', 'feedback_Positive', 'feedback_Negative', 'feedback_Both'])
-    count_filed('strategy', ['information_request_Sequential', 'information_request_Planning'])
+    # count_filed('strategy_V3', ['question_broadness_1', 'question_broadness_2', 'question_broadness_3', 'question_broadness_4', 'question_broadness_5', 'context_dependency_1', 'context_dependency_2', 'context_dependency_3', 'context_dependency_4', 'context_dependency_5', 'feedback_NoFeedback', 'feedback_Positive', 'feedback_Negative', 'feedback_Both'])
+    # count_filed('strategy', ['information_request_Sequential', 'information_request_Planning'])
+    # count_filed('strategy_V2', ['order_Depth', 'order_Breadth', 'order_DepthBreadth', 'order_BreadthDepth'])
+    count_filed('strategy_V4', ['context_dependency_1', 'context_dependency_2', 'context_dependency_3', 'context_dependency_4', 'context_dependency_5', 'explanation_Frequent', 'explanation_Rare', 'explanation_NoExplanation', 'promise_HavePromise', 'promise_NoPromise', 'feedback_NoFeedback', 'feedback_Positive', 'feedback_Negative', 'feedback_Both', 'politeness_Polite', 'politeness_Neutral', 'politeness_Impolite', 'formality_Oral', 'formality_Formal'])

@@ -3,7 +3,7 @@ import json
 from openai import LengthFinishReasonError, OpenAI
 from tenacity import retry, stop_after_attempt, wait_fixed
 
-from output_format import StrategyV1, StrategyV2, StrategyV3
+from output_format import strategy_list, StrategyType
 
 api_config_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'api_config.json')
 
@@ -126,7 +126,58 @@ aspect_list = ["""1. **User Strategy Type**: Determine whether the user's approa
 
 - **Both:**
   Across multiple turns in the conversation, the user provides both explicit positive and explicit negative feedback in different parts of the interaction.
-  *Example:* In one turn, the user says, "Thanks, that’s really helpful!" (Positive), and in another turn, they say, "Actually, that’s not what I meant" (Negative)."""]
+  *Example:* In one turn, the user says, "Thanks, that’s really helpful!" (Positive), and in another turn, they say, "Actually, that’s not what I meant" (Negative).""", """### Interaction Style
+
+1. **Context Dependency** (How much the user's questions depend on prior context or information in the conversation):
+    - **1 - Very Independent:**
+      The user's questions are mostly self-contained and do not rely on prior context.
+      *Example:* "What is the best way to make pasta?"
+
+    - **2 - Independent:**
+      The user's questions have minimal reliance on prior context, with only occasional connections to previous questions.
+      *Example:* "What’s a good gift for a teenager?" followed by "How about for someone who loves art?"
+
+    - **3 - Moderately Dependent:**
+      The user's questions partially build on prior context, showing some reliance on earlier parts of the conversation.
+      *Example:* "What are some tips for learning guitar chords?" followed by "Can you recommend exercises for switching between them quickly?"
+
+    - **4 - Dependent:**
+      The user's questions strongly depend on prior context and directly reference earlier discussions.
+      *Example:* "What are the best walking routes in Rome?" followed by "Are there any good restaurants along those routes?"
+
+    - **5 - Very Dependent:**
+      The user's questions are completely tied to prior context, making them difficult to understand without the preceding conversation.
+      *Example:* "Which one would you recommend?" following a detailed discussion about several specific gift ideas.
+
+2. **Explanation**: Determine whether the user explain reasons behind their requests. Note that any request for the assistant's response itself does not count as an explanation (any phrase that you need to respond is not considered explanation).
+      *No Explnation Example:* "I would prefer public transportation."
+      *Explanation Example:* "I would prefer public transportation as it would allow me to immerse myself more in the local culture."
+    - **Frequent Explanation**: The user consistently provides explanations of the reasons behind their requests.
+    - **Rare Explanation**: The user sometimes provides explanations of the resons behind their requests.
+    - **No Explanation**: Throughout the multi-turn dialogue, the user does not provide any explanation of reasons behind their requests.
+
+3. **Promise**
+    - **Have Promise**: The user promises that they will take the next action as recommended by the assitant.
+        *Eample:* "I will certainly book the group tours in advance as you've suggested."
+    - **No Promise**: The user has not promised to take action based on the recommendation by the assistant.
+
+4. **Feedback Attitude**:
+    - **No Feedback**: Throughout the multi-turn dialogue, the user does not provide any feedback or reaction to the responses received, proceeding with their inquiries without acknowledging the answers.
+    - **Positive Feedback**: The user consistently provides affirmative or approving responses to the information received throughout the interaction, indicating satisfaction or agreement.
+    - **Negative Feedback**: The user consistently expresses dissatisfaction or disagreement with the responses during the interaction, possibly indicating the information was unhelpful or incorrect.
+    - **Both Feedback**: The user provides both positive and negative feedback at different times throughout the dialogue, showing varied reactions depending on the responses.
+
+5. **Politeness**
+    - **Polite**: The user's language style is always very polite.
+        *Example:* "Thank you very much for the detailed instructions on booking the shuttle.“
+    - **Neutral**: The user's language style is neutral, neither overly polite nor rude. The normal tone is considered neutral.
+    - **Impolite**: The user has not promised to take action based on the recommendation by the assistant.
+        *Example:* "This is too damn expensive."
+
+6. **Oral or Formal**
+    - **Oral**: The user's language style is always oral.
+    - **Formal**: The user's language style is always formal.
+    - **Mix**: The user's language style is sometimes oral and sometimes formal. """]
 
 format_list = ["""{
     "planning": "Planning/Sequential",
@@ -140,9 +191,14 @@ format_list = ["""{
     "question_broadness": "1-5",
     "context_dependency": "1-5",
     "feedback": "NoFeedback/Positive/Negative/Both"
+}""", """{
+    "context_dependency": "1-5",
+    "explanation": "Frequent/Rare/No",
+    "promise": "Have/no",
+    "feedback": "NoFeedback/Positive/Negative/Both"
+    "politeness": "Polite/Neutral/Impolite",
+    "formality": "Oral/Formal"
 }"""]
-
-return_type_list = [StrategyV1, StrategyV2, StrategyV3]
 
 def conv_format(history: list[dict[str, str]]) -> str:
     text = ''
@@ -165,7 +221,7 @@ def get_prompt(text: str, human: bool, version: int) -> str:
     return prompt
 
 @retry(stop=stop_after_attempt(5), wait=wait_fixed(2))
-def cls(text: str, model: str, version: int, human: bool, n: int = 3) -> list[StrategyV1 | StrategyV2 | StrategyV3]:
+def cls(text: str, model: str, version: int, human: bool, n: int = 3) -> list[StrategyType]:
     input_text = get_prompt(text, human, version)
     response = client.beta.chat.completions.parse(
         model=model,
@@ -180,7 +236,7 @@ def cls(text: str, model: str, version: int, human: bool, n: int = 3) -> list[St
             }
         ],
         temperature=0.0,
-        response_format=return_type_list[version - 1],
+        response_format=strategy_list[version - 1],
         n=n,
     )
     for choice in response.choices:
