@@ -1,4 +1,4 @@
-# Human Vs. Agent: A Comprehensive Analysis of Task-Oriented Conversations with LLMs
+# When Synthetic Meets Real: Boosting User Profile Identification in Task-Oriented Conversations through Agent Simulation
 
 ## Data
 
@@ -56,7 +56,6 @@ Check the `readme.md` file in the `RecUserSim` folder for more details.
 - `LLM_agent_user`: The conversation data constructed by the LLM agent users.
 - `RecUserSim`: The code for the user simulator framework.
 - `README.md`: This file.
-- `user_behavior`: Automatically label method for user behavior analysis.
 - `user_profiling`: The code for our profile identification experiments.
 - `statistics`: The code for the statistics of the dataset.
 
