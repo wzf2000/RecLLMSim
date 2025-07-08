@@ -3,7 +3,7 @@ import json
 from openai import LengthFinishReasonError, OpenAI
 from tenacity import retry, stop_after_attempt, wait_fixed
 
-from output_format import strategy_list, StrategyType
+from output_format import strategy_list, template_ids, StrategyType
 
 api_config_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'api_config.json')
 
@@ -15,7 +15,7 @@ client = OpenAI(
     api_key=api_config['api_key']
 )
 
-prompt_template = """You are a skilled conversational analyst. Your task is to evaluate a given dialogue in [Language] between a user and a system to identify several aspects of the user's inquiry strategy. Specifically, you need to classify each aspect as follows:
+prompt_templates = ["""You are a skilled conversational analyst. Your task is to evaluate a given dialogue in [Language] between a user and a system to identify several aspects of the user's inquiry strategy. Specifically, you need to classify each aspect as follows:
 
 [Insert Aspects Here]
 
@@ -36,11 +36,28 @@ The output should be in JSON format, structured like this:
 [Insert JSON Format Here]
 ```
 
-**Your Response:**"""
+**Your Response:**""", """You are a skilled conversational analyst. Your task is to evaluate a given dialogue between a user and a system (assistant) to identify several aspects of assistant’s answers. Specifically, you need to classify each aspect as follows:
 
-human_prompt_template = prompt_template.replace('[Language]', 'Chinese')
+[Insert Aspects Here]
 
-sim_prompt_template = prompt_template.replace('[Language]', 'English')
+**Instructions:**
+
+1. Review the entire dialogue between the user and the assistant.
+2. For each aspect, identify key indicators based on the assistant’s answers.
+3. Provide classifications for each aspect and justify your decisions with examples from the dialogue.
+
+**Dialogue:**
+
+[Insert Dialogue Here]
+
+**Output Format:**
+
+The output should be in JSON format, structured like this:
+```json
+[Insert JSON Format Here]
+```
+
+**Your Response:**"""]
 
 aspect_list = ["""1. **User Strategy Type**: Determine whether the user's approach is best described as a "Planning-Oriented Inquiry" or a "Sequential Information Request".
    - **Planning-Oriented Inquiry**: The user explicitly requests information in a structured manner, often outlining steps, sequences, or processes to achieve a particular goal.
@@ -149,17 +166,18 @@ aspect_list = ["""1. **User Strategy Type**: Determine whether the user's approa
       The user's questions are completely tied to prior context, making them difficult to understand without the preceding conversation.
       *Example:* "Which one would you recommend?" following a detailed discussion about several specific gift ideas.
 
-2. **Explanation**: Determine whether the user explain reasons behind their requests. Note that any request for the assistant's response itself does not count as an explanation (any phrase that you need to respond is not considered explanation).
-      *No Explnation Example:* "I would prefer public transportation."
+2. **Explanation**: Assess how often the user provides reasons for their requests or preferences during the conversation.
+      *No Explanation Example:* "I would prefer public transportation."
       *Explanation Example:* "I would prefer public transportation as it would allow me to immerse myself more in the local culture."
-    - **Frequent Explanation**: The user consistently provides explanations of the reasons behind their requests.
-    - **Rare Explanation**: The user sometimes provides explanations of the resons behind their requests.
-    - **No Explanation**: Throughout the multi-turn dialogue, the user does not provide any explanation of reasons behind their requests.
+    - **Frequent Explanation**: The user clearly explains their reasoning in two or more turns. 
+    - **Rare Explanation**: The user gives a reason in only one turn during the entire conversation.
+    - **No Explanation**: The user does not provide any reason or justification for their requests or preferences in any turn.
 
 3. **Promise**
-    - **Have Promise**: The user promises that they will take the next action as recommended by the assitant.
+    - **Have Promise**: The user explicitly confirms they will follow the assistant’s suggestion. This includes firm expressions of future intent, agreement to act, or direct statements of commitment. 
         *Eample:* "I will certainly book the group tours in advance as you've suggested."
-    - **No Promise**: The user has not promised to take action based on the recommendation by the assistant.
+    - **No Promise**: The user does not confirm they will follow the assistant’s suggestion. They may show appreciation, ask follow-up questions, or change the topic, but do not state any intent to act. 
+        *Example:* “Thanks for the suggestion, that’s helpful.”
 
 4. **Feedback Attitude**:
     - **No Feedback**: Throughout the multi-turn dialogue, the user does not provide any feedback or reaction to the responses received, proceeding with their inquiries without acknowledging the answers.
@@ -176,8 +194,23 @@ aspect_list = ["""1. **User Strategy Type**: Determine whether the user's approa
 
 6. **Oral or Formal**
     - **Oral**: The user's language style is always oral.
-    - **Formal**: The user's language style is always formal.
-    - **Mix**: The user's language style is sometimes oral and sometimes formal. """]
+    - **Formal**: The user's language style is always formal.""", """### Conversation Evaluation
+1. **Utility**: Measures whether the assistant's suggestion aligns with the user's intent and provides substantive value toward solving their task.
+    - **High Utility**: Assistant directly addresses the user’s request with relevant and helpful suggestions.
+      *Example:* Specific restaurant recommendations that match stated preferences.
+    - **Moderate Utility**: Assistant's answers are somewhat helpful, but contains irrelevant, generic, or partially mismatched information.
+      *Example:* Broad tourist ideas without user constraints considered.
+    - **Low Utility**: Assistant fails to address the user’s need or goes off-topic. 
+      *Example:* Recommends travel gear when user asked about travel plan.
+
+2. **Operability**: Evaluates whether the assistant’s recommendation is concrete, executable, and feasible in a real-world setting.
+    - **High Operability**: Assistant provides clear next steps, specific actions, or well-defined options.
+      *Example:* “Book a 7 PM sushi class at Tsukiji Market.”
+    - **Moderate Operability**: Assistant provides general advice, lacks specifics but can still guide user action.
+      *Example:* “Try searching for cooking classes in Tokyo.”
+    - **Low Operability**: Assistant's answers are too vague, aspirational, or impractical to implement.
+      *Example:* “Immerse yourself in local culture through exploration.”
+"""]
 
 format_list = ["""{
     "planning": "Planning/Sequential",
@@ -198,6 +231,9 @@ format_list = ["""{
     "feedback": "NoFeedback/Positive/Negative/Both"
     "politeness": "Polite/Neutral/Impolite",
     "formality": "Oral/Formal"
+}""", """{
+    "utility": "High/Moderate/Low",
+    "operability": "High/Moderate/Low"
 }"""]
 
 def conv_format(history: list[dict[str, str]]) -> str:
@@ -210,7 +246,7 @@ def conv_format(history: list[dict[str, str]]) -> str:
     return text
 
 def get_prompt(text: str, human: bool, version: int) -> str:
-    prompt = prompt_template
+    prompt = prompt_templates[template_ids[version - 1]]
     if human:
         prompt = prompt.replace('[Language]', 'Chinese')
     else:

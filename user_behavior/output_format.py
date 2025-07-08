@@ -68,6 +68,11 @@ class Rating(int, Enum):
     Four = 4
     Five = 5
 
+class Usefulness(str, Enum):
+    High = 'High'
+    Moderate = 'Moderate'
+    Low = 'Low'
+
 class StrategyV3(StrategyType):
     question_broadness: Rating
     context_dependency: Rating
@@ -81,4 +86,9 @@ class StrategyV4(StrategyType):
     politeness: Politeness
     formality: Formality
 
-strategy_list: list[type[StrategyType]] = [StrategyV1, StrategyV2, StrategyV3, StrategyV4]
+class StrategyV5(StrategyType):
+    utility: Usefulness
+    operability: Usefulness
+
+strategy_list: list[type[StrategyType]] = [StrategyV1, StrategyV2, StrategyV3, StrategyV4, StrategyV5]
+template_ids: list[int] = [0, 0, 0, 0, 1]

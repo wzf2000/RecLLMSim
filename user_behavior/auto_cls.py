@@ -1,5 +1,6 @@
 import os
 import json
+import argparse
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -28,7 +29,7 @@ def cls_sim(version: int, model: str, strategy_name: str, compare_strategy_name:
                 right[key].append(data[strategy_name]['final'][key] == data[compare_strategy_name]['final'][key])
 
         def process_single(file: str):
-            with open(os.path.join(dir_name, task, file), 'r') as f:
+            with open(file, 'r') as f:
                 data = json.load(f)
             if strategy_name not in data:
                 try:
@@ -36,7 +37,7 @@ def cls_sim(version: int, model: str, strategy_name: str, compare_strategy_name:
                 except Exception:
                     print(f'Error processing {file}')
                     return
-                with open(os.path.join(dir_name, task, file), 'w') as fw:
+                with open(file, 'w') as fw:
                     json.dump(data, fw, ensure_ascii=False, indent=4)
             if compare_strategy_name is not None:
                 compare_count(data, strategy_name, compare_strategy_name)
@@ -97,17 +98,29 @@ def cls_human(version: int, model: str, strategy_name: str, compare_strategy_nam
         for key in right:
             print(f'{key}: {sum(right[key]) / len(right[key])}')
 
+def parse_args():
+    parser = argparse.ArgumentParser(description='Classify user strategies based on model and version.')
+    parser.add_argument('-t', '--task', type=str, choices=['sim', 'human'], required=True,
+                        help='Task type: "sim" for simulated data, "human" for human data.')
+    parser.add_argument('-v', '--version', type=int, required=True, help='Version of the classification model.')
+    parser.add_argument('-m', '--model', type=str, required=True, help='Model to use for classification.')
+    parser.add_argument('-s', '--strategy_name', type=str, required=True, help='Name of the strategy to classify.')
+    parser.add_argument('-c', '--compare_strategy_name', type=str, default=None, help='Name of the strategy to compare against.')
+    parser.add_argument('-d', '--dir_name', type=str, default=None, help='Directory name for the data.')
+    parser.add_argument('--sample', action='store_true', help='Sample a subset of data for classification.')
+    args = parser.parse_args()
+    if args.dir_name is None:
+        args.dir_name = SIM_DIR if args.task == 'sim' else HUMAN_DIR
+    return args
+
 if __name__ == '__main__':
-    # cls_sim(1, 'gpt-4o-2024-11-20', 'strategy_1120', 'strategy', True)
-    # cls_sim(2, 'gpt-4o-2024-11-20', 'strategy_V2_1120', 'strategy_V2', True)
-    # cls_human(1, 'gpt-4o-2024-11-20', 'strategy_1120', 'strategy')
-    # cls_human(2, 'gpt-4o-2024-11-20', 'strategy_V2_1120', 'strategy_V2')
-    # cls_sim(3, 'gpt-4o-2024-08-06', 'strategy_V3', None)
-    # cls_sim(3, 'gpt-4o-2024-08-06', 'strategy_V3', None, False, os.path.join(SIM_DIR, '..', 'addition_simulated', 'claude'))
-    # cls_sim(3, 'gpt-4o-2024-08-06', 'strategy_V3', None, False, os.path.join(SIM_DIR, '..', 'addition_simulated', 'gemini'))
-    # cls_human(3, 'gpt-4o-2024-08-06', 'strategy_V3', None, os.path.join(HUMAN_DIR, '..', 'human_exp_V2'))
-    # cls_human(1, 'gpt-4o-2024-08-06', 'strategy', None, os.path.join(HUMAN_DIR, '..', 'human_exp_V2'))
-    # cls_human(2, 'gpt-4o-2024-08-06', 'strategy_V2', None, os.path.join(HUMAN_DIR, '..', 'human_exp_V2'))
-    # cls_human(4, 'gpt-4o-2024-08-06', 'strategy_V4', None, HUMAN_DIR)
-    # cls_human(4, 'gpt-4o-2024-08-06', 'strategy_V4', None, os.path.join(HUMAN_DIR, '..', 'human_exp_V2'))
-    cls_sim(4, 'gpt-4o-2024-08-06', 'strategy_V4', None, False, SIM_DIR)
+    args = parse_args()
+    if args.task == 'sim':
+        cls_sim(args.version, args.model, args.strategy_name, args.compare_strategy_name, args.sample, args.dir_name)
+    elif args.task == 'human':
+        cls_human(args.version, args.model, args.strategy_name, args.compare_strategy_name, args.dir_name)
+    else:
+        raise ValueError("Invalid task type. Use 'sim' for simulated data or 'human' for human data.")
+# Example usage:
+# python auto_cls.py -t sim -v 4 -m gpt-4o-2024-08-06 -s strategy_V4 -d ../LLM_agent_users --sample
+# python auto_cls.py -t human -v 4 -m gpt-4o-2024-08-06 -s strategy_V4 -d ../real_human_users
