@@ -1,6 +1,7 @@
 import os
 import random
 import json
+from typing import Literal, overload
 from sklearn.model_selection import train_test_split
 
 from utils import get_profile, conv_format, HUMAN_DIR
@@ -23,6 +24,11 @@ gt_map_reverse = {
     5: '满意'
 }
 
+@overload
+def get_merge_data(sample: bool = False, training: Literal[False] = False) -> tuple[list[dict], dict[int, str]]: ...
+
+@overload
+def get_merge_data(sample: bool = False, training: Literal[True] = True) -> tuple[list[dict], list[dict]]: ...
 
 def get_merge_data(sample: bool = False, training: bool = True) -> tuple[list[dict], dict[int, str]] | tuple[list[dict], list[dict]]:
     random.seed(42)

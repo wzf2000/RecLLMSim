@@ -12,7 +12,7 @@ def count_sample(pool: str):
         count += 1
     return count
 
-def build_preference_pool(prompt: str, cont: str, version: int, pool_size: int = 50, model: str = None):
+def build_preference_pool(prompt: str, cont: str, version: int, pool_size: int = 50, model: str | None = None):
     if model is not None:
         chatbot = get_chatbot(model=model)
     else:

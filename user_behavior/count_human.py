@@ -3,7 +3,7 @@ import json
 
 from basic_info import HUMAN_DIR, OUTPUT_DIR
 
-def count_filed(strategy_field: str, heads: list[str], chat_model: str = None, only_all: bool = False):
+def count_filed(strategy_field: str, heads: list[str], chat_model: str | None = None, only_all: bool = False):
     if only_all:
         task_lists = [['旅行规划', '礼物准备', '菜谱规划', '技能学习规划']]
     else:

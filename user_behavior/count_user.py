@@ -56,7 +56,7 @@ for task_list in [['旅行规划', '礼物准备', '菜谱规划', '技能学习
         print(len(max_freq[key]), len([x for x in max_freq[key] if x > 0.8]))
     for key in freq_dict:
         # plot the distribution of the key
-        plt.hist(freq_dict[key], bins=10, range=[0, 1], edgecolor='white')
+        plt.hist(freq_dict[key], bins=10, range=(0, 1), edgecolor='white')
         plt.xlabel(f'Frequency of {key.replace("_", " ")}')
         plt.ylabel('User Count')
         plt.title(f'Distribution of {key.replace("_", " ")}')

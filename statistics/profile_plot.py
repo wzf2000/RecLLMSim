@@ -24,7 +24,7 @@ def analyze_multilabel_distribution(series: pd.Series) -> Counter:
     all_tags = [tag for tags in series for tag in tags if tag != 'Others']
     return Counter(all_tags)
 
-def plot_tag_distribution(ax: plt.Axes, counter1: Counter, counter2: Counter, title: str, legend_loc: str):
+def plot_tag_distribution(ax: plt.Axes, counter1: Counter, counter2: Counter, title: str, legend_loc: str): # type: ignore
     """绘制标签分布对比图"""
     # 获取所有唯一标签
     all_tags = sorted(set(list(counter1.keys()) + list(counter2.keys())))
@@ -120,11 +120,12 @@ def create_co_occurrence_matrix(series: pd.Series, feature_name: str) -> pd.Data
 # # age distribution
 
 def categorize_age(age: int) -> str:
-    age_splits = [18, 26, 36, 50, 66, 100]
+    age_splits = [18, 26, 36, 50, 66]
     age_labels = ['0-18', '19-26', '27-36', '37-50', '51-66', '67+']
     for i, split in enumerate(age_splits):
         if age < split:
             return age_labels[i]
+    return age_labels[-1]
 
 df1['age'] = df1['age'].apply(lambda x: int(x))
 df1['age_categorized'] = df1['age'].apply(categorize_age)

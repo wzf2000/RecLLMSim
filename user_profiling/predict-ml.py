@@ -33,7 +33,7 @@ class Model():
         elif strategy == 'MultiOutput':
             self.model = MultiOutputClassifier(model)
         elif strategy == 'ClassifierChain':
-            self.model = ClassifierChain(model, order='random', random_state=42)
+            self.model = ClassifierChain(model, order='random', random_state=42) # type: ignore
         else:
             raise NotImplementedError
 
@@ -46,7 +46,9 @@ class Model():
 
     def predict(self, X_test: np.ndarray) -> np.ndarray:
         X_encoded = self.vectorizer.transform(X_test)
-        return self.model.predict(X_encoded)
+        ret = self.model.predict(X_encoded)
+        assert isinstance(ret, np.ndarray), f"Expected output type is np.ndarray, but got {type(ret)}"
+        return ret
 
     def predict_proba(self, X_test: np.ndarray) -> np.ndarray:
         X_encoded = self.vectorizer.transform(X_test)
@@ -56,7 +58,7 @@ class Model():
         else:
             return self.model.predict_proba(X_encoded)
 
-def work(X_train: list[str], y_train: np.ndarray, X_test: list[str], y_test: np.ndarray, item: str, model_name: str, labels: np.ndarray, ckpt_dir_name: str | None = None, **kwargs) -> dict[str, float]:
+def work(X_train: np.ndarray, y_train: np.ndarray, X_test: np.ndarray, y_test: np.ndarray, item: str, model_name: str, labels: np.ndarray, ckpt_dir_name: str | None = None, **kwargs) -> dict[str, float]:
     print(item, y_train.shape, y_test.shape)
     Type, strategy = model_name.split('-')
     model = Model(Type, strategy, **kwargs)

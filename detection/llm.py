@@ -2,6 +2,7 @@ import os
 import json
 from tqdm import tqdm
 from openai import OpenAI
+from openai.types.chat import ChatCompletionAssistantMessageParam, ChatCompletionUserMessageParam, ChatCompletionSystemMessageParam, ChatCompletionMessageParam
 from tenacity import retry, stop_after_attempt, wait_fixed
 from threading import Lock
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -17,7 +18,7 @@ client = OpenAI(
 )
 
 @retry(stop=stop_after_attempt(3), wait=wait_fixed(3))
-def generate(messages: list[dict[str, str]], model: str) -> str:
+def generate(messages: list[ChatCompletionMessageParam], model: str) -> str:
     response = client.chat.completions.create(
         model=model,
         messages=messages,
@@ -39,7 +40,7 @@ def generate(messages: list[dict[str, str]], model: str) -> str:
         assert False, "Error"
 
 @retry(stop=stop_after_attempt(3), wait=wait_fixed(3))
-def predict(messages: list[dict[str, str]], model: str) -> tuple[int, str]:
+def predict(messages: list[ChatCompletionMessageParam], model: str) -> tuple[int, str]:
     response = client.chat.completions.create(
         model=model,
         messages=messages,
@@ -55,13 +56,13 @@ def predict(messages: list[dict[str, str]], model: str) -> tuple[int, str]:
         if content.startswith('{'):
             parsed = json.loads(content)
             if hasattr(response, 'reasoning_content'):
-                return parsed['classification'], response.reasoning_content + '\n\n' + response.content
+                return parsed['classification'], response.reasoning_content + '\n\n' + response.content # type: ignore
             else:
                 return parsed['classification'], response.content
         else:
             assert content[0] in ['0', '1', '2', '3', '4', '5'], f"Invalid prediction: {response.content}"
             if hasattr(response, 'reasoning_content'):
-                return int(content[0]), response.reasoning_content + '\n\n' + response.content
+                return int(content[0]), response.reasoning_content + '\n\n' + response.content # type: ignore
             else:
                 return int(content[0]), response.content
     elif response.refusal:
@@ -71,8 +72,9 @@ def predict(messages: list[dict[str, str]], model: str) -> tuple[int, str]:
         print("Error!")
         assert False, "Error"
 
-def _predict_process(messages_list: list[list[dict[str, str]]], model: str, output_file: str) -> list[int]:
+def _predict_process(messages_list: list[list[ChatCompletionMessageParam]], model: str, output_file: str) -> list[int]:
     total_len = len(messages_list)
+    predictions: list[int | None] = []
     if os.path.exists(output_file):
         with open(output_file, 'r') as f:
             predictions = json.load(f)
@@ -86,7 +88,7 @@ def _predict_process(messages_list: list[list[dict[str, str]]], model: str, outp
 
     output_lock = Lock()
 
-    def process_single_task(messages: list[dict[str, str]], index: int):
+    def process_single_task(messages: list[ChatCompletionMessageParam], index: int):
         if predictions[index] is not None:
             return index
         result, raw_output = predict(messages, model)
@@ -108,49 +110,63 @@ def _predict_process(messages_list: list[list[dict[str, str]]], model: str, outp
                 _ = future.result()
             except Exception as e:
                 print(f"Index {future_to_index[future]} failed with error: {e}")
-    return predictions
+    assert all(predictions), "Some predictions are None, indicating failure in processing."
+    ret = [prediction for prediction in predictions if prediction is not None]
+    return ret
 
-def get_messages(input_prompt: str) -> list[dict[str, str]]:
+def get_messages(input_prompt: str) -> list[ChatCompletionMessageParam]:
     return [
-        {
-            "role": "system",
-            "content": "You are a skilled conversational analyst."
-        },
-        {
-            "role": "user",
-            "content": input_prompt
-        }
+        ChatCompletionSystemMessageParam(
+            role="system",
+            content="You are a skilled conversational analyst."
+        ),
+        ChatCompletionUserMessageParam(
+            role="user",
+            content=input_prompt
+        )
     ]
 
 def predict_llm(prompts: list[str], model: str, output_file: str) -> list[int]:
-    messages_list = []
+    messages_list: list[list[ChatCompletionMessageParam]] = []
     for prompt in prompts:
-        messages = [
-            {
-                "role": "system",
-                "content": "You are a skilled conversational analyst."
-            },
-            {
-                "role": "user",
-                "content": prompt
-            }
+        messages: list[ChatCompletionMessageParam] = [
+            ChatCompletionSystemMessageParam(
+                role="system",
+                content="You are a skilled conversational analyst."
+            ),
+            ChatCompletionUserMessageParam(
+                role="user",
+                content=prompt
+            )
         ] if "r1" not in model and "reasoner" not in model else [
-            {
-                "role": "user",
-                "content": prompt
-            }
+            ChatCompletionUserMessageParam(
+                role="user",
+                content=prompt
+            )
         ]
         messages_list.append(messages)
     return _predict_process(messages_list, model, output_file)
 
-def predict_llm_in_context(prompts: list[str], histories: list[dict[str, str]], model: str, output_file: str) -> list[int]:
-    messages_list = []
+def predict_llm_in_context(prompts: list[str], histories: list[list[dict[str, str]]], model: str, output_file: str) -> list[int]:
+    messages_list: list[list[ChatCompletionMessageParam]] = []
     for prompt, history in zip(prompts, histories):
-        messages = history + [
-            {
-                "role": "user",
-                "content": prompt
-            }
+        messages: list[ChatCompletionMessageParam] = [
+            ChatCompletionUserMessageParam(
+                role="user",
+                content=utt['content']
+            ) if utt['role'] == 'user' else
+            ChatCompletionAssistantMessageParam(
+                role="assistant",
+                content=utt['content']
+            ) if utt['role'] == 'assistant' else
+            ChatCompletionSystemMessageParam(
+                role="system",
+                content=utt['content']
+            ) for utt in history
         ]
+        messages.append(ChatCompletionUserMessageParam(
+            role="user",
+            content=prompt
+        ))
         messages_list.append(messages)
     return _predict_process(messages_list, model, output_file)

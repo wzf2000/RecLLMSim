@@ -1,6 +1,11 @@
 import os
+from typing import Sequence
 from torch.utils.data import Dataset
-from transformers import PreTrainedModel, Trainer, TrainingArguments, AutoTokenizer, AutoModelForSequenceClassification, PreTrainedTokenizer
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers.modeling_utils import PreTrainedModel
+from transformers.tokenization_utils import PreTrainedTokenizer
+from transformers.trainer import Trainer
+from transformers.training_args import TrainingArguments
 from transformers.trainer_utils import EvalPrediction
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -12,7 +17,7 @@ from pipe_util import ExpType, split_train_test
 from log_util import add_log
 
 class ClsDataset(Dataset):
-    def __init__(self, texts: list[str], labels: np.ndarray, tokenizer: PreTrainedTokenizer, max_length: int = 512):
+    def __init__(self, texts: np.ndarray, labels: np.ndarray, tokenizer: PreTrainedTokenizer, max_length: int = 512):
         self.texts = texts
         self.labels = labels
         self.tokenizer = tokenizer
@@ -46,21 +51,20 @@ class ClsDataset(Dataset):
             return_attention_mask=True,
             return_tensors='pt',
         )
-
         return {
-            'input_ids': encoding['input_ids'].flatten(),
-            'attention_mask': encoding['attention_mask'].flatten(),
+            'input_ids': encoding['input_ids'].flatten(), # type: ignore
+            'attention_mask': encoding['attention_mask'].flatten(), # type: ignore
             'labels': label
         }
 
-def get_dataset(model_name_or_path: str, train_texts: list[str], train_labels: np.ndarray, val_texts: list[str], val_labels: np.ndarray, test_texts: list[str], test_labels: np.ndarray) -> tuple[ClsDataset, ClsDataset, ClsDataset]:
+def get_dataset(model_name_or_path: str, train_texts: np.ndarray, train_labels: np.ndarray, val_texts: np.ndarray, val_labels: np.ndarray, test_texts: np.ndarray, test_labels: np.ndarray) -> tuple[ClsDataset, ClsDataset, ClsDataset]:
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
     train_dataset = ClsDataset(train_texts, train_labels, tokenizer)
     val_dataset = ClsDataset(val_texts, val_labels, tokenizer)
     test_dataset = ClsDataset(test_texts, test_labels, tokenizer)
     return train_dataset, val_dataset, test_dataset
 
-def split_train_val(X: list[str], y: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+def split_train_val(X: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.25, random_state=42)
     return X_train, y_train, X_val, y_val
 
@@ -99,7 +103,7 @@ def work_human(model_name: str, **kwargs) -> dict[str, float]:
     X, y = get_human_intent_data(model_type=ModelType.ML)
     le = LabelEncoder()
     y = le.fit_transform(y)
-    X_train, X_test, y_train, y_test = split_train_test(X, y)
+    X_train, X_test, y_train, y_test = split_train_test(X, y) # type: ignore
     X_train, y_train, X_val, y_val = split_train_val(X_train, y_train)
     train_dataset, val_dataset, test_dataset = get_dataset(model_name, X_train, y_train, X_val, y_val, X_test, y_test)
     labels = le.classes_

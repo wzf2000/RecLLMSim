@@ -3,6 +3,7 @@ import json
 import jieba
 import numpy as np
 from enum import Enum
+from typing import overload, Literal, Sequence
 
 SIM_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'LLM_agent_user')
 HUMAN_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'real_human_user')
@@ -38,6 +39,12 @@ class ModelType(Enum):
     LM = 'language model'
     HUMAN = 'human'
 
+@overload
+def format_history(history: list[dict[str, str]], content_field: str, model_type: Literal[ModelType.HUMAN], cut: bool, only: str | None = None) -> list[dict[str, str]]: ...
+
+@overload
+def format_history(history: list[dict[str, str]], content_field: str, model_type: Literal[ModelType.LLM] | Literal[ModelType.ML] | Literal[ModelType.LM], cut: bool, only: str | None = None) -> str: ...
+
 def format_history(history: list[dict[str, str]], content_field: str, model_type: ModelType, cut: bool, only: str | None = None) -> str | list[dict[str, str]]:
     if only is not None:
         assert only in ['user', 'assistant'], f'Invalid value for only: {only}'
@@ -58,7 +65,13 @@ def format_history(history: list[dict[str, str]], content_field: str, model_type
         text = ' '.join(jieba.lcut(text))
     return text
 
-def get_sim_data(item: str, language: str = 'en', task: str | None = None, model_type: ModelType = ModelType.LLM, filtered: bool = False, only: str | None = None) -> tuple[list[str | list[dict[str, str]]], list[set[str]]]:
+@overload
+def get_sim_data(item: str, language: str = 'en', task: str | None = None, model_type: Literal[ModelType.HUMAN] = ModelType.HUMAN, filtered: bool = False, only: str | None = None) -> tuple[Sequence[list[dict[str, str]]], list[set[str]]]: ...
+
+@overload
+def get_sim_data(item: str, language: str = 'en', task: str | None = None, model_type: Literal[ModelType.LLM] | Literal[ModelType.ML] | Literal[ModelType.LM] = ModelType.LLM, filtered: bool = False, only: str | None = None) -> tuple[Sequence[str], list[set[str]]]: ...
+
+def get_sim_data(item: str, language: str = 'en', task: str | None = None, model_type: ModelType = ModelType.LLM, filtered: bool = False, only: str | None = None) -> tuple[Sequence[str | list[dict[str, str]]], list[set[str]]]:
     if language == 'zh' and task is not None and task in task_translation:
         task = task_translation[task]
     if task is None:
@@ -90,7 +103,13 @@ def get_sim_data(item: str, language: str = 'en', task: str | None = None, model
             X.append(text)
     return X, labels
 
-def get_human_data(item: str, task: str | None = None, model_type: ModelType = ModelType.LLM, version: int = 1, chat_model: str | None = None, only: str | None = None) -> tuple[list[str | list[dict[str, str]]], list[set[str]]]:
+@overload
+def get_human_data(item: str, task: str | None = None, model_type: Literal[ModelType.HUMAN] = ModelType.HUMAN, version: int = 1, chat_model: str | None = None, only: str | None = None) -> tuple[Sequence[list[dict[str, str]]], list[set[str]]]: ...
+
+@overload
+def get_human_data(item: str, task: str | None = None, model_type: Literal[ModelType.LLM] | Literal[ModelType.ML] | Literal[ModelType.LM] = ModelType.LLM, version: int = 1, chat_model: str | None = None, only: str | None = None) -> tuple[Sequence[str], list[set[str]]]: ...
+
+def get_human_data(item: str, task: str | None = None, model_type: ModelType = ModelType.LLM, version: int = 1, chat_model: str | None = None, only: str | None = None) -> tuple[Sequence[str | list[dict[str, str]]], list[set[str]]]:
     if task is not None and task in task_translation_reverse:
         task = task_translation_reverse[task]
     if task is None:
@@ -129,7 +148,13 @@ def get_human_data(item: str, task: str | None = None, model_type: ModelType = M
         update_data(HUMAN_DIR_V2)
     return X, labels
 
-def get_human_intent_data(model_type: ModelType = ModelType.LLM):
+@overload
+def get_human_intent_data(model_type: Literal[ModelType.HUMAN]) -> tuple[Sequence[list[dict[str, str]]], np.ndarray]: ...
+
+@overload
+def get_human_intent_data(model_type: Literal[ModelType.LLM] | Literal[ModelType.ML] | Literal[ModelType.LM] = ModelType.LLM) -> tuple[Sequence[str], np.ndarray]: ...
+
+def get_human_intent_data(model_type: ModelType = ModelType.LLM) -> tuple[Sequence[str | list[dict[str, str]]], np.ndarray]:
     tasks = ['旅行规划', '礼物准备', '菜谱规划', '技能学习规划']
     labels: list[str] = []
     X: list[str | list[dict[str, str]]] = []

@@ -1,25 +1,27 @@
 import numpy as np
-from typing import Iterable
+from typing import Iterable, Sequence
 from collections import Counter
 from sklearn.metrics import accuracy_score, f1_score, mean_squared_error, classification_report
-from transformers import EvalPrediction
+from transformers.trainer_utils import EvalPrediction
 
-def evaluate(predictions: Iterable[int | float | np.integer], ground_truth: Iterable[int | np.integer], binary: bool = False) -> tuple[float, float]:
+def evaluate(predictions: Sequence[int | float | np.integer], ground_truth: Sequence[int | np.integer], binary: bool = False) -> tuple[float, float]:
     classfication = all(isinstance(p, (int, np.integer)) for p in predictions)
     # output the index that gt != prediction
     # for i, (p, gt) in enumerate(zip(predictions, ground_truth)):
     #     if p != gt:
     #         print(f"Index: {i}, GT: {gt}, Prediction: {p}")
+    predictions_arr = np.array(predictions)
+    ground_truth_arr = np.array(ground_truth)
     if classfication:
-        acc = accuracy_score(ground_truth, predictions)
-        f1 = f1_score(ground_truth, predictions, average='weighted')
+        acc = accuracy_score(ground_truth_arr, predictions_arr)
+        f1 = f1_score(ground_truth_arr, predictions_arr, average='weighted')
         print(f"Accuracy: {acc:.4f}, Weighted F1: {f1:.4f}")
         if not binary:
-            print(classification_report(ground_truth, predictions, digits=4))
-    mse = mean_squared_error(ground_truth, predictions)
+            print(classification_report(ground_truth_arr, predictions_arr, digits=4))
+    mse = mean_squared_error(ground_truth_arr, predictions_arr)
     rmse = mse ** 0.5
     print(f"MSE: {mse:.4f}, RMSE: {rmse:.4f}")
-    print(f'GT mean score: {np.mean(ground_truth):.4f}, Predicted mean score: {np.mean(predictions):.4f}')
+    print(f'GT mean score: {np.mean(ground_truth_arr):.4f}, Predicted mean score: {np.mean(predictions_arr):.4f}')
     return mse, rmse
 
 def compute_metrics_cls(p: EvalPrediction) -> dict[str, float]:
@@ -65,6 +67,7 @@ def compute_metrics_reg(p: EvalPrediction) -> dict[str, float]:
     mse = mean_squared_error(labels, logits)
     rmse = mse ** 0.5
     predict_mean = np.mean(logits)
+    assert isinstance(predict_mean, float), f"Expected predict_mean to be float, got {type(predict_mean)}"
     return {
         'mse': mse,
         'rmse': rmse,

@@ -118,8 +118,8 @@ def get_human_quality_by_model() -> dict[str, dict[str, list[int]]]:
     update(HUMAN_DIR_V2)
     return quality
 
-def plot(ax: plt.Axes, labels: list[str], sizes: list[int], title: str, legend: bool):
-    patches, texts, autotexts = ax.pie(
+def plot(ax: plt.Axes, labels: list[str], sizes: list[int], title: str, legend: bool): # type: ignore
+    patches, texts, autotexts = ax.pie( # type: ignore
         sizes,
         labels=None,
         autopct=lambda pct: f'{pct:.1f}%' if pct >= 5 else '',

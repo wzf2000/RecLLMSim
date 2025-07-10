@@ -113,6 +113,7 @@ def random_prompt_with_idx(file_name: str, sheet_name: str, exclude_prompt: list
     for Type in prompts:
         if prompt in prompts[Type]:
             return Type, prompts[Type].index(prompt), prompt
+    assert False, 'Prompt not found in prompt options'
 
 if __name__ == '__main__':
     task_context = _get_task_context(os.path.join(DATA_PATH, 'task_context.xlsx'), 'sheet1')

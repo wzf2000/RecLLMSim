@@ -4,7 +4,9 @@ import numpy as np
 from torch.utils.data import WeightedRandomSampler, DataLoader
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import recall_score, precision_score, accuracy_score, fbeta_score, f1_score
-from transformers import Trainer, TrainingArguments, AutoModelForSequenceClassification
+from transformers import AutoModelForSequenceClassification
+from transformers.trainer import Trainer
+from transformers.training_args import TrainingArguments
 
 from dataset import get_dataset, preprocess_data_lm
 from evaluation import compute_metrics_cls, compute_metrics_reg
@@ -23,11 +25,13 @@ class WeightedLossTrainer(Trainer):
 class WeightedSampleTrainer(Trainer):
     def get_train_dataloader(self):
         train_dataset = self.train_dataset
-        train_labels = train_dataset.labels
+        assert train_dataset is not None, "Train dataset must be provided"
+        assert hasattr(train_dataset, 'labels'), "Train dataset must have 'labels' attribute"
+        train_labels = train_dataset.labels # type: ignore
         sample_weights = [5.0 if label == 0 else 1.0 for label in train_labels]
         sampler = WeightedRandomSampler(
             sample_weights,
-            len(train_dataset),
+            len(train_dataset), # type: ignore
             replacement=True
         )
         return DataLoader(
@@ -38,7 +42,7 @@ class WeightedSampleTrainer(Trainer):
             drop_last=self.args.dataloader_drop_last,
         )
 
-def evaluate_lm(model_name: str, train_data: list[dict], test_data: np.ndarray, num_labels: int, regression: bool = False, profile: bool = False) -> dict[str, float]:
+def evaluate_lm(model_name: str, train_data: list[dict], test_data: list[dict], num_labels: int, regression: bool = False, profile: bool = False) -> dict[str, float]:
     if regression:
         model = AutoModelForSequenceClassification.from_pretrained(
             model_name,

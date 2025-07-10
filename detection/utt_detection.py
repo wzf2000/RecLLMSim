@@ -104,6 +104,7 @@ def work_lm_merged(model_name: str, sample: bool = True, profile: bool = False) 
     return results['eval_mse'], results['eval_rmse']
 
 def reason_test(vectorizer: str = 'tfidf', model_name: str = 'RF', sample: bool = True, binary: bool = False, profile: bool = False, data_version: int = 1, split: str | None = None) -> list[dict]:
+    assert split is not None, "Split must be provided for USS data."
     set_seed(42)
     _, train_data = get_reason_data(sample=sample, training=True) if data_version == 1 else get_reason_data2(sample=sample, training=True)
     USS_data, _ = get_USS_data(split, sample=sample, training=True, binary=True)
@@ -190,7 +191,7 @@ def evaluate_dir(dir_path: str, sample: bool = True, data_version: int = 1) -> f
     print(f"Accuracy: {acc:.4f}")
     return acc
 
-def detect_simulation_llm(model: str, sample: bool = True, binary: bool = False, profile: bool = False, language: str = 'zh') -> tuple[float, float]:
+def detect_simulation_llm(model: str, sample: bool = True, binary: bool = False, profile: bool = False, language: str = 'zh'):
     set_seed(42)
     test_data, examples = get_data(sample=sample, training=False, binary=binary)
     sim_data = get_sim_data(sample=sample, language=language)
@@ -232,7 +233,7 @@ def detect_simulation_llm(model: str, sample: bool = True, binary: bool = False,
         # print(f"Zero Example: {zero_example[-3:]}")
         # print(f"One Example: {one_example[-3:]}")
 
-def detect_simulation_ml(vectorizer: str = 'tfidf', model_name: str = 'RF', sample: bool = True, binary: bool = False, profile: bool = False, language: str = 'zh') -> tuple[float, float]:
+def detect_simulation_ml(vectorizer: str = 'tfidf', model_name: str = 'RF', sample: bool = True, binary: bool = False, profile: bool = False, language: str = 'zh'):
     set_seed(42)
     test_data, train_data = get_data(sample=sample, training=True, binary=binary)
     model = evaluate_ml(train_data, test_data, vectorizer=vectorizer, model_name=model_name, profile=profile, return_model=True)

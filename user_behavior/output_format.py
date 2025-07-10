@@ -81,7 +81,9 @@ class StrategyV3(StrategyType):
 class StrategyV4(StrategyType):
     context_dependency: Rating
     explanation: Explanation
+    reason_for_explanation: str
     promise: Promise
+    reason_for_promise: str
     feedback: Feedback
     politeness: Politeness
     formality: Formality

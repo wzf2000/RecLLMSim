@@ -2,7 +2,7 @@ import torch
 import random
 import numpy as np
 from enum import Enum
-from typing import Callable
+from typing import Callable, Sequence, Any, Protocol
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.model_selection import train_test_split
 
@@ -222,42 +222,47 @@ human_attributes = {
     ]
 }
 
-def split_train_test(X: list[str], y: list) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-    return train_test_split(np.array(X), np.array(y), test_size=0.2, random_state=42)
+def split_train_test(X: Sequence[Any], y: Sequence[Any]) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    return train_test_split(np.array(X), y, test_size=0.2, random_state=42) # type: ignore
 
-def work_sim(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], language: str = 'en', task: str | None = None, **kwargs) -> None:
+def work_sim(item: str, model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], language: str = 'en', task: str | None = None, **kwargs) -> None:
     X, y = get_sim_data(item, language, task, model_type)
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
-    X_train, X_test, y_train, y_test = split_train_test(X, y)
+    X_train, X_test, y_train, y_test = split_train_test(X, y) # type: ignore
     report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
     add_log(item, model_name, ExpType.SIM, report)
 
-def work_sim2human(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, **kwargs) -> None:
+def work_sim2human(item: str, model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], task: str | None = None, **kwargs) -> None:
     X_train, y_train = get_sim_data(item, 'zh', task, model_type)
     X_test, y_test = get_human_data(item, task, model_type)
     y = y_train + y_test
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
+    assert isinstance(y, np.ndarray), f"y should be a numpy array, got {type(y)}"
     train_size = len(X_train)
     y_train = y[:train_size]
     y_test = y[train_size:]
+    X_train = np.array(X_train)
     report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
     add_log(item, model_name, ExpType.SIM2HUMAN, report)
 
-def work_sim2human2(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, **kwargs) -> None:
+def work_sim2human2(item: str, model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], task: str | None = None, **kwargs) -> None:
     X_train, y_train = get_sim_data(item, 'zh', task, model_type, filtered=True)
     X_test, y_test = get_human_data(item, task, model_type)
     y = y_train + y_test
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
+    assert isinstance(y, np.ndarray), f"y should be a numpy array, got {type(y)}"
     train_size = len(X_train)
     y_train = y[:train_size]
     y_test = y[train_size:]
+    X_train = np.array(X_train)
+    X_test = np.array(X_test)
     report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
     add_log(item, model_name, ExpType.SIM2HUMAN2, report)
 
-def work_sim2human3(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
+def work_sim2human3(item: str, model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
     X_human, y_human = get_human_data(item, task, model_type, data_version, chat_model)
     _, X_test, _, y_test = split_train_test(X_human, y_human)
     X_train, y_train = get_sim_data(item, 'zh', task, model_type, filtered=True)
@@ -265,17 +270,19 @@ def work_sim2human3(item: str, model_name: str, model_type: ModelType, work: Cal
     y = y_train + y_test
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
+    assert isinstance(y, np.ndarray), f"y should be a numpy array, got {type(y)}"
     train_size = len(X_train)
     y_train = y[:train_size]
     y_test = y[train_size:]
+    X_train = np.array(X_train)
     report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
     add_log(item, model_name, ExpType.SIM2HUMAN3, report)
 
-def work_human(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, samples: int = -1, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
+def work_human(item: str, model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], task: str | None = None, samples: int = -1, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
     X, y = get_human_data(item, task, model_type, data_version, chat_model)
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
-    X_train, X_test, y_train, y_test = split_train_test(X, y)
+    X_train, X_test, y_train, y_test = split_train_test(X, y) # type: ignore
     if samples != -1:
         # sample samples from X_train
         assert 0 < samples <= len(X_train), f"Samples should be between 0 and {len(X_train)}"
@@ -292,7 +299,7 @@ def work_human(item: str, model_name: str, model_type: ModelType, work: Callable
     else:
         add_log(item, model_name, ExpType.HUMAN, report)
 
-def work_sim4human(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
+def work_sim4human(item: str, model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
     X_sim, y_sim = get_sim_data(item, 'zh', task, model_type)
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
@@ -303,13 +310,14 @@ def work_sim4human(item: str, model_name: str, model_type: ModelType, work: Call
     y = np.concatenate((y_train, y_test))
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
+    assert isinstance(y, np.ndarray), f"y should be a numpy array, got {type(y)}"
     train_size = len(X_train)
     y_train = y[:train_size]
     y_test = y[train_size:]
     report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
     add_log(item, model_name, ExpType.SIM4HUMAN, report)
 
-def work_sim4human2(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
+def work_sim4human2(item: str, model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
     X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, filtered=True)
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
@@ -320,13 +328,14 @@ def work_sim4human2(item: str, model_name: str, model_type: ModelType, work: Cal
     y = np.concatenate((y_train, y_test))
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
+    assert isinstance(y, np.ndarray), f"y should be a numpy array, got {type(y)}"
     train_size = len(X_train)
     y_train = y[:train_size]
     y_test = y[train_size:]
     report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
     add_log(item, model_name, ExpType.SIM4HUMAN2, report)
 
-def work_sim4human3(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
+def work_sim4human3(item: str, model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
     X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, filtered=True)
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
@@ -339,6 +348,7 @@ def work_sim4human3(item: str, model_name: str, model_type: ModelType, work: Cal
     y = np.concatenate((y_train, y_test))
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
+    assert isinstance(y, np.ndarray), f"y should be a numpy array, got {type(y)}"
     train_size = len(X_train)
     y_train = y[:train_size]
     y_test = y[train_size:]
@@ -352,7 +362,7 @@ def sample(X: np.ndarray, y: np.ndarray, num_sample: int) -> tuple[np.ndarray, n
     indices = np.random.choice(train_size, sample_size, replace=False)
     return X[indices], y[indices]
 
-def work_sim4human4(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, samples: int = -1, ratio: float = 1.0, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
+def work_sim4human4(item: str, model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], task: str | None = None, samples: int = -1, ratio: float = 1.0, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
     X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, filtered=True)
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
@@ -378,6 +388,7 @@ def work_sim4human4(item: str, model_name: str, model_type: ModelType, work: Cal
     y = np.concatenate((y_train, y_test))
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
+    assert isinstance(y, np.ndarray), f"y should be a numpy array, got {type(y)}"
     train_size = len(X_train)
     y_train = y[:train_size]
     y_test = y[train_size:]
@@ -393,7 +404,7 @@ class HotCold(Enum):
     COLD = 'cold'
     BOTH = 'both'
 
-def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, samples: int = -1, ratio: float = 1.0, hot_cold: HotCold = HotCold.HOT, topk: int = 3, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
+def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], task: str | None = None, samples: int = -1, ratio: float = 1.0, hot_cold: HotCold = HotCold.HOT, topk: int = 3, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
     if hot_cold == HotCold.HOT:
         attributes = human_attributes[item][:topk]
     elif hot_cold == HotCold.COLD:
@@ -404,7 +415,7 @@ def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Cal
         raise ValueError('Invalid hot_cold value')
     item_name = item.split('and')[0].strip().lower().replace(' ', '_')
 
-    def filter(X: list[str], y: list[set[str]]) -> tuple[list[str], list[set[str]]]:
+    def filter(X: Sequence[str], y: list[set[str]]) -> tuple[list[str], list[set[str]]]:
         X_filtered = []
         y_filtered = []
         for i, label in enumerate(y):
@@ -415,6 +426,7 @@ def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Cal
                 y_filtered.append(label)
         return X_filtered, y_filtered
 
+    assert model_type != ModelType.HUMAN, "Model type should not be HUMAN for work_sim4human5"
     X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, filtered=True)
     X_sim, y_sim = filter(X_sim, y_sim)
     original_size = len(X_sim)
@@ -446,6 +458,7 @@ def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Cal
     y = np.concatenate((y_train, y_test))
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
+    assert isinstance(y, np.ndarray), f"y should be a numpy array, got {type(y)}"
     print(f"Number of labels: {len(mlb.classes_)}")
     train_size = len(X_train)
     y_train = y[:train_size]
@@ -456,31 +469,37 @@ def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Cal
     else:
         add_log(log_name, model_name, ExpType.SIM4HUMAN5, report, hc=hot_cold.value, topk=topk, ratio="full" if full else ratio)
 
-def work_human2sim(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, **kwargs) -> None:
+def work_human2sim(item: str, model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], task: str | None = None, **kwargs) -> None:
     X_train, y_train = get_human_data(item, task, model_type)
     X_test, y_test = get_sim_data(item, 'zh', task, model_type)
     y = y_train + y_test
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
+    assert isinstance(y, np.ndarray), f"y should be a numpy array, got {type(y)}"
     train_size = len(X_train)
     y_train = y[:train_size]
     y_test = y[train_size:]
+    X_train = np.array(X_train)
+    X_test = np.array(X_test)
     report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
     add_log(item, model_name, ExpType.HUMAN2SIM, report)
 
-def work_human2sim2(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, **kwargs) -> None:
+def work_human2sim2(item: str, model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], task: str | None = None, **kwargs) -> None:
     X_train, y_train = get_human_data(item, task, model_type)
     X_test, y_test = get_sim_data(item, 'zh', task, model_type, filtered=True)
     y = y_train + y_test
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
+    assert isinstance(y, np.ndarray), f"y should be a numpy array, got {type(y)}"
     train_size = len(X_train)
     y_train = y[:train_size]
     y_test = y[train_size:]
+    X_train = np.array(X_train)
+    X_test = np.array(X_test)
     report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
     add_log(item, model_name, ExpType.HUMAN2SIM2, report)
 
-def exp(model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], work_func: Callable[[str, ModelType, Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]]], None], only_all: bool = False, items: list[str] | None = None, **kwargs):
+def exp(model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], work_func: Callable[..., None], only_all: bool = False, items: list[str] | None = None, **kwargs):
     if items is None:
         items = ['Personality', 'Daily Interests and Hobbies', 'Travel Habits', 'Dining Preferences', 'Spending Habits']
     else:
@@ -495,7 +514,7 @@ def exp(model_name: str, model_type: ModelType, work: Callable[[list[str], np.nd
     work_func('Spending Habits', model_name, model_type, work, 'preparing gifts', **kwargs)
     work_func('Daily Interests and Hobbies', model_name, model_type, work, 'skills learning planning', **kwargs)
 
-def exp_sim(model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], language: str | None = None, **kwargs) -> None:
+def exp_sim(model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], language: str | None = None, **kwargs) -> None:
     if language is None:
         languages = ['en', 'zh']
     else:
@@ -503,35 +522,35 @@ def exp_sim(model_name: str, model_type: ModelType, work: Callable[[list[str], n
     for lang in languages:
         exp(model_name, model_type, work, work_sim, language=lang, **kwargs)
 
-def exp_sim2human(model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], **kwargs) -> None:
+def exp_sim2human(model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], **kwargs) -> None:
     exp(model_name, model_type, work, work_sim2human, **kwargs)
 
-def exp_sim2human2(model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], **kwargs) -> None:
+def exp_sim2human2(model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], **kwargs) -> None:
     exp(model_name, model_type, work, work_sim2human2, **kwargs)
 
-def exp_sim2human3(model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], **kwargs) -> None:
+def exp_sim2human3(model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], **kwargs) -> None:
     exp(model_name, model_type, work, work_sim2human3, **kwargs)
 
-def exp_human(model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], **kwargs) -> None:
+def exp_human(model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], **kwargs) -> None:
     exp(model_name, model_type, work, work_human, **kwargs)
 
-def exp_sim4human(model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], **kwargs) -> None:
+def exp_sim4human(model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], **kwargs) -> None:
     exp(model_name, model_type, work, work_sim4human, **kwargs)
 
-def exp_sim4human2(model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], **kwargs) -> None:
+def exp_sim4human2(model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], **kwargs) -> None:
     exp(model_name, model_type, work, work_sim4human2, **kwargs)
 
-def exp_sim4human3(model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], **kwargs) -> None:
+def exp_sim4human3(model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], **kwargs) -> None:
     exp(model_name, model_type, work, work_sim4human3, **kwargs)
 
-def exp_sim4human4(model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], **kwargs) -> None:
+def exp_sim4human4(model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], **kwargs) -> None:
     exp(model_name, model_type, work, work_sim4human4, **kwargs)
 
-def exp_sim4human5(model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], **kwargs) -> None:
+def exp_sim4human5(model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], **kwargs) -> None:
     exp(model_name, model_type, work, work_sim4human5, **kwargs)
 
-def exp_human2sim(model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], **kwargs) -> None:
+def exp_human2sim(model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], **kwargs) -> None:
     exp(model_name, model_type, work, work_human2sim, **kwargs)
 
-def exp_human2sim2(model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], **kwargs) -> None:
+def exp_human2sim2(model_name: str, model_type: ModelType, work: Callable[..., dict[str, float]], **kwargs) -> None:
     exp(model_name, model_type, work, work_human2sim2, **kwargs)

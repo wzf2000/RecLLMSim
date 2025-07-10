@@ -122,5 +122,5 @@ if __name__ == '__main__':
     else:
         raise ValueError("Invalid task type. Use 'sim' for simulated data or 'human' for human data.")
 # Example usage:
-# python auto_cls.py -t sim -v 4 -m gpt-4o-2024-08-06 -s strategy_V4 -d ../LLM_agent_users --sample
-# python auto_cls.py -t human -v 4 -m gpt-4o-2024-08-06 -s strategy_V4 -d ../real_human_users
+# python auto_cls.py -t sim -v 4 -m gpt-4o-2024-08-06 -s strategy_V4 -d ../LLM_agent_user --sample
+# python auto_cls.py -t human -v 4 -m gpt-4o-2024-08-06 -s strategy_V4 -d ../real_human_user

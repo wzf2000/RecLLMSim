@@ -42,7 +42,7 @@ def work_human(Type: str, **kwargs) -> dict[str, float]:
     X, y = get_human_intent_data(model_type=ModelType.ML)
     le = LabelEncoder()
     y = le.fit_transform(y)
-    X_train, X_test, y_train, y_test = split_train_test(X, y)
+    X_train, X_test, y_train, y_test = split_train_test(X, y) # type: ignore
     model = Model(Type, **kwargs)
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)

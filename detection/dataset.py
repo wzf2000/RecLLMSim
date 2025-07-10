@@ -1,7 +1,9 @@
 import jieba
 import numpy as np
+from typing import overload, Literal
 from torch.utils.data import Dataset
-from transformers import PreTrainedTokenizer, AutoTokenizer
+from transformers import AutoTokenizer
+from transformers.tokenization_utils import PreTrainedTokenizer
 
 class ClsDataset(Dataset):
     def __init__(self, texts: list[str], labels: np.ndarray, tokenizer: PreTrainedTokenizer, max_length: int = 512):
@@ -40,8 +42,8 @@ class ClsDataset(Dataset):
         )
 
         return {
-            'input_ids': encoding['input_ids'].flatten(),
-            'attention_mask': encoding['attention_mask'].flatten(),
+            'input_ids': encoding['input_ids'].flatten(), # type: ignore
+            'attention_mask': encoding['attention_mask'].flatten(), # type: ignore
             'labels': label
         }
 
@@ -56,6 +58,12 @@ def preprocess_data_lm(data_list: list[dict], regression: bool = False, profile:
     X = [data['history'] + data['profile'] if profile else data['history'] for data in data_list]
     y = np.array([data['ground_truth'] for data in data_list], dtype=np.float32 if regression else np.int64)
     return X, y
+
+@overload
+def preprocess_data_ml(data_list: list[dict], profile: bool = False, labels: Literal[True] = True) -> tuple[list[str], np.ndarray]: ...
+
+@overload
+def preprocess_data_ml(data_list: list[dict], profile: bool = False, labels: Literal[False] = False) -> list[str]: ...
 
 def preprocess_data_ml(data_list: list[dict], profile: bool = False, labels: bool = True) -> tuple[list[str], np.ndarray] | list[str]:
     def tokenize(text: str) -> str:

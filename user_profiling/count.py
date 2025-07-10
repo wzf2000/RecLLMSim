@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 from data_util import ModelType, get_human_data, LABEL_FILE
 
-def work_human(attribute: str, **kwargs) -> dict[str, float]:
+def work_human(attribute: str, **kwargs) -> list[str]:
     with open(LABEL_FILE, 'r') as f:
         desc_translated = json.load(f)
     X, y = get_human_data(attribute, task=None, model_type=ModelType.HUMAN)
@@ -24,7 +24,7 @@ def work_human(attribute: str, **kwargs) -> dict[str, float]:
     distribution = dict(sorted(distribution.items(), key=lambda x: x[1], reverse=True))
     # plot the distribution
     plt.figure(figsize=(10, 7))
-    plt.bar(distribution.keys(), distribution.values())
+    plt.bar(list(distribution.keys()), list( distribution.values()))
     plt.xticks(list(distribution.keys()), list(distribution.keys()), rotation=25)
     plt.xlabel('Attribute')
     plt.ylabel('Count')

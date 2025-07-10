@@ -28,7 +28,7 @@ class GenChatTask(Task):
         return parser
 
     @staticmethod
-    def _generate_prompt(prompt: str, preference: str = None, task_context: str = None) -> str:
+    def _generate_prompt(prompt: str, preference: str | None = None, task_context: str | None = None) -> str:
         if preference is not None:
             prompt = prompt.replace(PREFERENCE, preference)
         if task_context is not None:

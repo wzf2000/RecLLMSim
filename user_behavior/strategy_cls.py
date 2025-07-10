@@ -166,18 +166,26 @@ aspect_list = ["""1. **User Strategy Type**: Determine whether the user's approa
       The user's questions are completely tied to prior context, making them difficult to understand without the preceding conversation.
       *Example:* "Which one would you recommend?" following a detailed discussion about several specific gift ideas.
 
-2. **Explanation**: Assess how often the user provides reasons for their requests or preferences during the conversation.
+2. **Explanation:** Assess how often the user provides reasons for their own requests or preferences during the conversation. Noticed that request itself (anything you need to response) or stating a preference should not be considered as a reason. A "reason" should only be count when the request or the preference is in the same turn with its reason.
       *No Explanation Example:* "I would prefer public transportation."
       *Explanation Example:* "I would prefer public transportation as it would allow me to immerse myself more in the local culture."
-    - **Frequent Explanation**: The user clearly explains their reasoning in two or more turns. 
-    - **Rare Explanation**: The user gives a reason in only one turn during the entire conversation.
-    - **No Explanation**: The user does not provide any reason or justification for their requests or preferences in any turn.
+    - **Frequent Explanation:** The user separately explicitly explains their reasoning in **two or more** turns during the entire conversation. These reasons must refer to different aspects of the conversation and are clearly separated in two or more different turns, not nested in one long turn.
+    - **Rare Explanation:** The user gives a reason in **only one** turn during the entire conversation.
+    - **No Explanation:** The user does not provide any reason or justification for their requests or preferences in any turn.
+    
+    You should give the corresponding reason for the user's explanation in the `reason_for_explanation` field in the output.
 
-3. **Promise**
-    - **Have Promise**: The user explicitly confirms they will follow the assistant’s suggestion. This includes firm expressions of future intent, agreement to act, or direct statements of commitment. 
-        *Eample:* "I will certainly book the group tours in advance as you've suggested."
-    - **No Promise**: The user does not confirm they will follow the assistant’s suggestion. They may show appreciation, ask follow-up questions, or change the topic, but do not state any intent to act. 
-        *Example:* “Thanks for the suggestion, that’s helpful.”
+3. **Promise:** Determine whether the user explicitly commits to following the assistant’s suggestion after receiving it (not in their initial request).
+    - **Have Promise:** The user explicitly confirms or imply he/she will follow the assistant’s suggestion. This includes expressions of future intent, agreement to act, or direct statements of commitment. 
+        *Eample:* "I will book the group tours in advance."
+        *Helpful Keywords (Users' promises may include the following keywords.):* "I will", "I’ll", "I will definitely", "I will certainly", "I will follow your suggestion", "I will take your advice", "I will try that", "I will do that", "I will go with that".
+    - **No Promise:** The user does not confirm or imply they will follow the assistant’s suggestion. 
+        *Notice:* If the user only responds to the assistant's question, it should not be considered a promise.
+        *Example:*
+            System: "It will be helpful if you tell me your budget."
+            User: "I have a budget of 1000 dollars."
+    
+    You should give the corresponding reason for the user's promise in the `reason_for_promise` field in the output.
 
 4. **Feedback Attitude**:
     - **No Feedback**: Throughout the multi-turn dialogue, the user does not provide any feedback or reaction to the responses received, proceeding with their inquiries without acknowledging the answers.
@@ -227,7 +235,9 @@ format_list = ["""{
 }""", """{
     "context_dependency": "1-5",
     "explanation": "Frequent/Rare/No",
+    "reason_for_explanation": "A string explaining the reason for the user's explanation, if any.",
     "promise": "Have/no",
+    "reason_for_promise": "A string explaining the reason for the user's promise, if any.",
     "feedback": "NoFeedback/Positive/Negative/Both"
     "politeness": "Polite/Neutral/Impolite",
     "formality": "Oral/Formal"
@@ -282,14 +292,12 @@ def cls(text: str, model: str, version: int, human: bool, n: int = 3) -> list[St
         if choice.message.parsed is None:
             print(f"Response parsing failed: {choice}")
             raise ValueError("Response parsing failed.")
-    ret = [choice.message.parsed for choice in response.choices]
-    if len(ret) != n:
-        print(f"Response length mismatch: {len(ret)} != {n}")
-        raise ValueError("Response length mismatch.")
+    ret = [choice.message.parsed for choice in response.choices if choice.message.parsed is not None]
+    assert len(ret) == n, "Some strategies are None or response length mismatch."
     return ret
 
 def ensemble_answer(answer1: str | int, answer2: str | int, answer3: str | int) -> str | int:
-    if isinstance(answer1, str):
+    if isinstance(answer1, str) and isinstance(answer2, str) and isinstance(answer3, str):
         if answer1 == answer2 or answer1 == answer3:
             return answer1
         elif answer2 == answer3:
@@ -298,6 +306,8 @@ def ensemble_answer(answer1: str | int, answer2: str | int, answer3: str | int) 
             print(f"Disagreement: {answer1}, {answer2}, {answer3}")
             assert False, f"{answer1}, {answer2}, {answer3}"
     else:
+        assert isinstance(answer1, int) and isinstance(answer2, int) and isinstance(answer3, int), \
+			f"Answers must be all strings or all integers, got {type(answer1)}, {type(answer2)}, {type(answer3)}"
         # If max - min <= 2, return the average
         if max(answer1, answer2, answer3) - min(answer1, answer2, answer3) <= 2:
             return (answer1 + answer2 + answer3) // 3 + (1 if (answer1 + answer2 + answer3) % 3 == 2 else 0)

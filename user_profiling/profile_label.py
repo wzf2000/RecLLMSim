@@ -28,7 +28,7 @@ def get_all_data(attribute: str, label_id: str):
     X_human, y_human = get_human_data(attribute, get_task(attribute), model_type=ModelType.HUMAN)
     mlb = MultiLabelBinarizer()
     y_human = mlb.fit_transform(y_human)
-    _, X_test, _, y_test = split_train_test(X_human, y_human)
+    _, X_test, _, y_test = split_train_test(X_human, y_human) # type: ignore
     predictions = [[] for _ in range(len(X_test))]
     os.makedirs(os.path.join(output_dir, label_id, 'human_exp'), exist_ok=True)
     output_file = os.path.join(output_dir, label_id, 'human_exp', f'{attribute}.json')
@@ -48,10 +48,10 @@ def locate_unlabeled_profile(predictions: list[list[str]]):
 
 def rank2prob(classes: np.ndarray, predictions: list[list[str]]) -> np.ndarray:
     probs = np.zeros((len(predictions), len(classes)))
-    classes: list[str] = classes.tolist()
+    classes_list: list[str] = classes.tolist()
     for i, prediction in enumerate(predictions):
         for j, label in enumerate(prediction):
-            probs[i][classes.index(label)] = 1.0 - j * 0.01
+            probs[i][classes_list.index(label)] = 1.0 - j * 0.01
     return probs
 
 def evaluate(y_test: np.ndarray, predictions: list[list[str]], classes: np.ndarray):
@@ -62,7 +62,9 @@ def main():
     st.set_page_config(page_title='Profile Label', layout='wide')
     st.sidebar.markdown('### Profile Label')
     attribute = st.sidebar.selectbox('Attribute', ['personality', 'daily_interests', 'travel_habits', 'dining_preferences', 'spending_habits'])
+    assert attribute in ['personality', 'daily_interests', 'travel_habits', 'dining_preferences', 'spending_habits'], f'Invalid attribute: {attribute}'
     label_id = st.sidebar.selectbox('Label ID', ['A', 'B', 'C', 'D', 'E'])
+    assert label_id in ['A', 'B', 'C', 'D', 'E'], f'Invalid label ID: {label_id}'
     height = st.sidebar.slider('Height', 100, 1000, 600, step=25)
     show_assistant = st.sidebar.checkbox('Show Assistant', value=True)
     X_test, y_test, classes, predictions = get_all_data(attribute, label_id)

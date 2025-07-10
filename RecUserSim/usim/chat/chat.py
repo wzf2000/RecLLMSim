@@ -63,8 +63,10 @@ class Chatbot:
             except Exception as e:
                 logger.error(f"Error: {e}")
                 flag = True
-        self.add_to_history(response.content, 'assistant')
-        return response.content
+        content = response.content
+        assert isinstance(content, str), "Response content should be a string"
+        self.add_to_history(content, 'assistant')
+        return content
 
 def chat(chatbot: Chatbot):
     logger.info("输入内容即可进行对话，stop 终止程序")
@@ -77,7 +79,7 @@ def chat(chatbot: Chatbot):
         )
         logger.info(f"{chatbot.model_name}: {response}")
 
-def get_chatbot(config: dict = CONFIG, model: str = None, temperature: float = None, **kwargs):
+def get_chatbot(config: dict = CONFIG, model: str | None = None, temperature: float | None = None, **kwargs):
     if temperature is not None:
         config['temperature'] = temperature
     if model is not None:
@@ -96,7 +98,7 @@ def single_turn_chat(chatbot: Chatbot, chat_id: int, query: str, output: bool = 
 def default_process(x: str) -> str:
     return x
 
-def multi_chat(prompt1_list: str, prompt2_list: str, ending: Callable[[str], bool], process1: Callable[[str], str] = None, process2: Callable[[str], str] = None, max_turn: int = 10, model1: str = None, model2: str = None):
+def multi_chat(prompt1_list: list[str], prompt2_list: list[str], ending: Callable[[str], bool], process1: Callable[[str], str] | None = None, process2: Callable[[str], str] | None = None, max_turn: int = 10, model1: str | None = None, model2: str | None = None):
     if process1 is None:
         process1 = default_process
     if process2 is None:

@@ -2,6 +2,7 @@ import os
 import json
 import random
 import numpy as np
+from typing import overload, Literal
 from sklearn.model_selection import train_test_split
 
 from utils import get_profile, conv_format, HUMAN_DIR, SIM_DIR
@@ -33,6 +34,12 @@ def get_sim_data(sample: bool = False, language: str = 'zh') -> list[dict]:
                 })
     print(f"Total data: {len(data_list)}")
     return data_list
+
+@overload
+def get_data(sample: bool = False, training: Literal[False] = False, binary: bool = False) -> tuple[list[dict], dict[int, str]]: ...
+
+@overload
+def get_data(sample: bool = False, training: Literal[True] = True, binary: bool = False) -> tuple[list[dict], list[dict]]: ...
 
 def get_data(sample: bool = False, training: bool = True, binary: bool = False) -> tuple[list[dict], dict[int, str]] | tuple[list[dict], list[dict]]:
     random.seed(42)
@@ -92,12 +99,18 @@ def get_data(sample: bool = False, training: bool = True, binary: bool = False) 
         examples[score] = example
     return test_data, examples
 
+@overload
+def get_USS_data(split: str, sample: bool = False, training: Literal[False] = False, binary: bool = False) -> tuple[list[dict], dict[int, str]]: ...
+
+@overload
+def get_USS_data(split: str, sample: bool = False, training: Literal[True] = True, binary: bool = False) -> tuple[list[dict], list[dict]]: ...
+
 def get_USS_data(split: str, sample: bool = False, training: bool = True, binary: bool = False) -> tuple[list[dict], dict[int, str]] | tuple[list[dict], list[dict]]:
     random.seed(42)
     data_file = os.path.join(os.path.dirname(__file__), 'dataset', 'satisfaction_data', f'{split}.json')
     with open(data_file, 'r') as f:
         data_list = json.load(f)
-    return_data_list = []
+    return_data_list: list[dict] = []
     for data in data_list:
         for i, utt in enumerate(data):
             if utt['role'] != 'USER':

@@ -1,6 +1,7 @@
 import os
 import json
 import random
+from typing import overload, Literal
 
 from ml import evaluate_ml
 from lm import evaluate_lm
@@ -107,11 +108,17 @@ def get_compare_data():
                         })
     return data_list
 
-def get_data(sample: bool = False, data_only: bool = True) -> tuple[list[dict], str, str, str] | list[dict]:
+@overload
+def get_data(sample: bool = False, data_only: Literal[True] = True) -> tuple[list[dict], list[dict]]: ...
+
+@overload
+def get_data(sample: bool = False, data_only: Literal[False] = False) -> tuple[list[dict], str, str, str]: ...
+
+def get_data(sample: bool = False, data_only: bool = True) -> tuple[list[dict], str, str, str] | tuple[list[dict], list[dict]]:
     random.seed(42)
     dir_name = HUMAN_DIR
     task_list = ['旅行规划', '礼物准备', '菜谱规划', '技能学习规划']
-    data_list = []
+    data_list: list[dict] = []
     users = os.listdir(dir_name)
     users.sort()
     for user in users:

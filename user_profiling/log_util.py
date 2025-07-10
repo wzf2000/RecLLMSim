@@ -1,5 +1,6 @@
 import os
 from enum import Enum
+from typing import Any
 
 log_dir = os.path.join(os.path.dirname(__file__), 'output')
 
@@ -25,7 +26,7 @@ def get_log_file(model_name: str, exp_type: ExpType, **kwargs: dict) -> str:
         suffix = '_' + suffix
     return os.path.join(log_dir, exp_type.value, f'{model_name}{suffix}.log')
 
-def add_log(item: str, model_name: str, exp_type: ExpType, result: dict[str, float], cls: bool = False, **kwargs: dict):
+def add_log(item: str, model_name: str, exp_type: ExpType, result: dict[str, float], cls: bool = False, **kwargs: Any):
     log_file = get_log_file(model_name, exp_type, **kwargs)
     if not os.path.exists(log_file):
         os.makedirs(os.path.dirname(log_file), exist_ok=True)

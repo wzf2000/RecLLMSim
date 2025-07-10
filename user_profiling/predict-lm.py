@@ -1,9 +1,14 @@
 import os
 import torch
-from torch.utils.data import Dataset
-from transformers import PreTrainedModel, Trainer, TrainingArguments, AutoTokenizer, AutoModelForSequenceClassification, PreTrainedTokenizer
-from transformers.trainer_utils import EvalPrediction
 import numpy as np
+from typing import Any, Sequence
+from torch.utils.data import Dataset
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers.trainer_utils import EvalPrediction
+from transformers.modeling_utils import PreTrainedModel
+from transformers.tokenization_utils import PreTrainedTokenizer
+from transformers.trainer import Trainer
+from transformers.training_args import TrainingArguments
 from sklearn.model_selection import train_test_split
 from nltk.tokenize import sent_tokenize
 from argparse import ArgumentParser
@@ -13,7 +18,7 @@ from evaluate_util import compute_metrics
 from pipe_util import exp_sim, exp_sim2human, exp_sim2human2, exp_human, exp_sim4human, exp_sim4human2, exp_human2sim, exp_human2sim2, exp_sim4human3, exp_sim2human3, exp_sim4human4, exp_sim4human5, HotCold, set_seed
 
 class MultiLabelDataset(Dataset):
-    def __init__(self, texts: list[str], labels: list, tokenizer: PreTrainedTokenizer, max_length: int = 512):
+    def __init__(self, texts: np.ndarray, labels: np.ndarray, tokenizer: PreTrainedTokenizer, max_length: int = 512):
         self.texts = texts
         self.labels = labels
         self.tokenizer = tokenizer
@@ -38,19 +43,19 @@ class MultiLabelDataset(Dataset):
         )
 
         return {
-            'input_ids': encoding['input_ids'].flatten(),
-            'attention_mask': encoding['attention_mask'].flatten(),
+            'input_ids': encoding['input_ids'].flatten(), # type: ignore
+            'attention_mask': encoding['attention_mask'].flatten(), # type: ignore
             'labels': torch.FloatTensor(labels)
         }
 
-def get_dataset(model_name_or_path: str, train_texts: list[str], train_labels: np.ndarray, val_texts: list[str], val_labels: np.ndarray, test_texts: list[str], test_labels: np.ndarray) -> tuple[MultiLabelDataset, MultiLabelDataset, MultiLabelDataset]:
+def get_dataset(model_name_or_path: str, train_texts: np.ndarray, train_labels: np.ndarray, val_texts: np.ndarray, val_labels: np.ndarray, test_texts: np.ndarray, test_labels: np.ndarray) -> tuple[MultiLabelDataset, MultiLabelDataset, MultiLabelDataset]:
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
     train_dataset = MultiLabelDataset(train_texts, train_labels, tokenizer)
     val_dataset = MultiLabelDataset(val_texts, val_labels, tokenizer)
     test_dataset = MultiLabelDataset(test_texts, test_labels, tokenizer)
     return train_dataset, val_dataset, test_dataset
 
-def split_train_val(X: list[str], y: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+def split_train_val(X: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.25, random_state=42)
     return X_train, y_train, X_val, y_val
 
@@ -90,7 +95,7 @@ def get_trainer(model: PreTrainedModel, train_dataset: MultiLabelDataset, val_da
     )
     return trainer
 
-def work(X_train: list[str], y_train: np.ndarray, X_test: list[str], y_test: np.ndarray, item: str, model_name: str, labels: np.ndarray, ckpt_dir_name: str | None = None, **kwargs) -> dict[str, float]:
+def work(X_train: np.ndarray, y_train: np.ndarray, X_test: np.ndarray, y_test: np.ndarray, item: str, model_name: str, labels: np.ndarray, ckpt_dir_name: str | None = None, **kwargs) -> dict[str, float]:
     X_train, y_train, X_val, y_val = split_train_val(X_train, y_train)
     train_dataset, val_dataset, test_dataset = get_dataset(model_name, X_train, y_train, X_val, y_val, X_test, y_test)
     set_seed(42)

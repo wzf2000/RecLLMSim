@@ -19,7 +19,7 @@ task_translation_reverse = {
 
 rating_keys = ['Preference Alignment', 'Role-Playing Completeness']
 
-def get_sim_data(task: str | None = None) -> dict[int, dict[str, list[str]]]:
+def get_sim_data(task: str | None = None) -> dict[int, dict[str, list[int]]]:
     if task is not None and task in task_translation:
         task = task_translation[task]
     if task is None:
@@ -28,7 +28,7 @@ def get_sim_data(task: str | None = None) -> dict[int, dict[str, list[str]]]:
         tasks = ['new travel planning', 'travel planning']
     else:
         tasks = [task]
-    quality: dict[int, dict[str, list[str]]] = {}
+    quality: dict[int, dict[str, list[int]]] = {}
     for task in tasks:
         files = os.listdir(os.path.join(SIM_DIR, task))
         files = [file for file in files if file.endswith('.json')]

@@ -43,7 +43,7 @@ prompt = """请根据以下对话，为对话中的user选择最符合其[Profil
 你的回答是：
 """
 
-def rank2prob(labels: list[str], rank: list[int]) -> np.ndarray:
+def rank2prob(labels: np.ndarray, rank: list[int]) -> np.ndarray:
     prob = [0.0] * len(labels)
     for i, ele in enumerate(rank):
         prob[ele] = 1.0 - i * 0.01
@@ -111,7 +111,7 @@ def predict(model: str, history: str, labels: np.ndarray, item: str) -> np.ndarr
         print(f"Error: {e}")
     return predict(model, history, labels, item)
 
-def work(X_train: list[str], y_train: np.ndarray, X_test: list[str], y_test: np.ndarray, item: str, model_name: str, labels: np.ndarray, **kwargs) -> dict[str, float]:
+def work(X_train: np.ndarray, y_train: np.ndarray, X_test: list[str], y_test: np.ndarray, item: str, model_name: str, labels: np.ndarray, **kwargs) -> dict[str, float]:
     # model ID item
     y_scores = np.array([predict(model_name, history, labels, item) for history in tqdm(X_test, desc=f'Predicting {item}')])
     return compute_metrics(y_test, y_scores)

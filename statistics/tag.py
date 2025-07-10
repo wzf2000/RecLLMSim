@@ -1,6 +1,6 @@
 import os
 import json
-from typing import Iterable
+from typing import Sequence
 
 from utils import SIM_DIR, HUMAN_DIR, HUMAN_DIR_V2, LABEL_FILE
 
@@ -78,7 +78,7 @@ def get_human_data(task: str | None = None) -> list[dict[str, list[str]]]:
     update(HUMAN_DIR_V2)
     return profiles
 
-def average_length(data: Iterable[list]):
+def average_length(data: Sequence[list]):
     return sum(len(conv) for conv in data) / len(data)
 
 def format_attr(key: str) -> str:

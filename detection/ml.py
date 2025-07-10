@@ -1,5 +1,6 @@
 import numpy as np
 import xgboost as xgb
+from typing import overload, Literal
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 
@@ -32,6 +33,12 @@ class MLModel:
     def predict(self, X_test: list[str]) -> np.ndarray:
         X_encoded = self.vectorizer.transform(X_test)
         return self.model.predict(X_encoded)
+
+@overload
+def evaluate_ml(train_data: list[dict], test_data: list[dict], vectorizer: str = 'tfidf', model_name: str = 'RF', profile: bool = False, return_model: Literal[False] = False) -> tuple[float, float]: ...
+
+@overload
+def evaluate_ml(train_data: list[dict], test_data: list[dict], vectorizer: str = 'tfidf', model_name: str = 'RF', profile: bool = False, return_model: Literal[True] = True) -> MLModel: ...
 
 def evaluate_ml(train_data: list[dict], test_data: list[dict], vectorizer: str = 'tfidf', model_name: str = 'RF', profile: bool = False, return_model: bool = False) -> tuple[float, float] | MLModel:
     X_train, y_train = preprocess_data_ml(train_data, profile=profile)

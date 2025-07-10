@@ -4,6 +4,7 @@ from enum import Enum
 from tqdm import tqdm
 from pydantic import BaseModel
 from openai import OpenAI, LengthFinishReasonError
+from openai.types.chat import ChatCompletionUserMessageParam, ChatCompletionAssistantMessageParam, ChatCompletionMessageParam
 from tenacity import retry, stop_after_attempt, wait_fixed
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -64,13 +65,13 @@ class Satsifaction(BaseModel):
 
 
 @retry(stop=stop_after_attempt(5), wait=wait_fixed(2))
-def label(history: list[dict[str, str]], model: str) -> Satsifaction:
+def label(history: list[ChatCompletionMessageParam], model: str) -> Satsifaction:
     input_text = prompt_template
     messages = history.copy()
-    messages.append({
-        "role": "user",
-        "content": input_text
-    })
+    messages.append(ChatCompletionUserMessageParam(
+        content=input_text,
+        role='user',
+    ))
     response = client.beta.chat.completions.parse(
         model=model,
         messages=messages,
@@ -88,22 +89,26 @@ def label(history: list[dict[str, str]], model: str) -> Satsifaction:
     return ret
 
 
-def format_history(history: list[dict[str, str]], preference: str, task_context: str) -> list[dict[str, str]]:
-    messages = [{
-        'role': 'user',
-        'content': f"Assuming I am an intelligent chat assistant, I would like you to play the role of a user who will engage in a conversation with LLM (which is me) and complete the following task requirements. (LLM refers to me):\n{task_context}\nPlease respond with \"Got it.\" to indicate your understanding.",
-    }, {
-        'role': 'assistant',
-        'content': "Got it."
-    }, {
-        'role': 'user',
-        'content': f"In the conversation, I'd like you to role-play according to the provided user profile:\n{preference}\nPlease respond with \"Got it\" to indicate understanding."
-    }, {
-        'role': 'assistant',
-        'content': "Got it."
-    }, {
-        'role': 'user',
-        'content': """Next, please proceed as follows:
+def format_history(history: list[dict[str, str]], preference: str, task_context: str) -> list[ChatCompletionMessageParam]:
+    messages = [
+        ChatCompletionUserMessageParam(
+            content=f"Assuming I am an intelligent chat assistant, I would like you to play the role of a user who will engage in a conversation with LLM (which is me) and complete the following task requirements. (LLM refers to me):\n{task_context}\nPlease respond with \"Got it.\" to indicate your understanding.",
+            role='user',
+        ),
+        ChatCompletionAssistantMessageParam(
+            content="Got it.",
+            role='assistant',
+        ),
+        ChatCompletionUserMessageParam(
+            content=f"In the conversation, I'd like you to role-play according to the provided user profile:\n{preference}\nPlease respond with \"Got it\" to indicate understanding.",
+            role='user',
+        ),
+        ChatCompletionAssistantMessageParam(
+            content="Got it.",
+            role='assistant',
+        ),
+        ChatCompletionUserMessageParam(
+            content="""Next, please proceed as follows:
 
 1. Please remember that if my responses don't meet your requirements, you should express it. You are not obliged to be interested in all of my answers.
 
@@ -115,29 +120,33 @@ def format_history(history: list[dict[str, str]], preference: str, task_context:
 
 5. Please avoid ending the conversation too quickly. You should achieve all the expected objectives during the conversation.
 
-Please respond with \"Got it\" to indicate understanding."""
-    }, {
-        'role': 'assistant',
-        'content': "Got it."
-    }, {
-        'role': 'user',
-        'content': "Now, let's start the conversation. My first line is: \n\"Hello, may I ask how I can assist you?\""
-    }]
-    history = [{
-        'role': 'user',
-        'content': (
-            utt['content'] + '\n'
-            + "[System]: If you wish to conclude this conversation, please reply with "
-            + "\"Thank you, goodbye.\""
-        )
-    } if utt['role'] == 'assistant' else {
-        'role': 'assistant',
-        'content': utt['content']
-    } for utt in history]
-    return messages + history + [{
-        'role': 'assistant',
-        'content': "Thank you, goodbye."
-    }]
+Please respond with \"Got it\" to indicate understanding.""",
+            role='user',
+        ),
+        ChatCompletionAssistantMessageParam(
+            content="Got it.",
+            role='assistant',
+        ),
+        ChatCompletionUserMessageParam(
+            content="Now, let's start the conversation. My first line is: \n\"Hello, may I ask how I can assist you?\"",
+            role='user',
+        ),
+    ]
+    history_params = [
+        ChatCompletionUserMessageParam(
+            content=utt['content'] + '\n[System]: If you wish to conclude this conversation, please reply with "Thank you, goodbye."',
+            role='user'
+        ) if utt['role'] == 'assistant' else ChatCompletionAssistantMessageParam(
+            content=utt['content'],
+            role='assistant'
+        ) for utt in history
+    ]
+    history_params.append(ChatCompletionAssistantMessageParam(
+        content="Thank you, goodbye.",
+        role='assistant'
+    ))
+    messages.extend(history_params)
+    return messages
 
 def label_sim(model: str, label_name: str, sample: bool = False, dir_name: str = SIM_DIR):
     task_list = ['new travel planning', 'preparing gifts',
