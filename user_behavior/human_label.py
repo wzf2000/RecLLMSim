@@ -40,16 +40,16 @@ def label_with_version(version: int, original_labels: dict | None = None) -> dic
     if version == 1:
         strategy['final']['problem_solving'] = get_selectbox('Problem Solving', original_labels.get('problem_solving'), [ProblemSolving.AllInOne.value, ProblemSolving.StepByStep.value])
         strategy['final']['order'] = get_selectbox('Order', original_labels.get('order'), [Order.Depth.value, Order.Breadth.value, Order.DepthBreadth.value, Order.BreadthDepth.value])
-    elif version == 3:
+    elif version == 2:
         strategy['final']['question_broadness'] = get_select_slider('Question Broadness', original_labels.get('question_broadness'), [Rating.One.value, Rating.Two.value, Rating.Three.value, Rating.Four.value, Rating.Five.value])
         strategy['final']['context_dependency'] = get_select_slider('Context Dependency', original_labels.get('context_dependency'), [Rating.One.value, Rating.Two.value, Rating.Three.value, Rating.Four.value, Rating.Five.value])
-    elif version == 4:
+    elif version == 3:
         strategy['final']['feedback'] = get_selectbox('Feedback', original_labels.get('feedback'), [Feedback.NoFeedback.value, Feedback.Positive.value, Feedback.Negative.value, Feedback.Both.value])
         strategy['final']['explanation'] = get_selectbox('Explanation', original_labels.get('explanation'), [Explanation.Frequent.value, Explanation.Rare.value, Explanation.NoExplanation.value])
         strategy['final']['promise'] = get_selectbox('Promise', original_labels.get('promise'), [Promise.HavePromise.value, Promise.NoPromise.value])
         strategy['final']['politeness'] = get_selectbox('Politeness', original_labels.get('politeness'), [Politeness.Polite.value, Politeness.Neutral.value, Politeness.Impolite.value])
         strategy['final']['formality'] = get_selectbox('Formality', original_labels.get('formality'), [Formality.Oral.value, Formality.Formal.value, Formality.Mixed.value])
-    elif version == 5:
+    elif version == 4:
         strategy['final']['utility'] = get_selectbox('Utility', original_labels.get('utility'), [Usefulness.Low.value, Usefulness.Moderate.value, Usefulness.High.value])
         strategy['final']['operability'] = get_selectbox('Operability', original_labels.get('operability'), [Usefulness.Low.value, Usefulness.Moderate.value, Usefulness.High.value])
     return strategy
@@ -140,11 +140,11 @@ def get_human_files(sample: int, all: bool = False) -> list[str]:
 def get_label_keys(version: int) -> list[str]:
     if version == 1:
         return ['problem_solving', 'order']
-    elif version == 3:
+    elif version == 2:
         return ['question_broadness', 'context_dependency']
-    elif version == 4:
+    elif version == 3:
         return ['feedback', 'explanation', 'promise', 'politeness', 'formality']
-    elif version == 5:
+    elif version == 4:
         return ['utility', 'operability']
     else:
         raise ValueError(f'Unsupported version: {version}')
@@ -259,6 +259,8 @@ def show_all_accuracy(files: list[str], strategy_name: str, compare_name: str):
             st.error(f'Strategy {strategy_name} or {compare_name} not found in {file}')
             continue
         for key in data[strategy_name]['final']:
+            if key == 'feedback':
+                print(strategy_name, file)
             if key not in right:
                 right[key] = []
             right[key].append(data[strategy_name]['final'][key] == data[compare_name]['final'][key])
@@ -317,8 +319,8 @@ def main():
     pipe = st.sidebar.selectbox('Pipeline', ['Label in order', 'Check labeled files'])
     st.session_state['height'] = st.sidebar.number_input('Height', min_value=600, max_value=2000, value=600, step=50)
     st.sidebar.markdown('### Version')
-    version = st.sidebar.selectbox('Version', [1, 3, 4, 5])
-    assert version in [1, 3, 4, 5], 'Version not supported'
+    version = st.sidebar.selectbox('Version', [1, 2, 3, 4])
+    assert version in [1, 2, 3, 4], 'Version not supported'
 
     st.sidebar.markdown('### Mode')
     mode = st.sidebar.selectbox('Mode', ['Simulation', 'Human'])

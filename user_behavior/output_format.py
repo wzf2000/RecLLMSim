@@ -39,13 +39,6 @@ class Formality(str, Enum):
     Formal = 'Formal'
     Mixed = 'Mixed'
 
-class StrategyV1(StrategyType):
-    problem_solving: ProblemSolving
-    order: Order
-
-class StrategyV2(StrategyType):
-    pass
-
 class Rating(int, Enum):
     One = 1
     Two = 2
@@ -58,22 +51,24 @@ class Usefulness(str, Enum):
     Moderate = 'Moderate'
     Low = 'Low'
 
-class StrategyV3(StrategyType):
+class StrategyV1(StrategyType):
+    problem_solving: ProblemSolving
+    order: Order
+
+class StrategyV2(StrategyType):
     question_broadness: Rating
     context_dependency: Rating
-    feedback: Feedback
 
-class StrategyV4(StrategyType):
-    context_dependency: Rating
+class StrategyV3(StrategyType):
     explanation: Explanation
     promise: Promise
     feedback: Feedback
     politeness: Politeness
     formality: Formality
 
-class StrategyV5(StrategyType):
+class StrategyV4(StrategyType):
     utility: Usefulness
     operability: Usefulness
 
-strategy_list: list[type[StrategyType]] = [StrategyV1, StrategyV2, StrategyV3, StrategyV4, StrategyV5]
-template_ids: list[int] = [0, 0, 0, 0, 1]
+strategy_list: list[type[StrategyType]] = [StrategyV1, StrategyV2, StrategyV3, StrategyV4]
+template_ids: list[int] = [0, 0, 0, 1]

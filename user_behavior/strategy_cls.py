@@ -62,7 +62,7 @@ aspect_list = ["""1. **Problem Solving Approach Type**:
         - **Depth-Oriented**: The user focuses intensely on a specific aspect of their plan, thoroughly exploring it before moving on to another aspect.
         - **Breadth-Oriented**: The user considers a wide range of aspects of their plan, exploring each one briefly without going into much detail.
         - **Depth-First, Then Breadth**: The user initially examines a particular aspect of their plan in great detail before expanding their inquiry to include a broader range of aspects.
-        - **Breadth-First, Then Depth**: The user begins by covering a wide array of aspects superficially and subsequently chooses specific aspects to explore in detail.""", """""", """### 1. **Question Broadness** (How specific or broad the user's questions are overall in the conversation):
+        - **Breadth-First, Then Depth**: The user begins by covering a wide array of aspects superficially and subsequently chooses specific aspects to explore in detail.""", """### 1. **Question Broadness** (How specific or broad the user's questions are overall in the conversation):
 - **1 - Very Broad:**
   The user's questions are extremely general or vague, with little to no specific focus.
   *Example:* "What are some fun places to visit?"
@@ -103,29 +103,8 @@ aspect_list = ["""1. **Problem Solving Approach Type**:
 - **5 - Very Dependent:**
   The user's questions are completely tied to prior context, making them difficult to understand without the preceding conversation.
   *Example:* "Which one would you recommend?" following a detailed discussion about several specific gift ideas.""", """### Interaction Style
-
-1. **Context Dependency** (How much the user's questions depend on prior context or information in the conversation):
-    - **1 - Very Independent:**
-      The user's questions are mostly self-contained and do not rely on prior context.
-      *Example:* "What is the best way to make pasta?"
-
-    - **2 - Independent:**
-      The user's questions have minimal reliance on prior context, with only occasional connections to previous questions.
-      *Example:* "What’s a good gift for a teenager?" followed by "How about for someone who loves art?"
-
-    - **3 - Moderately Dependent:**
-      The user's questions partially build on prior context, showing some reliance on earlier parts of the conversation.
-      *Example:* "What are some tips for learning guitar chords?" followed by "Can you recommend exercises for switching between them quickly?"
-
-    - **4 - Dependent:**
-      The user's questions strongly depend on prior context and directly reference earlier discussions.
-      *Example:* "What are the best walking routes in Rome?" followed by "Are there any good restaurants along those routes?"
-
-    - **5 - Very Dependent:**
-      The user's questions are completely tied to prior context, making them difficult to understand without the preceding conversation.
-      *Example:* "Which one would you recommend?" following a detailed discussion about several specific gift ideas.
-
-2. **Explanation:** Assess how often the user provides reasons for their own requests or preferences during the conversation. Noticed that request itself (anything you need to response) or stating a preference should not be considered as a reason. A "reason" should only be count when the request or the preference is in the same turn with its reason.
+  
+1. **Explanation:** Assess how often the user provides reasons for their own requests or preferences during the conversation. Noticed that request itself (anything you need to response) or stating a preference should not be considered as a reason. A "reason" should only be count when the request or the preference is in the same turn with its reason.
       *No Explanation Example:* "I would prefer public transportation."
       *Explanation Example:* "I would prefer public transportation as it would allow me to immerse myself more in the local culture."
     - **Frequent Explanation:** The user separately explicitly explains their reasons **two or more** times during the entire conversation. These reasons must refer to different aspects of the conversation and are clearly separated in two or more different turns, not nested in one long turn.
@@ -134,7 +113,7 @@ aspect_list = ["""1. **Problem Solving Approach Type**:
 
     You should give the corresponding reason for the user's explanation in the `reason_for_explanation` field in the output.
 
-3. **Promise:** Determine whether the user explicitly commits to following the assistant’s suggestion after receiving it (not in their initial request).
+2. **Promise:** Determine whether the user explicitly commits to following the assistant’s suggestion after receiving it (not in their initial request).
     - **Have Promise:** The user explicitly confirms or imply he/she will follow the assistant’s suggestion. This includes expressions of future intent, agreement to act, or direct statements of commitment.
         *Eample:* "I will book the group tours in advance."
         *Helpful Keywords (Users' promises may include the following keywords.):* "I will", "I’ll", "I will definitely", "I will certainly", "I will follow your suggestion", "I will take your advice", "I will try that", "I will do that", "I will go with that".
@@ -146,20 +125,20 @@ aspect_list = ["""1. **Problem Solving Approach Type**:
 
     You should give the corresponding reason for the user's promise in the `reason_for_promise` field in the output.
 
-4. **Feedback Attitude**:
+3. **Feedback Attitude**:
     - **No Feedback**: Throughout the multi-turn dialogue, the user does not provide any feedback or reaction to the responses received, proceeding with their inquiries without acknowledging the answers.
     - **Positive Feedback**: The user consistently provides affirmative or approving responses to the information received throughout the interaction, indicating satisfaction or agreement.
     - **Negative Feedback**: The user consistently expresses dissatisfaction or disagreement with the responses during the interaction, possibly indicating the information was unhelpful or incorrect.
     - **Both Feedback**: The user provides both positive and negative feedback at different times throughout the dialogue, showing varied reactions depending on the responses.
 
-5. **Politeness**
+4. **Politeness**
     - **Polite**: The user's language style is always very polite.
         *Example:* "Thank you very much for the detailed instructions on booking the shuttle.“
     - **Neutral**: The user's language style is neutral, neither overly polite nor rude. The normal tone is considered neutral.
     - **Impolite**: The user has not promised to take action based on the recommendation by the assistant.
         *Example:* "This is too damn expensive."
 
-6. **Formality**
+5. **Formality**
     - **Oral**: The user's language style is always oral.
     - **Formal**: The user's language style is always formal.
     - **Mixed**: The user's language style is both oral and formal.""", """### Conversation Evaluation
@@ -183,11 +162,10 @@ aspect_list = ["""1. **Problem Solving Approach Type**:
 format_list = ["""{
     "problem_solving": "AllInOne/StepByStep",
     "order": "Depth/Breadth/DepthBreadth/BreadthDepth",
-}""", """{}""", """{
+}""", """{
     "question_broadness": "1-5",
     "context_dependency": "1-5",
 }""", """{
-    "context_dependency": "1-5",
     "explanation": "Frequent/Rare/No",
     "promise": "Have/no",
     "feedback": "NoFeedback/Positive/Negative/Both"
