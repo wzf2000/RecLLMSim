@@ -149,32 +149,6 @@
             }
         ]
     },
-    "strategy": {
-        "final": {
-            "information_request": "Sequential",
-            "order": "Breadth",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "1": {
-            "information_request": "Sequential",
-            "order": "Breadth",
-            "context": "Low",
-            "question": "Broad"
-        },
-        "2": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "3": {
-            "information_request": "Sequential",
-            "order": "Breadth",
-            "context": "Low",
-            "question": "Specific"
-        }
-    },
     "strategy_V2": {
         "final": {
             "order": "BreadthDepth",
@@ -270,6 +244,84 @@
         "3": {
             "utility": "High",
             "operability": "High"
+        }
+    },
+    "strategy_V4": {
+        "final": {
+            "context_dependency": 4,
+            "explanation": "NoExplanation",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Formal"
+        },
+        "1": {
+            "context_dependency": 4,
+            "explanation": "NoExplanation",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Formal"
+        },
+        "2": {
+            "context_dependency": 4,
+            "explanation": "NoExplanation",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Formal"
+        },
+        "3": {
+            "context_dependency": 4,
+            "explanation": "NoExplanation",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Formal"
+        }
+    },
+    "strategy_V1_deprecated": {
+        "final": {
+            "information_request": "Sequential",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Sequential",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Sequential",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V1": {
+        "final": {
+            "problem_solving": "StepByStep",
+            "order": "Breadth"
+        },
+        "1": {
+            "problem_solving": "StepByStep",
+            "order": "Breadth"
+        },
+        "2": {
+            "problem_solving": "StepByStep",
+            "order": "Breadth"
+        },
+        "3": {
+            "problem_solving": "StepByStep",
+            "order": "Breadth"
         }
     }
 }

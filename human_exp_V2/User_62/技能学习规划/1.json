@@ -151,32 +151,6 @@
             "feedback": "NoFeedback"
         }
     },
-    "strategy": {
-        "final": {
-            "information_request": "Sequential",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "1": {
-            "information_request": "Sequential",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "2": {
-            "information_request": "Sequential",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "3": {
-            "information_request": "Sequential",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        }
-    },
     "strategy_V2": {
         "final": {
             "order": "DepthBreadth",
@@ -245,6 +219,84 @@
         "3": {
             "utility": "Moderate",
             "operability": "Moderate"
+        }
+    },
+    "strategy_V4": {
+        "final": {
+            "context_dependency": 4,
+            "explanation": "Rare",
+            "promise": "NoPromise",
+            "feedback": "Positive",
+            "politeness": "Neutral",
+            "formality": "Mixed"
+        },
+        "1": {
+            "context_dependency": 4,
+            "explanation": "Rare",
+            "promise": "NoPromise",
+            "feedback": "Positive",
+            "politeness": "Neutral",
+            "formality": "Mixed"
+        },
+        "2": {
+            "context_dependency": 4,
+            "explanation": "Rare",
+            "promise": "NoPromise",
+            "feedback": "Positive",
+            "politeness": "Neutral",
+            "formality": "Mixed"
+        },
+        "3": {
+            "context_dependency": 4,
+            "explanation": "Rare",
+            "promise": "NoPromise",
+            "feedback": "Positive",
+            "politeness": "Neutral",
+            "formality": "Mixed"
+        }
+    },
+    "strategy_V1_deprecated": {
+        "final": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V1": {
+        "final": {
+            "problem_solving": "StepByStep",
+            "order": "BreadthDepth"
+        },
+        "1": {
+            "problem_solving": "StepByStep",
+            "order": "BreadthDepth"
+        },
+        "2": {
+            "problem_solving": "StepByStep",
+            "order": "BreadthDepth"
+        },
+        "3": {
+            "problem_solving": "StepByStep",
+            "order": "BreadthDepth"
         }
     }
 }

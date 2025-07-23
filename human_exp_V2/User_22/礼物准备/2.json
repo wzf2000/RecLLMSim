@@ -127,32 +127,6 @@
             "feedback": "NoFeedback"
         }
     },
-    "strategy": {
-        "final": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "1": {
-            "information_request": "Planning",
-            "order": "Depth",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "2": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "3": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        }
-    },
     "strategy_V2": {
         "final": {
             "order": "Breadth",
@@ -221,6 +195,92 @@
         "3": {
             "utility": "High",
             "operability": "High"
+        }
+    },
+    "strategy_V4": {
+        "final": {
+            "context_dependency": 2,
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Formal"
+        },
+        "1": {
+            "context_dependency": 2,
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Formal"
+        },
+        "2": {
+            "context_dependency": 2,
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Formal"
+        },
+        "3": {
+            "context_dependency": 2,
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Formal"
+        }
+    },
+    "strategy_human_V4": {
+        "final": {
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "politeness": "Neutral",
+            "formality": "Formal"
+        }
+    },
+    "strategy_V1_deprecated": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Planning",
+            "order": "Depth",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V1": {
+        "final": {
+            "problem_solving": "AllInOne",
+            "order": "Breadth"
+        },
+        "1": {
+            "problem_solving": "AllInOne",
+            "order": "Breadth"
+        },
+        "2": {
+            "problem_solving": "AllInOne",
+            "order": "Breadth"
+        },
+        "3": {
+            "problem_solving": "StepByStep",
+            "order": "BreadthDepth"
         }
     }
 }

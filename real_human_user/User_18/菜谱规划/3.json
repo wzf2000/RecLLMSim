@@ -153,32 +153,6 @@
             "option": "结果多样"
         }
     ],
-    "strategy": {
-        "final": {
-            "information_request": "Sequential",
-            "order": "Depth",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "1": {
-            "information_request": "Sequential",
-            "order": "Depth",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "2": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "High",
-            "question": "Specific"
-        },
-        "3": {
-            "information_request": "Sequential",
-            "order": "Depth",
-            "context": "Low",
-            "question": "Specific"
-        }
-    },
     "strategy_V2": {
         "final": {
             "order": "DepthBreadth",
@@ -197,17 +171,10 @@
             "feedback": "Positive"
         }
     },
-    "strategy_human": {
+    "strategy_human_V1": {
         "final": {
-            "information_request": "Sequential",
-            "context": "Low",
-            "question": "Specific"
-        }
-    },
-    "strategy_human_V2": {
-        "final": {
-            "order": "DepthBreadth",
-            "feedback": "Positive"
+            "problem_solving": "StepByStep",
+            "order": "BreadthDepth"
         }
     },
     "strategy_V3": {
@@ -289,6 +256,99 @@
         "3": {
             "utility": "High",
             "operability": "High"
+        }
+    },
+    "strategy_V4": {
+        "final": {
+            "context_dependency": 4,
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Oral"
+        },
+        "1": {
+            "context_dependency": 4,
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Oral"
+        },
+        "2": {
+            "context_dependency": 4,
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Oral"
+        },
+        "3": {
+            "context_dependency": 4,
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Oral"
+        }
+    },
+    "strategy_human_V4": {
+        "final": {
+            "feedback": "Positive",
+            "explanation": "Rare",
+            "promise": "NoPromise",
+            "politeness": "Polite",
+            "formality": "Oral"
+        }
+    },
+    "strategy_human_V5": {
+        "final": {
+            "utility": "High",
+            "operability": "High"
+        }
+    },
+    "strategy_V1_deprecated": {
+        "final": {
+            "information_request": "Sequential",
+            "order": "Depth",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Sequential",
+            "order": "Depth",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "High",
+            "question": "Specific"
+        },
+        "3": {
+            "information_request": "Sequential",
+            "order": "Depth",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V1": {
+        "final": {
+            "problem_solving": "StepByStep",
+            "order": "BreadthDepth"
+        },
+        "1": {
+            "problem_solving": "StepByStep",
+            "order": "BreadthDepth"
+        },
+        "2": {
+            "problem_solving": "StepByStep",
+            "order": "BreadthDepth"
+        },
+        "3": {
+            "problem_solving": "StepByStep",
+            "order": "BreadthDepth"
         }
     }
 }

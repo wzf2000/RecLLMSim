@@ -119,32 +119,6 @@
             "feedback": "NoFeedback"
         }
     },
-    "strategy": {
-        "final": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "1": {
-            "information_request": "Sequential",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "2": {
-            "information_request": "Planning",
-            "order": "Breadth",
-            "context": "Low",
-            "question": "Broad"
-        },
-        "3": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        }
-    },
     "strategy_V2": {
         "final": {
             "order": "Depth",
@@ -213,6 +187,84 @@
         "3": {
             "utility": "Low",
             "operability": "Low"
+        }
+    },
+    "strategy_V4": {
+        "final": {
+            "context_dependency": 1,
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Oral"
+        },
+        "1": {
+            "context_dependency": 1,
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Oral"
+        },
+        "2": {
+            "context_dependency": 1,
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Oral"
+        },
+        "3": {
+            "context_dependency": 1,
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Oral"
+        }
+    },
+    "strategy_V1_deprecated": {
+        "final": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "1": {
+            "information_request": "Sequential",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        },
+        "2": {
+            "information_request": "Planning",
+            "order": "Breadth",
+            "context": "Low",
+            "question": "Broad"
+        },
+        "3": {
+            "information_request": "Planning",
+            "order": "Comprehensive",
+            "context": "Low",
+            "question": "Specific"
+        }
+    },
+    "strategy_V1": {
+        "final": {
+            "problem_solving": "StepByStep",
+            "order": "Depth"
+        },
+        "1": {
+            "problem_solving": "StepByStep",
+            "order": "Depth"
+        },
+        "2": {
+            "problem_solving": "StepByStep",
+            "order": "Depth"
+        },
+        "3": {
+            "problem_solving": "StepByStep",
+            "order": "Depth"
         }
     }
 }
