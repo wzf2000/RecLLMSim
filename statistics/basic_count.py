@@ -59,7 +59,7 @@ def get_sim_data(task: str | None = None, language: str = 'en') -> list[list[dic
             convs.append(history)
     return convs
 
-def get_human_data(task: str | None = None) -> list[list[dict[str, str]]]:
+def get_human_data(task: str | None = None, chat_model: str | None = None) -> list[list[dict[str, str]]]:
     if task is not None and task in task_translation_reverse:
         task = task_translation_reverse[task]
     if task is None:
@@ -80,6 +80,9 @@ def get_human_data(task: str | None = None) -> list[list[dict[str, str]]]:
                 for file in files:
                     with open(os.path.join(dir_name, user, task, file), 'r') as f:
                         data = json.load(f)
+                    data['chat_model'] = data.get('chat_model', 'gpt-4-turbo-preview')
+                    if chat_model is not None and data['chat_model'] != chat_model:
+                        continue
                     history = [{
                         'role': utt['role'],
                         'content': utt['content']
@@ -116,7 +119,7 @@ def statistics(convs: list[list[dict[str, str]]]) -> dict[str, float | int]:
 if __name__ == '__main__':
     for task in [None, 'travel planning', 'recipe planning', 'preparing gifts', 'skills learning planning']:
         sim_data = get_sim_data(task, 'zh')
-        human_data = get_human_data(task)
+        human_data = get_human_data(task, 'gpt-4-turbo-preview')
         if task is None:
             scenario = 'All'
         else:
@@ -127,8 +130,8 @@ if __name__ == '__main__':
         human_stats = statistics(human_data)
         print(sim_stats["convs"], human_stats["convs"])
         output = f'''\\midrule
-        \\multirow{{2}}{{*}}{{{scenario}}} & Agent & {sim_stats["turns"]:.2f} & {sim_stats["avg_user_tokens"]:.2f} & {sim_stats["avg_user_tokens_turn"]:.2f} & {sim_stats["avg_assistant_tokens_turn"]:.2f} \\\\
-        & Human & {human_stats["convs"]} & {human_stats["avg_user_tokens"]:.2f} & {human_stats["avg_user_tokens_turn"]:.2f} & {human_stats["avg_assistant_tokens_turn"]:.2f} \\\\
+        \\multirow{{2}}{{*}}{{{scenario}}} & Agent & {sim_stats["convs"]} & {sim_stats["turns"]:.2f} & {sim_stats["avg_user_tokens"]:.2f} & {sim_stats["avg_user_tokens_turn"]} & {sim_stats["avg_assistant_tokens_turn"]:.2f} \\\\
+        & Human & {human_stats["convs"]:.2f} & {human_stats["turns"]:.2f} & {human_stats["avg_user_tokens"]:.2f} & {human_stats["avg_user_tokens_turn"]:.2f} & {human_stats["avg_assistant_tokens_turn"]:.2f} \\\\
         '''
         print(output)
         while input('Continue? (y/n) ') != 'y':
