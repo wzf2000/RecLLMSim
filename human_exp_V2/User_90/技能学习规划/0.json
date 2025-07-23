@@ -42,8 +42,6 @@
             "satisfaction": "4"
         }
     ],
-    "task_context": "你在最近由于自身兴趣，想要通过一年左右的时间来学习一门外语（根据自身情况设定），你之前在这方面没有基础，是一个初学者，现在你希望借助大语言模型来完成你的学习规划。在对话中你需要完成学习进度安排、学习资源整理等，学习过程应当考虑到你现有的技能水平，符合人的学习规律。你的最终方案应当尽量完善，做到可以真实按照规划学习。",
-    "task_type": "技能学习规划",
     "profile": {
         "gender": "Female",
         "age": 21,
@@ -107,158 +105,6 @@
             "option": "结果多样"
         }
     ],
-    "strategy_V3": {
-        "final": {
-            "question_broadness": 3,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        },
-        "1": {
-            "question_broadness": 3,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        },
-        "2": {
-            "question_broadness": 3,
-            "context_dependency": 2,
-            "feedback": "Positive"
-        },
-        "3": {
-            "question_broadness": 4,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        }
-    },
-    "strategy_V2": {
-        "final": {
-            "order": "BreadthDepth",
-            "feedback": "Both"
-        },
-        "1": {
-            "order": "BreadthDepth",
-            "feedback": "Both"
-        },
-        "2": {
-            "order": "BreadthDepth",
-            "feedback": "Both"
-        },
-        "3": {
-            "order": "BreadthDepth",
-            "feedback": "Both"
-        }
-    },
-    "strategy_V4_deprecated": {
-        "final": {
-            "context_dependency": 3,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Oral"
-        },
-        "1": {
-            "context_dependency": 3,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Oral"
-        },
-        "2": {
-            "context_dependency": 3,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Oral"
-        },
-        "3": {
-            "context_dependency": 3,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Oral"
-        }
-    },
-    "strategy_V5": {
-        "final": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "1": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "2": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "3": {
-            "utility": "High",
-            "operability": "High"
-        }
-    },
-    "strategy_V4": {
-        "final": {
-            "context_dependency": 4,
-            "explanation": "NoExplanation",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Neutral",
-            "formality": "Oral"
-        },
-        "1": {
-            "context_dependency": 4,
-            "explanation": "NoExplanation",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Neutral",
-            "formality": "Oral"
-        },
-        "2": {
-            "context_dependency": 4,
-            "explanation": "NoExplanation",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Neutral",
-            "formality": "Oral"
-        },
-        "3": {
-            "context_dependency": 4,
-            "explanation": "NoExplanation",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Neutral",
-            "formality": "Oral"
-        }
-    },
-    "strategy_V1_deprecated": {
-        "final": {
-            "information_request": "Sequential",
-            "order": "Comprehensive",
-            "context": "High",
-            "question": "Specific"
-        },
-        "1": {
-            "information_request": "Sequential",
-            "order": "Comprehensive",
-            "context": "High",
-            "question": "Specific"
-        },
-        "2": {
-            "information_request": "Sequential",
-            "order": "Comprehensive",
-            "context": "High",
-            "question": "Specific"
-        },
-        "3": {
-            "information_request": "Sequential",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        }
-    },
     "strategy_V1": {
         "final": {
             "problem_solving": "StepByStep",
@@ -276,5 +122,73 @@
             "problem_solving": "StepByStep",
             "order": "BreadthDepth"
         }
-    }
+    },
+    "strategy_V2": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 2
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 3
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "explanation": "NoExplanation",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Neutral",
+            "formality": "Oral"
+        },
+        "1": {
+            "explanation": "NoExplanation",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Neutral",
+            "formality": "Oral"
+        },
+        "2": {
+            "explanation": "NoExplanation",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Neutral",
+            "formality": "Oral"
+        },
+        "3": {
+            "explanation": "NoExplanation",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Neutral",
+            "formality": "Oral"
+        }
+    },
+    "strategy_V4": {
+        "final": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "1": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "2": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "3": {
+            "utility": "High",
+            "operability": "High"
+        }
+    },
+    "task_context": "你在最近由于自身兴趣，想要通过一年左右的时间来学习一门外语（根据自身情况设定），你之前在这方面没有基础，是一个初学者，现在你希望借助大语言模型来完成你的学习规划。在对话中你需要完成学习进度安排、学习资源整理等，学习过程应当考虑到你现有的技能水平，符合人的学习规律。你的最终方案应当尽量完善，做到可以真实按照规划学习。",
+    "task_type": "技能学习规划"
 }

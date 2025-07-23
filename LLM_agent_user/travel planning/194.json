@@ -1,11 +1,4 @@
 {
-    "task": "travel planning",
-    "preference_id": 57,
-    "task_context_id": 1,
-    "preference": "1. Gender: Female\n2. Age: 26\n3. Personality: Charismatic, ambitious, and driven\n4. Occupation: Public Relations Specialist\n5. Daily Interests and Hobbies: Social networking, attending seminars, fashion\n6. Travel Habits: Frequently travels for work, enjoys city breaks\n7. Dining Preferences: Loves gourmet food, enjoys wine tasting\n8. Spending Habits: Spends on high-end fashion and beauty products, invests in personal development courses\n9. Other Aspects: Has a large social circle, lives in a city apartment",
-    "preference_zh": "1. 性别：女性\n2. 年龄：26\n3. 个性：有魅力，雄心勃勃，进取\n4. 职业：公关专家\n5. 日常兴趣和爱好：社交网络，参加研讨会，时尚\n6. 旅行习惯：经常出差旅行，喜欢城市休闲\n7. 餐饮偏好：喜欢美食，享受品酒\n8. 开销习惯：消费高端时尚和美容产品，投资个人发展课程\n9. 其他方面：拥有庞大的社交圈，住在城市公寓",
-    "task_context": "You are planning a two-day-long trip this summer, The trip has no specific destination restrictions. You would like to use LLM to help refine your travel plans. During this conversation, you will need to make arrangements for accommodations, transportation, and itinerary details. Your ultimate travel plan should be as comprehensive as possible, ensuring that you can realistically follow it when the time comes.",
-    "task_context_zh": "你打算在今年夏天进行为期两天的旅行，这次旅行没有特定的目的地限制。你希望使用LLM来帮助完善你的旅行计划。在这次对话中，你会需要安排住宿、交通和行程细节。你的最终旅行计划应尽可能全面，确保在时机到来时你能实际执行它。",
     "history": [
         {
             "role": "user",
@@ -105,29 +98,9 @@
             "content_zh_old": "不用客气！很高兴听到您喜欢行程建议。听起来您制定了一个全面的计划，包括探索城市的文化亮点，品尝当地美食，体验蒙特利尔独特的社区。晚餐邮轮确实将为您的旅行提供难忘的结束。请记得查看您计划参观的景点和餐厅的开放时间和预订要求。这将有助于确保您在蒙特利尔两天的冒险中拥有一个流畅愉快的体验。如果您有更多问题或需要进一步帮助，请随时询问。祝您旅途愉快，希望您在蒙特利尔创造美好的回忆！一路顺风！"
         }
     ],
-    "conflict": false,
-    "preference_summary_old": [
-        "vibrant city environments",
-        "cultural experiences",
-        "landmarks",
-        "attractions",
-        "exploring neighborhoods"
-    ],
-    "preference_summary": [
-        "montreal",
-        "european flair",
-        "centrally located hotels",
-        "flying"
-    ],
-    "rating": {
-        "Preference Alignment": 2,
-        "Additional Preferences": 0,
-        "Role-Playing Completeness": 2,
-        "Memorization": 1,
-        "Detail Level": 2,
-        "Practical Usefulness": 2,
-        "Diversity": 2
-    },
+    "preference": "1. Gender: Female\n2. Age: 26\n3. Personality: Charismatic, ambitious, and driven\n4. Occupation: Public Relations Specialist\n5. Daily Interests and Hobbies: Social networking, attending seminars, fashion\n6. Travel Habits: Frequently travels for work, enjoys city breaks\n7. Dining Preferences: Loves gourmet food, enjoys wine tasting\n8. Spending Habits: Spends on high-end fashion and beauty products, invests in personal development courses\n9. Other Aspects: Has a large social circle, lives in a city apartment",
+    "preference_id": 57,
+    "preference_zh": "1. 性别：女性\n2. 年龄：26\n3. 个性：有魅力，雄心勃勃，进取\n4. 职业：公关专家\n5. 日常兴趣和爱好：社交网络，参加研讨会，时尚\n6. 旅行习惯：经常出差旅行，喜欢城市休闲\n7. 餐饮偏好：喜欢美食，享受品酒\n8. 开销习惯：消费高端时尚和美容产品，投资个人发展课程\n9. 其他方面：拥有庞大的社交圈，住在城市公寓",
     "profile_mapped": {
         "Gender": {
             "en": "Female",
@@ -194,162 +167,19 @@
             }
         ]
     },
-    "strategy_V2": {
-        "final": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        },
-        "1": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        },
-        "2": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        },
-        "3": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        }
-    },
-    "strategy_V3": {
-        "final": {
-            "question_broadness": 3,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        },
-        "1": {
-            "question_broadness": 3,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        },
-        "2": {
-            "question_broadness": 3,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        },
-        "3": {
-            "question_broadness": 3,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        }
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
     },
     "satisfaction": {
         "detail": 2,
         "utility": 2,
         "diversity": 2
-    },
-    "strategy_V4_deprecated": {
-        "final": {
-            "context_dependency": 3,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "1": {
-            "context_dependency": 3,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "2": {
-            "context_dependency": 3,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "3": {
-            "context_dependency": 3,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        }
-    },
-    "strategy_V5": {
-        "final": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "1": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "2": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "3": {
-            "utility": "High",
-            "operability": "High"
-        }
-    },
-    "strategy_V4": {
-        "final": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "1": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "2": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "3": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        }
-    },
-    "strategy_V1_deprecated": {
-        "final": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "1": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "2": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Broad"
-        },
-        "3": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "High",
-            "question": "Specific"
-        }
     },
     "strategy_V1": {
         "final": {
@@ -368,5 +198,75 @@
             "problem_solving": "AllInOne",
             "order": "BreadthDepth"
         }
-    }
+    },
+    "strategy_V2": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 3
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Formal"
+        },
+        "1": {
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Formal"
+        },
+        "2": {
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Formal"
+        },
+        "3": {
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Formal"
+        }
+    },
+    "strategy_V4": {
+        "final": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "1": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "2": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "3": {
+            "utility": "High",
+            "operability": "High"
+        }
+    },
+    "task": "travel planning",
+    "task_context": "You are planning a two-day-long trip this summer, The trip has no specific destination restrictions. You would like to use LLM to help refine your travel plans. During this conversation, you will need to make arrangements for accommodations, transportation, and itinerary details. Your ultimate travel plan should be as comprehensive as possible, ensuring that you can realistically follow it when the time comes.",
+    "task_context_id": 1,
+    "task_context_zh": "你打算在今年夏天进行为期两天的旅行，这次旅行没有特定的目的地限制。你希望使用LLM来帮助完善你的旅行计划。在这次对话中，你会需要安排住宿、交通和行程细节。你的最终旅行计划应尽可能全面，确保在时机到来时你能实际执行它。"
 }

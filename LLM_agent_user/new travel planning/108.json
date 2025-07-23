@@ -1,11 +1,4 @@
 {
-    "task": "new travel planning",
-    "preference_id": 20,
-    "task_context_id": 7,
-    "preference": "1. Gender: Male\n2. Age: 29\n3. Personality: Passionate, creative, and outgoing\n4. Occupation: Chef\n5. Daily Interests and Hobbies: Experimenting with recipes, wine tasting, playing the guitar\n6. Travel Habits: Travels to explore cuisines, enjoys food festivals\n7. Dining Preferences: Enjoys a variety of cuisines, loves seafood\n8. Spending Habits: Invests in kitchen gadgets, spends on fresh ingredients\n9. Other Aspects: Runs a food blog, has a pet parrot",
-    "preference_zh": "1. 性别：男性\n2. 年龄：29\n3. 个性：热情、创造性、外向\n4. 职业：厨师\n5. 日常兴趣爱好：尝试新菜谱、品酒、弹吉他\n6. 旅行习惯：喜欢探索不同美食，喜欢参加美食节\n7. 就餐偏好：喜欢各种菜系，热爱海鲜\n8. 消费习惯：投资厨房用品，购买新鲜食材\n9. 其他方面：经营食品博客，有一只宠物鹦鹉",
-    "task_context": "You are planning a weekend trip that will take place in December. Your goal, with the help of LLM, is to refine and finalize your travel plans. This includes making detailed arrangements for accommodations, transportation, and your daily itinerary. Your final travel plan should be as comprehensive and realistic as possible, ensuring that it can be seamlessly implemented when the time comes.\nYour trip planning should take into consideration the specific destination as specified in the following requirements: no specific destination restrictions. You should also consider your point of departure, your preferred mode of transportation to the destination, and the specific attractions or activities you wish to engage in. Remember to consider factors such as travel distance, travel time, and the opening hours of the attractions.",
-    "task_context_zh": "你正在计划一个将在12月举行的周末旅行。在LLM的帮助下，你的目标是完善和确定你的旅行计划。这包括对住宿、交通和每天行程的详细安排。你的最终旅行计划应尽可能全面和现实，确保在时机到来时能够顺利实施。你的旅行计划应考虑到以下要求中指定的具体目的地：没有特定目的地限制。你还应考虑你的出发地、到达目的地的首选交通方式，以及你希望参与的具体景点或活动。记得考虑诸如旅行距离、旅行时间和景点的开放时间等因素。",
     "history": [
         {
             "role": "user",
@@ -89,21 +82,9 @@
             "content_zh_old": "很高兴听到您喜欢这些建议！但是，作为人工智能，我无法直接预订或预订。我建议联系波特兰的The Nines和西雅图的Kimpton Alexis Hotel来确保您的预订。\n\n至于烹饪课程，您可以访问The Pantry或Hot Stove Society的网站，查看它们的课程安排和您特定日期的可用性。两者都提供各种动手课程，广受赞誉。\n\n至于海鲜餐厅，我建议“The Willows Inn”。它离西雅图有些距离，位于卢米岛，但这家餐厅以其对太平洋西北美食和本地原料的独特方法而闻名。詹姆斯·贝尔德奖得主、厨师布莱恩·韦策尔（Blaine Wetzel）用岛上的原料创造出创新的菜肴。多道菜品的品尝菜单是一次美食之旅，对于您的博客来说将会有很多可写之处。\n\n如果您更喜欢留在西雅图市区，可以考虑“RockCreek Seafood & Spirits”。他们提供各种海鲜菜品，菜单根据季节和本地捕获进行更改。它是当地人和游客的最爱。\n\n记得打电话核实这些餐厅的可用性，并提前预订您的餐桌。享受您的美食之旅！"
         }
     ],
-    "conflict": false,
-    "preference_summary": [
-        "seafood",
-        "cooking classes",
-        "scenic drive"
-    ],
-    "rating": {
-        "Preference Alignment": 2,
-        "Additional Preferences": 0,
-        "Role-Playing Completeness": 2,
-        "Memorization": 1,
-        "Detail Level": 2,
-        "Practical Usefulness": 2,
-        "Diversity": 1
-    },
+    "preference": "1. Gender: Male\n2. Age: 29\n3. Personality: Passionate, creative, and outgoing\n4. Occupation: Chef\n5. Daily Interests and Hobbies: Experimenting with recipes, wine tasting, playing the guitar\n6. Travel Habits: Travels to explore cuisines, enjoys food festivals\n7. Dining Preferences: Enjoys a variety of cuisines, loves seafood\n8. Spending Habits: Invests in kitchen gadgets, spends on fresh ingredients\n9. Other Aspects: Runs a food blog, has a pet parrot",
+    "preference_id": 20,
+    "preference_zh": "1. 性别：男性\n2. 年龄：29\n3. 个性：热情、创造性、外向\n4. 职业：厨师\n5. 日常兴趣爱好：尝试新菜谱、品酒、弹吉他\n6. 旅行习惯：喜欢探索不同美食，喜欢参加美食节\n7. 就餐偏好：喜欢各种菜系，热爱海鲜\n8. 消费习惯：投资厨房用品，购买新鲜食材\n9. 其他方面：经营食品博客，有一只宠物鹦鹉",
     "profile_mapped": {
         "Gender": {
             "en": "Male",
@@ -182,215 +163,19 @@
             }
         ]
     },
-    "strategy_V2": {
-        "final": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        },
-        "1": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        },
-        "2": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        },
-        "3": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        }
-    },
-    "strategy_1120": {
-        "final": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "High",
-            "question": "Specific"
-        },
-        "1": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "High",
-            "question": "Specific"
-        },
-        "2": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "High",
-            "question": "Specific"
-        },
-        "3": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "High",
-            "question": "Specific"
-        }
-    },
-    "strategy_V3": {
-        "final": {
-            "question_broadness": 3,
-            "context_dependency": 4,
-            "feedback": "Positive"
-        },
-        "1": {
-            "question_broadness": 3,
-            "context_dependency": 4,
-            "feedback": "Positive"
-        },
-        "2": {
-            "question_broadness": 4,
-            "context_dependency": 4,
-            "feedback": "Positive"
-        },
-        "3": {
-            "question_broadness": 3,
-            "context_dependency": 4,
-            "feedback": "Positive"
-        }
+    "rating": {
+        "Preference Alignment": 2,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 1
     },
     "satisfaction": {
         "detail": 2,
         "utility": 2,
         "diversity": 2
-    },
-    "strategy_V4_deprecated": {
-        "final": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "1": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "2": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "3": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        }
-    },
-    "strategy_V5": {
-        "final": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "1": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "2": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "3": {
-            "utility": "High",
-            "operability": "High"
-        }
-    },
-    "strategy_V4": {
-        "final": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Mixed"
-        },
-        "1": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Mixed"
-        },
-        "2": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Mixed"
-        },
-        "3": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Mixed"
-        }
-    },
-    "strategy_human_V4": {
-        "final": {
-            "feedback": "Positive",
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "politeness": "Polite",
-            "formality": "Mixed"
-        }
-    },
-    "strategy_human_V5": {
-        "final": {
-            "utility": "High",
-            "operability": "High"
-        }
-    },
-    "strategy_human_V3": {
-        "final": {
-            "question_broadness": 3,
-            "context_dependency": 4
-        }
-    },
-    "strategy_human_V1": {
-        "final": {
-            "problem_solving": "StepByStep",
-            "order": "BreadthDepth"
-        }
-    },
-    "strategy_V1_deprecated": {
-        "final": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "High",
-            "question": "Specific"
-        },
-        "1": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "High",
-            "question": "Specific"
-        },
-        "2": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "3": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "High",
-            "question": "Specific"
-        }
     },
     "strategy_V1": {
         "final": {
@@ -409,5 +194,102 @@
             "problem_solving": "StepByStep",
             "order": "BreadthDepth"
         }
-    }
+    },
+    "strategy_V2": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 4
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 4
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 4
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 4
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Mixed"
+        },
+        "1": {
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Mixed"
+        },
+        "2": {
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Mixed"
+        },
+        "3": {
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Mixed"
+        }
+    },
+    "strategy_V4": {
+        "final": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "1": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "2": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "3": {
+            "utility": "High",
+            "operability": "High"
+        }
+    },
+    "strategy_human_V1": {
+        "final": {
+            "problem_solving": "StepByStep",
+            "order": "BreadthDepth"
+        }
+    },
+    "strategy_human_V2": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 4
+        }
+    },
+    "strategy_human_V3": {
+        "final": {
+            "feedback": "Positive",
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "politeness": "Polite",
+            "formality": "Mixed"
+        }
+    },
+    "strategy_human_V4": {
+        "final": {
+            "utility": "High",
+            "operability": "High"
+        }
+    },
+    "task": "new travel planning",
+    "task_context": "You are planning a weekend trip that will take place in December. Your goal, with the help of LLM, is to refine and finalize your travel plans. This includes making detailed arrangements for accommodations, transportation, and your daily itinerary. Your final travel plan should be as comprehensive and realistic as possible, ensuring that it can be seamlessly implemented when the time comes.\nYour trip planning should take into consideration the specific destination as specified in the following requirements: no specific destination restrictions. You should also consider your point of departure, your preferred mode of transportation to the destination, and the specific attractions or activities you wish to engage in. Remember to consider factors such as travel distance, travel time, and the opening hours of the attractions.",
+    "task_context_id": 7,
+    "task_context_zh": "你正在计划一个将在12月举行的周末旅行。在LLM的帮助下，你的目标是完善和确定你的旅行计划。这包括对住宿、交通和每天行程的详细安排。你的最终旅行计划应尽可能全面和现实，确保在时机到来时能够顺利实施。你的旅行计划应考虑到以下要求中指定的具体目的地：没有特定目的地限制。你还应考虑你的出发地、到达目的地的首选交通方式，以及你希望参与的具体景点或活动。记得考虑诸如旅行距离、旅行时间和景点的开放时间等因素。"
 }

@@ -43,8 +43,6 @@
             "satisfaction": "4"
         }
     ],
-    "task_context": "最近，教师节快到了，你想为你（学生时期）的导师/班主任挑选一份节日礼物，你的预算在500元左右。为此你希望向大语言模型寻求建议，通过对话确定礼物的购买或制作方式，最终的预算大致符合要求即可。",
-    "task_type": "礼物准备",
     "profile": {
         "gender": "Male",
         "age": 20,
@@ -123,158 +121,6 @@
             "option": "结果多样"
         }
     ],
-    "strategy_V3": {
-        "final": {
-            "question_broadness": 4,
-            "context_dependency": 5,
-            "feedback": "Positive"
-        },
-        "1": {
-            "question_broadness": 4,
-            "context_dependency": 5,
-            "feedback": "Both"
-        },
-        "2": {
-            "question_broadness": 4,
-            "context_dependency": 5,
-            "feedback": "Positive"
-        },
-        "3": {
-            "question_broadness": 4,
-            "context_dependency": 4,
-            "feedback": "Positive"
-        }
-    },
-    "strategy_V2": {
-        "final": {
-            "order": "BreadthDepth",
-            "feedback": "Both"
-        },
-        "1": {
-            "order": "BreadthDepth",
-            "feedback": "Both"
-        },
-        "2": {
-            "order": "BreadthDepth",
-            "feedback": "Both"
-        },
-        "3": {
-            "order": "BreadthDepth",
-            "feedback": "Both"
-        }
-    },
-    "strategy_V4_deprecated": {
-        "final": {
-            "context_dependency": 5,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "1": {
-            "context_dependency": 5,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "2": {
-            "context_dependency": 5,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "3": {
-            "context_dependency": 5,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        }
-    },
-    "strategy_V5": {
-        "final": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "1": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "2": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "3": {
-            "utility": "High",
-            "operability": "High"
-        }
-    },
-    "strategy_V4": {
-        "final": {
-            "context_dependency": 5,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Neutral",
-            "formality": "Formal"
-        },
-        "1": {
-            "context_dependency": 5,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Neutral",
-            "formality": "Formal"
-        },
-        "2": {
-            "context_dependency": 5,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Neutral",
-            "formality": "Formal"
-        },
-        "3": {
-            "context_dependency": 5,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Neutral",
-            "formality": "Formal"
-        }
-    },
-    "strategy_V1_deprecated": {
-        "final": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "1": {
-            "information_request": "Sequential",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "2": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Broad"
-        },
-        "3": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        }
-    },
     "strategy_V1": {
         "final": {
             "problem_solving": "StepByStep",
@@ -292,5 +138,73 @@
             "problem_solving": "StepByStep",
             "order": "BreadthDepth"
         }
-    }
+    },
+    "strategy_V2": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 5
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 5
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 5
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 4
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "explanation": "Rare",
+            "promise": "NoPromise",
+            "feedback": "Positive",
+            "politeness": "Neutral",
+            "formality": "Formal"
+        },
+        "1": {
+            "explanation": "Rare",
+            "promise": "NoPromise",
+            "feedback": "Positive",
+            "politeness": "Neutral",
+            "formality": "Formal"
+        },
+        "2": {
+            "explanation": "Rare",
+            "promise": "NoPromise",
+            "feedback": "Positive",
+            "politeness": "Neutral",
+            "formality": "Formal"
+        },
+        "3": {
+            "explanation": "Rare",
+            "promise": "NoPromise",
+            "feedback": "Positive",
+            "politeness": "Neutral",
+            "formality": "Formal"
+        }
+    },
+    "strategy_V4": {
+        "final": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "1": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "2": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "3": {
+            "utility": "High",
+            "operability": "High"
+        }
+    },
+    "task_context": "最近，教师节快到了，你想为你（学生时期）的导师/班主任挑选一份节日礼物，你的预算在500元左右。为此你希望向大语言模型寻求建议，通过对话确定礼物的购买或制作方式，最终的预算大致符合要求即可。",
+    "task_type": "礼物准备"
 }

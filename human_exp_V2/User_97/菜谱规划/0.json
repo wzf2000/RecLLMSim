@@ -12,8 +12,6 @@
             "satisfaction": "5"
         }
     ],
-    "task_context": "假设现在是一个周末，你打算做1-2个菜自己一个人吃，你的厨艺水平根据自身情况而定。为此你想要找大语言模型帮忙制定菜谱，确定需要用到哪些食材，以及要制作的菜品。在规划中你应当得知每一道菜完整的制作流程和合适的菜品制作顺序。",
-    "task_type": "菜谱规划",
     "profile": {
         "gender": "Male",
         "age": 29,
@@ -88,158 +86,6 @@
             "option": "结果多样"
         }
     ],
-    "strategy_V3": {
-        "final": {
-            "question_broadness": 4,
-            "context_dependency": 3,
-            "feedback": "NoFeedback"
-        },
-        "1": {
-            "question_broadness": 3,
-            "context_dependency": 3,
-            "feedback": "NoFeedback"
-        },
-        "2": {
-            "question_broadness": 5,
-            "context_dependency": 3,
-            "feedback": "NoFeedback"
-        },
-        "3": {
-            "question_broadness": 4,
-            "context_dependency": 2,
-            "feedback": "NoFeedback"
-        }
-    },
-    "strategy_V2": {
-        "final": {
-            "order": "Depth",
-            "feedback": "NoFeedback"
-        },
-        "1": {
-            "order": "Depth",
-            "feedback": "NoFeedback"
-        },
-        "2": {
-            "order": "Depth",
-            "feedback": "NoFeedback"
-        },
-        "3": {
-            "order": "Depth",
-            "feedback": "NoFeedback"
-        }
-    },
-    "strategy_V4_deprecated": {
-        "final": {
-            "context_dependency": 3,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Oral"
-        },
-        "1": {
-            "context_dependency": 3,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Oral"
-        },
-        "2": {
-            "context_dependency": 3,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Oral"
-        },
-        "3": {
-            "context_dependency": 3,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Oral"
-        }
-    },
-    "strategy_V5": {
-        "final": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "1": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "2": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "3": {
-            "utility": "High",
-            "operability": "High"
-        }
-    },
-    "strategy_V4": {
-        "final": {
-            "context_dependency": 1,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Oral"
-        },
-        "1": {
-            "context_dependency": 1,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Oral"
-        },
-        "2": {
-            "context_dependency": 1,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Oral"
-        },
-        "3": {
-            "context_dependency": 1,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Oral"
-        }
-    },
-    "strategy_V1_deprecated": {
-        "final": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "1": {
-            "information_request": "Sequential",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "2": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "3": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Broad"
-        }
-    },
     "strategy_V1": {
         "final": {
             "problem_solving": "StepByStep",
@@ -257,5 +103,73 @@
             "problem_solving": "StepByStep",
             "order": "Breadth"
         }
-    }
+    },
+    "strategy_V2": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3
+        },
+        "2": {
+            "question_broadness": 5,
+            "context_dependency": 3
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 2
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Oral"
+        },
+        "1": {
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Oral"
+        },
+        "2": {
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Oral"
+        },
+        "3": {
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Oral"
+        }
+    },
+    "strategy_V4": {
+        "final": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "1": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "2": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "3": {
+            "utility": "High",
+            "operability": "High"
+        }
+    },
+    "task_context": "假设现在是一个周末，你打算做1-2个菜自己一个人吃，你的厨艺水平根据自身情况而定。为此你想要找大语言模型帮忙制定菜谱，确定需要用到哪些食材，以及要制作的菜品。在规划中你应当得知每一道菜完整的制作流程和合适的菜品制作顺序。",
+    "task_type": "菜谱规划"
 }

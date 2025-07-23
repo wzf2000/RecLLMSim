@@ -34,8 +34,6 @@
             "satisfaction": "4"
         }
     ],
-    "task_context": "你计划在下周末进行一场为期两天的周末出游，预计前往周边城市/省份（可自行选择），现在你希望借助大语言模型来完善你的旅行计划。在对话中你需要完成住宿、出行交通和旅行时间表等的安排。你的最终旅行计划应当尽量完善，做到可以真实按照计划出行。",
-    "task_type": "旅行规划",
     "profile": {
         "gender": "Male",
         "age": 19,
@@ -95,158 +93,6 @@
             "option": "结果多样"
         }
     ],
-    "strategy_V3": {
-        "final": {
-            "question_broadness": 5,
-            "context_dependency": 5,
-            "feedback": "Negative"
-        },
-        "1": {
-            "question_broadness": 4,
-            "context_dependency": 4,
-            "feedback": "Negative"
-        },
-        "2": {
-            "question_broadness": 5,
-            "context_dependency": 5,
-            "feedback": "Negative"
-        },
-        "3": {
-            "question_broadness": 5,
-            "context_dependency": 5,
-            "feedback": "Negative"
-        }
-    },
-    "strategy_V2": {
-        "final": {
-            "order": "BreadthDepth",
-            "feedback": "Negative"
-        },
-        "1": {
-            "order": "BreadthDepth",
-            "feedback": "Negative"
-        },
-        "2": {
-            "order": "BreadthDepth",
-            "feedback": "Negative"
-        },
-        "3": {
-            "order": "BreadthDepth",
-            "feedback": "Negative"
-        }
-    },
-    "strategy_V4_deprecated": {
-        "final": {
-            "context_dependency": 3,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "Negative",
-            "politeness": "Impolite",
-            "formality": "Formal"
-        },
-        "1": {
-            "context_dependency": 3,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "Negative",
-            "politeness": "Impolite",
-            "formality": "Formal"
-        },
-        "2": {
-            "context_dependency": 3,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "Negative",
-            "politeness": "Impolite",
-            "formality": "Formal"
-        },
-        "3": {
-            "context_dependency": 3,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "Negative",
-            "politeness": "Impolite",
-            "formality": "Formal"
-        }
-    },
-    "strategy_V5": {
-        "final": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "1": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "2": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "3": {
-            "utility": "High",
-            "operability": "High"
-        }
-    },
-    "strategy_V4": {
-        "final": {
-            "context_dependency": 4,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Oral"
-        },
-        "1": {
-            "context_dependency": 4,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Oral"
-        },
-        "2": {
-            "context_dependency": 4,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Oral"
-        },
-        "3": {
-            "context_dependency": 4,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Oral"
-        }
-    },
-    "strategy_V1_deprecated": {
-        "final": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "1": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "2": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "3": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        }
-    },
     "strategy_V1": {
         "final": {
             "problem_solving": "AllInOne",
@@ -264,5 +110,73 @@
             "problem_solving": "AllInOne",
             "order": "BreadthDepth"
         }
-    }
+    },
+    "strategy_V2": {
+        "final": {
+            "question_broadness": 5,
+            "context_dependency": 5
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 4
+        },
+        "2": {
+            "question_broadness": 5,
+            "context_dependency": 5
+        },
+        "3": {
+            "question_broadness": 5,
+            "context_dependency": 5
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Oral"
+        },
+        "1": {
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Oral"
+        },
+        "2": {
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Oral"
+        },
+        "3": {
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Oral"
+        }
+    },
+    "strategy_V4": {
+        "final": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "1": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "2": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "3": {
+            "utility": "High",
+            "operability": "High"
+        }
+    },
+    "task_context": "你计划在下周末进行一场为期两天的周末出游，预计前往周边城市/省份（可自行选择），现在你希望借助大语言模型来完善你的旅行计划。在对话中你需要完成住宿、出行交通和旅行时间表等的安排。你的最终旅行计划应当尽量完善，做到可以真实按照计划出行。",
+    "task_type": "旅行规划"
 }

@@ -1,11 +1,4 @@
 {
-    "task": "preparing gifts",
-    "preference_id": 67,
-    "task_context_id": 5,
-    "preference": "1. Gender: Female\n2. Age: 35\n3. Personality: Creative, independent, and adventurous\n4. Occupation: Landscape Artist\n5. Daily Interests and Hobbies: Painting, hiking, photography\n6. Travel Habits: Travels for inspiration, enjoys nature retreats\n7. Dining Preferences: Enjoys vegan food, loves trying local cuisines\n8. Spending Habits: Spends on art supplies, saves for future exhibitions\n9. Other Aspects: Runs an online art shop, has a pet cat",
-    "preference_zh": "1. 性别: 女性\n2. 年龄: 35\n3. 个性: 富有创造力，独立自主，爱冒险\n4. 职业: 景观艺术家\n5. 日常兴趣爱好: 绘画，徒步旅行，摄影\n6. 旅行习惯: 旅行寻找灵感，喜欢自然度假\n7. 饮食偏好: 喜欢素食，喜欢尝试当地美食\n8. 消费习惯: 花钱购买艺术用品，为未来的展览节省\n9. 其他方面: 经营在线艺术店，有一只宠物猫",
-    "task_context": "Recently, you are going to visit your grandmother. And you'd like to prepare a gift for him/her. To do this, you hope to seek advice from LLM, discuss options for buying or making the gift. You should ensure that the final budget is not too expensive or too cheap, just something in line with the usual.",
-    "task_context_zh": "最近，您打算去拜访您的祖母。您想为他/她准备一件礼物。为了这个，您希望向LLM寻求建议，讨论购买或制作礼物的选择。您应确保最终预算不要太贵也不要太便宜，只要符合平时的情况即可。",
     "history": [
         {
             "role": "user",
@@ -56,26 +49,9 @@
             }
         }
     ],
-    "conflict": false,
-    "preference_summary_old": [
-        "personalized",
-        "thoughtful",
-        "creative"
-    ],
-    "preference_summary": [
-        "personalized",
-        "meaningful",
-        "creativity"
-    ],
-    "rating": {
-        "Preference Alignment": 1,
-        "Additional Preferences": 0,
-        "Role-Playing Completeness": 1,
-        "Memorization": 1,
-        "Detail Level": 2,
-        "Practical Usefulness": 2,
-        "Diversity": 2
-    },
+    "preference": "1. Gender: Female\n2. Age: 35\n3. Personality: Creative, independent, and adventurous\n4. Occupation: Landscape Artist\n5. Daily Interests and Hobbies: Painting, hiking, photography\n6. Travel Habits: Travels for inspiration, enjoys nature retreats\n7. Dining Preferences: Enjoys vegan food, loves trying local cuisines\n8. Spending Habits: Spends on art supplies, saves for future exhibitions\n9. Other Aspects: Runs an online art shop, has a pet cat",
+    "preference_id": 67,
+    "preference_zh": "1. 性别: 女性\n2. 年龄: 35\n3. 个性: 富有创造力，独立自主，爱冒险\n4. 职业: 景观艺术家\n5. 日常兴趣爱好: 绘画，徒步旅行，摄影\n6. 旅行习惯: 旅行寻找灵感，喜欢自然度假\n7. 饮食偏好: 喜欢素食，喜欢尝试当地美食\n8. 消费习惯: 花钱购买艺术用品，为未来的展览节省\n9. 其他方面: 经营在线艺术店，有一只宠物猫",
     "profile_mapped": {
         "Gender": {
             "en": "Female",
@@ -154,162 +130,19 @@
             }
         ]
     },
-    "strategy_V2": {
-        "final": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        },
-        "1": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        },
-        "2": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        },
-        "3": {
-            "order": "BreadthDepth",
-            "feedback": "Both"
-        }
-    },
-    "strategy_V3": {
-        "final": {
-            "question_broadness": 4,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        },
-        "1": {
-            "question_broadness": 4,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        },
-        "2": {
-            "question_broadness": 4,
-            "context_dependency": 4,
-            "feedback": "Positive"
-        },
-        "3": {
-            "question_broadness": 4,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        }
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 1,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
     },
     "satisfaction": {
         "detail": 2,
         "utility": 2,
         "diversity": 2
-    },
-    "strategy_V4_deprecated": {
-        "final": {
-            "context_dependency": 3,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "1": {
-            "context_dependency": 3,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "2": {
-            "context_dependency": 3,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "3": {
-            "context_dependency": 3,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        }
-    },
-    "strategy_V5": {
-        "final": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "1": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "2": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "3": {
-            "utility": "High",
-            "operability": "High"
-        }
-    },
-    "strategy_V4": {
-        "final": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Mixed"
-        },
-        "1": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Mixed"
-        },
-        "2": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Mixed"
-        },
-        "3": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Mixed"
-        }
-    },
-    "strategy_V1_deprecated": {
-        "final": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "1": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "2": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "High",
-            "question": "Specific"
-        },
-        "3": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        }
     },
     "strategy_V1": {
         "final": {
@@ -328,5 +161,75 @@
             "problem_solving": "StepByStep",
             "order": "BreadthDepth"
         }
-    }
+    },
+    "strategy_V2": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 4
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 3
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Mixed"
+        },
+        "1": {
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Mixed"
+        },
+        "2": {
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Mixed"
+        },
+        "3": {
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Mixed"
+        }
+    },
+    "strategy_V4": {
+        "final": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "1": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "2": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "3": {
+            "utility": "High",
+            "operability": "High"
+        }
+    },
+    "task": "preparing gifts",
+    "task_context": "Recently, you are going to visit your grandmother. And you'd like to prepare a gift for him/her. To do this, you hope to seek advice from LLM, discuss options for buying or making the gift. You should ensure that the final budget is not too expensive or too cheap, just something in line with the usual.",
+    "task_context_id": 5,
+    "task_context_zh": "最近，您打算去拜访您的祖母。您想为他/她准备一件礼物。为了这个，您希望向LLM寻求建议，讨论购买或制作礼物的选择。您应确保最终预算不要太贵也不要太便宜，只要符合平时的情况即可。"
 }

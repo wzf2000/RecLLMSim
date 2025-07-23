@@ -1,11 +1,4 @@
 {
-    "task": "skills learning planning",
-    "preference_id": 85,
-    "task_context_id": 0,
-    "preference": "1. Gender: Female\n2. Age: 30\n3. Personality: Ambitious, determined, and goal-oriented\n4. Occupation: Software Engineer\n5. Daily Interests and Hobbies: Coding, reading tech blogs, playing video games\n6. Travel Habits: Enjoys city breaks, prefers luxury resorts\n7. Dining Preferences: Health-conscious, enjoys sushi and salads\n8. Spending Habits: Invests in high-end tech gadgets, saves for property\n9. Other Aspects: Lives in a city apartment, has a high-stress lifestyle",
-    "preference_zh": "1. 性别：女性\n2. 年龄：30\n3. 个性：有雄心壮志、坚定不移、以目标为导向\n4. 职业：软件工程师\n5. 日常兴趣和爱好：编程、阅读科技博客、玩电子游戏\n6. 旅行习惯：喜欢城市短途旅行，偏好豪华度假村\n7. 饮食偏好：注重健康，喜欢寿司和沙拉\n8. 消费习惯：投资高端科技设备，储蓄用于购买房产\n9. 其他方面：住在城市公寓，生活压力很大",
-    "task_context": "Recently, due to work needs, you want to complete the learning of the programming language python within a month. You were a beginner in this area and had no foundation. Now you hope to use LLM to complete your learning plan. During the conversation, you need to complete the learning schedule arrangement, learning resource sorting, etc. The learning process should take into account your existing skill level and conform to human learning rules. Your final plan should be as complete as possible so that you can actually study according to the plan.",
-    "task_context_zh": "最近，由于工作需要，您希望在一个月内完成对编程语言Python的学习。您在这个领域是个初学者，没有任何基础。现在，您希望使用LLM来完成您的学习计划。在对话中，您需要完成学习日程安排、学习资源整理等工作。学习过程应考虑到您现有的技能水平，并符合人类学习规则。您的最终计划应尽可能完整，以便实际按照计划进行学习。",
     "history": [
         {
             "role": "user",
@@ -40,26 +33,9 @@
             }
         }
     ],
-    "conflict": false,
-    "preference_summary_old": [
-        "comprehensive plan",
-        "basics first",
-        "hands-on projects"
-    ],
-    "preference_summary": [
-        "start basics",
-        "practice exercises",
-        "build projects"
-    ],
-    "rating": {
-        "Preference Alignment": 1,
-        "Additional Preferences": 0,
-        "Role-Playing Completeness": 2,
-        "Memorization": 1,
-        "Detail Level": 2,
-        "Practical Usefulness": 2,
-        "Diversity": 2
-    },
+    "preference": "1. Gender: Female\n2. Age: 30\n3. Personality: Ambitious, determined, and goal-oriented\n4. Occupation: Software Engineer\n5. Daily Interests and Hobbies: Coding, reading tech blogs, playing video games\n6. Travel Habits: Enjoys city breaks, prefers luxury resorts\n7. Dining Preferences: Health-conscious, enjoys sushi and salads\n8. Spending Habits: Invests in high-end tech gadgets, saves for property\n9. Other Aspects: Lives in a city apartment, has a high-stress lifestyle",
+    "preference_id": 85,
+    "preference_zh": "1. 性别：女性\n2. 年龄：30\n3. 个性：有雄心壮志、坚定不移、以目标为导向\n4. 职业：软件工程师\n5. 日常兴趣和爱好：编程、阅读科技博客、玩电子游戏\n6. 旅行习惯：喜欢城市短途旅行，偏好豪华度假村\n7. 饮食偏好：注重健康，喜欢寿司和沙拉\n8. 消费习惯：投资高端科技设备，储蓄用于购买房产\n9. 其他方面：住在城市公寓，生活压力很大",
     "profile_mapped": {
         "Gender": {
             "en": "Female",
@@ -142,162 +118,19 @@
             }
         ]
     },
-    "strategy_V2": {
-        "final": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        },
-        "1": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        },
-        "2": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        },
-        "3": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        }
-    },
-    "strategy_V3": {
-        "final": {
-            "question_broadness": 4,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        },
-        "1": {
-            "question_broadness": 4,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        },
-        "2": {
-            "question_broadness": 4,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        },
-        "3": {
-            "question_broadness": 4,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        }
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
     },
     "satisfaction": {
         "detail": 2,
         "utility": 2,
         "diversity": 2
-    },
-    "strategy_V4_deprecated": {
-        "final": {
-            "context_dependency": 3,
-            "explanation": "NoExplanation",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "1": {
-            "context_dependency": 3,
-            "explanation": "NoExplanation",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "2": {
-            "context_dependency": 3,
-            "explanation": "NoExplanation",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "3": {
-            "context_dependency": 3,
-            "explanation": "NoExplanation",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        }
-    },
-    "strategy_V5": {
-        "final": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "1": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "2": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "3": {
-            "utility": "High",
-            "operability": "High"
-        }
-    },
-    "strategy_V4": {
-        "final": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "1": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "2": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        },
-        "3": {
-            "context_dependency": 4,
-            "explanation": "Frequent",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Formal"
-        }
-    },
-    "strategy_V1_deprecated": {
-        "final": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "1": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "2": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Broad"
-        },
-        "3": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        }
     },
     "strategy_V1": {
         "final": {
@@ -316,5 +149,75 @@
             "problem_solving": "AllInOne",
             "order": "BreadthDepth"
         }
-    }
+    },
+    "strategy_V2": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 3
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Formal"
+        },
+        "1": {
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Formal"
+        },
+        "2": {
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Formal"
+        },
+        "3": {
+            "explanation": "Frequent",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Formal"
+        }
+    },
+    "strategy_V4": {
+        "final": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "1": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "2": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "3": {
+            "utility": "High",
+            "operability": "High"
+        }
+    },
+    "task": "skills learning planning",
+    "task_context": "Recently, due to work needs, you want to complete the learning of the programming language python within a month. You were a beginner in this area and had no foundation. Now you hope to use LLM to complete your learning plan. During the conversation, you need to complete the learning schedule arrangement, learning resource sorting, etc. The learning process should take into account your existing skill level and conform to human learning rules. Your final plan should be as complete as possible so that you can actually study according to the plan.",
+    "task_context_id": 0,
+    "task_context_zh": "最近，由于工作需要，您希望在一个月内完成对编程语言Python的学习。您在这个领域是个初学者，没有任何基础。现在，您希望使用LLM来完成您的学习计划。在对话中，您需要完成学习日程安排、学习资源整理等工作。学习过程应考虑到您现有的技能水平，并符合人类学习规则。您的最终计划应尽可能完整，以便实际按照计划进行学习。"
 }

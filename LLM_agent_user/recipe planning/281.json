@@ -1,11 +1,4 @@
 {
-    "task": "recipe planning",
-    "preference_id": 48,
-    "task_context_id": 7,
-    "preference": "1. Gender: Male\n2. Age: 20\n3. Personality: Energetic, social, and optimistic\n4. Occupation: College Student\n5. Daily Interests and Hobbies: Playing guitar, partying, skateboarding\n6. Travel Habits: Enjoys road trips with friends, attends music festivals\n7. Dining Preferences: Fast food lover, enjoys late-night snacks\n8. Spending Habits: Spends on concerts and entertainment, saves for education\n9. Other Aspects: Lives in a dorm, part of a college band",
-    "preference_zh": "1. 性别：男性\n2. 年龄：20岁\n3. 个性：精力充沛、社交、乐观\n4. 职业：大学生\n5. 日常兴趣爱好：弹吉他、派对、滑板\n6. 旅行习惯：喜欢和朋友进行公路旅行，参加音乐节\n7. 饮食偏好：快餐爱好者，喜欢深夜零食\n8. 消费习惯：喜欢参加音乐会和娱乐活动，为教育存钱\n9. 其他方面：住在宿舍，是大学乐队的一员",
-    "task_context": "You plan to prepare a meal at home to celebrate your birthday with about 10 close friends. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
-    "task_context_zh": "您计划在家里准备一顿饭来和大约10位亲近的朋友庆祝生日。您是一名有一定烹饪技能的厨师。因此，您想要求LLM帮助您创建食谱，确定所需食材，并决定要做哪些菜肴。在规划过程中，您应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。",
     "history": [
         {
             "role": "user",
@@ -89,26 +82,9 @@
             "content_zh_old": "非常欢迎！我很高兴听到您对这些想法感到满意，一切为您的生日庆祝活动顺利进行。您选择的各种意大利面选项、酱料和配料听起来非常美味，我相信您的朋友们将享受定制他们自己的意大利面菜肴的美好时光。您选择的配菜和甜点肯定会与意大利面吧相得益彰，为每个人提供愉悦的烹饪体验。提拉米苏、卡诺利、意式冰淇淋和新鲜水果拼盘都是满足每个人甜食口味的绝佳选择。如果您将来需要更多的想法或具体食谱，请不要犹豫与我联系。我在这里帮助您打造一个难忘愉快的生日庆祝活动。祝您计划和庆祝时过得愉快，再次预祝生日快乐！"
         }
     ],
-    "conflict": false,
-    "preference_summary_old": [
-        "mediterranean",
-        "homemade",
-        "pasta bar"
-    ],
-    "preference_summary": [
-        "mediterranean cuisine",
-        "homemade dishes",
-        "customization"
-    ],
-    "rating": {
-        "Preference Alignment": 1,
-        "Additional Preferences": 0,
-        "Role-Playing Completeness": 2,
-        "Memorization": 1,
-        "Detail Level": 2,
-        "Practical Usefulness": 2,
-        "Diversity": 2
-    },
+    "preference": "1. Gender: Male\n2. Age: 20\n3. Personality: Energetic, social, and optimistic\n4. Occupation: College Student\n5. Daily Interests and Hobbies: Playing guitar, partying, skateboarding\n6. Travel Habits: Enjoys road trips with friends, attends music festivals\n7. Dining Preferences: Fast food lover, enjoys late-night snacks\n8. Spending Habits: Spends on concerts and entertainment, saves for education\n9. Other Aspects: Lives in a dorm, part of a college band",
+    "preference_id": 48,
+    "preference_zh": "1. 性别：男性\n2. 年龄：20岁\n3. 个性：精力充沛、社交、乐观\n4. 职业：大学生\n5. 日常兴趣爱好：弹吉他、派对、滑板\n6. 旅行习惯：喜欢和朋友进行公路旅行，参加音乐节\n7. 饮食偏好：快餐爱好者，喜欢深夜零食\n8. 消费习惯：喜欢参加音乐会和娱乐活动，为教育存钱\n9. 其他方面：住在宿舍，是大学乐队的一员",
     "profile_mapped": {
         "Gender": {
             "en": "Male",
@@ -187,162 +163,19 @@
             }
         ]
     },
-    "strategy_V2": {
-        "final": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        },
-        "1": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        },
-        "2": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        },
-        "3": {
-            "order": "BreadthDepth",
-            "feedback": "Positive"
-        }
-    },
-    "strategy_V3": {
-        "final": {
-            "question_broadness": 3,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        },
-        "1": {
-            "question_broadness": 3,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        },
-        "2": {
-            "question_broadness": 3,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        },
-        "3": {
-            "question_broadness": 4,
-            "context_dependency": 3,
-            "feedback": "Positive"
-        }
+    "rating": {
+        "Preference Alignment": 1,
+        "Additional Preferences": 0,
+        "Role-Playing Completeness": 2,
+        "Memorization": 1,
+        "Detail Level": 2,
+        "Practical Usefulness": 2,
+        "Diversity": 2
     },
     "satisfaction": {
         "detail": 2,
         "utility": 2,
         "diversity": 2
-    },
-    "strategy_V4_deprecated": {
-        "final": {
-            "context_dependency": 3,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Oral"
-        },
-        "1": {
-            "context_dependency": 3,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Oral"
-        },
-        "2": {
-            "context_dependency": 3,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Oral"
-        },
-        "3": {
-            "context_dependency": 3,
-            "explanation": "Rare",
-            "promise": "NoPromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Oral"
-        }
-    },
-    "strategy_V5": {
-        "final": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "1": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "2": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "3": {
-            "utility": "High",
-            "operability": "High"
-        }
-    },
-    "strategy_V4": {
-        "final": {
-            "context_dependency": 4,
-            "explanation": "Rare",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Oral"
-        },
-        "1": {
-            "context_dependency": 4,
-            "explanation": "Rare",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Oral"
-        },
-        "2": {
-            "context_dependency": 4,
-            "explanation": "Rare",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Oral"
-        },
-        "3": {
-            "context_dependency": 4,
-            "explanation": "Rare",
-            "promise": "HavePromise",
-            "feedback": "Positive",
-            "politeness": "Polite",
-            "formality": "Oral"
-        }
-    },
-    "strategy_V1_deprecated": {
-        "final": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "1": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "2": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "High",
-            "question": "Specific"
-        },
-        "3": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        }
     },
     "strategy_V1": {
         "final": {
@@ -361,5 +194,75 @@
             "problem_solving": "StepByStep",
             "order": "BreadthDepth"
         }
-    }
+    },
+    "strategy_V2": {
+        "final": {
+            "question_broadness": 3,
+            "context_dependency": 3
+        },
+        "1": {
+            "question_broadness": 3,
+            "context_dependency": 3
+        },
+        "2": {
+            "question_broadness": 3,
+            "context_dependency": 3
+        },
+        "3": {
+            "question_broadness": 4,
+            "context_dependency": 3
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "explanation": "Rare",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Oral"
+        },
+        "1": {
+            "explanation": "Rare",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Oral"
+        },
+        "2": {
+            "explanation": "Rare",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Oral"
+        },
+        "3": {
+            "explanation": "Rare",
+            "promise": "HavePromise",
+            "feedback": "Positive",
+            "politeness": "Polite",
+            "formality": "Oral"
+        }
+    },
+    "strategy_V4": {
+        "final": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "1": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "2": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "3": {
+            "utility": "High",
+            "operability": "High"
+        }
+    },
+    "task": "recipe planning",
+    "task_context": "You plan to prepare a meal at home to celebrate your birthday with about 10 close friends. You are a skilled cook with some expertise. Therefore, you'd like to ask for LLM's help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. In the planning process, you should learn the complete preparation process for each dish and the appropriate order in which to prepare the dishes.",
+    "task_context_id": 7,
+    "task_context_zh": "您计划在家里准备一顿饭来和大约10位亲近的朋友庆祝生日。您是一名有一定烹饪技能的厨师。因此，您想要求LLM帮助您创建食谱，确定所需食材，并决定要做哪些菜肴。在规划过程中，您应该学习每道菜的完整准备过程以及准备菜肴的适当顺序。"
 }

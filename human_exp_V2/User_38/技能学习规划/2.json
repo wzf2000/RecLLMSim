@@ -30,8 +30,6 @@
             "content": "住在宿舍的学生党，可用时间：课后2小时+周末全天。请设计「设备实操（无人机）→理论学习（构图美学）→作品迭代」的螺旋式学习计划，包含防干扰机制\n\n"
         }
     ],
-    "task_context": "你在最近由于自身兴趣，想要通过3个月左右的时间学习并锻炼一项新的生活/娱乐技能（根据自身情况设定，如视频剪辑、做饭、一门乐器等），你之前在这方面没有基础，是一个初学者，现在需要进一步地加强学习，现在你希望借助大语言模型来完成你的学习规划。在对话中你需要完成学习进度安排、学习资源整理等，学习过程应当考虑到你现有的技能水平，符合人的学习规律。你的最终方案应当尽量完善，做到可以真实按照规划学习。",
-    "task_type": "技能学习规划",
     "profile": {
         "gender": "Male",
         "age": 19,
@@ -107,158 +105,6 @@
             "option": "结果多样"
         }
     ],
-    "strategy_V3": {
-        "final": {
-            "question_broadness": 4,
-            "context_dependency": 3,
-            "feedback": "NoFeedback"
-        },
-        "1": {
-            "question_broadness": 4,
-            "context_dependency": 3,
-            "feedback": "NoFeedback"
-        },
-        "2": {
-            "question_broadness": 4,
-            "context_dependency": 3,
-            "feedback": "NoFeedback"
-        },
-        "3": {
-            "question_broadness": 3,
-            "context_dependency": 2,
-            "feedback": "NoFeedback"
-        }
-    },
-    "strategy_V2": {
-        "final": {
-            "order": "Breadth",
-            "feedback": "NoFeedback"
-        },
-        "1": {
-            "order": "Breadth",
-            "feedback": "NoFeedback"
-        },
-        "2": {
-            "order": "Breadth",
-            "feedback": "NoFeedback"
-        },
-        "3": {
-            "order": "Breadth",
-            "feedback": "NoFeedback"
-        }
-    },
-    "strategy_V4_deprecated": {
-        "final": {
-            "context_dependency": 3,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Formal"
-        },
-        "1": {
-            "context_dependency": 3,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Formal"
-        },
-        "2": {
-            "context_dependency": 3,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Formal"
-        },
-        "3": {
-            "context_dependency": 3,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Formal"
-        }
-    },
-    "strategy_V5": {
-        "final": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "1": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "2": {
-            "utility": "High",
-            "operability": "High"
-        },
-        "3": {
-            "utility": "High",
-            "operability": "High"
-        }
-    },
-    "strategy_V4": {
-        "final": {
-            "context_dependency": 1,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Formal"
-        },
-        "1": {
-            "context_dependency": 1,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Formal"
-        },
-        "2": {
-            "context_dependency": 1,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Formal"
-        },
-        "3": {
-            "context_dependency": 1,
-            "explanation": "NoExplanation",
-            "promise": "NoPromise",
-            "feedback": "NoFeedback",
-            "politeness": "Neutral",
-            "formality": "Formal"
-        }
-    },
-    "strategy_V1_deprecated": {
-        "final": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "High",
-            "question": "Specific"
-        },
-        "1": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "High",
-            "question": "Specific"
-        },
-        "2": {
-            "information_request": "Planning",
-            "order": "Comprehensive",
-            "context": "Low",
-            "question": "Specific"
-        },
-        "3": {
-            "information_request": "Sequential",
-            "order": "Depth",
-            "context": "High",
-            "question": "Specific"
-        }
-    },
     "strategy_V1": {
         "final": {
             "problem_solving": "AllInOne",
@@ -276,5 +122,73 @@
             "problem_solving": "AllInOne",
             "order": "BreadthDepth"
         }
-    }
+    },
+    "strategy_V2": {
+        "final": {
+            "question_broadness": 4,
+            "context_dependency": 3
+        },
+        "1": {
+            "question_broadness": 4,
+            "context_dependency": 3
+        },
+        "2": {
+            "question_broadness": 4,
+            "context_dependency": 3
+        },
+        "3": {
+            "question_broadness": 3,
+            "context_dependency": 2
+        }
+    },
+    "strategy_V3": {
+        "final": {
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Formal"
+        },
+        "1": {
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Formal"
+        },
+        "2": {
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Formal"
+        },
+        "3": {
+            "explanation": "NoExplanation",
+            "promise": "NoPromise",
+            "feedback": "NoFeedback",
+            "politeness": "Neutral",
+            "formality": "Formal"
+        }
+    },
+    "strategy_V4": {
+        "final": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "1": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "2": {
+            "utility": "High",
+            "operability": "High"
+        },
+        "3": {
+            "utility": "High",
+            "operability": "High"
+        }
+    },
+    "task_context": "你在最近由于自身兴趣，想要通过3个月左右的时间学习并锻炼一项新的生活/娱乐技能（根据自身情况设定，如视频剪辑、做饭、一门乐器等），你之前在这方面没有基础，是一个初学者，现在需要进一步地加强学习，现在你希望借助大语言模型来完成你的学习规划。在对话中你需要完成学习进度安排、学习资源整理等，学习过程应当考虑到你现有的技能水平，符合人的学习规律。你的最终方案应当尽量完善，做到可以真实按照规划学习。",
+    "task_type": "技能学习规划"
 }
