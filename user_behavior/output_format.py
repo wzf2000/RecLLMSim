@@ -4,24 +4,11 @@ from pydantic import BaseModel
 class StrategyType(BaseModel):
     pass
 
-class InformationRequest(str, Enum):
-    Planning = 'Planning'
-    Sequential = 'Sequential'
+class ProblemSolving(str, Enum):
+    AllInOne = 'AllInOne'
+    StepByStep = 'StepByStep'
 
-class OrderV1(str, Enum):
-    Depth = 'Depth'
-    Breadth = 'Breadth'
-    Comprehensive = 'Comprehensive'
-
-class Context(str, Enum):
-    High = 'High'
-    Low = 'Low'
-
-class Question(str, Enum):
-    Broad = 'Broad'
-    Specific = 'Specific'
-
-class OrderV2(str, Enum):
+class Order(str, Enum):
     Depth = 'Depth'
     Breadth = 'Breadth'
     DepthBreadth = 'DepthBreadth'
@@ -50,16 +37,14 @@ class Politeness(str, Enum):
 class Formality(str, Enum):
     Oral = 'Oral'
     Formal = 'Formal'
+    Mixed = 'Mixed'
 
 class StrategyV1(StrategyType):
-    information_request: InformationRequest
-    order: OrderV1
-    context: Context
-    question: Question
+    problem_solving: ProblemSolving
+    order: Order
 
 class StrategyV2(StrategyType):
-    order: OrderV2
-    feedback: Feedback
+    pass
 
 class Rating(int, Enum):
     One = 1
@@ -81,9 +66,7 @@ class StrategyV3(StrategyType):
 class StrategyV4(StrategyType):
     context_dependency: Rating
     explanation: Explanation
-    reason_for_explanation: str
     promise: Promise
-    reason_for_promise: str
     feedback: Feedback
     politeness: Politeness
     formality: Formality

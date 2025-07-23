@@ -2,7 +2,8 @@ import os
 import json
 import argparse
 from tqdm import tqdm
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, as_completed, Future
+from threading import Lock
 
 from strategy_cls import multi_cls, conv_format
 from basic_info import SIM_DIR, HUMAN_DIR
@@ -20,7 +21,7 @@ def cls_sim(version: int, model: str, strategy_name: str, compare_strategy_name:
         files = [file for file in files if file.endswith('.json')]
         files.sort(key=lambda x: x.split('.')[0])
         if sample:
-            files = files[:30]
+            files = files[:480]
 
         def compare_count(data: dict, strategy_name: str, compare_strategy_name: str):
             for key in data[strategy_name]['final']:
@@ -59,40 +60,46 @@ def cls_human(version: int, model: str, strategy_name: str, compare_strategy_nam
     if compare_strategy_name is not None:
         right = {}
 
-    for user in tqdm(os.listdir(dir_name)):
+    lock = Lock()
+
+    all_files = []
+
+    for user in os.listdir(dir_name):
         for task in task_list:
             if not os.path.exists(os.path.join(dir_name, user, task)):
                 continue
             files = os.listdir(os.path.join(dir_name, user, task))
             files = [file for file in files if file.endswith('.json')]
             files.sort(key=lambda x: x.split('.')[0])
+            all_files.extend([os.path.join(dir_name, user, task, file) for file in files])
 
-            def compare_count(data: dict, strategy_name: str, compare_strategy_name: str):
-                for key in data[strategy_name]['final']:
-                    if key not in right:
-                        right[key] = []
-                    right[key].append(data[strategy_name]['final'][key] == data[compare_strategy_name]['final'][key])
+    def compare_count(data: dict, strategy_name: str, compare_strategy_name: str):
+        for key in data[strategy_name]['final']:
+            if key not in right:
+                right[key] = []
+            right[key].append(data[strategy_name]['final'][key] == data[compare_strategy_name]['final'][key])
 
-            def process_single(file: str):
-                with open(os.path.join(file), 'r') as f:
-                    data = json.load(f)
-                if strategy_name not in data:
-                    try:
-                        data[strategy_name] = multi_cls(conv_format(data['history']), model, version, True)
-                    except Exception:
-                        print(f'Error processing {file}')
-                        return
-                    with open(os.path.join(file), 'w') as fw:
-                        json.dump(data, fw, ensure_ascii=False, indent=4)
-                if compare_strategy_name is not None:
-                    compare_count(data, strategy_name, compare_strategy_name)
+    def process_single(file: str):
+        with open(os.path.join(file), 'r') as f:
+            data = json.load(f)
+        if strategy_name not in data:
+            try:
+                data[strategy_name] = multi_cls(conv_format(data['history']), model, version, True)
+            except Exception:
+                print(f'Error processing {file}')
+                return
+            with open(os.path.join(file), 'w') as fw:
+                json.dump(data, fw, ensure_ascii=False, indent=4)
+        if compare_strategy_name is not None:
+            with lock:
+                compare_count(data, strategy_name, compare_strategy_name)
 
-            with ThreadPoolExecutor(max_workers=32) as executor:
-                futures = []
-                for file in files:
-                    futures.append(executor.submit(process_single, os.path.join(dir_name, user, task, file)))
-                for future in futures:
-                    future.result()
+    with ThreadPoolExecutor(max_workers=32) as executor:
+        futures: list[Future] = []
+        for file in all_files:
+            futures.append(executor.submit(process_single, file))
+        for future in tqdm(as_completed(futures), total=len(all_files)):
+            future.result()
 
     if compare_strategy_name is not None:
         for key in right:

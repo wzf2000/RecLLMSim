@@ -46,8 +46,9 @@ def count_filed(strategy_field: str, heads: list[str], dir_name: str):
 if __name__ == '__main__':
     file_dir = OUTPUT_DIR
     os.makedirs(file_dir, exist_ok=True)
-    # count_filed('strategy_V3', ['question_broadness_1', 'question_broadness_2', 'question_broadness_3', 'question_broadness_4', 'question_broadness_5', 'context_dependency_1', 'context_dependency_2', 'context_dependency_3', 'context_dependency_4', 'context_dependency_5', 'feedback_NoFeedback', 'feedback_Positive', 'feedback_Negative', 'feedback_Both'], SIM_DIR)
+    # example usage below:
+    # count_filed('strategy_V1_update', ['problem_solving_AllInOne', 'problem_solving_StepByStep', 'order_Depth', 'order_Breadth', 'order_DepthBreadth', 'order_BreadthDepth'], SIM_DIR)
+    # count_filed('strategy_V3', ['question_broadness_1', 'question_broadness_2', 'question_broadness_3', 'question_broadness_4', 'question_broadness_5', 'context_dependency_1', 'context_dependency_2', 'context_dependency_3', 'context_dependency_4', 'context_dependency_5'], SIM_DIR)
     # count_filed('satisfaction', ['detail_0', 'detail_1', 'detail_2', 'utility_0', 'utility_1', 'utility_2', 'diversity_0', 'diversity_1', 'diversity_2'], SIM_DIR)
-    # count_filed('strategy_V2', ['order_Depth', 'order_Breadth', 'order_DepthBreadth', 'order_BreadthDepth'], SIM_DIR)
-    # count_filed('strategy_V4', ['context_dependency_1', 'context_dependency_2', 'context_dependency_3', 'context_dependency_4', 'context_dependency_5', 'explanation_Frequent', 'explanation_Rare', 'explanation_NoExplanation', 'promise_HavePromise', 'promise_NoPromise', 'feedback_NoFeedback', 'feedback_Positive', 'feedback_Negative', 'feedback_Both', 'politeness_Polite', 'politeness_Neutral', 'politeness_Impolite', 'formality_Oral', 'formality_Formal'], SIM_DIR)
-    count_filed('strategy_V5', ['utility_High', 'utility_Moderate', 'utility_Low', 'operability_High', 'operability_Moderate', 'operability_Low'], SIM_DIR)
+    # count_filed('strategy_V4', ['promise_HavePromise', 'promise_NoPromise', 'feedback_NoFeedback', 'feedback_Positive', 'feedback_Negative', 'feedback_Both', 'politeness_Polite', 'politeness_Neutral', 'politeness_Impolite', 'formality_Oral', 'formality_Formal', 'formality_Mixed'], SIM_DIR)
+    # count_filed('strategy_V5', ['utility_High', 'utility_Moderate', 'utility_Low', 'operability_High', 'operability_Moderate', 'operability_Low'], SIM_DIR)
