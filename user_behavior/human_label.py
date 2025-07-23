@@ -234,7 +234,7 @@ def label_human(version: int, strategy_name: str, compare_name: str, sample: int
 def label_in_order(version: int, mode: str):
     sample = st.sidebar.number_input('Sample Size', min_value=0, max_value=2500, value=10, step=1)
     strategy_name = 'strategy_human' if version == 1 else f'strategy_human_V{version}'
-    compare_name = 'strategy_V1_update' if version == 1 else f'strategy_V{version}'
+    compare_name = 'strategy_V1' if version == 1 else f'strategy_V{version}'
     assert sample >= 0, 'Sample size must be non-negative'
     if mode == 'Simulation':
         label_sim(version, strategy_name, compare_name, int(sample))
@@ -269,8 +269,8 @@ def show_all_accuracy(files: list[str], strategy_name: str, compare_name: str):
 def check_labeled_files(version: int, mode: str):
     sample = st.sidebar.number_input('Sample Size', min_value=0, max_value=2500, value=10, step=1)
     sample = int(sample)
-    strategy_name = 'strategy_human' if version == 1 else f'strategy_human_V{version}'
-    compare_name = 'strategy_V1_update' if version == 1 else f'strategy_V{version}'
+    strategy_name = f'strategy_human_V{version}'
+    compare_name = f'strategy_V{version}'
     if mode == 'Simulation':
         files = get_sim_files(sample)
     elif mode == 'Human':
