@@ -19,4 +19,4 @@ POOL_SIZE = '[POOL_SIZE]'
 
 def init(prefix: str = ''):
     # Add log file, with timestamp as file name
-    logger.add(f"log/{prefix + '_' if prefix != '' else ''}chat" + "_{time:YYYY-MM-DD:HH:mm:ss}.log", rotation="500 MB", level="INFO", format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}")
+    logger.add(f"log/{prefix + '_' if prefix != '' else ''}chat" + "_{time:YYYY-MM-DD:HH:mm:ss}.log", rotation="500 MB", level="DEBUG", format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}")

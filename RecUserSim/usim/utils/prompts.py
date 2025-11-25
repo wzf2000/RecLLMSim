@@ -1,7 +1,9 @@
-import pandas as pd
-import random
 import re
 import os
+import json
+import yaml
+import random
+import pandas as pd
 from typing import Tuple
 from loguru import logger
 
@@ -74,16 +76,26 @@ def all_complete_prompts_with_type(prompt_options: dict, Type: str):
     prompts = enumerate_options(0, {})
     return prompts
 
-def _get_all_prompts_with_prompt_options(prompt_options: dict):
+def _get_all_prompts_with_prompt_options(prompt_options: dict) -> dict[str, list[str]]:
     prompts = {}
     for Type in prompt_options:
         prompts[Type] = all_complete_prompts_with_type(prompt_options, Type)
     return prompts
 
-def get_all_prompts(file_name: str, sheet_name: str):
-    task_context = _get_task_context(file_name, sheet_name)
-    prompt_options = _get_prompt_options(task_context)
-    prompts = _get_all_prompts_with_prompt_options(prompt_options)
+def get_all_prompts(file_name: str, sheet_name: str | None = None) -> dict[str, list[str]]:
+    if file_name.endswith('xlsx') or file_name.endswith('xls'):
+        assert sheet_name is not None, "sheet_name must be provided for excel files"
+        task_context = _get_task_context(file_name, sheet_name)
+        prompt_options = _get_prompt_options(task_context)
+        prompts = _get_all_prompts_with_prompt_options(prompt_options)
+    elif file_name.endswith('yaml') or file_name.endswith('yml'):
+        with open(file_name, 'r', encoding='utf-8') as f:
+            prompts = yaml.safe_load(f)
+    elif file_name.endswith('json'):
+        with open(file_name, 'r', encoding='utf-8') as f:
+            prompts = json.load(f)
+    else:
+        raise ValueError("Unsupported file format for prompts")
     return prompts
 
 def random_complete_prompt(file_name: str, sheet_name: str, exclude_prompt: list = []):

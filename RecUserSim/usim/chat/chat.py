@@ -1,9 +1,9 @@
 import os
 import json
 from loguru import logger
+from openai import OpenAI
 from typing import Callable
-from langchain_core.messages import HumanMessage, AIMessage
-from langchain_openai import ChatOpenAI
+from tenacity import retry, stop_after_attempt, wait_fixed, RetryError
 
 from usim import init, CONFIG_FILE
 
@@ -18,29 +18,16 @@ def init_config():
 CONFIG = init_config()
 
 class Chatbot:
-    def __init__(self, model: str, temperature: float = 0.5, json_mode: bool = False, **kwargs) -> None:
-        self.model_name: str = model
+    def __init__(self, model: str, temperature: float | None = 0.7, **kwargs) -> None:
+        self.model: str = model
         if temperature is None:
-            temperature = 0.5
+            temperature = 0.7
         self.temperature: float = temperature
         self.history = []
-        if json_mode:
-            self.model = ChatOpenAI(
-                model=model,
-                temperature=self.temperature,
-                model_kwargs={
-                    "response_format": {
-                        "type": "json_object"
-                    }
-                },
-                streaming=True,
-            )
-        else:
-            self.model = ChatOpenAI(
-                model=model,
-                temperature=self.temperature,
-                streaming=True
-            )
+        self.client = OpenAI(
+            base_url=os.getenv("OPENAI_API_BASE"),
+            api_key=os.getenv("OPENAI_API_KEY"),
+        )
 
     def add_to_history(self, message: str, role: str = 'user') -> None:
         self.history.append({
@@ -48,23 +35,27 @@ class Chatbot:
             'content': message
         })
 
-    def _history(self):
-        return [
-            HumanMessage(content=utt['content']) if utt['role'] == 'user' else AIMessage(content=utt['content']) for utt in self.history
-        ]
+    @retry(stop=stop_after_attempt(5), wait=wait_fixed(2))
+    def ask_once(self) -> str:
+        response = self.client.chat.completions.create(
+            model=self.model,
+            messages=self.history,
+            temperature=self.temperature,
+        )
+        content = response.choices[0].message.content
+        assert content is not None, "Response content is None"
+        return content
 
-    def ask(self, prompt: str, role='user') -> str:
+    def ask(self, prompt: str, role: str = 'user') -> str:
         self.add_to_history(prompt, role)
-        flag = True
-        while flag:
-            try:
-                response = self.model.invoke(input=self._history())
-                flag = False
-            except Exception as e:
-                logger.error(f"Error: {e}")
-                flag = True
-        self.add_to_history(response.content, 'assistant')
-        return response.content
+        try:
+            response = self.ask_once()
+        except RetryError:
+            logger.error("Failed to get response from model after several attempts.")
+            logger.error(f"Current history: {self.history}")
+            raise Exception("Model response failed")
+        self.add_to_history(response, 'assistant')
+        return response
 
 def chat(chatbot: Chatbot):
     logger.info("输入内容即可进行对话，stop 终止程序")
@@ -75,7 +66,7 @@ def chat(chatbot: Chatbot):
         response = chatbot.ask(
             prompt=query,
         )
-        logger.info(f"{chatbot.model_name}: {response}")
+        logger.info(f"{chatbot.model}: {response}")
 
 def get_chatbot(config: dict = CONFIG, model: str = None, temperature: float = None, **kwargs):
     if temperature is not None:
@@ -90,13 +81,13 @@ def single_turn_chat(chatbot: Chatbot, chat_id: int, query: str, output: bool = 
         prompt=query,
     )
     if output:
-        logger.info(f"ChatBot{chat_id} ({chatbot.model_name}): {response}")
+        logger.debug(f"ChatBot{chat_id} ({chatbot.model}): {response}")
     return response
 
-def default_process(x: str) -> str:
+def default_process(x: str, turn: int) -> str:
     return x
 
-def multi_chat(prompt1_list: str, prompt2_list: str, ending: Callable[[str], bool], process1: Callable[[str], str] = None, process2: Callable[[str], str] = None, max_turn: int = 10, model1: str = None, model2: str = None):
+def multi_chat(prompt1_list: str, prompt2_list: str, ending: Callable[[str], bool], process1: Callable[[str, int], str] = None, process2: Callable[[str, int], str] = None, max_turn: int = 10, model1: str = None, model2: str = None) -> tuple[Chatbot, Chatbot, bool]:
     if process1 is None:
         process1 = default_process
     if process2 is None:
@@ -110,24 +101,24 @@ def multi_chat(prompt1_list: str, prompt2_list: str, ending: Callable[[str], boo
         chatbot2 = get_chatbot(config, model2)
     else:
         chatbot2 = get_chatbot(config)
-    logger.info('Stage: Prompt Before Start')
+    logger.debug('Stage: Prompt Before Start')
     for prompt1 in prompt1_list:
-        logger.info(f'Prompt for ChatBot1 ({chatbot1.model_name}): {prompt1}')
+        logger.debug(f'Prompt for ChatBot1 ({chatbot1.model}): {prompt1}')
         response1 = single_turn_chat(chatbot1, 1, prompt1, output=True)
     for prompt2 in prompt2_list:
-        logger.info(f'Prompt for ChatBot2 ({chatbot2.model_name}): {prompt2}')
+        logger.debug(f'Prompt for ChatBot2 ({chatbot2.model}): {prompt2}')
         response2 = single_turn_chat(chatbot2, 2, prompt2, output=True)
-    logger.info('Stage: Conversation Start')
-    logger.info(f"ChatBot2 ({chatbot2.model_name}): {response2}")
+    logger.debug('Stage: Conversation Start')
+    logger.debug(f"ChatBot2 ({chatbot2.model}): {response2}")
     for turn in range(max_turn):
-        logger.info('Turn: {}'.format(turn + 1))
-        response1 = single_turn_chat(chatbot1, 1, process1(response2))
-        response2 = single_turn_chat(chatbot2, 2, process2(response1))
-        # if the user wants to end the conversation(contain the ending string), then end the conversation
+        logger.debug('Turn: {}'.format(turn + 1))
+        response1 = single_turn_chat(chatbot1, 1, process1(response2, turn))
+        response2 = single_turn_chat(chatbot2, 2, process2(response1, turn))
+        # if the user wants to end the conversation(contains the ending string), then end the conversation
         if ending(response2):
-            logger.success('Conversation End by User')
-            break
-    return chatbot1, chatbot2
+            logger.debug('Conversation End by User')
+            return chatbot1, chatbot2, True
+    return chatbot1, chatbot2, False
 
 if __name__ == '__main__':
     init()
