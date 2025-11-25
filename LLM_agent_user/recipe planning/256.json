@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you asked. I'm planning to prepare a meal at home for myself, but I'm not very skilled in cooking and have limited experience. I was hoping you could help me create a recipe, determine the necessary ingredients, and decide what dishes to make. Could you guide me through the process?",
             "content_zh": "你好！很高兴你问的。我打算在家为自己准备一顿饭，但我烹饪技术不是很高超，经验也有限。我希望你能帮我制定食谱，确定所需食材，以及决定做哪些菜。你能指导我完成整个过程吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 问 的 。 我 打算 在家 为 自己 准备 一顿饭 ， 但 我 烹饪 技术 不是 很 高超 ， 经验 也 有限 。 我 希望 你 能 帮 我 制定 食谱 ， 确定 所 需食材 ， 以及 决定 做 哪些 菜 。 你 能 指导 我 完成 整个 过程 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ， 我 很 乐意 帮助 你 ！ 在家 做饭 可以 是 一次 有趣 且 有益 的 体验 ， 即使 你 是 初学者 。 让 我们 先 讨论一下 你 想要 什么 类型 的 餐点 。 你 是 想 尝试 特定 的 食物 ， 比如 意大利 面食 、 炒菜 还是 浓汤 ？ 还是 你 有 任何 饮食 限制 或 偏好 我 应该 考虑 的 ？"
         },
         {
             "role": "user",
             "content": "I'm open to different options, but considering my preference for simple homemade meals, I think a hearty soup sounds appealing. I don't have any specific dietary restrictions, so feel free to suggest any delicious soup recipes you have in mind.",
             "content_zh": "我对不同的选择都持开放态度，但考虑到我对简单的家常饭的喜好，我觉得一碗浓郁的汤听起来很有吸引力。我没有特定的饮食限制，所以请随意推荐你心中有的任何美味汤食谱。",
             "intent": "Search & Recommendation",
-            "intent_zh": "检索+推荐"
+            "intent_zh": "检索+推荐",
+            "content_zh_cut": "我 对 不同 的 选择 都持 开放 态度 ， 但 考虑 到 我 对 简单 的 家常饭 的 喜好 ， 我 觉得 一碗 浓郁 的 汤 听 起来 很 有 吸引力 。 我 没有 特定 的 饮食 限制 ， 所以 请 随意 推荐 你 心中 有 的 任何 美味 汤 食谱 。"
         },
         {
             "role": "assistant",
@@ -38,14 +41,16 @@
                 "hallucination": false,
                 "memo": "Translation Problem Fixed"
             },
-            "content_zh_old": "好选择！汤类菜品多样，令人温暖，而且制作起来也相当简单。要不要来一碗经典的鸡肉面汤？它是一道经典美味，既可口又令人满足。以下是一个简单的食谱供您参考：\n\n食材：\n- 2块去骨去皮鸡胸肉\n- 1汤匙橄榄油\n- 1个中等大小洋葱，切成丁\n- 2根胡萝卜，切片\n- 2根芹菜，切片\n- 2瓣大蒜，切末\n- 6杯鸡汤\n- 1片月桂叶\n- 1茶匙干百里香\n- 盐和胡椒适量\n- 2杯蛋面条\n- 鲜芫荽，切碎（可作装饰，可选）\n\n烹饪步骤：\n1. 在一个大锅中，用中火加热橄榄油。加入洋葱、胡萝卜和芹菜，炒约5分钟直至蔬菜开始变软。\n2. 加入蒜末，再炒1分钟。\n3. 将蔬菜推到锅子一边，加入鸡胸肉。每一面煎约5分钟至金黄。\n4. 倒入鸡肉汤，加入月桂叶和干百里香，用盐和胡椒调味。煮沸后，将火调小焖约20分钟直至鸡肉煮熟。\n5. 将鸡胸肉取出，用两个叉子撕成丝。将撕碎的鸡肉放回锅中。\n6. 加入蛋面条，按照包装说明煮至“al dente”熟度。\n7. 尝一下汤的味道，如有需要可调整调味。\n8. 热着享用鸡肉面汤，如有需要可加入新鲜芫荽作为装饰。\n\n这个食谱将为您带来美味的温暖鸡肉面汤。随意添加额外的蔬菜如豌豆或玉米，甚至一些香草如迷迭香或莳萝以增加风味。享受您自制的汤吧！请随时告诉我如果需要进一步的帮助。"
+            "content_zh_old": "好选择！汤类菜品多样，令人温暖，而且制作起来也相当简单。要不要来一碗经典的鸡肉面汤？它是一道经典美味，既可口又令人满足。以下是一个简单的食谱供您参考：\n\n食材：\n- 2块去骨去皮鸡胸肉\n- 1汤匙橄榄油\n- 1个中等大小洋葱，切成丁\n- 2根胡萝卜，切片\n- 2根芹菜，切片\n- 2瓣大蒜，切末\n- 6杯鸡汤\n- 1片月桂叶\n- 1茶匙干百里香\n- 盐和胡椒适量\n- 2杯蛋面条\n- 鲜芫荽，切碎（可作装饰，可选）\n\n烹饪步骤：\n1. 在一个大锅中，用中火加热橄榄油。加入洋葱、胡萝卜和芹菜，炒约5分钟直至蔬菜开始变软。\n2. 加入蒜末，再炒1分钟。\n3. 将蔬菜推到锅子一边，加入鸡胸肉。每一面煎约5分钟至金黄。\n4. 倒入鸡肉汤，加入月桂叶和干百里香，用盐和胡椒调味。煮沸后，将火调小焖约20分钟直至鸡肉煮熟。\n5. 将鸡胸肉取出，用两个叉子撕成丝。将撕碎的鸡肉放回锅中。\n6. 加入蛋面条，按照包装说明煮至“al dente”熟度。\n7. 尝一下汤的味道，如有需要可调整调味。\n8. 热着享用鸡肉面汤，如有需要可加入新鲜芫荽作为装饰。\n\n这个食谱将为您带来美味的温暖鸡肉面汤。随意添加额外的蔬菜如豌豆或玉米，甚至一些香草如迷迭香或莳萝以增加风味。享受您自制的汤吧！请随时告诉我如果需要进一步的帮助。",
+            "content_zh_cut": "好 选择 ！ 汤品 既 多样 又 令人 感到 舒适 ， 而且 通常 都 很 容易 制作 。 不妨 试试 经典 的 鸡肉 面条 汤 ？ 这是 一款 永恒 的 人气 美食 ， 既 美味 又 令人 满足 。 以下 是 一个 简单 的 食谱 ， 帮助 你 开始 制作 ： \n \n 食材 ： \n -   2 块 无骨 去皮 鸡胸肉 \n -   1 汤匙 橄榄油 \n -   1 个 中等 大小 的 洋葱 ， 切丁 \n -   2 根 胡萝卜 ， 切片 \n -   2 根 芹菜 ， 切片 \n -   2 瓣 大蒜 ， 切碎 \n -   6 杯 鸡汤 \n -   1 片 月桂 叶 \n -   1 茶匙 干 百里香 \n -   根据 口味 调整 盐 和 胡椒 \n -   2 杯 蛋 面条 \n -   新鲜 欧芹 ， 切碎 （ 可 选 ， 用于 装饰 ） \n \n 做法 ： \n 1 .   在 一个 大锅 中 ， 用 中火 加热 橄榄油 。 加入 切丁 的 洋葱 、 切片 的 胡萝卜 和 切片 的 芹菜 。 炒约 5 分钟 ， 直到 蔬菜 开始 变软 。 \n 2 .   加入 切碎 的 大蒜 ， 再 炒 1 分钟 。 \n 3 .   将 蔬菜 推到 锅 的 一边 ， 加入 鸡胸肉 。 每面 煎 约 5 分钟 ， 直到 两面 变 金黄 。 \n 4 .   倒入 鸡汤 ， 加入 月桂 叶和干 百里香 ， 再 根据 口味 调整 盐 和 胡椒 。 将 混合物 煮沸 ， 然后 降低 火力 ， 让 它 慢炖 约 20 分钟 ， 直到 鸡肉 煮熟 。 \n 5 .   从 锅 中 取出 鸡胸肉 ， 用 两个 叉子 将 其 撕碎 。 将 撕碎 的 鸡肉 返回 锅中 。 \n 6 .   加入 蛋 面条 ， 根据 包装 上 的 说明 煮 至 半 硬 不 糯 。 \n 7 .   尝一尝 汤 ， 并 在 需要 时 调整 调味料 。 \n 8 .   趁热 将 鸡肉 面条 汤盛出 ， 如果 愿意 ， 可以 用 新鲜 的 欧芹 装饰 。 \n \n 这个 食谱 应该 能 让 你 做出 一碗 美味 又 令人 感到 舒适 的 鸡肉 面条 汤 。 随意 按照 自己 的 喜好 进行 调整 ， 比如 添加 一些 额外 的 蔬菜 ， 如 豌豆 或 玉米 ， 或者 加入 一些 像 迷迭香 或 莳萝 这样 的 香草 来 增添 风味 。 享受 你 的 自制 汤品 ！ 如果 需要 进一步 的 帮助 ， 请 告诉 我 。"
         },
         {
             "role": "user",
             "content": "Thank you for the detailed recipe! The classic chicken noodle soup sounds perfect for a comforting meal. I appreciate the suggestion of customizing it with extra vegetables or herbs. I'll make sure to follow the instructions and enjoy the homemade soup. If I have any further questions or need assistance with other dishes, I'll reach out to you. Thanks again for your help!\n",
             "content_zh": "非常感谢你提供的详细食谱！经典的鸡面汤听起来非常适合作为一顿慰藉的美食。我感谢你建议可以添加额外的蔬菜或草药来定制。我会确保按照说明做，并享受自制的汤。如果我有任何进一步的问题或需要其他菜肴的帮助，我会联系你。再次感谢你的帮助！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "非常感谢 你 提供 的 详细 食谱 ！ 经典 的 鸡 面汤 听 起来 非常适合 作为 一顿 慰藉 的 美食 。 我 感谢 你 建议 可以 添加 额外 的 蔬菜 或 草药 来 定制 。 我会 确保 按照 说明 做 ， 并 享受 自制 的 汤 。 如果 我 有 任何 进一步 的 问题 或 需要 其他 菜肴 的 帮助 ， 我会 联系 你 。 再次 感谢 你 的 帮助 ！"
         },
         {
             "role": "assistant",
@@ -54,7 +59,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "不 客气 ！ 很 高兴 您 觉得 这个 食谱 有 帮助 。 如果 您 有 任何 问题 或 将来 需要 其他 菜肴 的 帮助 ， 请 随时 联系 我 。 我 很 乐意 帮助 您 。 祝您 享用 自制 鸡肉 面汤 ， 开心 烹饪 ！"
         }
     ],
     "conflict": false,

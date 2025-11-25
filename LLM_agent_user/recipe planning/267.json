@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you reached out. I'm planning to prepare a meal at home and invite three close friends to join me. However, I'm not very skilled in cooking and have limited experience. I was hoping you could help me create a recipe, determine the necessary ingredients, and decide what dishes to make. Can you assist me with that?",
             "content_zh": "你好！很高兴你联系我。我打算在家里准备一顿饭并邀请三个亲近的朋友加入我。然而，我不太擅长烹饪，经验也有限。希望你能帮助我创造一个食谱，确定必要的食材，并决定做什么菜。你可以帮助我吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 联系 我 。 我 打算 在 家里 准备 一顿饭 并 邀请 三个 亲近 的 朋友 加入 我 。 然而 ， 我 不 太 擅长 烹饪 ， 经验 也 有限 。 希望 你 能 帮助 我 创造 一个 食谱 ， 确定 必要 的 食材 ， 并 决定 做 什么 菜 。 你 可以 帮助 我 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "你好 ！ 我 很 乐意 帮助 你 计划 一顿饭 ， 并 提供 一些 美味 的 食谱 。 即使 你 不是 一名 经验丰富 的 厨师 ， 给 朋友 做饭 也 可以 很 有趣 。 你 对 哪种 菜系 感兴趣 ？ 你 有 任何 饮食 限制 或 偏好 吗 ？ 让 我们 从 缩小 你 想 准备 的 餐点 类型 开始 吧 ！"
         },
         {
             "role": "user",
             "content": "That sounds great! I'm always up for trying new and exotic cuisines. Seafood is something I particularly enjoy, so incorporating that into the meal would be wonderful. As for dietary restrictions, luckily none of my friends have any specific requirements, so we have the freedom to explore different options. I'm open to your suggestions!",
             "content_zh": "听起来不错！我总是乐于尝试新奇的美食。海鲜是我特别喜欢的，所以把它融入到餐点中会很棒。至于饮食限制，幸运的是我的朋友们都没有特殊要求，所以我们有自由尝试不同的选择。我很乐意听取你的建议！",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "听 起来 不错 ！ 我 总是 乐于 尝试 新奇 的 美食 。 海鲜 是 我 特别 喜欢 的 ， 所以 把 它 融入 到 餐点 中 会 很棒 。 至于 饮食 限制 ， 幸运 的 是 我 的 朋友 们 都 没有 特殊要求 ， 所以 我们 有 自由 尝试 不同 的 选择 。 我 很 乐意 听取 你 的 建议 ！"
         },
         {
             "role": "assistant",
@@ -37,14 +40,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "太棒了 ！ 海鲜 是 和 朋友 共享 特别 餐 的 一个 很 好 的 选择 。 我们 来 制定 一个 拥有 各种 口味 和 质感 的 菜单 怎么样 ？ 以下 是 一个 三道 菜 的 建议 菜单 ： \n \n 开胃菜 ： 柑橘 酱 烤 虾 串 \n 主菜 ： 柠檬黄 油煎 三文鱼 \n 甜点 ： 芒果 椰奶 奶酪 \n \n 为 烤 虾 串 备料 ， 你 需要 ： \n -   1 磅 大虾 ， 剥皮 去 虾线 \n -   2 瓣 大蒜 ， 切碎 \n -   1 个 柠檬 的 皮 和 汁 \n -   1 个 酸 橙 的 皮 和 汁 \n -   2 汤匙 橄榄油 \n -   适量 盐 和 胡椒 \n -   用于 烤 的 串 \n \n 为 柠檬黄 油煎 三文鱼 备料 ， 你 需要 ： \n -   4 块 三文鱼 \n -   适量 盐 和 胡椒 \n -   2 汤匙 黄油 \n -   1 个 柠檬 的 汁 \n -   新鲜 莳萝 叶 用于 装饰 \n \n 为 芒果 椰奶 奶酪 准备 ， 你 需要 ： \n -   1 杯 芒果 泥 （ 新鲜 或 罐装 ） \n -   1 杯 椰奶 \n -   1 / 4 杯 糖 \n -   1 茶匙 香草 精 \n -   2 茶匙 明胶 粉 \n -   新鲜 薄荷叶 用于 装饰 \n \n 如果 你 准备 好 尝试 这些 食谱 ， 请 告诉 我 ， 我会 提供 给 你 烹饪 说明 ！"
         },
         {
             "role": "user",
             "content": "Wow, that menu sounds absolutely delightful! I love the combination of grilled shrimp, pan-seared salmon, and the refreshing mango coconut panna cotta for dessert. I'm definitely ready to move forward with these recipes and would appreciate your guidance on the cooking instructions. Let's get started!",
             "content_zh": "哇，那個菜單聽起來絕對令人愉悅！我喜歡烤蝦、鍋煎鮭魚和清爽的芒果椰子奶凍甜點的搭配。我絕對準備好開始這些食譜了，並且希望您能指導我烹飪的方法。讓我們開始吧！",
             "intent": "Planning",
-            "intent_zh": "规划"
+            "intent_zh": "规划",
+            "content_zh_cut": "哇 ， 那個 菜單 聽 起來 絕對 令人 愉悅 ！ 我 喜歡 烤 蝦 、 鍋 煎 鮭魚 和 清爽 的 芒果 椰子 奶凍 甜點 的 搭配 。 我絕 對 準備 好 開始 這些 食譜 了 ， 並且 希望 您 能 指導 我 烹飪 的 方法 。 讓 我們 開始 吧 ！"
         },
         {
             "role": "assistant",
@@ -53,14 +58,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "太棒了 ！ 让 我们 深入 了解 每道菜 的 烹饪 步骤 ： 烤 柠檬 大蒜 虾串 ： 1 . 在 一个碗 里 ， 将 碎 蒜 、 柠檬皮 、 青柠皮 、 柠檬汁 、 青柠汁 、 橄榄油 、 盐 和 胡椒 混合 在 一起 。 充分 搅拌 以 制作 腌料 。 2 . 将 虾 串 在 串 上 ， 确保 每个 件 之间 留有 足够 的 空间 。 3 . 将 虾 串 放入 浅 盘中 ， 倒入 腌料 ， 确保 它们 均匀 涂抹 。 让 它们 在 冰箱 中 腌 约 20 - 30 分钟 。 4 . 将 烧烤 架 预热 至 中 高温 。 每面 烤 虾 串 2 - 3 分钟 ， 直到 它们 变成 粉红色 且 不 透明 。 5 . 将 串 从 烧烤 架上 取 下 ， 作为 美味 开胃菜 食用 。 柠檬 牛油 焗 三文鱼 ： 1 . 在 三文鱼 片上 两面 撒上 盐 和 胡椒 调味 。 2 . 在 中 高温 下 加热 一个 大 煎锅 ， 加入 牛油 。 让 它 融化 并 开始 起泡 。 3 . 小心 地 将 三文鱼 片 放入 煎锅 中 ， 如果 有皮 ， 则 皮朝下 。 每面 煎 约 4 - 5 分钟 ， 直到 三文鱼 煮熟 且 用 叉子 轻松 分层 。 4 . 将 三文鱼 片 从 煎锅 中 取出 ， 放在 一个 盘子 上 。 5 . 在 同一个 煎锅 中 ， 加入 柠檬汁 ， 搅拌 成 牛油 酱 。 煮 一两分钟 直到 稍微 变稠 。 6 . 将 柠檬 牛油 酱 倒 在 三文鱼 片上 ， 撒上 新鲜 的 莳萝 ， 食用 。 芒果 椰子 奶冻 ： 1 . 在 一个 锅中 ， 将 芒果 泥 、 椰奶 和 糖 混合 在 一起 。 在 中火 加热 混合物 ， 搅拌 直到 糖 完全 溶解 。 2 . 在 一个 小碗 里 ， 撒上 2 汤匙 冷水 的 明胶 粉 。 让 其 泡发 几分钟 。 3 . 将 膨胀 的 明胶 加入 带 芒果 和 椰奶 的 锅 中 。 充分 搅拌 直到 明胶 完全 溶解 。 4 . 从火 上取 下锅 ， 搅入 香草 精 。 5 . 倒入 个别 玻璃杯 或 小 烤皿 中 。 让 其 冷却 至 室温 ， 然后 冷藏 至少 4 个 小时 或 直到 凝固 。 6 . 一旦 奶冻 凝固 ， 每份 奶冻 上 撒 上 新鲜 薄荷叶 ， 享受 ！ 希望 这些 说明 清晰 且 有 帮助 ！ 如 有 任何 进一步 问题 或 需 额外 指导 ， 请 随时 询问 。 祝您 和 朋友 们 享受 美食 之旅 和 餐点 ！"
         },
         {
             "role": "user",
             "content": "Thank you so much for providing the detailed cooking instructions! They are clear and easy to follow. I'm excited to try out these recipes and impress my friends with the delicious meal. I really appreciate your help in planning this. I'll make sure to reach out if I have any further questions. Thanks again!\n",
             "content_zh": "非常感谢您提供详细的烹饪说明！它们清晰易懂。我很兴奋要尝试这些食谱，并用美味的餐点给朋友留下深刻印象。我真的很感激您在计划中的帮助。如果有任何进一步的问题，我一定会联系您的。再次感谢！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "非常 感谢您 提供 详细 的 烹饪 说明 ！ 它们 清晰 易懂 。 我 很 兴奋 要 尝试 这些 食谱 ， 并用 美味 的 餐点 给 朋友 留下 深刻印象 。 我 真的 很 感激 您 在 计划 中 的 帮助 。 如果 有 任何 进一步 的 问题 ， 我 一定 会 联系 您 的 。 再次 感谢 ！"
         },
         {
             "role": "assistant",
@@ -69,7 +76,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "不 客气 ！ 我 很 高兴 你 觉得 这些 说明 很 有 帮助 。 我 相信 你 的 朋友 们 会 对 你 准备 的 美食 印象 深刻 。 记住 ， 烹饪 就是 要 有 乐趣 和 尝试 新 事物 ， 所以 不要 犹豫 在 食谱 中 加入 自己 的 个人风格 。 如果 你 有 任何 问题 或 需要 帮助 ， 随时 联系 我 。 享受 你 的 烹饪 之旅 ， 和 朋友 们 一起 度过 美好时光 ！ 祝 愉快 的 烹饪 ！"
         }
     ],
     "conflict": false,

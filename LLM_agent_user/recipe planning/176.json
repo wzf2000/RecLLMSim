@@ -12,7 +12,8 @@
             "content": "Hello! I would like your help in preparing a meal at home. I'm not very skilled in cooking and have limited experience, so I'm hoping you can guide me in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Can you assist me with that?",
             "content_zh": "你好！我想请你帮忙在家准备一顿饭。我在烹饪方面并不很擅长，经验也有限，所以希望你可以指导我制作食谱，确定所需食材，以及决定做什么菜。你可以帮我吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 我 想 请 你 帮忙 在家 准备 一顿饭 。 我 在 烹饪 方面 并 不 很 擅长 ， 经验 也 有限 ， 所以 希望 你 可以 指导 我 制作 食谱 ， 确定 所 需食材 ， 以及 决定 做 什么 菜 。 你 可以 帮 我 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ， 我 很 乐意 帮助 您 ！ 烹饪 可以 是 一次 有趣 且 有益 的 经历 ， 即使 对 初学者 来说 也 是 如此 。 让 我们 从 讨论 您 有 兴趣 准备 的 是 什么 类型 的 餐 开始 。 您 是 想要 准备 主菜 、 配菜 还是 甜点 呢 ？ 您 有 任何 饮食 限制 或 偏好 吗 ， 我 应该 在 建议 食谱 时 考虑 到 吗 ？"
         },
         {
             "role": "user",
             "content": "Thank you for offering your assistance. I'm particularly interested in preparing a main course for my meal. As for dietary restrictions, I don't have any specific ones, but I do prefer dishes that are on the healthier side. I enjoy exploring different cuisines, so if you have any suggestions in that regard, I would be open to trying them.",
             "content_zh": "谢谢您提供帮助。我特别感兴趣准备一道主菜。至于饮食限制，我没有具体的要求，但我更喜欢健康的菜肴。我喜欢探索不同的美食，如果您有任何建议，我愿意尝试。",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "谢谢您 提供 帮助 。 我 特别 感兴趣 准备 一道 主菜 。 至于 饮食 限制 ， 我 没有 具体 的 要求 ， 但 我 更 喜欢 健康 的 菜肴 。 我 喜欢 探索 不同 的 美食 ， 如果 您 有 任何 建议 ， 我 愿意 尝试 。"
         },
         {
             "role": "assistant",
@@ -37,14 +40,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "太棒了 ！ 探索 不同 的 美食 可以 很 有趣 。 我们 来 尝试 做 一道 美味 又 健康 的 炒菜 吧 ？ 这是 一道 多功能 的 菜肴 ， 可以 加入 各种 不同 的 蔬菜 、 蛋白质 和 风味 。 以下 是 一个 简单 的 食谱 ， 让 你 开始 动手 吧 ： \n \n 蔬菜 炒菜 ： \n \n 食材 ： \n -   1 汤匙 食用油 （ 橄榄油 、 芝麻油 或 植物油 ） \n -   1 个 洋葱 ， 切片 \n -   2 瓣 大蒜 ， 切碎 \n -   1 个 甜椒 ， 切片 \n -   1 根 胡萝卜 ， 切片 \n -   1 个 西葫芦 ， 切片 \n -   1 杯 西兰花 ， 菜花 \n -   1 杯 切片 蘑菇 \n -   1 杯 荷兰豆 \n -   1 杯 豆腐 或 鸡肉 ， 切片 （ 可 选 ） \n -   2 汤匙 酱油 \n -   1 汤匙 蚝油 （ 可 选 ） \n -   1 茶匙 玉米 淀粉 （ 可 选 ， 用于 勾芡 ） \n -   适量 的 盐 和 胡椒粉 \n -   煮 好 的 米饭 或 面条 作为 主食 \n \n 做法 ： \n 1 . 在 大 煎锅 或 炒锅 中中 高火 加热 油 。 \n 2 . 加入 洋葱 和 大蒜 ， 炒至 香气 四溢 并 略微 软化 。 \n 3 . 将 甜椒 、 胡萝卜 、 西葫芦 、 西兰花 、 蘑菇 和 荷兰豆 加入 煎锅 中 。 翻炒 约 5 - 7 分钟 ， 直到 蔬菜 变软 但 保持 脆嫩 。 \n 4 . 如果 使用 豆腐 或 鸡肉 ， 加入 煎锅 中 煮熟 。 \n 5 . 在 一个 小碗 中 ， 搅拌 酱油 、 蚝油 和 玉米 淀粉 （ 如果 使用 ） 。 将 酱汁 倒 在 蔬菜 和 蛋白质 上 ， 搅拌 均匀 。 继续 烹饪 2 - 3 分钟 ， 直到 酱汁 稍微 浓稠 。 \n 6 . 根据 口味 加盐 和 胡椒 。 \n 7 . 将 炒菜 盛 在 煮 好 的 米饭 或 面条 上 。 \n \n 随意 根据 自己 的 喜好 添加 蔬菜 或 蛋白质 选项 来 定制 这个 食谱 。 你 也 可以 尝试 不同 的 酱汁 和 调味品 以 适应 你 的 口味 。 如果 需要 进一步 的 指导 或 有 其他 问题 ， 请 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "Thank you for the delicious stir-fry recipe! It sounds like a healthy and flavorful option. I appreciate the detailed instructions and suggestions for customization. I will definitely give it a try. \n\nNow, since we're preparing a main course, I'd like to add a side dish to complement the stir-fry. Do you have any recommendations for a simple and tasty side dish that would pair well with the stir-fry?",
             "content_zh": "谢谢你的美味炒菜食谱！听起来是一种健康而美味的选择。我很感激详细的说明和定制建议。我一定会尝试的。\n现在，既然我们要准备主菜，我想添加一道配菜来搭配这道炒菜。你有没有推荐的简单美味的配菜，可以与这道炒菜搭配？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "谢谢 你 的 美味 炒菜 食谱 ！ 听 起来 是 一种 健康 而 美味 的 选择 。 我 很 感激 详细 的 说明 和 定制 建议 。 我 一定 会 尝试 的 。 \n 现在 ， 既然 我们 要 准备 主菜 ， 我 想 添加 一道 配菜 来 搭配 这道 炒菜 。 你 有没有 推荐 的 简单 美味 的 配菜 ， 可以 与 这道 炒菜 搭配 ？"
         },
         {
             "role": "assistant",
@@ -53,7 +58,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ！ 一道 清爽 简单 的 配菜 ， 搭配 炒菜 十分 美味 ， 就是 黄瓜 沙拉 。 它 清淡 爽口 ， 为主 菜 的 口味 增添 了 一种 搭配 。 以下 是 一个 快速 的 食谱 给 你 ： \n \n 黄瓜 沙拉 ： \n \n 食材 ： \n -   2 根 中等 黄瓜 ， 切 薄片 \n -   1 / 4 杯 米醋 \n -   1 汤匙 酱油 \n -   1 汤匙 麻油 \n -   1 茶匙 糖 （ 可 选 ） \n -   1 / 2 茶匙 红辣椒 片 （ 可 选 ， 增加 火辣 口感 ） \n -   1 汤匙 芝麻 （ 可 选 ， 用来 装饰 ） \n -   切碎 的 香菜 或 青葱 （ 可 选 ， 增加 清新 感 ） \n \n 制作方法 ： \n 1 .   在 一个碗 中 ， 搅拌 米醋 、 酱油 、 麻油 、 糖 （ 如 使用 ） 、 和 红辣椒 片 （ 如 使用 ） 。 \n 2 .   将 切片 黄瓜 放入 碗 中 ， 轻轻 拌匀 。 让 黄瓜 沙拉 在 冰箱 中 腌制 至少 15 - 20 分钟 ， 让 味道 融合 。 \n 3 .   上 桌前 ， 快速 拌匀 沙拉 ， 根据 喜好 用 芝麻 和 切碎 的 香菜 或 青葱 装饰 。 \n \n 这 款 黄瓜 沙拉 制作 快速 ， 为 您 的 餐点 增添 了 美味 的 脆爽 口感 。 根据 口味 偏好 随意 调整 调料 。 如果 你 不 喜欢 黄瓜 ， 也 可以 尝试 简单 的 蒸菜 或 炒菜 拼盘 作为 配菜 。 \n \n 希望 这个 建议 对 你 有 帮助 ！ 如果 需要 其他 方面 的 帮助 ， 请 随时 告诉 我 。"
         }
     ],
     "conflict": false,

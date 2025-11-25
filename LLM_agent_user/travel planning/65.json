@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you're here. I'm planning a two-day-long trip this winter and I could use some assistance with refining my travel plans. I'm looking for suggestions and recommendations for accommodations, transportation, and creating a comprehensive itinerary. Can you help me with that?",
             "content_zh": "你好！很高兴你在这里。我打算在今年冬天进行为期两天的旅行，希望能够得到一些关于完善旅行计划的帮助。我正在寻找关于住宿、交通以及制定全面行程安排的建议和推荐。你能帮我吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 在 这里 。 我 打算 在 今年冬天 进行 为期 两天 的 旅行 ， 希望 能够 得到 一些 关于 完善 旅行 计划 的 帮助 。 我 正在 寻找 关于 住宿 、 交通 以及 制定 全面 行程 安排 的 建议 和 推荐 。 你 能 帮 我 吗 ？"
         },
         {
             "role": "assistant",
@@ -22,14 +23,16 @@
                 "hallucination": false,
                 "memo": "Translation Problem Fixed"
             },
-            "content_zh_old": "你好！我很乐意帮助您完善您的旅行计划，并为您这个冬天的两天旅行制定一个全面的行程安排。请告诉我您心中所想的目的地？此外，了解您的预算、任何特定的兴趣或活动您想要包括，以及您的其他偏好会很有帮助。有了这些信息，我可以为您提供量身定制的建议和推荐。"
+            "content_zh_old": "你好！我很乐意帮助您完善您的旅行计划，并为您这个冬天的两天旅行制定一个全面的行程安排。请告诉我您心中所想的目的地？此外，了解您的预算、任何特定的兴趣或活动您想要包括，以及您的其他偏好会很有帮助。有了这些信息，我可以为您提供量身定制的建议和推荐。",
+            "content_zh_cut": "你好 ！ 我 很 乐意 帮助 你 完善 你 的 旅行 计划 ， 并 为 你 这个 冬天 的 两日游 创建 一个 全面 的 行程 。 你 能 告诉 我 你 心目 中 的 目的地 吗 ？ 此外 ， 了解 你 的 预算 、 你 想要 包含 的 任何 特定 兴趣 或 活动 ， 以及 你 的 其他 偏好 会 很 有 帮助 。 有 了 这些 信息 ， 我 就 能 为 你 提供 量身 定制 的 建议 和 推荐 。"
         },
         {
             "role": "user",
             "content": "Thank you for your offer to assist me. Since I don't have any specific destination in mind, I'm open to exploring various options. As for my budget, I would say I have a moderate budget and I'm willing to spend a reasonable amount for a comfortable and enjoyable trip. As a university professor, I have a keen interest in visiting museums and attending cultural events, so I would love to include those in my itinerary. I also enjoy quiet, cozy restaurants and wine tasting, so any recommendations in that regard would be appreciated. I hope this gives you a good starting point to work with.",
             "content_zh": "谢谢您提出帮助我的邀请。因为我还没有特定的目的地，所以我愿意探索各种选择。至于我的预算，我会说我的预算适中，愿意花合理的金额来享受一个舒适和愉快的旅行。作为一名大学教授，我对参观博物馆和参加文化活动非常感兴趣，所以我希望把这些列入我的行程。我也喜欢宁静舒适的餐厅和品酒，如果有任何推荐，我将不胜感激。希望这能给您一个良好的起点。",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "谢谢您 提出 帮助 我 的 邀请 。 因为 我 还 没有 特定 的 目的地 ， 所以 我 愿意 探索 各种 选择 。 至于 我 的 预算 ， 我会 说 我 的 预算 适中 ， 愿意 花 合理 的 金额 来 享受 一个 舒适 和 愉快 的 旅行 。 作为 一名 大学教授 ， 我 对 参观 博物馆 和 参加 文化 活动 非常 感兴趣 ， 所以 我 希望 把 这些 列入 我 的 行程 。 我 也 喜欢 宁静 舒适 的 餐厅 和 品酒 ， 如果 有 任何 推荐 ， 我 将 不胜感激 。 希望 这能 给 您 一个 良好 的 起点 。"
         },
         {
             "role": "assistant",
@@ -38,14 +41,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "太棒了 ！ 对 目的地 持 开放 态度 给 了 我们 许多 选择 。 根据 您 对 博物馆 、 文化 活动 、 舒适 餐厅 和 品酒 的 兴趣 ， 我 为 您 推荐 维也纳 ， 奥地利 。 \n \n 维也纳 以 其 丰富 的 历史 、 令人惊叹 的 建筑 和 充满活力 的 文化 场景 而 闻名 。 它 提供 广泛 的 博物馆 、 美术馆 和 文化 活动 ， 我 相信 您 会 喜欢 。 以下 是 您 两天 之行 的 示例 行程 ： \n \n 第 1 天 ： \n -   早上 ： 开始 您 的 一天 ， 探索 历史悠久 的 市中心 。 参观 圣 史蒂芬 大 教堂 ， 沿着 格拉 本 大街 散步 ， 并 欣赏 美丽 的 建筑 。 \n -   下午 ： 前往 博物馆 区 ， 那里 有 一系列 博物馆 和 文化 机构 。 您 可以 参观 卢奥 波德 博物馆 ， 那里 拥有 令人 印象 深刻 的 现代 奥地利 艺术 收藏 ， 以及 以 其 庞大 艺术 收藏 而 闻名 的 美术史 博物馆 。 \n -   晚上 ： 在 舒适 的 餐厅 体验 维也纳 美食 。 一些 热门 选择 包括 Plachutta ， Figlm ü ller 或 Zum   Schwarzen   Kameel 。 晚餐 后 ， 您 可以 参加 维也纳 著名 的 古典 音乐会 或 歌剧 表演 。 \n \n 第 2 天 ： \n -   早上 ： 参观 贝尔 维德 宫 ， 那里 有着 举世闻名 的 克林特 收藏 ， 包括 “ 吻 ” 。 花些 时间 探索 宫殿 及其 美丽 的 花园 。 \n -   下午 ： 前往 附近 的 维也纳 森林 ， 您 可以 在 当地 的 酿酒厂 中 享受 令人 放松 的 品酒 体验 。 一些 建议 的 酿酒厂 包括 Mayer   am   Pfarrplatz 和 Cobenzl 。 \n -   晚上 ： 结束 您 的 旅行 ， 前往 纳斯赫 市场 ， 那里 有 许多 食品 摊位 和 餐厅 。 您 可以 在 那里 吃 晚餐 ， 品尝 来自 世界各地 的 各种 美食 。 \n \n 至于 住宿 ， 维也纳 提供 多种 选择 ， 以 适应 不同 的 预算 。 一些 受欢迎 的 住宿 区 包括 Innere   Stadt （ 市中心 ） 、 Mariahilf 和 Neubau 。 根据 您 的 喜好 ， 您 可以 选择 从 酒店 、 招待所 ， 甚至 Airbnb 出租 的 房屋 。 \n \n 请 记得 在 冬季 检查 特定 景点 和 活动 的 开放 时间 和 可用性 ， 因为 有些 可能 有限 的 时间 安排 。 希望 这为 您 计划 前往 维也纳 的 旅行 提供 了 良好 的 起点 ！ 请 告诉 我 如果 有 其他 需要 帮助 的 地方 。"
         },
         {
             "role": "user",
             "content": "Thank you for the detailed itinerary and suggestion of Vienna, Austria! It sounds like a wonderful destination that aligns well with my interests. I appreciate the specific recommendations for attractions, restaurants, and even a wine tasting experience. I'll definitely look into the options you mentioned and check their availability during the winter season.\n\nAs for accommodations, I will explore the areas you suggested and consider the different types of accommodations available. It's great to have options that suit different budgets.\n\nI have one question regarding transportation. What would you recommend for getting around Vienna during my two-day trip? Are there any specific modes of transportation that are convenient and efficient for exploring the city?\n\nOverall, I'm quite satisfied with your suggestions and the thorough planning you've provided so far. Thank you for your assistance!",
             "content_zh": "感谢您提供的详细行程安排和对奥地利维也纳的建议！听起来是一个与我的兴趣契合的绝佳目的地。我很感激您为景点、餐厅甚至葡萄酒品尝体验提供的具体推荐。我一定会详细研究您提到的选择，并在冬季检查它们的可用性。\n至于住宿，我会探索您建议的地区，并考虑各种类型的住宿。有适合不同预算的选择真的很棒。\n我有一个关于交通的问题。在我短暂的两天维也纳之行中，您会推荐什么样的交通工具？有没有一些特别方便和高效的交通方式适合探索这座城市呢？\n总的来说，我对您提供的建议以及迄今为止所做的周详规划感到非常满意。感谢您的帮助！",
             "intent": "Search & Recommendation",
-            "intent_zh": "检索+推荐"
+            "intent_zh": "检索+推荐",
+            "content_zh_cut": "感谢您 提供 的 详细 行程 安排 和 对 奥地利 维也纳 的 建议 ！ 听 起来 是 一个 与 我 的 兴趣 契合 的 绝佳 目的地 。 我 很 感激 您 为 景点 、 餐厅 甚至 葡萄酒 品尝 体验 提供 的 具体 推荐 。 我 一定 会 详细 研究 您 提到 的 选择 ， 并 在 冬季 检查 它们 的 可用性 。 \n 至于 住宿 ， 我会 探索 您 建议 的 地区 ， 并 考虑 各种类型 的 住宿 。 有 适合 不同 预算 的 选择 真的 很棒 。 \n 我 有 一个 关于 交通 的 问题 。 在 我 短暂 的 两天 维也纳 之行 中 ， 您 会 推荐 什么样 的 交通工具 ？ 有没有 一些 特别 方便 和 高效 的 交通 方式 适合 探索 这座 城市 呢 ？ \n 总的来说 ， 我 对 您 提供 的 建议 以及 迄今为止 所 做 的 周详 规划 感到 非常 满意 。 感谢您 的 帮助 ！"
         },
         {
             "role": "assistant",
@@ -54,7 +59,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "非常 欢迎 ！ 我 很 高兴 您 觉得 这些 建议 有 帮助 。 在 维也纳 ， 有 几种 方便 的 交通 方式 可 供选择 。 以下 是 一些 选项 ： \n \n 1 .   公共交通 ： 维也纳 拥有 出色 的 公共交通 系统 ， 包括 公共汽车 、 电车 和 地铁 （ 即 U - Bahn ） 。 您 可以 购买 维也纳 城市 卡 ， 该卡 可 在 指定 期限内 无限 乘坐 公共 交通工具 ， 并 可 享受 各种 景点 的 折扣 。 \n \n 2 .   步行 ： 维也纳 是 一个 适合 步行 的 城市 ， 特别 是 在 市中心 地区 。 许多 主要 景点 彼此之间 步行 距离 不远 ， 可 让 您 徒步 探索 城市 。 这是 一个 很 好 的 方式 ， 可以 沉浸 在 氛围 中 ， 并 发现 隐藏 的 宝石 。 \n \n 3 .   城市 自行车 租赁 ： 维也纳 有 一个 名为 Citybike   Wien 的 共享 单车 系统 ， 允许 您 短时间 内 租借 自行车 。 这是 一个 有趣 且 高效 的 方式 ， 特别 是 天气 允许 时 探索 城市 。 \n \n 4 .   出租车 和 顺风 车 ： 维也纳 有 许多 出租车 ， 也 有 像 Uber 这样 的 顺风 车 服务 。 对于 较 短 的 行程 或者 喜欢 更 直接 的 交通 方式 的 人 来说 ， 这些 服务 可能 很 方便 。 \n \n 有 了 这些 选项 ， 您 可以 灵活 选择 适合 自己 需求 和 偏好 的 交通 方式 。 维也纳 的 交通系统 连接 良好 ， 使得 导航 城市 和 探索 城市 变得 轻松 。 \n \n 如果 您 有 任何 更 多 问题 或 需要 进一步 帮助 ， 请 随时 提问 。 祝您 在 维也纳 的 旅程 愉快 ！"
         }
     ],
     "conflict": false,

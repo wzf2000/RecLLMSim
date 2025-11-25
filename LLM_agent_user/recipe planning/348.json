@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you asked. As a travel blogger, I'm constantly on the move, but when I'm at home, I'd like to try my hand at cooking. However, I'm not very skilled in the kitchen and could use some help in creating a recipe and deciding what dishes to make. Can you assist me with that?",
             "content_zh": "你好！很高兴你提问。作为旅行博主，我经常在路上，但是当我在家时，我喜欢尝试下厨。然而，我在厨房方面并不很擅长，需要一些帮助来制作食谱和决定要做什么菜。你可以帮助我吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 提问 。 作为 旅行 博主 ， 我 经常 在 路上 ， 但是 当 我 在家 时 ， 我 喜欢 尝试 下厨 。 然而 ， 我 在 厨房 方面 并 不 很 擅长 ， 需要 一些 帮助 来 制作 食谱 和 决定 要 做 什么 菜 。 你 可以 帮助 我 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "你好 ！ 我会 很 乐意 帮助 您 进行 烹饪 。 烹饪 可以 很 有趣 ， 也 是 探索 不同 风味 和 美食 的 好 方法 。 无论 您 是 新手 还是 想要 扩展 烹饪 技能 ， 我 可以 帮助 您 想 出 食谱 和 菜品 创意 。 \n \n 首先 ， 请 告诉 我 您 有 兴趣 尝试 哪 种 美食 ？ 您 是否 有 任何 特定 的 食材 或 饮食 限制 ？ 此外 ， 您 是否 偏好 特定 类型 的 菜品 ， 如 开胃菜 、 主菜 或 甜点 ？ 让 我 知道 您 的 偏好 ， 我们 可以 一起 构思 一些 美味 的 食谱 ！"
         },
         {
             "role": "user",
             "content": "Hey there! I'm all about trying new things, so let's go on a culinary adventure together! I'm open to exploring different cuisines, so surprise me with your suggestions. As for ingredients, I don't have any specific restrictions, so feel free to get creative. As a travel blogger, I love street food, so if we can incorporate some of those flavors, that would be fantastic!\n\nIn terms of dishes, let's start with a mouthwatering appetizer that will set the tone for the meal. Something light and flavorful would be perfect. What do you have in mind?",
             "content_zh": "嗨！我喜欢尝试新事物，所以让我们一起去探险吧！我乐于尝试不同的美食，所以给我惊喜推荐吧。至于食材，我没有特定的限制，所以请随意发挥创意。作为一个旅行博主，我喜欢街头食物，如果我们可以融入一些那些口味，那就太棒了！至于菜肴，让我们以一道令人垂涎欲滴的开胃菜开始，为整顿餐食定调。一些轻盈而美味的东西会很完美。你有什么想法？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "嗨 ！ 我 喜欢 尝试 新 事物 ， 所以 让 我们 一起 去 探险 吧 ！ 我 乐于 尝试 不同 的 美食 ， 所以 给 我 惊喜 推荐 吧 。 至于 食材 ， 我 没有 特定 的 限制 ， 所以 请 随意 发挥 创意 。 作为 一个 旅行 博主 ， 我 喜欢 街头 食物 ， 如果 我们 可以 融入 一些 那些 口味 ， 那 就 太棒了 ！ 至于 菜肴 ， 让 我们 以 一道 令人 垂涎欲滴 的 开胃菜 开始 ， 为 整顿 餐食 定调 。 一些 轻盈 而 美味 的 东西 会 很 完美 。 你 有 什么 想法 ？"
         },
         {
             "role": "assistant",
@@ -38,14 +41,16 @@
                 "hallucination": false,
                 "memo": "Translation Problem Fixed"
             },
-            "content_zh_old": "太棒了！让我们用美味而充满活力的开胃菜开始您的烹饪冒险。我们可以制作受墨西哥街头食物风味启发的融合菜肴，如玉米煎饼！以下是一个简单的食谱供您参考：\n\n材料：\n- 2杯玉米粒（新鲜或冷冻）\n- 半杯中筋面粉\n- 四分之一杯玉米面\n- 四分之一杯磨碎的帕尔马干酪\n- 四分之一杯切碎的新鲜香菜\n- 半茶匙熏辣椒粉\n- 半茶匙孜然\n- 四分之一茶匙辣椒粉（根据您的口味调整）\n- 半茶匙盐\n- 四分之一茶匙黑胡椒\n- 两只大鸡蛋，打散\n- 蔬菜油，用于炸\n- 青柠楔，用来榨在菜肴上\n\n做法：\n1. 在一个大碗中，将玉米粒、面粉、玉米面、帕尔马干酪、香菜、熏辣椒粉、孜然、辣椒粉、盐和黑胡椒混合在一起。充分搅拌。\n2. 将打散的鸡蛋加入玉米混合物中，搅拌直至均匀混合。\n3. 在中火下，将蔬菜油加热在一个大煎锅中。\n4. 用勺子或曲奇勺，将玉米混合物勺入热油中，稍微压扁。煎约2-3分钟，直至两面金黄。\n5. 煎炸好后，将煎饼放在铺有吸油纸的盘子上沥干多余的油。\n6. 将墨西哥玉米煎饼热热地搭配青柠楔一起食用。\n\n这些煎饼外脆内嫩，充满着玉米、香菜和香料的美味风味。它们是一道非常棒的开胃菜，一定会为一顿美味的餐饮增添色彩。祝您享用！\n\n让我知道结果如何，如果您需要更多的菜肴建议或其他帮助，请告诉我！"
+            "content_zh_old": "太棒了！让我们用美味而充满活力的开胃菜开始您的烹饪冒险。我们可以制作受墨西哥街头食物风味启发的融合菜肴，如玉米煎饼！以下是一个简单的食谱供您参考：\n\n材料：\n- 2杯玉米粒（新鲜或冷冻）\n- 半杯中筋面粉\n- 四分之一杯玉米面\n- 四分之一杯磨碎的帕尔马干酪\n- 四分之一杯切碎的新鲜香菜\n- 半茶匙熏辣椒粉\n- 半茶匙孜然\n- 四分之一茶匙辣椒粉（根据您的口味调整）\n- 半茶匙盐\n- 四分之一茶匙黑胡椒\n- 两只大鸡蛋，打散\n- 蔬菜油，用于炸\n- 青柠楔，用来榨在菜肴上\n\n做法：\n1. 在一个大碗中，将玉米粒、面粉、玉米面、帕尔马干酪、香菜、熏辣椒粉、孜然、辣椒粉、盐和黑胡椒混合在一起。充分搅拌。\n2. 将打散的鸡蛋加入玉米混合物中，搅拌直至均匀混合。\n3. 在中火下，将蔬菜油加热在一个大煎锅中。\n4. 用勺子或曲奇勺，将玉米混合物勺入热油中，稍微压扁。煎约2-3分钟，直至两面金黄。\n5. 煎炸好后，将煎饼放在铺有吸油纸的盘子上沥干多余的油。\n6. 将墨西哥玉米煎饼热热地搭配青柠楔一起食用。\n\n这些煎饼外脆内嫩，充满着玉米、香菜和香料的美味风味。它们是一道非常棒的开胃菜，一定会为一顿美味的餐饮增添色彩。祝您享用！\n\n让我知道结果如何，如果您需要更多的菜肴建议或其他帮助，请告诉我！",
+            "content_zh_cut": "太好了 ！ 让 我们 用 一道 美味 又 充满活力 的 开胃菜 开始 你 的 烹饪 冒险 吧 。 我们 何不 尝试 创造 一道 受 墨西哥 街头 食物 风味 启发 的 融合 菜肴 呢 ？ 让 我们 来 做 一些 令人 垂涎欲滴 的 墨西哥 街头 玉米饼 吧 ！ \n \n 这里 有 一个 简单 的 食谱 让 你 开始 ： \n \n 食材 ： \n -   2 杯 玉米粒 （ 新鲜 或 冷冻 ） \n -   1 / 2 杯 通用 面粉 \n -   1 / 4 杯 玉米面 \n -   1 / 4 杯 磨碎 的 帕尔马 干酪 \n -   1 / 4 杯 切碎 的 新鲜 香菜 \n -   1 / 2 茶匙 烟熏 辣椒粉 \n -   1 / 2 茶匙 孜然 \n -   1 / 4 茶匙 辣椒粉 （ 根据 你 的 辣味 偏好 调整 ） \n -   1 / 2 茶匙 盐 \n -   1 / 4 茶匙 黑胡椒 \n -   2 个 大 鸡蛋 ， 打散 \n -   植物油 ， 用于 炸 \n -   青柠 楔 ， 用于 上菜 \n \n 做法 ： \n 1 .   在 一个 大碗 中 ， 将 玉米粒 、 面粉 、 玉米面 、 帕尔马 干酪 、 香菜 、 烟熏 辣椒粉 、 孜然 、 辣椒粉 、 盐 和 黑胡椒 混合 好 。 \n 2 .   将 打散 的 鸡蛋 加入 玉米 混合物 中 ， 搅拌 至 均匀 混合 。 \n 3 .   在 中 火下 ， 用大 煎锅 加热 植物油 。 \n 4 .   使用 勺子 或 曲奇 勺 ， 将 玉米 混合物 勺入 热油 中 ， 用勺 背 轻轻 压平 。 每面 炸约 2 - 3 分钟 或 直到 金黄色 。 \n 5 .   炸好 后 ， 将 玉米饼 转移 到 铺 有 吸油纸 的 盘子 上 ， 以 去除 多余 的 油 。 \n 6 .   将 墨西哥 街头 玉米饼 趁热 与 青柠 楔 一起 上桌 ， 挤 在 玉米饼 上 。 \n \n 这些 玉米饼 外脆 内嫩 ， 充满 了 玉米 、 香菜 和 香料 的 风味 。 它们 是 绝佳 的 开胃菜 ， 一定 会为 美味 的 一餐 定下 基调 。 享受 吧 ！ \n \n 告诉 我 成果 如何 ， 如果 你 想要 更 多 的 菜肴 建议 或 需要 任何 其他 帮助 ！"
         },
         {
             "role": "user",
             "content": "Wow, Mexican Street Corn Fritters sound absolutely delightful! I love the fusion of flavors and the crispy texture. This recipe is right up my alley. I can already imagine the burst of corn, cilantro, and spices in every bite. \n\nI'll definitely give it a try and let you know how it turns out. It's the perfect appetizer to set the tone for a delicious meal. Thank you for sharing the recipe!\n\nBy the way, I'd love to hear more dish suggestions from you. Since you know my adventurous nature, feel free to surprise me with another exciting recipe. What do you have in mind for the main course?",
             "content_zh": "哇，墨西哥街头粟米煎饼听起来绝对令人愉悦！我喜欢不同口味的融合和酥脆的质感。这个食谱非常适合我。我已经可以想象到每一口中爆发出的粟米、香菜和香料的美味。我一定会尝试并告诉你结果如何。这是为美味佳肴定调的完美开胃菜。谢谢你分享这个食谱！顺便说一下，我很想听听你的更多菜品建议。既然你知道我好冒险，尽管用另一个令人兴奋的食谱给我一个惊喜。你对主菜有什么想法呢？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "哇 ， 墨西哥 街头 粟米 煎饼 听 起来 绝对 令人 愉悦 ！ 我 喜欢 不同 口味 的 融合 和 酥脆 的 质感 。 这个 食谱 非常适合 我 。 我 已经 可以 想象 到 每 一口 中 爆发 出 的 粟米 、 香菜 和 香料 的 美味 。 我 一定 会 尝试 并 告诉 你 结果 如何 。 这 是 为 美味佳肴 定调 的 完美 开胃菜 。 谢谢 你 分享 这个 食谱 ！ 顺便 说 一下 ， 我 很 想 听听 你 的 更 多 菜品 建议 。 既然 你 知道 我 好 冒险 ， 尽管 用 另 一个 令人兴奋 的 食谱 给 我 一个 惊喜 。 你 对 主菜 有 什么 想法 呢 ？"
         },
         {
             "role": "assistant",
@@ -54,7 +59,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "非常 欢迎 ！ 我 很 高兴 你 对 墨西哥 玉米 煎饼 感到 兴奋 。 我 相信 它们 一定 会 变得 又 脆 又 美味 。 现在 ， 接下来 的 主菜 ， 让 我们 继续 用 来自 泰国 街头 的 一道 流行 菜品   -   泰式 九层 塔 鸡肉 （ Pad   Krapow   Gai ） 继续 我们 的 烹饪 冒险 。 这 道菜 以 其 泰式 风味 的 芳香 融合 和 甜 、 咸 、 辣 的 完美 平衡 而 闻名 。 \n \n 以下 是 一个 指导 你 的 食谱 ： \n \n 食材 ： \n -   1 磅 去 骨 去皮 鸡腿肉 片 \n -   2 汤匙 植物油 \n -   4 瓣 大蒜 ， 切碎 \n -   2 颗 泰国 辣椒 ， 切细 （ 根据 个人 口味 调整 ） \n -   1 个 红 甜椒 ， 切片 \n -   1 个 黄 甜椒 ， 切片 \n -   1 杯 新鲜 九层 塔叶 （ 如果 没有 泰式 九层 塔 ， 也 可用 普通 九层 塔 ） \n -   2 汤匙 蚝油 \n -   1 汤匙 酱油 \n -   1 汤匙 鱼露 \n -   1 茶匙 糖 \n -   煮熟 的 茉莉 米饭 ， 用于 上菜 \n \n 做法 ： \n 1 .   在 大 煎锅 或 炒锅 中 ， 将 植物油 加热 至 中 高火 。 \n 2 .   将 切碎 的 大蒜 和 切碎 的 泰国 辣椒 加入 热油 中 ， 翻炒 大约 30 秒 ， 直到 散发 香味 。 \n 3 .   将 鸡肉 片 加入 锅中 ， 翻炒 至 熟透 并 略微 变褐 。 \n 4 .   加入 切好 的 甜椒 继续 炒约 2 - 3 分钟 ， 直到 略微 变软 。 \n 5 .   在 一个 小碗 中 ， 将 蚝油 、 酱油 、 鱼露 和 糖 搅拌 在 一起 ， 直至 搅拌 均匀 。 \n 6 .   将 酱汁 混合物 倒入 锅中 的 鸡肉 和 甜椒 中 。 翻炒 1 - 2 分钟 ， 直到 所有 东西 都 裹 上 酱汁 。 \n 7 .   关火 ， 加入 新鲜 九层 塔叶 ， 直到 叶子 在 余热 中 稍微 蔫软 。 \n 8 .   将 泰式 九层 塔 鸡肉 热蒸 的 放在 茉莉 米饭 上 。 \n \n 这道 泰式 九层 塔 鸡肉 是 一道 美味 而 芳香 的 菜肴 ， 会 把 你 的 味蕾 带到 泰国 街头 。 嫩 鸡肉 、 鲜艳 的 甜椒 和 芳香 的 九层 塔叶 的 结合 创造 了 一种 和谐 的 风味 。 配 上 米饭 ， 完美 的 平衡 了 辛辣味 。 \n \n 我 希望 你 喜欢 制作 和 品尝 这道 泰式 美味 ！ 如果 你 想要 更 多 建议 或 其他 方面 的 帮助 ， 请 告诉 我 。 祝 愉快 烹饪 ！"
         }
     ],
     "conflict": false,

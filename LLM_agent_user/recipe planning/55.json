@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you're here. I'm actually seeking some assistance with planning a meal for my upcoming birthday celebration. I'm a skilled cook and I want to prepare something special for about 10 of my close friends. Would you be able to help me create a recipe, determine the necessary ingredients, and decide what dishes to make?",
             "content_zh": "你好！很高兴你在这里。我实际上正在寻求一些帮助，计划我即将到来的生日庆祝活动的餐点。我是一个技艺娴熟的厨师，我想为我大约10位亲密的朋友准备一些特别的食物。你能帮助我创建一个菜谱，确定必要的食材，并决定要做什么菜吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 在 这里 。 我 实际上 正在 寻求 一些 帮助 ， 计划 我 即将 到来 的 生日 庆祝 活动 的 餐点 。 我 是 一个 技艺 娴熟 的 厨师 ， 我 想 为 我 大约 10 位 亲密 的 朋友 准备 一些 特别 的 食物 。 你 能 帮助 我 创建 一个 菜谱 ， 确定 必要 的 食材 ， 并 决定 要 做 什么 菜 吗 ？"
         },
         {
             "role": "assistant",
@@ -22,14 +23,16 @@
                 "hallucination": false,
                 "memo": "Translation Problem Fixed"
             },
-            "content_zh_old": "你好！我很乐意帮助你为生日庆祝活动制定一顿特别的餐饮计划。很高兴听到你是一位熟练的厨师，想要让你的朋友们印象深刻。让我们先开始头脑风暴一下菜单的一些想法。你有特定的喜好或饮食限制吗？你和你的朋友们喜欢哪种特定的美食或口味呢？"
+            "content_zh_old": "你好！我很乐意帮助你为生日庆祝活动制定一顿特别的餐饮计划。很高兴听到你是一位熟练的厨师，想要让你的朋友们印象深刻。让我们先开始头脑风暴一下菜单的一些想法。你有特定的喜好或饮食限制吗？你和你的朋友们喜欢哪种特定的美食或口味呢？",
+            "content_zh_cut": "你好 ！ 我 非常 乐意 帮助 你 为 生日 庆祝 活动 策划 一顿 特别 的 饭菜 。 听说 你 是 位 技艺高超 的 厨师 ， 并且 想要 给 朋友 们 留下 深刻印象 ， 这 真是 太好了 。 让 我们 开始 头脑 风暴 ， 为 菜单 想 一些 点子 吧 。 你 有没有 任何 特别 的 偏好 或 饮食 限制 我们 应该 考虑 的 ？ 有没有 你 和 你 的 朋友 们 特别 喜欢 的 某种 菜系 或 风味 ？"
         },
         {
             "role": "user",
             "content": "Thank you for offering your assistance! I appreciate your enthusiasm. As for preferences, I generally enjoy healthy and flavorful dishes. Sushi and salads are among my favorites. However, I'm open to exploring different cuisines and flavors to make the celebration more diverse and exciting. Some of my friends have dietary restrictions, so it would be great to include options that cater to different needs, such as vegetarian or gluten-free dishes. Can you suggest some ideas based on these preferences?",
             "content_zh": "感谢您提供帮助！我很欣赏您的热情。至于喜好，我通常喜欢健康又美味的菜肴。寿司和沙拉是我喜欢的食物之一。但是，我也愿意探索不同的菜系和口味，让庆祝更加多样和有趣。我的一些朋友有饮食限制，因此包含一些满足不同需求的选择会很好，比如素食或无麸质食物。您能根据这些喜好给我一些建议吗？",
             "intent": "Search & Recommendation",
-            "intent_zh": "检索+推荐"
+            "intent_zh": "检索+推荐",
+            "content_zh_cut": "感谢您 提供 帮助 ！ 我 很 欣赏 您 的 热情 。 至于 喜好 ， 我 通常 喜欢 健康 又 美味 的 菜肴 。 寿司 和 沙拉 是 我 喜欢 的 食物 之一 。 但是 ， 我 也 愿意 探索 不同 的 菜系 和 口味 ， 让 庆祝 更加 多样 和 有趣 。 我 的 一些 朋友 有 饮食 限制 ， 因此 包含 一些 满足 不同 需求 的 选择 会 很 好 ， 比如 素食 或 无 麸质 食物 。 您 能 根据 这些 喜好 给 我 一些 建议 吗 ？"
         },
         {
             "role": "assistant",
@@ -38,14 +41,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "绝对 没 问题 ！ 根据 您 对 健康 美味佳肴 的 喜好 ， 以及 对 饮食 限制 的 考虑 ， 以下 是 一些 建议 用于 您 的 生日 庆祝 菜单 :   1 .   寿司 卷 拼盘 :   制作 各种 寿司 卷 ， 包括 素食 选项 如 鳄梨 卷 ， 黄瓜 卷 或 甘薯 卷 。 您 也 可以 提供 含熟 鱼 或 海鲜 的 卷 来 满足 非 素食者 。   2 .   自助 沙拉 吧 :   设置 一个 沙拉 吧 ， 提供 各种 新鲜 蔬菜 、 水果 和 配料 。 提供 烤鸡肉 、 豆腐 或 鹰嘴豆 等 蛋白质 选项 。 提供 各种 调味料 以 满足 不同 口味 。   3 .   地中海 开胃菜 拼盘 :   准备 一道 美丽 的 地中海 风味 开胃菜 餐 。 包括 鹰嘴豆 泥 、 塔 布拉 汁 、 包心 葡萄 叶 、 炸豆 丸 、 橄榄 和 皮塔饼 。 这种 选择 可以 满足 素食 和 无 麸质 的 喜好 。   4 .   墨西哥 卷饼 吧 :   设置 一个 卷饼 吧 ， 提供 各种 馅料 和 配料 。 提供 烤 蔬菜 、 黑豆 、 调味 碎肉 以及 各种 墨西哥 酱 、 鳄梨 酱 和 酸奶 油 。 提供 常规 和 无 麸质 饼 皮 。   5 .   炒菜 工作台 :   创建 一个 炒菜 工作台 ， 客人 可以 选择 自己 的 食材 和 酱料 。 提供 各种 蔬菜 、 豆腐 或 虾 等 蛋白质 选项 ， 以及 无 麸质 面条 或 米饭 。   这些 只是 一些 启发 您 的 想法 。 您 可以 组合 这些 选项 ， 或 根据 自己 的 喜好 探索 其他 美食 。 如果 您 需要 更 具体 的 食谱 或者 对 任何 这些 想法 的 食材 清单 有 疑问 ， 请 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "Those are fantastic ideas! I love the variety and customization options you've suggested. A sushi roll platter, build-your-own salad bar, Mediterranean mezze platter, taco bar, and stir-fry station all sound like great choices. I think my friends will really enjoy the interactive aspect of building their own dishes.\n\nIf you could provide me with specific recipes and ingredient lists for each of these ideas, that would be incredibly helpful. I want to ensure that I have everything I need to create a memorable meal for my birthday celebration. Thank you so much for your assistance!",
             "content_zh": "这些都是很棒的主意！我喜欢你提出的多样性和定制选项。寿司卷拼盘，自助沙拉吧，地中海小食拼盘，玉米卷吧，以及炒菜工作站，这些都听起来是很不错的选择。我认为我的朋友们会非常喜欢互动性的部分，他们可以搭配自己的菜肴。如果您能为这些主意提供具体的食谱和食材清单，那将非常有帮助。我希望能准备一顿令人难忘的生日聚餐。非常感谢您的帮助！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "这些 都 是 很棒 的 主意 ！ 我 喜欢 你 提出 的 多样性 和 定制 选项 。 寿司 卷 拼盘 ， 自助 沙拉 吧 ， 地中海 小食 拼盘 ， 玉米 卷 吧 ， 以及 炒菜 工作站 ， 这些 都 听 起来 是 很 不错 的 选择 。 我 认为 我 的 朋友 们 会 非常 喜欢 互动性 的 部分 ， 他们 可以 搭配 自己 的 菜肴 。 如果 您 能 为 这些 主意 提供 具体 的 食谱 和 食材 清单 ， 那 将 非常 有 帮助 。 我 希望 能 准备 一顿 令人难忘 的 生日 聚餐 。 非常 感谢您 的 帮助 ！"
         },
         {
             "role": "assistant",
@@ -54,14 +59,16 @@
             "hallucination": {
                 "hallucination": true,
                 "memo": "网址不存在"
-            }
+            },
+            "content_zh_cut": "非常 欢迎 ！ 我 很 高兴 你 喜欢 这些 想法 。 以下 是 每个 概念 的 一些 具体 食谱 和 配料 清单 ： \n \n 1 .   寿司 卷 拼盘 ： \n       -   寿司 米 \n       -   海苔 （ 海藻 片 ） \n       -   各种 填料 ： 鳄梨 、 黄瓜 、 胡萝卜 、 熟虾 、 熏 三文鱼 等 \n       -   配料 ： 酱油 、 芥末 和 泡 姜 \n \n       这里 有 一个 入门 的 基本 食谱 ： https : / / www . allrecipes . com / recipe / 12735 / sushi - rice / \n \n 2 .   打造 您 自己 的 沙拉 吧 ： \n       -   各种 绿色蔬菜 ： 生菜 、 菠菜 、 芝麻 菜 等 \n       -   多种 蔬菜 ： 番茄 、 黄瓜 、 彩椒 、 胡萝卜 丝 等 \n       -   蛋白质 选项 ： 烤鸡 、 豆腐 、 鹰嘴豆 等 \n       -   配料 ： 坚果 、 种子 、 面包 丁 、 干果 等 \n       -   调味料 ： 油醋 汁 、 牧场 、 意大利 香醋 等 \n \n       您 可以 在 这里 找到 灵感 和 调料 食谱 ： https : / / cookieandkate . com / category / food - recipes / salad / \n \n 3 .   地中海 开胃 拼盘 ： \n       -   鹰嘴豆 泥 \n       -   塔布 勒 \n       -   火鲁米 叶 （ 糯米 酱包 ） \n       -   法 拉菲 \n       -   橄榄 （ 各种类型 ） \n       -   玉米 面包 或 无 麸质 饼干 \n \n       欲了解 配方 ， 您 可以 查看 这个 网站 ： https : / / www . themediterraneandish . com / \n \n 4 .   墨西哥 卷饼 吧 ： \n       -   蛋白质 选项 ： 烤鸡 、 香 煎 牛肉 、 黑豆 等 \n       -   饼 皮 ： 普通 和 无 麸质 选项 \n       -   配料 ： 切碎 的 生菜 、 切 成丁 的 番茄 、 切碎 的 洋葱 、 切丝 的 奶酪 、 莎莎酱 、 鳄梨 酱 、 酸奶 油 等 \n \n       这个 网站 有 一些 美味 的 卷 饼 食谱 ：   https : / / www . tasteofhome . com / collection / top - 10 - taco - recipes / \n \n 5 .   炒菜 工作站 ： \n       -   各种 蔬菜 ： 彩椒 、 西兰花 、 荷兰豆 、 胡萝卜 等 \n       -   蛋白质 选项 ： 豆腐 、 虾 、 鸡肉 、 牛肉 等 \n       -   酱料 ： 照烧 酱 、 酱油 、 海鲜 酱 等 \n       -   面条 或 米饭 ： 普通 或 无 麸质 选项 \n \n       欲 获得 灵感 ， 请 查看 此 炒菜 指南 ： https : / / www . bonappetit . com / test - kitchen / cooking - tips / article / how - to - make - stir - fry \n \n 根据 您 的 口味 和 膳食 需求 随意 调整 食谱 和 配料 。 希望 这 可以 帮助 您 为 生日 庆典 准备 一个 美味 的 餐 ！"
         },
         {
             "role": "user",
             "content": "Thank you so much for providing the specific recipes and ingredient lists! This is incredibly helpful and will make the planning process much smoother. I'll definitely check out the resources you've shared to get more inspiration and ensure that everything turns out delicious.\n\nI really appreciate your assistance in helping me create a memorable meal for my birthday celebration. Your suggestions and guidance have been fantastic. I can't wait to start preparing these dishes for my friends. Thank you again!\n\n[System]: You're welcome! I'm glad I could assist you. If you have any more questions or need further help, feel free to ask. Enjoy your birthday celebration and have a wonderful time with your friends!",
             "content_zh": "非常感谢您提供具体的菜谱和食材清单！这对我帮助很大，会让计划过程更加顺利。我一定会查看您分享的资源，以获得更多启发，并确保所有菜肴都美味可口。\n我非常感谢您在帮助我为生日庆祝活动制作难忘的餐点方面的协助。您的建议和指导简直棒极了。我迫不及待要为朋友们准备这些美食了。再次感谢您！\n[System]: 不客气！我很高兴能帮助您。如果您有任何问题或需要进一步的帮助，请随时提问。祝您生日庆祝活动愉快，与朋友度过美好时光！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "非常 感谢您 提供 具体 的 菜谱 和 食材 清单 ！ 这 对 我 帮助 很大 ， 会 让 计划 过程 更加 顺利 。 我 一定 会 查看 您 分享 的 资源 ， 以 获得 更 多 启发 ， 并 确保 所有 菜肴 都 美味可口 。 \n 我 非常 感谢您 在 帮助 我 为 生日 庆祝 活动 制作 难忘 的 餐点 方面 的 协助 。 您 的 建议 和 指导 简直 棒极了 。 我 迫不及待 要 为 朋友 们 准备 这些 美食 了 。 再次 感谢您 ！ \n [ System ] :   不 客气 ！ 我 很 高兴 能 帮助 您 。 如果 您 有 任何 问题 或 需要 进一步 的 帮助 ， 请 随时 提问 。 祝您 生日 庆祝 活动 愉快 ， 与 朋友 度过 美好时光 ！"
         },
         {
             "role": "assistant",
@@ -70,14 +77,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "谢谢 你 的 赞美 之辞 ！ 我 很 高兴 能 帮助 到 你 。 如果 你 需要 进一步 的 帮助 或 有 其他 问题 ， 请 随时 联系 我 。 祝 你 生日快乐 ， 希望 你 的 朋友 们 喜欢 你 为 他们 准备 的 美味 大餐 。 祝 你 度过 美好 的 时光 ！"
         },
         {
             "role": "user",
             "content": "Thank you for your well wishes and support! I really appreciate it. I'll definitely reach out if I have any more questions or need further assistance. I'm looking forward to celebrating my birthday with my friends and enjoying the meal I'll be preparing with your help. Thank you again, and have a great day!\n\n[System]: You're welcome! I'm glad I could assist you. If you have any more questions or need further help, feel free to ask. Enjoy your birthday celebration and have a wonderful time with your friends!",
             "content_zh": "谢谢你的美好祝福和支持！我非常感激。如果我有更多问题或需要进一步帮助，我一定会联系你。我期待着和朋友们一起庆祝我的生日，享受我将在你的帮助下准备的美餐。再次感谢你，祝你有一个美好的一天！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "谢谢 你 的 美好 祝福 和 支持 ！ 我 非常感激 。 如果 我 有 更 多 问题 或 需要 进一步 帮助 ， 我 一定 会 联系 你 。 我 期待 着 和 朋友 们 一起 庆祝 我 的 生日 ， 享受 我 将 在 你 的 帮助 下 准备 的 美餐 。 再次 感谢 你 ， 祝 你 有 一个 美好 的 一天 ！"
         },
         {
             "role": "assistant",
@@ -86,7 +95,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "不 客气 ！ 我 很 高兴 能 帮到 你 。 如果 你 需要 更 多 帮助 或 有 其他 问题 ， 请 随时 联系 我 。 祝 你 生日快乐 ， 希望 你 的 朋友 们 喜欢 你 为 他们 准备 的 美味 餐点 。 祝 你 度过 美好 的 时光 ！"
         }
     ],
     "conflict": false,

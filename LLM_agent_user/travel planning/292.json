@@ -12,7 +12,8 @@
             "content": "Hello! I'm planning a two-day trip this winter and I would love your assistance in refining my travel plans. I want to make sure I have a comprehensive itinerary that includes accommodations, transportation, and some exciting activities. Can you help me with that?",
             "content_zh": "你好！我计划在今年冬天去一个为期两天的旅行，我希望能得到你的帮助，完善我的旅行计划。我希望确保有一个包括住宿、交通和一些令人兴奋的活动的全面行程。你能帮我吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 我 计划 在 今年冬天 去 一个 为期 两天 的 旅行 ， 我 希望 能 得到 你 的 帮助 ， 完善 我 的 旅行 计划 。 我 希望 确保 有 一个 包括 住宿 、 交通 和 一些 令人兴奋 的 活动 的 全面 行程 。 你 能 帮 我 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ！ 我 很 乐意 帮助 您 制定 旅行 计划 。 冬季 旅行 可能 会 很 神奇 ， 让 我们 一起 制定 令人兴奋 的 行程 安排 。 请 告诉 我 您 的 目的地 以及 您 是否 有 任何 具体 的 喜好 或 兴趣 。"
         },
         {
             "role": "user",
             "content": "I don't have a specific destination in mind, so I'm open to suggestions. As a free-spirited musician, I'm always drawn to places with vibrant music scenes and cultural festivals. I love immersing myself in the local culture and trying new experiences. Vegan-friendly dining options are also important to me. Do you have any recommendations for destinations that might suit my preferences?",
             "content_zh": "我没有一个特定的目的地，所以我乐意听取建议。作为一个自由灵魂的音乐人，我总是被那些有着充满活力的音乐场景和文化节庆的地方所吸引。我喜欢融入当地文化并尝试新的体验。对我来说，素食友好的餐饮选择也很重要。你有没有推荐符合我的喜好的目的地吗？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "我 没有 一个 特定 的 目的地 ， 所以 我 乐意 听取 建议 。 作为 一个 自由 灵魂 的 音乐 人 ， 我 总是 被 那些 有着 充满活力 的 音乐 场景 和 文化 节庆 的 地方 所 吸引 。 我 喜欢 融入 当地 文化 并 尝试 新 的 体验 。 对 我 来说 ， 素食 友好 的 餐饮 选择 也 很 重要 。 你 有没有 推荐 符合 我 的 喜好 的 目的地 吗 ？"
         },
         {
             "role": "assistant",
@@ -37,14 +40,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "听 起来 像是 探索 新 地方 的 绝佳 方式 ！ 根据 您 的 兴趣 ， 我 有 几个 建议 给 您 ： 1 .   美国 路易斯安那州 新奥尔良市 ： 以 其 生动 的 音乐 场景 和 丰富 的 文化遗产 而 闻名 ， 新奥尔良 是 音乐 爱好者 的 绝佳 目的地 。 您 可以 探索 充满活力 的 法国 区 ， 参加 爵士 俱乐部 的 现场 演出 ， 甚至 观看 传统 的 二线 游行 。 这座 城市 还 以 其 美味 的 素食 友好 美食 而 闻名 ， 各种 餐厅 提供 素食 高汤 和 杂烩 等 选择 。 2 .   德国 柏林市 ： 柏林 拥有 繁荣 的 音乐 场景 ， 涵盖 各种 风格 供 您 探索 。 从 电子 乐 俱乐部 到 爵士 酒吧 和 独立 音乐 场 ， 应有尽有 。 这座 城市 还 每年 举办 众多 文化 节庆 活动 ， 如 柏林 国际 电影节 （ 柏林 电影节 ） 和 文化 嘉年华 。 柏林 以 其 多元化 的 美食 场景 而 闻名 ， 您 会 发现 许多 素食 友好 的 餐厅 和 咖啡馆 来 满足 您 的 味蕾 。 这 两个 目的地 都 提供 了 音乐 、 文化 体验 和 素食 友好 的 餐饮 选择 。 让 我 知道 您 是否 对 其中 任何 一个 感兴趣 ， 或者 是否 需要 更 多 建议 ！"
         },
         {
             "role": "user",
             "content": "Both New Orleans and Berlin sound like amazing options! I'm particularly drawn to the lively music scene in New Orleans and the diverse music genres in Berlin. I think either destination would provide me with a fantastic experience. Could you please provide some suggestions for accommodations and transportation options in both cities? That way, I can compare and decide which one suits me best.",
             "content_zh": "新奥尔良和柏林都听起来是不错的选择！我特别喜欢新奥尔良的生动音乐场景和柏林多样化的音乐流派。我觉得无论选择哪个目的地，都会给我带来一个奇妙的体验。您能否提供一些关于这两个城市住宿和交通选择的建议？这样我就可以进行比较，并决定哪个更适合我。",
             "intent": "Search & Recommendation",
-            "intent_zh": "检索+推荐"
+            "intent_zh": "检索+推荐",
+            "content_zh_cut": "新奥尔良 和 柏林 都 听 起来 是 不错 的 选择 ！ 我 特别 喜欢 新奥尔良 的 生动 音乐 场景 和 柏林 多样化 的 音乐 流派 。 我 觉得 无论 选择 哪个 目的地 ， 都 会 给 我 带来 一个 奇妙 的 体验 。 您 能否 提供 一些 关于 这 两个 城市 住宿 和 交通 选择 的 建议 ？ 这样 我 就 可以 进行 比较 ， 并 决定 哪个 更 适合 我 。"
         },
         {
             "role": "assistant",
@@ -53,14 +58,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ！ 让 我们 从 新奥尔良 和 柏林 的 住宿 和 交通 选择 开始 ： \n \n 新奥尔良 ： \n -   住宿 ： 在 新奥尔良 ， 您 将 会 找到 各种 选择 ， 从 价格 实惠 的 青年 旅舍 到 精品 酒店 。 如果 您 想要 一个 充满活力 和 社交 氛围 的 地方 ， 可以 考虑 住 在 法国 区 或 马里 尼区 。 花园 区 也 是 一个 迷人 的 地区 ， 有着 美丽 的 历史 建筑 。 一些 受欢迎 的 酒店 包括 Pontchartrain 酒店 、 Roosevelt 新奥尔良 酒店 和 Old   No .   77 酒店 & Chandlery 。 \n -   交通 ： 新奥尔良 是 一个 适合 步行 的 城市 ， 但 如果 您 需要 前往 较远 的 地方 ， 可以 乘坐 有轨电车 或 公共汽车 。 有轨电车 是 探索 这座 城市 的 迷人 方式 ， 特别 是 穿越 美丽 社区 的 圣 查尔斯 路线 。 出租车 和 共 乘 服务 也 很 容易 找到 。 \n \n 柏林 ： \n -   住宿 ： 柏林 提供 从 廉价 青年 旅舍 到 豪华酒店 的 各种 住宿 选择 。 如果 您 想 靠近 音乐 和 夜生活 场景 ， 可以 考虑 住 在 弗赖 德里 希海恩 、 克罗伊 茨 贝格 或普 伦茨 劳 贝格 等 地区 。 一些 建议 的 酒店 包括 Michelberger   Hotel 、 nhow   Berlin 和 Hotel   Zoo   Berlin 。 \n -   交通 ： 柏林 有着 出色 的 公共交通 系统 ， 包括 公共汽车 、 有轨电车 和 一个 名为 U - Bahn 的 大面积 地铁 网络 。 您 可以 购买 日票 或 使用 无 接触 支付 方式 。 自行车 在 柏林 也 是 一种 流行 的 交通 方式 ， 市内 有 许多 租车 选择 。 \n \n 这 两座 城市 都 提供 独特 的 住宿 和 便利 的 交通 选择 ， 以 探索 各自 的 景点 。 请 考虑 最 符合 您 偏好 和 活动 的 氛围 和 位置 。 如果 需要 进一步 帮助 ， 请 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "Thank you for the detailed suggestions! Both New Orleans and Berlin offer a variety of accommodations and convenient transportation options. I'm particularly intrigued by the vibrant neighborhoods and historic charm of New Orleans, as well as the music and nightlife scene in Berlin. I think I'll go with New Orleans for this trip. Now, I'd love some suggestions for specific activities and attractions in New Orleans that align with my interests as a musician and lover of cultural experiences.",
             "content_zh": "感谢详细的建议！无论是新奥尔良还是柏林都提供多样化的住宿和便捷的交通选择。我对新奥尔良充满活力的社区和历史魅力，以及柏林的音乐和夜生活场景特别感兴趣。我想这次旅行我会选择新奥尔良。现在，我想了解一些有关新奥尔良的具体活动和景点的建议，这些活动和景点符合我作为音乐家和热爱文化体验者的兴趣。",
             "intent": "Search & Recommendation",
-            "intent_zh": "检索+推荐"
+            "intent_zh": "检索+推荐",
+            "content_zh_cut": "感谢 详细 的 建议 ！ 无论是 新奥尔良 还是 柏林 都 提供 多样化 的 住宿 和 便捷 的 交通 选择 。 我 对 新奥尔良 充满活力 的 社区 和 历史 魅力 ， 以及 柏林 的 音乐 和 夜生活 场景 特别 感兴趣 。 我 想 这次 旅行 我会 选择 新奥尔良 。 现在 ， 我 想 了解 一些 有关 新奥尔良 的 具体 活动 和 景点 的 建议 ， 这些 活动 和 景点 符合 我 作为 音乐家 和 热爱 文化 体验 者 的 兴趣 。"
         },
         {
             "role": "assistant",
@@ -69,7 +76,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "很棒 的 选择 ！ 新奥尔良 是 音乐 爱好者 和 文化 爱好者 的 绝佳 目的地 。 以下 是 一些 符合 您 兴趣 的 活动 和 景点 ： \n \n 1 . 法国人 街 ： 这 条 充满活力 的 马林尼 社区 的 街道 以 其 现场 音乐 场景 而 闻名 。 您 将 找到 许多 俱乐部 和 酒吧 ， 展示 各种类型 的 音乐 ， 包括 爵士乐 、 布鲁斯 、 放克 等 。 这是 发现 有 才华 的 本地 音乐家 并 沉浸 在 生动 气氛 中 的 好 地方 。 \n \n 2 . 保留 厅 ： 对于 爵士 爱好者 来说 ， 保留 厅 是 一个 必去 之处 ， 它 是 一个 展示 传统 新奥尔良 爵士乐 的 私密 场所 。 这里 的 表演 真实 而 引人入胜 ， 让 您 一 窥 这座 城市 丰富 的 音乐 传统 。 \n \n 3 . 新奥尔良 爵士 国家 历史 公园 ： 这个 公园 包括 多个 景点 ， 包括 法国 区 的 游客 中心 和 旧 美国 造币厂 的 新奥尔良 爵士音乐 博物馆 。 您 可以 通过 展览 、 现场表演 和 教育 项目 了解 爵士乐 的 历史 及其 在 新奥尔良 的 重要性 。 \n \n 4 . 法国 区 ： 探索 新奥尔良 的 核心 ， 沉浸 在 其 独特 文化 中 。 漫步 在 色彩斑斓 的 街道 上 ， 参观 像 杰克逊 广场 和 圣路易斯 大 教堂 这样 的 标志性 地标 ， 并 享受 充满 街头 表演者 和 艺术家 的 热闹 氛围 。 \n \n 5 . 美食 和 音乐节 ： 新奥尔良 以 融合 音乐 、 美食 和 文化 的 充满活力 的 节日 而 闻名 。 根据 您 的 行程 时间 安排 ， 您 可能 可以 参加 新奥尔良 爵士乐 与 遗产 节 、 法国 区节 或 特雷梅 克里奥 勒 浓汤 节等 活动 。 \n \n 这 只是 一些 亮点 ， 新奥尔良 还有 更 多 值得 探索 的 地方 。 不要 忘记 品尝 当地 美食 ， 从 素食 友好 的 浓汤 和 波伊包 三明治 到 贝干 和 太妃糖 。 在 容易 玩 的 新奥尔良 享受 您 的 音乐 和 文化 之旅 ！"
         }
     ],
     "conflict": false,

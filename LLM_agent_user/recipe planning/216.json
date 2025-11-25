@@ -12,7 +12,8 @@
             "content": "Hello! I appreciate your willingness to assist me. I'm looking to prepare a meal at home but I'm not very skilled in cooking and have limited experience. I would greatly appreciate your help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Can you guide me through the planning process?",
             "content_zh": "你好！感谢你愿意帮助我。我想在家里做一顿饭，但我不太会做饭，经验也有限。我会非常感谢你在制定菜谱、确定所需食材和选择要做的菜肴方面的帮助。你可以引导我进行规划过程吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 感谢 你 愿意 帮助 我 。 我 想 在 家里 做 一顿饭 ， 但 我 不太会 做饭 ， 经验 也 有限 。 我会 非常感谢 你 在 制定 菜谱 、 确定 所 需食材 和 选择 要 做 的 菜肴 方面 的 帮助 。 你 可以 引导 我 进行 规划 过程 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ， 我 很 乐意 帮 你 规划 你 的 餐点 ！ 让 我们 先 讨论 你 想要 制作 哪类 美食 或 菜肴 。 你 现在 想要 吃 什么 特定 的 食物 吗 ？ 还是 有 任何 饮食 限制 或 偏好 我 应该 考虑 的 ？"
         },
         {
             "role": "user",
             "content": "Thank you for offering your assistance. I'm open to trying different cuisines, but I do have a preference for healthy options. I enjoy sushi and salads, so incorporating those elements into the meal would be great. I don't have any specific dietary restrictions, so feel free to suggest any ideas you may have.",
             "content_zh": "感谢您提供帮助。我愿意尝试不同的美食，但我更喜欢健康的选择。我喜欢寿司和沙拉，所以把这些元素融入餐点会非常棒。我没有特定的饮食限制，所以随意提出您可能有的任何想法。",
             "intent": "Search & Recommendation",
-            "intent_zh": "检索+推荐"
+            "intent_zh": "检索+推荐",
+            "content_zh_cut": "感谢您 提供 帮助 。 我 愿意 尝试 不同 的 美食 ， 但 我 更 喜欢 健康 的 选择 。 我 喜欢 寿司 和 沙拉 ， 所以 把 这些 元素 融入 餐点 会 非常 棒 。 我 没有 特定 的 饮食 限制 ， 所以 随意 提出 您 可能 有 的 任何 想法 。"
         },
         {
             "role": "assistant",
@@ -37,14 +40,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "太棒了 ！ 我们 来 制作 一道 美味 又 健康 的 日 地 混合 口味 的 大餐 怎么样 ？ 我们 可以 先 来 一份 清爽 的 沙拉 作为 开胃菜 ， 然后 制作 寿司 卷 作为 主菜 。 甜点 的话 ， 可以 选择 简单 清新 的 水果 。 以下 是 菜肴 和 所 需食材 的 详细 说明 ： \n \n 沙拉 ： \n -   混合 生菜 （ 比如 生菜 、 菠菜 或者 芝麻 菜 ） \n -   小 番茄 \n -   黄瓜 \n -   牛油果 \n -   红 洋葱 \n -   费达 芝士 （ 可 选 ） \n -   柠檬汁 \n -   橄榄油 \n -   盐 和 胡椒 调味 \n \n 寿司 卷 ： \n -   寿司 米 \n -   海苔 （ 紫菜 片 ） \n -   各种 蔬菜 （ 比如 黄瓜 、 胡萝卜 、 甜椒 和 牛油果 ） \n -   煮熟 的 虾 或 柳 蟹肉 （ 可 选 ） \n -   酱油 \n -   醋 姜 （ 可 选 ） \n -   山葵 （ 可 选 ） \n \n 水果 甜点 的话 ， 可以 选择 喜欢 的 水果 ， 比如 草莓 、 蓝莓 或 芒果 。 可以 将 它们 切成 小 块 ， 混合 在 一起 ， 享受 它们 原味 或 制作 简单 的 水果 沙拉 。 \n \n 这个 计划 听 起来 不错 吧 ？ 有 任何 问题 或 想要 添加 或 修改 的 地方 ， 请 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "That sounds like a fantastic plan! I love the idea of combining Japanese and Mediterranean flavors. The salad and sushi rolls sound delicious and healthy. The fruit dessert is a refreshing way to end the meal. I appreciate the detailed breakdown of the ingredients. I have a couple of questions:\n\n1. For the sushi rolls, do you have any recommendations for the sushi rice preparation? Should I season it with vinegar and sugar?\n\n2. Can you suggest any specific vegetables to include in the sushi rolls?\n\nOther than that, the plan looks great! I'm excited to give it a try. Thank you for your help!\n",
             "content_zh": "听起来像是一个太棒的计划！我喜欢将日本和地中海风味结合的想法。沙拉和寿司卷听起来美味又健康。水果甜点是一个清爽的结束。我很感激你对食材的详细分解。我有几个问题：\n\n1. 对于寿司卷，你有什么关于寿司米准备的建议吗？我应该用醋和糖调味吗？\n\n2. 你能建议一些特定的蔬菜用于寿司卷吗？\n\n除此以外，这个计划看起来很棒！我很兴奋尝试一下。谢谢你的帮助！",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "听 起来 像是 一个 太棒 的 计划 ！ 我 喜欢 将 日本 和 地中海 风味 结合 的 想法 。 沙拉 和 寿司 卷 听 起来 美味 又 健康 。 水果 甜点 是 一个 清爽 的 结束 。 我 很 感激 你 对 食材 的 详细 分解 。 我 有 几个 问题 ： \n \n 1 .   对于 寿司 卷 ， 你 有 什么 关于 寿司 米 准备 的 建议 吗 ？ 我 应该 用 醋 和 糖 调味 吗 ？ \n \n 2 .   你 能 建议 一些 特定 的 蔬菜 用于 寿司 卷 吗 ？ \n \n 除此以外 ， 这个 计划 看起来 很棒 ！ 我 很 兴奋 尝试 一下 。 谢谢 你 的 帮助 ！"
         },
         {
             "role": "assistant",
@@ -53,14 +58,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "我 很 高兴 你 喜欢 这个 计划 ！ 以下 是 一些 建 答案 解答 你 的 问题 ： \n \n 1 .   对于 寿司 米 的 准备 ， 你 说得对 ！ 寿司 米 通常 用 醋 、 糖 和 盐 调味 。 要 准备 它 ， 你 需要 寿司 米 （ 也 称为 日本 短 粒米 ） ， 你 可以 在 大多数 杂货店 购买 到 。 根据 包装 说明 煮熟 米饭 ， 煮熟 后 将 其 转移 到 一个 大碗 中 。 在 一个 小碗 中 ， 将 米醋 、 糖 和 盐 混合 在 一起 。 在 米 煮熟 时 ， 把 这个 醋 混合物 轻轻地 拌入 米饭 中 。 小心 不要 把 米 捣烂 ； 取而代之 的 是 ， 用 切割 和 折叠 的 动作 均匀 地 分配 调味料 。 让 米饭 冷却 至 室温 后 再 用于 寿司 卷 。 \n \n 2 .   当 谈到 寿司 卷 的 蔬菜 时 ， 你 有 很多 选择 ！ 一些 受欢迎 的 选择 包括 黄瓜 、 胡萝卜 、 甜椒 、 鳄梨 ， 甚至 稍微 焯 烫过 的 芦笋 。 这些 蔬菜 提供 了 不错 的 嚼 劲 并 为 寿司 卷 增添 了 新鲜感 。 根据 你 的 喜好 ， 随意 搭配 。 如果 想要 加入 海鲜 ， 你 也 可以 添加 一些 煮熟 的 虾 或 仿 蟹肉 。 \n \n 记住 ， 你 可以 发挥 创造力 ， 添加 你 喜欢 的 任何 其他 配料 ， 比如 芝麻 、 辣美乃滋 ， 甚至 加一点 照烧 酱 增添 风味 。 尽情 尝试 并 自定义 你 的 寿司 卷 ！ \n \n 如果 你 有 更 多 问题 或 需要 进一步 帮助 ， 请 随时 提问 。 祝 你 烹饪 愉快 ， 希望 你 的 餐点 美味 ！"
         },
         {
             "role": "user",
             "content": "Thank you for the detailed instructions and suggestions! I now have a clear understanding of how to prepare the sushi rice and the various vegetable options for the rolls. I appreciate your guidance and encouragement to get creative with additional ingredients and flavors.\n\nI'm feeling confident and excited to try out this meal plan. I'll make sure to follow your instructions and have fun experimenting with the sushi rolls. If I have any further questions during the preparation process, I'll definitely reach out.\n\nThank you again for your assistance and thorough planning. I'm looking forward to a delicious and healthy meal!",
             "content_zh": "感谢您提供的详细指导和建议！现在我清楚了如何准备寿司米和卷中的各种蔬菜选项。我很感激您给予的指导和鼓励，让我可以尝试添加额外的配料和风味。\n\n我感到自信和兴奋，准备尝试这个餐谱。我会确保遵循您的指示，并享受寿司卷的实验过程。如果在准备过程中有进一步问题，我一定会与您联系。\n\n再次感谢您的帮助和周密的计划。我期待着美味又健康的一餐！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "感谢您 提供 的 详细 指导 和 建议 ！ 现在 我 清楚 了 如何 准备 寿司 米 和 卷 中 的 各种 蔬菜 选项 。 我 很 感激 您 给予 的 指导 和 鼓励 ， 让 我 可以 尝试 添加 额外 的 配料 和 风味 。 \n \n 我 感到 自信 和 兴奋 ， 准备 尝试 这个 餐谱 。 我会 确保 遵循 您 的 指示 ， 并 享受 寿司 卷 的 实验 过程 。 如果 在 准备 过程 中有 进一步 问题 ， 我 一定 会 与 您 联系 。 \n \n 再次 感谢您 的 帮助 和 周密 的 计划 。 我 期待 着 美味 又 健康 的 一餐 ！"
         },
         {
             "role": "assistant",
@@ -69,7 +76,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "不 客气 ！ 很 高兴 能够 帮助 你 感到 自信 和 兴奋 地 准备 这 顿饭 。 如果 你 有 任何 问题 或 需要 进一步 协助 ， 请 不要 犹豫 联系 我 。 记住 ， 烹饪 应该 是 一种 乐趣 ， 所以 尽情 地 尝试 和 做出 符合 你 口味 的 饭菜 吧 。 我 相信 你 的 餐点 会 变得 非常 美味 ， 希望 你 能 尽情 享受 制作 的 过程 和 美味 的 结果 。 祝您 烹饪 愉快 ， 好 胃口 ！"
         }
     ],
     "conflict": false,

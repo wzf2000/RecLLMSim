@@ -12,7 +12,8 @@
             "content": "Hello! Thank you for offering your assistance. I'm actually looking for some help in planning a meal at home to celebrate my birthday with about 10 close friends. I enjoy cooking and would like to create a special menu for the occasion. Could you help me with that?",
             "content_zh": "你好！谢谢你提供帮助。我实际上正在寻求一些帮助，计划在家里与大约10位亲近的朋友一起庆祝我的生日。我喜欢做饭，并且想为这个场合准备一个特别的菜单。你可以帮我吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 谢谢 你 提供 帮助 。 我 实际上 正在 寻求 一些 帮助 ， 计划 在 家里 与 大约 10 位 亲近 的 朋友 一起 庆祝 我 的 生日 。 我 喜欢 做饭 ， 并且 想 为 这个 场合 准备 一个 特别 的 菜单 。 你 可以 帮 我 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "你好 ！ 我 很 高兴 能 帮助 你 为 你 和 你 的 朋友 策划 一个 特别 的 生日 餐 。 生日 是 展示 你 烹饪 技能 并 营造 一个 难忘 的 用餐 体验 的 好 机会 。 让 我们 开始 讨论 一些 细节 吧 。 你 喜欢 哪 种 美食 ？ 你 的 朋友 中 是否 有 任何 饮食 限制 或 偏好 ？ 你 有没有 关于 菜单 的 特定 想法 或 主题 ？"
         },
         {
             "role": "user",
             "content": "Thank you for your offer to help! I appreciate your enthusiasm. I'm a skilled cook and enjoy preparing a variety of cuisines. For this birthday celebration, I'd like to focus on healthy and organic options. As for dietary restrictions, one of my friends is vegetarian, so I'd like to make sure we have some delicious vegetarian dishes on the menu. As for themes, I'm open to suggestions if you have any ideas!",
             "content_zh": "谢谢你提出帮助！我很感激你的热情。我是一位熟练的厨师，喜欢准备各种不同的菜肴。对于这次生日庆祝活动，我希望专注于健康和有机的选择。至于饮食限制，我的一个朋友是素食者，所以我想确保我们的菜单上有一些美味的素食菜肴。至于主题，如果你有任何想法，我愿意听取建议！",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "谢谢 你 提出 帮助 ！ 我 很 感激 你 的 热情 。 我 是 一位 熟练 的 厨师 ， 喜欢 准备 各种 不同 的 菜肴 。 对于 这次 生日 庆祝 活动 ， 我 希望 专注 于 健康 和 有机 的 选择 。 至于 饮食 限制 ， 我 的 一个 朋友 是 素食者 ， 所以 我 想 确保 我们 的 菜单 上 有 一些 美味 的 素食 菜肴 。 至于 主题 ， 如果 你 有 任何 想法 ， 我 愿意 听取 建议 ！"
         },
         {
             "role": "assistant",
@@ -38,14 +41,16 @@
                 "hallucination": false,
                 "memo": "Translation Problem Fixed"
             },
-            "content_zh_old": "听起来太棒了！专注于健康和有机选项是一个很好的选择，并且加入素食菜肴可以确保每个人都能享受美食。那我们来制定一个突出新鲜、季节性食材的菜单吧？以下是一个示范菜单供我们参考：\n\n头盘：\n- 烤甜菜根和山羊奶酪沙拉：配以混合生菜、糖心核桃和香醋汁拌匀。\n\n主菜选择：\n- 烤灯笼椒：填充有香味十足的藜麦、烤蔬菜和菲达奶酪混合物。\n- 烤牛肝菌：用香醋浸泡后配以烤大蒜土豆泥和蒸芦笋。\n\n配菜：\n- 柠香别具香料烤蔬菜：彩色蔬菜的组合，如胡萝卜、西葫芦和甜椒，拌以清淡的柠香香料酱。\n- 藜麦菜飘香：一道营养丰富、味道浓郁的配菜，含炒洋葱、大蒜和各种香料。\n\n甜点：\n- 新鲜水果挞：黄油脆皮内填有奶油香草奶酪，配以丰富多彩的季节水果。\n\n主题方面，"
+            "content_zh_old": "听起来太棒了！专注于健康和有机选项是一个很好的选择，并且加入素食菜肴可以确保每个人都能享受美食。那我们来制定一个突出新鲜、季节性食材的菜单吧？以下是一个示范菜单供我们参考：\n\n头盘：\n- 烤甜菜根和山羊奶酪沙拉：配以混合生菜、糖心核桃和香醋汁拌匀。\n\n主菜选择：\n- 烤灯笼椒：填充有香味十足的藜麦、烤蔬菜和菲达奶酪混合物。\n- 烤牛肝菌：用香醋浸泡后配以烤大蒜土豆泥和蒸芦笋。\n\n配菜：\n- 柠香别具香料烤蔬菜：彩色蔬菜的组合，如胡萝卜、西葫芦和甜椒，拌以清淡的柠香香料酱。\n- 藜麦菜飘香：一道营养丰富、味道浓郁的配菜，含炒洋葱、大蒜和各种香料。\n\n甜点：\n- 新鲜水果挞：黄油脆皮内填有奶油香草奶酪，配以丰富多彩的季节水果。\n\n主题方面，",
+            "content_zh_cut": "这 听 起来 太棒了 ！ 专注 于 健康 和 有机 选择 是 个 很 好 的 选择 ， 加入 素食 菜肴 确保 每个 人 都 能 享受 美食 。 我们 何不 创建 一个 突出 新鲜 、 应季 食材 的 菜单 呢 ？ 这里 有 一个 样本 菜单 可以 让 我们 开始 ： \n \n 开胃菜 ： \n -   烤 甜菜 与 山羊 奶酪 沙拉 ： 与 混合 绿叶 、 蜜糖 核桃 一起 拌 着 香醋 油醋 汁 。 \n \n 主菜 选择 ： \n -   填馅 甜椒 ： 填充 着 藜 麦 、 烤 蔬菜 和 羊乳酪 的 美味 混合物 。 \n -   烤 波特 贝洛 蘑菇 ： 用 香醋 釉料 腌制 ， 配上 烤 蒜蓉 土豆泥 和 蒸 芦笋 。 \n \n 配菜 ： \n -   柠檬 香草 烤 蔬菜 ： 如 胡萝卜 、 西葫芦 和 甜椒 等 五彩缤纷 的 蔬菜 ， 用轻 柠檬 香草 酱 拌 着 。 \n -   藜 麦 杂烩 ： 一个 营养 且 美味 的 配菜 ， 含有 炒 洋葱 、 大蒜 和 各种 香草 。 \n \n 甜点 ： \n -   新鲜 水果 塔 ： 一个 黄油 酥皮 ， 填满 香草 奶油 蛋 奶酥 ， 上面 覆盖 着 应季 水果 的 丰富 色彩 。 \n \n 对于 主题 ， 我们 何不 考虑 一个 “ 农场 到 餐桌 ” 的 概念 ？ 你 可以 强调 使用 本地 采购 的 食材 ， 并 在 餐桌 设置 中 加入 乡村 元素 ， 如 木制 托盘 或 装满 鲜花 的 玻璃罐 中心 装饰 。 这 将 为 庆祝 活动 增添 一抹 迷人 的 风采 。 \n \n 随意 根据 你 的 偏好 和 食材 的 可用性 进一步 定制 菜单 。 如果 你 有 任何 特别 的 要求 ， 或者 需要 帮助 解决 用餐 计划 的 任何 特定 方面 ， 请 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "I really appreciate your thoughtful suggestions! The menu sounds absolutely delicious, and I love the idea of a \"Farm-to-Table\" theme. It aligns perfectly with my preference for healthy, organic food. I'll definitely incorporate your ideas and make some adjustments based on the availability of seasonal ingredients. Thank you for your help in planning this special birthday meal. I'm excited to get started on the preparations!\n\nNow, I have a few questions regarding the recipes and preparation process for each dish. Could you provide me with the complete preparation process for the roasted beet and goat cheese salad, stuffed bell peppers, grilled portobello mushrooms, lemon herb roasted vegetables, quinoa pilaf, and fresh fruit tart? Additionally, could you suggest the appropriate order in which to prepare these dishes?",
             "content_zh": "非常感谢您细心的建议！ 菜单听起来绝对美味，我喜欢“从农场到餐桌”的主题。 这与我对健康有机食物的偏好完美契合。 我一定会采纳您的建议，并根据季节性食材的可用性进行一些调整。 谢谢您在计划这顿特别生日餐上的帮助。 我很兴奋地开始准备！现在，我有几个关于每道菜的食谱和准备过程的问题。 您能为我提供烤甜菜根和山羊奶酪沙拉，填充彩椒，烤磨菇，柠檬香草烤蔬菜，藜麦菜肴和新鲜水果挞的完整准备过程吗？另外，您能建议这些菜肴的适当准备顺序吗？",
             "intent": "Search",
-            "intent_zh": "检索"
+            "intent_zh": "检索",
+            "content_zh_cut": "非常 感谢您 细心 的 建议 ！   菜单 听 起来 绝对 美味 ， 我 喜欢 “ 从 农场 到 餐桌 ” 的 主题 。   这 与 我 对 健康 有机 食物 的 偏好 完美 契合 。   我 一定 会 采纳 您 的 建议 ， 并 根据 季节性 食材 的 可用性 进行 一些 调整 。   谢谢您 在 计划 这顿 特别 生日 餐上 的 帮助 。   我 很 兴奋 地 开始 准备 ！ 现在 ， 我 有 几个 关于 每道菜 的 食谱 和 准备 过程 的 问题 。   您 能 为 我 提供 烤 甜菜 根 和 山羊 奶酪 沙拉 ， 填充 彩椒 ， 烤 磨菇 ， 柠檬 香草 烤 蔬菜 ， 藜 麦 菜肴 和 新鲜 水果 挞 的 完整 准备 过程 吗 ？ 另外 ， 您 能 建议 这些 菜肴 的 适当 准备 顺序 吗 ？"
         },
         {
             "role": "assistant",
@@ -54,14 +59,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ！ 以下 是 每道菜 的 配方 和 制作 过程 ， 以及 建议 的 制备 顺序 ： \n \n 1 .   烤 甜菜 根和羊 奶酪 沙拉 ： \n 配料 ： \n -   新鲜 甜菜 根 \n -   混合 生菜 \n -   羊 奶酪 \n -   糖 煮 核桃 \n -   巴尔 薄醋 汁 \n 制作 ： \n -   将 烤箱 预热 至 400 ° F （ 200 ° C ） 。 \n -   擦洗 甜菜 根 ， 修剪 顶部 和 根部 。 将 它们 单独 包裹 在 锡纸 中 ， 然后 放在 烤盘 上 。 \n -   在 预热 的 烤箱 中烤 甜菜 根约 45 - 60 分钟 ， 或者 用 叉子 戳 烂 时 变软 为止 。 稍微 冷却 后 ， 将 其 去皮 并 切成 一口 大小 的 块 。 \n -   在 一个 大碗 中 ， 将 混合 生菜 、 烤 甜菜 根 、 羊 奶酪 碎 和 糖 煮 核桃 混合 。 \n -   淋上 巴尔 薄醋 汁 拌匀 。 立即 食用 。 \n \n 2 .   火腿 意大利 面 \n 配料 ： \n -   意大利 面 \n -   火腿 \n -   鲜奶 \n -   奶酪 \n -   黄油 \n -   盐 和 胡椒 \n 制作 ： \n -   煮沸 一 大锅水 ， 加入 盐 。 加入 意大利 面 ， 根据 包装 说明 煮熟 ， 滤干 。 \n -   在 另 一个 锅中 ， 融化 黄油 ， 加入 切碎 的 火腿 ， 煮熟 。 倒入 鲜奶 ， 煮沸 。 \n -   加入 煮熟 的 意大利 面 ， 拌匀 ， 撒上 奶酪 、 盐 和 胡椒 调味 。 翻炒 至 奶酪 熔化 。 \n -   食用 前 拌匀 即可 。 \n \n 3 .   烤肉 块 \n 配料 ： \n -   肉块 \n -   料酒 \n -   生抽 \n -   糖 \n -   盐 \n -   植物油 \n 制作 ： \n -   将 肉块 泡入 水中 除去 血水 ， 沥干 备用 。 \n -   将 肉块 切成 小 块 ， 放入 一个碗 中 。 加入 料酒 、 生抽 、 糖 、 盐 、 植物油 腌制 。 \n -   面粉 均匀 裹住 腌制 好 的 肉块 ， 放入 预热 至 350 ° F （ 180 ° C ） 的 烤箱 烤 制约 25 - 30 分钟 ， 直到 金黄 酥脆 。 \n -   出炉 前 ， 撒上 葱花 即可 食用 。 \n \n 4 .   红烧肉 \n 配料 ： \n -   五花肉 \n -   红烧 酱 \n -   生姜 \n -   料酒 \n -   白糖 \n -   大葱 \n 制作 ： \n -   将 五花肉 切成 大小 块 的 肉块 ， 放入 开水 中焯 水后 捞出 。 \n -   热锅 凉油 ， 爆香 姜片 、 葱段 ， 加入 红烧 酱 翻炒 。 \n -   将焯 水后 的 五花肉 放入 锅中 ， 加入适量 料酒 、 白糖 、 少许 盐 ， 煮 至 酱汁 浓稠 即可 。 \n -   出锅 前 ， 撒上 葱花 即可 食用 。 \n \n 建议 的 制备 顺序 ： \n 1 .   首先 烤 沙拉 中 的 甜菜 根 。 当 它们 在 烤箱 里 时 ， 你 可以 准备 腌制 羊 奶酪 沙拉 并 让 其 焖 煮 。 \n 2 .   接着 准备 灌装 的 青椒 ， 因为 它们 需要 一些 时间 在 烤箱 中 烤制 。 \n 3 .   当 青椒 在 烤箱 烤制 时 ， 你 可以 准备 柠檬草 烤 蔬菜 并 将 其 放置 一边 。 \n 4 .   青椒 做好 后 ， 可以 烤 蘑菇 并 准备 几道 配菜 。 \n 5 .   最后 ， 装盘 鲜果 挞 ， 让 其 在 冰箱 中 冷藏 至少 一个 小时 后 再 食用 。 \n \n 请 根据 您 的 制备 速度 和 烤箱 容量 调整 时间 。 别忘记 享受 制作 这个 特别 的 生日 大餐 的 过程 中 的 乐趣 ！"
         },
         {
             "role": "user",
             "content": "Thank you for providing the detailed recipes and the suggested order of preparation. It's incredibly helpful! I appreciate your thoroughness and the thought you put into each dish. I'll make sure to follow your instructions and adjust the timings accordingly.\n\nI'm really excited about this birthday meal. The menu you helped me create is perfect, and I'm confident that my friends will love it. Thank you so much for your assistance in planning this special celebration. I can't wait to put everything together and create a memorable dining experience!\n\nIs there anything else you recommend I keep in mind while preparing for the meal?",
             "content_zh": "谢谢您提供详细的食谱和建议的准备顺序。这非常有帮助！我感谢您的细致和对每道菜的用心。我会确保遵循您的指示并相应调整时间。\n我对这次生日大餐非常兴奋。您帮助我制定的菜单非常完美，我确信我的朋友们会喜欢。非常感谢您在规划这次特别庆祝活动中的帮助。我迫不及待地想把所有东西搭配起来，创造一个难忘的用餐体验！\n在准备用餐时，请您还有什么其他建议吗？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "谢谢您 提供 详细 的 食谱 和 建议 的 准备 顺序 。 这 非常 有 帮助 ！ 我 感谢您 的 细致 和 对 每道菜 的 用心 。 我会 确保 遵循 您 的 指示 并 相应 调整 时间 。 \n 我 对 这次 生日 大餐 非常 兴奋 。 您 帮助 我 制定 的 菜单 非常 完美 ， 我 确信 我 的 朋友 们 会 喜欢 。 非常 感谢您 在 规划 这次 特别 庆祝 活动 中 的 帮助 。 我 迫不及待 地想 把 所有 东西 搭配 起来 ， 创造 一个 难忘 的 用餐 体验 ！ \n 在 准备 用餐 时 ， 请 您 还有 什么 其他 建议 吗 ？"
         },
         {
             "role": "assistant",
@@ -70,14 +77,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "非常 欢迎 ！ 我 很 高兴 您 发现 食谱 和 准备 顺序 很 有 帮助 。 我 相信 您 计划 的 餐点 会 让 您 的 朋友 们 感到 开心 。 以下 是 一些 在 准备 餐点 时 需要 记住 的 额外 提示 ： \n \n 1 .   合理 规划 时间 ： 制定 准备 和 烹饪 过程 的 时间表 ， 这样 可以 帮助 您 保持 有序 ， 并 确保 一切 准时 就绪 。 考虑 提前准备 食材 ， 以 节省 庆祝 活动 当天 的 时间 。 \n \n 2 .   仔细阅读 食谱 ： 在 开始 烹饪 之前 ， 仔细阅读 每个 食谱 ， 了解 所 涉及 的 步骤 ， 并 准备 所有 必要 的 食材 。 这 将 帮助 您 避免 任何 意外 情况 或 最后 一分钟 的 忙乱 。 \n \n 3 .   品尝 和 调整 ： 烹饪 过程 中 ， 不要 害怕 根据 自己 的 口味 品尝 和 调整 每道菜 的 调味 。 记住 ， 食谱 只是 指导 ， 您 有 自由 将 其 调整 为 您 喜欢 的 口味 。 \n \n 4 .   品味 是 很 重要 的 ： 花些 时间 考虑 每道菜 的 呈现 方式 。 用 新鲜 香草 装饰 它们 ， 撒 一些 烤 过 的 坚果 ， 或加 一些 酱汁 为 其 增添 一丝 优雅 的 味道 。 记住 ， 我们 先 从 眼睛 享受 食物 ！ \n \n 5 .   如 可能 分配任务 ： 如果 您 有 愿意 帮忙 的 朋友 ， 请 毫不犹豫 地 分配 一些 任务 。 这 可以 使 准备 过程 更加 愉快 ， 营造 凝聚力 。 \n \n 6 .   享受 过程 ： 为 亲人 烹饪 是 庆祝 的 一种 美妙 方式 ， 因此 请 尽量 享受 整个 过程 。 休息 一下 ， 小 口 畅饮 您 最 喜欢 的 饮料 ， 播放 一些 音乐 ， 为 厨房 营造 轻松 和 喜庆 的 氛围 。 \n \n 请 记住 ， 最 重要 的 是 享受 乐趣 ， 并 与 朋友 们 创造 美好 的 回忆 。 我 相信 您 的 生日 大餐 会 取得 巨大成功 。 如果 您 有 更 多 问题 或 需要 进一步 帮助 ， 请 随时 提问 。 祝您 烹饪 愉快 ， 提前 祝 生日快乐 ！"
         },
         {
             "role": "user",
             "content": "Thank you so much for the additional tips! They are all very valuable, and I'll definitely keep them in mind while preparing for the meal. Planning my time, reading the recipes thoroughly, and paying attention to presentation are great reminders. I'll also consider delegating some tasks to make the process more enjoyable and involve my friends.\n\nI truly appreciate your assistance and guidance throughout this conversation. Your suggestions have been incredibly helpful, and I feel more confident about creating a memorable birthday meal. I'm really looking forward to celebrating with my friends and enjoying the process of cooking for them.\n\nThank you again for your support and well wishes. It's been a pleasure working with you. Have a wonderful day!\n",
             "content_zh": "非常感谢您提供的额外建议！它们都非常宝贵，我一定会在准备餐食时牢记在心。规划我的时间，仔细阅读食谱，注意食物的呈现是很好的提醒。我还会考虑分派一些任务，使整个过程更加愉快，也能让朋友们参与其中。我真心感谢您在这次对话中的帮助和指导。您的建议非常有帮助，让我对创造一个难忘的生日餐感到更加自信。我真的非常期待和朋友们一起庆祝，并享受为他们烹饪的过程。再次感谢您的支持和祝愿。能够与您合作真是一种乐趣。祝您有一个美好的一天！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "非常 感谢您 提供 的 额外 建议 ！ 它们 都 非常 宝贵 ， 我 一定 会 在 准备 餐食 时 牢记在心 。 规划 我 的 时间 ， 仔细阅读 食谱 ， 注意 食物 的 呈现 是 很 好 的 提醒 。 我 还 会 考虑 分派 一些 任务 ， 使 整个 过程 更加 愉快 ， 也 能 让 朋友 们 参与 其中 。 我 真心 感谢您 在 这次 对话 中 的 帮助 和 指导 。 您 的 建议 非常 有 帮助 ， 让 我 对 创造 一个 难忘 的 生日 餐 感到 更加 自信 。 我 真的 非常 期待 和 朋友 们 一起 庆祝 ， 并 享受 为 他们 烹饪 的 过程 。 再次 感谢您 的 支持 和 祝愿 。 能够 与 您 合作 真是 一种 乐趣 。 祝您 有 一个 美好 的 一天 ！"
         },
         {
             "role": "assistant",
@@ -86,7 +95,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "不用谢 ！ 我 很 高兴 能 帮助 您 规划 您 特别 的 生日 餐 。 能 帮助 您 是 一种 乐趣 ， 我 相信 您 的 庆祝 活动 将 是 令人难忘 的 。 享受 烹饪 的 过程 ， 珍惜 与 朋友 共度 的 时光 ， 度过 一个 美好 的 生日 ！ 如果 将来 需要 帮助 或 有 任何 其他 问题 ， 随时 联系 我 。 祝您 度过 美好 的 一天 ， 尽情 享受 您 的 生日 ！"
         }
     ],
     "conflict": false,

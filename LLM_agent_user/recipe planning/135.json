@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you're here. I need some help planning a meal at home. I want to invite three close friends over, but I'm not very skilled in cooking. I thought it would be nice to prepare a meal together. Could you help me create a recipe, determine the necessary ingredients, and decide what dishes to make?",
             "content_zh": "你好！很高兴你来了。我需要一些帮助来计划在家中的一餐。我想邀请三个亲密的朋友来家里，但我不太擅长烹饪。我觉得一起准备一顿餐会很好。你可以帮我创建一个食谱，确定所需的食材，并决定要做哪些菜吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 来 了 。 我 需要 一些 帮助 来 计划 在 家中 的 一餐 。 我 想 邀请 三个 亲密 的 朋友 来 家里 ， 但 我 不 太 擅长 烹饪 。 我 觉得 一起 准备 一顿 餐会 很 好 。 你 可以 帮 我 创建 一个 食谱 ， 确定 所 需 的 食材 ， 并 决定 要 做 哪些 菜 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ， 我 很 乐意 帮助 您 规划 聚餐 的 饭菜 ！ 一起 烹饪 可以 是 与 朋友 共度 时光 的 有趣 互动 方式 。 让 我们 创建 一个 既 美味 又 适合 您 的 菜单 。 在 建议 食谱 时 ， 您 有 任何 饮食 限制 或 偏好 我 应该 考虑 吗 ？"
         },
         {
             "role": "user",
             "content": "Thank you for offering your assistance. I don't have any specific dietary restrictions, but I generally prefer to follow a balanced diet. So, recipes that incorporate a good mix of protein, vegetables, and grains would be great. I also enjoy trying new flavors and cuisines, so feel free to suggest a variety of dishes. Thank you!",
             "content_zh": "感謝您提供幫助。我沒有特定的飲食限制，但我通常更喜歡遵循均衡飲食。因此，包含豐富蛋白質、蔬菜和穀物的食譜將是很棒的。我也喜歡嘗試新口味和不同菜系，所以隨時歡迎建議多樣的菜餚。謝謝！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "感謝 您 提供 幫助 。 我 沒 有 特定 的 飲食 限制 ， 但 我 通常 更 喜歡 遵循 均衡 飲食 。 因此 ， 包含 豐富 蛋白 質 、 蔬菜 和 穀 物 的 食譜將 是 很棒 的 。 我 也 喜歡 嘗試 新 口味 和 不同 菜系 ， 所以 隨時 歡迎 建議 多樣 的 菜餚 。 謝謝 ！"
         },
         {
             "role": "assistant",
@@ -38,14 +41,16 @@
                 "hallucination": false,
                 "memo": "Translation Problem Fixed"
             },
-            "content_zh_old": "很好！考虑到这些偏好，让我们创建一个包含各种口味和成分的菜单。我们先来一道开胃菜，然后是主菜，最后是甜点，好吗？以下是建议的菜单：\n\n开胃菜：番茄罗勒意式烤面包\n- 成分：法棍面包、番茄、新鲜罗勒、大蒜、橄榄油、意大利香醋、盐和胡椒。\n- 这道经典意大利开胃菜制作简单，口味鲜美。是开始一餐的绝佳选择。\n\n主菜：蜂蜜蒜香焗三文鱼配烤蔬菜和藜麦\n- 成分：三文鱼鱼片、蜂蜜、酱油、大蒜、柠檬、混合蔬菜（如西兰花、胡萝卜和甜椒）、橄榄油、盐、胡椒和藜麦。\n- 这道菜提供了良好的蛋白质、蔬菜和谷物均衡。三文鱼裹着甜蜜香醇的酱汁，烤蔬菜带来美妙的脆脆口感。配上藜麦，是完整的一餐。\n\n甜点：混合浆果金宝\n- 成分：混合浆果（如草莓、蓝莓和覆盆子）、糖、柠檬汁、面粉、燕麦、黄油、肉桂和香草冰淇淋（可选）。\n- 这款水果甜点制作简便，深受喜爱。温热多汁的浆果上面覆盖着脆脆的金宝，是美味餐点的完美结束。如果愿意，可搭配一勺香草冰淇淋一起享用。\n\n这份菜单听起来如何？如果有任何具体问题或想要进行任何调整，请告诉我！"
+            "content_zh_old": "很好！考虑到这些偏好，让我们创建一个包含各种口味和成分的菜单。我们先来一道开胃菜，然后是主菜，最后是甜点，好吗？以下是建议的菜单：\n\n开胃菜：番茄罗勒意式烤面包\n- 成分：法棍面包、番茄、新鲜罗勒、大蒜、橄榄油、意大利香醋、盐和胡椒。\n- 这道经典意大利开胃菜制作简单，口味鲜美。是开始一餐的绝佳选择。\n\n主菜：蜂蜜蒜香焗三文鱼配烤蔬菜和藜麦\n- 成分：三文鱼鱼片、蜂蜜、酱油、大蒜、柠檬、混合蔬菜（如西兰花、胡萝卜和甜椒）、橄榄油、盐、胡椒和藜麦。\n- 这道菜提供了良好的蛋白质、蔬菜和谷物均衡。三文鱼裹着甜蜜香醇的酱汁，烤蔬菜带来美妙的脆脆口感。配上藜麦，是完整的一餐。\n\n甜点：混合浆果金宝\n- 成分：混合浆果（如草莓、蓝莓和覆盆子）、糖、柠檬汁、面粉、燕麦、黄油、肉桂和香草冰淇淋（可选）。\n- 这款水果甜点制作简便，深受喜爱。温热多汁的浆果上面覆盖着脆脆的金宝，是美味餐点的完美结束。如果愿意，可搭配一勺香草冰淇淋一起享用。\n\n这份菜单听起来如何？如果有任何具体问题或想要进行任何调整，请告诉我！",
+            "content_zh_cut": "太好了 ！ 考虑 到 这些 偏好 ， 我们 来 创建 一个 包含 各种 口味 和 食材 的 菜单 吧 。 我们 是否 可以 从 开胃菜 开始 ， 然后 是 主菜 ， 最后 是 甜点 ？ 以下 是 建议 的 菜单 ： \n \n 开胃菜 ： 番茄 罗勒 布鲁斯 凯塔 \n -   食材 ： 法棍 ， 番茄 ， 新鲜 罗勒 ， 大蒜 ， 橄榄油 ， 香醋 ， 盐 和 胡椒 。 \n -   这道 经典 的 意大利 开胃菜 制作 简单 ， 充满 了 新鲜 的 风味 。 它 是 开始 你 的 用餐 的 绝佳 方式 。 \n \n 主菜 ： 蜂蜜 大蒜 糖霜 三文鱼 配烤 蔬菜 和 藜 麦 \n -   食材 ： 三文鱼 片 ， 蜂蜜 ， 酱油 ， 大蒜 ， 柠檬 ， 混合 蔬菜 （ 如 西兰花 ， 胡萝卜 和 甜椒 ） ， 橄榄油 ， 盐 ， 胡椒 和 藜 麦 。 \n -   这 道菜 提供 了 良好 的 蛋白质 、 蔬菜 和 谷物 的 平衡 。 三文鱼 上涂 有 甜 咸 酱汁 ， 烤 蔬菜 增添 了 美妙 的 脆感 。 搭配 藜 麦 一起 食用 ， 是 完整 的 一餐 。 \n \n 甜点 ： 混合 浆果 酥 \n -   食材 ： 混合 浆果 （ 如 草莓 ， 蓝莓 和 覆盆子 ） ， 糖 ， 柠檬汁 ， 面粉 ， 燕麦 ， 黄油 ， 肉桂 和 香草 冰淇淋 （ 可 选 ） 。 \n -   这道 果味 甜点 制作 简单 ， 总能 赢得 人心 。 温暖 多汁 的 浆果   topped   with   酥脆 的 酥 屑 ， 是 餐后 的 美味佳肴 。 如果 愿意 ， 可以 搭配 一 球 香草 冰淇淋 食用 。 \n \n 这个 菜单 听 起来 怎么样 ？ 如果 你 有 任何 具体 问题 ， 或者 想要 做 任何 调整 ， 请 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "That menu sounds absolutely delightful! I love the combination of flavors and the balance of ingredients in each dish. I think it will make for a fantastic meal with my friends. I appreciate your suggestions, and I don't have any adjustments to make. Thank you for your help! I'm excited to try out these recipes.",
             "content_zh": "那个菜单听起来绝对令人愉悦！我喜欢每道菜中风味的组合和配料的平衡。我认为这将和朋友们一起享用会是一顿美妙的餐点。我感谢您的建议，我不需要做任何调整。谢谢您的帮助！我很期待尝试这些食谱。",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "那个 菜单 听 起来 绝对 令人 愉悦 ！ 我 喜欢 每道菜 中 风味 的 组合 和 配料 的 平衡 。 我 认为 这 将 和 朋友 们 一起 享用 会 是 一顿 美妙 的 餐点 。 我 感谢您 的 建议 ， 我 不 需要 做 任何 调整 。 谢谢您 的 帮助 ！ 我 很 期待 尝试 这些 食谱 。"
         },
         {
             "role": "assistant",
@@ -54,7 +59,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "不 客气 ！ 很 高兴 看到 你 对 菜单 感 兴奋 。 我 相信 你 和 朋友 们 在 一起 烹饪 和 享用 这些 美味佳肴 的 时光 会 非常 愉快 。 只 需 一步步 来 ， 如果 在 准备 菜谱 时 需要 任何 帮助 或 有 任何 问题 ， 请 毫不犹豫 地问 。 祝 你 用餐 愉快 ， 和 朋友 们 度过 美好时光 ！"
         }
     ],
     "conflict": false,

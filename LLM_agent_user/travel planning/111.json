@@ -12,7 +12,8 @@
             "content": "Hello! I'm excited to plan my thirty-day-long trip this summer, and I could really use your assistance. I want to make sure I have a comprehensive travel plan that covers accommodations, transportation, and itinerary details. Can you help me with that?",
             "content_zh": "你好！我很兴奋地要计划这个夏天持续三十天的旅行，我真的非常需要你的帮助。我想确保我有一个包括住宿、交通和行程细节的全面旅行计划。你可以帮助我吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 我 很 兴奋 地要 计划 这个 夏天 持续 三十天 的 旅行 ， 我 真的 非常 需要 你 的 帮助 。 我 想 确保 我 有 一个 包括 住宿 、 交通 和 行程 细节 的 全面 旅行 计划 。 你 可以 帮助 我 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ， 我 很 乐意 帮助 您 规划 长 达 三十天 的 旅行 ！ 听 起来 像是 一次 令人兴奋 的 冒险 。 让 我们 从 讨论 您 的 目的地 开始 。 您 打算 去 哪里 ？"
         },
         {
             "role": "user",
             "content": "Thank you for offering to help! Since I have no specific destination restrictions, I'm open to exploring various options. I love immersing myself in different cultures and visiting historical sites, so any destination with rich cultural heritage would be fantastic. Do you have any recommendations based on that?",
             "content_zh": "感谢你提供帮助！因为我没有特定的目的地限制，我愿意探索各种选择。我喜欢沉浸在不同的文化中，喜欢参观历史遗址，所以任何拥有丰富文化遗产的目的地都会很棒。你有基于这个的任何推荐吗？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "感谢 你 提供 帮助 ！ 因为 我 没有 特定 的 目的地 限制 ， 我 愿意 探索 各种 选择 。 我 喜欢 沉浸 在 不同 的 文化 中 ， 喜欢 参观 历史 遗址 ， 所以 任何 拥有 丰富 文化遗产 的 目的地 都 会 很棒 。 你 有 基于 这个 的 任何 推荐 吗 ？"
         },
         {
             "role": "assistant",
@@ -37,14 +40,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "听到 这个 消息 很棒 ！ 根据 您 对 沉浸 在 不同 文化 和 参观 历史 遗迹 的 兴趣 ， 有 许多 目的地 也许 非常适合 您 的 旅行 。 以下 是 一些 建议 供 您 考虑 ： \n 1 .   欧洲 ： 欧洲 拥有 多元 的 历史 和 文化遗产 ， 提供 了 多种 选择 。 您 可以 探索 罗马 、 巴黎 、 雅典 或 布拉格 等 城市 ， 每个 城市 都 有 其 独特 的 魅力 和 历史 意义 。 \n 2 .   东南亚 ： 如 泰国 、 柬埔寨 和 越南 等 国家 以 其 丰富 的 文化遗产 、 古代 寺庙 和 充满活力 的 市场 而 闻名 。 您 可以 参观 柬埔寨 的 吴哥窟 等 标志性 景点 ， 或 探索 曼谷 繁忙 的 街道 。 \n 3 .   南美洲 ： 秘鲁 、 墨西哥 和 哥伦比亚 等 国家 以其 像 马丘比丘 和 奇琴 伊察 这样 的 古代 遗址 ， 以及 充满活力 的 土著 文化 而 闻名 。 您 可以 体验 安第斯山脉 的 令人惊叹 的 景观 ， 或 探索 利马 或 波哥大 繁华 的 城市 。 \n 4 .   中东 ： 约旦 和 埃及 等 国家 结合 了 古代 历史 和 文化 体验 。 您 可以 参观 佩特拉 、 吉萨 金字塔 等 标志性 景点 ， 或 在 安曼 或 开罗 等 城市 探索 繁华 的 市场 。 \n 这些 仅仅 是 一些 建议 ， 但 还有 许多 不可思议 的 目的地 值得 考虑 。 一旦 您 确定 了 具体 的 地区 或 国家 ， 我们 可以 深入 规划 您 的 住宿 、 交通 和 行程 细节 。"
         },
         {
             "role": "user",
             "content": "Those are fantastic recommendations! I'm particularly drawn to the idea of exploring Europe and Southeast Asia. The historical sites in Europe and the vibrant cultures of Southeast Asia both sound like incredible experiences. Let's focus on Europe for now. Specifically, I'm interested in visiting Rome, Paris, Athens, and Prague. Could you help me with accommodations for these cities?",
             "content_zh": "这些都是很棒的建议！我特别喜欢探索欧洲和东南亚的想法。欧洲的历史遗迹和东南亚充满活力的文化，听起来都是不可思议的体验。让我们现在专注于欧洲。具体来说，我对访问罗马、巴黎、雅典和布拉格很感兴趣。你能帮我安排这些城市的住宿吗？",
             "intent": "Search & Recommendation",
-            "intent_zh": "检索+推荐"
+            "intent_zh": "检索+推荐",
+            "content_zh_cut": "这些 都 是 很棒 的 建议 ！ 我 特别 喜欢 探索 欧洲 和 东南亚 的 想法 。 欧洲 的 历史 遗迹 和 东南亚 充满活力 的 文化 ， 听 起来 都 是 不可思议 的 体验 。 让 我们 现在 专注 于 欧洲 。 具体来说 ， 我 对 访问 罗马 、 巴黎 、 雅典 和 布拉格 很感兴趣 。 你 能 帮 我 安排 这些 城市 的 住宿 吗 ？"
         },
         {
             "role": "assistant",
@@ -53,14 +58,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 !   探索 罗马 、 巴黎 、 雅典 和 布拉格 将 让 您 领略 欧洲 丰富 的 历史 和 文化 多样性 。 在 住宿 方面 ， 每个 城市 都 提供 各种 选择 ， 以 满足 不同 的 偏好 和 预算 。 以下 是 每个 城市 的 一些 建议 ： \n \n 罗马 ： \n -   高档 ： 哈斯勒 罗马 酒店 或 罗西 酒店 以 其 奢华 和 中央 位置 而 闻名 。 \n -   中档 ： 阿尔特 米代 酒店 或纳沃纳 酒店 是 受欢迎 的 选择 ， 设施 完善 ， 价格合理 。 \n -   经济 ： 格里 福 酒店 或 意大利 酒店 提供 实惠 的 选择 ， 舒适 而 不 妥协 。 \n \n 巴黎 ： \n -   高档 ： 里茨 巴黎 酒店 或 乔治 五世 四季 酒店 具有 标志性 ， 提供 豪华 的 体验 。 \n -   中档 ： Le   A 酒店 或 图尔 维尔 酒店 位置 便利 ， 提供 舒适 的 住宿 ， 价格合理 。 \n -   经济 ： 蒙 布朗 酒店 或 埃克 塞西尔 拉丁 酒店 是 中心 地区 的 经济 选择 。 \n \n 雅典 ： \n -   高档 ： 大不列颠 大饭店 或 电 王宫 雅典 酒店 提供 豪华 住宿 ， 可 欣赏 卫城 的 壮丽 景色 。 \n -   中档 ： 阿塔 洛斯 酒店 或 雅典 中心广场 酒店 位置 中心 ， 性价比 高 。 \n -   经济 ： 普拉 卡 酒店 或 阿雷 苏萨 酒店 提供 实惠 的 选择 ， 同时 靠近 主要 景点 。 \n \n 布拉格 ： \n -   高档 ： 阿瑞亚 布拉格 酒店 或 金莲 东方 酒店 提供 豪华 住宿 和 一流 设施 。 \n -   中档 ： 维兹 酒店 或 坎帕 花园酒店 提供 价格合理 的 舒适 住宿 。 \n -   经济 ： 阿涅斯 住宅 酒店 或 金城 加尼 酒店 提供 经济 实惠 的 选择 ， 而 不会 妥协 质量 。 \n \n 记得 查看 评论 ， 比较 价格 ， 考虑 每个 城市 的 位置 ， 以 找到 最 适合 您 需求 的 住宿 。 一旦 您 确定 了 偏好 的 住宿 ， 我们 可以 继续 讨论 您 行程 的 交通 和 细节 。"
         },
         {
             "role": "user",
             "content": "Thank you for the detailed accommodation recommendations! I'll definitely look into these options for Rome, Paris, Athens, and Prague. It's great to have a range of choices to suit different budgets. Now, let's move on to transportation. Since I'll be visiting multiple cities, what would be the best way to travel between them? Should I consider flights, trains, or a combination of both?",
             "content_zh": "感谢您详细的住宿推荐！我一定会查看一下罗马、巴黎、雅典和布拉格的这些选择。有各种选择适合不同预算真是太好了。现在，让我们继续讨论交通。因为我将要去多个城市，最佳的旅行方式是什么呢？我应该考虑乘飞机、火车，还是两者的组合？",
             "intent": "Search & Recommendation",
-            "intent_zh": "检索+推荐"
+            "intent_zh": "检索+推荐",
+            "content_zh_cut": "感谢您 详细 的 住宿 推荐 ！ 我 一定 会 查看 一下 罗马 、 巴黎 、 雅典 和 布拉格 的 这些 选择 。 有 各种 选择 适合 不同 预算 真是 太好了 。 现在 ， 让 我们 继续 讨论 交通 。 因为 我 将要 去 多个 城市 ， 最佳 的 旅行 方式 是 什么 呢 ？ 我 应该 考虑 乘飞机 、 火车 ， 还是 两者 的 组合 ？"
         },
         {
             "role": "assistant",
@@ -69,14 +76,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当 谈到 在 欧洲 城市 之间 旅行 时 ， 您 可以 根据 自己 的 喜好 和 目的地 之间 的 距离 选择 几种 交通 方式 。 以下 是 关于 罗马 、 巴黎 、 雅典 和 布拉格 之间 旅行 的 一些 建议 ： \n \n 航班 ： 如果 您 希望 以 最快 的 方式 在 城市 之间 旅行 ， 航班 可能 是 一个 方便 的 选择 ， 尤其 是 对于 较长 的 距离 而言 。 欧洲 有 许多 航空公司 在 其 内部 运营 ， 提供 主要 城市 之间 的 直达 航班 。 务必 比较 价格 ， 并 查看 是否 有 任何 提供 更 低 票价 的 廉价 航空公司 。 \n \n 火车 ： 欧洲 拥有 庞大 而 高效 的 铁路 网络 ， 使得 火车 旅行 成为 一种 受欢迎 的 选择 。 火车 的 旅程 可能 风景如画 ， 让 人 感到 舒适 。 例如 ， 您 可以 乘坐 高速 列车 从 罗马 到 佛罗伦萨 ， 然后 继续 前往 威尼斯 ， 最终 抵达 布拉格 。 同样 ， 您 可以 通过 慕尼黑 或 柏林 从 巴黎 前往 布拉格 。 火车 旅行 让 您 可以 享受 美景 并 探索 乡村 地区 。 \n \n 组合 ： 根据 距离 和 您 的 喜好 ， 您 还 可以 考虑 飞机 和 火车 的 组合 。 例如 ， 您 可以 从 罗马 飞往 雅典 以 节省时间 ， 然后 从 雅典 乘坐 火车 到 塞萨洛尼基 ， 从 那里 您 可以 搭乘 飞机 前往 巴黎 。 这样 ， 您 可以 平衡 便利 和 体验 。 \n \n 值得注意 的 是 ， 航班 和 火车 的 可用性 和 频率 可能 有所不同 ， 因此 在 旅行 旺季 特别 是 要 提前 检查 时间表 并 预订 。 此外 ， 在 选择 交通 方式 时 ， 请 考虑 成本 、 旅行 时间 和 您 想要 的 体验 等 因素 。 \n \n 一旦 您 决定 了 交通 方式 ， 我们 可以 继续 讨论 每个 城市 的 行程 细节 以及 您 在 旅行 期间 想要 包括 的 活动 。"
         },
         {
             "role": "user",
             "content": "Thank you for the detailed transportation suggestions! I appreciate the options of flights, trains, and combinations of both. I'll be sure to consider factors like cost, travel time, and the experience I desire when making my transportation choices.\n\nNow, let's move on to discussing the itinerary details for each city. I'd love to explore the cultural and historical highlights of Rome, Paris, Athens, and Prague. Could you provide some suggestions for must-visit attractions, landmarks, and activities in each city?",
             "content_zh": "感谢您提供了详细的交通建议！我很感激航班、火车和二者组合的选择。在做出交通选择时，我一定会考虑成本、旅行时间和我期望的体验等因素。现在，让我们继续讨论每个城市的行程细节。我很想探索罗马、巴黎、雅典和布拉格的文化和历史亮点。您能提供每个城市必游的景点、地标和活动吗？",
             "intent": "Search & Recommendation",
-            "intent_zh": "检索+推荐"
+            "intent_zh": "检索+推荐",
+            "content_zh_cut": "感谢您 提供 了 详细 的 交通 建议 ！ 我 很 感激 航班 、 火车 和 二者 组合 的 选择 。 在 做出 交通 选择 时 ， 我 一定 会 考虑 成本 、 旅行 时间 和 我 期望 的 体验 等 因素 。 现在 ， 让 我们 继续 讨论 每个 城市 的 行程 细节 。 我 很 想 探索 罗马 、 巴黎 、 雅典 和 布拉格 的 文化 和 历史 亮点 。 您 能 提供 每个 城市 必游 的 景点 、 地标 和 活动 吗 ？"
         },
         {
             "role": "assistant",
@@ -85,14 +94,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ！ 以下 是 您 提到 的 每座 城市 必访 的 景点 、 地标 和 活动 ： \n \n 罗马 ： \n -   斗兽场 ： 探索 标志性 的 古代 露天剧场 ， 了解 其 迷人 的 历史 。 \n -   梵蒂冈城 ： 参观 圣彼得大教堂 、 西斯廷 教堂 和 梵蒂冈 博物馆 ， 那里 陈列 着 令人 难以置信 的 艺术 珍藏品 。 \n -   罗马 广场 ： 漫步 古城 中心 的 废墟 ， 想象 古罗马 的 生活 。 \n -   特雷维 喷泉 ： 往 这座 令人 赞叹 的 巴洛克式 喷泉 中 投币 许愿 。 \n -   万 神殿 ： 欣赏 这座 保存 完好 的 古罗马 神庙 的 令人 印象 深刻 的 建筑 。 \n -   特拉斯 泰韦雷 ： 探索 这个 以 其 狭窄 街道 、 当地 小 餐馆 和 热闹 氛围 而 闻名 的 迷人 社区 。 \n \n 巴黎 ： \n -   埃菲尔铁塔 ： 从 这座 标志性 地标 欣赏 巴黎 令人惊叹 的 景色 。 \n -   卢浮宫 ： 在世界上 最大 的 博物馆 之一 ， 欣赏 蒙娜丽莎 等 世界 著名 艺术品 。 \n -   巴黎圣母院 ： 在 西 岛上 欣赏 这座 著名 大 教堂 的 哥特式 建筑 。 \n -   蒙马特 ： 探索 波 西米亚 风格 的 街区 ， 参观 圣心 圣殿 ， 享受 艺术 氛围 。 \n -   塞纳河 游船 ： 乘坐 轻松 的 游船 沿着 塞纳河 游览 巴黎 ， 以 不同 的 视角 欣赏 城市 风光 。 \n -   香榭丽舍大街 和 凯旋门 ： 沿着 这 条 著名 大道 散步 ， 欣赏 凯旋门 的 凯旋门 。 \n \n 雅典 ： \n -   卫城 ： 参观 标志性 的 古代 城堡 及其 著名 建筑 ， 如帕台 农 神庙 和 厄勒 克塞 尼亚 神庙 。 \n -   普拉 卡 ： 探索 这个 古老 街区 ， 有着 狭窄 街道 、 传统 餐馆 和 商店 。 \n -   古代 广场 ： 发现 古代 雅典 的 中心 ， 曾 是 一个 繁荣 的 市场 和 广场 。 \n -   国家 考古 博物馆 ： 深入 了解 希腊 历史 ， 欣赏 广泛 的 古代 文物 收藏 。 \n -   利卡 维 图斯 山 ： 徒步 或 乘坐 缆车 登上 山顶 ， 欣赏 雅典 的 全景 。 \n \n 布拉格 ： \n -   布拉格 城堡 ： 探索 世界 上 最大 的 古堡 群 ， 参观 圣 维特 大 教堂 。 \n -   查理 大桥 ： 走过 这座 历史悠久 的 桥 ， 上面 有 雕像 ， 欣赏 弗尔 塔瓦 河 的 景色 。 \n -   旧城 广场 ： 欣赏 天文钟 ， 参观 提恩前 圣母 教堂 ， 沉浸 在 氛围 中 。 \n -   布拉格 天文钟 ： 在 旧城 广场 目睹 中世纪 的 天文钟 每 小时 表演 。 \n -   布拉格 犹太 区 ： 探索 历史悠久 的 犹太 区 ， 包括 犹太 博物馆 和 犹太教 堂 。 \n \n 这 只是 每座 城市 的 一些 亮点 ， 但 还有 很多 值得 探索 的 地方 ！ 根据 您 的 兴趣 ， 您 还 可以 探索 当地 市场 ， 尝试 当地 美食 ， 参加 文化 活动 ， 或者 去 附近 的 景点 进行 一日游 。 希望 这些 建议 能 帮助 您 计划 一个 令人兴奋 和 丰富 的 行程 ！"
         },
         {
             "role": "user",
             "content": "Thank you for the fantastic suggestions! I'm thrilled to explore the Colosseum and Vatican City in Rome, visit iconic landmarks like the Eiffel Tower and Louvre Museum in Paris, delve into the history of Athens with the Acropolis and Ancient Agora, and immerse myself in the charm of Prague Castle and Charles Bridge. These activities and attractions will definitely make my trip memorable.\n\nI will take your recommendations into consideration and start working on my itinerary. If I have any further questions or need assistance, may I reach out to you again?",
             "content_zh": "非常感谢您提供的出色建议！我很兴奋要探索罗马的斗兽场和梵蒂冈城，参观巴黎的埃菲尔铁塔和卢浮宫，深入了解雅典的卫城和古代集会广场的历史，沉浸在布拉格城堡和查理大桥的魅力中。这些活动和景点一定会让我的旅行难忘。我会考虑您的建议，并开始制定我的行程。如果我有任何进一步的问题或需要帮助，我可以再次联系您吗？",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "非常 感谢您 提供 的 出色 建议 ！ 我 很 兴奋 要 探索 罗马 的 斗兽场 和 梵蒂冈城 ， 参观 巴黎 的 埃菲尔铁塔 和 卢浮宫 ， 深入 了解 雅典 的 卫城 和 古代 集会广场 的 历史 ， 沉浸 在 布拉格 城堡 和 查理 大桥 的 魅力 中 。 这些 活动 和 景点 一定 会 让 我 的 旅行 难忘 。 我会 考虑 您 的 建议 ， 并 开始 制定 我 的 行程 。 如果 我 有 任何 进一步 的 问题 或 需要 帮助 ， 我 可以 再次 联系 您 吗 ？"
         },
         {
             "role": "assistant",
@@ -101,7 +112,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ！ 很 高兴 您 觉得 这些 建议 有 帮助 ， 我会 在 您 整个 旅行 计划 过程 中 提供 帮助 。 有 任何 问题 、 需要 进一步 帮助 或 需要 我 帮忙 的 时候 随时 联系 我 。 祝您 制定 行程 时玩得 开心 ， 希望 您 的 旅程 充满 难忘 的 经历 ！ 一路平安 ！"
         }
     ],
     "conflict": false,

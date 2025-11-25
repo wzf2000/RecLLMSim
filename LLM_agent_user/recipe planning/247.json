@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you're here. I actually need your help with something. I'm planning to prepare a meal at home and invite three close friends to join me. The problem is, I'm not very skilled in cooking and have limited experience. I was hoping you could help me create a recipe, determine the necessary ingredients, and decide what dishes to make. Can you assist me with that?",
             "content_zh": "你好！很高兴你在这里。实际上我需要你的帮助。我打算在家里准备一顿饭，请三个亲近的朋友一起来。问题是我在烹饪方面不是很在行，经验也有限。我希望你可以帮我制定食谱，确定所需食材，并决定要做哪些菜。你能帮我吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 在 这里 。 实际上 我 需要 你 的 帮助 。 我 打算 在 家里 准备 一顿饭 ， 请 三个 亲近 的 朋友 一 起来 。 问题 是 我 在 烹饪 方面 不是 很 在 行 ， 经验 也 有限 。 我 希望 你 可以 帮 我 制定 食谱 ， 确定 所 需食材 ， 并 决定 要 做 哪些 菜 。 你 能 帮 我 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "你好 ！ 我 在 这里 帮助 您 开始 烹饪 之旅 。 不要 担心 ， 即使 您 不是 专家 ， 烹饪 也 可以 非常 有趣 。 让 我们 从 头脑 风暴 一些 关于 您 饭菜 的 想法 开始 吧 。 您 有 什么 偏好 或 饮食 限制 吗 ？ 您 对 准备 哪 种 类型 的 美食 或 菜肴 感兴趣 呢 ？"
         },
         {
             "role": "user",
             "content": "Hey there! I'm excited to embark on this cooking adventure with your guidance. As for preferences, I'm open to trying different cuisines, but let's keep it simple and beginner-friendly. I don't have any dietary restrictions, so we have plenty of options to explore. Since I enjoy fast food and late-night snacks, perhaps we can incorporate some comfort food elements into the dishes. What do you think?",
             "content_zh": "嘿！我很高兴能在你的指导下开始这次烹饪冒险。至于口味，我愿意尝试不同的菜系，但让我们保持简单和适合初学者的方向。我没有任何饮食限制，所以我们有很多选择可以探索。由于我喜欢快餐和深夜小吃，也许我们可以在菜肴中融入一些舒适食物元素。你觉得呢？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "嘿 ！ 我 很 高兴 能 在 你 的 指导 下 开始 这次 烹饪 冒险 。 至于 口味 ， 我 愿意 尝试 不同 的 菜系 ， 但 让 我们 保持 简单 和 适合 初学者 的 方向 。 我 没有 任何 饮食 限制 ， 所以 我们 有 很多 选择 可以 探索 。 由于 我 喜欢 快餐 和 深夜 小吃 ， 也许 我们 可以 在 菜肴 中 融入 一些 舒适 食物 元素 。 你 觉得 呢 ？"
         },
         {
             "role": "assistant",
@@ -38,7 +41,8 @@
                 "hallucination": false,
                 "memo": "Translation Problem Fixed"
             },
-            "content_zh_old": "听起来好像是一个很棒的计划！安慰食物可以是与朋友温馨聚会的绝佳选择。我们何不打造一个包括主菜、配菜和甜点的菜单呢？这样一来，我们就可以覆盖所有要点，确保每个人都离开满意。对于主菜，我建议尝试一些经典的自制汉堡。它们很容易做，而且可以根据每个人的口味定制。你可以选择牛肉、火鸡，甚至素蔬饼。将它们与烤面包、生菜、番茄、奶酪以及番茄酱和蛋黄酱等调味品一起上桌。再来一份脆脆的烤薯条或甜薯条做为额外的安慰。\n现在，让我们继续配菜。做一些馅料均匀的墨西哥卷饼怎么样？这样既受欢迎又适合分享。先用一层墨西哥薄饼片作为底层，然后放上熔化的奶酪、切碎的番茄、墨西哥辣椒、黑豆和橄榄。你还可以加入一些鳄梨酱、酸奶油以及沙拉作为蘸酱。\n最后，甜点方面，我们简单而又让人满足。怎么样来些热腾腾的巧克力片饼干？这是每个人都喜爱的经典安慰食物。你可以配上一勺香草冰淇淋，增加一份额外的享受。\n这个菜单听起来不错吧？如果你有其他喜好或者需要我的其他帮助，请随时告诉我！"
+            "content_zh_old": "听起来好像是一个很棒的计划！安慰食物可以是与朋友温馨聚会的绝佳选择。我们何不打造一个包括主菜、配菜和甜点的菜单呢？这样一来，我们就可以覆盖所有要点，确保每个人都离开满意。对于主菜，我建议尝试一些经典的自制汉堡。它们很容易做，而且可以根据每个人的口味定制。你可以选择牛肉、火鸡，甚至素蔬饼。将它们与烤面包、生菜、番茄、奶酪以及番茄酱和蛋黄酱等调味品一起上桌。再来一份脆脆的烤薯条或甜薯条做为额外的安慰。\n现在，让我们继续配菜。做一些馅料均匀的墨西哥卷饼怎么样？这样既受欢迎又适合分享。先用一层墨西哥薄饼片作为底层，然后放上熔化的奶酪、切碎的番茄、墨西哥辣椒、黑豆和橄榄。你还可以加入一些鳄梨酱、酸奶油以及沙拉作为蘸酱。\n最后，甜点方面，我们简单而又让人满足。怎么样来些热腾腾的巧克力片饼干？这是每个人都喜爱的经典安慰食物。你可以配上一勺香草冰淇淋，增加一份额外的享受。\n这个菜单听起来不错吧？如果你有其他喜好或者需要我的其他帮助，请随时告诉我！",
+            "content_zh_cut": "这 听 起来 是 个 很棒 的 计划 ！ 舒适 食物 可以 是 和 朋友 们 进行 温馨 聚会 的 绝佳 选择 。 我们 何不 制定 一个 菜单 ， 包括 一道 主菜 、 一道 配菜 和 一道 甜点 呢 ？ 这样 我们 就 可以 面面俱到 ， 确保 每个 人 都 满意 离开 。 对于 主菜 ， 我 建议 尝试 一些 经典 的 自制 汉堡 。 它们 易于 制作 ， 并且 可以 根据 每个 人 的 喜好 进行 定制 。 你 可以 从 牛肉 、 火鸡 或者 素食 饼 中 选择 。 搭配 烤面包 、 生菜 、 番茄 、 奶酪 以及 一些 调味品 如 番茄酱 和 美乃滋 。 再 加上 一边 脆烤 薯条 或 甜 薯条 ， 增添 一丝 额外 的 舒适感 。 现在 ， 让 我们 来 谈谈 配菜 。 制作 一些 装满 料 的 玉米片 怎么样 ？ 这是 一道 人人 喜爱 、 非常适合 分享 的 菜肴 。 从 一层 玉米片 开始 ， 然后 在 上面 加上 融化 的 奶酪 、 切丁 的 番茄 、 墨西哥 辣椒 、 黑豆 和 橄榄 。 你 还 可以 另外 加 一些 鳄梨 酱 、 酸奶 油和莎莎酱 作为 蘸 料 。 最后 ， 对于 甜点 ， 我们 保持 简单 而 令人满意 。 怎么样 ， 来 点 温暖 的 巧克力 碎片 饼干 ？ 它们 是 每个 人 都 喜爱 的 经典 舒适 食物 。 你 可以 搭配 一 球 香草 冰淇淋 ， 让 这道 甜品 更加 诱人 。 这个 菜单 听 起来 不错 吗 ？ 如果 你 有 其他 偏好 或 需要 我 提供 任何 其他 帮助 ， 请 告诉 我 ！"
         }
     ],
     "conflict": false,

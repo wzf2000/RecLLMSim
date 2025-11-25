@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you're here. I could use some help planning a meal for myself. I don't have much cooking experience, so I'm hoping you can guide me through creating a recipe, figuring out the necessary ingredients, and deciding what dishes to make. Can you assist me with that?",
             "content_zh": "你好！很高兴你在这里。我需要帮助为自己计划一顿饭。我没有太多的烹饪经验，希望你能指导我如何创作菜谱，找到必要的食材，确定要做的菜。你可以帮我吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 在 这里 。 我 需要 帮助 为 自己 计划 一顿饭 。 我 没有 太多 的 烹饪 经验 ， 希望 你 能 指导 我 如何 创作 菜谱 ， 找到 必要 的 食材 ， 确定 要 做 的 菜 。 你 可以 帮 我 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 可以 ！ 我 很 乐意 帮助 您 规划 一顿饭 ， 并 指导 您 完成 整个 过程 。 让 我们 首先 讨论一下 您 想 吃 的 是 什么 类型 的 食物 。 您 是否 有 任何 特殊 的 饮食 喜好 或 限制 ？ 您 手头上 已经 有 哪些 食材 可以 使用 呢 ？"
         },
         {
             "role": "user",
             "content": "I'm not particularly picky when it comes to dietary preferences, so I'm open to different options. As for ingredients, I have some basic pantry staples like pasta, rice, canned beans, and a few vegetables like onions, tomatoes, and bell peppers. I also have some chicken breasts and ground beef in the fridge. What do you suggest I make with these ingredients?",
             "content_zh": "我在饮食偏好上并不特别挑剔，所以我对不同选择持开放态度。至于食材，我有一些基本的储藏室食材，比如意大利面、大米、罐头豆类，以及一些蔬菜如洋葱、番茄和甜椒。冰箱里还有一些鸡胸肉和碎牛肉。你觉得我可以用这些食材做些什么呢？",
             "intent": "Search",
-            "intent_zh": "检索"
+            "intent_zh": "检索",
+            "content_zh_cut": "我 在 饮食 偏好 上 并 不 特别 挑剔 ， 所以 我 对 不同 选择 持 开放 态度 。 至于 食材 ， 我 有 一些 基本 的 储藏室 食材 ， 比如 意大利 面 、 大米 、 罐头 豆类 ， 以及 一些 蔬菜 如 洋葱 、 番茄 和 甜椒 。 冰箱 里 还有 一些 鸡胸肉 和 碎 牛肉 。 你 觉得 我 可以 用 这些 食材 做些 什么 呢 ？"
         },
         {
             "role": "assistant",
@@ -37,14 +40,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "有 了 这些 食材 ， 你 有 很多 可能性 ！ 我们 用 鸡胸肉 和 碎 牛肉 可以 做 两道 不同 的 菜 怎么样 ？ 对于 鸡肉 ， 我们 可以 做 一道 味道 浓郁 且 简单 的 菜 叫做 “ 柠檬 香草 烤鸡 ” 。 而 对于 碎 牛肉 ， 我们 可以 准备 一道 美味 的 “ 一锅 牛肉 和 蔬菜 炒菜 ” 。 这些 菜谱 适合 新手 做 ， 而且 不 需要 太 多 额外 的 食材 。 \n \n 以下 是 每道菜 所 需 的 食材 ： \n \n 柠檬 香草 烤鸡 ： \n -   2 块 鸡胸肉 \n -   2 汤匙 橄榄油 \n -   1 个 柠檬 （ 挤汁 和 柠檬 皮屑 ） \n -   2 瓣 大蒜 （ 切碎 ） \n -   1 茶匙 干 香草 （ 如 百里香 、 迷迭香 或 牛 至 ） \n -   盐 和 胡椒 适量 \n \n 一锅 牛肉 和 蔬菜 炒菜 ： \n -   半磅 碎 牛肉 \n -   1 个 洋葱 （ 切片 ） \n -   1 个 灯笼椒 （ 切片 ） \n -   1 个 番茄 （ 切丁 ） \n -   1 罐豆 （ 任何 你 喜欢 的 品种 ， 沥干 和 冲洗 干净 ） \n -   2 汤匙 酱油 \n -   1 汤匙 芝麻油 （ 可 选 ） \n -   盐 和 胡椒 适量 \n \n 如果 这些 菜谱 听 起来 不错 ， 请 告诉 我 ， 我 可以 指导 你 烹饪 过程 ！"
         },
         {
             "role": "user",
             "content": "Those recipes sound great! I'm excited to give them a try. Let's start with the Baked Lemon Herb Chicken. Could you guide me through the preparation process for that dish?",
             "content_zh": "那些食谱听起来很棒！我很兴奋地想尝试一下。我们先从烤柠檬香草鸡开始吧。你可以指导我如何准备这道菜吗？",
             "intent": "Search",
-            "intent_zh": "检索"
+            "intent_zh": "检索",
+            "content_zh_cut": "那些 食谱 听 起来 很棒 ！ 我 很 兴奋 地想 尝试 一下 。 我们 先 从 烤 柠檬 香草 鸡 开始 吧 。 你 可以 指导 我 如何 准备 这 道菜 吗 ？"
         },
         {
             "role": "assistant",
@@ -53,14 +58,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ！ 以下 是 准备 烤 柠檬 香草 鸡 的 逐步 指南 ： \n 1 .   预热 烤箱 至 400 华氏度 （ 200 摄氏度 ） 。 \n 2 .   在 一个 小碗 中 ， 将 橄榄油 、 柠檬汁 、 柠檬 皮屑 、 切碎 的 大蒜 、 干 香草 、 盐 和 胡椒 混合 在 一起 ， 搅拌 均匀 ， 制作 腌料 。 \n 3 .   将 鸡胸 放入 铺 有 烘焙 纸 的 烤 盘 或 烤 盘中 。 \n 4 .   将 腌料 倒 在 鸡肉 上 ， 确保 两面 都 均匀 涂抹 。 您 可以 使用 刷子 或 简单 地用 手 均匀 涂抹 腌料 。 \n 5 .   鸡肉 均匀 涂抹 后 ， 让 其 腌制 约 15 - 20 分钟 。 这 将 使 风味 渗入 肉中 。 \n 6 .   腌制 后 ， 将 带有 鸡肉 的 烤 盘 或 烤 盘 放入 预热 的 烤箱 中 。 \n 7 .   烤 约 20 - 25 分钟 或 直到 鸡肉 达到 内部 温度 165 华氏度 （ 75 摄氏度 ） 。 烹饪 时间 可能 会因 鸡胸肉 的 厚度 而 有所不同 ， 所以 请 留意 。 \n 8 .   鸡肉 煮熟 后 ， 取出 烤箱 ， 让 其 静置 几分钟 后 再 上菜 。 这样 有助于 汁液 重新 分布 ， 使肉 嫩 滑 。 \n 9 .   搭配 您 选择 的 配菜 ， 如蒸 蔬菜 ， 烤 土豆 或 新鲜 沙拉 。 \n 就是 这样 ！ 您 现在 可以 享用 美味 又 简单 的 烤 柠檬 香草 鸡 了 。 如果 您 有 任何 问题 或 需要 帮助 ， 请 随时 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "Got it! Thank you for guiding me through the preparation process for the Baked Lemon Herb Chicken. It sounds delicious, and I can't wait to try it out. Now, let's move on to the One-Pot Beef and Vegetable Stir-Fry. Could you please provide me with the step-by-step guide for that dish as well?",
             "content_zh": "明白了！感谢您指导我准备烤柠檬香草鸡的过程。听起来很美味，我迫不及待想要尝试。现在，让我们继续准备一锅牛肉蔬菜炒。您能为这道菜提供详细的步骤指南吗？",
             "intent": "Search",
-            "intent_zh": "检索"
+            "intent_zh": "检索",
+            "content_zh_cut": "明白 了 ！ 感谢您 指导 我 准备 烤 柠檬 香草 鸡 的 过程 。 听 起来 很 美味 ， 我 迫不及待 想要 尝试 。 现在 ， 让 我们 继续 准备 一锅 牛肉 蔬菜 炒 。 您 能 为 这 道菜 提供 详细 的 步骤 指南 吗 ？"
         },
         {
             "role": "assistant",
@@ -69,14 +76,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 !   这里 是 一份 逐步 指南 ， 以 准备 一锅 牛肉 和 蔬菜 炒饭 : \n 1 .   在 中 高火下 加热 一个 大 煎锅 或 炒锅 。 在 锅 中 加入 少许 油 ( 如 蔬菜 油 或 菜籽油 ) 。 \n 2 .   一旦 油热 了 ， 将 切片 的 洋葱 和 灯笼椒 加入 煎锅 中 。 炒 大约 2 - 3 分钟 ， 直至 软化 。 \n 3 .   将 蔬菜 推到 锅 中 的 一侧 ， 将 碎 牛肉 加入 到 另一侧 。 用 锅铲 搅碎 牛肉 ， 煮 至 变色 和 熟透 。 \n 4 .   牛肉 煮熟 后 ， 将 其 与 蔬菜 混合 在 煎锅 中 。 \n 5 .   将 切碎 的 番茄 和 沥干 / 冲洗 过 的 罐装 豆 加入 煎锅 中 。 搅拌 在 一起 。 \n 6 .   在 牛肉 和 蔬菜 混合物 上 撒 上 酱油 和 芝麻油 ( 如 使用 ) 。 根据 口味 加盐 和 胡椒 调味 。 \n 7 .   继续 翻炒 2 - 3 分钟 ， 直至 调料 混合 ， 蔬菜 煮熟 到 您 所 需 的 软度 。 \n 8 .   尝试 炒菜 ， 并 根据 需要 调整 调味 。 \n 9 .   一旦 所有 东西 煮熟 ， 将 锅 从 火上 取下 。 \n 10 .   将 一锅 牛肉 和 蔬菜 炒饭 单独 享用 或 搭配 煮熟 的 米饭 或 面条 。 \n 就是 这样 !   您 现在 有 一个 简单 美味 的 一锅 牛肉 和 蔬菜 炒饭 可以 享用 了 。 随意 根据 喜好 添加 任何 额外 的 蔬菜 或 香料 。 如果 您 有 任何 进一步 的 问题 或 需要 更 多 指导 ， 我会 随时 帮忙 !"
         },
         {
             "role": "user",
             "content": "Got it! Thank you for providing the step-by-step guide for the One-Pot Beef and Vegetable Stir-Fry. It sounds like a delicious and convenient dish to make. I appreciate your guidance throughout the process. I'm excited to give it a try!\n\nI must say, you've been really helpful in assisting me with planning this meal. I feel more confident now in my cooking abilities. Is there anything else you'd recommend I try or any tips you have for someone like me who's still learning their way around the kitchen?",
             "content_zh": "知道了！谢谢你为一锅牛肉蔬菜炒提供逐步指南。听起来像是一道美味又方便的菜。我感谢你在整个过程中的指导。我很兴奋地想尝试一下！\n我必须说，你在帮助我计划这顿饭上真的很有帮助。现在我对自己的烹饪能力更有信心了。你还有什么推荐给我尝试的或者对像我这样在厨房里学习的人有什么建议吗？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "知道 了 ！ 谢谢 你 为 一锅 牛肉 蔬菜 炒 提供 逐步 指南 。 听 起来 像是 一道 美味 又 方便 的 菜 。 我 感谢 你 在 整个 过程 中 的 指导 。 我 很 兴奋 地想 尝试 一下 ！ \n 我 必须 说 ， 你 在 帮助 我 计划 这 顿饭 上 真的 很 有 帮助 。 现在 我 对 自己 的 烹饪 能力 更 有 信心 了 。 你 还有 什么 推荐 给 我 尝试 的 或者 对 像 我 这样 在 厨房 里 学习 的 人 有 什么 建议 吗 ？"
         },
         {
             "role": "assistant",
@@ -85,7 +94,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "非常 欢迎 ！ 我 很 高兴 能 帮助 您 更加 自信 地 在 厨房 中 操作 。 烹饪 可以 是 一种 有趣 和 有益 的 体验 ， 总有 新 东西 可 学 。 以下 是 一些 在 您 继续 您 的 烹饪 之 旅时 要 记住 的 提示 ：   1 .   选择 简单 的 食谱 ： 从 成分 和 步骤 较少 的 简单 食谱 开始 。 随着 信心 和 经验 的 增加 ， 您 可以 逐渐 尝试 更 复杂 的 菜肴 。   2 .   开始 前 阅读 整个 食谱 ： 在 开始 烹饪 之前 花 时间 阅读 整个 食谱 。 这 将 帮助 您 理解 所 涉及 的 步骤 ， 并 确保您 准备 好 所有 必要 的 成分 和 设备 。   3 .   提前准备 食材 ： 开始 烹饪 前 ， 花 时间 切碎 、 计量 和 准备 所有 食材 。 这 将 使 烹饪 过程 更加 顺畅 和 有条不紊 。   4 .   品尝 并 调整 ： 制作 食物 时 不要 害怕 品尝 ， 并 根据 需要 调整 调味品 。 烹饪 就是 找到 您 喜欢 的 味道 平衡 的 过程 。   5 .   尝试 并 享受 ： 不要 害怕 尝试 不同 的 口味 、 食材 和 技巧 。 烹饪 是 一个 创造性 的 过程 ， 所以 欢迎 为 食谱 增添 自己 的 个人 味道 。   6 .   从 错误 中 学习 ： 如果 某些 东西 做 得 不 完美 ， 不要 担心 。 错误 是 难免 的 ， 并且 可以 是 宝贵 的 学习 经验 。 记录 下 出错 的 原因 ， 并 在 下次 尝试 时 再次 尝试 。   7 .   继续 学习 ： 有 无数 资源 可 帮助 您 提高 烹饪 技能 。 观看 烹饪 节目 、 阅读 食谱 、 关注 在线教程 ， 不要 犹豫 向 经验丰富 的 厨师 寻求 建议 或 技巧 。   记住 ， 烹饪 是 一个 旅程 ， 练习 得 越 多 ， 您 就 会 变得 越 好 。 享受 这个 过程 ， 在 厨房 中 享受 乐趣 ， 并 在 需要 时 随时 寻求 帮助 。 祝您 烹饪 愉快 ！"
         }
     ],
     "conflict": false,

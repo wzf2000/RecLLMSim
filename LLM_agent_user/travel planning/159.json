@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you're here. I'm in the process of planning a thirty-day-long trip this summer, and I'm looking for assistance in refining my travel plans. I want to make sure my itinerary is comprehensive and realistic. Are you able to help me with that?",
             "content_zh": "你好！很高兴你在这里。我正在计划今年夏天一个为期三十天的旅行，我正在寻找帮助来完善我的旅行计划。我想确保我的行程安排全面而且切实可行。你能帮助我吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 在 这里 。 我 正在 计划 今年夏天 一个 为期 三十天 的 旅行 ， 我 正在 寻找 帮助 来 完善 我 的 旅行 计划 。 我 想 确保 我 的 行程 安排 全面 而且 切实可行 。 你 能 帮助 我 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "你好 ！ 很 高兴 能 在 这里 帮助 您 制定 旅行 计划 。 我会 尽力 帮助 您 优化 行程 ， 使 之 更加 全面 和 切实可行 。 您 今年夏天 打算 去 哪里 进行 为期 三十天 的 旅行 呢 ？"
         },
         {
             "role": "user",
             "content": "Thank you for your willingness to assist me! Since I have no specific destination restrictions, I'm open to exploring different places. I enjoy a mix of cultural experiences, natural beauty, and historical sites. Do you have any recommendations for destinations that offer a combination of these elements?",
             "content_zh": "谢谢你愿意帮助我！由于我没有特定的目的地限制，我愿意探索不同的地方。我喜欢文化体验，自然美景和历史遗迹的结合。你有没有对于提供这些元素组合的目的地的推荐？",
             "intent": "Search",
-            "intent_zh": "检索"
+            "intent_zh": "检索",
+            "content_zh_cut": "谢谢 你 愿意 帮助 我 ！ 由于 我 没有 特定 的 目的地 限制 ， 我 愿意 探索 不同 的 地方 。 我 喜欢 文化 体验 ， 自然 美景 和 历史 遗迹 的 结合 。 你 有没有 对于 提供 这些 元素 组合 的 目的地 的 推荐 ？"
         },
         {
             "role": "assistant",
@@ -38,14 +41,16 @@
                 "hallucination": false,
                 "memo": "Translation Problem Fixed"
             },
-            "content_zh_old": "这听起来像是一个绝佳的旅行方式！有许多目的地提供了丰富的文化体验、自然美景和历史遗迹。以下是一些建议供您参考：\n\n1. 意大利：拥有悠久历史、迷人建筑和美味美食的意大利是一个绝佳选择。您可以探索罗马、佛罗伦萨和威尼斯等城市的历史遗迹和艺术珍宝。不要错过风景如画的阿马尔菲海岸和托斯卡纳美丽的乡村。\n\n2. 日本：这个国家巧妙地融合了古代传统和现代创新。东京提供了充满活力的城市体验，而京都以其寺庙和传统文化闻名。自然爱好者会欣赏到富士山和北海道等地的宁静美景。\n\n3. 秘鲁：如果您对古代文明感兴趣，秘鲁是一个必去之地。探索马丘比丘和神圣山谷的历史奇迹。您还可以体验利马和库斯科等城市的充满活力的文化，并进入亚马逊雨林体验独特的自然之旅。\n\n4. 希腊：以其迷人的历史和壮丽的风景闻名，希腊提供了文化与自然之美的完美结合。参观雅典的古迹，然后在圣托里尼、米科诺斯和克里特岛之间穿梭，欣赏风景如画的海滩和迷人的村庄。\n\n5. 新西兰：如果您在寻找多样化的自然美景，新西兰是一个很好的选择。从米尔福德峡湾的壮丽峡湾到罗托鲁瓦的地热奇观和皇后镇的冒险之都，这个国家为每个人都提供了一些东西。\n\n这些只是一些启动您的想法。如果您想了解更具体的建议或对某个特定地区感兴趣，请告诉我！"
+            "content_zh_old": "这听起来像是一个绝佳的旅行方式！有许多目的地提供了丰富的文化体验、自然美景和历史遗迹。以下是一些建议供您参考：\n\n1. 意大利：拥有悠久历史、迷人建筑和美味美食的意大利是一个绝佳选择。您可以探索罗马、佛罗伦萨和威尼斯等城市的历史遗迹和艺术珍宝。不要错过风景如画的阿马尔菲海岸和托斯卡纳美丽的乡村。\n\n2. 日本：这个国家巧妙地融合了古代传统和现代创新。东京提供了充满活力的城市体验，而京都以其寺庙和传统文化闻名。自然爱好者会欣赏到富士山和北海道等地的宁静美景。\n\n3. 秘鲁：如果您对古代文明感兴趣，秘鲁是一个必去之地。探索马丘比丘和神圣山谷的历史奇迹。您还可以体验利马和库斯科等城市的充满活力的文化，并进入亚马逊雨林体验独特的自然之旅。\n\n4. 希腊：以其迷人的历史和壮丽的风景闻名，希腊提供了文化与自然之美的完美结合。参观雅典的古迹，然后在圣托里尼、米科诺斯和克里特岛之间穿梭，欣赏风景如画的海滩和迷人的村庄。\n\n5. 新西兰：如果您在寻找多样化的自然美景，新西兰是一个很好的选择。从米尔福德峡湾的壮丽峡湾到罗托鲁瓦的地热奇观和皇后镇的冒险之都，这个国家为每个人都提供了一些东西。\n\n这些只是一些启动您的想法。如果您想了解更具体的建议或对某个特定地区感兴趣，请告诉我！",
+            "content_zh_cut": "这 听 起来 是 对 你 的 旅行 一个 极好 的 方法 ！ 有 许多 目的地 提供 了 文化 体验 、 自然 美景 和 历史 遗迹 的 完美 结合 。 以下 是 一些 建议 供 你 考虑 ： \n \n 1 .   意大利 ： 凭借 其 丰富 的 历史 、 惊人 的 建筑 和 令人 垂涎 的 美食 ， 意大利 是 一个 不错 的 选择 。 你 可以 探索 罗马 、 佛罗伦萨 和 威尼斯 等 城市 的 历史 遗址 和 艺术 珍品 。 不要 错过 风景如画 的 阿 马尔菲 海岸 或 托斯卡纳 美丽 的 乡村 。 \n \n 2 .   日本 ： 这个 国家 将 古老 的 传统 与 现代 创新 完美 融合 。 东京 提供 充满活力 的 城市 体验 ， 而 京都 以 其 寺庙 和 传统 文化 而 闻名 。 自然 爱好者 会 欣赏 富士山 和 北海道 岛 等 地 的 宁静 美景 。 \n \n 3 .   秘鲁 ： 如果 你 对 古代文明 感兴趣 ， 秘鲁 是 必游 之 地 。 探索 马丘比丘 和 圣谷 的 历史 奇迹 。 你 还 可以 体验 利马 和 库斯科 等 城市 的 活力 文化 ， 并 进入 亚马逊 雨林 以 获得 独特 的 自然 体验 。 \n \n 4 .   希腊 ： 以 其 迷人 的 历史 和 令人 叹为观止 的 风景 而 闻名 ， 希腊 提供 了 文化 和 自然 美景 的 完美 融合 。 访问 雅典 的 古代 遗迹 ， 然后 跳岛 至圣 托 里尼 、 米克 诺斯 和 克里特 等 令人惊叹 的 岛屿 ， 欣赏 风景如画 的 海滩 和 迷人 的 村庄 。 \n \n 5 .   新西兰 ： 如果 你 在 寻找 多样 的 自然 美景 ， 新西兰 是 一个 很 好 的 选择 。 从 米尔福德 峡湾 的 壮丽 峡湾 到 罗托鲁 瓦 的 地热 奇观 以及 皇后 镇 这个 冒险 之 都 ， 这个 国家 为 每个 人 提供 了 一些 东西 。 \n \n 这些 只是 一些 让 你 开始 的 想法 。 如果 你 想要 更 具体 的 建议 ， 或者 对 某个 特定 地区 感兴趣 ， 请 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "Thank you for the wonderful recommendations! Italy, Japan, Peru, Greece, and New Zealand all sound like amazing destinations with a mix of cultural experiences, natural beauty, and historical sites. I'm particularly drawn to the idea of exploring Japan's blend of ancient traditions and modern innovation. Could you provide more specific suggestions for an itinerary in Japan that covers both cultural and natural attractions?",
             "content_zh": "感谢您的精彩推荐！意大利、日本、秘鲁、希腊和新西兰都听起来是令人惊叹的目的地，有各种文化体验、自然美景和历史遗迹。我特别向往探索日本古老传统与现代创新融合的理念。您能提供更具体的建议，涵盖日本文化和自然景点的行程安排吗？",
             "intent": "Planning",
-            "intent_zh": "规划"
+            "intent_zh": "规划",
+            "content_zh_cut": "感谢您 的 精彩 推荐 ！ 意大利 、 日本 、 秘鲁 、 希腊 和 新西兰 都 听 起来 是 令人惊叹 的 目的地 ， 有 各种 文化 体验 、 自然 美景 和 历史 遗迹 。 我 特别 向往 探索 日本 古老 传统 与 现代 创新 融合 的 理念 。 您 能 提供 更 具体 的 建议 ， 涵盖 日本 文化 和 自然 景点 的 行程 安排 吗 ？"
         },
         {
             "role": "assistant",
@@ -54,14 +59,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ！ 日本 是 一个 迷人 的 国家 ， 融合 了 古老 传统 和 现代 奇迹 。 以下 是 一个 涵盖 文化 和 自然 景点 的 全面 旅行 样本 行程 ： \n \n 第 1 - 4 天 ： 东京   -   在 这个 繁华 的 首都 开始 你 的 旅程 。 探索 浅草 和 上野 等 历史悠久 的 街区 ， 参观 宏伟 的 明治 神宫 ， 体验 新宿 的 夜生活 。 不要 错过 从 东京 晴空 塔 或 东京 塔上 俯瞰 的 标志性 景色 。 \n \n 第 5 - 8 天 ： 京都   -   乘坐 新干线 前往 日本 的 文化 中心 京都 。 花 几天 时间 探索 这座 城市 众多 的 寺庙 和 神社 ， 如 金阁寺 和 伏见 稻荷 大社 。 参观 迷人 的 岚山 竹林 ， 体验 传统 茶道 。 \n \n 第 9 - 12 天 ： 广岛 和 宫岛   -   前往 广岛 ， 参观 和平 纪念 公园 和 博物馆 ， 了解 这座 城市 的 历史 。 乘坐 短途 渡轮 前往 以 标志性 浮动 鸟居 门 和 风景优美 的 徒步 小径 而 闻名 的 宫岛 。 \n \n 第 13 - 16 天 ： 大阪 和 奈良   -   前往 繁华 的 大阪 ， 以 其 街头 食品 和 热闹 气氛 而 闻名 。 参观 大阪 城 ， 探索 繁华 的 道 顿 堀区 。 前往 奈良 进行 一日游 ， 参观 著名 的 东大寺 和 在 奈良 公园 里 喂食 友好 的 鹿 。 \n \n 第 17 - 20 天 ： 北海道   -   飞往 北海道 首府 札幌 。 享受 城市 热闹 的 美食 场景 ， 参观 大通 公园 和 札幌 啤酒 博物馆 等 景点 。 探索 北海道 的 自然 美景 ， 如 令人 叹为观止 的 知床 国立 公园 或 风景如画 的 富良野 和 美瑛 地区 。 \n \n 第 21 - 24 天 ： 京都 （ 再次 ） -   返回 京都 进一步 探索 其 文化 宝藏 。 发现 岚山 竹林 的 宁静 之美 ， 参观 标志性 的 清水 寺 ， 体验 祗 园 地区 的 传统 艺妓 表演 。 \n \n 第 25 - 30 天 ： 东京 （ 再次 ） 和 一日游   -   返回 东京 ， 并 将 其 作为 前往 附近 景点 的 基地 。 前往 日光 参观 令人惊叹 的 东照宫 ， 探索 风景优美 的 箱根 地区 以及 富士山 的 景色 ， 或者 前往 镰仓 参观 著名 的 大佛 。 \n \n 记得 根据 你 的 特定 兴趣 和 想 在 每个 地点 花费 的 时间 调整 行程 。 日本 还有 无数 其他 景点 ， 根据 你 的 喜好 随意 探索 更 多 。 祝 你 旅途愉快 ！"
         },
         {
             "role": "user",
             "content": "Thank you for the detailed itinerary! Exploring Tokyo, Kyoto, Hiroshima, Osaka, Nara, Hokkaido, and taking day trips to nearby attractions sounds like a fantastic way to experience the cultural and natural wonders of Japan. I will definitely consider these suggestions and make adjustments based on my preferences and the time available. I appreciate your help in refining my travel plans!",
             "content_zh": "感谢您提供详细的行程安排！探索东京、京都、广岛、大阪、奈良、北海道，并且进行日行旅行到附近景点，听起来是体验日本文化和自然奇觉的绝佳方式。我一定会考虑这些建议，并根据我的喜好和时间进行调整。感谢您帮助我完善我的旅行计划！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "感谢您 提供 详细 的 行程 安排 ！ 探索 东京 、 京都 、 广岛 、 大阪 、 奈良 、 北海道 ， 并且 进行 日行 旅行 到 附近 景点 ， 听 起来 是 体验 日本 文化 和 自然 奇觉 的 绝佳 方式 。 我 一定 会 考虑 这些 建议 ， 并 根据 我 的 喜好 和 时间 进行 调整 。 感谢您 帮助 我 完善 我 的 旅行 计划 ！"
         },
         {
             "role": "assistant",
@@ -70,7 +77,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "不 客气 ！ 我 很 高兴 你 觉得 这个 行程 有 帮助 。 日本 是 一个 迷人 的 国家 ， 拥有 很多 值得 探索 的 文化 和 自然 奇观 ， 我 相信 你 会 度过 一个 令人难忘 的 时光 。 记得 在 计划 中 留下 一些 弹性 ， 以便 在 路上 发现 意外 的 惊喜 。 如果 你 有 更 多 问题 或 需要 进一步 帮助 ， 随时 问 我 。 祝 旅途愉快 ， 享受 你 在 日本 的 行程 ！"
         }
     ],
     "conflict": false,

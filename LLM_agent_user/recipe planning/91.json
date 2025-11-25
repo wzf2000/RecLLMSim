@@ -12,7 +12,8 @@
             "content": "Hello! I would like your assistance in preparing a meal at home. I'm not very skilled in cooking and have limited experience, so I could use some guidance. Could you help me create a recipe, determine the necessary ingredients, and decide what dishes to make?",
             "content_zh": "你好！我想请你帮助我在家准备一顿饭。我不太擅长烹饪，经验也有限，所以需要一些指导。你可以帮我制定食谱，确定所需的食材，以及决定要做哪些菜吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 我 想 请 你 帮助 我 在家 准备 一顿饭 。 我 不 太 擅长 烹饪 ， 经验 也 有限 ， 所以 需要 一些 指导 。 你 可以 帮 我 制定 食谱 ， 确定 所 需 的 食材 ， 以及 决定 要 做 哪些 菜 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ， 我 很 乐意 帮助 你 ！ 让 我们 先 决定 你 想要 的 菜系 。 你 有 任何 偏好 或 饮食 限制 吗 ？ 一旦 我们 知道 了 ， 我们 就 可以 想 出 一个 菜谱 ， 并列 出 你 需要 的 食材 清单 。"
         },
         {
             "role": "user",
             "content": "I'm feeling adventurous today, so let's try something new and exciting! I'm also a fan of vegan food, so it would be great if we could incorporate that into the meal. As for dietary restrictions, I don't have any specific ones. What type of cuisine do you think would be a good fit for my preferences?",
             "content_zh": "今天我感到冒险，所以让我们尝试一些新的刺激吧！我也喜欢素食，所以如果能把它融入餐食中会很棒。至于饮食限制，我没有任何特定的。你认为哪种菜系会最适合我的口味呢？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "今天 我 感到 冒险 ， 所以 让 我们 尝试 一些 新 的 刺激 吧 ！ 我 也 喜欢 素食 ， 所以 如果 能 把 它 融入 餐食 中 会 很棒 。 至于 饮食 限制 ， 我 没有 任何 特定 的 。 你 认为 哪 种 菜系 会 最 适合 我 的 口味 呢 ？"
         },
         {
             "role": "assistant",
@@ -37,14 +40,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "听 起来 像是 一个 有趣 的 挑战 ！ 我们 来 探索 一下 泰国菜 的 口味 吧 ？ 泰国 食物 通常 融入 了 各种 新鲜 的 草药 、 香料 和 蔬菜 ， 可以 很 容易 地 适应 素食 主义 饮食 。 我们 可以 制作 的 一个 受欢迎 且 美味 的 泰式 菜肴 是 素食 泰式 青 咖喱 配 豆腐 和 蔬菜 。 它 味道 浓郁 ， 香气 四溢 ， 富含 营养 ！ \n \n 以下 是 素食 泰式 青 咖喱 的 简单 食谱 ： \n \n 配料 ： \n -   1 汤匙 植物油 \n -   1 个 洋葱 ， 切成 薄片 \n -   2 瓣 大蒜 ， 切碎 \n -   1 汤匙 青 咖喱 酱 （ 根据 口味 调整 ） \n -   1 听 （ 400 毫升 ） 椰奶 \n -   1 杯 蔬菜 高汤 \n -   200 克 豆腐 ， 切丁 \n -   各种 蔬菜 （ 如 甜椒 、 西兰花 、 胡萝卜 和 荷兰豆 ） ， 切片 或 切碎 \n -   2 汤匙 酱油 \n -   1 汤匙 红糖 （ 可 选 ） \n -   新鲜 罗勒 叶 ， 用于 装饰 \n -   煮熟 的 米饭 或 面条 ， 用于 食用 \n \n 做法 ： \n 1 .   在 中火 加热 一个 大 平底锅 或 炒锅 中 的 植物油 。 加入 薄片 洋葱 和 切碎 的 大蒜 ， 炒至 香气扑鼻 并 略微 变软 。 \n 2 .   加入 青 咖喱 酱 ， 炒约 一两分钟 ， 直至 飘香 。 \n 3 .   倒入 椰奶 和 蔬菜 高汤 ， 将 混合物 煮沸 。 \n 4 .   将切 丁 的 豆腐 和 各种 蔬菜 加入 锅中 。 煮沸 约 10 - 15 分钟 ， 直至 蔬菜 变软 ， 味道 融合 在 一起 。 \n 5 .   加入 酱油 和 红糖 （ 如 有 需要 ） 以 增添 风味 。 品尝 并 根据 个人 口味 调整 调味 。 \n 6 .   当 咖喱 煮 好 后 ， 可 将 其盛 在 煮熟 的 米饭 或 面条 上 。 用 新鲜 罗勒 叶 装饰 。 \n \n 这个 食谱 只是 一个 起点 ， 欢迎 根据 自己 的 口味 进行 定制 。 如果 你 喜欢 更 辛辣 的 咖喱 ， 可以 加入 更 多 的 青 咖喱 酱 甚至 一些 切碎 的 泰国 辣椒 。 你 也 可以 尝试 不同 的 蔬菜 或 挤 一些 酸 柑汁 增添 一丝 酸味 。 享受 你 自制 的 素食 泰式 青 咖喱 吧 ！"
         },
         {
             "role": "user",
             "content": "Wow, that recipe sounds absolutely delicious! I love the idea of making a Vegan Thai Green Curry with tofu and assorted vegetables. The combination of flavors and aromas is sure to be delightful. I appreciate the detailed instructions and the flexibility to customize the curry to my liking. I can't wait to give it a try!\n\nNow, as for the order of preparing the dishes, should I focus solely on making the Vegan Thai Green Curry, or would you like me to plan additional dishes to accompany it?",
             "content_zh": "哇，那个食谱听起来绝对美味！我喜欢用豆腐和各种蔬菜做素食泰式青咖喱的想法。各种口味和香气的组合一定很美味。我感激详细的说明和根据自己口味定制咖喱的灵活性。我迫不及待想尝试！\n\n至于菜肴的准备顺序，我应该专注于制作素食泰式青咖喱，还是您想让我计划额外的配菜呢？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "哇 ， 那个 食谱 听 起来 绝对 美味 ！ 我 喜欢 用 豆腐 和 各种 蔬菜 做 素食 泰式 青 咖喱 的 想法 。 各种 口味 和 香气 的 组合 一定 很 美味 。 我 感激 详细 的 说明 和 根据 自己 口味 定制 咖喱 的 灵活性 。 我 迫不及待 想 尝试 ！ \n \n 至于 菜肴 的 准备 顺序 ， 我 应该 专注 于 制作 素食 泰式 青 咖喱 ， 还是 您 想 让 我 计划 额外 的 配菜 呢 ？"
         },
         {
             "role": "assistant",
@@ -53,14 +58,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "很 高兴 你 对 这道 菜谱 感到 兴奋 ！ 素食 泰式 青 咖喱 将 成为 令人 满足 的 主菜 ， 但 如果 你 想要 一些 搭配 的 菜肴 来 丰富 餐食 ， 我 有 一些 建议 。 \n \n 首先 ， 你 可以 准备 一个 简单 的 开胃菜 ， 比如 带 花生 蘸 酱 的 泰式 春卷 。 这些 清爽 的 春卷 里 装满 了 脆 蔬菜 和 香草 ， 它们 非常适合 零食 或 作为 前菜 。 \n \n 作为 配菜 ， 你 可以 制作 一个 泰式 芒果 沙拉 。 这是 一道 充满 甜 和 酸味 的 活力 组合 ， 非常 搭配 咖喱 。 简单 地 将 切片 熟 芒果 、 混合 生菜 、 樱桃 番茄 、 红 洋葱 、 香菜 和 用 青 柠檬汁 、 酱油 和 少许 龙舌兰 糖 调制 的 酱汁 一起 拌匀 。 \n \n 最后 ， 作为 一个 甜点 ， 怎么样 来 一份 素食 椰子 芒果 糯米饭 ？ 这是 一道 经典 的 泰式 甜点 ， 既奶 香 又 芳香 。 简单 地 煮 糯米 ， 蒸熟 ， 再 搭配 切片 熟 芒果 和 用 椰奶 、 糖 和 一丁点 盐 调制 而成 的 甜 椰子 酱 。 \n \n 通过 准备 这些 额外 的 菜肴 ， 你 将 拥有 一个 完整 的 泰式 餐 ， 一定 会 给 人 留下 深刻印象 ！ 记得 根据 所 需 的 份量 调整 食材 用量 。 享受 你 的 烹饪 之旅 ！"
         },
         {
             "role": "user",
             "content": "Thank you for the wonderful suggestions! Fresh Thai Spring Rolls, Mango Salad, and Vegan Coconut Mango Sticky Rice all sound like fantastic additions to the meal. I love the idea of having a light and refreshing appetizer, a flavorful side dish, and a delightful dessert to complete the Thai-inspired experience.\n\nI'll make sure to adjust the quantities accordingly and follow the recipes you provided. I can already imagine how the different flavors and textures will complement each other.\n\nThank you so much for your help in planning this meal. I'm feeling inspired and confident to give it a try. I can't wait to enjoy the Vegan Thai Green Curry, Fresh Thai Spring Rolls, Mango Salad, and Vegan Coconut Mango Sticky Rice. It's going to be a fantastic feast!\n\nIs there anything else I should keep in mind or any other tips you have for me before I get started?",
             "content_zh": "谢谢你提供的精彩建议！清新的泰式春卷、芒果沙拉和素食椰汁芒果糯米饭听起来都是美妙的加餐选择。我喜欢这个想法，把一个清爽开胃菜、一个美味的配菜和一个可口的甜点结合起来，完美地呈现泰式风味体验。 我会根据提供的食谱做一些调整，并且跟随你提供的菜谱制作。我已经能够想象不同的味道和口感如何相辅相成。 谢谢你在计划这顿饭上的帮助。我感到很受启发和有信心尝试制作这些食物。我迫不及待想享用素食泰式青咖喱、清新的泰式春卷、芒果沙拉和素食椰汁芒果糯米饭。这将是一场美妙的盛宴！ 在开始之前，你还有什么建议或者要我注意的事情吗？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "谢谢 你 提供 的 精彩 建议 ！ 清新 的 泰式 春卷 、 芒果 沙拉 和 素食 椰汁 芒果 糯米饭 听 起来 都 是 美妙 的 加餐 选择 。 我 喜欢 这个 想法 ， 把 一个 清爽 开胃菜 、 一个 美味 的 配菜 和 一个 可口 的 甜点 结合 起来 ， 完美 地 呈现 泰式 风味 体验 。   我会 根据 提供 的 食谱 做 一些 调整 ， 并且 跟随 你 提供 的 菜谱 制作 。 我 已经 能够 想象 不同 的 味道 和 口感 如何 相辅相成 。   谢谢 你 在 计划 这 顿饭 上 的 帮助 。 我 感到 很受 启发 和 有 信心 尝试 制作 这些 食物 。 我 迫不及待 想 享用 素食 泰式 青 咖喱 、 清新 的 泰式 春卷 、 芒果 沙拉 和 素食 椰汁 芒果 糯米饭 。 这 将 是 一场 美妙 的 盛宴 ！   在 开始 之前 ， 你 还有 什么 建议 或者 要 我 注意 的 事情 吗 ？"
         },
         {
             "role": "assistant",
@@ -69,7 +76,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "非常 欢迎 ！ 我 很 高兴 您 感到 受到 启发 和 自信 尝试 这些 食谱 。 听 起来 您 将 会 有 一个 品种 丰富 口味 多样 的 美食 盛宴 。 \n 在 您 开始 之前 ， 请 记住 以下几点 ： \n \n 1 .   提前准备 ： 为了 让 烹饪 过程 更加 顺利 ， 尽量 提前准备 好 食材 。 切好 蔬菜 ， 切 成丁 的 豆腐 ， 并 在 开始 烹饪 之前 准备 好 所有 材料 。 这 将 有助于 您 保持 组织 有序 并 节省时间 。 \n \n 2 .   品尝 并 调整 ： 在 烹饪 过程 中 ， 时刻 品尝 您 的 菜肴 。 根据 您 的 口味 调整 调味料 、 甜度 或 辛辣 度 。 烹饪 关乎 探索 口味 ， 所以 请 随意 进行 任何 修改 。 \n \n 3 .   玩 出 新意 ： 当 您 准备 上餐 时 ， 请 不要 忘记 装饰 。 将 春卷 整齐 地 摆放 在 一个 盘子 上 ， 用 新鲜 的 罗勒 叶 点缀 咖喱 ， 以 吸引 人 的 方式 呈现 糯米 和 芒果 。 美学 可以 增强 用餐 体验 。 \n \n 4 .   享受 过程 ： 烹饪 不仅 关乎 最终 结果 ， 还 关乎 过程 。 拥抱 这一 体验 ， 享受 其中 ， 并 不要 太 担心 完美 。 烹饪 是 一个 学习 过程 ， 每次 尝试 都 会 带来 新 的 知识 和 技能 。 \n \n 希望 这些 提示 能 帮助 您 拥有 成功 且 愉快 的 烹饪 体验 。 如果 您 在 过程 中有 更 多 问题 ， 请 随时 提问 。 享受 您 的 泰式 盛宴 吧 ！"
         }
     ],
     "conflict": false,

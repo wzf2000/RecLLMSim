@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you're here. I could use your help in planning a special meal for myself and my loved one. As a skilled cook, I want to create a memorable dining experience. Could you assist me in creating a recipe, determining the necessary ingredients, and deciding what dishes to make?",
             "content_zh": "你好！很高兴你在这里。我需要你的帮助来规划一顿特别的餐饮，为我和我爱的人。作为一个熟练的厨师，我想要打造一个难忘的用餐体验。你能帮我制定食谱、确定所需食材，并决定要做哪些菜吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 在 这里 。 我 需要 你 的 帮助 来 规划 一顿 特别 的 餐饮 ， 为 我 和 我 爱 的 人 。 作为 一个 熟练 的 厨师 ， 我 想要 打造 一个 难忘 的 用餐 体验 。 你 能 帮 我 制定 食谱 、 确定 所 需食材 ， 并 决定 要 做 哪些 菜 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ， 我 很 乐意 帮助 你 计划 一顿 特别 的 餐 ！ 创造 一个 难忘 的 就餐 体验 ， 关键 是 结合 美味 的 口味 、 精美 的 呈现 和 一点 创意 。 让 我们 从 讨论 你 心中 想要 的 美食 类型 或 具体 菜肴 开始 吧 。 你 有 什么 偏好 或 饮食 限制 吗 ？"
         },
         {
             "role": "user",
             "content": "Thank you for your willingness to assist me. I don't have any specific cuisine in mind, but I would like to prepare a meal that showcases a variety of flavors. We don't have any dietary restrictions, so we have the freedom to explore different options. I want to impress my loved one with a multi-course meal, so any suggestions for appetizers, main courses, and desserts would be appreciated.",
             "content_zh": "感谢你愿意帮助我。我没有特定的菜系在心里，但我想准备一顿展现多种口味的餐。我们没有任何饮食限制，所以可以自由地探索不同的选择。我想用一顿多道菜来打动我所爱的人，所以如果有关于开胃菜、主菜和甜点的建议将不胜感激。",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "感谢 你 愿意 帮助 我 。 我 没有 特定 的 菜系 在 心里 ， 但 我 想 准备 一顿 展现 多种 口味 的 餐 。 我们 没有 任何 饮食 限制 ， 所以 可以 自由 地 探索 不同 的 选择 。 我 想 用 一顿 多 道菜 来 打动 我 所 爱 的 人 ， 所以 如果 有 关于 开胃菜 、 主菜 和 甜点 的 建议 将 不胜感激 。"
         },
         {
             "role": "assistant",
@@ -38,14 +41,16 @@
                 "hallucination": false,
                 "memo": "Translation Problem Fixed"
             },
-            "content_zh_old": "听起来太棒了！一顿多道菜的餐点是创造一个难忘的用餐体验的好办法。让我们开始头脑风暴一些每道菜的想法。对于开胃菜，您可以考虑一些清淡爽口的选择，比如柑橘味的虾沙拉或番茄香菜意式小土司。或者，如果您喜欢温暖和令人安慰的食物，您可以选择奶油蘑菇汤或酥脆的培根卷扇贝。接着是主菜，您有很多选择。您和您的爱人特别喜欢哪些蛋白质？例如，您可以准备一个完美的煎牛排配红酒酱，或者一道带柠檬莳萝酱的烤鲑鱼。如果您感觉冒险，甚至可以尝试制作自制意大利面菜肴，比如奢华的龙虾馄饨或浓郁的卡邦尼通心粉。最后，让我们谈谈甜点！这是您放纵自己甜食爱好的机会。如果您两位都是巧克力爱好者，熔岩蛋糕或巧克力慕斯可能是一个完美的选择。或者，您可以制作基于水果的甜点，例如带有酥皮的经典苹果派或清爽的混合浆果挞。一旦我们更清楚您想制作的具体菜肴，我们就可以深入了解食谱细节并确定所需食材。请告诉我您偏向的想法，然后我们可以继续进一步讨论！"
+            "content_zh_old": "听起来太棒了！一顿多道菜的餐点是创造一个难忘的用餐体验的好办法。让我们开始头脑风暴一些每道菜的想法。对于开胃菜，您可以考虑一些清淡爽口的选择，比如柑橘味的虾沙拉或番茄香菜意式小土司。或者，如果您喜欢温暖和令人安慰的食物，您可以选择奶油蘑菇汤或酥脆的培根卷扇贝。接着是主菜，您有很多选择。您和您的爱人特别喜欢哪些蛋白质？例如，您可以准备一个完美的煎牛排配红酒酱，或者一道带柠檬莳萝酱的烤鲑鱼。如果您感觉冒险，甚至可以尝试制作自制意大利面菜肴，比如奢华的龙虾馄饨或浓郁的卡邦尼通心粉。最后，让我们谈谈甜点！这是您放纵自己甜食爱好的机会。如果您两位都是巧克力爱好者，熔岩蛋糕或巧克力慕斯可能是一个完美的选择。或者，您可以制作基于水果的甜点，例如带有酥皮的经典苹果派或清爽的混合浆果挞。一旦我们更清楚您想制作的具体菜肴，我们就可以深入了解食谱细节并确定所需食材。请告诉我您偏向的想法，然后我们可以继续进一步讨论！",
+            "content_zh_cut": "这 听 起来 太棒了 ！ 多 道菜 的 餐点 是 创造 难忘 用餐 体验 的 绝佳 方式 。 让 我们 开始 头脑 风暴 ， 为 每个 菜单 想 一些 点子 。 对于 开胃菜 ， 你 可以 考虑 一些 轻盈 且 提神 的 食物 ， 比如 柑橘 味 的 虾仁 酸 橘汁 腌鱼 或者 新鲜 番茄 和 罗勒 的 意式 烤面包 。 或者 ， 如果 你 更 喜欢 温暖 且 令人 安慰 的 食物 ， 你 可以 选择 奶油 蘑菇 汤 或者 脆皮 培根 包裹 的 扇贝 。 接下来 是 主菜 ， 你 有 很多 选择 。 有没有 你 和 你 爱 的 人 特别 喜欢 的 蛋白质 ？ 例如 ， 你 可以 准备 一个 完美 的 煎 牛排 配 红酒 汁 ， 或者 是 烤 三文鱼 配 柠檬 莳萝 酱 。 如果 你 想 尝试 一些 冒险 的 菜肴 ， 你 甚至 可以 尝试 自制 意大利 面食 ， 比如 奢华 的 龙虾 饺子 或者 浓郁 的 卡 邦尼 意 面 。 最后 ， 我们 来 谈谈 甜点 ！ 这 是 你 放纵 甜食 欲望 的 机会 。 如果 你们 都 是 巧克力 爱好者 ， 一个 熔岩 蛋糕 或者 巧克力 慕斯 可能 是 完美 的 选择 。 或者 ， 你 可以 制作 一个 基于 水果 的 甜点 ， 比如 经典 的 苹果派 配 酥皮 或者 清新 的 混合 浆果 挞 。 一旦 我们 对 你 想要 制作 的 具体 菜肴 有 了 更好 的 了解 ， 我们 就 可以 深入 到 食谱 细节 并 确定 所 需 的 食材 。 告诉 我 你 倾向 于 哪些 想法 ， 我们 可以 从 那里 继续 ！"
         },
         {
             "role": "user",
             "content": "I appreciate your suggestions! They all sound delicious and I'm having a hard time choosing just one option for each course. For the appetizer, I think the bruschetta with fresh tomatoes and basil would be a great choice to start the meal with a burst of flavors.\n\nAs for the main course, I'm leaning towards the idea of a perfectly seared steak with a red wine reduction. The combination of tender steak and rich sauce is sure to impress. And for dessert, I think the molten lava cake would be a decadent and indulgent way to end the meal.\n\nNow that we have an idea of the dishes, I'd love to dive into the recipe details and determine the necessary ingredients. Let's start with the bruschetta. How would you suggest preparing it?",
             "content_zh": "我很感谢你的建议！它们听起来都很美味，我很难选择每道菜的一个选项。对于开胃菜，我认为用新鲜番茄和罗勒做的意大利烤面包将是一个开胃的选择，可以让人感受到一股味蕾的冲击。\n至于主菜，我倾向于用红酒减量法完美煎烤牛排的想法。嫩牛排和浓郁的酱汁的组合一定会给人留下深刻的印象。至于甜点，我认为熔岩巧克力蛋糕将是一个华丽而奢侈的方式来结束这顿饭。\n既然我们已经有了菜肴的想法，我很想深入了解烹饪细节并确定所需的配料。我们从意大利烤面包开始吧。你会如何建议准备它呢？",
             "intent": "Search & Recommendation",
-            "intent_zh": "检索+推荐"
+            "intent_zh": "检索+推荐",
+            "content_zh_cut": "我 很 感谢 你 的 建议 ！ 它们 听 起来 都 很 美味 ， 我 很 难 选择 每道菜 的 一个 选项 。 对于 开胃菜 ， 我 认为 用 新鲜 番茄 和 罗勒 做 的 意大利 烤面包 将 是 一个 开胃 的 选择 ， 可以 让 人 感受 到 一股 味蕾 的 冲击 。 \n 至于 主菜 ， 我 倾向 于用 红酒 减量 法 完美 煎 烤 牛排 的 想法 。 嫩 牛排 和 浓郁 的 酱汁 的 组合 一定 会 给 人 留下 深刻 的 印象 。 至于 甜点 ， 我 认为 熔岩 巧克力 蛋糕 将 是 一个 华丽 而 奢侈 的 方式 来 结束 这 顿饭 。 \n 既然 我们 已经 有 了 菜肴 的 想法 ， 我 很 想 深入 了解 烹饪 细节 并 确定 所 需 的 配料 。 我们 从 意大利 烤面包 开始 吧 。 你 会 如何 建议 准备 它 呢 ？"
         },
         {
             "role": "assistant",
@@ -54,14 +59,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "很棒 的 选择 ！   配有 新鲜 番茄 和 罗勒 的 意式 烤面包片 是 一道 经典 的 开胃菜 ， 既 充满活力 又 美味 。 以下 是 一个 简单 的 食谱 指导 ： \n \n 食材 ： \n -   法棍 面包 或 意大利 面包 \n -   熟 番茄 （ 2 - 3 个 中等 大小 ） \n -   新鲜 罗勒 叶 \n -   大 蒜瓣 （ 2 - 3 个 ， 切碎 ） \n -   特级 初榨 橄榄油 \n -   香醋 \n -   盐 和 胡椒 适量 \n \n 步骤 ： \n 1 .   将 烤箱 预热 至 375 ° F （ 190 ° C ） 。 \n 2 .   将 法棍 面包 或 意大利 面包 切成 1 / 2 英寸 厚 的 薄片 。 把 它们 放在 烤盘 上 并 撒 上 橄榄油 。 \n 3 .   在 预热 的 烤箱 中 烤面包片 约 8 - 10 分钟 ， 或 直到 它们 变成 金黄色 并 脆脆 的 。 放在 一旁 冷却 。 \n 4 .   与此同时 ， 将 番茄 切成 小 块 ， 去除 种子 和 多余 的 液体 。 \n 5 .   在 一个碗 中 ， 将 切碎 的 番茄 、 切碎 的 大蒜 、 一把 撕碎 的 罗勒 叶 、 一点 橄榄油 和 一点 香醋 混合 在 一起 。 根据 口味 加盐 和 胡椒 调味 。 搅拌 均匀 。 \n 6 .   当 面包片 稍微 冷却 时 ， 把 它们 摆放 在 盘子 或 个人 盘子 上 。 \n 7 .   在 每片 面包 上 大方 地勺 上 番茄 混合物 ， 让 一些 汁液 浸透 到 面包 中 。 \n 8 .   用 一些 额外 的 罗勒 叶 和 一点 橄榄油 装饰 。 \n 9 .   尽快 食用 这道 意式 烤面包片 ， 当 面包 还 很脆 ， 味道 新鲜 时 。 \n \n 这道 开胃菜 是 以 其 充满活力 的 颜色 和 爆发 的 味道 为 您 的 特殊 餐食 拉开序幕 的 绝佳 方式 。 如果 您 有 任何 其他 问题 或 需要 进一步 帮助 ， 请 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "Thank you for providing the recipe for the bruschetta! It sounds simple yet delicious, and I appreciate the step-by-step instructions. I'm excited to try it out.\n\nNext, let's move on to the main course. We decided on a perfectly seared steak with a red wine reduction. Could you please provide a recipe for this dish as well? I want to make sure I get the cooking technique and flavors just right.",
             "content_zh": "谢谢您提供意式面包片的食谱！听起来简单又美味，我很感激这一步步的指导。我很期待尝试一下。\n下面我们来准备主菜。我们决定来一份完美煎烤的牛排，搭配红酒汁。您也可以提供这道菜的食谱吗？我想确保我把烹饪技巧和调味料都掌握好。",
             "intent": "Planning",
-            "intent_zh": "规划"
+            "intent_zh": "规划",
+            "content_zh_cut": "谢谢您 提供 意式 面包片 的 食谱 ！ 听 起来 简单 又 美味 ， 我 很 感激 这 一步步 的 指导 。 我 很 期待 尝试 一下 。 \n 下面 我们 来 准备 主菜 。 我们 决定 来 一份 完美 煎 烤 的 牛排 ， 搭配 红酒 汁 。 您 也 可以 提供 这 道菜 的 食谱 吗 ？ 我 想 确保 我 把 烹饪 技巧 和 调味料 都 掌握 好 。"
         },
         {
             "role": "assistant",
@@ -70,14 +77,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ！ 以下 是 一份 完美 煎 牛排 配 红酒 减汁 的 食谱 ： \n \n 材料 ： \n -   你 喜欢 的 牛排 （ 如肋眼 牛排 ， 菲力 牛排 或 西冷 牛排 ） \n -   盐 和 胡椒 \n -   橄榄油 \n -   黄油 \n -   大 蒜瓣 （ 2 - 3 瓣 ， 压碎 ） \n -   新鲜 百里香 （ 几株 ） \n -   红葡萄酒 （ 约 1 杯 ） \n -   牛肉 或 蔬菜 高汤 （ 约 1 / 2 杯 ） \n -   玉米 淀粉 （ 可选择性 添加 ， 用于 勾芡 ） \n -   新鲜 欧芹 （ 用于 装饰 ） \n \n 做法 ： \n 1 .   先 将 牛排 的 温度 等待 至 室温 。 从 冰箱 取出 ， 让 其 在 柜台 上 放置 约 30 分钟 。 这 有助于 更 均匀 烹饪 。 \n 2 .   将 烤箱 预热 至 400 ° F （ 200 ° C ） 。 \n 3 .   在 两面 上 大方 地撒上 盐 和 胡椒 。 \n 4 .   在 一个 大 烤箱 安全 的 煎锅 中 ， 用 大火 加热 。 在 锅 中 加入 一点 橄榄油 和 一块 黄油 。 旋转 锅子 均匀 涂抹 底部 。 \n 5 .   一旦 平底锅 加热 ， 小心 地 将 牛排 放入 锅中 。 每 一面 煎 2 - 3 分钟 ， 直到 形成 金黄色 的 外皮 。 \n 6 .   将 压碎 的 大 蒜瓣 和 新鲜 百里香 放入 锅中 。 将 融化 的 黄油 勺 在 牛排 上 润湿 它 。 \n 7 .   将 煎锅 转移 到 预热 的 烤箱 中 ， 继续 烹饪 牛排 大约 5 - 10 分钟 ， 具体 时间 取决于 所 需 的 火候 。 使用 肉 温计 检查 内部 温度 ： 中熟 大约 130 ° F （ 54 ° C ） ， 中烧 大约 140 ° F （ 60 ° C ） 等等 。 记住 牛排 在 休息 时会 继续 烹饪 。 \n 8 .   一旦 牛排 达到 你 喜欢 的 火候 ， 将 煎锅 从 烤箱 中 取出 ， 把 牛排 移 到 切菜板 上 。 松散地 盖上 锡纸 ， 让 其 静置 约 5 - 10 分钟 ， 让 汁液 重新 分布 。 \n 9 .   在 牛排 静置 时 ， 准备 红酒 减汁 。 将 煎锅 放回 中火上 。 加入 红葡萄酒 ， 刮 底部 以 释放 任何 褐色 碎渣 。 \n 10 .   让 葡萄酒 减少 一半左右 ， 然后 加入 牛肉 或 蔬菜 高汤 。 继续 煨 煮 ， 直到 酱汁 稍微 变浓 。 \n 11 .   如果 需要 ， 可以 通过 将 少量 玉米 淀粉 与 水 混合 成浆 来 进一步 增稠 酱汁 。 搅匀 后 加入 酱汁 中 ， 煮 一个 额外 的 分钟 直至 达到 所 需 的 浓 稠度 。 \n 12 .   关 火并 过滤 酱汁 ， 去除 大蒜 和 百里香 。 \n 13 .   将 休息 好 的 牛排 逆着 纹理 切成 厚片 。 将 红酒 减汁 倒 在 牛排 上 或 当成 配菜 。 \n 14 .   用 新鲜 欧芹 装饰 并 立即 享用 牛排 。 \n \n 这个 食谱 应该 使 牛排 煎 得 漂亮 ， 配 上 美味 的 红酒 减汁 。 根据 你 所 喜欢 的 煮熟 程度 调整 烹饪 时间 。 享受 你 令人 印象 深刻 的 主菜 ！ 如 有 任何 其他 需要 帮助 的 地方 ， 请 告诉 我 。"
         },
         {
             "role": "user",
             "content": "Thank you for providing the recipe for the perfectly seared steak with a red wine reduction! It sounds absolutely mouthwatering, and I appreciate the detailed instructions. I can't wait to try it out and impress my loved one.\n\nNow, let's move on to dessert. We decided on the molten lava cake. Could you please provide a recipe for this indulgent treat? I want to make sure I get the gooey center just right.",
             "content_zh": "感谢您提供了完美煎牛排配红酒减汁的食谱！听起来非常让人垂涎，我很感激您提供的详细说明。我迫不及待地想尝试一下，让我心爱的人留下深刻印象。现在，让我们来谈谈甜点。我们决定要做熔岩巧克力蛋糕。您可以提供这种美味的食谱吗？我想确保蛋糕中间的奶油酱浆恰到好处。",
             "intent": "Planning",
-            "intent_zh": "规划"
+            "intent_zh": "规划",
+            "content_zh_cut": "感谢您 提供 了 完美 煎 牛排 配 红酒 减汁 的 食谱 ！ 听 起来 非常 让 人 垂涎 ， 我 很 感激 您 提供 的 详细 说明 。 我 迫不及待 地想 尝试 一下 ， 让 我 心爱 的 人 留下 深刻印象 。 现在 ， 让 我们 来 谈谈 甜点 。 我们 决定 要 做 熔岩 巧克力 蛋糕 。 您 可以 提供 这种 美味 的 食谱 吗 ？ 我 想 确保 蛋糕 中间 的 奶油 酱浆 恰到好处 。"
         },
         {
             "role": "assistant",
@@ -86,7 +95,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "當然 ！ 熔岩 蛋糕 是 一款 經典且 豪華 的 甜點 ， 一定 會給 人 留下 深刻印象 。 以下 是 一個 食譜 ， 幫 助您 完成 那種 黏稠 的 中心 ： \n \n 材料 ： \n -   黑 巧克力 （ 約 6 盎司 ） ， 切碎 \n -   无盐 黄油 （ 1 / 2   杯 ） ， 另外 用于 涂抹 \n -   白砂糖 （ 1 / 2   杯 ） \n -   鸡蛋 （ 3   整个   +   3   蛋黄 ） \n -   多用途 面粉 （ 1 / 4   杯 ） \n -   一小撮 盐 \n -   可 选 ： 糖粉 和 新鲜 浆果 装饰 用 \n \n 做法 ： \n 1 .   预热 烤箱 至 425 ° F （ 220 ° C ） 。 涂抹 4 - 6 个 蛋糕 模 或 独立 的 耐热 碟子 内部 ， 然后 轻轻 撒上 面粉 。 这 将 有助于 蛋糕 容易 取出 。 \n 2 .   在 一个 耐热 碗 中 ， 将 切碎 的 黑 巧克力 和 黄油 融化 在 一起 。 您 可以 在 微波炉 中 间歇 短暂 加热 ， 中间 搅拌 ， 或者 在 炉灶 上 使用 双 锅炉 。 融化 后 ， 搁置 一边 稍微 冷却 。 \n 3 .   在 另 一个碗 中 ， 将 白砂糖 、 鸡蛋 和 蛋黄 一起 搅拌 直至 充分 混合 。 \n 4 .   将 熔化 的 巧克力 混合物 逐渐 倒入 蛋糊中 ， 不停 搅拌 。 \n 5 .   过筛 加入 多用途 面粉 并 加入 一小撮 盐 。 轻轻 拌匀 混合物 直到 刚刚 结合 。 小心 不要 过度 搅拌 。 \n 6 .   将 面糊 均匀 分配 至 预先 准备 的 蛋糕 模 或 碟子 中 ， 填充 约 3 / 4 。 \n 7 .   将 蛋糕 模 放在 烤盘 上 ， 转移 到 预热 好 的 烤箱 中去 烤 。 \n 8 .   烤 约 10 - 12 分钟 ， 或者 蛋糕 边缘 凝固 但 中间 仍然 稍微 颤动 。 \n 9 .   小心 地 把 烤 盘 从 烤箱 取出 ， 让 蛋糕 冷却 1 - 2 分钟 。 这 将 帮助 蛋糕 稍微 凝固 之后 再 享用 。 \n 10 .   为了 上菜 ， 用刀 沿着 每个 蛋糕 的 边缘 画 一圈 ， 然后 倒扣 到 个人 盘子 上 。 轻轻 拍打 蛋糕 模 的 底部 来 取出 蛋糕 。 它们 应该 很 容易 滑 出 ， 露出 熔岩 中心 。 \n 11 .   可 选 ： 撒上 糖粉 装饰 ， 搭配 新鲜 浆果 增添 一丝 优雅 的 风味 。 \n 12 .   在 蛋糕 还 温热 黏稠 时 立即 享用 熔岩 蛋糕 。 如果 愿意 ， 可以 搭配 一勺 香草 冰淇淋 或 一勺 打发 奶油 。 \n \n 享受 这 富有 和 奢华 的 熔岩 蛋糕 ！ 希望 它们 能 为 您 特别 的 餐宴 留下 美好 的 结尾 。 如果 有 任何 需要 帮助 的 地方 ， 请 随时 告诉 我 。"
         }
     ],
     "conflict": false,

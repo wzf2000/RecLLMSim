@@ -12,7 +12,8 @@
             "content": "Hello! I'm so excited to plan my birthday celebration, and I could really use your assistance. I want to prepare a delicious meal for about 10 of my close friends. As a skilled cook, I'd like to create a recipe that showcases my expertise. Could you help me come up with some ideas for dishes to make?",
             "content_zh": "你好！我很兴奋地在计划我生日庆祝活动，真的需要你的帮助。我想为我大约10个亲近的朋友准备一顿美味的饭菜。作为一个熟练的厨师，我想创造一个展示我的专长的菜谱。你可以帮我想出一些制作菜肴的主意吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 我 很 兴奋 地 在 计划 我 生日 庆祝 活动 ， 真的 需要 你 的 帮助 。 我 想 为 我 大约 10 个 亲近 的 朋友 准备 一顿 美味 的 饭菜 。 作为 一个 熟练 的 厨师 ， 我 想 创造 一个 展示 我 的 专长 的 菜谱 。 你 可以 帮 我 想 出 一些 制作 菜肴 的 主意 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ， 我 很 高兴 帮助 您 策划 生日 庆祝 活动 ！ 为 展示 您 的 烹饪 技巧 制作 美味 的 餐点 听 起来 太棒了 。 让 我们 一起 想 出 一些 能 让 您 的 朋友 们 印象 深刻 的 菜肴 的 主意 。 您 有 任何 具体 的 食物 偏好 或 饮食 限制 吗 ？"
         },
         {
             "role": "user",
             "content": "Thank you for your willingness to assist me! As a fitness trainer, I tend to focus on protein-rich and healthy meals. I'd love to incorporate that into the dishes for my birthday celebration. However, I also want to make sure the food is flavorful and enjoyable for everyone. So, let's strike a balance between health and taste. I don't have any specific dietary restrictions to consider. What ideas do you have for the main course?",
             "content_zh": "非常感谢您愿意帮助我！作为健身教练，我倾向于关注富含蛋白质且健康的餐点。我希望能将这些元素融入到我生日庆祝的菜肴中。不过，我也希望确保食物对每个人来说既美味又可口。因此，让我们在健康和口味之间取得平衡。我没有特定的饮食限制需要考虑。您对主菜有什么想法呢？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "非常 感谢您 愿意 帮助 我 ！ 作为 健身 教练 ， 我 倾向 于 关注 富含 蛋白质 且 健康 的 餐点 。 我 希望 能 将 这些 元素 融入 到 我 生日 庆祝 的 菜肴 中 。 不过 ， 我 也 希望 确保 食物 对 每个 人 来说 既 美味 又 可口 。 因此 ， 让 我们 在 健康 和 口味 之间 取得 平衡 。 我 没有 特定 的 饮食 限制 需要 考虑 。 您 对 主菜 有 什么 想法 呢 ？"
         },
         {
             "role": "assistant",
@@ -38,14 +41,16 @@
                 "hallucination": false,
                 "memo": "Translation Problem Fixed"
             },
-            "content_zh_old": "听起来像是一个很棒的方法！在准备一个令人难忘的餐点时，平衡健康和口味是关键。以下是一些富含蛋白质且味道浓郁的主菜的想法，你的朋友会喜欢的：\n\n1. 柠檬香草烤鸡：将鸡胸肉 marinate 在柠檬汁、橄榄油、大蒜和百里香或迷迭香等香草混合物中。烤至完美，搭配一份烤蔬菜或新鲜沙拉。\n\n2. 芒果莎莎烤三文鱼：用辛辣香料如辣椒粉、孜然和大蒜粉调味三文鱼片。烤至松软，搭配一份由切碎的芒果、红洋葱、青柠汁、香菜和一点辣椒丁制成的充满活力的莎莎。\n\n3. 香草焗羊排：使用新鲜的迷迭香、百里香、欧芹等草药与面包屑和第戎芥末混合制成一个味道浓郁的香草饼。将羊排烤至完美的嫩度，搭配一份烤土豆和蒸芦笋。\n\n4. 藜麦烤灯笼椒：用煮过的藜麦、炒蔬菜和你喜欢的蛋白质如火鸡碎肉或瘦牛肉混合物填充灯笼椒，制成一道色彩缤纷又富有营养的菜肴。撒上奶酪，烘烤至灯笼椒变软，内陷加热即可。\n\n记得考虑你想搭配这些主菜的任何配菜或伴菜。如果你想了解更多关于这些想法的细节或有其他要求，请告诉我！"
+            "content_zh_old": "听起来像是一个很棒的方法！在准备一个令人难忘的餐点时，平衡健康和口味是关键。以下是一些富含蛋白质且味道浓郁的主菜的想法，你的朋友会喜欢的：\n\n1. 柠檬香草烤鸡：将鸡胸肉 marinate 在柠檬汁、橄榄油、大蒜和百里香或迷迭香等香草混合物中。烤至完美，搭配一份烤蔬菜或新鲜沙拉。\n\n2. 芒果莎莎烤三文鱼：用辛辣香料如辣椒粉、孜然和大蒜粉调味三文鱼片。烤至松软，搭配一份由切碎的芒果、红洋葱、青柠汁、香菜和一点辣椒丁制成的充满活力的莎莎。\n\n3. 香草焗羊排：使用新鲜的迷迭香、百里香、欧芹等草药与面包屑和第戎芥末混合制成一个味道浓郁的香草饼。将羊排烤至完美的嫩度，搭配一份烤土豆和蒸芦笋。\n\n4. 藜麦烤灯笼椒：用煮过的藜麦、炒蔬菜和你喜欢的蛋白质如火鸡碎肉或瘦牛肉混合物填充灯笼椒，制成一道色彩缤纷又富有营养的菜肴。撒上奶酪，烘烤至灯笼椒变软，内陷加热即可。\n\n记得考虑你想搭配这些主菜的任何配菜或伴菜。如果你想了解更多关于这些想法的细节或有其他要求，请告诉我！",
+            "content_zh_cut": "这 听 起来 是 个 很棒 的 方法 ！ 在 准备 难忘 的 一餐 时 ， 平衡 健康 和 口味 是 关键 。 以下 是 一些 富含 蛋白质 且 味道 丰富 的 主菜 想法 ， 你 的 朋友 们 一定 会 喜欢 ： \n \n 1 .   柠檬 香草 烤鸡 ： 用 柠檬汁 、 橄榄油 、 大蒜 以及 像 百里香 或 迷迭香 这样 的 香草 将 鸡胸肉 腌制 。 将 它们 烤 至 完美 并 配上 一份 烤 蔬菜 或 新鲜 沙拉 。 \n \n 2 .   烤 三文鱼 配 芒果 莎莎酱 ： 用 混合 香料 如 辣椒粉 、 孜然 和 大蒜 粉给 三文鱼 片 调味 。 烤 至 鱼肉 松散 ， 再配 上由切 丁 芒果 、 红 洋葱 、 青柠汁 、 香菜 和 一点点 墨西哥 胡椒 （ 为了 加点 微辣 ） 制成 的 生动 芒果 莎莎酱 。 \n \n 3 .   香草 酥皮 羊排 ： 使用 新鲜 香草 如 迷迭香 、 百里香 和 欧芹 ， 与 面包屑 和 第戎 芥末 混合 ， 准备 出 一层 风味十足 的 香草 酥皮 。 将 羊排 烤 至 完美 嫩 滑 ， 配 上 一份 烤 土豆 和 蒸 芦笋 。 \n \n 4 .   奎 诺亚 填充 的 甜椒 ： 通过 将 甜椒 填充 上 煮熟 的 奎 诺亚 、 炒过 的 蔬菜 和 你 选择 的 蛋白质 如碎 火鸡肉 或 瘦 牛肉 ， 创造 出 一个 色彩缤纷 且 营养 的 菜肴 。 撒上 奶酪 ， 烤 至 甜椒 变软 且 内 馅 加热 。 \n \n 记得 考虑 你 想要 搭配 这些 主菜 的 任何 配菜 或 附加物 。 如果 你 想要 了解 这些 建议 的 更 多 细节 ， 或者 有 任何 其他 请求 ， 请 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "Those are some excellent suggestions! I love the variety and flavors you've incorporated into the main course ideas. The Lemon Herb Grilled Chicken and Baked Salmon with Mango Salsa sound particularly delicious. I think I'll go with the Baked Salmon with Mango Salsa as the main course. It's not only protein-rich but also offers a refreshing and tropical twist.\n\nNow, let's move on to the side dishes. I'd like to keep them healthy and vibrant to complement the salmon. What do you suggest for side dishes that will pair well with the main course?",
             "content_zh": "这些都是一些建议！我喜欢你在主菜里融入的多样性和口味。柠檬香草烤鸡和芒果莎莎烤三文鱼听起来特别美味。我想选择芒果莎莎烤三文鱼作为主菜。它不仅富含蛋白质，还带有清新的热带风味。\n现在，让我们来看看配菜。我希望它们能健康丰富，搭配上了三文鱼。你有什么建议推荐的配菜，能很好地搭配这道主菜呢？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "这些 都 是 一些 建议 ！ 我 喜欢 你 在 主菜 里 融入 的 多样性 和 口味 。 柠檬 香草 烤鸡 和 芒果 莎莎 烤 三文鱼 听 起来 特别 美味 。 我 想 选择 芒果 莎莎 烤 三文鱼 作为 主菜 。 它 不仅 富含 蛋白质 ， 还 带有 清新 的 热带 风味 。 \n 现在 ， 让 我们 来 看看 配菜 。 我 希望 它们 能 健康 丰富 ， 搭配 上 了 三文鱼 。 你 有 什么 建议 推荐 的 配菜 ， 能 很 好 地 搭配 这道 主菜 呢 ？"
         },
         {
             "role": "assistant",
@@ -54,14 +59,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "我 很 高兴 你 喜欢 这些 建议 ！ 芒果 莎莎 烤 三文鱼 是 一个 绝妙 的 选择 ， 它 肯定 会为 你 的 生日 庆典 增添 一丝 清爽 的 气息 。 现在 ， 让 我们 继续 看 一下 配菜 。 以下 是 一些 健康 且 充满活力 的 选择 ， 可以 与 主菜 搭配 得 很 好 ： \n \n 1 .   烤 蔬菜 藜 麦 沙拉 ： 煮熟 藜 麦 ， 然后 与 各种 烤 过 的 蔬菜 一起 拌匀 ， 如彩椒 、 西葫芦 、 樱桃 番茄 和 红 洋葱 。 加入 用 柠檬汁 、 橄榄油 和 新鲜 香草 （ 如 罗勒 或 薄荷 ） 制成 的 轻盈 酱汁 。 \n \n 2 .   柠檬 帕玛森 烤 芦笋 ： 将 芦笋 烤 至 嫩 烂 并 微微 焦黄 。 挤些 新鲜 柠檬汁 在 上面 ， 撒上 磨碎 的 帕玛森 奶酪 ， 享用 这道 爽口 香浓 的 配菜 。 \n \n 3 .   地中海 薄饼 沙拉 ： 按照 包装 上 的 说明 准备 好 薄饼 ， 然后 与切 成丁 状 的 黄瓜 、 樱桃 番茄 、 卡拉 玛塔 橄榄 、 菲达 奶酪 混合 ， 再淋上 橄榄油 和 柠檬汁 。 这道 沙拉 清爽 可口 ， 充满 了 各种 风味 。 \n \n 4 .   烤 乌鸡 卷心菜 配 香醋 糖浆 ： 用 橄榄油 、 盐 和 胡椒粉 拌匀 乌鸡 卷心菜 ， 然后 烤 至 金黄 焦糖 化 和 烂熟 。 最后 淋上 香醋 糖浆 增添 一丝 甜味 和 酸味 。 \n \n 这些 配菜 将 为 芒果 莎莎 烤 三文鱼 提供 健康 且 充满活力 的 平衡 。 随意 搭配 或 选择 符合 你 口味 的 配菜 。 如果 你 需要 更 多 详细信息 或 有 其他 问题 ， 请 随时 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "Those side dish options sound absolutely delightful! I particularly like the idea of the Quinoa Salad with Roasted Vegetables and the Grilled Asparagus with Lemon and Parmesan. They will add a nice variety of flavors and textures to the meal.\n\nFor the Quinoa Salad, I think I'll include a colorful mix of roasted bell peppers, zucchini, cherry tomatoes, and red onions. The light dressing with lemon juice and herbs will bring out the freshness of the vegetables and the nuttiness of the quinoa.\n\nAnd for the Grilled Asparagus, the combination of the charred asparagus with the zing of lemon and the savory Parmesan cheese sounds perfect.\n\nNow, let's move on to dessert. I'd like to prepare something special that aligns with my fitness-oriented lifestyle. Do you have any suggestions for a healthy and delicious dessert option that will still make my birthday celebration feel indulgent?",
             "content_zh": "这些配菜选项听起来非常美味！我特别喜欢烤蔬菜奎诺沙拉和柠檬帕玛森烤芦笋的概念。它们会为餐点增添多样的口味和质感。\n对于奎诺沙拉，我打算加入烤彩椒、西葫芦、车厘子番茄和红洋葱混合。柠檬汁和香草的淡淡调味会突出蔬菜的清新和奎诺的坚果香味。\n至于烤芦笋，炭烤芦笋搭配柠檬的清爽和帕玛森芝士的香味组合听起来完美。\n现在，让我们转向甜点。我想准备些与我健康生活方式匹配的特别甜点。你有什么建议可以提供一个既健康又美味的甜点选择，同时让我的生日庆祝感到奢华吗？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "这些 配菜 选项 听 起来 非常 美味 ！ 我 特别 喜欢 烤 蔬菜 奎诺 沙拉 和 柠檬 帕玛森 烤 芦笋 的 概念 。 它们 会为 餐点 增添 多样 的 口味 和 质感 。 \n 对于 奎诺 沙拉 ， 我 打算 加入 烤彩椒 、 西葫芦 、 车厘子 番茄 和 红 洋葱 混合 。 柠檬汁 和 香草 的 淡淡 调味 会 突出 蔬菜 的 清新 和 奎诺 的 坚果 香味 。 \n 至于 烤 芦笋 ， 炭烤 芦笋 搭配 柠檬 的 清爽 和 帕玛森 芝士 的 香味 组合 听 起来 完美 。 \n 现在 ， 让 我们 转向 甜点 。 我 想 准备 些 与 我 健康 生活 方式 匹配 的 特别 甜点 。 你 有 什么 建议 可以 提供 一个 既 健康 又 美味 的 甜点 选择 ， 同时 让 我 的 生日 庆祝 感到 奢华 吗 ？"
         },
         {
             "role": "assistant",
@@ -70,14 +77,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "很 高兴 你 喜欢 这些 小菜 的 选择 ！ 烤 蔬菜 奎 诺亚 沙拉 和 柠檬 帕尔玛 干酪 烤 芦笋 肯定 会为 你 的 餐添 上 一抹 愉悦 的 色彩 。 \n 现在 ， 让 我们 谈谈 甜点 吧 ！ 很 高兴 你 希望 在 保持 健康 主题 的 同时 仍然 沉溺在 美味 之中 。 以下 是 一个 健康 而 美味 的 甜点 建议 ： \n 希腊 酸奶 水果 拼盘 ： 将 新鲜 水果 （ 如 浆果 、 切片 桃子 和 猕猴桃 ） 与 奶油 希腊 酸奶 和 一把 燕麦片 或碎 坚果 一层 一层 叠加 ， 然后 淋上 一点 蜂蜜 或 枫糖浆 增加 天然 甜味 。 这个 甜点 不仅 视觉 诱人 ， 而且 富含 维生素 、 纤维 和 蛋白质 。 \n 另外 ， 如果 你 想 尝试 一点 烘焙 ， 你 可以 试试 制作 一些 无 面粉 巧克力 鳄梨 布朗 尼 。 这些 布朗 尼 口感 浓郁 、 富有 韧性 ， 而且 不含 麸质 。 鳄梨 增添 了 湿润 和 健康 脂肪 ， 而 可可粉 和 黑 巧克力 则 提供 浓厚 的 巧克力 味道 。 你 可以 在 网上 找到 适合 不同 饮食习惯 的 各种 食谱 。 \n 请 记住 ， 这 是 你 的 生日 庆典 ， 所以 随意 定制 你 喜欢 的 甜点 。 这些 选择 应该 为 你 的 餐 提供 一个 健康 美味 的 完美 结局 的 好 起点 。 如果 你 有 任何 特殊 喜好 或 想 了解 更 多 详情 ， 请 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "Thank you for the dessert suggestions! I love the idea of a Fresh Fruit Parfait with Greek Yogurt. It's a light and refreshing option that will provide a sweet ending to the meal while still keeping it healthy. I'll definitely incorporate a variety of fresh fruits and some crunchy granola for added texture.\n\nI think this dessert aligns perfectly with my fitness-oriented lifestyle and will make my birthday celebration feel indulgent without any guilt. Plus, it will add a vibrant and colorful element to the overall presentation.\n\nThank you so much for your help in planning the meal for my birthday celebration. I'm really excited about the menu we've put together. Is there anything else you think we should consider or any final suggestions before I start preparing for the celebration?",
             "content_zh": "谢谢你的甜点建议！我喜欢用希腊酸奶做的新鲜水果拼杯的主意。这是一个清爽的选择，甜品会为餐后提供一个甜蜜的结尾，同时保持健康。我一定会加入各种新鲜水果和一些脆脆的燕麦片来增加口感。\n\n我觉得这款甜点完美地符合我的健身生活方式，并会让我的生日庆祝感到奢华而无负担。此外，它还会为整体表现增添活力和色彩。\n\n非常感谢你在为我的生日庆祝活动计划餐点方面的帮助。我对我们共同策划的菜单感到非常兴奋。在我开始为庆祝活动做准备之前，你认为还有什么需要考虑或最后的建议吗？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "谢谢 你 的 甜点 建议 ！ 我 喜欢 用 希腊 酸奶 做 的 新鲜 水果 拼杯 的 主意 。 这是 一个 清爽 的 选择 ， 甜品 会为 餐后 提供 一个 甜蜜 的 结尾 ， 同时 保持 健康 。 我 一定 会 加入 各种 新鲜 水果 和 一些 脆脆 的 燕麦片 来 增加 口感 。 \n \n 我 觉得 这 款 甜点 完美 地 符合 我 的 健身 生活 方式 ， 并会 让 我 的 生日 庆祝 感到 奢华 而 无 负担 。 此外 ， 它 还 会 为 整体 表现 增添 活力 和 色彩 。 \n \n 非常感谢 你 在 为 我 的 生日 庆祝 活动 计划 餐点 方面 的 帮助 。 我 对 我们 共同 策划 的 菜单 感到 非常 兴奋 。 在 我 开始 为 庆祝 活动 做 准备 之前 ， 你 认为 还有 什么 需要 考虑 或 最后 的 建议 吗 ？"
         },
         {
             "role": "assistant",
@@ -86,7 +95,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "非常 欢迎 ！ 我 很 高兴 您 对 我们 精心 准备 的 菜单 感到 兴奋 。 希腊 酸奶 鲜果 拼盘 确实 会为 您 的 庆祝 活动 提供 一个 美味 而 无罪 的 甜蜜 结局 。 \n 在 您 开始 准备 之前 ， 请 考虑 以下几点 建议 ： \n 1 .   时间 和 准备 工作 ： 制定 一个 准备 时间表 ， 以 确保 一切顺利 进行 。 一些 菜肴 可以 提前 部分 准备 ， 让 您 在 朋友 们 的 庆祝 活动 中 享受 其中 。 考虑 哪些 可以 提前准备 好 ， 哪些 需要 更 接近 就餐 时间 才 做 。 \n 2 .   菜肴 呈现 ： 注意 您 菜肴 的 呈现 方式 。 精心 摆设 的 餐桌 以及 精心 摆放 的 餐点 和 装饰物 可以 提升 就餐 体验 。 使用 色彩鲜艳 的 盘子 ， 用 新鲜 草药 或 可食用 花卉 作为 装饰 ， 考虑 在 桌上 添加 一些 装饰 元素 。 \n 3 .   饮品 ： 不要 忘记 饮料 ！ 提供 各种 选项 ， 如 加入 水果 片 的 浸泡 水 ， 气泡 水 或 与 您 菜肴 风味 相匹配 的 特色 无 酒精 鸡尾酒 。 拥有 令人 耳目一新 的 饮料 来 搭配 美味 食物 总是 一个 不错 的 选择 。 \n 4 .   音乐 和 氛围 ： 用 适合 场合 和 您 个人 喜好 的 背景音乐 营造 氛围 。 通过 调暗 灯光 、 蜡烛 或 小巧 的 灯光 ， 打造 一个 舒适 、 热情 的 氛围 ， 让 庆祝 活动 变得 更加 特别 。 \n 最后 ， 享受 准备 美食 和 与 朋友 庆祝 的 过程 。 您 对 烹饪 的 热情 和 对 健康 生活 方式 的 执着 将 体现 在 您 精心策划 的 美味 菜肴 中 。 祝您 度过 一个 美妙 的 生日 庆祝 活动 ， 充满 美食 、 欢笑 和 难忘 时刻 ！"
         }
     ],
     "conflict": false,

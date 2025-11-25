@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you're here. I'm looking to prepare a meal at home, but I don't have much experience in cooking. I was hoping you could help me create a recipe, determine the necessary ingredients, and decide what dishes to make. Can you assist me with that?",
             "content_zh": "你好！很高兴你在这里。我想在家做一顿饭，但我在烹饪方面没有太多经验。希望你能帮我制定食谱，确定所需食材，并决定做哪些菜。你能帮助我吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 在 这里 。 我 想 在家 做 一顿饭 ， 但 我 在 烹饪 方面 没有 太 多 经验 。 希望 你 能 帮 我 制定 食谱 ， 确定 所 需食材 ， 并 决定 做 哪些 菜 。 你 能 帮助 我 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ， 我 很 乐意 帮助 你 ！ 烹饪 可以 是 一种 非常 有趣 和 有益 的 经历 ， 即使 你 刚 开始 。 我们 先 来 看看 你 想要 准备 什么 类型 的 餐食 。 你 是 想要 意 面 、 鸡肉 或者 素食 ？ 另外 ， 你 有 任何 饮食 限制 或者 偏好 我 需要 考虑 吗 ？"
         },
         {
             "role": "user",
             "content": "Thank you for offering your assistance. I appreciate it. I'm in the mood for a hearty meal, perhaps something that involves grilling. I enjoy the flavors of grilled chicken or steak, but I'm open to other options as well. As for dietary restrictions, I don't have any specific requirements to consider. What do you suggest?",
             "content_zh": "感谢您提供帮助。我很感激。我想要吃一顿丰盛的餐，也许是烧烤的食物。我喜欢烤鸡或牛排的味道，但我也愿意尝试其他选择。至于饮食限制，我没有任何特殊要求。您有什么建议呢？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "感谢您 提供 帮助 。 我 很 感激 。 我 想要 吃 一顿 丰盛 的 餐 ， 也许 是 烧烤 的 食物 。 我 喜欢 烤鸡 或 牛排 的 味道 ， 但 我 也 愿意 尝试 其他 选择 。 至于 饮食 限制 ， 我 没有 任何 特殊要求 。 您 有 什么 建议 呢 ？"
         },
         {
             "role": "assistant",
@@ -37,14 +40,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "烤肉 确实 可以 美味 而 令人 满足 ！ 我们 来 试试 经典 的 烤 牛排 食谱 吧 ？ 它 相对 简单 ， 而且 总是 讨人喜欢 的 。 以下 是 食谱 ： \n \n 蒜 香 牛排 \n 材料 ： \n -   2 块 肋眼 牛排 或 西冷 牛排 （ 约 1 英寸 厚 ） \n -   盐 和 胡椒 适量 \n -   2 汤匙 橄榄油 \n -   4 汤匙 无盐 黄油 ， 软化 \n -   2 瓣 大蒜 ， 切碎 \n -   1 汤匙 新鲜 欧芹 ， 切碎 \n \n 做法 ： \n 1 .   将 烧烤 架 预热 至 中 高火 。 \n 2 .   在 两面 上 大方 地撒上 盐 和 胡椒 。 淋上 橄榄油 并 搓 匀 确保 均匀 涂抹 。 \n 3 .   将 牛排 放在 烤 架上 ， 每面 煮 约 4 - 5 分钟 至 五分 熟 ， 或 根据 您 所 需 的 熟度 调整 烹饪 时间 。 \n 4 .   当 牛排 在 烤制 时 ， 准备 蒜 香 黄油 。 在 一个 小碗 中 ， 混合 软化 的 黄油 、 切碎 的 大蒜 和 切碎 的 欧芹 至 均匀 。 \n 5 .   当 牛排 煮熟 后 ， 从 烤 架上 取 下 ， 让 其 休息 几分钟 。 \n 6 .   在 每块 牛排 上放 一小块 蒜 香 黄油 ， 让 它 在 热肉 上 融化 。 \n 7 .   配以 您 选择 的 配菜 ， 如烤 蔬菜 、 土豆泥 或 新鲜 沙拉 。 \n \n 这个 食谱 应该 能 给 您 带来 美味 多汁 的 烤 牛排 。 随意 调整 调味 和 烹饪 时间 以 符合 您 的 口味 。 如果 您 有 任何 问题 ， 随时 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "Thank you for the recipe! Grilled steak with garlic butter sounds absolutely delicious. I appreciate the detailed instructions, and I'm excited to give it a try. I'll make sure to adjust the seasonings and cooking time to my liking. As for the sides, roasted vegetables and mashed potatoes sound like great options to complement the steak. I'll let you know if I have any questions during the preparation. Thank you again for your help!\n[System]: You're welcome! I'm glad you liked the recipe. Have a great time preparing and enjoying your meal. If you need any further assistance or have more questions, feel free to ask. Happy cooking!",
             "content_zh": "感谢你的食谱！烤牛排配大蒜黄油听起来非常美味。我很感激详细的说明，也很期待尝试。我会确保根据自己喜好调整调料和烹饪时间。至于配菜，烤蔬菜和土豆泥听起来是很好的选择，可以搭配牛排。如果在准备过程中有任何问题，我会告诉你。再次感谢你的帮助！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "感谢 你 的 食谱 ！ 烤 牛排 配 大蒜 黄油 听 起来 非常 美味 。 我 很 感激 详细 的 说明 ， 也 很 期待 尝试 。 我会 确保 根据 自己 喜好 调整 调料 和 烹饪 时间 。 至于 配菜 ， 烤 蔬菜 和 土豆泥 听 起来 是 很 好 的 选择 ， 可以 搭配 牛排 。 如果 在 准备 过程 中有 任何 问题 ， 我会 告诉 你 。 再次 感谢 你 的 帮助 ！"
         },
         {
             "role": "assistant",
@@ -53,14 +58,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "谢谢 ！ 很 高兴 能 帮到 您 。 如 有 任何 需要 帮助 或 疑问 ， 请 随时 联系 我 。 享受 您 的 烹饪 体验 ， 品味 美味 的 餐点 。 祝您 烹饪 愉快 ！"
         },
         {
             "role": "user",
             "content": "Thank you for your assistance and kind words! I appreciate your support and guidance. I'll definitely reach out if I have any more questions or need further help. I'm looking forward to the cooking experience and enjoying a tasty meal. Thanks again, and have a wonderful day!\n[System]: You're welcome! I'm glad I could assist you. Have a fantastic day and enjoy your cooking adventure. Take care!",
             "content_zh": "谢谢你的帮助和善意的话语！我很感激你的支持和指导。如果我有任何问题或需要进一步帮助，我肯定会联系你的。我期待着烹饪体验和享受美味的一餐。再次感谢，祝你有美好的一天！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "谢谢 你 的 帮助 和 善意 的 话语 ！ 我 很 感激 你 的 支持 和 指导 。 如果 我 有 任何 问题 或 需要 进一步 帮助 ， 我 肯定 会 联系 你 的 。 我 期待 着 烹饪 体验 和 享受 美味 的 一餐 。 再次 感谢 ， 祝 你 有 美好 的 一天 ！"
         },
         {
             "role": "assistant",
@@ -69,7 +76,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "谢谢 ！ 很 高兴 能 帮助 到 您 。 祝您 有 一个 美好 的 一天 ， 享受 您 的 烹饪 冒险 。 保重 ！"
         }
     ],
     "conflict": false,

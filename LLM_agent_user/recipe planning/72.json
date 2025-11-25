@@ -12,7 +12,8 @@
             "content": "Hello! Thank you for reaching out. I'm planning to prepare a meal at home to celebrate my birthday with about 10 close friends. I consider myself a skilled cook, so I'd like your help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Could you please assist me with that?",
             "content_zh": "你好！感谢您的联系。我打算在家为我的生日和大约10个亲近的朋友一起准备一顿饭。我认为自己是一个熟练的厨师，所以我想要您在创建食谱、确定所需食材和决定要做什么菜肴方面给予帮助。您可以帮我吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 感谢您 的 联系 。 我 打算 在家 为 我 的 生日 和 大约 10 个 亲近 的 朋友 一起 准备 一顿饭 。 我 认为 自己 是 一个 熟练 的 厨师 ， 所以 我 想要 您 在 创建 食谱 、 确定 所 需食材 和 决定 要 做 什么 菜肴 方面 给予帮助 。 您 可以 帮 我 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ， 我 很 乐意 帮助 您 计划 生日 晚餐 ！ 与 亲密 朋友 一起 庆祝 听 起来 是 个 好 主意 。 让 我们 先 讨论 您 想 准备 哪 种 类型 的 美食 吧 。 您 对 特定 的 美食 感兴趣 吗 ？ 还是 有 任何 特殊 的 饮食 偏好 或 限制 ？"
         },
         {
             "role": "user",
             "content": "Thank you for offering your assistance. I appreciate it! As for the type of cuisine, I'm open to suggestions. I don't have any specific dietary restrictions, but I want to make sure the meal is enjoyable for all my friends. Some of them are vegetarian, so it would be great to have a few vegetarian options as well. What do you recommend?",
             "content_zh": "谢谢您提供帮助。我很感激！至于餐厅的类型，我愿意听取建议。我没有任何特殊的饮食限制，但我希望餐点可以让我的朋友们都喜欢。其中一些朋友是素食者，所以提供几个素食选择会很棒。您有什么推荐吗？",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "谢谢您 提供 帮助 。 我 很 感激 ！ 至于 餐厅 的 类型 ， 我 愿意 听取 建议 。 我 没有 任何 特殊 的 饮食 限制 ， 但 我 希望 餐点 可以 让 我 的 朋友 们 都 喜欢 。 其中 一些 朋友 是 素食者 ， 所以 提供 几个 素食 选择 会 很棒 。 您 有 什么 推荐 吗 ？"
         },
         {
             "role": "assistant",
@@ -38,14 +41,16 @@
                 "hallucination": false,
                 "memo": "Translation Problem Fixed"
             },
-            "content_zh_old": "太棒了！拥有各种选项以满足每个人的喜好总是很好的。我们来计划一个包括素食和非素食菜肴混合的菜单怎么样？以下是一个建议的菜单，应该对所有人都美味和愉快：前菜：1. 莫扎瑞拉番茄串：串起樱桃番茄、新鲜莫扎瑞拉奶酪和罗勒叶，淋上香醋浓缩酱作为美味的开胃菜。2. 菠菜和朝鲜蓟酱：搭配烤面包或玉米片作为温暖、奶油的开胃菜。 主菜：1. 火焰辣椒：用熟的奎奴亚米、炒蔬菜和奶酪混合物填充辣椒，制作一道素食菜。烤至嫩和金黄。2. 柠檬草蒸鸡：将鸡块 marinate 在柠檬汁、香草和大蒜混合物中，烤至金黄、多汁。 配菜：1. 烤大蒜土豆泥：带有一丝烤大蒜味的奶油土豆泥会衬托辣椒和烤鸡的味道。2. 烤蔬菜：准备一份包括西葫芦、灯笼椒和蘑菇等时令蔬菜的烧烤，用简单的草药和橄榄油混合物腌制，然后烤至完美。 甜点：1. 巧克力熔岩蛋糕：用个体巧克力熔岩蛋糕，中间液态而黏润。搭配一勺香草冰淇淋，享受浓厚美味。 为了搭配这顿饭，你可以选来自红酒、苏打水或无酒精鸡尾酒的各种饮料。希望这份菜单为你提供一个良好的出发点！如果需要进一步帮助或有特殊要求，请告诉我。"
+            "content_zh_old": "太棒了！拥有各种选项以满足每个人的喜好总是很好的。我们来计划一个包括素食和非素食菜肴混合的菜单怎么样？以下是一个建议的菜单，应该对所有人都美味和愉快：前菜：1. 莫扎瑞拉番茄串：串起樱桃番茄、新鲜莫扎瑞拉奶酪和罗勒叶，淋上香醋浓缩酱作为美味的开胃菜。2. 菠菜和朝鲜蓟酱：搭配烤面包或玉米片作为温暖、奶油的开胃菜。 主菜：1. 火焰辣椒：用熟的奎奴亚米、炒蔬菜和奶酪混合物填充辣椒，制作一道素食菜。烤至嫩和金黄。2. 柠檬草蒸鸡：将鸡块 marinate 在柠檬汁、香草和大蒜混合物中，烤至金黄、多汁。 配菜：1. 烤大蒜土豆泥：带有一丝烤大蒜味的奶油土豆泥会衬托辣椒和烤鸡的味道。2. 烤蔬菜：准备一份包括西葫芦、灯笼椒和蘑菇等时令蔬菜的烧烤，用简单的草药和橄榄油混合物腌制，然后烤至完美。 甜点：1. 巧克力熔岩蛋糕：用个体巧克力熔岩蛋糕，中间液态而黏润。搭配一勺香草冰淇淋，享受浓厚美味。 为了搭配这顿饭，你可以选来自红酒、苏打水或无酒精鸡尾酒的各种饮料。希望这份菜单为你提供一个良好的出发点！如果需要进一步帮助或有特殊要求，请告诉我。",
+            "content_zh_cut": "太好了 ！ 能够 提供 多样化 的 选择 以 迎合 每个 人 的 喜好 总是 很棒 的 。 我们 是否 可以 计划 一个 菜单 ， 包括 素食 和 非 素食 的 混合 菜肴 ？ 以下 是 我 建议 的 菜单 ， 应该 会 让 大家 都 觉得 美味 和 愉快 ： \n \n 开胃菜 ： \n 1 .   卡 普里 串 ： 用 竹签 串上 樱桃 番茄 、 新鲜 的 马苏 里拉 奶酪 和 罗勒 叶 。 淋上 香醋 葡萄 酱 ， 作为 一道 令人 愉快 的 开胃菜 。 \n 2 .   菠菜 朝鲜 蓟沾酱 ： 搭配 烤面包 或 玉米片 ， 作为 温暖 而 奶油 的 开胃菜 。 \n \n 主菜 ： \n 1 .   填馅 甜椒 ： 准备 一个 素食 选项 ， 用 煮熟 的 藜 麦 、 炒 蔬菜 和 奶酪 的 混合物 填充 甜椒 。 烘烤 至 嫩 和 金黄色 。 \n 2 .   柠檬 香草 烤鸡 ： 用 柠檬汁 、 香草 和 大蒜 的 混合物 腌制 鸡块 。 烤 至 金黄色 和 多汁 。 \n \n 配菜 ： \n 1 .   烤 蒜泥 土豆泥 ： 带有 烤蒜味 的 奶油 土豆泥 ， 将 与 填 馅 的 甜椒 和 烤鸡 都 搭配 得 很 好 。 \n 2 .   烤 蔬菜 ： 准备 一系列 季节性 蔬菜 如 西葫芦 、 甜椒 和 蘑菇 ， 用 简单 的 香草 和 橄榄油 混合物 腌制 ， 然后 烤 至 完美 。 \n \n 甜点 ： \n 1 .   巧克力 熔岩 蛋糕 ： 提供 个人 巧克力 熔岩 蛋糕 ， 中心 熔化 、 流心 。 搭配 一 球 香草 冰淇淋 ， 作为 一道 奢华 的 甜点 。 \n \n 为了 配合 这顿餐 ， 你 可以 准备 多种 饮料 ， 如 葡萄酒 、 气泡 水 或 无 酒精 鸡尾酒 。 我 希望 这个 菜单 能 给 你 一个 好 的 起点 ！ 如果 你 需要 进一步 的 帮助 或 有 任何 特别 的 要求 ， 请 告诉 我 。"
         },
         {
             "role": "user",
             "content": "That sounds like a fantastic menu! I love the combination of flavors and the mix of vegetarian and non-vegetarian options. The Caprese skewers and Spinach and Artichoke Dip will make great appetizers. Stuffed Bell Peppers and Lemon Herb Roasted Chicken sound like delicious main courses, and the Roasted Garlic Mashed Potatoes and Grilled Vegetables will be perfect sides. Finally, the Chocolate Lava Cakes for dessert will definitely be a crowd-pleaser.\n\nFor the beverages, I think having a selection of wines, sparkling water, and some refreshing mocktails will be a great addition.\n\nThank you so much for your suggestions! I'm really excited about this menu. Do you have any tips or recommendations on the preparation process or the order in which I should prepare these dishes?",
             "content_zh": "那听起来像是一个棒极了的菜单！我喜欢口味的组合和素食和非素食选择的混合。Caprese串和菠菜和艺术芝麻酱会是很棒的开胃菜。馅满钟椒和柠檬香草烤鸡看起来像是美味的主菜，而烤大蒜土豆泥和烤蔬菜将是完美的配菜。最后，巧克力岩浆蛋糕作为甜点肯定会讨人喜欢。\n对于饮品，我认为提供一些葡萄酒、气泡水和一些清爽的无酒精鸡尾酒是一个不错的增加。\n非常感谢您的建议！我对这个菜单感到非常兴奋。您是否有任何烹饪过程中的提示或建议，或者我应该准备这些菜肴的顺序？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "那 听 起来 像是 一个 棒极了 的 菜单 ！ 我 喜欢 口味 的 组合 和 素食 和 非 素食 选择 的 混合 。 Caprese 串 和 菠菜 和 艺术 芝麻酱 会 是 很棒 的 开胃菜 。 馅满 钟椒 和 柠檬 香草 烤鸡 看起来 像是 美味 的 主菜 ， 而 烤 大蒜 土豆泥 和 烤 蔬菜 将 是 完美 的 配菜 。 最后 ， 巧克力 岩浆 蛋糕 作为 甜点 肯定 会 讨人喜欢 。 \n 对于 饮品 ， 我 认为 提供 一些 葡萄酒 、 气泡 水 和 一些 清爽 的 无 酒精 鸡尾酒 是 一个 不错 的 增加 。 \n 非常 感谢您 的 建议 ！ 我 对 这个 菜单 感到 非常 兴奋 。 您 是否 有 任何 烹饪 过程 中 的 提示 或 建议 ， 或者 我 应该 准备 这些 菜肴 的 顺序 ？"
         },
         {
             "role": "assistant",
@@ -54,14 +59,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "非常 欢迎您 ！ 我 很 高兴 您 喜欢 菜单 。 现在 ， 让 我们 谈谈 准备 过程 以及 您 可以 按 顺序 处理 这些 菜肴 以 让 事情 更 容易 一些 。 \n \n 以下 是 一个 建议 的 时间表 ， 帮助 您 规划 ： \n \n 庆祝 活动 前 1 - 2 天 ： \n -   准备 菠菜 和 朝鲜 蓟芯酱 。 您 可以 将 其 放入 冰箱 ， 然后 在 上菜 前 重新 加热 。 \n -   腌制 柠檬草 香 烤鸡 的 鸡肉 。 这样 可以 让 味道 充分 融合 。 \n \n 庆祝 活动 当天 ： \n -   先 准备 填充 甜椒 。 您 可以 提前 组装 好 ， 放入 冰箱 ， 等到 要 烤 之前 再 拿 出来 。 \n -   在 填充 甜椒 在 烘烤 时 ， 您 可以 开始 制作 卡普雷塞串 。 串起 樱桃 番茄 、 马苏 里拉 奶酪 和 罗勒 叶 。 在 上菜 前淋上 意大利 香醋 浓缩 酱 。 \n -   接着 ， 为 土豆泥 烤 蒜 。 一旦 烤 好 ， 您 可以 稍后 容易 地 将 其 捣碎 到 土豆 中 。 \n -   准备 好 巧克力 岩浆 蛋糕 的 面糊 ， 靠 一边 待用 ， 等到 准备 烤时 再 拿 出来 。 别忘了 预热 烤箱 。 \n \n 客人 到达 前约 1 小时 ： \n -   开始 烤鸡 。 在 鸡 烤 的 时候 ， 您 可以 准备 土豆泥 。 煮熟 土豆 ， 捣碎 并 混入 烤 好 的 大蒜 增添 额外 的 味道 。 \n -   一旦 鸡 烤 好 ， 让 其 静置 片刻 再 上菜 。 \n -   在 鸡 静置 时 ， 烤 蔬菜 。 这 不会 花太多 时间 ， 可以 在 服务 时 保持 温暖 。 \n \n 上菜 前 ： \n -   烤 填充 甜椒 直到 它们 变软 且 奶酪 融化 即可 。 \n -   烤 巧克力 岩浆 蛋糕 ， 因为 最好 在 温热 新鲜 时 食用 。 \n \n 用餐 时 ， 您 可以 保持 菠菜 和 朝鲜 蓟芯酱 温暖 ， 并 与 烤面包 或 墨西哥 玉米片 一起 作为 开胃菜 上菜 。 \n \n 记得 让 朋友 们 帮忙 分担 任务 。 这样 可以 让 准备 过程 更 有趣 和 高效 。 最 重要 的 是 ， 别忘了 和 朋友 们 一起 享受 庆祝 活动 ！ 如果 有 任何 需要 帮助 的 ， 请 告诉 我 。"
         },
         {
             "role": "user",
             "content": "Thank you so much for the detailed timeline and suggestions! This will definitely make the preparation process much smoother for me. I appreciate the tip about marinating the chicken ahead of time and delegating tasks to my friends. It will certainly help me enjoy the celebration more.\n\nI feel confident now about the order in which to prepare the dishes and the timeline leading up to the celebration. I can't wait to try out these recipes and share this meal with my friends. Thank you for your assistance and guidance throughout this planning process!\n\nIf I have any more questions or need further assistance, I'll be sure to reach out. Thank you again for your help!\n",
             "content_zh": "非常感谢你提供的详细时间表和建议！这些肯定会让我的准备过程更顺利。我很感激你提到提前腌制鸡肉和把任务分派给朋友的建议。这些确实会帮助我更好地享受庆祝活动。\n\n现在我对准备菜肴的顺序和庆祝活动前的时间表感到有信心了。我迫不及待要尝试这些食谱，并与朋友分享这顿饭。感谢你在整个规划过程中的帮助和指导！\n\n如果我有更多问题或需要进一步帮助，我一定会联系你的。再次感谢你的帮助！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "非常感谢 你 提供 的 详细 时间表 和 建议 ！ 这些 肯定 会 让 我 的 准备 过程 更 顺利 。 我 很 感激 你 提到 提前 腌制 鸡肉 和 把 任务 分派 给 朋友 的 建议 。 这些 确实 会 帮助 我 更好 地 享受 庆祝 活动 。 \n \n 现在 我 对 准备 菜肴 的 顺序 和 庆祝 活动 前 的 时间表 感到 有 信心 了 。 我 迫不及待 要 尝试 这些 食谱 ， 并 与 朋友 分享 这 顿饭 。 感谢 你 在 整个 规划 过程 中 的 帮助 和 指导 ！ \n \n 如果 我 有 更 多 问题 或 需要 进一步 帮助 ， 我 一定 会 联系 你 的 。 再次 感谢 你 的 帮助 ！"
         },
         {
             "role": "assistant",
@@ -70,14 +77,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "不 客气 ！ 很 高兴 能 帮助 您 计划 生日 庆祝 活动 。 我 相信 您 的 朋友 会 喜欢 您 为 他们 准备 的 美味 食物 。 如果 您 有 任何 问题 或 需要 进一步 帮助 ， 请 随时 与 我 联系 。 祝您 生日 庆典 顺利 ， 与 朋友 共度 美好时光 ！ 祝您 烹饪 愉快 ， 生日快乐 ！"
         },
         {
             "role": "user",
             "content": "Thank you so much for your kind wishes and support! I truly appreciate your help in planning my birthday celebration. Your guidance and suggestions have been invaluable. I'm looking forward to a wonderful celebration with my friends, and I'll make sure to enjoy every moment of it. Thank you again, and have a great day!\n",
             "content_zh": "非常感谢您的祝福和支持！我真的很感激您在规划我的生日庆祝活动中的帮助。您的指导和建议是无价的。我期待与朋友们一起度过一个美好的庆祝活动，我会确保享受其中的每一刻。再次感谢您，祝您有美好的一天！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "非常 感谢您 的 祝福 和 支持 ！ 我 真的 很 感激 您 在 规划 我 的 生日 庆祝 活动 中 的 帮助 。 您 的 指导 和 建议 是 无价 的 。 我 期待 与 朋友 们 一起 度过 一个 美好 的 庆祝 活动 ， 我会 确保 享受 其中 的 每一刻 。 再次 感谢您 ， 祝您 有 美好 的 一天 ！"
         },
         {
             "role": "assistant",
@@ -86,7 +95,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "不 客气 ！ 能 帮助 您 是 我 的 荣幸 。 听到 您 觉得 我 的 指导 有 帮助 ， 我 感到 非常高兴 。 希望 您 的 生日 庆祝 活动 能 如 您 所 想 ， 甚至 更好 。 享受 美味 的 食物 ， 珍惜 与 朋友 相处 的 时光 ， 过 一个 美妙 的 一天 ！ 如果 以后 需要 帮助 ， 请 随时 联系 我 。 保重 ， 祝您 生日快乐 ！"
         }
     ],
     "conflict": false,

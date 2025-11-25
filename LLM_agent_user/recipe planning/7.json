@@ -12,7 +12,8 @@
             "content": "Hello! Thank you for reaching out. I'm actually in need of some assistance myself. I plan to prepare a meal at home and invite three close friends to join me. However, I'm not very skilled in cooking and have limited experience. I was hoping you could help me create a recipe, determine the necessary ingredients, and decide what dishes to make. Can you assist me with that?",
             "content_zh": "你好！谢谢你联系我。实际上，我自己也需要一些帮助。我打算在家里准备一顿饭，邀请三个亲近的朋友加入我。然而，我在烹饪方面并不很擅长，经验也有限。我希望你能帮我制定一个食谱，确定所需的食材，并决定要做什么菜。你可以帮我吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 谢谢 你 联系 我 。 实际上 ， 我 自己 也 需要 一些 帮助 。 我 打算 在 家里 准备 一顿饭 ， 邀请 三个 亲近 的 朋友 加入 我 。 然而 ， 我 在 烹饪 方面 并 不 很 擅长 ， 经验 也 有限 。 我 希望 你 能 帮 我 制定 一个 食谱 ， 确定 所 需 的 食材 ， 并 决定 要 做 什么 菜 。 你 可以 帮 我 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ， 我 很 乐意 帮助 您 规划 餐点 ， 并 想 出 一些 美味佳肴 ！ 让 我们 首先 考虑一下 您 和 您 的 朋友 喜欢 什么 类型 的 美食 。 您 有 任何 喜好 或 饮食 限制 吗 ？ 了解 这些 信息 将 很 有 帮助 ， 以便 我们 可以 相应 地 调整 食谱 。"
         },
         {
             "role": "user",
             "content": "Thank you for offering to help! I appreciate it. As for our culinary preferences, we don't have any specific dietary restrictions. We generally enjoy a variety of cuisines, but since the weather is nice, I thought it would be great to have a summer-themed meal. Something light and refreshing would be perfect. What do you suggest we make?",
             "content_zh": "谢谢您提出帮助！我很感激。至于我们的烹饪喜好，我们没有特定的饮食限制。我们通常喜欢各种不同的美食，但由于天气好，我想要一顿夏季主题的餐。清淡又爽口的食物会很完美。您觉得我们应该做些什么呢？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "谢谢您 提出 帮助 ！ 我 很 感激 。 至于 我们 的 烹饪 喜好 ， 我们 没有 特定 的 饮食 限制 。 我们 通常 喜欢 各种 不同 的 美食 ， 但 由于 天气 好 ， 我 想要 一顿 夏季 主题 的 餐 。 清淡 又 爽口 的 食物 会 很 完美 。 您 觉得 我们 应该 做些 什么 呢 ？"
         },
         {
             "role": "assistant",
@@ -37,7 +40,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "夏日 主题 的 餐点 听 起来 棒极了 ！ 我们 来 制定 一个 菜单 ， 包括 一份 清爽 的 沙拉 ， 一道 主菜 搭配 轻盈 的 蛋白质 ， 以及 一份 美味 的 甜点 。 下面 是 每道菜 的 建议 ： \n \n 1 .   开胃菜 / 沙拉 ： 西瓜 费达 奶酪 沙拉 \n -   食材 ： 西瓜 、 费达 奶酪 、 新鲜 薄荷叶 、 芝麻 菜 、 意大利 陈醋 酱 、 少量 黑胡椒 碎 \n -   做法 ： 将 西瓜 和 费达 奶酪 切成 小方块 ， 然后 与 芝麻 菜 和 撕碎 的 薄荷叶 放入 碗 中 混合 。 淋上 意大利 陈醋 酱 ， 撒上 少许 黑胡椒 增添 额外 的 风味 。 \n \n 2 .   主菜 ： 柠檬 香草 烤鸡肉 串 \n -   食材 ： 鸡胸肉 、 柠檬汁 、 橄榄油 、 大蒜 、 新鲜 香草 （ 如 迷迭香 、 百里香 和 欧芹 ） 、 盐 、 黑胡椒 \n -   做法 ： 将 鸡胸肉 切成 小 块 。 在 碗 中 混合 柠檬汁 、 橄榄油 、 切碎 的 大蒜 、 切碎 的 香草 、 盐 和 黑胡椒 。 将 鸡肉 浸泡 在 这个 混合物 中 至少 30 分钟 。 将 鸡肉 串 起来 ， 烤 至 熟透 。 \n \n 3 .   甜点 ： 莓果 拼盘 \n -   食材 ： 混合 浆果 （ 如 草莓 、 蓝莓 和 覆盆子 ） 、 希腊 酸奶 、 蜂蜜 、 燕麦片 、 薄荷叶 （ 可 选 ） \n -   做法 ： 在 单独 的 玻璃杯 或 碗 中 层叠 混合 浆果 、 希腊 酸奶 和 蜂蜜 。 重复 这些 层次 直到 达到 顶部 。 最后 撒上 一些 燕麦片 ， 如果 愿意 ， 用 薄荷叶 装饰 。 \n \n 这些 食谱 应该 提供 一顿 清爽 的 餐点 ， 非常适合 夏日 聚会 。 如果 需要 进一步 帮助 或 有 其他 问题 ， 请 告诉 我 ！"
         }
     ],
     "conflict": false,

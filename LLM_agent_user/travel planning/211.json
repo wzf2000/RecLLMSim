@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you're here. I'm planning a two-day trip this summer and I could use some assistance with refining my travel plans. I have no specific destination in mind, so I'm open to suggestions. I would appreciate your help with accommodations, transportation, and creating an itinerary that suits my interests. Could you please guide me through the process?",
             "content_zh": "你好！很高兴你在这里。我计划今年夏天去一个两天的旅行，希望你能帮我完善我的旅行计划。我还没有具体的目的地，所以我可以接受建议。我需要你帮助安排住宿、交通方式，并创建一个符合我的兴趣的行程表。你可以引导我整个过程吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 在 这里 。 我 计划 今年夏天 去 一个 两天 的 旅行 ， 希望 你 能 帮 我 完善 我 的 旅行 计划 。 我 还 没有 具体 的 目的地 ， 所以 我 可以 接受 建议 。 我 需要 你 帮助 安排 住宿 、 交通 方式 ， 并 创建 一个 符合 我 的 兴趣 的 行程表 。 你 可以 引导 我 整个 过程 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "你好 ！ 我 很 高兴 帮助 你 规划 这个 夏天 的 两天 之 行 。 因为 你 还 没有 特定 目的地 ， 我们 可以 探索 一些 选择 ， 并 根据 你 的 兴趣 缩小 选择 范围 。 让 我们 从 一些 问题 开始 ， 以 更好 地 了解 你 的 需求 。 \n 1 .   你 对 什么 感兴趣 ？ 是 自然 、 历史 、 冒险 还是 其他 ？ \n 2 .   你 是 想要 一个 放松 的 度假 还是 充满 活动 的 冒险 ？ \n 3 .   你 有 特定 的 地区 或 国家 偏好 吗 ？ \n 4 .   你 的 住宿 和 交通 预算 是 多少 ？ \n 5 .   你 想 在 旅行 中 体验 特定 的 活动 或 景点 吗 ？ \n 一旦 你 提供 了 一些 答案 ， 我们 就 可以 开始 缩小 选择 范围 ， 制定 一份 适合 你 需求 的 定制 行程 。"
         },
         {
             "role": "user",
             "content": "I'm sorry, but I'm unable to provide the information you're requesting.",
             "content_zh": "很抱歉，我无法提供您要求的信息。",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "很 抱歉 ， 我 无法 提供 您 要求 的 信息 。"
         },
         {
             "role": "assistant",
@@ -37,14 +40,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "一点 问题 都 没有 ！ 即使 没有 具体 偏好 ， 我们 仍然 可以 规划 一个 提供 热门 活动 和 目的地 混合 的 大致 行程 。 让 我们 从 几个 建议 开始 ， 看看 是否 有 任何 一个 能 激起 您 的 兴趣 。 \n \n 选择 1 ： 海滨 度假 \n 第 1 天 ： 开始 您 的 旅行 ， 前往 一个 风景如画 的 海滨 小镇 。 在 海滩 上 悠闲 漫步 ， 探索 迷人 的 当地 商店 ， 在 海边 餐厅 享用 新鲜 海鲜 。 您 还 可以 考虑 参观 附近 的 地标 或 乘船 观光 ， 以 观赏 海洋 野生动物 。 \n 第 2 天 ： 花 第二天 探索 周围 的 自然环境 。 如果 附近 有 任何 国家 公园 或 自然保护区 ， 您 可以 去 远足 ， 野餐 ， 或者 尝试 一些 水上 活动 ， 比如 皮划艇 或 浮潜 。 \n \n 选择 2 ： 历史 名城 探索 \n 第 1 天 ： 选择 一个 以 其 文化遗产 而 著称 的 历史 名城 。 花 一天 时间 参观 博物馆 、 历史 遗址 和 地标 。 沉浸 在 当地 文化 中 ， 尝试 传统 美食 ， 并 可能 参加 导览 游 ， 了解 更 多 有关 城市 历史 的 内容 。 \n 第 2 天 ： 第二天 ， 冒险 到 城市 外 探索 附近 的 景点 。 这 可能 包括 参观 著名 的 城堡 ， 探索 风景如画 的 乡村 ， 或者 前往 一个 以 独特 建筑 或 自然 美丽 而 闻名 的 附近 小镇 进行 一日游 。 \n \n 选择 3 ： 户外 探险 \n 第 1 天 ： 选择 一个 以 户外活动 而 闻名 的 目的地 。 您 可以 徒步旅行 、 骑 自行车 ， 甚至 尝试 一些 刺激 的 冒险 ， 比如 滑索 、 攀岩 或 漂流 。 如果 您 喜欢 水上 活动 ， 考虑 去 一个 有 湖泊 或 河流 的 地方 ， 您 可以 游泳 或划 独木舟 。 \n 第 2 天 ： 继续 您 的 探险 ， 探索 更 多 自然环境 。 您 可以 进行 一次 风景如画 的 自驾游 ， 参观 自然保护区 ， 或者 参加 导览 游 ， 发现 该 地区 的 隐藏 宝藏 。 \n \n 这 仅仅 是 几个 初步 想法 ， 希望 能 帮助 您 入门 。 一旦 您 有 偏好 或 特定 地区 意向 ， 我们 可以 进一步 完善 行程 并 讨论 住宿 和 交通 选择 。 请 告诉 我 您 最 感兴趣 的 选择 ， 或者 如果 您 有 任何 其他 想法 ！"
         },
         {
             "role": "user",
             "content": "Option 2: Historic City Exploration sounds intriguing to me. I enjoy learning about different cultures and exploring historical sites. Let's go with that option! Can you suggest a specific historic city that I can explore? Additionally, I would appreciate any recommendations for accommodations and transportation in that city.",
             "content_zh": "选项2：历史文化探索听起来很有趣。我喜欢了解不同的文化和探索历史遗迹。我们就选这个选项吧！你能给我推荐一个可以探索的特定历史城市吗？另外，我也想要在那个城市得到住宿和交通的建议。",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "选项 2 ： 历史 文化 探索 听 起来 很 有趣 。 我 喜欢 了解 不同 的 文化 和 探索 历史 遗迹 。 我们 就 选 这个 选项 吧 ！ 你 能 给 我 推荐 一个 可以 探索 的 特定 历史 城市 吗 ？ 另外 ， 我 也 想要 在 那个 城市 得到 住宿 和 交通 的 建议 。"
         },
         {
             "role": "assistant",
@@ -53,14 +58,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "太棒了 ！ 探索 一座 历史悠久 的 城市 可以 是 一次 迷人 而 丰富 的 体验 。 我 首先 想到 的 是 捷克 首都 布拉格 。 布拉格 以 其 丰富 的 历史 、 令人惊叹 的 建筑 和 活力 四射 的 文化 而 闻名 。 在 布拉格 ， 您 会 发现 各种各样 的 住宿 供 您 选择 ， 以 满足 不同 的 预算 和 偏好 。 如果 您 寻求 豪华 体验 ， 可以 考虑 入住 市中心 的 历史悠久 酒店 之一 ， 如帕黎斯 酒店 或 奥古斯丁 豪华 精选 酒店 。 如果 您 想要 更 经济 实惠 的 选择 ， 那么 各种 客栈 、 青年 旅社 和 公寓 在 全市 各个 街区 都 有 很多 。 布拉格 有 高效 的 公共交通 系统 ， 包括 有轨电车 、 公交车 和 地铁 ， 便于 您 在 城市 内 出行 。 您 可以 购买 旅行 卡 ， 在 逗留 期间 享受 无限 次 乘车 。 此外 ， 出租车 和 共 乘 服务 也 可用 ， 但 通常 建议您 选择 公共交通 出行 。 这 是 您 两天 布拉格 之行 的 建议 行程 ： 第一天 ： -   开始 您 的 一天 ， 探索 布拉格 城堡 ， 这是 世界 最大 的 城堡 群 之一 。 参观 圣维托大 教堂 、 旧 皇宫 ， 欣赏 城堡 内 的 全景 。 -   前往 查理 大桥 ， 这是 一座 历史悠久 的 地标 ， 饰 有 雕像 ， 可 欣赏 伏尔塔瓦河 的 美景 。 在 桥 上 漫步 ， 探索 附近 的 老城区 。 -   参观 老城 广场 上 的 天文钟 ， 观看 每 小时 的 表演 。 探索 老城 的 狭窄 街道 ， 别忘了 在 当地 餐馆 品尝 一些 传统 捷克 美食 。 -   晚上 ， 可以 考虑 参加 古典 音乐会 或 在 当地 酒吧 中 享用 传统 捷克 啤酒 。 第二天 ： -   开始 您 的 一天 ， 参观 犹太 区 ， 即 约瑟 福夫 。 探索 犹太 博物馆 ， 内有 几座 犹太 会堂 和 犹太 墓地 。 了解 布拉格 丰富 的 犹太 历史 和 文化遗产 。 -   参观 美丽 的 市政厅 ， 这是 一座 令人惊叹 的 新 艺术风格 建筑 ， 经常 举办 音乐会 和 展览 。 -   探索 小 城区 （ 马拉 斯特拉 纳 ） 区域 ， 有 迷人 的 街道 、 巴洛克 建筑 和 隐秘 花园 。 别错过 风景如画 的 列侬 墙 和 标志性 的 圣尼古拉斯 教堂 。 -   结束 您 的 一天 ， 乘船 沿着 伏尔塔瓦河 放松 ， 欣赏 布拉格 的 天际线 和 著名 地标 景观 。 请 记住 ， 这 只是 一个 大致 的 行程 安排 ， 您 可以 根据 自己 的 兴趣 和 可用 时间 进行 调整 。 布拉格 在 历史 和 文化 方面 提供 了 许多 ， 因此 请花 时间 去 融入 其中 。 祝您 旅途愉快 ！"
         },
         {
             "role": "user",
             "content": "Thank you for the detailed itinerary and recommendations for Prague! It sounds like a perfect destination for my historic city exploration. I appreciate the suggestions for accommodations and transportation as well. I will look into the options you provided and make the necessary arrangements. The itinerary you outlined seems well-balanced and covers the key highlights of Prague. I'll make sure to explore the suggested attractions and take in the rich history and culture of the city. Thank you for your assistance so far!",
             "content_zh": "感谢您提供的详细行程安排和对布拉格的建议！布拉格对历史城市探索似乎是一个完美的目的地。我感谢您为住宿和交通提供的建议。我会研究您提供的选项并做出必要的安排。您提供的行程看起来很平衡，涵盖了布拉格的主要亮点。我会确保探索建议的景点，并领略这座城市丰富的历史和文化。感谢您迄今为止的帮助！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "感谢您 提供 的 详细 行程 安排 和 对 布拉格 的 建议 ！ 布拉格 对 历史 城市 探索 似乎 是 一个 完美 的 目的地 。 我 感谢您 为 住宿 和 交通 提供 的 建议 。 我会 研究 您 提供 的 选项 并 做出 必要 的 安排 。 您 提供 的 行程 看起来 很 平衡 ， 涵盖 了 布拉格 的 主要 亮点 。 我会 确保 探索 建议 的 景点 ， 并 领略 这座 城市 丰富 的 历史 和 文化 。 感谢您 迄今为止 的 帮助 ！"
         },
         {
             "role": "assistant",
@@ -69,7 +76,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "不 客气 ！ 很 高兴 您 觉得 行程 和 推荐 有用 。 布拉格 确实 是 一个 探索 历史 和 沉浸 在 充满活力 文化 中 的 绝佳 目的地 。 我 相信 您 在 探索 这座 城市 及其 景点 时会 度过 愉快 的 时光 。 如果 您 在 安排 行程 时有 任何 问题 或 需要 进一步 帮助 ， 请 随时 询问 。 我 在 这里 可以 提供 帮助 。 祝您 在 布拉格 有 一次 美好 的 旅行 ， 尽情 享受 历史 城市 的 探索 ！ 一路顺风 ！"
         }
     ],
     "conflict": false,

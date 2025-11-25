@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you're here. I would like your help in planning a meal at home. I want to invite three close friends over, but I'm not very skilled in cooking and have limited experience. I would appreciate your guidance in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Can you help me with that?",
             "content_zh": "你好！很高兴你在这里。我想请你帮忙规划一顿在家的餐。我想邀请三位亲近的朋友过来，但我在烹饪方面并不很擅长，经验也有限。希望你能帮忙在创建食谱、确定所需食材和决定要做的菜肴方面给予指导。你可以帮我吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 在 这里 。 我 想 请 你 帮忙 规划 一顿 在家 的 餐 。 我 想 邀请 三位 亲近 的 朋友 过来 ， 但 我 在 烹饪 方面 并 不 很 擅长 ， 经验 也 有限 。 希望 你 能 帮忙 在 创建 食谱 、 确定 所 需食材 和 决定 要 做 的 菜肴 方面 给予 指导 。 你 可以 帮 我 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "你好 ！ 我 很 乐意 帮助 你 为 朋友 们 规划 一顿饭 。 即使 你 不是 很 熟练 ， 烹饪 也 可以 是 一种 有趣 和 有益 的 体验 。 让 我们 先 来 一起 想想 一些 美味 而 相对 简单 的 饭菜 的 主意 。 你 和 朋友 们 喜欢 哪 种 菜系 或 菜肴 ？"
         },
         {
             "role": "user",
             "content": "That's great! I enjoy exploring exotic and unique cuisines, and seafood is always a favorite of mine. My friends also appreciate trying new and interesting dishes. So, let's focus on creating a meal with those elements in mind. What are some ideas you have for dishes that we could make?",
             "content_zh": "太棒了！我喜欢探索异国情调和独特的美食，海鲜一直是我的最爱。我的朋友们也喜欢尝试新奇有趣的菜肴。所以，让我们专注于制作一顿带有这些元素的饭菜。你有什么关于我们可以制作的菜肴的想法？",
             "intent": "Search & Recommendation",
-            "intent_zh": "检索+推荐"
+            "intent_zh": "检索+推荐",
+            "content_zh_cut": "太棒了 ！ 我 喜欢 探索 异国情调 和 独特 的 美食 ， 海鲜 一直 是 我 的 最 爱 。 我 的 朋友 们 也 喜欢 尝试 新奇 有趣 的 菜肴 。 所以 ， 让 我们 专注 于 制作 一顿 带有 这些 元素 的 饭菜 。 你 有 什么 关于 我们 可以 制作 的 菜肴 的 想法 ？"
         },
         {
             "role": "assistant",
@@ -37,14 +40,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "太棒了 ！ 既然 你 对 海鲜 感兴趣 并 愿意 尝试 独特 的 美食 ， 不如 试试 创作 一道 融合 灵感 的 海鲜大餐 吧 ？ 以下 是 一个 融合 不同 口味 和 质地 的 三道 菜式 的 想法 ： \n \n 开胃菜 ： 泰式 虾 生菜 卷 \n -   食材 ： 虾 、 生 菜叶 、 胡萝卜 、 黄瓜 、 新鲜 香草 （ 如 香菜 和 薄荷 ） 、 酸 橙汁 、 酱油 、 蜂蜜 、 大蒜 、 姜 、 花生 （ 可 选 ） 。 \n -   做法 ： 将 虾 用 酱油 、 蜂蜜 、 大蒜 和 姜 拌匀 腌制 。 煎 熟 虾 后 ， 将 煮熟 的 虾 、 胡萝卜 丝 、 黄瓜 和 新鲜 香草 放在 生 菜叶 上 制成 卷 。 淋上 酸 橙汁 ， 再 撒 上 磨碎 的 花生 增加 口感 。 \n \n 主菜 ： 地中海 风味 的 柠檬 莳萨蒙鱼 \n -   食材 ： 鲑鱼 片 、 柠檬汁 、 橄榄油 、 大蒜 、 新鲜 莳萨 、 盐 、 胡椒 。 \n -   做法 ： 预热 烤箱 并 准备 烤盘 。 将 鲑鱼 片 放入 烤盘 ， 撒上 盐 、 胡椒 、 切碎 的 大蒜 和 一些 橄榄油 。 挤上 新鲜 柠檬汁 ， 撒上 切碎 的 莳 萨 。 在 烤箱 中烤 至 鱼 熟透 且 易碎 。 \n \n 甜点 ： 热带 水果 酸奶 杯 \n -   食材 ： 新鲜 热带 水果 （ 如 芒果 、 菠萝 和 猕猴桃 ） 、 希腊 酸奶 、 蜂蜜 、 谷物 粒 。 \n -   做法 ： 在 个别 的 容器 中 分层 放入 切 成丁 的 水果 、 希腊 酸奶 和 少许 蜂蜜 。 重复 叠放 ， 最后 在 顶部 加 一勺 酸奶 。 在 酸奶 上 撒 上 一些 谷物 粒 增加 质地 。 冷藏 至 准备 食用 。 \n \n 这些 菜肴 应该 能 提供 口味 的 平衡 ， 并 展示 不同 的 烹饪 技巧 。 它们 相对 简单 易 做 ， 让 你 可以 专注 于 与 朋友 共享 美餐 。 如果 你 希望 了解 更 多 细节 或 需要 其他 帮助 ， 请 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "Wow, those ideas sound absolutely delicious! I love the fusion concept you've incorporated into each course. The Thai-inspired Shrimp Lettuce Wraps for the appetizer sound light and refreshing, while the Mediterranean-inspired Baked Salmon with Lemon-Dill Sauce for the main course adds a touch of elegance. And the Tropical Fruit Parfait for dessert is a perfect way to end the meal with a sweet and refreshing treat.\n\nI appreciate the detailed instructions you provided for each dish. It seems like a well-rounded meal that will surely impress my friends. I think I have a clear plan now, but if I have any questions during the preparation, may I reach out to you for further guidance?\n\nThank you for your help so far!",
             "content_zh": "哇，那些想法听起来绝对美味！我喜欢你在每道菜中融合的概念。开胃菜中泰式灵感的虾生菜卷听起来清爽可口，而地中海风味的柠檬莳萝焗三文鱼主菜增添了一丝优雅。甜点的热带水果拼盘是以甜美清爽的方式结束这顿饭。感谢你为每道菜提供的详细说明。这似乎是一顿让我的朋友们印象深刻的饭菜。我现在有一个清晰的计划，但如果在准备过程中遇到任何问题，我可以联系你寻求进一步指导吗？谢谢你迄今为止的帮助！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "哇 ， 那些 想法 听 起来 绝对 美味 ！ 我 喜欢 你 在 每道菜 中 融合 的 概念 。 开胃菜 中 泰式 灵感 的 虾 生菜 卷 听 起来 清爽 可口 ， 而 地中海 风味 的 柠檬 莳萝 焗 三文鱼 主菜 增添 了 一丝 优雅 。 甜点 的 热带 水果 拼盘 是 以 甜美 清爽 的 方式 结束 这 顿饭 。 感谢 你 为 每道菜 提供 的 详细 说明 。 这 似乎 是 一顿 让 我 的 朋友 们 印象 深刻 的 饭菜 。 我 现在 有 一个 清晰 的 计划 ， 但 如果 在 准备 过程 中 遇到 任何 问题 ， 我 可以 联系 你 寻求 进一步 指导 吗 ？ 谢谢 你 迄今为止 的 帮助 ！"
         },
         {
             "role": "assistant",
@@ -53,14 +58,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ！ 我会 在 你 的 每 一步 旁边 提供 帮助 。 如果 在 准备 餐点 时有 任何 问题 或 需要 进一步 的 指导 ， 请 随时 与 我 联系 。 我 很 乐意 为 你 提供 任何 额外 信息 、 贴士 或 解决方案 。 \n 烹饪 有时候 就 像 一场 冒险 ， 遇到 问题 或 意外 情况 是 很 正常 的 。 记得 要 享受 这个 过程 。 你 的 朋友 们 会 感激 你 为 创造 美味 和 难忘 的 餐点 所 付出 的 努力 。 \n 祝 你 在 烹饪 冒险 中 好运 ， 希望 你 和 你 的 朋友 们 一起 享受 美好时光 ！"
         },
         {
             "role": "user",
             "content": "Thank you so much for your support and encouragement! I truly appreciate your willingness to help me throughout the cooking process. I'm feeling more confident and excited about preparing this meal for my friends.\n\nI'll make sure to reach out if I have any questions or need any further guidance. Cooking can indeed be an adventure, and I'm ready to embrace it. I want to create a memorable experience for my friends, and your assistance is invaluable.\n\nOnce again, thank you for your help, and I'll be sure to let you know how everything turns out. Have a wonderful day!\n",
             "content_zh": "非常感谢您的支持和鼓励！我真的很感激您愿意在整个烹饪过程中帮助我。我对为朋友准备这顿饭感到更加自信和兴奋。\n如果有任何问题或需要进一步指导，我会及时与您联系。烹饪确实是一次冒险，我已经准备好迎接挑战。我希望为朋友们创造一个难忘的体验，您的帮助是无价的。\n再次感谢您的帮助，我一定会告诉您一切的进展。祝您有一个美好的一天！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "非常 感谢您 的 支持 和 鼓励 ！ 我 真的 很 感激 您 愿意 在 整个 烹饪 过程 中 帮助 我 。 我 对 为 朋友 准备 这 顿饭 感到 更加 自信 和 兴奋 。 \n 如果 有 任何 问题 或 需要 进一步 指导 ， 我会 及时 与 您 联系 。 烹饪 确实 是 一次 冒险 ， 我 已经 准备 好 迎接挑战 。 我 希望 为 朋友 们 创造 一个 难忘 的 体验 ， 您 的 帮助 是 无价 的 。 \n 再次 感谢您 的 帮助 ， 我 一定 会 告诉您 一切 的 进展 。 祝您 有 一个 美好 的 一天 ！"
         },
         {
             "role": "assistant",
@@ -69,7 +76,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "不用 客气 ！ 我 很 高兴 能 帮助 增加 你 对 这次 烹饪 冒险 的 信心 和 兴奋 。 我 毫不 怀疑 你 会 为 你 的 朋友 们 做出 一顿 美味 的 餐点 ， 我 很 期待 听到 一切 的 发展 。 \n 记住 ， 烹饪 不仅仅 是 终点 的 成果 ， 也 关乎 旅程 和 一起 分享 美食 的 快乐 。 拥抱 这个 过程 ， 玩得 开心 ， 如果 需要 任何 帮助 ， 不要 犹豫 与 我 联系 。 \n 祝 你 和 朋友 们 度过 愉快 的 时光 ， 期待 听到 你 成功 厨艺 的 全部 细节 ！ 也 祝 你 今天 过得 愉快 ！"
         }
     ],
     "conflict": false,

@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you're here. I could use your help with planning a meal for a special occasion. I want to prepare a delicious dinner for myself and my loved one. Could you assist me in creating a recipe, determining the necessary ingredients, and deciding what dishes to make?",
             "content_zh": "你好！很高兴你在这里。我需要你帮忙为一个特殊场合计划一顿餐。我想为我和我爱的人准备一顿美味的晚餐。你能帮助我创建一个食谱，确定所需食材，并决定要做什么菜吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 在 这里 。 我 需要 你 帮忙 为 一个 特殊 场合 计划 一顿 餐 。 我 想 为 我 和 我 爱 的 人 准备 一顿 美味 的 晚餐 。 你 能 帮助 我 创建 一个 食谱 ， 确定 所 需食材 ， 并 决定 要 做 什么 菜 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "你好 ！ 我 很 乐意 帮助 您 为 您 和 您 的 爱人 计划 一顿 特别 的 晚餐 。 让 我们 先 讨论 一些 细节 。 你们 喜欢 什么 类型 的 美食 或 口味 ？ 是否 有 任何 饮食 限制 或 偏好 我 应该 考虑 ？ 您 在 开胃菜 、 主菜 或 甜点 方面 有 任何 特别 的 偏好 吗 ？"
         },
         {
             "role": "user",
             "content": "Thank you for your assistance. We both enjoy a variety of cuisines, but for this special dinner, I think we would appreciate something comforting and hearty. As for dietary restrictions, fortunately, we don't have any specific allergies or restrictions to consider. For appetizers, we enjoy a good soup or a flavorful salad. For the main course, we both love a well-prepared steak or a delicious pasta dish. And for dessert, something indulgent like a rich chocolate cake or a creamy cheesecake would be perfect.",
             "content_zh": "非常感谢您的帮助。我们都喜欢各种各样的美食，但是对于这顿特别的晚餐，我认为我们会更喜欢一些令人感到舒适和丰盛的食物。至于饮食限制，幸运的是，我们没有任何特定的过敏或限制要考虑。作为开胃菜，我们喜欢一碗美味的汤或口感丰富的沙拉。作为主菜，我们都喜欢一份烹饪精良的牛排或美味的意大利面菜肴。至于甜点，一块浓郁的巧克力蛋糕或一块奶油芝士蛋糕会很完美。",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "非常 感谢您 的 帮助 。 我们 都 喜欢 各种各样 的 美食 ， 但是 对于 这顿 特别 的 晚餐 ， 我 认为 我们 会 更 喜欢 一些 令人 感到 舒适 和 丰盛 的 食物 。 至于 饮食 限制 ， 幸运 的 是 ， 我们 没有 任何 特定 的 过敏 或 限制 要 考虑 。 作为 开胃菜 ， 我们 喜欢 一碗 美味 的 汤 或 口感 丰富 的 沙拉 。 作为 主菜 ， 我们 都 喜欢 一份 烹饪 精良 的 牛排 或 美味 的 意大利 面 菜肴 。 至于 甜点 ， 一块 浓郁 的 巧克力 蛋糕 或 一块 奶油 芝士 蛋糕 会 很 完美 。"
         },
         {
             "role": "assistant",
@@ -37,14 +40,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "太棒了 ！ 根据 您 的 喜好 ， 让 我们 为 您 的 特殊 场合 准备 一顿 美味 的 三道 菜 。 以下 是 我们 的 建议 ： \n \n 开胃菜 ： \n 奶油 番茄 罗勒 汤 \n -   食材 ： 番茄 ， 洋葱 ， 大蒜 ， 罗勒 ， 蔬菜 高汤 ， 鲜奶油 ， 盐 ， 胡椒 。 \n -   做法 ： 炒 洋葱 和 大蒜 ， 加入 番茄 和 罗勒 ， 然后 与 蔬菜 高汤 一起 煮 。 搅拌 至 顺滑 ， 加入 奶油 ， 按 口味 调味 。 \n \n 主菜 ： \n 黑胡椒 铁板 牛排 配烤 大蒜 土豆泥 和 烤 芦笋 \n -   食材 ： 牛排 ， 黑胡椒 粒 ， 盐 ， 橄榄油 ， 土豆 ， 烤 大蒜 ， 黄油 ， 牛奶 ， 芦笋 ， 柠檬汁 。 \n -   做法 ： 压碎 黑胡椒 粒 ， 涂抹 在 牛排 上 ， 并 在 热锅 中 煎炸 。 在 烤箱 中烤 至 喜好 的 熟度 。 煮 土豆 ， 加入 烤 大蒜 、 黄油 和 牛奶 捣成 泥 。 在 橄榄油 中 翻炒 芦笋 ， 烤 至 变软 ， 然后 挤上 柠檬汁 。 \n \n 甜点 ： \n 华丽 的 巧克力 熔岩 蛋糕 \n -   食材 ： 黑 巧克力 ， 黄油 ， 鸡蛋 ， 糖 ， 面粉 ， 盐 ， 糖粉 （ 用于 撒 ） ， 香草 冰淇淋 （ 可 选 ） 。 \n -   做法 ： 融化 巧克力 和 黄油 ， 打发 鸡蛋 和 糖 ， 然后 混合 。 加入 面粉 和 盐 ， 搅拌 均匀 。 将 面糊 倒入 涂油 的 小 瓷碗 中 ， 烘烤 至 边缘 凝固 但 中间 仍然 软 糯 。 撒上 糖粉 ， 如 有 需要 可配 以 一勺 香草 冰淇淋 一起 享用 。 \n \n 这些 食谱 应该 为 您 的 特殊 场合 提供 舒适 又 美味 的 用餐 体验 。 当然 ， 如果 需要 根据 您 的 喜好 调整 任何 方面 ， 请 随时 告诉 我 。 如果 您 需要 更 多 帮助 或 其他 方面 需要 我 协助 ， 请 随时 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "Thank you for the wonderful suggestions! The Creamy Tomato Basil Soup sounds like a delicious way to start the meal, and the Pepper Crusted Filet Mignon with Roasted Garlic Mashed Potatoes and Grilled Asparagus is a perfect main course choice. And of course, the Decadent Chocolate Lava Cake will be a delightful way to end the meal. I appreciate your attention to detail in providing the ingredients and instructions for each dish.\n\nI believe these recipes will create a memorable and comforting dining experience for both of us. I'm excited to try them out! Thank you for your help in planning this special dinner.",
             "content_zh": "非常感谢您的精彩建议！奶油番茄罗勒汤听起来像是开胃的美味选择，而胡椒包裹的菲力牛排配烤大蒜土豆泥和烤芦笋是一个完美的主菜选择。当然，这款奢华的巧克力熔岩蛋糕将是一个美妙的餐后甜点。我感谢您提供每道菜的配料和烹饪说明上的细节。我相信这些食谱会为我们创造一个难忘而舒适的用餐体验。我很期待尝试它们！感谢您在筹划这顿特别晚餐中的帮助。",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "非常 感谢您 的 精彩 建议 ！ 奶油 番茄 罗勒 汤 听 起来 像是 开胃 的 美味 选择 ， 而 胡椒 包裹 的 菲力 牛排 配烤 大蒜 土豆泥 和 烤 芦笋 是 一个 完美 的 主菜 选择 。 当然 ， 这 款 奢华 的 巧克力 熔岩 蛋糕 将 是 一个 美妙 的 餐后 甜点 。 我 感谢您 提供 每道菜 的 配料 和 烹饪 说明 上 的 细节 。 我 相信 这些 食谱 会为 我们 创造 一个 难忘 而 舒适 的 用餐 体验 。 我 很 期待 尝试 它们 ！ 感谢您 在 筹划 这顿 特别 晚餐 中 的 帮助 。"
         },
         {
             "role": "assistant",
@@ -53,14 +58,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "非常 欢迎 ！ 很 高兴 你 喜欢 我 的 建议 。 我 毫不 怀疑 那 份 美味 ， 浓香 番茄 罗勒 汤 ， 胡椒 皮 腌菲力 牛排 和 奢华 巧克力 岩浆 蛋糕 将 带来 难忘 且 美味 的 用餐 体验 。 享受 烹饪 这些 菜肴 的 过程 ， 希望 口感 和 呈现 能够 超出 你 的 期待 。 如果 在 烹饪 过程 中有 任何 问题 或 需要 进一步 的 帮助 ， 请 随时 联系 我 。 祝 你 和 所 爱 的 人 度过 一个 美妙 的 庆典 时光 ！"
         },
         {
             "role": "user",
             "content": "Thank you so much for your kind words and support! I'm feeling confident and excited about preparing this special meal now. I'll definitely reach out if I have any questions while cooking. I appreciate your offer to assist further.\n\nI hope the flavors and presentation turn out amazing, and that it becomes a cherished memory for both of us. Thank you again for your help and well wishes. Have a wonderful day!\n",
             "content_zh": "非常感谢你的友善言辞和支持！我现在感到充满信心和兴奋，准备这顿特别的餐点。如果在烹饪时有任何问题，我一定会联系你。感谢你提供进一步协助的提议。\n希望口味和摆盘都出色，成为我们两个人珍贵的回忆。再次感谢你的帮助和祝福。祝你有一个美好的一天！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "非常感谢 你 的 友善 言辞 和 支持 ！ 我 现在 感到 充满信心 和 兴奋 ， 准备 这顿 特别 的 餐点 。 如果 在 烹饪 时有 任何 问题 ， 我 一定 会 联系 你 。 感谢 你 提供 进一步 协助 的 提议 。 \n 希望 口味 和 摆盘 都 出色 ， 成为 我们 两个 人 珍贵 的 回忆 。 再次 感谢 你 的 帮助 和 祝福 。 祝 你 有 一个 美好 的 一天 ！"
         },
         {
             "role": "assistant",
@@ -69,7 +76,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "不 客气 ！ 很 高兴 能够 帮助 你 ， 给 你 信心 创造 难忘 的 一餐 。 我 相信 你 的 爱人 会 感激 你 为 准备 这顿 特别 的 晚餐 所 付出 的 努力 。 如果 需要 任何 帮助 或 有 任何 问题 ， 请 随时 联系 我 ， 我会 在 一旁 等候 。 享受 这个 过程 ， 珍藏 这个 美好 时刻 ， 一起 创造 一个 美好 回忆 。 祝 你 有 一个 美好 的 一天 和 令人难忘 的 就餐 体验 ！"
         }
     ],
     "conflict": false,

@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you asked. I'm planning to prepare a meal at home to celebrate my birthday with about 10 close friends. I have some cooking expertise, but I would appreciate your help in creating a recipe, determining the necessary ingredients, and deciding what dishes to make. Additionally, I'd like to know the complete preparation process for each dish and the appropriate order in which to prepare them. Can you assist me with that?",
             "content_zh": "你好！很高兴你询问。我打算在家里为我和大约10个亲密朋友庆祝生日准备一顿饭。我有一些烹饪经验，但我会很感激你帮助我创建一个食谱，确定必要的配料，以及决定要做什么菜。此外，我想知道每道菜的完整制作过程以及准备它们的适当顺序。你能帮助我吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 询问 。 我 打算 在 家里 为 我 和 大约 10 个 亲密 朋友 庆祝 生日 准备 一顿饭 。 我 有 一些 烹饪 经验 ， 但 我会 很 感激 你 帮助 我 创建 一个 食谱 ， 确定 必要 的 配料 ， 以及 决定 要 做 什么 菜 。 此外 ， 我 想 知道 每道菜 的 完整 制作 过程 以及 准备 它们 的 适当 顺序 。 你 能 帮助 我 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "你好 ！ 我 很 乐意 帮助 你 计划 生日 餐 。 和 亲密 的 朋友 一起 庆祝 听 起来 像 个 美好 的 主意 ！ 让 我们 开始 想 一些 你 想要 提供 的 菜肴 。 你 是 在 寻找 特定 的 美食 类型 或 主题 吗 ？ 你 有 任何 饮食 限制 或 喜好 需要 考虑 吗 ？"
         },
         {
             "role": "user",
             "content": "Thank you for offering your assistance! I appreciate your help in planning this special meal. As for the cuisine or theme, I don't have any specific preferences. I'm open to suggestions based on what you think would work well for a birthday celebration. However, I do prefer simple, homemade meals. In terms of dietary restrictions, there aren't any specific ones to consider, but it would be great to have some vegetarian options available. What ideas do you have in mind?",
             "content_zh": "谢谢你提供帮助！我很感激你在策划这顿特别的餐点上的帮助。至于美食或主题，我没有特定的偏好。我愿意听取你认为适合生日庆祝活动的建议。不过，我更喜欢简单、家常的餐点。在饮食限制方面，没有特定的需考虑，但如果有些素食选择会很好。你有什么想法呢？",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "谢谢 你 提供 帮助 ！ 我 很 感激 你 在 策划 这顿 特别 的 餐点 上 的 帮助 。 至于 美食 或 主题 ， 我 没有 特定 的 偏好 。 我 愿意 听取 你 认为 适合 生日 庆祝 活动 的 建议 。 不过 ， 我 更 喜欢 简单 、 家常 的 餐点 。 在 饮食 限制 方面 ， 没有 特定 的 需 考虑 ， 但 如果 有些 素食 选择 会 很 好 。 你 有 什么 想法 呢 ？"
         },
         {
             "role": "assistant",
@@ -38,14 +41,16 @@
                 "hallucination": false,
                 "memo": "Translation Problem Fixed"
             },
-            "content_zh_old": "太棒了！既然您喜欢简单的家常菜并且希望有一些素食选择，那么地中海风味的菜单如何？它提供了各种口味丰富的菜肴，相对容易准备，可以满足不同的饮食喜好。以下是建议的菜单：1.开胃菜：希腊沙拉串-若干材料：樱桃番茄、黄瓜、费达奶酪、卡拉玛榛子、红洋葱、橄榄油、柠檬汁、牛至、盐和胡椒-准备：将樱桃番茄、黄瓜块、费达奶酪、卡拉玛榛子和红洋葱穿在串上。淋上橄榄油、柠檬汁、牛至、盐和胡椒的混合液。2.主菜：西班牙菠菜派-若干材料：酥皮、菠菜、费达奶酪、洋葱、大蒜、莳萝、橄榄油、盐和胡椒。-准备：炒洋葱和大蒜，然后加入菠菜烹调至变软。拌入碎费达奶酪、莳萝、盐和胡椒。将酥皮和菠菜混合物层叠，然后烤至金黄酥脆。3.主课（素食选择）：茄子帕米森-若干材料：茄子、玛丽娜拉酱、马苏里拉奶酪、帕尔马奶酪、面包糠、鸡蛋、橄榄油、盐和胡椒。-准备：切茄子，蘸入打散的鸡蛋中，裹上面包糠，炸至金黄。将炸茄子片与玛丽娜拉酱、马苏里拉奶酪和帕尔马奶酪层叠。烤至奶酪融化起泡。4.副菜：烤蔬菜-若干材料：各种蔬菜（如彩椒、西葫芦、胡萝卜和洋葱）、橄榄油、大蒜、干香草（如百里香或迷迭香）、盐和胡椒。-准备：将蔬菜切成一口大小的块，与橄榄油、蒜末、干香草、盐和胡椒拌匀。在烤箱中烤至软烂和略带焦糖色。5.甜点：巴克拉瓦-若干材料：酥皮、核桃或开心果、蜂蜜、黄油、肉桂和丁香。-准备：将酥皮、坚果混合物和融化的黄油层叠。重复这些层，然后烤至金黄色。将蜂蜜糖浆倒在烤好的巴克拉瓦上，让其浸泡。为了准备的顺序，您可以先预先准备甜点，因为它需要时间冷却。然后，继续做开胃菜、主菜，最后做配菜。这样，当您的客人到达时，所有食物都准备好了。"
+            "content_zh_old": "太棒了！既然您喜欢简单的家常菜并且希望有一些素食选择，那么地中海风味的菜单如何？它提供了各种口味丰富的菜肴，相对容易准备，可以满足不同的饮食喜好。以下是建议的菜单：1.开胃菜：希腊沙拉串-若干材料：樱桃番茄、黄瓜、费达奶酪、卡拉玛榛子、红洋葱、橄榄油、柠檬汁、牛至、盐和胡椒-准备：将樱桃番茄、黄瓜块、费达奶酪、卡拉玛榛子和红洋葱穿在串上。淋上橄榄油、柠檬汁、牛至、盐和胡椒的混合液。2.主菜：西班牙菠菜派-若干材料：酥皮、菠菜、费达奶酪、洋葱、大蒜、莳萝、橄榄油、盐和胡椒。-准备：炒洋葱和大蒜，然后加入菠菜烹调至变软。拌入碎费达奶酪、莳萝、盐和胡椒。将酥皮和菠菜混合物层叠，然后烤至金黄酥脆。3.主课（素食选择）：茄子帕米森-若干材料：茄子、玛丽娜拉酱、马苏里拉奶酪、帕尔马奶酪、面包糠、鸡蛋、橄榄油、盐和胡椒。-准备：切茄子，蘸入打散的鸡蛋中，裹上面包糠，炸至金黄。将炸茄子片与玛丽娜拉酱、马苏里拉奶酪和帕尔马奶酪层叠。烤至奶酪融化起泡。4.副菜：烤蔬菜-若干材料：各种蔬菜（如彩椒、西葫芦、胡萝卜和洋葱）、橄榄油、大蒜、干香草（如百里香或迷迭香）、盐和胡椒。-准备：将蔬菜切成一口大小的块，与橄榄油、蒜末、干香草、盐和胡椒拌匀。在烤箱中烤至软烂和略带焦糖色。5.甜点：巴克拉瓦-若干材料：酥皮、核桃或开心果、蜂蜜、黄油、肉桂和丁香。-准备：将酥皮、坚果混合物和融化的黄油层叠。重复这些层，然后烤至金黄色。将蜂蜜糖浆倒在烤好的巴克拉瓦上，让其浸泡。为了准备的顺序，您可以先预先准备甜点，因为它需要时间冷却。然后，继续做开胃菜、主菜，最后做配菜。这样，当您的客人到达时，所有食物都准备好了。",
+            "content_zh_cut": "太好了 ！ 既然 你 偏爱 简单 的 家常菜 ， 并且 想要 一些 素食 选择 ， 那么 怎么样 尝试 一下 地中海 风味 的 菜单 呢 ？ 它 提供 了 多种 口味 丰富 的 菜肴 ， 这些 菜肴 相对 容易 准备 ， 并且 可以 满足 不同 的 饮食 偏好 。 以下 是 一个 建议 的 菜单 ： \n \n 1 .   开胃菜 ： 希腊 沙拉 串 \n       -   食材 ： 樱桃 番茄 、 黄瓜 、 羊 奶酪 、 卡拉 马塔 橄榄 、 红 洋葱 、 橄榄油 、 柠檬汁 、 牛 至 、 盐 和 胡椒 。 \n       -   准备 方法 ： 将 樱桃 番茄 、 黄瓜 块 、 羊 奶酪 、 卡拉 马塔 橄榄 和 红 洋葱 串 在 一起 。 用 橄榄油 、 柠檬汁 、 牛 至 、 盐 和 胡椒 的 混合物 淋上 。 \n \n 2 .   主菜 ： 斯 巴纳 科皮塔 （ 希腊 菠菜 派 ） \n       -   食材 ： 酥皮 面团 、 菠菜 、 羊 奶酪 、 洋葱 、 大蒜 、 莳萝 、 橄榄油 、 盐 和 胡椒 。 \n       -   准备 方法 ： 炒香 洋葱 和 大蒜 ， 然后 加入 菠菜 煮 至 软化 。 混入 碎羊 奶酪 、 莳萝 、 盐 和 胡椒 。 将 酥皮 面团 和 菠菜 混合物 层叠 ， 然后 烘烤 至 金黄 酥脆 。 \n \n 3 .   主菜 （ 素食 选项 ） ： 茄子 帕尔玛 \n       -   食材 ： 茄子 、 番茄酱 、 马苏 里拉 奶酪 、 帕尔马 奶酪 、 面包屑 、 鸡蛋 、 橄榄油 、 盐 和 胡椒 。 \n       -   准备 方法 ： 切片 茄子 ， 蘸 入 打散 的 鸡蛋 ， 裹 上 面包屑 ， 炸至 金黄 。 将 炸 好 的 茄子 片 与 番茄酱 、 马苏 里拉 奶酪 和 帕尔马 奶酪 层叠 。 烘烤 至 奶酪 融化 且 起泡 。 \n \n 4 .   配菜 ： 烤 蔬菜 \n       -   食材 ： 各种 蔬菜 （ 如 甜椒 、 西葫芦 、 胡萝卜 和 洋葱 ） 、 橄榄油 、 大蒜 、 干 香草 （ 如 百里香 或 迷迭香 ） 、 盐 和 胡椒 。 \n       -   准备 方法 ： 将 蔬菜 切成 一口 大小 的 块 ， 用 橄榄油 、 切碎 的 大蒜 、 干 香草 、 盐 和 胡椒 拌匀 。 在 烤箱 中烤 至 软嫩 略带 焦糖 化 。 \n \n 5 .   甜点 ： 巴克拉 瓦 \n       -   食材 ： 酥皮 面团 、 核桃 或 开心果 、 蜂蜜 、 黄油 、 肉桂 和 丁香 。 \n       -   准备 方法 ： 层叠 酥皮 面团 、 坚果 混合物 和 融化 的 黄油 。 重复 这些 层 ， 然后 烘烤 至 金黄 。 在 烤 好 的 巴克拉 瓦上 倒 蜂蜜 糖浆 ， 让 其 浸泡 。 \n \n 在 准备 顺序 上 ， 你 可以 先 提前准备 甜点 ， 因为 它 需要 时间 冷却 。 然后 ， 开始 准备 开胃菜 、 主菜 和 最后 的 配菜 。 这样 ， 当 客人 到达 时 ， 一切 都 将 准备就绪 。"
         },
         {
             "role": "user",
             "content": "Thank you for the wonderful suggestions! The Mediterranean-inspired menu sounds fantastic, and I appreciate the variety it offers. The Greek Salad Skewers as an appetizer and the Spanakopita as the main course both sound delicious. The Eggplant Parmesan as a vegetarian option is a great idea, and I'm sure my friends will enjoy it. Roasted vegetables as a side dish will complement the meal well. And of course, ending with Baklava for dessert will be a sweet treat.\n\nI like the suggested order of preparation as well, starting with the dessert in advance and then moving on to the appetizer, main courses, and side dish. It'll help me stay organized and ensure everything is ready when my guests arrive.\n\nThank you for your help! Is there anything else I should consider or any specific instructions I need to keep in mind while preparing these dishes?",
             "content_zh": "感谢您提供的精彩建议！地中海风味的菜单听起来很棒，我很欣赏它所提供的多样性。希腊沙拉串作为前菜和西班牙肉饼作为主菜都很美味。茄子帕尔玛作为素食选择是个好主意，我相信我的朋友们会喜欢。烤蔬菜作为配菜将会很好地搭配这餐。当然，以巴克拉结束作为甜点将是一个甜蜜的享受。我喜欢建议的准备顺序，先从甜点开始，然后再转移到前菜、主菜和配菜。这将帮助我保持有条理，并确保一切在客人到达时准备就绪。谢谢您的帮助！在准备这些菜肴时，我还需要考虑些什么或需要注意一些具体的指导吗？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "感谢您 提供 的 精彩 建议 ！ 地中海 风味 的 菜单 听 起来 很棒 ， 我 很 欣赏 它 所 提供 的 多样性 。 希腊 沙拉 串 作为 前菜 和 西班牙 肉饼 作为 主菜 都 很 美味 。 茄子 帕尔玛 作为 素食 选择 是 个 好 主意 ， 我 相信 我 的 朋友 们 会 喜欢 。 烤 蔬菜 作为 配菜 将会 很 好 地 搭配 这餐 。 当然 ， 以 巴克拉 结束 作为 甜点 将 是 一个 甜蜜 的 享受 。 我 喜欢 建议 的 准备 顺序 ， 先 从 甜点 开始 ， 然后 再 转移 到 前 菜 、 主菜 和 配菜 。 这 将 帮助 我 保持 有条理 ， 并 确保 一切 在 客人 到达 时 准备就绪 。 谢谢您 的 帮助 ！ 在 准备 这些 菜肴 时 ， 我 还 需要 考虑 些 什么 或 需要 注意 一些 具体 的 指导 吗 ？"
         },
         {
             "role": "assistant",
@@ -54,7 +59,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "不 客气 ！ 很 高兴 您 喜欢 菜单 和 建议 的 准备 顺序 。 听 起来 您 已经 准备 好 了 一个 美好 的 生日 庆祝 活动 ！ 以下 是 一些 额外 的 建议 和 指导 ， 帮助 您 在 准备 这些 菜肴 的 过程 中 注意事项 ： \n \n 1 .   希腊 沙拉 串 ： \n -   确保 使用 坚固 的 串来 固定 食材 。 \n -   您 可以 在 上菜 前 将 串 浸泡 在 酱汁 中 一小 段时间 ， 以 增强 风味 。 \n \n 2 .   西班牙 菠菜 酥饼 ： \n -   按照 包装 说明 解冻 菲洛 面团 ， 并用 湿 毛巾 盖住 以 防止 干燥 。 \n -   每层 菲洛 面团 都 要 刷 上 融化 的 黄油 或 橄榄油 ， 以 确保 金黄 酥脆 。 \n -   拧干 菠菜 混合物 中 任何 多余 的 液体 ， 以 防止 果酱 发软 。 \n \n 3 .   酿 茄子 ： \n -   将 茄子 均匀 切片 以 确保 均匀 烹饪 。 \n -   如果 您 希望 使用 更 健康 的 版本 ， 可以 将 裹 上 面包屑 的 茄子 片 放入 烤箱 而 不是 煎 。 \n -   将 食材 与 酱汁 和 奶酪 一起 层叠 ， 将会 制作 出 美味 的 奶酪 菜肴 。 \n \n 4 .   烤 蔬菜 ： \n -   将 蔬菜 切成 大小 相似 的 块 以 确保 均匀 烹饪 。 \n -   用 橄榄油 和 调味料 充分 地 拌匀 蔬菜 ， 使 它们 均匀 涂抹 。 \n -   将 蔬菜 摆放 在 烤 盘 上 的 单层 上 ， 以 使 它们 均匀 烘烤 。 \n \n 5 .   蜜饼 ： \n -   在 处理 脆弱 的 菲洛 面团 时要 小心 ， 以 避免 撕裂 。 在 工作 时用 湿 毛巾 盖住 以 防止 干燥 。 \n -   确保 在 将 蜜饼 切成 块 之前 将 蜂蜜 糖浆 倒 在 上面 。 这 将 使 糖浆 渗透 并 充分 浸透 到 层 中 。 \n \n 记得 在 准备 这 顿饭 的 过程 中 享受 乐趣 ， 享受 这个 过程 。 为 您 所 爱 的 人 烹饪 是 庆祝 生日 的 美好 方式 。 我 相信 您 的 朋友 们 会 欣赏 您 为 他们 创造 出 如此 美味 的 地中海 大餐 所 付出 的 努力 。 祝您 庆祝 活动 愉快 ！"
         }
     ],
     "conflict": false,

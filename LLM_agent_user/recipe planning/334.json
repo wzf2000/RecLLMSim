@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you reached out. I would like your help in planning a meal at home. I'm not very skilled in cooking and have limited experience, but I want to prepare a delicious meal for three close friends who will be joining me. Can you help me create a recipe, determine the necessary ingredients, and decide what dishes to make?",
             "content_zh": "你好！我很高兴你联系我。我想请你帮忙计划在家里准备一顿餐。我不太擅长烹饪，经验也有限，但我想为三个好朋友准备一顿美味的饭菜。你可以帮我创建一个食谱，确定所需的食材，并决定要做什么菜吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 我 很 高兴 你 联系 我 。 我 想 请 你 帮忙 计划 在 家里 准备 一顿 餐 。 我 不 太 擅长 烹饪 ， 经验 也 有限 ， 但 我 想 为 三个 好 朋友 准备 一顿 美味 的 饭菜 。 你 可以 帮 我 创建 一个 食谱 ， 确定 所 需 的 食材 ， 并 决定 要 做 什么 菜 吗 ？"
         },
         {
             "role": "assistant",
@@ -22,14 +23,16 @@
                 "hallucination": false,
                 "memo": "Translation Problem Fixed"
             },
-            "content_zh_old": "当然，我很乐意帮助你为朋友们策划一顿美味的餐点！让我们先开始头脑风暴一些想法。你和你的朋友们喜欢哪种菜系或具体的菜肴？我需要考虑有没有任何饮食限制或偏好吗？"
+            "content_zh_old": "当然，我很乐意帮助你为朋友们策划一顿美味的餐点！让我们先开始头脑风暴一些想法。你和你的朋友们喜欢哪种菜系或具体的菜肴？我需要考虑有没有任何饮食限制或偏好吗？",
+            "content_zh_cut": "当然 ， 我 很 乐意 帮助 你 为 你 的 朋友 们 策划 一顿 美味 的 餐点 ！ 我们 先 来 头脑 风暴 一些 想法 。 你 和 你 的 朋友 们 喜欢 什么 类型 的 菜系 或者 特定 的 菜肴 ？ 有没有 任何 饮食 限制 或 偏好 我 应该 考虑 的 ？"
         },
         {
             "role": "user",
             "content": "Thank you for offering your assistance. My friends and I enjoy a variety of cuisines, but we particularly love Italian and Mexican dishes. As for dietary restrictions, one of my friends is vegetarian, so it would be great to have some vegetarian options as well. I appreciate any suggestions you can provide!",
             "content_zh": "感谢您提供帮助。我和我的朋友喜欢各种不同的美食，但尤其喜爱意大利和墨西哥菜肴。关于饮食限制，我的一个朋友是素食者，所以也希望有一些素食选择。非常感谢您能提供的任何建议！",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "感谢您 提供 帮助 。 我 和 我 的 朋友 喜欢 各种 不同 的 美食 ， 但 尤其 喜爱 意大利 和 墨西哥 菜肴 。 关于 饮食 限制 ， 我 的 一个 朋友 是 素食者 ， 所以 也 希望 有 一些 素食 选择 。 非常 感谢您 能 提供 的 任何 建议 ！"
         },
         {
             "role": "assistant",
@@ -38,14 +41,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "太棒了 ！ 思虑 到 意大利 和 墨西哥 美食 ， 我们 可以 创造 一个 结合 两种 风味 的 菜单 。 以下 是 一个 建议 的 三道 菜 菜单 ， 包括 素食 选择 ： \n \n 头盘 ： \n 卡普雷塞 沙拉 串   -   这些 简单 且 清爽 。 串起 樱桃 番茄 、 新鲜 马苏 里拉 球 和 罗勒 叶 。 撒上 香醋 汁 ， 撒上 盐 和 胡椒 。 \n \n 主菜 ： \n 1 .   素食 玉米 卷   -   可以 填充 美味 的 炒 蔬菜 组合 ， 如 甜椒 、 洋葱 、 西葫芦 和 玉米 。 加入 黑豆 和 奶酪 ， 然后 将 它们 卷起 放入 玉米 玉子 饼 中 ， 淋上 玉米 卷 的 酱汁 和 奶酪 烤熟 。 \n 2 .   茄子 帕尔玛   -   一道 经典 的 意大利 菜肴 ， 可以 做成 素食 。 切成 茄子 片 ， 蘸 打散 的 鸡蛋 ， 裹 上 面包屑 ， 炸至 金黄色 。 将 炸 茄子 片 与 意大利 番茄酱 和 马苏 里拉 奶酪 层叠 在 一起 ， 然后 烤 至 奶酪 融化 且 起泡 。 \n \n 配菜 ： \n 墨西哥 街头 玉米 沙拉   -   这是 一道 美味 多彩的 配菜 。 将 玉米棒 烤制 或 烤熟 ， 切 下 玉米粒 。 将 它们 与 切碎 的 红 洋葱 、 甜椒 、 樱桃 番茄 、 香菜 、 酸 橙汁 、 蛋黄酱 和 碎菲达 奶酪 混合 。 \n \n 甜点 ： \n 提拉 米苏   -   一种 经典 的 意大利 甜点 ， 总是 受欢迎 。 将 打过 咖啡 和 朗姆酒 的 手指 饼干 与 马斯卡 彭 奶酪 、 糖 和 鲜奶油 的 奶油 混合物 层叠 在 一起 。 上面 撒上 可可粉 后 上桌 。 \n \n 希望 这些 建议 能 给 您 灵感 ！ 如果 您 想 了解 有关 任何 菜谱 的 更 多 细节 ， 或者 如果 您 有 其他 喜好 ， 请 告诉 我 。"
         },
         {
             "role": "user",
             "content": "Wow, those suggestions sound absolutely delicious! I love the idea of incorporating both Italian and Mexican flavors into the menu. The Caprese Salad Skewers and Mexican Street Corn Salad as starters sound refreshing and flavorful. For the main course, the Vegetarian Enchiladas and Eggplant Parmesan are perfect options to cater to everyone's preferences. And of course, ending with a classic Tiramisu for dessert sounds heavenly.\n\nI appreciate your thorough suggestions, and I think this menu will impress my friends. Could you please provide me with the detailed recipes for the Vegetarian Enchiladas and Eggplant Parmesan? I want to make sure I follow the steps correctly. Thank you so much for your help!\n",
             "content_zh": "哇，那些建议听起来绝对美味！我喜欢将意大利和墨西哥风味融入菜单的想法。作为开胃菜的卡普雷塞沙拉串和墨西哥街头玉米沙拉听起来清爽可口。至于主菜，素食埃奇拉达和茄子帕尔玛是迎合所有人口味的完美选择。当然，最后以经典提拉米苏作为甜点听起来棒极了。 感谢您的详尽建议，我觉得这个菜单会给我的朋友留下深刻印象。您是否能提供素食埃奇拉达和茄子帕尔玛的详细食谱？我想确保我正确地按照步骤操作。非常感谢您的帮助！",
             "intent": "Search",
-            "intent_zh": "检索"
+            "intent_zh": "检索",
+            "content_zh_cut": "哇 ， 那些 建议 听 起来 绝对 美味 ！ 我 喜欢 将 意大利 和 墨西哥 风味 融入 菜单 的 想法 。 作为 开胃菜 的 卡 普雷塞 沙拉 串 和 墨西哥 街头 玉米 沙拉 听 起来 清爽 可口 。 至于 主菜 ， 素食 埃奇 拉达 和 茄子 帕尔玛 是 迎合 所有人 口味 的 完美 选择 。 当然 ， 最后 以 经典 提拉 米苏 作为 甜点 听 起来 棒极了 。   感谢您 的 详尽 建议 ， 我 觉得 这个 菜单 会 给 我 的 朋友 留下 深刻印象 。 您 是否 能 提供 素食 埃奇 拉达 和 茄子 帕尔玛 的 详细 食谱 ？ 我 想 确保 我 正确 地 按照 步骤 操作 。 非常 感谢您 的 帮助 ！"
         },
         {
             "role": "assistant",
@@ -54,14 +59,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "非常 欢迎 ！ 我 很 高兴 你 喜欢 菜单 。 以下 是 素食 玉米 卷 和 茄子 帕尔玛 松 详细 的 食谱 ： \n \n 素食 玉米 卷 ： \n 配料 ： \n -   8 片小 玉米饼 \n -   1 汤匙 橄榄油 \n -   1 个 甜椒 ， 切成 薄片 \n -   1 个 小 洋葱 ， 切成 薄片 \n -   1 个 西葫芦 ， 切丁 \n -   1 杯 玉米粒 （ 新鲜 或 冷冻 ） \n -   1 罐 黑豆 ， 沥干 \n -   1 茶匙 孜然 \n -   1 茶匙 辣椒粉 \n -   盐 和 胡椒 适量 \n -   1   ½   杯 玉米 卷酱 （ 现成 或 自制 ） \n -   1   ½   杯 切碎 的 奶酪 （ 切达 奶酪 ， 蒙特利 杰克 奶酪 或 混合 奶酪 ） \n \n 方法 ： \n 1 .   将 烤箱 预热 至 375 ° F （ 190 ° C ） 。 \n 2 .   在 一个 大 煎锅 中 ， 用 中火 加热 橄榄油 。 加入 甜椒 、 洋葱 、 西葫芦 、 玉米 、 孜然 、 辣椒粉 、 盐 和 胡椒 。 炒约 5 - 7 分钟 ， 直至 蔬菜 变软 。 \n 3 .   拌入 黑豆 ， 再 煮 2 分钟 。 \n 4 .   用 微波炉 或 干 煎锅 加热 玉米饼 ， 使 其 变软 。 \n 5 .   在 烤 盘 底部 倒入 1 / 2 杯 玉米 卷酱 。 \n 6 .   拿 一个 玉米饼 ， 倒入 约 1 / 4 杯 蔬菜 和 豆类 混合物 ， 并 卷紧 。 将 其 密封面 朝下 放入 烤 盘中 。 重复 操作 ， 直到 用 完 所有 玉米饼 和 馅料 。 \n 7 .   将 剩余 的 玉米 卷酱 倒 在 卷 好 的 玉米饼 上 ， 确保 它们 完全 裹住 。 \n 8 .   均匀 撒上 切碎 的 奶酪 。 \n 9 .   在 预热 的 烤箱 中烤 20 - 25 分钟 ， 直至 奶酪 融化 并 冒泡 。 \n 10 .   叠放 热 的 玉米 卷 ， 加上 您 喜爱 的 配料 ， 如 酸奶 油 、 鳄梨 酱 或 切碎 的 香菜 一起 享用 。 \n \n 茄子 帕尔玛 松 ： \n 配料 ： \n -   1 个 大 茄子 ， 切成 1 / 2 英寸 厚 的 圆片 \n -   盐 \n -   2 个 大 鸡蛋 ， 打散 \n -   1 杯 面包 糠 （ 意大利 调味 或 原味 ） \n -   1 / 2 杯 帕尔玛 奶酪 碎 \n -   2 杯 马里 纳拉酱 \n -   2 杯 切碎 的 意式 奶酪 \n -   新鲜 罗勒 叶 用于 装饰 （ 可 选 ） \n \n 方法 ： \n 1 .   将 烤箱 预热 至 375 ° F （ 190 ° C ） 。 \n 2 .   在 茄子 片 的 两侧 撒上 盐 ， 让 其 静置 约 15 分钟 。 这 有助于 去除 多余 的 水分 。 用 纸巾 擦干 茄子 片 。 \n 3 .   准备 三个 浅碗 ， 一个 装 打散 的 鸡蛋 ， 一个 装 面包 糠 ， 一个 装 帕尔玛 奶酪 碎 。 \n 4 .   将 每片 茄子 先 沾 鸡蛋 ， 再 裹 上 面包 糠 和 帕玛 奶酪 。 轻轻 按压 面包 糠 以 确保 附着 。 \n 5 .   在 铺 有 烘焙 纸 的 烤 盘 上 放入 包裹 面包屑 的 茄子 片 ， 烤 约 20 分钟 直至 金黄 酥脆 。 \n 6 .   在 烤 盘中 底部 铺 一层 薄薄的 马里 纳拉酱 。 把 烤 好 的 茄子 片 放在 酱 上方 。 \n 7 .   在 茄子 片上 勺 上 一些 马里 纳拉酱 ， 然后 撒上 切碎 的 意式 奶酪 。 重复 操作 ， 直到 用 完 所有 茄子 片 ， 最后 在 顶部 放 一层 酱 和 奶酪 。 \n 8 .   在 预热 的 烤箱 中烤 约 30 分钟 直至 奶酪 融化 和 冒泡 。 \n 9 .   用后 不久 放在 凉 架上 稍作 冷却 ， 如 有 需要 可用 新鲜 罗勒 叶 装饰 。 \n \n 希望 这些 详细 的 食谱 能 帮助 您 准备 素食 玉米 卷 和 茄子 帕尔玛 松 。 与 朋友 共享 美食 ， 并 如 有 更 多 问题 或 需要 进一步 帮助 ， 请 随时 问 我 ！"
         },
         {
             "role": "user",
             "content": "Thank you so much for providing the detailed recipes for the Vegetarian Enchiladas and Eggplant Parmesan! The step-by-step instructions are clear and easy to follow. I'm excited to try them out and impress my friends with these delicious dishes.\n\nI really appreciate your help and guidance throughout this planning process. I feel much more confident now in preparing this meal. If I have any more questions or need further assistance, I'll definitely reach out. Thank you again, and have a wonderful day!\n",
             "content_zh": "非常感谢您提供素食墨西哥卷和茄子帕尔蜜松的详细食谱！逐步说明清晰易懂。我很兴奋要尝试并用这些美味佳肴来打动我的朋友。\n\n我非常感谢您在整个计划过程中的帮助和指导。现在我在准备这顿饭时感觉自信多了。如果我有更多问题或需要进一步帮助，我一定会联系您。再次感谢，并祝您今天愉快！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "非常 感谢您 提供 素食 墨西哥 卷 和 茄子 帕尔蜜松 的 详细 食谱 ！ 逐步 说明 清晰 易懂 。 我 很 兴奋 要 尝试 并用 这些 美味佳肴 来 打动 我 的 朋友 。 \n \n 我 非常 感谢您 在 整个 计划 过程 中 的 帮助 和 指导 。 现在 我 在 准备 这 顿饭 时 感觉 自信 多 了 。 如果 我 有 更 多 问题 或 需要 进一步 帮助 ， 我 一定 会 联系 您 。 再次 感谢 ， 并 祝您 今天 愉快 ！"
         },
         {
             "role": "assistant",
@@ -70,7 +77,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "非常 欢迎 ！ 我 很 高兴 这些 食谱 和 说明 对 你 有 帮助 。 我 相信 你 的 朋友 们 会 对 你 的 烹饪 技能 感到 印象 深刻 ， 并 享受 你 为 他们 准备 的 美味佳肴 。 如果 你 有 更 多 问题 或 将来 需要 帮助 ， 请 不要 犹豫 联系 我 。 我 随时 都 在 这里 帮助 你 。 祝 你 在 烹饪 过程 中 度过 愉快 时光 ， 与 朋友 们 一起 享用 美食 ！ 也 祝 你 有 一个 美好 的 一天 ！"
         }
     ],
     "conflict": false,

@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you're here. I'm planning to prepare a meal at home and invite three close friends to join me. However, I'm not very skilled in cooking and have limited experience. I was hoping you could help me create a recipe, determine the necessary ingredients, and decide what dishes to make. Can you assist me with that?",
             "content_zh": "你好！很高兴你在这里。我打算在家里准备一顿饭，请三个好朋友来和我一起。但是我在烹饪方面并不是很擅长，经验有限。希望你能帮我制定食谱，确定所需食材，以及决定要做哪些菜。你可以帮我吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 在 这里 。 我 打算 在 家里 准备 一顿饭 ， 请 三个 好 朋友 来 和 我 一起 。 但是 我 在 烹饪 方面 并 不是 很 擅长 ， 经验 有限 。 希望 你 能 帮 我 制定 食谱 ， 确定 所 需食材 ， 以及 决定 要 做 哪些 菜 。 你 可以 帮 我 吗 ？"
         },
         {
             "role": "assistant",
@@ -22,14 +23,16 @@
                 "hallucination": false,
                 "memo": "Translation Problem Fixed"
             },
-            "content_zh_old": "你好！我很乐意帮你计划餐食，想出一些美味佳肴。烹饪是与朋友共度时光的好方法，我相信你的努力会受到赞赏。让我们从头脑风暴一些想法开始吧。你对制作哪种菜系或特定菜肴感兴趣？有任何饮食偏好或限制要考虑吗？"
+            "content_zh_old": "你好！我很乐意帮你计划餐食，想出一些美味佳肴。烹饪是与朋友共度时光的好方法，我相信你的努力会受到赞赏。让我们从头脑风暴一些想法开始吧。你对制作哪种菜系或特定菜肴感兴趣？有任何饮食偏好或限制要考虑吗？",
+            "content_zh_cut": "你好 ！ 我 很 乐意 帮助 你 计划 你 的 餐点 ， 并 提出 一些 美味 的 菜肴 。 烹饪 是 与 朋友 共度 时光 的 好 方式 ， 我 相信 你 的 努力 会 受到 欣赏 的 。 让 我们 开始 头脑 风暴 一些 想法 吧 。 你 有 兴趣 做 哪种 菜系 或 具体 的 菜肴 ？ 你 有 任何 饮食 偏好 或 限制 需要 考虑 吗 ？"
         },
         {
             "role": "user",
             "content": "Thank you for offering your assistance! I appreciate your help in planning the meal. I'm open to different cuisines, but I think it would be best to keep it relatively simple since I'm not very experienced in cooking. As for dietary preferences, I don't have any specific restrictions, but it would be great to have some vegetarian options available. What do you suggest we make?",
             "content_zh": "谢谢你提供帮助！我很感谢你在计划餐饮方面的帮助。我开放尝试不同的美食，但考虑到我在烹饪方面经验有限，最好还是选择相对简单的菜式。至于饮食偏好，我没有特别的限制，但能提供一些素食选项会很不错。你觉得我们该做什么呢？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "谢谢 你 提供 帮助 ！ 我 很 感谢 你 在 计划 餐饮 方面 的 帮助 。 我 开放 尝试 不同 的 美食 ， 但 考虑 到 我 在 烹饪 方面 经验 有限 ， 最好 还是 选择 相对 简单 的 菜式 。 至于 饮食 偏好 ， 我 没有 特别 的 限制 ， 但 能 提供 一些 素食 选项 会 很 不错 。 你 觉得 我们 该 做 什么 呢 ？"
         },
         {
             "role": "assistant",
@@ -38,14 +41,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "保持 简单 并 包括 素食 选项 听 起来 是 一个 很 好 的 计划 ！ 地中海 风味 的 菜单 怎么样 ？ 这是 一个 多样化 的 美食 ， 有 很多 口味 可以 很 容易 地 根据 不同 的 饮食 喜好 来 调整 。 以下 是 一份 建议 的 菜单 ， 包括 一些 你 可以 考虑 的 菜肴 ： \n \n 1 .   开胃菜 ： 希腊 沙拉 串   -   将 樱桃 番茄 、 黄瓜 块 、 橄榄 和 飞塔 奶酪 串 起来 。 淋上 橄榄油 、 柠檬汁 ， 并 撒 上 一些 干牛 至 。 \n \n 2 .   主菜 ： 素食 海鲜 饭   -   一道 味道 浓郁 的 米饭 菜肴 ， 加入 藏红花 、 彩椒 、 豌豆 、 朝鲜 蓟心 以及 其他 您 喜爱 的 蔬菜 。 你 还 可以 加些 鹰嘴豆 增加 蛋白质 。 \n \n 3 .   配菜 ： 烤 地中海 蔬菜   -   用 橄榄油 、 大蒜 和 您 喜爱 的 香草 拌匀 茄子 、 西葫芦 、 彩椒 和 樱桃 番茄 等 各种 蔬菜 。 将 它们 放入 烤箱 中烤 至 变软 并 略微 焦糖 化 。 \n \n 4 .   甜品 ： 柠檬 蜂蜜 水果 沙拉   -   将 草莓 、 甜瓜 、 葡萄 和 柑橘 果肉 等 各种 时令 水果 混合 在 一起 。 淋上 由 蜂蜜 、 柠檬汁 和 一 撮 肉桂 制成 的 酱汁 。 \n \n 这些 菜肴 相对 简单 易 做 ， 但 提供 了 丰富 的 口味 组合 。 不要 忘记 考虑 您 想 提供 的 任何 额外 配菜 或 饮品 。 如果 您 需要 有关 食谱 细节 或 其他 建议 ， 请 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "That sounds like a fantastic Mediterranean-inspired menu! I love the idea of Greek Salad Skewers as an appetizer and the Vegetable Paella as the main course. Roasted Mediterranean Vegetables will make a delicious side dish, and a Fresh Fruit Salad with Honey-Lemon Dressing sounds like a refreshing dessert.\n\nI appreciate your thorough suggestions. Could you please provide me with the detailed recipes for each dish? Additionally, do you have any recommendations for sides or drinks that would complement the meal? Thank you for your help!\n",
             "content_zh": "听起来像是一个很棒的地中海风味菜单！我喜欢希腊沙拉串作为开胃菜，蔬菜西班牙海鲜饭作为主菜。烤地中海蔬菜将是一道美味的配菜，而带有蜂蜜柠檬酱的新鲜水果沙拉听起来像是一道清爽的甜点。\n感谢您的详细建议。您能否请提供每道菜的详细食谱？此外，您有哪些可以搭配这顿饭的配菜或饮料推荐吗？谢谢您的帮助！",
             "intent": "Planning",
-            "intent_zh": "规划"
+            "intent_zh": "规划",
+            "content_zh_cut": "听 起来 像是 一个 很棒 的 地中海 风味 菜单 ！ 我 喜欢 希腊 沙拉 串 作为 开胃菜 ， 蔬菜 西班牙 海鲜 饭 作为 主菜 。 烤 地中海 蔬菜 将 是 一道 美味 的 配菜 ， 而 带有 蜂蜜 柠檬 酱 的 新鲜 水果 沙拉 听 起来 像是 一道 清爽 的 甜点 。 \n 感谢您 的 详细 建议 。 您 能否 请 提供 每道菜 的 详细 食谱 ？ 此外 ， 您 有 哪些 可以 搭配 这 顿饭 的 配菜 或 饮料 推荐 吗 ？ 谢谢您 的 帮助 ！"
         },
         {
             "role": "assistant",
@@ -54,14 +59,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ！ 以下 是 每道菜 的 详细 食谱 ： \n \n 1 .   希腊 色拉 串 ： \n \n 材料 ： \n -   樱桃 番茄 \n -   黄瓜 ， 切成 块 \n -   橄榄 （ 卡拉 马塔 或 黑色 ） ， 去核 \n -   费达 奶酪 ， 切成 块 \n -   橄榄油 \n -   柠檬汁 \n -   干牛 至 \n -   盐 和 胡椒 （ 根据 口味 调整 ） \n -   烤肉 签 \n \n 制作方法 ： \n 1 .   将 樱桃 番茄 、 黄瓜 块 、 橄榄 和 费达 奶酪 块 穿 在 烤肉 签 上 。 \n 2 .   在 一个 小碗 中 ， 搅拌 橄榄油 、 柠檬汁 、 干牛 至 、 盐 和 胡椒 。 \n 3 .   将 调味汁 淋在 串 上 。 \n 4 .   上桌 享用 ！ \n \n 2 .   蔬菜 饭 ： \n \n 材料 ： \n -   1 个 洋葱 ， 切丁 \n -   3 瓣 大蒜 ， 切碎 \n -   1 个 红 甜椒 ， 切丁 \n -   1 个 黄 甜椒 ， 切丁 \n -   1 杯 阿罗 里奥 米饭 （ 或 任何 短粒 米饭 ） \n -   1 茶匙 熏 辣椒粉 \n -   1 / 2 茶匙 藏红花 丝 （ 可选 的 ） \n -   2 杯 蔬菜 高汤 \n -   1 杯 冷冻 豌豆 \n -   1 杯 切块 的 朝鲜 蓟心 \n -   盐 和 胡椒 （ 根据 口味 调整 ） \n -   切碎 的 新鲜 欧芹 （ 用于 装饰 ） \n \n 制作方法 ： \n 1 .   在 一个 大 煎锅 或 烩 锅 中 ， 用 中火 加热 一些 橄榄油 。 加入 切碎 的 洋葱 和 大蒜 碎 ， 煮 至 软化 。 \n 2 .   加入 切丁 的 甜椒 ， 继续 煮 几分钟 直到 开始 变软 。 \n 3 .   拌入 阿罗 里奥 米饭 、 熏 辣椒粉 和 藏红花 丝 （ 如 使用 ） ， 沾 上 香料 。 \n 4 .   倒入 蔬菜 高汤 ， 煮沸 。 将 火 调低 ， 盖上 盖子 ， 让 其 小火 焖 煮 约 15 - 20 分钟 ， 或 直至 米饭 煮熟 且 液体 被 吸收 。 \n 5 .   拌入 冷冻 豌豆 和 朝鲜 蓟心 。 继续 煮 约 5 分钟 直到 加热 透彻 。 \n 6 .   根据 口味 添加 盐 和 胡椒 。 撒上 新鲜 欧芹 装饰 。 \n 7 .   热热 地 上桌 享用 ！ \n \n 3 .   烤 地中海 蔬菜 ： \n \n 材料 ： \n -   茄子 ， 切成 块 \n -   黄瓜 ， 切片 \n -   甜椒 （ 红色 、 黄色 或 橙色 ） ， 切片 \n -   樱桃 番茄 \n -   橄榄油 \n -   大 蒜瓣 ， 切碎 \n -   干 香草 （ 如 百里香 、 迷迭香 或 牛 至 ） \n -   盐 和 胡椒 （ 根据 口味 调整 ） \n \n 制作方法 ： \n 1 .   将 烤箱 预热 至 425 ° F （ 220 ° C ） 。 \n 2 .   在 一个 大碗 中 ， 将 茄子 块 、 黄瓜片 、 甜椒 片 和 樱桃 番茄 混合 在 一起 。 \n 3 .   在 蔬菜 上淋上 橄榄油 并 加入 切碎 的 大蒜 。 充分 拌匀 。 \n 4 .   撒上 干 香草 、 盐 和 胡椒 ， 并 再次 拌匀 。 \n 5 .   将 蔬菜 铺 在 烤 盘 上 形成 单层 。 \n 6 .   在 预热 烤箱 中烤 约 25 - 30 分钟 ， 或 直至 蔬菜 变软 且 略带 焦 糖色 。 \n 7 .   从 烤箱 中 取出 并 作为 配菜 上桌 。 \n \n 4 .   蜂蜜 柠檬 水果 沙拉 ： \n \n 材料 ： \n -   各种 新鲜 水果 （ 如 浆果 、 甜瓜 、 葡萄 和 柑橘 片 ） \n -   2 汤匙 蜂蜜 \n -   1 个 柠檬汁 \n -   少许 肉桂粉 \n \n 制作方法 ： \n 1 .   洗净 水果 并 切成 小 块 。 \n 2 .   在 一个 小碗 中 ， 搅拌 蜂蜜 、 柠檬汁 和 少许 肉桂粉 。 \n 3 .   将 调味汁 淋在 水果 沙拉 上 并 轻轻 拌匀 。 \n 4 .   放入 冰箱 冷藏 至少 30 分钟 使 味道 融合 。 \n 5 .   将 清爽 的 水果 沙拉 作为 美味 甜点 上桌 。 \n \n 作为 配菜 或 饮品 来 搭配 这 顿饭 ， 您 可以 考虑 搭配 一些 热 吐司面包 或 一 小碟 茄汁 蒜泥 酱来 蘸 。 至于 饮料 ， 一种 清爽 的 选择 可能 是 自制 柠檬水 或 一壶 装有 柠檬 、 黄瓜 和 薄荷 片 的 水 。 \n \n 希望 这些 食谱 和 建议 能 帮助 您 为 朋友 们 准备 一顿 美味 的 晚餐 。 享受 烹饪 和 共度 时光 ！ 如果 您 需要 进一步 的 帮助 ， 请 随时 告诉 我 。"
         },
         {
             "role": "user",
             "content": "Thank you for providing the detailed recipes! I appreciate your effort in helping me plan this meal. The Greek Salad Skewers, Vegetable Paella, Roasted Mediterranean Vegetables, and Fresh Fruit Salad with Honey-Lemon Dressing all sound delicious and suitable for my cooking skills.\n\nI love the idea of serving warm pita bread and tzatziki sauce as sides, and the suggestion of homemade lemonade or infused water with lemon, cucumber, and mint as refreshing drinks is perfect.\n\nI'm feeling quite satisfied with the suggestions and the thorough planning we've done so far. Thank you for your assistance!",
             "content_zh": "感谢您提供详细的食谱！我感激您的帮助，帮助我规划这顿饭。希腊沙拉串、蔬菜西班牙海鲜饭、烤地中海蔬菜和蜂蜜柠檬沙拉以及新鲜水果沙拉听起来都很美味，适合我的烹饪技能。我很喜欢用温暖的皮塔饼和茄汁蒜泥酱作为配菜的想法，还有用柠檬、黄瓜和薄荷制作的自制柠檬水或花果水作为清爽饮料的建议非常完美。我对目前我们已经做的建议和彻底的规划感到非常满意。感谢您的帮助！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "感谢您 提供 详细 的 食谱 ！ 我 感激 您 的 帮助 ， 帮助 我 规划 这 顿饭 。 希腊 沙拉 串 、 蔬菜 西班牙 海鲜 饭 、 烤 地中海 蔬菜 和 蜂蜜 柠檬 沙拉 以及 新鲜 水果 沙拉 听 起来 都 很 美味 ， 适合 我 的 烹饪 技能 。 我 很 喜欢 用 温暖 的 皮塔饼 和 茄汁 蒜泥 酱 作为 配菜 的 想法 ， 还有 用 柠檬 、 黄瓜 和 薄荷 制作 的 自制 柠檬水 或 花果 水 作为 清爽 饮料 的 建议 非常 完美 。 我 对 目前 我们 已经 做 的 建议 和 彻底 的 规划 感到 非常 满意 。 感谢您 的 帮助 ！"
         },
         {
             "role": "assistant",
@@ -70,14 +77,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "非常 欢迎 ！ 我 很 高兴 您 对 我们 一起 做 的 建议 和 计划 感到 满意 。 您 准备 了 一个 美味 的 地中海 风味 菜单 ， 听 起来 很棒 ， 我 相信 您 的 朋友 们 会 喜欢 这些 美味 的 菜肴 。 记得 享受 烹饪 的 过程 和 与 朋友 们 共度 的 时光 。 如果 您 有 任何 问题 或 需要 进一步 的 帮助 ， 请 不要 犹豫 。 祝您 准备 和 分享 这顿 餐时 度过 愉快 的 时光 ！"
         },
         {
             "role": "user",
             "content": "Thank you for your kind words and encouragement! I will definitely enjoy the cooking process and the time spent with my friends. I appreciate your offer to assist further if needed. I'm feeling quite satisfied with the planning we've done, so I think we can conclude our conversation here. Thank you again for your help and have a great day!\n",
             "content_zh": "谢谢您的赞美和鼓励！我一定会享受烹饪的过程和和朋友们共度的时光。感谢您提供进一步的帮助。我对我们做的计划感到很满意，所以我认为我们可以在这里结束对话。再次感谢您的帮助，祝您有美好的一天！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "谢谢您 的 赞美 和 鼓励 ！ 我 一定 会 享受 烹饪 的 过程 和 和 朋友 们 共度 的 时光 。 感谢您 提供 进一步 的 帮助 。 我 对 我们 做 的 计划 感到 很 满意 ， 所以 我 认为 我们 可以 在 这里 结束 对话 。 再次 感谢您 的 帮助 ， 祝您 有 美好 的 一天 ！"
         },
         {
             "role": "assistant",
@@ -86,7 +95,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "不 客气 ！ 很 高兴 能 帮到 你 。 如果 你 将来 需要 帮助 ， 别 犹豫 ， 随时 联系 我 。 愿 你 在 烹饪 中 度过 美好时光 ， 与 朋友 一起 享用 美食 ！ 也 祝 你 有 个 愉快 的 一天 ！"
         }
     ],
     "conflict": false,

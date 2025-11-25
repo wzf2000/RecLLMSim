@@ -12,7 +12,8 @@
             "content": "Hello! I'm planning a two-day trip this summer, and I would appreciate your help in refining my travel plans. I have no specific destination restrictions, so I'm open to suggestions. I would like to make arrangements for accommodations, transportation, and itinerary details. Can you assist me with that?",
             "content_zh": "你好！我打算在今年夏天进行一次为期两天的旅行，希望你能帮我完善我的旅行计划。我没有特定的目的地限制，所以我愿意听取建议。我想安排好住宿、交通和行程细节。你能帮我处理这些吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 我 打算 在 今年夏天 进行 一次 为期 两天 的 旅行 ， 希望 你 能 帮 我 完善 我 的 旅行 计划 。 我 没有 特定 的 目的地 限制 ， 所以 我 愿意 听取 建议 。 我 想 安排 好 住宿 、 交通 和 行程 细节 。 你 能 帮 我 处理 这些 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "你好 ！ 我 很 乐意 帮助 你 规划 今年夏天 的 两天 旅行 。 由于 你 没有 特定 的 目的地 ， 我们 可以 探索 一些 选择 ， 并 根据 你 的 喜好 缩小 范围 。 请 告诉 我 你 喜欢 什么样 的 活动 或 体验 ？ 你 更 喜欢 城市 休闲 、 海滩 度假 、 探索 大自然 ， 还是 其他 完全 不同 的 体验 ？"
         },
         {
             "role": "user",
             "content": "I enjoy outdoor activities and nature, so exploring natural landscapes would be great. I also appreciate historical sites and landmarks, as well as engaging in some recreational activities like fishing. It would be wonderful to have a mix of relaxation and exploration during this trip.",
             "content_zh": "我喜欢户外活动和大自然，所以探索自然风光会很棒。我也喜欢历史遗迹和地标，还喜欢参与一些娱乐活动，比如钓鱼。在这次旅行中能够有放松和探险的结合将会很棒。",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "我 喜欢 户外活动 和 大自然 ， 所以 探索 自然风光 会 很棒 。 我 也 喜欢 历史 遗迹 和 地标 ， 还 喜欢 参与 一些 娱乐活动 ， 比如 钓鱼 。 在 这次 旅行 中 能够 有 放松 和 探险 的 结合 将会 很棒 。"
         },
         {
             "role": "assistant",
@@ -37,14 +40,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "听 起来 像 一个 很棒 的 计划 ！ 根据 您 对 户外活动 、 大自然 、 历史 遗迹 和 钓鱼 等 娱乐活动 的 偏好 ， 我 为 您 的 两天 旅行 提出 了 建议 。 去 北卡罗来纳州 的 阿什 维尔 （ Asheville ） 如何 ？ \n \n 阿什 维尔 是 一个 美丽 的 城市 ， 坐落 在 蓝岭 山脉 中 ， 融合 了 自然 之美 和 文化 景点 。 以下 是 您 旅行 的 大致 行程 ： \n \n 第一天 ： \n -   早上 开始 探索 比尔特 莫 庄园 （ Biltmore   Estate ） ， 这是 乔治 · 范德比尔 特 （ George   Vanderbilt ） 建造 的 宏伟 豪宅 。 您 可以 参加 庄园 及 花园 的 导览 ， 这些 景观 真的 令人惊叹 。 \n -   之后 前往 蓝岭 公园 大道 （ Blue   Ridge   Parkway ） ， 这是 一条 蜿蜒 穿越 山脉 的 风景 路线 。 沿途 有 几处 观 景点 和 徒步 步 道 ， 让 您 欣赏 壮丽 景色 ， 并 伸展 一下 双腿 。 \n -   下午 时分 ， 参观 北卡罗来纳 植物园 （ North   Carolina   Arboretum ） ， 这是 一个 占地 434 英亩 的 公共 花园 ， 展示 了 各种 植物 和 景观 。 您 可以 慢慢 散步 或 租辆 自行车 探索 广阔 的 道路 。 \n -   如果 您 对 钓鱼 感兴趣 ， 在 该 地区 有 几条 河流 和 湖泊 可以 尝试 。 法国 广阔 河 （ French   Broad   River ） 是 一个 受欢迎 的 钓鱼 地点 ， 您 可以 租用 设备 或 参加 导游 钓鱼 之旅 。 \n \n 第二天 ： \n -   早上 开始 徒步 到 钱尼 洛克 州立 公园 （ Chimney   Rock   State   Park ） ， 位于 阿什 维尔城 外 。 公园 可以 欣赏 到 周围 山脉 壮丽 的 景色 ， 还有 一座 名为 钱尼 洛克 的 315 英尺 花岗岩 单体 。 您 可以 徒步 到 山顶 或 坐电梯 ， 欣赏 令人惊叹 的 全景 视野 。 \n -   之后 前往 大烟 山 国家 公园 （ Great   Smoky   Mountains   National   Park ） ， 离 阿什 维尔 大约 两个 小时 车程 。 在 这里 ， 您 可以 沉浸 在 自然 之美中 ， 徒步 一些 步 道 ， 并 在 公园 野餐 。 \n -   在 返回 阿什 维尔 的 路上 ， 停 在 皮斯加 国家 森林 （ Pisgah   National   Forest ） 。 这片 森林 以 其 美丽 的 瀑布 而 闻名 ， 包括 Looking   Glass 瀑布 和 Sliding   Rock 瀑布 ， 您 可以 在 这里 畅快 地 游泳 。 \n \n 至于 住宿 ， 阿什 维尔 提供 各种 选择 ， 包括 舒适 的 小屋 、 民宿 和 酒店 。 根据 您 的 预算 和 喜好 ， 我 可以 帮助 您 找到 合适 的 住宿 。 \n \n 请 告诉 我 这个 计划 听 起来 怎么样 ， 如果 有 其他 问题 或 偏好 ， 请 告诉 我 ！"
         },
         {
             "role": "user",
             "content": "Thank you for the detailed itinerary suggestion! Asheville, North Carolina sounds like a great option, especially with its mix of natural beauty, historical sites, and fishing opportunities. I really like the idea of visiting the Biltmore Estate and exploring the Blue Ridge Parkway. The North Carolina Arboretum also sounds like a lovely place to visit.\n\nAs for accommodations, I would prefer a cozy cabin or a bed and breakfast that offers a comfortable and relaxing atmosphere. If you could provide some options in those categories, I would appreciate it.\n\nOverall, I'm quite satisfied with your suggestions so far. Thank you for your assistance!\n",
             "content_zh": "感谢你提供的详细行程建议！北卡罗来纳州的阿什维尔听起来是一个很好的选择，尤其是因为它集合了自然美景、历史遗迹和钓鱼机会。我很喜欢参观比尔特摩庄园和探索蓝岭公园的想法。北卡罗来纳植物园也听起来是一个很棒的参观地点。\n\n至于住宿，我更喜欢一个舒适温馨的小木屋或一家提供舒适轻松氛围的民宿。如果你能提供一些这类的选择，我会很感激。\n\n总体来说，我对你的建议非常满意。谢谢你的帮助！",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "感谢 你 提供 的 详细 行程 建议 ！ 北卡罗来纳州 的 阿什 维尔 听 起来 是 一个 很 好 的 选择 ， 尤其 是因为 它 集合 了 自然 美景 、 历史 遗迹 和 钓鱼 机会 。 我 很 喜欢 参观 比尔特 摩 庄园 和 探索 蓝岭 公园 的 想法 。 北卡罗来纳 植物园 也 听 起来 是 一个 很棒 的 参观 地点 。 \n \n 至于 住宿 ， 我 更 喜欢 一个 舒适 温馨 的 小木屋 或 一家 提供 舒适 轻松 氛围 的 民宿 。 如果 你 能 提供 一些 这类 的 选择 ， 我会 很 感激 。 \n \n 总体 来说 ， 我 对 你 的 建议 非常 满意 。 谢谢 你 的 帮助 ！"
         },
         {
             "role": "assistant",
@@ -53,14 +58,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "不 客气 ！ 很 高兴 您 喜欢 为 您 在 北卡罗来纳州 阿什 维尔 提供 的 行程 建议 。 现在 ， 让 我们 为 您 找到 一些 舒适 的 小屋 或 民宿 选项 供 您 入住 。 以下 是 一些 建议 ： \n \n 1 . 毕 尔特 摩 庄园 客栈 ： 如果 您 想 靠近 毕 尔特 摩 庄园 入住 ， 这家 豪华 客栈 提供 优雅 的 客房 和 美丽 的 庄园 景观 。 提供 宁静 和 高档 的 体验 。 \n \n 2 . 威洛 温兹 阿什 维尔 小木屋 ： 这家 小木屋 出租 公司 提供 迷人 且 设备齐全 的 小木屋 ， 坐落 在 林间 环境 中 ， 距 阿什 维尔 市中心 仅 几分钟 车程 ， 提供 宁静 的 休息 。 \n \n 3 . 索伍 德 客栈 ： 坐落于 山区 ， 这家 民宿 提供 舒适 的 客房 ， 享有 壮丽 的 景色 。 以 温馨 的 款待 和 美味 的 自制 早餐 而 闻名 。 \n \n 4 . 艾宾顿 绿色 民宿 ： 这家 维多利亚 式 民宿 位于 一个 历史悠久 的 社区 ， 拥有 带有 古董 家具 的 舒适 客房 。 以 亲切 的 氛围 和 美味 的 早餐 选择 而 闻名 。 \n \n 5 . 黑 核桃 床 早餐 客栈 ： 这家 优雅 的 客栈 位于 蒙福德 历史 区 ， 提供 装饰 精美 的 客房 和 美食 早餐 。 步行 即可 到达 阿什 维尔 市中心 。 \n \n 这些 选项 应为 您 提供 一系列 选择 ， 让 您 享受 舒适 和 放松 的 住宿 。 请 确保 检查 它们 的 空房 情况 ， 并 提前 预订 以 确保您 首选 的 住宿 。 \n \n 如果 您 有 更 多 问题 或 需要 进一步 协助 ， 请 随时 提问 。 祝您 在 阿什 维尔 度过 愉快 的 旅程 ！"
         },
         {
             "role": "user",
             "content": "Thank you for the cabin and bed and breakfast recommendations! The Inn on Biltmore Estate and Asheville Cabins of Willow Winds both sound like great options. I appreciate the variety of choices you provided, and I will definitely check their availability and book in advance.\n\nI'm satisfied with the progress we've made so far in planning my trip. Thank you for your assistance in refining my travel plans.",
             "content_zh": "谢谢您推荐的小屋和民宿！毕尔特摩庄园旅馆和威洛风的阿什维尔小木屋听起来都是很棒的选择。我感谢您提供的多样选择，我一定会查看它们的可用性并提前预订。我对我们在规划我的旅行方面取得的进展感到满意。感谢您帮助我完善我的旅行计划。",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "谢谢您 推荐 的 小屋 和 民宿 ！ 毕 尔特 摩 庄园 旅馆 和 威洛 风 的 阿什 维尔 小木屋 听 起来 都 是 很棒 的 选择 。 我 感谢您 提供 的 多样 选择 ， 我 一定 会 查看 它们 的 可用性 并 提前 预订 。 我 对 我们 在 规划 我 的 旅行 方面 取得 的 进展 感到 满意 。 感谢您 帮助 我 完善 我 的 旅行 计划 。"
         },
         {
             "role": "assistant",
@@ -69,7 +76,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "非常 欢迎 ！ 我 很 高兴 您 觉得 小木屋 和 早餐 推荐 适合 您 的 旅行 。 提前 检查 它们 的 可用性 并 预订 是 一个 明智 的 决定 ， 以 确保您 喜欢 的 住宿 。 我 很 高兴 能 帮助 您 完善 旅行 计划 。 如果 您 有 任何 问题 或 需要 进一步 帮助 ， 请 随时 联系 。 祝您 去 阿什 维尔 的 旅途愉快 ， 享受 探索 自然风光 、 历史 景点 和 休闲活动 ！ 旅途 平安 ！"
         }
     ],
     "conflict": false,

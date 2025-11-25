@@ -12,7 +12,8 @@
             "content": "Hello! I'm glad you reached out. I'm looking to plan a two-day-long trip this winter, and I could use your assistance. I want to make sure my travel plans are comprehensive and realistic. Can you help me with arranging accommodations, transportation, and itinerary details?",
             "content_zh": "你好！很高兴你联系我。我想在今年冬天计划一个为期两天的旅行，希望能得到你的帮助。我希望我的旅行计划既全面又实际。你能帮我安排住宿、交通和行程细节吗？",
             "intent_zh": "规划",
-            "intent": "Planning"
+            "intent": "Planning",
+            "content_zh_cut": "你好 ！ 很 高兴 你 联系 我 。 我 想 在 今年冬天 计划 一个 为期 两天 的 旅行 ， 希望 能 得到 你 的 帮助 。 我 希望 我 的 旅行 计划 既 全面 又 实际 。 你 能 帮 我 安排 住宿 、 交通 和 行程 细节 吗 ？"
         },
         {
             "role": "assistant",
@@ -21,14 +22,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "你好 ！ 很 高兴 帮助 你 计划 这个 冬天 的 两天 行程 。 让 我们 从 讨论 你 的 目的地 和 打算 旅行 的 日期 开始 。 你 想 去 哪里 ， 打算 什么 时候 出发 ？"
         },
         {
             "role": "user",
             "content": "That's great! Since I mentioned earlier that the trip has no specific destination restrictions, I'm open to suggestions. I'm looking for a place that offers a mix of adventure and relaxation. As for the dates, I'm thinking of going on the weekend of December 10th-12th. Do you have any recommendations for a destination during that time?",
             "content_zh": "太好了！我之前提到过这次旅行没有具体的目的地限制，我很乐意听取建议。我正在寻找一个既能提供冒险又能放松的地方。至于日期，我考虑在12月10日至12日的周末去。你有什么建议在那个时间去哪个目的地吗？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "太好了 ！ 我 之前 提到 过 这次 旅行 没有 具体 的 目的地 限制 ， 我 很 乐意 听取 建议 。 我 正在 寻找 一个 既 能 提供 冒险 又 能 放松 的 地方 。 至于 日期 ， 我 考虑 在 12 月 10 日至 12 日 的 周末 去 。 你 有 什么 建议 在 那个 时间 去 哪个 目的地 吗 ？"
         },
         {
             "role": "assistant",
@@ -38,14 +41,16 @@
                 "hallucination": false,
                 "memo": "Translation Problem Fixed"
             },
-            "content_zh_old": "听起来像是一个很棒的计划！考虑到你想要冒险和放松结合的愿望，我有几个目的地建议给你的冬季旅行。1. 加拿大惠斯勒：以世界一流的滑雪和滑雪板而闻名，惠斯勒提供令人兴奋的冬季运动活动。你还可以在度假村住宿的一个房间里享受温馨的夜晚。2. 冰岛首都雷克雅未克：冰岛是一个冬季的仙境，有着令人惊叹的风景。你可以探索冰洞，看到北极光，放松在像蓝色温泉这样的地热温泉里，甚至可以参加刺激的雪地摩托车之旅。3. 奥地利因斯布鲁克：坐落在奥地利阿尔卑斯山脉的中心地带，因斯布鲁克是冬季运动爱好者的绝佳选择。你可以滑雪，滑雪板，甚至尝试雪橇。这座城市本身很迷人，提供美丽的建筑和文化景点。4. 加拿大班夫：位于阿尔伯塔省的班夫国家公园是一个风景如画的目的地，山景迷人。你可以在附近的一个度假村滑雪或滑雪板，泡一个放松的热温泉，探索班夫迷人的小镇。这些只是一些选项，但根据你的偏好还有很多。让我知道哪个目的地最吸引你，我们可以继续规划住宿，交通和行程细节！"
+            "content_zh_old": "听起来像是一个很棒的计划！考虑到你想要冒险和放松结合的愿望，我有几个目的地建议给你的冬季旅行。1. 加拿大惠斯勒：以世界一流的滑雪和滑雪板而闻名，惠斯勒提供令人兴奋的冬季运动活动。你还可以在度假村住宿的一个房间里享受温馨的夜晚。2. 冰岛首都雷克雅未克：冰岛是一个冬季的仙境，有着令人惊叹的风景。你可以探索冰洞，看到北极光，放松在像蓝色温泉这样的地热温泉里，甚至可以参加刺激的雪地摩托车之旅。3. 奥地利因斯布鲁克：坐落在奥地利阿尔卑斯山脉的中心地带，因斯布鲁克是冬季运动爱好者的绝佳选择。你可以滑雪，滑雪板，甚至尝试雪橇。这座城市本身很迷人，提供美丽的建筑和文化景点。4. 加拿大班夫：位于阿尔伯塔省的班夫国家公园是一个风景如画的目的地，山景迷人。你可以在附近的一个度假村滑雪或滑雪板，泡一个放松的热温泉，探索班夫迷人的小镇。这些只是一些选项，但根据你的偏好还有很多。让我知道哪个目的地最吸引你，我们可以继续规划住宿，交通和行程细节！",
+            "content_zh_cut": "这 听 起来 是 个 绝妙 的 计划 ！ 考虑 到 你 想要 冒险 与 放松 相结合 的 愿望 ， 我 有 一些 建议 的 目的地 供 你 的 冬季 旅行 选择 。 \n \n 1 .   加拿大 惠斯勒 ： 以 其 世界级 的 滑雪 和 单板 滑雪 而 闻名 ， 惠斯勒 提供 激动人心 的 冬季运动 活动 。 晚上 ， 你 还 可以 在 度假村 的 壁炉 旁 享受 温馨 的 夜晚 。 \n \n 2 .   冰岛 雷克雅未克 ： 冰岛 是 一个 冬季 仙境 ， 拥有 令人惊叹 的 景观 。 你 可以 探索 冰洞 ， 观赏 北极光 ， 在 蓝湖 等 地热 温泉 中 放松 ， 甚至 参加 刺激 的 雪地 摩托 之旅 。 \n \n 3 .   奥地利 因斯布鲁克 ： 坐落 在 奥地利 阿尔卑斯山脉 的 心脏地带 ， 因斯布鲁克 是 冬季运动 爱好者 的 绝佳 选择 。 你 可以 去 滑雪 、 单板 滑雪 ， 甚至 尝试 乘坐 雪橇 。 这座 城市 本身 也 很 迷人 ， 提供 美丽 的 建筑 和 文化 景点 。 \n \n 4 .   加拿大 班夫 ： 阿尔伯 塔省 的 班夫 国家 公园 是 一个 风景如画 的 目的地 ， 拥有 令人惊叹 的 山景 。 你 可以 在 附近 的 度假村 滑雪 或 单板 滑雪 ， 享受 温泉 的 放松 ， 探索 迷人 的 班夫 小镇 。 \n \n 这些 只是 几个 选项 ， 但 根据 你 的 偏好 还有 更 多 选择 。 告诉 我 哪个 目的地 最 吸引 你 ， 我们 可以 继续 规划 住宿 、 交通 和 行程 细节 ！"
         },
         {
             "role": "user",
             "content": "Those are excellent suggestions! I'm particularly drawn to the idea of visiting Whistler in Canada or Innsbruck in Austria. Both destinations offer a mix of adventure and relaxation, which aligns with what I'm looking for. \n\nLet's go with Whistler for now. I love the idea of experiencing world-class skiing and snowboarding. What are the accommodation options available in Whistler?",
             "content_zh": "这些都是很棒的建议！我特别喜欢去加拿大的惠斯勒或者奥地利的因斯布鲁克这个想法。这两个目的地都提供了冒险与放松并存的体验，很符合我的期望。让我们现在就选择惠斯勒吧。我喜欢体验世界一流的滑雪和滑雪板。惠斯勒有哪些住宿选择？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "这些 都 是 很棒 的 建议 ！ 我 特别 喜欢 去 加拿大 的 惠斯勒 或者 奥地利 的 因斯布鲁克 这个 想法 。 这 两个 目的地 都 提供 了 冒险 与 放松 并存 的 体验 ， 很 符合 我 的 期望 。 让 我们 现在 就 选择 惠斯勒 吧 。 我 喜欢 体验 世界 一流 的 滑雪 和 滑雪板 。 惠斯勒 有 哪些 住宿 选择 ？"
         },
         {
             "role": "assistant",
@@ -54,14 +59,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "选择 惠斯勒 是 个 明智 的 选择 ！ 它 以 滑雪 和 滑雪板 闻名 ， 您 一定 会 在 那里 度过 美好 的 时光 。 至于 住宿 ， 惠斯勒 提供 了 各种 选项 ， 以 满足 不同 的 喜好 和 预算 。 以下 是 一些 受欢迎 的 选择 ： 1 . 度假村 酒店 ： 惠斯勒 有 几家 豪华 度假村 酒店 ， 提供 一流 的 设施 、 水疗 中心 以及 便捷 的 滑雪场 进出 。 例如 费尔蒙 乔托 惠斯勒 酒店 、 四季 度假村 惠斯勒 和 威斯汀 度假村 及 水疗 中心 。 2 . 公寓 出租 ： 如果 您 喜欢 更大 的 空间 和 自己 烹饪 的 选择 ， 租 一间 公寓 或 度假 屋 可能 是 个 不错 的 选择 。 像 Airbnb 、 VRBO 和 Booking . com 这样 的 网站 提供 各种 选择 ， 从 舒适 的 公寓 到 宽敞 的 别墅 。 3 . 滑雪 进出 式 住宿 ： 为了 便利 起 见 ， 考虑 住 在 一间 滑雪 进出 式 住宿 。 这些 酒店 提供 直接 通往 滑雪场 的 通道 ， 让 您 可以 轻松 前往 滑雪场 ， 毫不费力 。 4 . 预算 友好 选择 ： 惠斯勒 还有 预算 友好 的 住宿 ， 如 青年 旅舍 和 经济型 酒店 。 这些 选项 可以 帮助 您 节省 金钱 ， 同时 享受 您 的 住宿 。 选择 住宿 时 ， 请 考虑 因素 如 靠近 滑雪场 的 距离 、 设施 和 您 的 预算 。 尤其 在 旺季 冬季 ， 提前 预订 也 是 个 好 主意 。 请 告诉 我 您 喜欢 哪 种 类型 的 住宿 ， 我 可以 为 您 提供 更 具体 的 推荐 和 预订 详情 ！"
         },
         {
             "role": "user",
             "content": "Thanks for the detailed information about the accommodation options in Whistler. Ski-in/ski-out accommodations sound really convenient, as I would love to have easy access to the slopes. I'm also open to considering condo rentals for the added space and flexibility.\n\nConsidering my preference for convenience and adventure, do you have any specific recommendations for ski-in/ski-out accommodations or condo rentals in Whistler? It would be great to explore options that offer a good balance between comfort and affordability.",
             "content_zh": "感谢您提供的关于惠斯勒住宿选择的详细信息。滑雪进出住宿听起来非常方便，因为我很想轻松前往滑雪场。我也愿意考虑公寓出租，因为可以获得更多空间和灵活性。考虑到我对便利和冒险的偏好，您有没有关于惠斯勒滑雪进出住宿或公寓出租的具体建议？很高兴能够探索提供舒适性和价格合理性之间良好平衡的选择。",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "感谢您 提供 的 关于 惠斯勒 住宿 选择 的 详细信息 。 滑雪 进出 住宿 听 起来 非常 方便 ， 因为 我 很 想 轻松 前往 滑雪场 。 我 也 愿意 考虑 公寓 出租 ， 因为 可以 获得 更 多 空间 和 灵活性 。 考虑 到 我 对 便利 和 冒险 的 偏好 ， 您 有没有 关于 惠斯勒 滑雪 进出 住宿 或 公寓 出租 的 具体 建议 ？ 很 高兴 能够 探索 提供 舒适性 和 价格 合理性 之间 良好 平衡 的 选择 。"
         },
         {
             "role": "assistant",
@@ -70,14 +77,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 可以 ！ 我 可以 为 您 提供 一些 建议 ， 关于 惠斯勒 （ Whistler ） 的 滑雪 入住 / 滑雪 出 住宿 和 公寓 租赁 ， 这些 住宿 和 公寓 既 舒适 又 实惠 ： \n \n 1 .   滑雪 入住 / 滑雪 出 住宿 ： \n -   潘 太平洋 山景 酒店 （ The   Pan   Pacific   Mountainside ） ： 这家 酒店 提供 宽敞 的 套房 ， 配有 全套 厨房 、 舒适 的 壁炉 和 令人惊叹 的 山景 。 它 位于 惠斯勒 山脚下 ， 提供方便 的 滑雪场 地 通道 。 \n -   费尔蒙夏多 惠斯勒 酒店 （ The   Fairmont   Chateau   Whistler ） ： 这家 豪华 度假 酒店 不仅 提供 滑雪 入住 / 滑雪 出 保障 ， 还 设有 出色 的 设施 ， 如 水疗 中心 、 多个 餐饮 选择 和 一个 配有 恒温室 外 泳池 。 这是 一个 舒适 且 便利 的 入住 选择 。 \n \n 2 .   公寓 租赁 ： \n -   全 季度 假 公寓 租赁 的 冰川 之 路 （ Glacier ' s   Reach   by   Allseason   Vacation   Rentals ） ： 这些 自助式 公寓 位于 惠斯勒 村庄 ， 拥有 各种 设施 ， 如 设备齐全 的 厨房 、 私人 热水 浴缸 和 一个 配有 恒温室 外 泳池 。 它们 提供 了 舒适 和 实惠 之间 的 平衡 。 \n -   惠斯勒 首选   -   村庄 北部 （ Whistler   Premier   -   Village   North ） ： 这家 公寓 租赁 公司 提供 各种 地点 的 单元 ， 包括 滑雪 入住 / 滑雪 出 选项 。 他们 提供 各种 不同 大小 和 设施 的 公寓 ， 以 满足 您 的 需求 。 \n \n 请 记得 查看 您 所 需 日期 的 具体 详情 、 可用性 和 价格 。 阅读 之前 客人 的 评论 也 是 一个 好 主意 ， 以 更好 地 了解 他们 的 体验 。 一旦 您 决定 了 具体 的 住宿 选择 ， 我 可以 帮助 您 进一步 了解 预订 细节 和 任何 其他 问题 ！"
         },
         {
             "role": "user",
             "content": "Thank you for the recommendations! Both The Pan Pacific Mountainside and Glacier's Reach by Allseason Vacation Rentals sound like great options for ski-in/ski-out accommodations and condo rentals, respectively. I'll definitely check the availability, prices, and reviews for my desired dates.\n\nConsidering the balance between comfort and affordability, I think I'll go with Glacier's Reach by Allseason Vacation Rentals for the condo rental option. The amenities they offer, such as fully equipped kitchens and private hot tubs, sound appealing. Could you please assist me with the booking details for Glacier's Reach?",
             "content_zh": "感谢您的推荐！泛太平洋山脉和Allseason度假租赁的冰川之旅听起来都是滑雪度假村和公寓出租的好选择。我一定会查看我的所需日期的可用性、价格和评论。\n考虑到舒适性和价格之间的平衡，我觉得我会选择Allseason度假租赁的冰川之旅作为公寓出租的选择。他们提供的设施，如设备齐全的厨房和私人热水浴缸，听起来很吸引人。您能帮我处理冰川之旅的预订细节吗？",
             "intent": "Recommendation",
-            "intent_zh": "推荐"
+            "intent_zh": "推荐",
+            "content_zh_cut": "感谢您 的 推荐 ！ 泛太平洋 山脉 和 Allseason 度假 租赁 的 冰川 之 旅听 起来 都 是 滑雪 度假村 和 公寓 出租 的 好 选择 。 我 一定 会 查看 我 的 所 需 日期 的 可用性 、 价格 和 评论 。 \n 考虑 到 舒适性 和 价格 之间 的 平衡 ， 我 觉得 我会 选择 Allseason 度假 租赁 的 冰川 之旅 作为 公寓 出租 的 选择 。 他们 提供 的 设施 ， 如 设备齐全 的 厨房 和 私人 热水 浴缸 ， 听 起来 很 吸引 人 。 您 能 帮 我 处理 冰川 之旅 的 预订 细节 吗 ？"
         },
         {
             "role": "assistant",
@@ -86,14 +95,16 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "当然 ！ 我 很 高兴 您 选择 了   Allseason   假期 租赁 的 格 莱西 尔之家 作为 您 在 惠斯勒 首选 的 公寓 租赁 选项 。 以下 是 我们 如何 进行 预订 细节 ： 1 .   可用性 和 价格 ： 访问   Allseason   假期 租赁 网站 或 任何 其他 可信 平台 ， 在 那里 他们 列出 他们 的 房产 。 查看 您 在 格 莱西 尔之家 想要 的 日期 的 可用性 和 价格 。 请 注意 您 的 任何 特定 要求 或 偏好 ， 例如 您 需要 的 卧室 数量 或 设施 。 2 .   联系 租赁 公司 ： 一旦 您 确定 了 适合 您 的 格 莱西 尔之家 的 公寓 ， 请 直接 联系   Allseason   假期 租赁 。 您 可以 打电话 给 他们 或 使用 他们 的 在线 预订 表格 询问 可用性 ， 确认 价格 ， 并 提出 任何 问题 。 3 .   预订 确认 ： 一旦 您 收到 可用性 和 价格 的 确认 ， 请 继续 预订 。 大多数 租赁 公司 都 需要 付 押金 或 全款 以 确保您 的 预订 。 请 确保 澄清 他们 的 取消 政策 和 任何 额外 费用 。 4 .   提供 必要 信息 ： 在 预订 过程 中 ， 您 很 可能 会 被 要求 提供 您 的 个人 详细信息 ， 包括 您 的 姓名 ， 联系 信息 和 付款 详情 。 请 务必 提供 准确 的 信息 。 5 .   确认 预订 ： 完成 预订 并 提供 必要 信息 后 ， 您 应该 收到 确认 电子邮件 或 收据 。   仔细检查 细节 以 确保 一切 正确 。 记得 保留 预订 确认 和 任何 相关 联系 信息 的 副本 ， 供 将来 参考 。 如果 在 预订 过程 中有 任何 问题 或 需要 进一步 协助 ， 请 随时 提问 。 祝您 预订 愉快 ， 并 祝您 在 惠斯勒 格 莱西 尔之家 度过 美好 的 时光 ！"
         },
         {
             "role": "user",
             "content": "Thank you for providing the detailed steps for booking Glacier's Reach by Allseason Vacation Rentals. I will follow your instructions and proceed with the booking process. If I have any further questions or need assistance, I'll be sure to reach out. I'm excited about my upcoming trip to Whistler and staying at Glacier's Reach. Thank you for your help so far!\n",
             "content_zh": "感谢您提供了预订Glacier's Reach by Allseason Vacation Rentals的详细步骤。我会按照您的指示继续预订过程。如果我有任何进一步的问题或需要帮助，我一定会联系您。我对即将到来的惠斯勒之行和入住Glacier's Reach感到很兴奋。到目前为止，感谢您的帮助！",
             "intent": "Others",
-            "intent_zh": "其他"
+            "intent_zh": "其他",
+            "content_zh_cut": "感谢您 提供 了 预订 Glacier ' s   Reach   by   Allseason   Vacation   Rentals 的 详细 步骤 。 我会 按照 您 的 指示 继续 预订 过程 。 如果 我 有 任何 进一步 的 问题 或 需要 帮助 ， 我 一定 会 联系 您 。 我 对 即将 到来 的 惠斯勒 之行 和 入住 Glacier ' s   Reach 感到 很 兴奋 。 到 目前为止 ， 感谢您 的 帮助 ！"
         },
         {
             "role": "assistant",
@@ -102,7 +113,8 @@
             "hallucination": {
                 "hallucination": false,
                 "memo": "No Hallucination"
-            }
+            },
+            "content_zh_cut": "非常 欢迎 ！ 我 很 高兴 能 帮助 您 完成 预订 流程 ， 也 很 期待 您 即将 前往 惠斯勒 和 在 冰川 之路 的 住宿 。 如果 您 有 任何 进一步 的 问题 或 需要 任何 帮助 ， 请 随时 联系 我 。 我会 尽力 帮助 的 。 祝您 在 规划 旅行 时 度过 美好时光 ， 享受 在 惠斯勒 的 冬季 冒险 ！ 一路平安 ！"
         }
     ],
     "conflict": false,
