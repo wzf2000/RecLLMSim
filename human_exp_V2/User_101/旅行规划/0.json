@@ -9,12 +9,16 @@
         {
             "role": "user",
             "content": "目的地是西安",
-            "content_cut": "目的地 是 西安"
+            "content_cut": "目的地 是 西安",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户明确旅行目的地为西安，这是对旅行任务的关键偏好与约束，用于后续定制化制定行程方案。"
         },
         {
             "role": "user",
             "content": "请帮我指定一份旅游计划，",
-            "content_cut": "请 帮 我 指定 一份 旅游 计划 ，"
+            "content_cut": "请 帮 我 指定 一份 旅游 计划 ，",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户直接要求制定一份可执行的旅游计划，并需包含住宿、交通和时间表等具体安排，属于详细落地方案的请求。"
         },
         {
             "role": "assistant",
@@ -26,7 +30,9 @@
         {
             "role": "user",
             "content": "可以在帮我们安排一下每天的吃食吗？我们不吃羊肉",
-            "content_cut": "可以 在 帮 我们 安排 一下 每天 的 吃食 吗 ？ 我们 不吃 羊肉"
+            "content_cut": "可以 在 帮 我们 安排 一下 每天 的 吃食 吗 ？ 我们 不吃 羊肉",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户基于已有的西安七日行程，要求补充每日用餐安排并明确饮食偏好（不吃羊肉），这是对既有方案的定制化扩展，而非重新发起或单独请求资源。"
         },
         {
             "role": "assistant",
@@ -38,7 +44,9 @@
         {
             "role": "user",
             "content": "推荐一下每天的交通工具",
-            "content_cut": "推荐 一下 每天 的 交通工具"
+            "content_cut": "推荐 一下 每天 的 交通工具",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有旅行与美食计划的基础上，要求补充每天的交通方式建议，属于对既有方案的扩展与新增模块"
         },
         {
             "role": "assistant",
@@ -50,7 +58,9 @@
         {
             "role": "user",
             "content": "将计划整合起来",
-            "content_cut": "将 计划 整合 起来"
+            "content_cut": "将 计划 整合 起来",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户要求将已有的美食计划与交通方案进行整合，形成统一的最终版本，属于对前面内容的总结与整理输出需求。"
         },
         {
             "role": "assistant",

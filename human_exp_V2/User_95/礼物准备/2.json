@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "最好是大众一点的东西，同学之间送不尴尬的",
-            "content_cut": "最好 是 大众 一点 的 东西 ， 同学 之间 送 不 尴尬 的"
+            "content_cut": "最好 是 大众 一点 的 东西 ， 同学 之间 送 不 尴尬 的",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户补充了礼物的偏好与约束（大众、不尴尬），用于引导后续定制化推荐，而非直接要求具体调整某一现有方案。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "充电宝还行，有什么推荐吗",
-            "content_cut": "充电 宝 还行 ， 有 什么 推荐 吗"
+            "content_cut": "充电 宝 还行 ， 有 什么 推荐 吗",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户明确表示充电宝可以，询问有什么推荐，属于请求具体品牌型号或选品建议的决策咨询。"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "300元以内的",
-            "content_cut": "300 元 以内 的"
+            "content_cut": "300 元 以内 的",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户明确提出预算上限“300元以内”，以此限定推荐范围，突出价格与性价比的考量。"
         },
         {
             "role": "assistant",

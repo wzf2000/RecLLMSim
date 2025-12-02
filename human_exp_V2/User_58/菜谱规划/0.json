@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "还有没有更多的选择",
-            "content_cut": "还有 没有 更 多 的 选择"
+            "content_cut": "还有 没有 更 多 的 选择",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有两道简单菜的方案基础上请求“更多的选择”，是在扩展现有方案而非重新发起任务或仅求总结。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "我想蒸个鸡蛋糕，炒个菜花。我需要哪些调料呢？",
-            "content_cut": "我想 蒸个 鸡蛋糕 ， 炒个 菜花 。 我 需要 哪些 调料 呢 ？"
+            "content_cut": "我想 蒸个 鸡蛋糕 ， 炒个 菜花 。 我 需要 哪些 调料 呢 ？",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确要做两道菜（蒸鸡蛋糕、炒菜花）并询问所需调料，期待得到具体用料清单等可执行信息。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "我可以搭配哪些主食？",
-            "content_cut": "我 可以 搭配 哪些 主食 ？"
+            "content_cut": "我 可以 搭配 哪些 主食 ？",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有菜品（蒸鸡蛋糕、炒菜花）的基础上，用户希望新增搭配的主食选项，属于对现有方案的扩展。"
         },
         {
             "role": "assistant",

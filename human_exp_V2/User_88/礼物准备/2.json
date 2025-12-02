@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我打算买口红",
-            "content_cut": "我 打算 买 口红"
+            "content_cut": "我 打算 买 口红",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户明确表达礼物类别偏好（决定买口红），为后续定制化推荐和方案提供方向与约束。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "我打算买比较水润的款式，比较适合她",
-            "content_cut": "我 打算 买 比较 水润 的 款式 ， 比较 适合 她"
+            "content_cut": "我 打算 买 比较 水润 的 款式 ， 比较 适合 她",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户补充了个人偏好（口红要偏水润），用于让AI基于偏好进行更定制化的后续推荐和决策。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "我的预算是300以内，哪个最好呢",
-            "content_cut": "我 的 预算 是 300 以内 ， 哪个 最好 呢"
+            "content_cut": "我 的 预算 是 300 以内 ， 哪个 最好 呢",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户明确给出预算上限，并询问“哪个最好”，是在寻求具体的选品决策与推荐，而非步骤方案或资源链接。"
         },
         {
             "role": "assistant",

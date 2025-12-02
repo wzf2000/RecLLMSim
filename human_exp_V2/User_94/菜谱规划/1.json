@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "都需要准备哪些食材",
-            "content_cut": "都 需要 准备 哪些 食材"
+            "content_cut": "都 需要 准备 哪些 食材",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户在询问三道推荐川菜需要准备的具体食材清单，属于请求可落地的操作信息（清单）。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "完整的制作流程是怎么样的",
-            "content_cut": "完整 的 制作 流程 是 怎么样 的"
+            "content_cut": "完整 的 制作 流程 是 怎么样 的",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问每道菜的完整制作流程，期待获得清晰的步骤与操作指引，属于请求详细可落地的方案"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "搭配什么样的主食最合适",
-            "content_cut": "搭配 什么样 的 主食 最合适"
+            "content_cut": "搭配 什么样 的 主食 最合适",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有菜谱与制作流程基础上，用户询问与之搭配的主食，属于为现有方案新增搭配模块的扩展需求。"
         },
         {
             "role": "assistant",

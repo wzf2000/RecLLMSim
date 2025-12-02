@@ -9,7 +9,9 @@
         {
             "role": "user",
             "content": "有啥好的方案没",
-            "content_cut": "有 啥 好 的 方案 没"
+            "content_cut": "有 啥 好 的 方案 没",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户直接询问“有啥好的方案没”，在已有旅行背景下希望获得详细可执行的行程与安排方案。"
         },
         {
             "role": "assistant",
@@ -21,7 +23,9 @@
         {
             "role": "user",
             "content": "想去新疆呢 ，飞机过去之后再自驾旅行",
-            "content_cut": "想 去 新疆 呢   ， 飞机 过去 之后 再 自驾 旅行"
+            "content_cut": "想 去 新疆 呢   ， 飞机 过去 之后 再 自驾 旅行",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户明确了目的地（新疆）与出行方式（先飞抵再自驾），属于提出个人偏好与约束条件，为后续定制化行程方案提供信息。"
         },
         {
             "role": "assistant",
@@ -33,7 +37,9 @@
         {
             "role": "user",
             "content": "哪些地区比较危险不适合去",
-            "content_cut": "哪些 地区 比较 危险 不 适合 去"
+            "content_cut": "哪些 地区 比较 危险 不 适合 去",
+            "intent_label": "技巧、操作与安全指导",
+            "intent_reason": "用户询问哪些地区较危险不适合前往，明确是在寻求安全风险评估与避险建议。"
         },
         {
             "role": "assistant",
@@ -45,7 +51,9 @@
         {
             "role": "user",
             "content": "租车方便还是把自己车托运过去合适",
-            "content_cut": "租车 方便 还是 把 自己 车 托运 过去 合适"
+            "content_cut": "租车 方便 还是 把 自己 车 托运 过去 合适",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户在比较“租车”和“托运自家车”两种出行服务选项，询问哪种更合适，属于决策咨询而非具体执行步骤或预算细算。"
         },
         {
             "role": "assistant",
@@ -57,7 +65,9 @@
         {
             "role": "user",
             "content": "住宿和行程要帮我规划",
-            "content_cut": "住宿 和 行程 要 帮 我 规划"
+            "content_cut": "住宿 和 行程 要 帮 我 规划",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确要求帮忙规划住宿和行程，属于请求制定可落地的旅行方案与安排。"
         },
         {
             "role": "assistant",

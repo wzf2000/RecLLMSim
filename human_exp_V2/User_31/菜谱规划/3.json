@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "凉菜可以少一点 热菜多一点素菜",
-            "content_cut": "凉菜 可以 少 一点   热菜 多一点 素菜"
+            "content_cut": "凉菜 可以 少 一点   热菜 多一点 素菜",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户基于已有菜谱提出结构性偏好调整（减少凉菜、增加热菜中的素菜），属于对原方案的修改与优化。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "帮我列一个采购清单",
-            "content_cut": "帮 我列 一个 采购 清单"
+            "content_cut": "帮 我列 一个 采购 清单",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求根据既定菜谱列出可直接执行的采购清单，属于清单式、落地可操作的方案请求。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "帮我根据河北省物价估算一下大概需要多少钱",
-            "content_cut": "帮 我 根据 河北省 物价 估算 一下 大概 需要 多少 钱"
+            "content_cut": "帮 我 根据 河北省 物价 估算 一下 大概 需要 多少 钱",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户请求根据河北省物价进行成本估算，关注采购费用与预算。"
         },
         {
             "role": "assistant",

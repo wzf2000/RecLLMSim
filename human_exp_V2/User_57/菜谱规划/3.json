@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "有没有这个烟熏三文鱼配奶油芝士的做法",
-            "content_cut": "有没有 这个 烟熏 三文鱼 配 奶油 芝士 的 做法"
+            "content_cut": "有没有 这个 烟熏 三文鱼 配 奶油 芝士 的 做法",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户具体询问“烟熏三文鱼配奶油芝士”的做法，期望获得食材与步骤等可直接执行的制作方案。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "有没有一些西式的餐",
-            "content_cut": "有没有 一些 西式 的 餐"
+            "content_cut": "有没有 一些 西式 的 餐",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有中西合菜单和具体做法的基础上，用户进一步提出想要更多西式菜肴，属于对原方案的补充与扩展。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "可以",
-            "content_cut": "可以"
+            "content_cut": "可以",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户对上一轮的西式菜品建议表示认可，隐含希望继续获取更详细、可落地的菜谱与制作步骤"
         },
         {
             "role": "assistant",

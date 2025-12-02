@@ -17,12 +17,16 @@
         {
             "role": "user",
             "content": "我准备使用一个月的时间学习",
-            "content_cut": "我 准备 使用 一个月 的 时间 学习"
+            "content_cut": "我 准备 使用 一个月 的 时间 学习",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户提出学习时长为一个月，属于提供目标与时间约束，用于后续定制化学习规划的场景设定。"
         },
         {
             "role": "user",
             "content": "帮我出一套学习方案",
-            "content_cut": "帮 我 出 一套 学习 方案"
+            "content_cut": "帮 我 出 一套 学习 方案",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确提出“帮我出一套学习方案”，希望得到可落地的学习步骤与安排，并已给出一个月的学习周期作为约束。"
         },
         {
             "role": "assistant",
@@ -34,12 +38,16 @@
         {
             "role": "user",
             "content": "我会基本的绘图口令，需要进一步学习",
-            "content_cut": "我会 基本 的 绘图 口令 ， 需要 进一步 学习"
+            "content_cut": "我会 基本 的 绘图 口令 ， 需要 进一步 学习",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户说明已掌握基本绘图口令，表达需要进一步学习，意在基于已有方案与基础进行针对性调整与深化。"
         },
         {
             "role": "user",
             "content": "帮我出一套学习方案",
-            "content_cut": "帮 我 出 一套 学习 方案"
+            "content_cut": "帮 我 出 一套 学习 方案",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户直接请求制定“学习方案”，希望获得可落地的步骤与安排，并基于其已有基础进行提升。"
         },
         {
             "role": "assistant",
@@ -51,7 +59,9 @@
         {
             "role": "user",
             "content": "帮我出一套一个月的学习时间规划",
-            "content_cut": "帮 我 出 一套 一个月 的 学习 时间 规划"
+            "content_cut": "帮 我 出 一套 一个月 的 学习 时间 规划",
+            "intent_label": "系统化规划与时间安排",
+            "intent_reason": "用户明确提出需要“一个月的学习时间规划”，核心诉求是对学习节奏与时间分配进行系统安排。"
         },
         {
             "role": "assistant",
@@ -64,7 +74,9 @@
         {
             "role": "user",
             "content": "最后怎么进行资源整理呢",
-            "content_cut": "最后 怎么 进行 资源 整理 呢"
+            "content_cut": "最后 怎么 进行 资源 整理 呢",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问如何进行资源整理，期待获得可操作的整理方法与步骤以便落地执行。"
         },
         {
             "role": "assistant",
@@ -76,7 +88,9 @@
         {
             "role": "user",
             "content": "好的谢谢",
-            "content_cut": "好 的 谢谢"
+            "content_cut": "好 的 谢谢",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户对已有方案表示认可与致谢，没有新的需求或问题，体现对前面内容的收尾和接受，接近最终输出阶段。"
         },
         {
             "role": "assistant",

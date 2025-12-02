@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我想去广东周围旅游",
-            "content_cut": "我 想 去 广东 周围 旅游"
+            "content_cut": "我 想 去 广东 周围 旅游",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户提供旅行目的地范围（广东周边）作为偏好与约束，为后续定制旅行计划提供背景信息。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "我不想去这么多海边游玩，有没有一些室内的",
-            "content_cut": "我 不想 去 这么 多 海边 游玩 ， 有没有 一些 室内 的"
+            "content_cut": "我 不想 去 这么 多 海边 游玩 ， 有没有 一些 室内 的",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "基于已有广东周边出游方案提出偏好修改，明确不想海边并请求改为室内活动，属于对既有方案的调整与替换请求。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "交通上每个地方应该怎么出行",
-            "content_cut": "交通 上 每个 地方 应该 怎么 出行"
+            "content_cut": "交通 上 每个 地方 应该 怎么 出行",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问各个地点的具体交通出行方式，期待得到可落地的详细安排以便执行旅行计划。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "有什么特色菜吗在深圳",
-            "content_cut": "有 什么 特色菜 吗 在 深圳"
+            "content_cut": "有 什么 特色菜 吗 在 深圳",
+            "intent_label": "本地化与情境适配",
+            "intent_reason": "用户询问深圳的特色菜，属于基于地理位置的本地化信息需求。"
         },
         {
             "role": "assistant",

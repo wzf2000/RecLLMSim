@@ -17,7 +17,9 @@
         {
             "role": "user",
             "content": "上海还要有两天看艺术展览，请帮我安排这几天的行程",
-            "content_cut": "上海 还要 有 两天 看 艺术 展览 ， 请 帮 我 安排 这 几天 的 行程"
+            "content_cut": "上海 还要 有 两天 看 艺术 展览 ， 请 帮 我 安排 这 几天 的 行程",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确要求根据新增的两天上海艺术展览安排整体行程，期待包含交通、住宿和时间表的可落地旅行计划"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "上海2025f比赛安排",
-            "content_cut": "上海 2025f 比赛 安排"
+            "content_cut": "上海 2025f 比赛 安排",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户提出“上海2025f比赛安排”，是在请求围绕上海2025年F1赛事的具体出行与行程安排，需要可执行的计划与时间表。"
         },
         {
             "role": "assistant",
@@ -42,7 +46,9 @@
         {
             "role": "user",
             "content": "下周五六日都要去看比赛，请从新安排时间规划",
-            "content_cut": "下周 五六日 都 要 去 看 比赛 ， 请 从 新 安排 时间 规划"
+            "content_cut": "下周 五六日 都 要 去 看 比赛 ， 请 从 新 安排 时间 规划",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户基于已有行程，提出因周五至周日都要看比赛而需重新安排时间，属于在现有方案上进行调整与重排的需求。"
         },
         {
             "role": "assistant",
@@ -54,7 +60,9 @@
         {
             "role": "user",
             "content": "苏州白天要去十全街和虎丘，请帮我安排晚上行程",
-            "content_cut": "苏州 白天 要 去 十全街 和 虎丘 ， 请 帮 我 安排 晚上 行程"
+            "content_cut": "苏州 白天 要 去 十全街 和 虎丘 ， 请 帮 我 安排 晚上 行程",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有苏州白天行程的基础上，要求补充晚间活动安排，属于对现有方案的扩展。"
         },
         {
             "role": "assistant",
@@ -67,7 +75,9 @@
         {
             "role": "user",
             "content": "苏州茶馆关门很早，换其他的",
-            "content_cut": "苏州 茶馆 关门 很早 ， 换 其他 的"
+            "content_cut": "苏州 茶馆 关门 很早 ， 换 其他 的",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户基于已有晚间行程提出替换建议（茶馆关门早，希望更换其他活动），属于对既有方案的修改与优化。"
         },
         {
             "role": "assistant",
@@ -80,7 +90,9 @@
         {
             "role": "user",
             "content": "晚间活动这些项目还在开着吗",
-            "content_cut": "晚间 活动 这些 项目 还 在 开 着 吗"
+            "content_cut": "晚间 活动 这些 项目 还 在 开 着 吗",
+            "intent_label": "质疑、纠错与替代",
+            "intent_reason": "用户在核验此前建议的晚间活动是否仍在开放，属于对已有信息的有效性核查与确认需求。"
         },
         {
             "role": "assistant",
@@ -92,7 +104,9 @@
         {
             "role": "user",
             "content": "看一下现在的行程规划",
-            "content_cut": "看 一下 现在 的 行程 规划"
+            "content_cut": "看 一下 现在 的 行程 规划",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户希望“看一下现在的行程规划”，即请求将当前已有的行程信息进行整理与呈现，而非提出新的需求或细化步骤。"
         },
         {
             "role": "assistant",
@@ -104,7 +118,9 @@
         {
             "role": "user",
             "content": "酒店请优先安排首旅集团的",
-            "content_cut": "酒店 请 优先 安排 首旅 集团 的"
+            "content_cut": "酒店 请 优先 安排 首旅 集团 的",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户提出住宿品牌偏好（优先选择首旅集团），属于为后续方案定制提供约束条件与个人偏好。"
         },
         {
             "role": "assistant",
@@ -116,7 +132,9 @@
         {
             "role": "user",
             "content": "交通便利的优先",
-            "content_cut": "交通 便利 的 优先"
+            "content_cut": "交通 便利 的 优先",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有行程与酒店备选的基础上，用户新增“交通便利优先”的偏好，属于对现有方案的进一步调整与细化。"
         },
         {
             "role": "assistant",

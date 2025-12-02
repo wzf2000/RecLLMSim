@@ -17,7 +17,9 @@
         {
             "role": "user",
             "content": "会议地点在杨浦区",
-            "content_cut": "会议 地点 在 杨浦区"
+            "content_cut": "会议 地点 在 杨浦区",
+            "intent_label": "本地化与情境适配",
+            "intent_reason": "用户提供会议所在的具体地理位置（杨浦区），目的是让行程根据地点进行就近优化与现实适配。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "出差时间是周四到下周一",
-            "content_cut": "出差 时间 是 周四 到 下周一"
+            "content_cut": "出差 时间 是 周四 到 下周一",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有晚间行程方案基础上新增了具体出差时段信息，意在据此调整与优化行程安排。"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "我刚倾向于找特色餐厅或酒吧",
-            "content_cut": "我刚 倾向 于 找 特色 餐厅 或 酒吧"
+            "content_cut": "我刚 倾向 于 找 特色 餐厅 或 酒吧",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有晚间行程方案基础上提出新的偏好（倾向于找特色餐厅或酒吧），期望据此对方案进行调整与补充。"
         },
         {
             "role": "assistant",
@@ -53,7 +59,9 @@
         {
             "role": "user",
             "content": "请标明他们的营业时间",
-            "content_cut": "请 标明 他们 的 营业时间"
+            "content_cut": "请 标明 他们 的 营业时间",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在既有餐厅/酒吧推荐与行程基础上，要求补充营业时间信息，属于对现有方案的细化与扩展。"
         },
         {
             "role": "assistant",

@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "这些都不满意，再提供几个选择",
-            "content_cut": "这些 都 不 满意 ， 再 提供 几个 选择"
+            "content_cut": "这些 都 不 满意 ， 再 提供 几个 选择",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户否定已有地点推荐并要求追加更多备选，属于在现有方案基础上进行扩展/增补。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "这些都不满意，再提供几个选择",
-            "content_cut": "这些 都 不 满意 ， 再 提供 几个 选择"
+            "content_cut": "这些 都 不 满意 ， 再 提供 几个 选择",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户对已有目的地推荐不满意，要求在此前方案基础上提供更多备选地点，属于对方案的扩展与补充。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "具体介绍一下海驴岛",
-            "content_cut": "具体 介绍 一下 海驴 岛"
+            "content_cut": "具体 介绍 一下 海驴 岛",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求对海驴岛进行具体介绍，期待获取可落地的目的地信息（交通、住宿、活动等细节）以便制定行程。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "十一期间，这个岛适合赶海吗？具体时间",
-            "content_cut": "十一 期间 ， 这个 岛 适合 赶海 吗 ？ 具体 时间"
+            "content_cut": "十一 期间 ， 这个 岛 适合 赶海 吗 ？ 具体 时间",
+            "intent_label": "技巧、操作与安全指导",
+            "intent_reason": "用户询问十一期间海驴岛是否适合赶海及具体时间，属于对实操活动（赶海）与时间/安全要点的指导需求。"
         },
         {
             "role": "assistant",
@@ -64,7 +72,9 @@
         {
             "role": "user",
             "content": "预订船票使用什么网站？",
-            "content_cut": "预订 船票 使用 什么 网站 ？"
+            "content_cut": "预订 船票 使用 什么 网站 ？",
+            "intent_label": "资源与链接请求",
+            "intent_reason": "用户询问预订船票应使用哪个网站，属于索要具体资源与预约入口（网址/平台）的请求。"
         },
         {
             "role": "assistant",
@@ -76,7 +86,9 @@
         {
             "role": "user",
             "content": "汽车可以上船到岛上吗",
-            "content_cut": "汽车 可以 上船 到 岛上 吗"
+            "content_cut": "汽车 可以 上船 到 岛上 吗",
+            "intent_label": "本地化与情境适配",
+            "intent_reason": "用户询问目的地的交通限制与可行性（汽车是否能随船上岛），这是根据当地条件进行旅行方案现实适配的需求。"
         },
         {
             "role": "assistant",

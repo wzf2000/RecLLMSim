@@ -17,7 +17,9 @@
         {
             "role": "user",
             "content": "啊？就两个地方吗",
-            "content_cut": "啊 ？ 就 两个 地方 吗"
+            "content_cut": "啊 ？ 就 两个 地方 吗",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户对已有推荐数量提出质疑，意在让AI补充更多目的地选项，属于在现有方案基础上的扩展请求。"
         },
         {
             "role": "assistant",
@@ -30,7 +32,9 @@
         {
             "role": "user",
             "content": "表达形式用那种容易平行对比的格式，",
-            "content_cut": "表达形式 用 那种 容易 平行 对比 的 格式 ，"
+            "content_cut": "表达形式 用 那种 容易 平行 对比 的 格式 ，",
+            "intent_label": "表达与包装建议",
+            "intent_reason": "用户要求以便于平行对比的表达形式呈现内容，属于对输出格式和表达方式的调整请求。"
         },
         {
             "role": "assistant",
@@ -42,7 +46,9 @@
         {
             "role": "user",
             "content": "各项都补上成本和体验推荐级",
-            "content_cut": "各项 都 补上 成本 和 体验 推荐 级"
+            "content_cut": "各项 都 补上 成本 和 体验 推荐 级",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户基于已有目的地对比表，要求为各项补充“成本”和“体验推荐级”字段，属于对既有方案的信息补充与扩展。"
         },
         {
             "role": "assistant",
@@ -55,7 +61,9 @@
         {
             "role": "user",
             "content": "不要繁体字！",
-            "content_cut": "不要 繁体字 ！"
+            "content_cut": "不要 繁体字 ！",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户提出输出风格的约束偏好（不要使用繁体字），属于对生成内容的偏好与限制设定，以便后续定制化回复。"
         },
         {
             "role": "assistant",

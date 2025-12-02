@@ -17,7 +17,9 @@
         {
             "role": "user",
             "content": "五个菜就行，山东的",
-            "content_cut": "五个 菜 就 行 ， 山东 的"
+            "content_cut": "五个 菜 就 行 ， 山东 的",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有北方菜建议的基础上提出限定为“五个菜、山东风味”，属于对既有方案的修改与收窄。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "这太难了，有简单点的吗",
-            "content_cut": "这太难 了 ， 有 简单 点 的 吗"
+            "content_cut": "这太难 了 ， 有 简单 点 的 吗",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户认为现有推荐菜过于复杂，提出改为更简单易做的选项，属于对已有方案的简化与替换请求"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "鸡蛋羹太简单了，换一个",
-            "content_cut": "鸡蛋羹 太 简单 了 ， 换 一个"
+            "content_cut": "鸡蛋羹 太 简单 了 ， 换 一个",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户要求将已有菜谱中的“鸡蛋羹”替换为其他菜，是在已有方案基础上的修改与替换请求。"
         },
         {
             "role": "assistant",
@@ -53,7 +59,9 @@
         {
             "role": "user",
             "content": "不要豆腐，加个汤",
-            "content_cut": "不要 豆腐 ， 加个 汤"
+            "content_cut": "不要 豆腐 ， 加个 汤",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有菜谱基础上提出修改，去掉豆腐并新增一道汤品，属于对方案的替换与扩展请求。"
         },
         {
             "role": "assistant",
@@ -65,7 +73,9 @@
         {
             "role": "user",
             "content": "一共三个人，请列出食材用量和制作流程制作顺序",
-            "content_cut": "一共 三个 人 ， 请 列出 食材 用量 和 制作 流程 制作 顺序"
+            "content_cut": "一共 三个 人 ， 请 列出 食材 用量 和 制作 流程 制作 顺序",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确要求针对三人份给出食材用量、每道菜的完整制作流程以及整体制作顺序，属于详细可落地的操作方案请求。"
         },
         {
             "role": "assistant",
@@ -77,7 +87,9 @@
         {
             "role": "user",
             "content": "谢谢，昔新快乐",
-            "content_cut": "谢谢 ， 昔新 快乐"
+            "content_cut": "谢谢 ， 昔新 快乐",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅表达感谢与祝福，没有新的需求或问题，属于对前述方案的收尾性回应。"
         },
         {
             "role": "assistant",

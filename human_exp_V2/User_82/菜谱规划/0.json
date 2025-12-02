@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我有点想吃牛肉",
-            "content_cut": "我 有点 想 吃 牛肉"
+            "content_cut": "我 有点 想 吃 牛肉",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户表达了偏好“想吃牛肉”，是在已有菜谱建议基础上希望调整/替换为牛肉相关的菜品。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "你可以给我一个同样详细的西红柿炒鸡蛋的食谱吗",
-            "content_cut": "你 可以 给 我 一个 同样 详细 的 西红柿 炒鸡蛋 的 食谱 吗"
+            "content_cut": "你 可以 给 我 一个 同样 详细 的 西红柿 炒鸡蛋 的 食谱 吗",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确要求提供同样详细的西红柿炒鸡蛋食谱，期望包含材料与步骤等可直接执行的操作指南。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "有什么特别的tips可以让这两道菜更加美味吗",
-            "content_cut": "有 什么 特别 的 tips 可以 让 这 两道菜 更加 美味 吗"
+            "content_cut": "有 什么 特别 的 tips 可以 让 这 两道菜 更加 美味 吗",
+            "intent_label": "技巧、操作与安全指导",
+            "intent_reason": "用户询问能让两道菜更美味的特别技巧，属于请求实操性烹饪技巧与操作建议。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "那现在我要去超市购买食材了，你可以给我一份物品清单吗",
-            "content_cut": "那 现在 我要 去 超市 购买 食材 了 ， 你 可以 给 我 一份 物品 清单 吗"
+            "content_cut": "那 现在 我要 去 超市 购买 食材 了 ， 你 可以 给 我 一份 物品 清单 吗",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确请求一份去超市购买食材的物品清单，属于可落地的清单与操作方案需求。"
         },
         {
             "role": "assistant",
@@ -64,7 +72,9 @@
         {
             "role": "user",
             "content": "对于食材的挑选有什么小技巧吗",
-            "content_cut": "对于 食材 的 挑选 有 什么 小 技巧 吗"
+            "content_cut": "对于 食材 的 挑选 有 什么 小 技巧 吗",
+            "intent_label": "技巧、操作与安全指导",
+            "intent_reason": "用户询问如何挑选食材的小技巧，属于求取实操性、可执行的技巧与注意事项的指导"
         },
         {
             "role": "assistant",
@@ -76,7 +86,9 @@
         {
             "role": "user",
             "content": "如果我没有把菜吃完我应该怎么办",
-            "content_cut": "如果 我 没有 把 菜 吃 完 我 应该 怎么办"
+            "content_cut": "如果 我 没有 把 菜 吃 完 我 应该 怎么办",
+            "intent_label": "技巧、操作与安全指导",
+            "intent_reason": "用户询问剩菜如何处理，涉及保存、加热与食品安全等实操性技巧与健康安全指导。"
         },
         {
             "role": "assistant",
@@ -88,7 +100,9 @@
         {
             "role": "user",
             "content": "好的我明白了，那么这两道菜的烹饪顺序是什么样的呢",
-            "content_cut": "好 的 我 明白 了 ， 那么 这 两道菜 的 烹饪 顺序 是 什么样 的 呢"
+            "content_cut": "好 的 我 明白 了 ， 那么 这 两道菜 的 烹饪 顺序 是 什么样 的 呢",
+            "intent_label": "系统化规划与时间安排",
+            "intent_reason": "用户询问两道菜的烹饪顺序，属于对任务的先后顺序与流程安排的需求，体现时间与步骤的规划。"
         },
         {
             "role": "assistant",
@@ -100,7 +114,9 @@
         {
             "role": "user",
             "content": "谢谢！我现在完全清楚了！",
-            "content_cut": "谢谢 ！ 我 现在 完全 清楚 了 ！"
+            "content_cut": "谢谢 ！ 我 现在 完全 清楚 了 ！",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅表达感谢并确认已理解，没有新的请求或调整，属于对前面方案的收尾性反馈，最接近总结/最终确认的意图。"
         },
         {
             "role": "assistant",

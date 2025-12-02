@@ -17,7 +17,9 @@
         {
             "role": "user",
             "content": "请给我做一次 可以出两道菜品的菜谱",
-            "content_cut": "请 给 我 做 一次   可以 出 两道 菜品 的 菜谱"
+            "content_cut": "请 给 我 做 一次   可以 出 两道 菜品 的 菜谱",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求制定能一次出两道菜的菜谱，并需要食材清单、完整制作流程与顺序，这是对详细可落地方案的请求。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "请将“适量”变成具体的数字",
-            "content_cut": "请 将 “ 适量 ” 变成 具体 的 数字"
+            "content_cut": "请 将 “ 适量 ” 变成 具体 的 数字",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户针对已有菜谱内容提出细化要求，将“适量”改为具体数值，属于对现有方案的修改与完善。"
         },
         {
             "role": "assistant",

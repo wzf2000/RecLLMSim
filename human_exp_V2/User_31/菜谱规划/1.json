@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我i想要做一个素菜一个荤菜和一个汤",
-            "content_cut": "我 i 想要 做 一个 素菜 一个 荤菜 和 一个 汤"
+            "content_cut": "我 i 想要 做 一个 素菜 一个 荤菜 和 一个 汤",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户提出菜品类别偏好与约束（一个素菜、一个荤菜和一个汤），用于定制化生成后续菜谱与方案。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "能换一个素菜吗 不爱吃蒜",
-            "content_cut": "能换 一个 素菜 吗   不爱 吃 蒜"
+            "content_cut": "能换 一个 素菜 吗   不爱 吃 蒜",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户基于已有菜单要求更换素菜以适应“不吃蒜”的偏好，属于对现有方案的修改。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "请帮我列一个购物清单",
-            "content_cut": "请 帮 我列 一个 购物 清单"
+            "content_cut": "请 帮 我列 一个 购物 清单",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户直接要求列出购物清单，属于可落地的操作清单/步骤性内容的请求，而非背景设定或总结。"
         },
         {
             "role": "assistant",

@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我的厨艺一般 需要荤素搭配",
-            "content_cut": "我 的 厨艺 一般   需要 荤素 搭配"
+            "content_cut": "我 的 厨艺 一般   需要 荤素 搭配",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户在补充个人厨艺水平和菜品搭配偏好，属于给出约束与偏好以便定制后续菜谱方案。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "有没有一道比较香辣的菜谱",
-            "content_cut": "有没有 一道 比较 香辣 的 菜谱"
+            "content_cut": "有没有 一道 比较 香辣 的 菜谱",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有年夜饭菜单基础上，用户希望增加一道香辣菜，属于对方案的扩展请求。"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "好的 我觉得你的建议非常不错",
-            "content_cut": "好 的   我 觉得 你 的 建议 非常 不错"
+            "content_cut": "好 的   我 觉得 你 的 建议 非常 不错",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户对现有方案表示认可，没有提出新的需求或修改，语气上更像进入收尾阶段的确认，隐含可进入总结或定稿。"
         },
         {
             "role": "assistant",

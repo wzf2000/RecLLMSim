@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "去陕西我准备坐飞机去，然后在陕西省内准备出行用租车",
-            "content_cut": "去 陕西 我 准备 坐飞机 去 ， 然后 在 陕西省 内 准备 出行 用 租车"
+            "content_cut": "去 陕西 我 准备 坐飞机 去 ， 然后 在 陕西省 内 准备 出行 用 租车",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户明确了出行交通方式的偏好与约束（进出陕西坐飞机，省内租车），用于后续制定更贴合需求的旅行方案。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "这两个大概价格是多少",
-            "content_cut": "这 两个 大概 价格 是 多少"
+            "content_cut": "这 两个 大概 价格 是 多少",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户询问飞机票和省内租车的大概价格，属于费用估算与预算相关需求，以便进行性价比判断。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "那哪里有什么旅游景点给我安排一下",
-            "content_cut": "那 哪里 有 什么 旅游景点 给 我 安排 一下"
+            "content_cut": "那 哪里 有 什么 旅游景点 给 我 安排 一下",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求“哪里有什么旅游景点给我安排一下”，希望获得具体的景点推荐与行程安排，属于请求可落地的旅行方案。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "ok，然后我去哪住呢",
-            "content_cut": "ok ， 然后 我 去 哪 住 呢"
+            "content_cut": "ok ， 然后 我 去 哪 住 呢",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有行程方案基础上，进一步询问住宿安排，属于为既定方案新增并细化住宿模块的请求。"
         },
         {
             "role": "assistant",
@@ -64,7 +72,9 @@
         {
             "role": "user",
             "content": "我的价位大概是一晚500-800",
-            "content_cut": "我 的 价位 大概 是 一晚 500 - 800"
+            "content_cut": "我 的 价位 大概 是 一晚 500 - 800",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户强调住宿预算为每晚500-800元，明确价格范围以便根据预算筛选与优化住宿选择。"
         },
         {
             "role": "assistant",

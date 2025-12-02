@@ -16,12 +16,16 @@
         {
             "role": "user",
             "content": "我只有4的时间，怎么安排",
-            "content_cut": "我 只有 4 的 时间 ， 怎么 安排"
+            "content_cut": "我 只有 4 的 时间 ， 怎么 安排",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有夜间行程基础上提出新的时间限制（只有4天/晚），希望据此重新安排或精简行程，属于对既有方案的调整。"
         },
         {
             "role": "user",
             "content": "我只有4天的时间，怎么安排",
-            "content_cut": "我 只有 4 天 的 时间 ， 怎么 安排"
+            "content_cut": "我 只有 4 天 的 时间 ， 怎么 安排",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有夜间出行方案的基础上，提出仅有4天并请求重新安排，属于对既有方案的缩减与优化调整。"
         },
         {
             "role": "assistant",
@@ -33,7 +37,9 @@
         {
             "role": "user",
             "content": "在这些地方玩，住哪里比较合适",
-            "content_cut": "在 这些 地方 玩 ， 住 哪里 比较 合适"
+            "content_cut": "在 这些 地方 玩 ， 住 哪里 比较 合适",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问在这些夜游地点附近应该住在哪里，期待得到具体可落地的住宿位置与选择建议，以便安排行程。"
         },
         {
             "role": "assistant",
@@ -45,7 +51,9 @@
         {
             "role": "user",
             "content": "东京和京都怎么出行最方便",
-            "content_cut": "东京 和 京都 怎么 出行 最 方便"
+            "content_cut": "东京 和 京都 怎么 出行 最 方便",
+            "intent_label": "技巧、操作与安全指导",
+            "intent_reason": "用户询问在东京和京都“怎么出行最方便”，属于请求具体的交通出行方式与实操性效率提升建议的指导。"
         },
         {
             "role": "assistant",

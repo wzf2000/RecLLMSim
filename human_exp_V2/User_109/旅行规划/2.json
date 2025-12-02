@@ -17,7 +17,9 @@
         {
             "role": "user",
             "content": "不够详细 酒店要精准到真实名字",
-            "content_cut": "不够 详细   酒店 要 精准 到 真实 名字"
+            "content_cut": "不够 详细   酒店 要 精准 到 真实 名字",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在现有旅行计划基础上指出不够详细，并提出需补充到具体酒店真实名称，属于对已有方案的细化与完善请求。"
         },
         {
             "role": "assistant",
@@ -30,7 +32,9 @@
         {
             "role": "user",
             "content": "这一整个计划预算要多少",
-            "content_cut": "这一 整个 计划 预算 要 多少"
+            "content_cut": "这一 整个 计划 预算 要 多少",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户询问整套旅行计划需要的总预算，关注费用估算与花费水平，属于预算与性价比相关需求。"
         },
         {
             "role": "assistant",
@@ -43,7 +47,9 @@
         {
             "role": "user",
             "content": "我操这也太他妈贵了吧 最多1.5w",
-            "content_cut": "我操 这 也 太 他 妈贵 了 吧   最多 1.5 w"
+            "content_cut": "我操 这 也 太 他 妈贵 了 吧   最多 1.5 w",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户直指费用过高并设定最高预算1.5万元，强调成本控制和性价比，需在预算内优化/调整方案"
         },
         {
             "role": "assistant",
@@ -55,7 +61,9 @@
         {
             "role": "user",
             "content": "继续详细计划",
-            "content_cut": "继续 详细 计划"
+            "content_cut": "继续 详细 计划",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求继续提供更详细的旅行计划，以便按预算落地执行，包括住宿、交通和行程细化。"
         },
         {
             "role": "assistant",
@@ -67,7 +75,9 @@
         {
             "role": "user",
             "content": "再列举一些推荐的美食或者值得一看的地方或者当地才能做的事情",
-            "content_cut": "再 列举 一些 推荐 的 美食 或者 值得一看 的 地方 或者 当地 才能 做 的 事情"
+            "content_cut": "再 列举 一些 推荐 的 美食 或者 值得一看 的 地方 或者 当地 才能 做 的 事情",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有的详细行程和预算方案基础上，要求补充更多美食、景点和当地特色体验，属于对既有方案的扩展与新增内容。"
         },
         {
             "role": "assistant",
@@ -79,7 +89,9 @@
         {
             "role": "user",
             "content": "OK 添加到上一个详细的计划表中 汇总起来",
-            "content_cut": "OK   添加 到 上 一个 详细 的 计划表 中   汇总 起来"
+            "content_cut": "OK   添加 到 上 一个 详细 的 计划表 中   汇总 起来",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户要求将新增的美食与活动整合到之前的详细计划中，并汇总成完整版本，属于对内容进行整理与最终输出的请求。"
         },
         {
             "role": "assistant",

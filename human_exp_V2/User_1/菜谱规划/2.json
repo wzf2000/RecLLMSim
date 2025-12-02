@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我有忌口不吃鱼，不吃放葱的东西",
-            "content_cut": "我 有 忌口 不吃 鱼 ， 不吃 放葱 的 东西"
+            "content_cut": "我 有 忌口 不吃 鱼 ， 不吃 放葱 的 东西",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户提供饮食忌口（不吃鱼、不吃葱），这是明确的约束条件与个人偏好，用于后续定制菜谱方案。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "我做菜经验还不错，有什么客家美食推荐吗",
-            "content_cut": "我 做菜 经验 还 不错 ， 有 什么 客家 美食 推荐 吗"
+            "content_cut": "我 做菜 经验 还 不错 ， 有 什么 客家 美食 推荐 吗",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户说明自己的厨艺水平并提出客家菜的偏好，目的是让AI据此定制化推荐菜品；尚未明确要求详细步骤或执行方案。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "擂茶的具体做法是啥",
-            "content_cut": "擂茶 的 具体做法 是 啥"
+            "content_cut": "擂茶 的 具体做法 是 啥",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问擂茶的具体做法，期待获得详细的制作步骤与操作指引，属于可直接执行的方案请求。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "噢噢好的谢谢",
-            "content_cut": "噢 噢 好 的 谢谢"
+            "content_cut": "噢 噢 好 的 谢谢",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅表达感谢与确认，未提出新的问题或需求，属于对话收尾性质，不涉及新的方案请求或调整。"
         },
         {
             "role": "assistant",

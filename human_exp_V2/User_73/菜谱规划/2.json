@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "请详细一下每到菜的做法，并将其中一道菜换成凉菜",
-            "content_cut": "请 详细 一下 每到 菜 的 做法 ， 并 将 其中 一道 菜 换成 凉菜"
+            "content_cut": "请 详细 一下 每到 菜 的 做法 ， 并 将 其中 一道 菜 换成 凉菜",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户基于已有菜单要求细化每道菜的做法，并将其中一道改为凉菜，属于在既有方案上的修改与扩展。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "请问放入多少盐和油",
-            "content_cut": "请问 放入 多少 盐 和 油"
+            "content_cut": "请问 放入 多少 盐 和 油",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问盐和油的具体用量，属于对菜谱的量化细节请求，以便直接执行烹饪方案。"
         },
         {
             "role": "assistant",

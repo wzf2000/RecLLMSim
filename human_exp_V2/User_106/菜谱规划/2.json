@@ -17,7 +17,9 @@
         {
             "role": "user",
             "content": "我是南方的，还有什么菜可以推荐比较好",
-            "content_cut": "我 是 南方 的 ， 还有 什么 菜 可以 推荐 比较 好"
+            "content_cut": "我 是 南方 的 ， 还有 什么 菜 可以 推荐 比较 好",
+            "intent_label": "本地化与情境适配",
+            "intent_reason": "用户强调自己在南方，希望根据地区口味与习惯获得更适合的菜品推荐，属于基于地理与情境进行方案适配。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "5个菜就行了，比较简单又好吃的菜",
-            "content_cut": "5 个 菜 就行了 ， 比较简单 又 好吃 的 菜"
+            "content_cut": "5 个 菜 就行了 ， 比较简单 又 好吃 的 菜",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有菜品推荐的基础上，用户提出明确限制（只要5个、要求简单好吃），属于对前面方案的数量与难度进行调整与优化。"
         },
         {
             "role": "assistant",
@@ -42,7 +46,9 @@
         {
             "role": "user",
             "content": "给出每到菜的具体流程做法",
-            "content_cut": "给出 每到 菜 的 具体 流程 做法"
+            "content_cut": "给出 每到 菜 的 具体 流程 做法",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求为之前列出的每道菜提供具体流程与做法，属于请求详细、可操作的步骤方案。"
         },
         {
             "role": "assistant",
@@ -54,7 +60,9 @@
         {
             "role": "user",
             "content": "再详细一点",
-            "content_cut": "再 详细 一点"
+            "content_cut": "再 详细 一点",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户在已有做法基础上要求“再详细一点”，意在获取更细化、可落地的操作步骤与细节说明。"
         },
         {
             "role": "assistant",

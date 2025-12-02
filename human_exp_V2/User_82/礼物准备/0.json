@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "diy应该是个不错的选择，有什么具体的建议吗",
-            "content_cut": "diy 应该 是 个 不错 的 选择 ， 有 什么 具体 的 建议 吗"
+            "content_cut": "diy 应该 是 个 不错 的 选择 ， 有 什么 具体 的 建议 吗",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确表示DIY是不错的选择，并进一步请求“具体的建议”，希望获得可操作的DIY礼物方案和步骤。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "手工相册应该如何制作",
-            "content_cut": "手工 相册 应该 如何 制作"
+            "content_cut": "手工 相册 应该 如何 制作",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问如何制作手工相册，期望获得具体步骤与操作方法，可落地执行的方案。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "我应该去哪里购买这些需要用到的小东西",
-            "content_cut": "我 应该 去 哪里 购买 这些 需要 用到 的 小东西"
+            "content_cut": "我 应该 去 哪里 购买 这些 需要 用到 的 小东西",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户询问去哪里购买制作手工相册所需的小物件，属于购买渠道与选品相关的咨询。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "整个相册的制作周期大概是多久呢，我需要进行一些规划",
-            "content_cut": "整个 相册 的 制作 周期 大概 是 多久 呢 ， 我 需要 进行 一些 规划"
+            "content_cut": "整个 相册 的 制作 周期 大概 是 多久 呢 ， 我 需要 进行 一些 规划",
+            "intent_label": "系统化规划与时间安排",
+            "intent_reason": "用户询问手工相册的制作周期并表示需要进行规划，属于对时间安排和阶段性计划的需求。"
         },
         {
             "role": "assistant",
@@ -64,7 +72,9 @@
         {
             "role": "user",
             "content": "我自认为还算一个动手能力比较强的人",
-            "content_cut": "我 自 认为 还 算 一个 动手 能力 比较 强 的 人"
+            "content_cut": "我 自 认为 还 算 一个 动手 能力 比较 强 的 人",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户提供个人动手能力的自我评估，属于背景与偏好信息，有助于定制后续礼物制作/购买方案。"
         },
         {
             "role": "assistant",
@@ -76,7 +86,9 @@
         {
             "role": "user",
             "content": "我会考虑的 非常感谢！",
-            "content_cut": "我会 考虑 的   非常感谢 ！"
+            "content_cut": "我会 考虑 的   非常感谢 ！",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅表达感谢与认可，未提出新的需求或问题，属于对前面建议的确认与收尾性发言。"
         },
         {
             "role": "assistant",

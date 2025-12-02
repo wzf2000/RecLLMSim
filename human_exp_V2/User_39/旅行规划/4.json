@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "并且安排我的住宿和出行",
-            "content_cut": "并且 安排 我 的 住宿 和 出行"
+            "content_cut": "并且 安排 我 的 住宿 和 出行",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确要求安排住宿和出行，期待可落地的旅行安排与细化安排，属于具体可执行的方案请求。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "我准备去广州玩，预计下周的周末，预算4000-5000",
-            "content_cut": "我 准备 去 广州 玩 ， 预计 下周 的 周末 ， 预算 4000 - 5000"
+            "content_cut": "我 准备 去 广州 玩 ， 预计 下周 的 周末 ， 预算 4000 - 5000",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户提供目的地（广州）、时间（下周末）和预算（4000-5000），用于设定旅行计划的背景与约束条件，以便后续定制化安排。"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "陈家祠有什么好吃的吗",
-            "content_cut": "陈家祠 有 什么 好吃 的 吗"
+            "content_cut": "陈家祠 有 什么 好吃 的 吗",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问陈家祠附近有什么好吃的，意在获取具体可执行的餐饮推荐与选择，属于请求详细的落地建议。"
         },
         {
             "role": "assistant",
@@ -54,7 +60,9 @@
         {
             "role": "user",
             "content": "地道广式早茶呢，有什么推荐的吗",
-            "content_cut": "地道 广式 早茶 呢 ， 有 什么 推荐 的 吗"
+            "content_cut": "地道 广式 早茶 呢 ， 有 什么 推荐 的 吗",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问地道广式早茶的推荐，期望得到具体可去的店铺与可点的选项，属于详细且可落地的方案请求。"
         },
         {
             "role": "assistant",
@@ -66,7 +74,9 @@
         {
             "role": "user",
             "content": "周日下午还有什么其他好玩的吗",
-            "content_cut": "周日 下午 还有 什么 其他 好玩 的 吗"
+            "content_cut": "周日 下午 还有 什么 其他 好玩 的 吗",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有的出游与美食建议基础上，进一步询问周日下午还有哪些好玩的活动，属于对既有行程的补充与扩展需求。"
         },
         {
             "role": "assistant",
@@ -79,7 +89,9 @@
         {
             "role": "user",
             "content": "乘船有什么路线到那吗",
-            "content_cut": "乘船 有 什么 路线 到 那 吗"
+            "content_cut": "乘船 有 什么 路线 到 那 吗",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问乘船如何到达目的地，需要提供具体的航线、码头、班次与时间等可落地的出行方案。"
         },
         {
             "role": "assistant",
@@ -91,7 +103,9 @@
         {
             "role": "user",
             "content": "好的，我已经明白了，谢谢",
-            "content_cut": "好 的 ， 我 已经 明白 了 ， 谢谢"
+            "content_cut": "好 的 ， 我 已经 明白 了 ， 谢谢",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅表达已理解并致谢，属于对前面信息的确认与收尾，没有提出新的需求或调整。"
         },
         {
             "role": "assistant",

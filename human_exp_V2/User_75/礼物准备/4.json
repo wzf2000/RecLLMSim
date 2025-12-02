@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "具体一点呢？而且为我提供购买方式",
-            "content_cut": "具体 一点 呢 ？ 而且 为 我 提供 购买 方式"
+            "content_cut": "具体 一点 呢 ？ 而且 为 我 提供 购买 方式",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户要求更具体的礼物建议并明确提出需要提供购买方式，核心诉求是获取选品与购买渠道信息。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "请你为我做出选择，说明理由",
-            "content_cut": "请 你 为 我 做出 选择 ， 说明 理由"
+            "content_cut": "请 你 为 我 做出 选择 ， 说明 理由",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户在已有具体推荐的基础上，要求AI直接从中做出选择并说明理由，属于选品决策需求。"
         },
         {
             "role": "assistant",
@@ -40,12 +44,16 @@
         {
             "role": "user",
             "content": "好的，如果这个没有买到，第二选择是什么呢？",
-            "content_cut": "好 的 ， 如果 这个 没有 买 到 ， 第二 选择 是 什么 呢 ？"
+            "content_cut": "好 的 ， 如果 这个 没有 买 到 ， 第二 选择 是 什么 呢 ？",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户基于已有推荐询问第一选择不可购时的备选礼物，属于在既有方案上进行替换与扩展。"
         },
         {
             "role": "user",
             "content": "如果这个没买到，第二选择呢？",
-            "content_cut": "如果 这个 没买 到 ， 第二 选择 呢 ？"
+            "content_cut": "如果 这个 没买 到 ， 第二 选择 呢 ？",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有礼物推荐的基础上，用户请求无法购买时的第二选择，属于对原方案的替代与扩展需求。"
         },
         {
             "role": "assistant",

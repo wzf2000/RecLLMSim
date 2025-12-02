@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我不爱吃鱼，白切鸡难度太大，这两个换掉",
-            "content_cut": "我 不 爱吃鱼 ， 白切 鸡 难度 太 大 ， 这 两个 换掉"
+            "content_cut": "我 不 爱吃鱼 ， 白切 鸡 难度 太 大 ， 这 两个 换掉",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户针对此前给出的菜品方案提出替换两道菜（不吃鱼、白切鸡太难），是在对已有方案进行修改与替换"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "这些菜需要哪些食材呢",
-            "content_cut": "这些 菜 需要 哪些 食材 呢"
+            "content_cut": "这些 菜 需要 哪些 食材 呢",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问四道菜所需食材清单，属于获取可落地执行的具体细节，以便开始操作。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "我做这些菜的顺序应该是什么样的呢",
-            "content_cut": "我 做 这些 菜 的 顺序 应该 是 什么样 的 呢"
+            "content_cut": "我 做 这些 菜 的 顺序 应该 是 什么样 的 呢",
+            "intent_label": "系统化规划与时间安排",
+            "intent_reason": "用户询问做这几道菜的先后顺序，核心是烹饪流程的时间安排与节奏规划。"
         },
         {
             "role": "assistant",

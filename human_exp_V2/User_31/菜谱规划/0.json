@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我正在减肥请指定热量较少的菜",
-            "content_cut": "我 正在 减肥 请 指定 热量 较少 的 菜"
+            "content_cut": "我 正在 减肥 请 指定 热量 较少 的 菜",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有菜谱基础上提出“减肥、热量较少”的约束，要求指定更低热量的菜，属于对既有方案的调整与替换需求。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "把需要买的食材列一个清单",
-            "content_cut": "把 需要 买 的 食材列 一个 清单"
+            "content_cut": "把 需要 买 的 食材列 一个 清单",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户要求将之前推荐的低热量菜谱所需食材整理成采购清单，属于对已有内容进行汇总与输出。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "先做什莫比较合适",
-            "content_cut": "先 做 什莫 比较 合适"
+            "content_cut": "先 做 什莫 比较 合适",
+            "intent_label": "系统化规划与时间安排",
+            "intent_reason": "用户在已确定菜谱与食材后，询问“先做什么比较合适”，本质是需要确定执行顺序与时间安排以便高效完成烹饪。"
         },
         {
             "role": "assistant",

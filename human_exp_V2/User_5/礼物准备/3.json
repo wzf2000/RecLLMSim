@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "只有两百元，买些什么",
-            "content_cut": "只有 两百元 ， 买 些 什么"
+            "content_cut": "只有 两百元 ， 买 些 什么",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户明确预算为200元，并询问在该预算下应该买什么礼物，属于选品与购买决策方面的咨询。"
         },
         {
             "role": "assistant",
@@ -28,12 +30,16 @@
         {
             "role": "user",
             "content": "那就买些茶叶和一个保温杯",
-            "content_cut": "那 就 买些 茶叶 和 一个 保温杯"
+            "content_cut": "那 就 买些 茶叶 和 一个 保温杯",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户明确确定要购买的礼品为茶叶和保温杯，属于对具体选品的决策表达。"
         },
         {
             "role": "user",
             "content": "谢谢啦",
-            "content_cut": "谢谢 啦"
+            "content_cut": "谢谢 啦",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅表达感谢，表明已接受此前的礼物方案并完成确认，处于对话收尾阶段，无新增请求或调整需求。"
         },
         {
             "role": "assistant",

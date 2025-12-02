@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "需要应季且养生，适合在家里做的不要太难",
-            "content_cut": "需要 应季且 养生 ， 适合 在 家里 做 的 不要 太难"
+            "content_cut": "需要 应季且 养生 ， 适合 在 家里 做 的 不要 太难",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户提出菜品的偏好与约束（应季、养生、在家易做、难度低），用于引导后续定制化菜谱与方案生成，属于场景与需求设定。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "三个人一起吃，请帮我配菜",
-            "content_cut": "三个 人 一起 吃 ， 请 帮 我 配菜"
+            "content_cut": "三个 人 一起 吃 ， 请 帮 我 配菜",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户希望为三人用餐制定具体配菜方案，包含菜品选择与落地执行的做法，属于请求详细可操作的方案。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "不不，就按上一个回答来，我需要知道买菜清单",
-            "content_cut": "不 不 ， 就 按 上 一个 回答 来 ， 我 需要 知道 买菜 清单"
+            "content_cut": "不 不 ， 就 按 上 一个 回答 来 ， 我 需要 知道 买菜 清单",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户要求基于上一个回答整理出买菜清单，属于对已有方案的提取与汇总输出。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "不是，你之前的五道十月菜肴就可以",
-            "content_cut": "不是 ， 你 之前 的 五道 十月 菜肴 就 可以"
+            "content_cut": "不是 ， 你 之前 的 五道 十月 菜肴 就 可以",
+            "intent_label": "质疑、纠错与替代",
+            "intent_reason": "用户否定助手对方案一的理解，纠正为按之前“五道十月菜肴”，属对AI回答的纠正与替代选择。"
         },
         {
             "role": "assistant",
@@ -64,7 +72,9 @@
         {
             "role": "user",
             "content": "换掉山药枸杞粥，换成一道牛肉菜",
-            "content_cut": "换掉 山药 枸杞 粥 ， 换成 一道 牛肉 菜"
+            "content_cut": "换掉 山药 枸杞 粥 ， 换成 一道 牛肉 菜",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户基于已有的五道菜方案提出修改，要求将“山药枸杞粥”替换为一道牛肉菜，属于在现有方案上的调整。"
         },
         {
             "role": "assistant",
@@ -76,7 +86,9 @@
         {
             "role": "user",
             "content": "我需要菜品制作顺序",
-            "content_cut": "我 需要 菜品 制作 顺序"
+            "content_cut": "我 需要 菜品 制作 顺序",
+            "intent_label": "系统化规划与时间安排",
+            "intent_reason": "用户明确请求菜品的制作顺序，属于对烹饪任务的时间安排与节奏规划。"
         },
         {
             "role": "assistant",

@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "价格2000以内，帮我策划",
-            "content_cut": "价格 2000 以内 ， 帮 我 策划"
+            "content_cut": "价格 2000 以内 ， 帮 我 策划",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确提出“帮我策划”，希望获得在2000元预算内的具体可落地方案与安排，预算作为约束条件但核心诉求是可执行的策划方案。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "旅行没时间，要上班",
-            "content_cut": "旅行 没 时间 ， 要 上班"
+            "content_cut": "旅行 没 时间 ， 要 上班",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户提出新的限制（没时间旅行、需上班），是在基于已有策划方案进行条件更新，暗示需要替换或调整旅行相关内容为可行的替代方案。"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "餐厅推荐哪一类",
-            "content_cut": "餐厅 推荐 哪 一类"
+            "content_cut": "餐厅 推荐 哪 一类",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户询问纪念日晚餐的餐厅类型推荐，属于对具体选择的决策咨询需求。"
         },
         {
             "role": "assistant",

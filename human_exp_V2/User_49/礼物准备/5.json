@@ -17,7 +17,9 @@
         {
             "role": "user",
             "content": "我的预算是2000元",
-            "content_cut": "我 的 预算 是 2000 元"
+            "content_cut": "我 的 预算 是 2000 元",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户明确说明预算为2000元，强调费用约束，为后续在预算内给出建议或性价比优化提供依据。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "在具体一点呢什么花什么巧克力首饰选择什么",
-            "content_cut": "在 具体 一点 呢 什么 花 什么 巧克力 首饰 选择 什么"
+            "content_cut": "在 具体 一点 呢 什么 花 什么 巧克力 首饰 选择 什么",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求更具体的选择建议，明确询问该选哪些花、巧克力、首饰，期望得到可直接采买的具体方案与细节"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "方案二不错那具体的购买方式呢",
-            "content_cut": "方案 二 不错 那 具体 的 购买 方式 呢"
+            "content_cut": "方案 二 不错 那 具体 的 购买 方式 呢",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户认可方案二，并进一步询问具体的购买方式与渠道，属于对购买路径和选品的决策咨询。"
         },
         {
             "role": "assistant",

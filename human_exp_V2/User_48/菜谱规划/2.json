@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "帮我罗列出所有需要准备的食材，调味品",
-            "content_cut": "帮 我 罗列 出 所有 需要 准备 的 食材 ， 调味品"
+            "content_cut": "帮 我 罗列 出 所有 需要 准备 的 食材 ， 调味品",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户要求将此前菜谱中的食材与调味品进行汇总罗列，属于对已有内容进行整理与输出的需求。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "需要我提前腌制的食品吗",
-            "content_cut": "需要 我 提前 腌制 的 食品 吗"
+            "content_cut": "需要 我 提前 腌制 的 食品 吗",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问是否需要提前腌制、即哪些菜需提前准备和具体操作安排，属于对烹饪流程的可落地步骤与准备细化的请求。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "请帮我写出每一道菜的制作流程",
-            "content_cut": "请 帮 我 写出 每 一道 菜 的 制作 流程"
+            "content_cut": "请 帮 我 写出 每 一道 菜 的 制作 流程",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确要求给出每道菜的制作流程，属于需要详细可落地的步骤与操作指导。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "这些菜有没有制作的先后顺序",
-            "content_cut": "这些 菜 有没有 制作 的 先后顺序"
+            "content_cut": "这些 菜 有没有 制作 的 先后顺序",
+            "intent_label": "系统化规划与时间安排",
+            "intent_reason": "用户询问菜品的制作先后顺序，属于对烹饪流程的时间安排与任务排序的需求。"
         },
         {
             "role": "assistant",
@@ -64,7 +72,9 @@
         {
             "role": "user",
             "content": "凉菜准备什么",
-            "content_cut": "凉菜 准备 什么"
+            "content_cut": "凉菜 准备 什么",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问应准备哪些凉菜，期望获得具体的菜品建议与可落地的做法指导，以便实际执行。"
         },
         {
             "role": "assistant",

@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "三亚是个好地方可以制定一个旅行计划吗",
-            "content_cut": "三亚 是 个 好 地方 可以 制定 一个 旅行 计划 吗"
+            "content_cut": "三亚 是 个 好 地方 可以 制定 一个 旅行 计划 吗",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户直接请求为三亚行程制定旅行计划，期望获得可落地的行程安排与步骤。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "这个计划消费在多少呢",
-            "content_cut": "这个 计划 消费 在 多少 呢"
+            "content_cut": "这个 计划 消费 在 多少 呢",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户询问该旅行计划的消费金额，属于对费用的估算与预算关注，希望了解成本以便做出决策。"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "有没有说明方法能帮我降低支出",
-            "content_cut": "有没有 说明 方法 能 帮 我 降低 支出"
+            "content_cut": "有没有 说明 方法 能 帮 我 降低 支出",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户询问如何降低旅行支出，核心诉求是预算优化与提升性价比。"
         },
         {
             "role": "assistant",
@@ -53,7 +59,9 @@
         {
             "role": "user",
             "content": "谢谢你的规划",
-            "content_cut": "谢谢 你 的 规划"
+            "content_cut": "谢谢 你 的 规划",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅对已提供的规划表示感谢与认可，未提出新的问题或需求，属于对前述内容的确认与收尾。"
         },
         {
             "role": "assistant",

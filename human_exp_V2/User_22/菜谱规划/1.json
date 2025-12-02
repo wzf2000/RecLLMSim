@@ -16,12 +16,16 @@
         {
             "role": "user",
             "content": "排骨有其他的做法吗",
-            "content_cut": "排骨 有 其他 的 做法 吗"
+            "content_cut": "排骨 有 其他 的 做法 吗",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户基于已有菜谱询问排骨的其他做法，属于对原方案的替换或扩展请求。"
         },
         {
             "role": "user",
             "content": "排骨有其他的做法吗",
-            "content_cut": "排骨 有 其他 的 做法 吗"
+            "content_cut": "排骨 有 其他 的 做法 吗",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有菜谱基础上，针对排骨提出希望更换或增加其他做法，属于对现有方案的修改与扩展。"
         },
         {
             "role": "assistant",
@@ -33,7 +37,9 @@
         {
             "role": "user",
             "content": "有使用番茄酱的糖醋排骨做法吗？",
-            "content_cut": "有 使用 番茄酱 的 糖醋排骨 做法 吗 ？"
+            "content_cut": "有 使用 番茄酱 的 糖醋排骨 做法 吗 ？",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有糖醋排骨做法的基础上，提出希望改用番茄酱的变体，属于对既有方案的替代与扩展请求。"
         },
         {
             "role": "assistant",
@@ -45,7 +51,9 @@
         {
             "role": "user",
             "content": "如果糖醋排骨里想加一些蔬菜，有什么建议吗？",
-            "content_cut": "如果 糖醋排骨 里 想加 一些 蔬菜 ， 有 什么 建议 吗 ？"
+            "content_cut": "如果 糖醋排骨 里 想加 一些 蔬菜 ， 有 什么 建议 吗 ？",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有糖醋排骨做法基础上，用户希望加入蔬菜并征求建议，属于对既有方案的补充和调整。"
         },
         {
             "role": "assistant",
@@ -57,7 +65,9 @@
         {
             "role": "user",
             "content": "我还想做一个适合中国人口味的汤，有什么推荐吗？",
-            "content_cut": "我 还 想 做 一个 适合 中国 人 口味 的 汤 ， 有 什么 推荐 吗 ？"
+            "content_cut": "我 还 想 做 一个 适合 中国 人 口味 的 汤 ， 有 什么 推荐 吗 ？",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户已获得主菜做法，现希望在原有菜谱基础上新增一道适合中国人口味的汤，属于对既有方案的扩展。"
         },
         {
             "role": "assistant",
@@ -69,7 +79,9 @@
         {
             "role": "user",
             "content": "对于这些菜，制作顺序有什么建议吗？",
-            "content_cut": "对于 这些 菜 ， 制作 顺序 有 什么 建议 吗 ？"
+            "content_cut": "对于 这些 菜 ， 制作 顺序 有 什么 建议 吗 ？",
+            "intent_label": "系统化规划与时间安排",
+            "intent_reason": "用户询问菜品的制作顺序，主要诉求是确定烹饪流程与时间安排，属于对任务进行节奏与步骤排序的规划请求。"
         },
         {
             "role": "assistant",

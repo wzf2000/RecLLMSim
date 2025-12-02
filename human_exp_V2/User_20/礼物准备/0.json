@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我想送个家居或者是体验的礼物",
-            "content_cut": "我想 送个 家居 或者 是 体验 的 礼物"
+            "content_cut": "我想 送个 家居 或者 是 体验 的 礼物",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户在明确礼物类型偏好（家居或体验类），属于补充个人偏好与约束以便定制化后续方案，而非直接索要执行方案或修改既有方案。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "偏向于实用的礼物",
-            "content_cut": "偏向 于 实用 的 礼物"
+            "content_cut": "偏向 于 实用 的 礼物",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户明确表达礼物偏好（偏向实用），为后续方案推荐提供约束与定制化方向。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "足浴盆可以，适合秋冬天，还有按摩这类仪器的其他选项吗",
-            "content_cut": "足 浴盆 可以 ， 适合 秋 冬天 ， 还有 按摩 这 类 仪器 的 其他 选项 吗"
+            "content_cut": "足 浴盆 可以 ， 适合 秋 冬天 ， 还有 按摩 这 类 仪器 的 其他 选项 吗",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在认可足浴盆的基础上，进一步询问同类（按摩仪器）的其他选项，属于在已有建议上进行扩展与补充。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "妈妈平时工作就是久坐，腰部按摩垫有什么推荐的吗",
-            "content_cut": "妈妈 平时 工作 就是 久坐 ， 腰部 按摩 垫 有 什么 推荐 的 吗"
+            "content_cut": "妈妈 平时 工作 就是 久坐 ， 腰部 按摩 垫 有 什么 推荐 的 吗",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户明确询问腰部按摩垫的推荐，属于寻求具体品牌/型号或选品建议的决策类请求。"
         },
         {
             "role": "assistant",
@@ -65,7 +73,9 @@
         {
             "role": "user",
             "content": "推荐一下品牌和购买渠道",
-            "content_cut": "推荐 一下 品牌 和 购买 渠道"
+            "content_cut": "推荐 一下 品牌 和 购买 渠道",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户直接请求具体品牌推荐与购买渠道信息，属于选品与购买决策类需求。"
         },
         {
             "role": "assistant",
@@ -78,7 +88,9 @@
         {
             "role": "user",
             "content": "我的预算能买哪个呢",
-            "content_cut": "我 的 预算 能 买 哪个 呢"
+            "content_cut": "我 的 预算 能 买 哪个 呢",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户明确提出预算限制，询问在其预算范围内能购买哪款产品，体现对价格与价值的关注。"
         },
         {
             "role": "assistant",

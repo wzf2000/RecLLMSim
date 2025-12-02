@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "能否再帮我把每道菜的制作顺序说明一下",
-            "content_cut": "能否 再 帮 我 把 每道菜 的 制作 顺序 说明 一下"
+            "content_cut": "能否 再 帮 我 把 每道菜 的 制作 顺序 说明 一下",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求为每道菜给出具体的制作顺序，属于需要详细可落地的步骤与操作指南"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "这些食材的采购能一次性购买完成吗，需要提前多久购买",
-            "content_cut": "这些 食材 的 采购 能 一次性 购买 完成 吗 ， 需要 提前 多久 购买"
+            "content_cut": "这些 食材 的 采购 能 一次性 购买 完成 吗 ， 需要 提前 多久 购买",
+            "intent_label": "系统化规划与时间安排",
+            "intent_reason": "用户询问是否能一次性采购以及需要提前多久购买，关注采购的时间节奏与安排。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "这些菜品需要一桌能摆下吗",
-            "content_cut": "这些 菜品 需要 一桌 能 摆 下 吗"
+            "content_cut": "这些 菜品 需要 一桌 能 摆 下 吗",
+            "intent_label": "本地化与情境适配",
+            "intent_reason": "用户关注菜品上桌时的实体空间与摆放限制，询问一桌是否能摆下，属于根据现实条件（餐桌空间）对方案进行适配的问题。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "帮我再想一段祝福语",
-            "content_cut": "帮 我 再 想 一段 祝福语"
+            "content_cut": "帮 我 再 想 一段 祝福语",
+            "intent_label": "表达与包装建议",
+            "intent_reason": "用户请求撰写一段祝福语，属于文案与表达层面的建议。"
         },
         {
             "role": "assistant",

@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我看了看，我还是买按摩器吧，有什么推荐的品牌呢？",
-            "content_cut": "我 看 了 看 ， 我 还是 买 按摩器 吧 ， 有 什么 推荐 的 品牌 呢 ？"
+            "content_cut": "我 看 了 看 ， 我 还是 买 按摩器 吧 ， 有 什么 推荐 的 品牌 呢 ？",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户已确定购买按摩器并询问推荐品牌，属于选品与购买决策层面的咨询。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "我选择买松下的吧，请问在哪里购买呢？",
-            "content_cut": "我 选择 买 松下 的 吧 ， 请问 在 哪里 购买 呢 ？"
+            "content_cut": "我 选择 买 松下 的 吧 ， 请问 在 哪里 购买 呢 ？",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户已确定品牌（松下）并询问购买渠道，属于购买渠道与选品方面的咨询。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "好滴，那按摩器是怎么制作的呢？",
-            "content_cut": "好滴 ， 那 按摩器 是 怎么 制作 的 呢 ？"
+            "content_cut": "好滴 ， 那 按摩器 是 怎么 制作 的 呢 ？",
+            "intent_label": "技巧、操作与安全指导",
+            "intent_reason": "用户询问“按摩器是怎么制作的”，意在了解产品的制作流程与技术原理，属于请求工艺与技术说明的指导类问题。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "好来，谢谢啦",
-            "content_cut": "好来 ， 谢谢 啦"
+            "content_cut": "好来 ， 谢谢 啦",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅表达致谢与收尾，没有新的问题或需求，属对前述信息的确认与结束，最接近对话收尾/结果整理类。"
         },
         {
             "role": "assistant",

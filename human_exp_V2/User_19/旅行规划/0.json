@@ -17,7 +17,9 @@
         {
             "role": "user",
             "content": "四川党岭在哪里呢",
-            "content_cut": "四川 党岭 在 哪里 呢"
+            "content_cut": "四川 党岭 在 哪里 呢",
+            "intent_label": "资源与链接请求",
+            "intent_reason": "用户在追问“党岭在哪里”，属于索取具体位置信息的资源性询问，以获取目的地的基础信息作为后续规划依据。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "从北京走，怎么出行",
-            "content_cut": "从 北京 走 ， 怎么 出行"
+            "content_cut": "从 北京 走 ， 怎么 出行",
+            "intent_label": "本地化与情境适配",
+            "intent_reason": "用户明确出发地为北京，询问如何出行，属于根据地理位置对已有旅行建议进行交通方案的本地化适配。"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "那我是不是7天里有2天在路上，加上交通时间2天，帮我重新规划一下线路",
-            "content_cut": "那 我 是不是 7 天里 有 2 天在 路上 ， 加上 交通 时间 2 天 ， 帮 我 重新 规划 一下 线路"
+            "content_cut": "那 我 是不是 7 天里 有 2 天在 路上 ， 加上 交通 时间 2 天 ， 帮 我 重新 规划 一下 线路",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有出行建议的基础上提出时间约束（7天中路上与交通时间安排），并要求“重新规划线路”，属于对原方案的调整与优化。"
         },
         {
             "role": "assistant",
@@ -53,7 +59,9 @@
         {
             "role": "user",
             "content": "住哪里比较合适",
-            "content_cut": "住 哪里 比较 合适"
+            "content_cut": "住 哪里 比较 合适",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户在既定行程背景下询问“住哪里比较合适”，希望获得具体的住宿建议与安排，属于求取可落地的操作性方案。"
         },
         {
             "role": "assistant",
@@ -65,7 +73,9 @@
         {
             "role": "user",
             "content": "有什么特色美食",
-            "content_cut": "有 什么 特色美食"
+            "content_cut": "有 什么 特色美食",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有行程与住宿建议基础上，用户进一步询问当地特色美食，属于对原旅行方案内容的扩展与补充。"
         },
         {
             "role": "assistant",
@@ -77,7 +87,9 @@
         {
             "role": "user",
             "content": "需要穿什么衣服呢",
-            "content_cut": "需要 穿 什么 衣服 呢"
+            "content_cut": "需要 穿 什么 衣服 呢",
+            "intent_label": "技巧、操作与安全指导",
+            "intent_reason": "用户询问出行需要穿什么衣服，属于针对目的地环境与气候的实用穿着、保暖与安全方面的具体建议需求。"
         },
         {
             "role": "assistant",

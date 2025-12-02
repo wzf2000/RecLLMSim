@@ -20,7 +20,9 @@
             "intent": [
                 "推荐"
             ],
-            "content_cut": "想 为 爷爷奶奶 准备 实用 的 保养 健康 的   sentimental   的 礼物"
+            "content_cut": "想 为 爷爷奶奶 准备 实用 的 保养 健康 的   sentimental   的 礼物",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户明确礼物的目标与偏好（实用、保养健康并具情感意义），用于引导后续的个性化推荐与方案定制，而非直接索要具体方案或渠道。"
         },
         {
             "role": "assistant",
@@ -34,7 +36,9 @@
             "intent": [
                 "推荐"
             ],
-            "content_cut": "我 有 1000 块 的 预算 请 为 我 规划 出 三个 合适 的 方案"
+            "content_cut": "我 有 1000 块 的 预算 请 为 我 规划 出 三个 合适 的 方案",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确给出1000元预算，并要求规划三个合适的礼物方案，核心诉求是获得可落地的具体方案，预算只是方案的约束条件。"
         },
         {
             "role": "assistant",
@@ -48,7 +52,9 @@
             "intent": [
                 "推荐"
             ],
-            "content_cut": "再 推荐 三个 方案  "
+            "content_cut": "再 推荐 三个 方案  ",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有三套礼物方案的基础上，要求再推荐三个方案，属于对现有方案进行扩充与新增。"
         },
         {
             "role": "assistant",
@@ -62,7 +68,9 @@
             "intent": [
                 "规划"
             ],
-            "content_cut": "我 选择 方案 一 和 方案 四 的 结合 请 在 这 里面 选取 三种"
+            "content_cut": "我 选择 方案 一 和 方案 四 的 结合 请 在 这 里面 选取 三种",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有的方案一与方案四基础上提出组合，并要求从中选取三项，属于对既有方案的调整与整合。"
         },
         {
             "role": "assistant",
@@ -76,7 +84,9 @@
             "intent": [
                 "推荐"
             ],
-            "content_cut": "请 推荐 这 三种 产品 高质量 的 品牌"
+            "content_cut": "请 推荐 这 三种 产品 高质量 的 品牌",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户请求为三种礼物推荐高质量品牌，属于选品与购买决策咨询。"
         },
         {
             "role": "assistant",

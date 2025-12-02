@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我厨艺精湛 打算做13个菜",
-            "content_cut": "我 厨艺 精湛   打算 做 13 个 菜"
+            "content_cut": "我 厨艺 精湛   打算 做 13 个 菜",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户补充了个人能力（厨艺精湛）与目标约束（计划做13个菜），用于后续定制化制定菜谱与流程方案。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "有详细的教程嘛 制作流程",
-            "content_cut": "有 详细 的 教程 嘛   制作 流程"
+            "content_cut": "有 详细 的 教程 嘛   制作 流程",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确要求提供每道菜的详细制作教程与流程，属于希望获得可落地的步骤指导。"
         },
         {
             "role": "assistant",
@@ -42,7 +46,9 @@
         {
             "role": "user",
             "content": "我还需要7到菜谱",
-            "content_cut": "我 还 需要 7 到 菜谱"
+            "content_cut": "我 还 需要 7 到 菜谱",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有菜谱和制作流程的基础上，提出需要再补充7道菜谱，属于对既有方案的扩展与补充。"
         },
         {
             "role": "assistant",

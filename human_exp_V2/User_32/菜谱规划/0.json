@@ -17,7 +17,9 @@
         {
             "role": "user",
             "content": "菜下饭的菜好吃的菜",
-            "content_cut": "菜 下饭 的 菜 好吃 的 菜"
+            "content_cut": "菜 下饭 的 菜 好吃 的 菜",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户提出偏好（下饭、好吃的菜），用于限定推荐方向，为后续定制菜谱和方案提供背景与条件。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "鱼香肉丝和宫保鸡丁的详细做法",
-            "content_cut": "鱼香肉丝 和 宫保鸡 丁 的 详细 做法"
+            "content_cut": "鱼香肉丝 和 宫保鸡 丁 的 详细 做法",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确索要鱼香肉丝与宫保鸡丁的详细做法，属于获取可落地的操作步骤和流程的请求。"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "这两道菜分别需要什么食材",
-            "content_cut": "这 两道菜 分别 需要 什么 食材"
+            "content_cut": "这 两道菜 分别 需要 什么 食材",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户基于前文的菜谱，要求分别列出两道菜所需食材清单，属于对已有内容的整理与总结输出。"
         },
         {
             "role": "assistant",
@@ -53,7 +59,9 @@
         {
             "role": "user",
             "content": "这两道菜的做菜顺序及什么时间该干什么放什么调料",
-            "content_cut": "这 两道菜 的 做菜 顺序 及 什么 时间 该 干什么 放 什么 调料"
+            "content_cut": "这 两道菜 的 做菜 顺序 及 什么 时间 该 干什么 放 什么 调料",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求两道菜的烹饪顺序和各阶段的具体操作与调料添加时机，属于需要详细可执行的步骤与时间安排的请求。"
         },
         {
             "role": "assistant",

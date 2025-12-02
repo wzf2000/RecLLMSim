@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我想要吃个关于鱼的菜，有什么简单的做法吗",
-            "content_cut": "我 想要 吃个 关于 鱼 的 菜 ， 有 什么 简单 的 做法 吗"
+            "content_cut": "我 想要 吃个 关于 鱼 的 菜 ， 有 什么 简单 的 做法 吗",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户希望获得一道鱼类菜的简单做法，属于请求可落地的菜谱与具体操作步骤。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "罗非鱼可以吗，家里没有鲈鱼",
-            "content_cut": "罗非鱼 可以 吗 ， 家里 没有 鲈鱼"
+            "content_cut": "罗非鱼 可以 吗 ， 家里 没有 鲈鱼",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户基于已有清蒸鲈鱼方案，提出用罗非鱼替代鲈鱼，属于对既有方案的替换与适配请求。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "可以学会了",
-            "content_cut": "可以 学会 了"
+            "content_cut": "可以 学会 了",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户表示“可以学会了”是对已有做法的确认与收尾，没有新的请求或调整，属于对前面内容的确认性结束。"
         },
         {
             "role": "assistant",

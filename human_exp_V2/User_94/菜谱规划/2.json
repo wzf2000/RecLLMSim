@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "都具体需要用到哪些食材",
-            "content_cut": "都 具体 需要 用到 哪些 食材"
+            "content_cut": "都 具体 需要 用到 哪些 食材",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户在已有菜品建议基础上追问“具体需要用到哪些食材”，属于获取可落地执行的细化信息（食材清单），以便实际操作。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "准备一下具体的制作流程",
-            "content_cut": "准备 一下 具体 的 制作 流程"
+            "content_cut": "准备 一下 具体 的 制作 流程",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求提供每道菜的具体制作流程，属于希望获得详细步骤和可落地执行的方案。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "喜欢口味重一些的",
-            "content_cut": "喜欢 口味重 一些 的"
+            "content_cut": "喜欢 口味重 一些 的",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有菜谱与流程基础上提出“喜欢口味重一些”的偏好，意在对现有方案进行口味加重的修改与优化。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "都需要哪些厨具",
-            "content_cut": "都 需要 哪些 厨具"
+            "content_cut": "都 需要 哪些 厨具",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问需要哪些厨具，期望获得可直接使用的工具清单以便执行既定菜谱。"
         },
         {
             "role": "assistant",

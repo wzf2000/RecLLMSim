@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "谢谢！能推荐一些适合的资源吗？我希望有实践性强的教程。",
-            "content_cut": "谢谢 ！ 能 推荐 一些 适合 的 资源 吗 ？ 我 希望 有 实践性 强 的 教程 。"
+            "content_cut": "谢谢 ！ 能 推荐 一些 适合 的 资源 吗 ？ 我 希望 有 实践性 强 的 教程 。",
+            "intent_label": "资源与链接请求",
+            "intent_reason": "用户明确索要实践性强的学习资源与教程，属于请求资料、学习材料与网址的需求。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "工作日每天只有1小时，周末可以3小时，计划需要怎么调整？",
-            "content_cut": "工作日 每天 只有 1 小时 ， 周末 可以 3 小时 ， 计划 需要 怎么 调整 ？"
+            "content_cut": "工作日 每天 只有 1 小时 ， 周末 可以 3 小时 ， 计划 需要 怎么 调整 ？",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户基于已有的学习计划提出新的时间约束（工作日1小时、周末3小时），并询问如何调整计划，属于对既有方案的修改与适配。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "我在理解Pandas的groupby操作时总出错，怎么办？",
-            "content_cut": "我 在 理解 Pandas 的 groupby 操作 时 总 出错 ， 怎么办 ？"
+            "content_cut": "我 在 理解 Pandas 的 groupby 操作 时 总 出错 ， 怎么办 ？",
+            "intent_label": "技巧、操作与安全指导",
+            "intent_reason": "用户遇到 Pandas 的 groupby 使用与理解频繁出错，直接求助“怎么办”，是在请求实操性的技巧与纠错指导。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "一个人学习容易拖延，有没有办法增加监督？",
-            "content_cut": "一个 人 学习 容易 拖延 ， 有没有 办法 增加 监督 ？"
+            "content_cut": "一个 人 学习 容易 拖延 ， 有没有 办法 增加 监督 ？",
+            "intent_label": "技巧、操作与安全指导",
+            "intent_reason": "用户在询问如何增加监督以减少一个人学习时的拖延，属于请求实操性技巧和效率提升方面的建议。"
         },
         {
             "role": "assistant",
@@ -64,7 +72,9 @@
         {
             "role": "user",
             "content": "一个月快到了，如何检验我的学习效果？",
-            "content_cut": "一个月 快到 了 ， 如何 检验 我 的 学习效果 ？"
+            "content_cut": "一个月 快到 了 ， 如何 检验 我 的 学习效果 ？",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问如何在一个月结束时检验学习效果，期待获得可落地的评估方法与步骤，属于请求具体可执行的方案。"
         },
         {
             "role": "assistant",

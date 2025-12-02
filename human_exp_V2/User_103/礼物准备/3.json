@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "花卉或盆栽",
-            "content_cut": "花卉 或 盆栽"
+            "content_cut": "花卉 或 盆栽",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户明确表达礼物偏好（选择花卉或盆栽），用于引导后续建议的定制化，而非直接索要具体方案或购买渠道。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "茉莉花或者长寿花，居住环境的阳光比较充足",
-            "content_cut": "茉莉花 或者 长寿 花 ， 居住 环境 的 阳光 比较 充足"
+            "content_cut": "茉莉花 或者 长寿 花 ， 居住 环境 的 阳光 比较 充足",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户提供了礼物偏好（茉莉花或长寿花）及居住环境的约束条件（阳光充足），用于让AI据此给出更贴合的后续建议，属于背景与偏好设定。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "确定礼物的购买方式",
-            "content_cut": "确定 礼物 的 购买 方式"
+            "content_cut": "确定 礼物 的 购买 方式",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户明确提出要“确定礼物的购买方式”，核心诉求是选择购买渠道与具体选品决策，而非制定养护方案或时间安排。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "选择1，我居住在北京市海淀区颐和园路",
-            "content_cut": "选择 1 ， 我 居住 在 北京市 海淀区 颐和园 路"
+            "content_cut": "选择 1 ， 我 居住 在 北京市 海淀区 颐和园 路",
+            "intent_label": "本地化与情境适配",
+            "intent_reason": "用户在确认线下购买方式后提供具体地理位置（北京海淀区颐和园路），意在获得基于所在位置的本地购花渠道与门店建议。"
         },
         {
             "role": "assistant",
@@ -64,7 +72,9 @@
         {
             "role": "user",
             "content": "推荐离我最近的地方",
-            "content_cut": "推荐 离 我 最近 的 地方"
+            "content_cut": "推荐 离 我 最近 的 地方",
+            "intent_label": "本地化与情境适配",
+            "intent_reason": "用户依据自己的地理位置（海淀区颐和园路）请求推荐最近的购买地点，属于根据位置进行本地化适配的需求。"
         },
         {
             "role": "assistant",

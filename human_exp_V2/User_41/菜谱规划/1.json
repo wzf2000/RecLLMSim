@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "有没有中式餐的做法",
-            "content_cut": "有没有 中式 餐 的 做法"
+            "content_cut": "有没有 中式 餐 的 做法",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有西式菜单基础上提出改为中式做法，属于对原方案的替换与调整请求"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "有没有关于螃蟹的做法",
-            "content_cut": "有没有 关于 螃蟹 的 做法"
+            "content_cut": "有没有 关于 螃蟹 的 做法",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确询问螃蟹的做法，期望获得可直接执行的菜谱与具体步骤。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "好的，你制作一个螃蟹，鲜虾，红烧肉的具体做法给我吧",
-            "content_cut": "好 的 ， 你 制作 一个 螃蟹 ， 鲜虾 ， 红烧肉 的 具体做法 给 我 吧"
+            "content_cut": "好 的 ， 你 制作 一个 螃蟹 ， 鲜虾 ， 红烧肉 的 具体做法 给 我 吧",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确要求提供螃蟹、鲜虾、红烧肉的具体做法，期望可直接照做的详细步骤与操作方案"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "好的谢谢",
-            "content_cut": "好 的 谢谢"
+            "content_cut": "好 的 谢谢",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅表达致谢与认可，未提出新的需求或问题，意图为对之前已给出的详细菜谱进行收尾与结束。"
         },
         {
             "role": "assistant",

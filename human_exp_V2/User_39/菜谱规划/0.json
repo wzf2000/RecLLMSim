@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "主食想吃饭好一点",
-            "content_cut": "主食 想 吃饭 好 一点"
+            "content_cut": "主食 想 吃饭 好 一点",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有搭配建议的基础上明确主食偏好为米饭，属于对现有方案的定向调整与偏好说明。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "不喜欢番茄炒蛋，我喜欢吃马铃薯",
-            "content_cut": "不 喜欢 番茄 炒蛋 ， 我 喜欢 吃 马铃薯"
+            "content_cut": "不 喜欢 番茄 炒蛋 ， 我 喜欢 吃 马铃薯",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户针对已给出的菜品搭配表示不喜欢番茄炒蛋并偏好马铃薯，属于对原方案的菜品替换与偏好调整。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "那我还是选择方案一吧，我不喜欢吃黄瓜",
-            "content_cut": "那 我 还是 选择 方案 一 吧 ， 我 不 喜欢 吃 黄瓜"
+            "content_cut": "那 我 还是 选择 方案 一 吧 ， 我 不 喜欢 吃 黄瓜",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户在已有推荐中确认选择方案一，并补充个人偏好“不喜欢黄瓜”，属于提供约束与偏好以便后续定制化方案的场景设定。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "这两道菜该做么做呢，有没有步骤和流程",
-            "content_cut": "这 两道菜 该 做 么 做 呢 ， 有没有 步骤 和 流程"
+            "content_cut": "这 两道菜 该 做 么 做 呢 ， 有没有 步骤 和 流程",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确询问这两道菜的具体制作步骤与流程，属于索要详细、可落地的操作方案。"
         },
         {
             "role": "assistant",

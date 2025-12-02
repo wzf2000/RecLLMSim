@@ -16,12 +16,16 @@
         {
             "role": "user",
             "content": "我想去法国巴黎",
-            "content_cut": "我 想 去 法国巴黎"
+            "content_cut": "我 想 去 法国巴黎",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户表达了旅行目的地偏好（法国巴黎），为后续行程定制提供关键信息，但未直接提出具体可执行方案或对既有方案进行修改。"
         },
         {
             "role": "user",
             "content": "巴黎有什么当地特色的美食和风景建筑吗",
-            "content_cut": "巴黎 有 什么 当地 特色 的 美食 和 风景 建筑 吗"
+            "content_cut": "巴黎 有 什么 当地 特色 的 美食 和 风景 建筑 吗",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有欧洲行程建议基础上，用户进一步索要巴黎的本地美食与风景建筑推荐，属于对既有方案内容的细化与扩展。"
         },
         {
             "role": "assistant",
@@ -33,7 +37,9 @@
         {
             "role": "user",
             "content": "有没有便宜实惠的酒店推荐",
-            "content_cut": "有没有 便宜 实惠 的 酒店 推荐"
+            "content_cut": "有没有 便宜 实惠 的 酒店 推荐",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户强调“便宜实惠”的酒店推荐，核心诉求是控制预算并追求性价比。"
         },
         {
             "role": "assistant",
@@ -45,7 +51,9 @@
         {
             "role": "user",
             "content": "帮我总结出行计划",
-            "content_cut": "帮 我 总结 出行 计划"
+            "content_cut": "帮 我 总结 出行 计划",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户明确提出“帮我总结出行计划”，是对已有信息进行归纳整理并输出为最终版本的需求，符合总结与整理类别。"
         },
         {
             "role": "assistant",

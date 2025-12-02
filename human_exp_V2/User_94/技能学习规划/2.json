@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "推荐一些上手比较快的菜品及其做法",
-            "content_cut": "推荐 一些 上 手 比较 快 的 菜品 及其 做法"
+            "content_cut": "推荐 一些 上 手 比较 快 的 菜品 及其 做法",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户直接索要上手快的菜品推荐及具体做法步骤，属于可落地的操作方案请求而非计划调整或资源索取。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "我的口味比较重，重新推荐一下",
-            "content_cut": "我 的 口味 比较 重 ， 重新 推荐 一下"
+            "content_cut": "我 的 口味 比较 重 ， 重新 推荐 一下",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户提出自己的口味偏好（口味较重），要求在已有菜品推荐基础上重新调整推荐以适配偏好，属于对既有方案的修改与优化。"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "有没有更加基础一些的",
-            "content_cut": "有没有 更加 基础 一些 的"
+            "content_cut": "有没有 更加 基础 一些 的",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有菜品推荐的基础上提出“更基础一些”的要求，是对既有方案进行简化和调整，以适配其初学者水平。"
         },
         {
             "role": "assistant",
@@ -53,7 +59,9 @@
         {
             "role": "user",
             "content": "做饭时需要提前准备哪些厨具",
-            "content_cut": "做饭 时 需要 提前准备 哪些 厨具"
+            "content_cut": "做饭 时 需要 提前准备 哪些 厨具",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问做饭前需要准备哪些厨具，属于请求具体可执行的准备清单与操作建议。"
         },
         {
             "role": "assistant",

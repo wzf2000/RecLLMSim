@@ -16,12 +16,16 @@
         {
             "role": "user",
             "content": "我想得知每一道菜完整的制作流程",
-            "content_cut": "我 想 得知 每 一道 菜 完整 的 制作 流程"
+            "content_cut": "我 想 得知 每 一道 菜 完整 的 制作 流程",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求获取每道菜的完整制作流程，属于希望获得可落地的详细步骤与操作指引。"
         },
         {
             "role": "user",
             "content": "我想知道合适的菜品制作顺序",
-            "content_cut": "我 想 知道 合适 的 菜品 制作 顺序"
+            "content_cut": "我 想 知道 合适 的 菜品 制作 顺序",
+            "intent_label": "系统化规划与时间安排",
+            "intent_reason": "用户询问菜品的制作顺序，侧重于烹饪流程的时间分配与节奏安排，属于对任务进行系统化排序与规划。"
         },
         {
             "role": "assistant",
@@ -33,7 +37,9 @@
         {
             "role": "user",
             "content": "我想知道合适的菜品制作顺序",
-            "content_cut": "我 想 知道 合适 的 菜品 制作 顺序"
+            "content_cut": "我 想 知道 合适 的 菜品 制作 顺序",
+            "intent_label": "系统化规划与时间安排",
+            "intent_reason": "用户明确请求“合适的菜品制作顺序”，属于对烹饪流程的时间与顺序规划，需要阶段性安排与节奏控制。"
         },
         {
             "role": "assistant",
@@ -45,7 +51,9 @@
         {
             "role": "user",
             "content": "如何做的更好吃啊",
-            "content_cut": "如何 做 的 更 好吃 啊"
+            "content_cut": "如何 做 的 更 好吃 啊",
+            "intent_label": "技巧、操作与安全指导",
+            "intent_reason": "用户询问如何让菜更好吃，属于请求提升风味的具体烹饪技巧和关键操作建议，而非调整方案或重做时间表。"
         },
         {
             "role": "assistant",

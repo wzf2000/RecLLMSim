@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我会更倾向有文化气息或者比较宁静的地方",
-            "content_cut": "我会 更 倾向 有 文化 气息 或者 比较 宁静 的 地方"
+            "content_cut": "我会 更 倾向 有 文化 气息 或者 比较 宁静 的 地方",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户明确表达出游偏好（文化气息、宁静），用于引导后续方案的定制化推荐与规划。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "我在九江学院，选择哪边游玩时间更充足",
-            "content_cut": "我 在 九江 学院 ， 选择 哪边 游玩 时间 更 充足"
+            "content_cut": "我 在 九江 学院 ， 选择 哪边 游玩 时间 更 充足",
+            "intent_label": "本地化与情境适配",
+            "intent_reason": "用户明确提供出发地（九江学院），询问根据地理位置选择哪个目的地能节省路程、提升游玩时间，属于根据实际位置进行方案适配的需求。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "我觉得庐山是个不错的选择，附近有什么划算的酒店吗",
-            "content_cut": "我 觉得 庐山 是 个 不错 的 选择 ， 附近 有 什么 划算 的 酒店 吗"
+            "content_cut": "我 觉得 庐山 是 个 不错 的 选择 ， 附近 有 什么 划算 的 酒店 吗",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户强调“划算”，希望在庐山附近找到性价比高的酒店，属于以预算和性价比为核心的请求。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "这些对学生有优惠吗",
-            "content_cut": "这些 对 学生 有 优惠 吗"
+            "content_cut": "这些 对 学生 有 优惠 吗",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户询问是否有学生优惠，明确关注价格折扣与费用节省，体现对预算与性价比的重视。"
         },
         {
             "role": "assistant",
@@ -64,7 +72,9 @@
         {
             "role": "user",
             "content": "我打算这周末就去，行李需要准备写Python什么",
-            "content_cut": "我 打算 这 周末 就 去 ， 行李 需要 准备 写 Python 什么"
+            "content_cut": "我 打算 这 周末 就 去 ， 行李 需要 准备 写 Python 什么",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确询问“行李需要准备什么”，属于索要可落地的物品清单与准备方案。"
         },
         {
             "role": "assistant",
@@ -76,7 +86,9 @@
         {
             "role": "user",
             "content": "那我出发和回来时间在什么时候比较好",
-            "content_cut": "那 我 出发 和 回来 时间 在 什么 时候 比较 好"
+            "content_cut": "那 我 出发 和 回来 时间 在 什么 时候 比较 好",
+            "intent_label": "系统化规划与时间安排",
+            "intent_reason": "用户询问出发与返程的最佳时间，核心需求是对行程时间进行安排与节奏规划。"
         },
         {
             "role": "assistant",
@@ -88,7 +100,9 @@
         {
             "role": "user",
             "content": "好的，谢谢",
-            "content_cut": "好 的 ， 谢谢"
+            "content_cut": "好 的 ， 谢谢",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅表示感谢与确认，没有提出新的需求或问题，属于对前面内容的收尾与确认，未开启新的任务或请求。"
         },
         {
             "role": "assistant",

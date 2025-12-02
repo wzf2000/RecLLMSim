@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我想再加一个肉汤",
-            "content_cut": "我想 再加 一个 肉汤"
+            "content_cut": "我想 再加 一个 肉汤",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有菜谱基础上提出新增一道肉汤，属对现有方案的扩展与补充。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "每个菜使用的调料的量能具体说明一下吗",
-            "content_cut": "每个 菜 使用 的 调料 的 量 能 具体 说明 一下 吗"
+            "content_cut": "每个 菜 使用 的 调料 的 量 能 具体 说明 一下 吗",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求明确每道菜调料的具体用量，属于对已有菜谱进行细化以便直接执行的需求。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "西兰花可以换一个吗，我同学并不喜欢吃",
-            "content_cut": "西兰花 可以 换 一个 吗 ， 我 同学 并 不 喜欢 吃"
+            "content_cut": "西兰花 可以 换 一个 吗 ， 我 同学 并 不 喜欢 吃",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户希望将已有菜单中的西兰花换成其他菜，基于口味偏好对既定方案进行修改与替换。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "购买这些食材时该怎么挑选",
-            "content_cut": "购买 这些 食材 时该 怎么 挑选"
+            "content_cut": "购买 这些 食材 时该 怎么 挑选",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户询问购买食材时如何挑选，属于选品决策方面的咨询，而非制作流程或时间安排等内容"
         },
         {
             "role": "assistant",
@@ -65,7 +73,9 @@
         {
             "role": "user",
             "content": "菠菜呢",
-            "content_cut": "菠菜 呢"
+            "content_cut": "菠菜 呢",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户追问“菠菜呢”，明确希望获得针对菠菜的挑选建议，属于选品与购买决策方面的咨询。"
         },
         {
             "role": "assistant",

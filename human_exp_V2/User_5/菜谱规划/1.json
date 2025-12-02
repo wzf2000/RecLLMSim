@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "糖醋鱼，小鸡炖蘑菇，炒青菜都怎么做的呢，我需要准备那些石材食材",
-            "content_cut": "糖醋鱼 ， 小鸡 炖 蘑菇 ， 炒青菜 都 怎么 做 的 呢 ， 我 需要 准备 那些 石材 食材"
+            "content_cut": "糖醋鱼 ， 小鸡 炖 蘑菇 ， 炒青菜 都 怎么 做 的 呢 ， 我 需要 准备 那些 石材 食材",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确询问三道菜的具体做法并要食材清单，期待获得可落地的步骤与准备列表。"
         },
         {
             "role": "assistant",
@@ -28,12 +30,16 @@
         {
             "role": "user",
             "content": "好的我明白了",
-            "content_cut": "好 的 我 明白 了"
+            "content_cut": "好 的 我 明白 了",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅进行理解确认与收尾，没有提出新的需求或调整，属于对已有方案的确认而非发起或请求新方案。"
         },
         {
             "role": "user",
             "content": "谢谢",
-            "content_cut": "谢谢"
+            "content_cut": "谢谢",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅表达感谢，没有新的请求或问题，表示对前面方案的认可与收尾。"
         },
         {
             "role": "assistant",

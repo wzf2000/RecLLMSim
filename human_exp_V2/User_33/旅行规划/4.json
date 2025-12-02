@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "那就去白洋淀吧，貌似在地铁里面看到过广告",
-            "content_cut": "那 就 去 白洋淀 吧 ， 貌似 在 地铁 里面 看到 过 广告"
+            "content_cut": "那 就 去 白洋淀 吧 ， 貌似 在 地铁 里面 看到 过 广告",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户明确了目的地偏好（白洋淀），为后续行程定制提供关键约束与场景设定，但尚未请求具体行程方案。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "那两天的行程帮我规划下吧，周六一早就可以出发。",
-            "content_cut": "那 两天 的 行程 帮 我 规划 下 吧 ， 周六 一 早就 可以 出发 。"
+            "content_cut": "那 两天 的 行程 帮 我 规划 下 吧 ， 周六 一 早就 可以 出发 。",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确要求为两天的白洋淀旅行制定具体行程安排（周六一早出发），需要可落地的计划与时间表。"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "荷花池是什么时候开的最盛",
-            "content_cut": "荷花池 是 什么 时候 开 的 最盛"
+            "content_cut": "荷花池 是 什么 时候 开 的 最盛",
+            "intent_label": "本地化与情境适配",
+            "intent_reason": "用户询问白洋淀荷花盛开的时间，以便根据当地季节性情况优化行程安排，属于情境与时间的适配需求。"
         },
         {
             "role": "assistant",
@@ -53,7 +59,9 @@
         {
             "role": "user",
             "content": "当地有什么特色菜肴",
-            "content_cut": "当地 有 什么 特色 菜肴"
+            "content_cut": "当地 有 什么 特色 菜肴",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有两天行程方案基础上，用户询问当地特色菜肴，属于为行程增加餐饮建议的扩展请求。"
         },
         {
             "role": "assistant",
@@ -66,7 +74,9 @@
         {
             "role": "user",
             "content": "当地有什么纪念品吗，除了吃的",
-            "content_cut": "当地 有 什么 纪念品 吗 ， 除了 吃 的"
+            "content_cut": "当地 有 什么 纪念品 吗 ， 除了 吃 的",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户询问当地有哪些非食品类纪念品，属于选品建议与购买咨询"
         },
         {
             "role": "assistant",
@@ -79,7 +89,9 @@
         {
             "role": "user",
             "content": "这两天需要花费多少钱，给我列个明细呢",
-            "content_cut": "这 两天 需要 花费 多少 钱 ， 给 我 列个 明细 呢"
+            "content_cut": "这 两天 需要 花费 多少 钱 ， 给 我 列个 明细 呢",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户询问两天行程的总花费并要求列出费用明细，属于费用估算与预算安排需求。"
         },
         {
             "role": "assistant",

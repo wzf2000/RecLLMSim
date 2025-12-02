@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我的预算是50到200元之间",
-            "content_cut": "我 的 预算 是 50 到 200 元 之间"
+            "content_cut": "我 的 预算 是 50 到 200 元 之间",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户明确给出礼物预算范围（50-200元），强调价格约束以便获得符合预算的建议。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "还有其他的推荐吗",
-            "content_cut": "还有 其他 的 推荐 吗"
+            "content_cut": "还有 其他 的 推荐 吗",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有礼物建议基础上请求“还有其他的推荐吗”，属于对已有方案的补充与扩展需求。"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "嗯，我打算送眼罩和定制的手机壳给她",
-            "content_cut": "嗯 ， 我 打算 送 眼罩 和 定制 的 手机 壳 给 她"
+            "content_cut": "嗯 ， 我 打算 送 眼罩 和 定制 的 手机 壳 给 她",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户明确了要送的具体礼物品类（眼罩和定制手机壳），属于选品决策的表达，而非请求详细方案或资源。"
         },
         {
             "role": "assistant",
@@ -53,7 +59,9 @@
         {
             "role": "user",
             "content": "这两个怎么包装好看",
-            "content_cut": "这 两个 怎么 包装 好看"
+            "content_cut": "这 两个 怎么 包装 好看",
+            "intent_label": "表达与包装建议",
+            "intent_reason": "用户询问礼物如何包装更好看，属于包装设计与呈现方面的建议。"
         },
         {
             "role": "assistant",
@@ -65,7 +73,9 @@
         {
             "role": "user",
             "content": "我想贺卡，夹在礼物里我怕会遗漏，那我放在那里好呢",
-            "content_cut": "我 想 贺卡 ， 夹 在 礼物 里 我 怕 会 遗漏 ， 那 我 放在 那里 好 呢"
+            "content_cut": "我 想 贺卡 ， 夹 在 礼物 里 我 怕 会 遗漏 ， 那 我 放在 那里 好 呢",
+            "intent_label": "表达与包装建议",
+            "intent_reason": "用户询问贺卡在礼物中的摆放位置以避免被忽略，属于礼物包装与呈现方式的具体建议。"
         },
         {
             "role": "assistant",

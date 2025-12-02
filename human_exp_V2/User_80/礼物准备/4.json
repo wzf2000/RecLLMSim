@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "她是珠宝设计专业的我希望能给她一个常用的礼物",
-            "content_cut": "她 是 珠宝 设计 专业 的 我 希望 能 给 她 一个 常用 的 礼物"
+            "content_cut": "她 是 珠宝 设计 专业 的 我 希望 能 给 她 一个 常用 的 礼物",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户补充朋友的专业背景并提出“常用”偏好，用于让AI基于新约束定制更合适的礼物建议。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "好像都不是我想要的",
-            "content_cut": "好像 都 不是 我 想要 的"
+            "content_cut": "好像 都 不是 我 想要 的",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户否定现有礼物建议，表明这些不符合需求，隐含希望对已有方案进行调整或提供替代选项。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "矿物标本好像可以",
-            "content_cut": "矿物 标本 好像 可以"
+            "content_cut": "矿物 标本 好像 可以",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户从此前的多种礼物建议中选定“矿物标本”方向，表示希望沿此方向继续细化与推进，属于对既有方案的聚焦与扩展。"
         },
         {
             "role": "assistant",

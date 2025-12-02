@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "西餐推荐菜品",
-            "content_cut": "西餐 推荐 菜品"
+            "content_cut": "西餐 推荐 菜品",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确请求“西餐推荐菜品”，属于希望获得具体可做的菜品建议与做法，以便实际烹饪。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "选项一",
-            "content_cut": "选项 一"
+            "content_cut": "选项 一",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户在给出的多个选项中选择“选项一”，表明希望基于该方向继续获取具体菜谱、食材清单与详细操作步骤等可落地方案。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "我有两小时时间",
-            "content_cut": "我 有 两 小时 时间"
+            "content_cut": "我 有 两 小时 时间",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户提供“有两小时”的时间约束，属于给出个人条件与限制，用于定制后续菜谱与流程的场景设定。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "鸡肉卷",
-            "content_cut": "鸡肉 卷"
+            "content_cut": "鸡肉 卷",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户仅明确选择了“鸡肉卷”作为目标菜式，属于提出偏好以便后续定制食谱和步骤的场景设定，而非直接请求具体操作方案。"
         },
         {
             "role": "assistant",

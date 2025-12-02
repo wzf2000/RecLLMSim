@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我觉得他会比较喜欢科技产品，我的预算是200-2000快不能超出预算",
-            "content_cut": "我 觉得 他会 比较 喜欢 科技 产品 ， 我 的 预算 是 200 - 2000 快 不能 超出预算"
+            "content_cut": "我 觉得 他会 比较 喜欢 科技 产品 ， 我 的 预算 是 200 - 2000 快 不能 超出预算",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户明确了礼物偏好（科技产品）与预算范围（200-2000元，不能超出），这是在提供约束条件与个人偏好以便后续定制化推荐。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "你没有列出价格，列出价格比较好比较",
-            "content_cut": "你 没有 列出 价格 ， 列出 价格 比较 好 比较"
+            "content_cut": "你 没有 列出 价格 ， 列出 价格 比较 好 比较",
+            "intent_label": "质疑、纠错与替代",
+            "intent_reason": "用户指出AI未提供价格信息并要求补充，以便更好比较，属于对前一回复的纠正与改进请求。"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "苹果 AirPods（第二代）比较不错，最新款也是这个价格吗",
-            "content_cut": "苹果   AirPods （ 第二代 ） 比较 不错 ， 最新款 也 是 这个 价格 吗"
+            "content_cut": "苹果   AirPods （ 第二代 ） 比较 不错 ， 最新款 也 是 这个 价格 吗",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户在确认型号后询问最新款的价格是否相同，属于品牌型号的比价信息咨询，以便做购买决策。"
         },
         {
             "role": "assistant",
@@ -53,7 +59,9 @@
         {
             "role": "user",
             "content": "苹果 AirPods（第二代）参数和最新款价格列举一下",
-            "content_cut": "苹果   AirPods （ 第二代 ） 参数 和 最新款 价格 列举 一下"
+            "content_cut": "苹果   AirPods （ 第二代 ） 参数 和 最新款 价格 列举 一下",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户请求列举AirPods（第二代）的参数并给出最新款的价格信息，意在进行型号与价格比较以做购买决策。"
         },
         {
             "role": "assistant",
@@ -65,7 +73,9 @@
         {
             "role": "user",
             "content": "我觉得这个可以，可以用什么好看新颖的包装呢",
-            "content_cut": "我 觉得 这个 可以 ， 可以 用 什么 好看 新颖 的 包装 呢"
+            "content_cut": "我 觉得 这个 可以 ， 可以 用 什么 好看 新颖 的 包装 呢",
+            "intent_label": "表达与包装建议",
+            "intent_reason": "用户已认可礼物选择，进一步询问如何进行好看新颖的包装，属于包装设计与表达层面的咨询。"
         },
         {
             "role": "assistant",

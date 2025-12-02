@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我的目的地是欧洲",
-            "content_cut": "我 的 目的地 是 欧洲"
+            "content_cut": "我 的 目的地 是 欧洲",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户明确旅行偏好与约束（目的地为欧洲），为后续定制具体行程、交通与住宿方案提供基础信息。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "我想去法国你能帮我安排一下行程吗",
-            "content_cut": "我 想 去 法国 你 能 帮 我 安排 一下 行程 吗"
+            "content_cut": "我 想 去 法国 你 能 帮 我 安排 一下 行程 吗",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户已明确目的地为法国，并请求帮忙安排行程，期待提供可落地的旅行计划（包含时间表、交通与住宿等具体安排）。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "帮我安排交通工具，和住宿，旅行时间表",
-            "content_cut": "帮 我 安排 交通工具 ， 和 住宿 ， 旅行 时间表"
+            "content_cut": "帮 我 安排 交通工具 ， 和 住宿 ， 旅行 时间表",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确要求安排交通工具、住宿和旅行时间表，属于希望获得详细且可落地的操作性行程方案。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "我需要准备多少英镑",
-            "content_cut": "我 需要 准备 多少 英镑"
+            "content_cut": "我 需要 准备 多少 英镑",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户询问需要准备多少英镑，属于对旅行资金与费用的估算与预算安排。"
         },
         {
             "role": "assistant",
@@ -64,7 +72,9 @@
         {
             "role": "user",
             "content": "我需要去哪里换钱，并且如何保证我的安全",
-            "content_cut": "我 需要 去 哪里 换钱 ， 并且 如何 保证 我 的 安全"
+            "content_cut": "我 需要 去 哪里 换钱 ， 并且 如何 保证 我 的 安全",
+            "intent_label": "技巧、操作与安全指导",
+            "intent_reason": "用户询问在哪里换汇以及如何确保安全，属于对换钱操作与出行安全的具体实用指导需求。"
         },
         {
             "role": "assistant",
@@ -76,7 +86,9 @@
         {
             "role": "user",
             "content": "我还需要注意什么",
-            "content_cut": "我 还 需要 注意 什么"
+            "content_cut": "我 还 需要 注意 什么",
+            "intent_label": "技巧、操作与安全指导",
+            "intent_reason": "用户在已有换汇与安全建议基础上继续询问还需注意的事项，意图获取更多实操性注意点与安全建议。"
         },
         {
             "role": "assistant",

@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我想选择些吃的，请给我点推荐",
-            "content_cut": "我 想 选择 些 吃 的 ， 请 给 我点 推荐"
+            "content_cut": "我 想 选择 些 吃 的 ， 请 给 我点 推荐",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户明确提出希望获得可食用礼物的具体推荐，以便直接购买落实，属于具体可执行的方案请求。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "姥姥有糖尿病，请你给我充下规划一下",
-            "content_cut": "姥姥 有 糖尿病 ， 请 你 给 我 充下 规划 一下"
+            "content_cut": "姥姥 有 糖尿病 ， 请 你 给 我 充下 规划 一下",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有食品礼物建议的基础上提出新的健康约束（糖尿病），并请求据此进行规划与调整。"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "好的，请你帮我搭配200元的礼品吧",
-            "content_cut": "好 的 ， 请 你 帮 我 搭配 200 元 的 礼品 吧"
+            "content_cut": "好 的 ， 请 你 帮 我 搭配 200 元 的 礼品 吧",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户明确提出200元预算并请求在该预算内搭配礼品，核心诉求是符合预算的选择。"
         },
         {
             "role": "assistant",

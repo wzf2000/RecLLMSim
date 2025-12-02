@@ -17,7 +17,9 @@
         {
             "role": "user",
             "content": "我从广州出发 预算是3k 我要去三亚 要去休闲度假",
-            "content_cut": "我 从 广州 出发   预算 是 3k   我要 去 三亚   要 去 休闲 度假"
+            "content_cut": "我 从 广州 出发   预算 是 3k   我要 去 三亚   要 去 休闲 度假",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户提供出发地、预算、目的地和偏好等关键信息，用于定制后续的旅行方案安排。"
         },
         {
             "role": "assistant",
@@ -30,7 +32,9 @@
         {
             "role": "user",
             "content": "预算不算交通跟住宿 ",
-            "content_cut": "预算 不算 交通 跟 住宿  "
+            "content_cut": "预算 不算 交通 跟 住宿  ",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户明确预算范围为不包含交通和住宿，属于对旅行计划的约束条件补充，用于后续方案更精准定制。"
         },
         {
             "role": "assistant",

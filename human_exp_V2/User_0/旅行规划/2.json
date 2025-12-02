@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我想去拉萨欣赏风景",
-            "content_cut": "我 想 去 拉萨 欣赏 风景"
+            "content_cut": "我 想 去 拉萨 欣赏 风景",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户明确提出目的地偏好（拉萨）和旅行目的（欣赏风景），用于后续定制行程，尚未请求具体可执行方案。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "帮我制定火车途中的有风景的票",
-            "content_cut": "帮 我 制定 火车 途中 的 有 风景 的 票"
+            "content_cut": "帮 我 制定 火车 途中 的 有 风景 的 票",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求“制定火车途中的有风景的票”，希望得到具体可执行的火车路线与购票建议（如车次、座位选择、时间安排），属于请求详细方案。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "广东出发大概七月一出门",
-            "content_cut": "广东 出发 大概 七月 一 出门"
+            "content_cut": "广东 出发 大概 七月 一 出门",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户提供出发地和大致出发时间，用于让AI据此定制后续的火车线路与购票建议，属于明确约束条件与偏好设定。"
         },
         {
             "role": "assistant",

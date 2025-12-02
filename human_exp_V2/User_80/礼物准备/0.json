@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "户外装备真是个好主意！还有其他推荐吗",
-            "content_cut": "户外 装备 真是 个 好 主意 ！ 还有 其他 推荐 吗"
+            "content_cut": "户外 装备 真是 个 好 主意 ！ 还有 其他 推荐 吗",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有礼物建议基础上，继续询问还有没有其他推荐，属于对现有方案的补充与扩展。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "这太户外了，她只是去挖野菜或者去公园玩",
-            "content_cut": "这太 户外 了 ， 她 只是 去 挖 野菜 或者 去 公园 玩"
+            "content_cut": "这太 户外 了 ， 她 只是 去 挖 野菜 或者 去 公园 玩",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户澄清实际使用场景与偏好，指出此前建议过于“重户外”，并限定为挖野菜或公园休闲，为后续定制更匹配的礼物建议提供约束。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "谢谢",
-            "content_cut": "谢谢"
+            "content_cut": "谢谢",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅表示感谢，未提出新的需求或问题，属于对话收尾语境，最接近前面内容的结束/总结阶段。"
         },
         {
             "role": "assistant",

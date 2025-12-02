@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我想实现虚拟拍摄和互动体验，此前没有学习观相关知识需要从基础开始了解",
-            "content_cut": "我 想 实现 虚拟 拍摄 和 互动 体验 ， 此前 没有 学习 观 相关 知识 需要 从 基础 开始 了解"
+            "content_cut": "我 想 实现 虚拟 拍摄 和 互动 体验 ， 此前 没有 学习 观 相关 知识 需要 从 基础 开始 了解",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户明确了学习目标（虚拟拍摄与互动体验）并说明自己是零基础、需要从基础开始了解，为后续定制化学习规划提供背景与约束条件。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "有相关的开源课程和项目吗",
-            "content_cut": "有 相关 的 开源 课程 和 项目 吗"
+            "content_cut": "有 相关 的 开源 课程 和 项目 吗",
+            "intent_label": "资源与链接请求",
+            "intent_reason": "用户询问是否有相关的开源课程和项目，属于索要学习资源与链接的需求。"
         },
         {
             "role": "assistant",
@@ -42,7 +46,9 @@
         {
             "role": "user",
             "content": "刚开始从哪里开始最好",
-            "content_cut": "刚 开始 从 哪里 开始 最好"
+            "content_cut": "刚 开始 从 哪里 开始 最好",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问“刚开始从哪里开始最好”，是在寻求明确的起步步骤和操作建议，期望得到可落实的起始方案。"
         },
         {
             "role": "assistant",
@@ -55,7 +61,9 @@
         {
             "role": "user",
             "content": "请帮我推荐中文优秀课程",
-            "content_cut": "请 帮 我 推荐 中文 优秀 课程"
+            "content_cut": "请 帮 我 推荐 中文 优秀 课程",
+            "intent_label": "资源与链接请求",
+            "intent_reason": "用户请求推荐中文优秀课程，属于索要学习资源与链接的需求"
         },
         {
             "role": "assistant",
@@ -68,7 +76,9 @@
         {
             "role": "user",
             "content": "有更具体的吗",
-            "content_cut": "有 更 具体 的 吗"
+            "content_cut": "有 更 具体 的 吗",
+            "intent_label": "资源与链接请求",
+            "intent_reason": "用户在已有的泛化资源推荐基础上，要求更具体的中文课程与材料，属于索要更明确的学习资源与链接的请求。"
         },
         {
             "role": "assistant",
@@ -80,7 +90,9 @@
         {
             "role": "user",
             "content": "bilibili上有推荐的up主吗",
-            "content_cut": "bilibili 上 有 推荐 的 up 主 吗"
+            "content_cut": "bilibili 上 有 推荐 的 up 主 吗",
+            "intent_label": "资源与链接请求",
+            "intent_reason": "用户询问在Bilibili上推荐的UP主，属于索要具体学习资源与渠道的请求。"
         },
         {
             "role": "assistant",
@@ -92,7 +104,9 @@
         {
             "role": "user",
             "content": "有哪个适合从零跟学",
-            "content_cut": "有 哪个 适合 从 零 跟学"
+            "content_cut": "有 哪个 适合 从 零 跟学",
+            "intent_label": "资源与链接请求",
+            "intent_reason": "用户在已有B站UP主列表中询问“哪个适合从零跟学”，实质是索要适合零基础的具体学习资源推荐。"
         },
         {
             "role": "assistant",
@@ -104,7 +118,9 @@
         {
             "role": "user",
             "content": "谢谢",
-            "content_cut": "谢谢"
+            "content_cut": "谢谢",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅表达感谢，没有提出新问题或需求，属于对前面信息的确认与收尾阶段。"
         },
         {
             "role": "assistant",

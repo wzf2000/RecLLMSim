@@ -16,22 +16,30 @@
         {
             "role": "user",
             "content": "导员还是喜欢比较实用性的东西，根据优先级给我生成购买列表",
-            "content_cut": "导员 还是 喜欢 比较 实用性 的 东西 ， 根据 优先级 给 我 生成 购买 列表"
+            "content_cut": "导员 还是 喜欢 比较 实用性 的 东西 ， 根据 优先级 给 我 生成 购买 列表",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求“根据优先级给我生成购买列表”，希望得到按优先级排列的可直接执行的购买清单，属于具体可落地的方案请求。"
         },
         {
             "role": "user",
             "content": "你咋卡壳了",
-            "content_cut": "你 咋 卡壳 了"
+            "content_cut": "你 咋 卡壳 了",
+            "intent_label": "质疑、纠错与替代",
+            "intent_reason": "用户质疑助手未正常回应（“卡壳”），属于对AI回答的纠正/催促继续，符合对回答进行质疑或纠错的意图。"
         },
         {
             "role": "user",
             "content": "你还卡吗",
-            "content_cut": "你 还 卡 吗"
+            "content_cut": "你 还 卡 吗",
+            "intent_label": "质疑、纠错与替代",
+            "intent_reason": "用户在质疑和提醒AI出现卡壳状态，催促其继续回复，属于对AI回答的纠错/质疑行为。"
         },
         {
             "role": "user",
             "content": "你还卡吗",
-            "content_cut": "你 还 卡 吗"
+            "content_cut": "你 还 卡 吗",
+            "intent_label": "质疑、纠错与替代",
+            "intent_reason": "用户质疑AI是否卡壳并询问状态，属于对AI回复情况的质疑与纠正。"
         },
         {
             "role": "assistant",

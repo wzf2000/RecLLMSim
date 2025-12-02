@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我的预算有1000元，买什么比较合适呢",
-            "content_cut": "我 的 预算 有 1000 元 ， 买 什么 比较 合适 呢"
+            "content_cut": "我 的 预算 有 1000 元 ， 买 什么 比较 合适 呢",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户明确给出预算（1000元）并询问在该预算下买什么更合适，关注价格范围与选择的性价比。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "那我就决定直接转账999元咯",
-            "content_cut": "那 我 就 决定 直接 转账 999 元咯"
+            "content_cut": "那 我 就 决定 直接 转账 999 元咯",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户已明确做出礼物选择（直接转账999元），体现为选品/决策的确认，而非继续请求方案或资源。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "感谢你的推荐",
-            "content_cut": "感谢 你 的 推荐"
+            "content_cut": "感谢 你 的 推荐",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅表达感谢，未提出新的需求或问题，属于对当前建议的确认与收尾。"
         },
         {
             "role": "assistant",

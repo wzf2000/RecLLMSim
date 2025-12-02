@@ -16,12 +16,16 @@
         {
             "role": "user",
             "content": "有没有什么特别意义的手工礼物呢",
-            "content_cut": "有没有 什么 特别 意义 的 手工 礼物 呢"
+            "content_cut": "有没有 什么 特别 意义 的 手工 礼物 呢",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有通用礼物建议基础上，用户进一步提出偏好（手工且有特别意义），希望调整/扩展为这一方向的方案。"
         },
         {
             "role": "user",
             "content": "礼物的内容详细一点",
-            "content_cut": "礼物 的 内容 详细 一点"
+            "content_cut": "礼物 的 内容 详细 一点",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户提出“礼物的内容详细一点”，意在获得更具体、可落地的细节与操作说明，而非仅概念性建议。"
         },
         {
             "role": "assistant",
@@ -33,7 +37,9 @@
         {
             "role": "user",
             "content": "礼物的内容详细一点",
-            "content_cut": "礼物 的 内容 详细 一点"
+            "content_cut": "礼物 的 内容 详细 一点",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求把礼物方案讲得更详细，希望获得可落地的内容与操作细节"
         },
         {
             "role": "assistant",
@@ -45,7 +51,9 @@
         {
             "role": "user",
             "content": "有没有合适的祝福语和礼物袋子或者说话的方式。",
-            "content_cut": "有没有 合适 的 祝福语 和 礼物 袋子 或者 说话 的 方式 。"
+            "content_cut": "有没有 合适 的 祝福语 和 礼物 袋子 或者 说话 的 方式 。",
+            "intent_label": "表达与包装建议",
+            "intent_reason": "用户询问合适的祝福语、礼物袋选择以及表达/说话方式，属于文案话术与礼物包装层面的建议。"
         },
         {
             "role": "assistant",
@@ -57,7 +65,9 @@
         {
             "role": "user",
             "content": "好的谢谢",
-            "content_cut": "好 的 谢谢"
+            "content_cut": "好 的 谢谢",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅表达感谢与认可，无新需求与问题，属于对前面建议的确认与收尾。"
         },
         {
             "role": "assistant",

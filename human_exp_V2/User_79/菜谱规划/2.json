@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "需要买什么食材的，带多少钱",
-            "content_cut": "需要 买 什么 食材 的 ， 带 多少 钱"
+            "content_cut": "需要 买 什么 食材 的 ， 带 多少 钱",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问需要购买的食材清单及大致预算，属于请求可落地的购物与准备方案"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "有没有推荐的餐前水果",
-            "content_cut": "有没有 推荐 的 餐前 水果"
+            "content_cut": "有没有 推荐 的 餐前 水果",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户询问餐前水果的推荐，属于对具体品类的选择与决策咨询，而非步骤方案或时间安排。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "如果再加两个菜 加什么比较好",
-            "content_cut": "如果 再 加 两个 菜   加 什么 比较 好"
+            "content_cut": "如果 再 加 两个 菜   加 什么 比较 好",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有年夜饭菜谱和食材规划基础上，用户提出增加两个菜的需求，属于对已有方案的扩展与调整。"
         },
         {
             "role": "assistant",

@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我对Adobe Premiere Pro感兴趣。请推荐一些来自B站的相关高质量学习教程，以表格形式输出",
-            "content_cut": "我 对 Adobe   Premiere   Pro 感兴趣 。 请 推荐 一些 来自 B 站 的 相关 高质量 学习 教程 ， 以 表格 形式 输出"
+            "content_cut": "我 对 Adobe   Premiere   Pro 感兴趣 。 请 推荐 一些 来自 B 站 的 相关 高质量 学习 教程 ， 以 表格 形式 输出",
+            "intent_label": "资源与链接请求",
+            "intent_reason": "用户明确请求推荐B站上的Premiere Pro学习教程并指定以表格形式输出，属于索要具体学习资源和链接的需求。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "我想先从【入门基础教程】开始。感觉你的推荐不全。我记得似乎papaya up主也有PR相关的视频，请给出相关链接。",
-            "content_cut": "我 想 先 从 【 入门 基础教程 】 开始 。 感觉 你 的 推荐 不全 。 我 记得 似乎 papaya   up 主 也 有 PR 相关 的 视频 ， 请 给出 相关 链接 。"
+            "content_cut": "我 想 先 从 【 入门 基础教程 】 开始 。 感觉 你 的 推荐 不全 。 我 记得 似乎 papaya   up 主 也 有 PR 相关 的 视频 ， 请 给出 相关 链接 。",
+            "intent_label": "资源与链接请求",
+            "intent_reason": "用户指出现有推荐不全，并明确请求提供B站“papaya up”的PR相关视频链接，主要意图是索要具体学习资源与链接。"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "【PR教程】7天学会PR剪辑\tPapaya视频教程\t初级\t短期高效学习，讲解清晰，实例丰富\thttps://www.bilibili.com/video/BV1PL411H7Ds/ 这个是虚假视频链接！",
-            "content_cut": "【 PR 教程 】 7 天 学会 PR 剪辑 \t Papaya 视频教程 \t 初级 \t 短期 高效 学习 ， 讲解 清晰 ， 实例 丰富 \t https : / / www . bilibili . com / video / BV1PL411H7Ds /   这个 是 虚假 视频 链接 ！"
+            "content_cut": "【 PR 教程 】 7 天 学会 PR 剪辑 \t Papaya 视频教程 \t 初级 \t 短期 高效 学习 ， 讲解 清晰 ， 实例 丰富 \t https : / / www . bilibili . com / video / BV1PL411H7Ds /   这个 是 虚假 视频 链接 ！",
+            "intent_label": "质疑、纠错与替代",
+            "intent_reason": "用户指出AI提供的B站链接为虚假，属于对先前推荐内容的纠错与核验，并隐含希望提供替代的正确链接。"
         },
         {
             "role": "assistant",

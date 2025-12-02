@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我从浙江杭州出发，帮我安排一下航班？",
-            "content_cut": "我 从 浙江 杭州 出发 ， 帮 我 安排 一下 航班 ？"
+            "content_cut": "我 从 浙江 杭州 出发 ， 帮 我 安排 一下 航班 ？",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求从杭州出发的航班安排，期望得到具体可落地的航班选项与行程安排。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "想要时间最短的转机",
-            "content_cut": "想要 时间 最短 的 转机"
+            "content_cut": "想要 时间 最短 的 转机",
+            "intent_label": "任务发起与场景设定",
+            "intent_reason": "用户提出航班选择的约束与偏好（转机时间最短），用于指导后续定制化方案的制定。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "好的，接下来帮我看一下酒店，我想要环境好的酒店，如果能躺着看到极光就更好了",
-            "content_cut": "好 的 ， 接下来 帮 我 看 一下 酒店 ， 我 想要 环境 好 的 酒店 ， 如果 能 躺 着 看到 极光 就 更好 了"
+            "content_cut": "好 的 ， 接下来 帮 我 看 一下 酒店 ， 我 想要 环境 好 的 酒店 ， 如果 能 躺 着 看到 极光 就 更好 了",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户请求根据偏好推荐酒店（环境好、可躺着看极光），属于为预订做选择的决策咨询需求。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "你推荐的这些，大致的价格是多少呀",
-            "content_cut": "你 推荐 的 这些 ， 大致 的 价格 是 多少 呀"
+            "content_cut": "你 推荐 的 这些 ， 大致 的 价格 是 多少 呀",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户询问所推荐酒店的大致价格，关注费用区间以便做预算评估，体现以价格与性价比为导向的需求。"
         },
         {
             "role": "assistant",
@@ -64,7 +72,9 @@
         {
             "role": "user",
             "content": "没事，我参考一下，如果我住The 5 Million Star Hotel，你帮我规划一下出行的行程？",
-            "content_cut": "没事 ， 我 参考 一下 ， 如果 我住 The   5   Million   Star   Hotel ， 你 帮 我 规划 一下 出行 的 行程 ？"
+            "content_cut": "没事 ， 我 参考 一下 ， 如果 我住 The   5   Million   Star   Hotel ， 你 帮 我 规划 一下 出行 的 行程 ？",
+            "intent_label": "系统化规划与时间安排",
+            "intent_reason": "用户提出在入住The 5 Million Star Hotel的前提下，请求规划具体的旅行行程，属于需要制定日程安排与节奏的系统化规划请求。"
         },
         {
             "role": "assistant",
@@ -76,7 +86,9 @@
         {
             "role": "user",
             "content": "这样玩一次大概的预算是多少",
-            "content_cut": "这样 玩 一次 大概 的 预算 是 多少"
+            "content_cut": "这样 玩 一次 大概 的 预算 是 多少",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户询问整套行程“这样玩一次”的大致预算，主要关注总费用估算与花费水平，属于预算与性价比相关的需求。"
         },
         {
             "role": "assistant",

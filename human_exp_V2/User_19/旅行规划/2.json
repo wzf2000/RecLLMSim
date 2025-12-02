@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "我想去云南，帮我设计一下旅游线路",
-            "content_cut": "我 想 去 云南 ， 帮 我 设计 一下 旅游 线路"
+            "content_cut": "我 想 去 云南 ， 帮 我 设计 一下 旅游 线路",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户已确定目的地云南，并请求设计旅游线路，期望获得包含行程安排等可落地的详细方案。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "这几个地方，住哪里比较好",
-            "content_cut": "这 几个 地方 ， 住 哪里 比较 好"
+            "content_cut": "这 几个 地方 ， 住 哪里 比较 好",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "在既有云南30日线路基础上，用户询问各地“住哪里比较好”，需要提供具体住宿区域与酒店建议，属于可落地的详细方案请求。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "30天的旅游需要花多少钱呢",
-            "content_cut": "30 天 的 旅游 需要 花 多少 钱 呢"
+            "content_cut": "30 天 的 旅游 需要 花 多少 钱 呢",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户询问30天旅行需要花费多少钱，属于对预算和费用的估算与性价比相关的需求。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "有什么美食推荐的，必吃的",
-            "content_cut": "有 什么 美食 推荐 的 ， 必吃 的"
+            "content_cut": "有 什么 美食 推荐 的 ， 必吃 的",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有住宿与预算建议的基础上，用户提出补充“美食必吃”清单，属于在既有行程方案上新增模块的需求。"
         },
         {
             "role": "assistant",

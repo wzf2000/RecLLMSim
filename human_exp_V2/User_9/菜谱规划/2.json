@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "帮我罗列要准备的食材，包括调料",
-            "content_cut": "帮 我 罗列 要 准备 的 食材 ， 包括 调料"
+            "content_cut": "帮 我 罗列 要 准备 的 食材 ， 包括 调料",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户在已有菜单基础上请求列出所需食材与调料的清单，属于具体可落地的操作清单需求"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "告诉我每一道菜的完整制作流程",
-            "content_cut": "告诉 我 每 一道 菜 的 完整 制作 流程"
+            "content_cut": "告诉 我 每 一道 菜 的 完整 制作 流程",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求每道菜的完整制作流程，属于获取可直接执行的详细步骤和操作指南。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "给出一个合适的做菜顺序。菜之间不能串味",
-            "content_cut": "给出 一个 合适 的 做菜 顺序 。 菜 之间 不能 串味"
+            "content_cut": "给出 一个 合适 的 做菜 顺序 。 菜 之间 不能 串味",
+            "intent_label": "系统化规划与时间安排",
+            "intent_reason": "用户要求提供菜品的制作顺序并强调避免串味，这是对多道菜的流程与时间安排的规划需求。"
         },
         {
             "role": "assistant",

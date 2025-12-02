@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "推荐做什么菜呢",
-            "content_cut": "推荐 做 什么 菜 呢"
+            "content_cut": "推荐 做 什么 菜 呢",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "在明确了大致菜品数量后，用户进一步询问具体该做哪些菜，意在获得可直接采用的菜单与操作方案。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "买菜的花要怎么买，大概花费要多少",
-            "content_cut": "买菜 的 花要 怎么 买 ， 大概 花费 要 多少"
+            "content_cut": "买菜 的 花要 怎么 买 ， 大概 花费 要 多少",
+            "intent_label": "预算与性价比导向",
+            "intent_reason": "用户询问如何买菜以及大概花费多少，核心关注点是费用估算与采购性价比安排。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "做饭的步骤可以帮我 列出来吗",
-            "content_cut": "做饭 的 步骤 可以 帮 我   列出来 吗"
+            "content_cut": "做饭 的 步骤 可以 帮 我   列出来 吗",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求“把做饭的步骤列出来”，希望获得可直接执行的详细操作步骤与顺序，属于请求具体可落地的方案。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "餐前水果准备什么比较好",
-            "content_cut": "餐前 水果 准备 什么 比较 好"
+            "content_cut": "餐前 水果 准备 什么 比较 好",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户询问“餐前水果准备什么比较好”，核心是希望获得关于水果品类的选择建议，属于选品决策咨询而非流程或时间安排。"
         },
         {
             "role": "assistant",
@@ -64,7 +72,9 @@
         {
             "role": "user",
             "content": "好的",
-            "content_cut": "好 的"
+            "content_cut": "好 的",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅以“好的”表示认可与收尾，未提出新问题或需求，属于对前面内容的确认性回应，最接近总结/收尾类。"
         },
         {
             "role": "assistant",

@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "这几个旅游地点，用什么交通出行方便些？",
-            "content_cut": "这 几个 旅游 地点 ， 用 什么 交通 出行 方便 些 ？"
+            "content_cut": "这 几个 旅游 地点 ， 用 什么 交通 出行 方便 些 ？",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问到达各旅游地点的便捷交通方式，属于对已有行程的具体、可落地的操作建议请求。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "夜晚有什么有特色的地点推荐吗",
-            "content_cut": "夜晚 有 什么 有 特色 的 地点 推荐 吗"
+            "content_cut": "夜晚 有 什么 有 特色 的 地点 推荐 吗",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有行程与交通建议基础上，进一步询问夜间有特色的地点，属于对原有方案的夜间部分进行丰富与扩展。"
         },
         {
             "role": "assistant",
@@ -42,7 +46,9 @@
         {
             "role": "user",
             "content": "这些景点的营业时间是多少",
-            "content_cut": "这些 景点 的 营业时间 是 多少"
+            "content_cut": "这些 景点 的 营业时间 是 多少",
+            "intent_label": "资源与链接请求",
+            "intent_reason": "用户在询问各景点的营业时间，属于索要具体信息以便安排行程，与请求资源/信息入口的需求相符。"
         },
         {
             "role": "assistant",
@@ -54,7 +60,9 @@
         {
             "role": "user",
             "content": "5月份，有什么特色活动吗",
-            "content_cut": "5 月份 ， 有 什么 特色 活动 吗"
+            "content_cut": "5 月份 ， 有 什么 特色 活动 吗",
+            "intent_label": "本地化与情境适配",
+            "intent_reason": "用户根据特定时间（5月份）询问当地的特色活动，属于根据情境（季节/时间）进行方案适配的需求。"
         },
         {
             "role": "assistant",

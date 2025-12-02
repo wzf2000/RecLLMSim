@@ -16,12 +16,16 @@
         {
             "role": "user",
             "content": "每天要背什么单词",
-            "content_cut": "每天 要 背 什么 单词"
+            "content_cut": "每天 要 背 什么 单词",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问每天应背哪些单词，期待获得明确的词汇选择与每日安排，属于请求可落地的学习清单与步骤。"
         },
         {
             "role": "user",
             "content": "背多少单词",
-            "content_cut": "背 多少 单词"
+            "content_cut": "背 多少 单词",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户询问每天应背多少单词，要求明确的数量建议，用于直接执行学习计划。"
         },
         {
             "role": "assistant",
@@ -33,7 +37,9 @@
         {
             "role": "user",
             "content": "只背单词可以吗",
-            "content_cut": "只 背单词 可以 吗"
+            "content_cut": "只 背单词 可以 吗",
+            "intent_label": "技巧、操作与安全指导",
+            "intent_reason": "用户在询问“只背单词是否可行”，属于对学习方法与实操建议的求证与指导请求，而非完整方案或时间安排。"
         },
         {
             "role": "assistant",
@@ -45,7 +51,9 @@
         {
             "role": "user",
             "content": "听力应该怎么训练",
-            "content_cut": "听力 应该 怎么 训练"
+            "content_cut": "听力 应该 怎么 训练",
+            "intent_label": "技巧、操作与安全指导",
+            "intent_reason": "用户在询问具体的听力训练方法与操作建议，属于求取实操性技巧的指导。"
         },
         {
             "role": "assistant",

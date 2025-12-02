@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "不错！我有几个问题。首先，请你给出【学习资源汇总】中的网址或者资源链接",
-            "content_cut": "不错 ！ 我 有 几个 问题 。 首先 ， 请 你 给出 【 学习 资源 汇总 】 中 的 网址 或者 资源 链接"
+            "content_cut": "不错 ！ 我 有 几个 问题 。 首先 ， 请 你 给出 【 学习 资源 汇总 】 中 的 网址 或者 资源 链接",
+            "intent_label": "资源与链接请求",
+            "intent_reason": "用户要求提供【学习资源汇总】所列学习资源的具体网址或链接。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "NHK News Web Easy 、NHK Easy News 你给出的是同一个网址！这个对吗？",
-            "content_cut": "NHK   News   Web   Easy   、 NHK   Easy   News   你 给出 的 是 同一个 网址 ！ 这个 对 吗 ？"
+            "content_cut": "NHK   News   Web   Easy   、 NHK   Easy   News   你 给出 的 是 同一个 网址 ！ 这个 对 吗 ？",
+            "intent_label": "质疑、纠错与替代",
+            "intent_reason": "用户指出AI提供的两个资源链接相同并询问其是否正确，属于对信息的核验与纠错需求。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "现在，请整理关于清华大学、北京大学、北外等学校发布的相关慕课的学习资源，以markdown表格输出",
-            "content_cut": "现在 ， 请 整理 关于 清华大学 、 北京大学 、 北外 等 学校 发布 的 相关 慕课 的 学习 资源 ， 以 markdown 表格 输出"
+            "content_cut": "现在 ， 请 整理 关于 清华大学 、 北京大学 、 北外 等 学校 发布 的 相关 慕课 的 学习 资源 ， 以 markdown 表格 输出",
+            "intent_label": "资源与链接请求",
+            "intent_reason": "用户索要清华、北大、北外发布的相关慕课学习资源并要求以表格形式输出，核心诉求是获取并整理具体学习资源和链接。"
         },
         {
             "role": "assistant",

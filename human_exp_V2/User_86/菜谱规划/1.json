@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "需要用到哪些食材呢？",
-            "content_cut": "需要 用到 哪些 食材 呢 ？"
+            "content_cut": "需要 用到 哪些 食材 呢 ？",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户在现有菜单基础上明确询问需要用到哪些食材，属于索要可直接执行的食材清单以便落实烹饪方案。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "能告诉我每一道菜完整的制作流程吗？",
-            "content_cut": "能 告诉 我 每 一道 菜 完整 的 制作 流程 吗 ？"
+            "content_cut": "能 告诉 我 每 一道 菜 完整 的 制作 流程 吗 ？",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求每一道菜的完整制作流程，属于希望获得可直接执行的详细步骤与操作说明。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "还有合适的菜品制作顺序",
-            "content_cut": "还有 合适 的 菜品 制作 顺序"
+            "content_cut": "还有 合适 的 菜品 制作 顺序",
+            "intent_label": "系统化规划与时间安排",
+            "intent_reason": "用户询问“合适的菜品制作顺序”，明确需要烹饪流程的时间安排与先后顺序，属于对任务的节奏与安排规划。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "好的 谢谢嘞~",
-            "content_cut": "好 的   谢谢 嘞 ~"
+            "content_cut": "好 的   谢谢 嘞 ~",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅表达感谢与确认，没有新的问题或需求，属于对已有内容的收尾与结束环节，未涉及新的方案请求或调整。"
         },
         {
             "role": "assistant",

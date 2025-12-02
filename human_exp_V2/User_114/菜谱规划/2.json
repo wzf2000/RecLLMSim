@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "不好意思说错了，是豆橛子",
-            "content_cut": "不好意思 说错 了 ， 是 豆 橛子"
+            "content_cut": "不好意思 说错 了 ， 是 豆 橛子",
+            "intent_label": "质疑、纠错与替代",
+            "intent_reason": "用户纠正之前提到的名词，将“豆蕨子”更正为“豆橛子”，属于对先前信息的纠错与澄清。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "你想一想山东，再想一想豆橛子",
-            "content_cut": "你 想一想 山东 ， 再 想一想 豆 橛子"
+            "content_cut": "你 想一想 山东 ， 再 想一想 豆 橛子",
+            "intent_label": "质疑、纠错与替代",
+            "intent_reason": "用户用“想一想山东，再想一想豆橛子”暗示豆橛子与山东有关，指出或纠正AI此前对其地域归属的回答，属于对信息的纠正/质疑。"
         },
         {
             "role": "assistant",
@@ -42,7 +46,9 @@
         {
             "role": "user",
             "content": "不不不，豆橛子是豆角的意思，在山东我们都这么叫",
-            "content_cut": "不 不 不 ， 豆 橛子 是 豆角 的 意思 ， 在 山东 我们 都 这么 叫"
+            "content_cut": "不 不 不 ， 豆 橛子 是 豆角 的 意思 ， 在 山东 我们 都 这么 叫",
+            "intent_label": "质疑、纠错与替代",
+            "intent_reason": "用户纠正AI对“豆橛子”的含义判断，指出在山东语境中它指豆角而非花生，属于对前述回答的纠错。"
         },
         {
             "role": "assistant",
@@ -55,7 +61,9 @@
         {
             "role": "user",
             "content": "来，我说一句，你说下一句，“一顿豆橛子，”...",
-            "content_cut": "来 ， 我 说 一句 ， 你 说 下 一句 ， “ 一顿 豆 橛子 ， ” ..."
+            "content_cut": "来 ， 我 说 一句 ， 你 说 下 一句 ， “ 一顿 豆 橛子 ， ” ...",
+            "intent_label": "表达与包装建议",
+            "intent_reason": "用户进行“我说一句你接一句”的接龙，让AI续写短句，属于话术与表达层面的创作与补全请求。"
         },
         {
             "role": "assistant",
@@ -68,7 +76,9 @@
         {
             "role": "user",
             "content": "不应该是“顿顿豆橛子”吗",
-            "content_cut": "不 应该 是 “ 顿顿 豆 橛子 ” 吗"
+            "content_cut": "不 应该 是 “ 顿顿 豆 橛子 ” 吗",
+            "intent_label": "质疑、纠错与替代",
+            "intent_reason": "用户质疑并纠正AI前一句话的表述，提出应为“顿顿豆橛子”，属于对回答的纠错与替代建议。"
         },
         {
             "role": "assistant",
@@ -81,7 +91,9 @@
         {
             "role": "user",
             "content": "你好像没改",
-            "content_cut": "你 好像 没改"
+            "content_cut": "你 好像 没改",
+            "intent_label": "质疑、纠错与替代",
+            "intent_reason": "用户指出AI并未按其纠正进行修改，属对AI回答的质疑与纠错。"
         },
         {
             "role": "assistant",

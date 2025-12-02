@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "嗯嗯，最近有点变天了，我想买保暖用品，送给她吧。请问有什么推荐的品牌呢？",
-            "content_cut": "嗯 嗯 ， 最近 有点 变天 了 ， 我 想 买 保暖 用品 ， 送给 她 吧 。 请问 有 什么 推荐 的 品牌 呢 ？"
+            "content_cut": "嗯 嗯 ， 最近 有点 变天 了 ， 我 想 买 保暖 用品 ， 送给 她 吧 。 请问 有 什么 推荐 的 品牌 呢 ？",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户明确要购买保暖用品，并询问推荐的品牌以便做选品与购买决策。"
         },
         {
             "role": "assistant",
@@ -28,7 +30,9 @@
         {
             "role": "user",
             "content": "好滴，三枪吧！请问如何购买呢？",
-            "content_cut": "好滴 ， 三枪 吧 ！ 请问 如何 购买 呢 ？"
+            "content_cut": "好滴 ， 三枪 吧 ！ 请问 如何 购买 呢 ？",
+            "intent_label": "购买渠道与选品决策",
+            "intent_reason": "用户已确定品牌（三枪），并询问如何购买，属于请求购买渠道与购买方式的咨询。"
         },
         {
             "role": "assistant",
@@ -40,7 +44,9 @@
         {
             "role": "user",
             "content": "那请问保暖内衣是如何制作的呢？",
-            "content_cut": "那 请问 保暖 内衣 是 如何 制作 的 呢 ？"
+            "content_cut": "那 请问 保暖 内衣 是 如何 制作 的 呢 ？",
+            "intent_label": "技巧、操作与安全指导",
+            "intent_reason": "用户询问保暖内衣的制作过程与工艺细节，属于获取制作/操作方法相关的指导性信息。"
         },
         {
             "role": "assistant",
@@ -52,7 +58,9 @@
         {
             "role": "user",
             "content": "好的 谢谢",
-            "content_cut": "好 的   谢谢"
+            "content_cut": "好 的   谢谢",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户仅表达感谢与确认，未提出新需求或问题，属于对话收尾情境，最接近总结/结束类型。"
         },
         {
             "role": "assistant",

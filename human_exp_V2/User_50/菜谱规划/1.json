@@ -16,7 +16,9 @@
         {
             "role": "user",
             "content": "能不能结合一下时令",
-            "content_cut": "能 不能 结合 一下 时令"
+            "content_cut": "能 不能 结合 一下 时令",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户在已有菜单基础上提出“结合时令”的要求，希望根据当季食材对之前的方案进行调整优化，属于对既有方案的改动与扩展。"
         },
         {
             "role": "assistant",
@@ -29,7 +31,9 @@
         {
             "role": "user",
             "content": "现在是春天。农历三月中旬",
-            "content_cut": "现在 是 春天 。 农历 三月 中旬"
+            "content_cut": "现在 是 春天 。 农历 三月 中旬",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户纠正时令为“春天、农历三月中旬”，意在基于已有（秋季）菜单进行时令上的调整，请求按当前季节修改方案。"
         },
         {
             "role": "assistant",
@@ -41,7 +45,9 @@
         {
             "role": "user",
             "content": "不要甜品也不要前菜，来给三个热菜",
-            "content_cut": "不要 甜品 也 不要 前菜 ， 来 给 三个 热菜"
+            "content_cut": "不要 甜品 也 不要 前菜 ， 来 给 三个 热菜",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "基于已有菜单提出修改：去掉前菜和甜品，改为提供三个热菜，属于在既有方案上的调整。"
         },
         {
             "role": "assistant",
@@ -53,7 +59,9 @@
         {
             "role": "user",
             "content": "可以把豆苗换成笋吗",
-            "content_cut": "可以 把 豆苗 换成 笋 吗"
+            "content_cut": "可以 把 豆苗 换成 笋 吗",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户基于前一轮提供的三道热菜方案，提出将清炒豆苗改为与笋相关的菜，属于对已有方案的替换与调整请求。"
         },
         {
             "role": "assistant",
@@ -65,7 +73,9 @@
         {
             "role": "user",
             "content": "然后芦笋也换一个吧",
-            "content_cut": "然后 芦笋 也 换 一个 吧"
+            "content_cut": "然后 芦笋 也 换 一个 吧",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有菜谱基础上，用户提出将“芦笋”这道菜再更换，属于对既定方案的替换与调整。"
         },
         {
             "role": "assistant",
@@ -78,7 +88,9 @@
         {
             "role": "user",
             "content": "不要芦笋炒牛肉",
-            "content_cut": "不要 芦笋 炒 牛肉"
+            "content_cut": "不要 芦笋 炒 牛肉",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户明确表示不需要某道菜（芦笋炒牛肉），是在对已有菜谱方案进行修改/剔除，属于对方案的调整。"
         },
         {
             "role": "assistant",
@@ -91,7 +103,9 @@
         {
             "role": "user",
             "content": "除了芦笋炒牛肉没有别的春季时令菜了吗",
-            "content_cut": "除了 芦笋 炒 牛肉 没有 别的 春季 时令 菜 了 吗"
+            "content_cut": "除了 芦笋 炒 牛肉 没有 别的 春季 时令 菜 了 吗",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户质疑当前备选不足，明确希望在已有菜品方案基础上增加或替换为更多春季时令菜，属于对方案的扩展与调整需求。"
         },
         {
             "role": "assistant",
@@ -103,7 +117,9 @@
         {
             "role": "user",
             "content": "不喜欢吃蚕豆炒虾仁",
-            "content_cut": "不 喜欢 吃 蚕豆 炒 虾仁"
+            "content_cut": "不 喜欢 吃 蚕豆 炒 虾仁",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "在已有菜品推荐的基础上提出不喜欢其中一道菜，意在替换或调整方案以符合偏好。"
         },
         {
             "role": "assistant",
@@ -115,7 +131,9 @@
         {
             "role": "user",
             "content": "也不吃豌豆炒鸡丁",
-            "content_cut": "也 不吃 豌豆 炒 鸡丁"
+            "content_cut": "也 不吃 豌豆 炒 鸡丁",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户拒绝已有推荐中的“豌豆炒鸡丁”，在既有菜谱基础上提出偏好限制，需替换或调整方案以符合口味。"
         },
         {
             "role": "assistant",
@@ -127,7 +145,9 @@
         {
             "role": "user",
             "content": "有点素，来点肉",
-            "content_cut": "有点 素 ， 来点 肉"
+            "content_cut": "有点 素 ， 来点 肉",
+            "intent_label": "方案调整与扩展",
+            "intent_reason": "用户认为当前菜品偏素，提出增加肉菜的需求，属于在已有菜谱建议基础上的修改与扩展。"
         },
         {
             "role": "assistant",
@@ -139,7 +159,9 @@
         {
             "role": "user",
             "content": "这个看起来还不错，可以具体一点做法吗，并且帮我合理安排一下顺序，不至于在厨房手忙脚乱，另外告诉我提前一天需要准备什么",
-            "content_cut": "这个 看起来 还 不错 ， 可以 具体 一点 做法 吗 ， 并且 帮 我 合理安排 一下 顺序 ， 不至于 在 厨房 手忙脚乱 ， 另外 告诉 我 提前 一天 需要 准备 什么"
+            "content_cut": "这个 看起来 还 不错 ， 可以 具体 一点 做法 吗 ， 并且 帮 我 合理安排 一下 顺序 ， 不至于 在 厨房 手忙脚乱 ， 另外 告诉 我 提前 一天 需要 准备 什么",
+            "intent_label": "请求具体/可执行方案",
+            "intent_reason": "用户要求提供更具体的做法、合理的烹饪顺序以及提前一天的准备事项，属于需要详细步骤与可落地的操作方案。"
         },
         {
             "role": "assistant",
@@ -151,7 +173,9 @@
         {
             "role": "user",
             "content": "清楚多了，谢谢",
-            "content_cut": "清楚 多 了 ， 谢谢"
+            "content_cut": "清楚 多 了 ， 谢谢",
+            "intent_label": "结果总结与整理输出",
+            "intent_reason": "用户对前面已整理好的详细方案与顺序表示认可与收尾致谢，没有新的请求或调整，属于对前述内容的收尾回应。"
         },
         {
             "role": "assistant",
