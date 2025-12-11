@@ -260,5 +260,78 @@
             "content": "好 👍，我帮你升级成**严格 UTF‑8 编码 + BOM 支持**版本的 Excel VBA 宏代码，  \n这样不管你是在 **高德地图**（中文 Windows）、**Google My Maps**（海外/英文系统），还是其他支持 UTF‑8 的 GIS 平台导入，中文地点名、地址都不会乱码。  \n\n---\n\n## 📜 改进版宏代码  \n\n这个版本用 `ADODB.Stream` 对象来写文件，强制UTF-8并加 BOM（Byte Order Mark）。  \n> ⚠ 使用前需要启用 VBA 里 “Microsoft ActiveX Data Objects” 支持：  \n> 在 VBA 编辑器（Alt+F11）→ 菜单 **工具（Tools） → 参考（References）** → 勾选  \n> `Microsoft ActiveX Data Objects x.x Library`  \n>（x.x 版本随你系统不同，通常是 6.1 或 2.8）\n\n---\n\n### 1️⃣ 生成 CSV（UTF‑8 + BOM）\n\n```vb\nSub ExportCSV_Gaode_UTF8()\n    Dim ws As Worksheet, i As Long, line As String\n    Dim csvContent As String\n    Dim filePath As String\n    \n    Set ws = ThisWorkbook.Sheets(\"Data_Input\")\n    filePath = ThisWorkbook.Path & \"\\city_trip.csv\"\n    \n    ' 表头\n    csvContent = \"序号,名称,地址,纬度,经度\" & vbCrLf\n    \n    ' 内容\n    i = 2\n    Do While ws.Cells(i, 1).Value <> \"\"\n        line = ws.Cells(i, 1).Text & \",\" & _\n               ws.Cells(i, 2).Text & \",\" & _\n               ws.Cells(i, 3).Text & \",\" & _\n               ws.Cells(i, 4).Text & \",\" & _\n               ws.Cells(i, 5).Text\n        csvContent = csvContent & line & vbCrLf\n        i = i + 1\n    Loop\n    \n    ' 调用UTF-8写入\n    Call WriteUTF8WithBOM(filePath, csvContent)\n    \n    MsgBox \"高德地图 CSV 已生成 (UTF-8+BOM)：\" & vbCrLf & filePath, vbInformation\nEnd Sub\n```\n\n---\n\n### 2️⃣ 生成 KML（UTF‑8 + BOM）\n\n```vb\nSub ExportKML_Google_UTF8()\n    Dim ws As Worksheet, i As Long\n    Dim kmlContent As String\n    Dim filePath As String\n    \n    Set ws = ThisWorkbook.Sheets(\"Data_Input\")\n    filePath = ThisWorkbook.Path & \"\\city_trip.kml\"\n    \n    ' 头部\n    kmlContent = \"<?xml version=\"\"1.0\"\" encoding=\"\"UTF-8\"\"?>\" & vbCrLf\n    kmlContent = kmlContent & \"<kml xmlns=\"\"http://www.opengis.net/kml/2.2\"\">\" & vbCrLf\n    kmlContent = kmlContent & \"<Document>\" & vbCrLf\n    kmlContent = kmlContent & \"    <name>City Trip</name>\" & vbCrLf\n    kmlContent = kmlContent & \"    <description>自定义城市出行全部点位</description>\" & vbCrLf\n    \n    ' 点位\n    i = 2\n    Do While ws.Cells(i, 1).Value <> \"\"\n        kmlContent = kmlContent & \"    <Placemark>\" & vbCrLf\n        kmlContent = kmlContent & \"        <name>\" & ws.Cells(i, 2).Text & \"</name>\" & vbCrLf\n        kmlContent = kmlContent & \"        <Point><coordinates>\" & ws.Cells(i, 5).Text & \",\" & ws.Cells(i, 4).Text & \",0</coordinates></Point>\" & vbCrLf\n        kmlContent = kmlContent & \"    </Placemark>\" & vbCrLf\n        i = i + 1\n    Loop\n    \n    ' 尾部\n    kmlContent = kmlContent & \"</Document>\" & vbCrLf\n    kmlContent = kmlContent & \"</kml>\"\n    \n    ' 调用UTF-8写入\n    Call WriteUTF8WithBOM(filePath, kmlContent)\n    \n    MsgBox \"Google My Maps KML 已生成 (UTF-8+BOM)：\" & vbCrLf & filePath, vbInformation\nEnd Sub\n```\n\n---\n\n### 3️⃣ 公用 UTF‑8+BOM 写入函数\n\n```vb\nSub WriteUTF8WithBOM(filePath As String, content As String)\n    Dim stream As Object\n    \n    Set stream = CreateObject(\"ADODB.Stream\")\n    With stream\n        .Type = 2  ' 文本模式\n        .Charset = \"utf-8\" ' 指定 UTF-8\n        .Open\n        .WriteText content\n        ' 保存为文件\n        .SaveToFile filePath, 2 ' 2=覆盖，如果已存在\n        .Close\n    End With\n    Set stream = Nothing\nEnd Sub\n```\n\n---\n\n## 🔘 按钮绑定（推荐布局）\n\n在 `Data_Input` 工作表：\n- 按钮1：**生成 CSV (高德)** → 对应宏 `ExportCSV_Gaode_UTF8`\n- 按钮2：**生成 KML (Google)** → 对应宏 `ExportKML_Google_UTF8`\n\n按钮用「插入 → 形状 → 矩形」画，右键「指派宏」即可。\n\n---\n\n## 🚀 使用步骤\n\n1. **启用宏保存**  \n   - Excel 另存为 `*.xlsm`（启用宏的Excel文件）\n   \n2. **输入数据**  \n   - 在 `Data_Input` Sheet 填写序号、名称、地址、纬度、经度\n\n3. **点击按钮生成文件**  \n   - 文件会生成到 **当前Excel所在目录**：\n     - `city_trip.csv` → 高德地图批量导入\n     - `city_trip.kml` → Google My Maps 导入 / 可截图\n\n4. **导入地图平台**  \n   - 高德网页版 → 我的地点 → 导入  \n   - Google My Maps → 创建地图 → 导入\n\n---\n\n✅ **优点**：\n- 完整 UTF-8 + BOM，无论什么系统/平台导入都不会乱码  \n- 一次维护，CSV+KML 双平台同步更新  \n- ZIP 打包直接用  \n\n---\n\n我可以帮你**把这个 Excel 宏文件的初始版本做好，并在 Data_Input 里预填2-3个示例地点**，你下载后就能直接测试生成 CSV / KML。  \n你要我为你设计这个可直接测试的 `.xlsm` 文件的示例内容方案吗？这样你一打开就能试运行生成文件。",
             "content_cut": "好   👍 ， 我 帮 你 升级成 * * 严格   UTF ‑ 8   编码   +   BOM   支持 * * 版本 的   Excel   VBA   宏代码 ，     \n 这样 不管 你 是 在   * * 高德 地图 * * （ 中文   Windows ） 、 * * Google   My   Maps * * （ 海外 / 英文 系统 ） ， 还是 其他 支持   UTF ‑ 8   的   GIS   平台 导入 ， 中文 地点 名 、 地址 都 不会 乱码 。     \n \n --- \n \n ##   📜   改进版 宏代码     \n \n 这个 版本 用   ` ADODB . Stream `   对象 来 写 文件 ， 强制 UTF - 8 并加   BOM （ Byte   Order   Mark ） 。     \n >   ⚠   使用 前 需要 启用   VBA   里   “ Microsoft   ActiveX   Data   Objects ”   支持 ：     \n >   在   VBA   编辑器 （ Alt + F11 ） →   菜单   * * 工具 （ Tools ）   →   参考 （ References ） * *   →   勾选     \n >   ` Microsoft   ActiveX   Data   Objects   x . x   Library `     \n > （ x . x   版本 随 你 系统 不同 ， 通常 是   6.1   或   2.8 ） \n \n --- \n \n ###   1 ️ ⃣   生成   CSV （ UTF ‑ 8   +   BOM ） \n \n ` ` ` vb \n Sub   ExportCSV _ Gaode _ UTF8 ( ) \n         Dim   ws   As   Worksheet ,   i   As   Long ,   line   As   String \n         Dim   csvContent   As   String \n         Dim   filePath   As   String \n         \n         Set   ws   =   ThisWorkbook . Sheets ( \" Data _ Input \" ) \n         filePath   =   ThisWorkbook . Path   &   \" \\ city _ trip . csv \" \n         \n         '   表头 \n         csvContent   =   \" 序号 , 名称 , 地址 , 纬度 , 经度 \"   &   vbCrLf \n         \n         '   内容 \n         i   =   2 \n         Do   While   ws . Cells ( i ,   1 ) . Value   < >   \" \" \n                 line   =   ws . Cells ( i ,   1 ) . Text   &   \" , \"   &   _ \n                               ws . Cells ( i ,   2 ) . Text   &   \" , \"   &   _ \n                               ws . Cells ( i ,   3 ) . Text   &   \" , \"   &   _ \n                               ws . Cells ( i ,   4 ) . Text   &   \" , \"   &   _ \n                               ws . Cells ( i ,   5 ) . Text \n                 csvContent   =   csvContent   &   line   &   vbCrLf \n                 i   =   i   +   1 \n         Loop \n         \n         '   调用 UTF - 8 写入 \n         Call   WriteUTF8WithBOM ( filePath ,   csvContent ) \n         \n         MsgBox   \" 高德 地图   CSV   已 生成   ( UTF - 8 + BOM ) ： \"   &   vbCrLf   &   filePath ,   vbInformation \n End   Sub \n ` ` ` \n \n --- \n \n ###   2 ️ ⃣   生成   KML （ UTF ‑ 8   +   BOM ） \n \n ` ` ` vb \n Sub   ExportKML _ Google _ UTF8 ( ) \n         Dim   ws   As   Worksheet ,   i   As   Long \n         Dim   kmlContent   As   String \n         Dim   filePath   As   String \n         \n         Set   ws   =   ThisWorkbook . Sheets ( \" Data _ Input \" ) \n         filePath   =   ThisWorkbook . Path   &   \" \\ city _ trip . kml \" \n         \n         '   头部 \n         kmlContent   =   \" < ? xml   version = \" \" 1.0 \" \"   encoding = \" \" UTF - 8 \" \" ? > \"   &   vbCrLf \n         kmlContent   =   kmlContent   &   \" < kml   xmlns = \" \" http : / / www . opengis . net / kml / 2.2 \" \" > \"   &   vbCrLf \n         kmlContent   =   kmlContent   &   \" < Document > \"   &   vbCrLf \n         kmlContent   =   kmlContent   &   \"         < name > City   Trip < / name > \"   &   vbCrLf \n         kmlContent   =   kmlContent   &   \"         < description > 自定义 城市 出行 全部 点位 < / description > \"   &   vbCrLf \n         \n         '   点位 \n         i   =   2 \n         Do   While   ws . Cells ( i ,   1 ) . Value   < >   \" \" \n                 kmlContent   =   kmlContent   &   \"         < Placemark > \"   &   vbCrLf \n                 kmlContent   =   kmlContent   &   \"                 < name > \"   &   ws . Cells ( i ,   2 ) . Text   &   \" < / name > \"   &   vbCrLf \n                 kmlContent   =   kmlContent   &   \"                 < Point > < coordinates > \"   &   ws . Cells ( i ,   5 ) . Text   &   \" , \"   &   ws . Cells ( i ,   4 ) . Text   &   \" , 0 < / coordinates > < / Point > \"   &   vbCrLf \n                 kmlContent   =   kmlContent   &   \"         < / Placemark > \"   &   vbCrLf \n                 i   =   i   +   1 \n         Loop \n         \n         '   尾部 \n         kmlContent   =   kmlContent   &   \" < / Document > \"   &   vbCrLf \n         kmlContent   =   kmlContent   &   \" < / kml > \" \n         \n         '   调用 UTF - 8 写入 \n         Call   WriteUTF8WithBOM ( filePath ,   kmlContent ) \n         \n         MsgBox   \" Google   My   Maps   KML   已 生成   ( UTF - 8 + BOM ) ： \"   &   vbCrLf   &   filePath ,   vbInformation \n End   Sub \n ` ` ` \n \n --- \n \n ###   3 ️ ⃣   公用   UTF ‑ 8 + BOM   写入 函数 \n \n ` ` ` vb \n Sub   WriteUTF8WithBOM ( filePath   As   String ,   content   As   String ) \n         Dim   stream   As   Object \n         \n         Set   stream   =   CreateObject ( \" ADODB . Stream \" ) \n         With   stream \n                 . Type   =   2     '   文本 模式 \n                 . Charset   =   \" utf - 8 \"   '   指定   UTF - 8 \n                 . Open \n                 . WriteText   content \n                 '   保存 为 文件 \n                 . SaveToFile   filePath ,   2   '   2 = 覆盖 ， 如果 已 存在 \n                 . Close \n         End   With \n         Set   stream   =   Nothing \n End   Sub \n ` ` ` \n \n --- \n \n ##   🔘   按钮 绑定 （ 推荐 布局 ） \n \n 在   ` Data _ Input `   工作 表 ： \n -   按钮 1 ： * * 生成   CSV   ( 高德 ) * *   →   对应 宏   ` ExportCSV _ Gaode _ UTF8 ` \n -   按钮 2 ： * * 生成   KML   ( Google ) * *   →   对应 宏   ` ExportKML _ Google _ UTF8 ` \n \n 按钮 用 「 插入   →   形状   →   矩形 」 画 ， 右键 「 指派 宏 」 即可 。 \n \n --- \n \n ##   🚀   使用 步骤 \n \n 1 .   * * 启用 宏 保存 * *     \n       -   Excel   另存为   ` * . xlsm ` （ 启用 宏 的 Excel 文件 ） \n       \n 2 .   * * 输入 数据 * *     \n       -   在   ` Data _ Input `   Sheet   填写 序号 、 名称 、 地址 、 纬度 、 经度 \n \n 3 .   * * 点击 按钮 生成 文件 * *     \n       -   文件 会 生成 到   * * 当前 Excel 所在 目录 * * ： \n           -   ` city _ trip . csv `   →   高德 地图 批量 导入 \n           -   ` city _ trip . kml `   →   Google   My   Maps   导入   /   可 截图 \n \n 4 .   * * 导入 地图 平台 * *     \n       -   高德 网页 版   →   我 的 地点   →   导入     \n       -   Google   My   Maps   →   创建 地图   →   导入 \n \n --- \n \n ✅   * * 优点 * * ： \n -   完整   UTF - 8   +   BOM ， 无论 什么 系统 / 平台 导入 都 不会 乱码     \n -   一次 维护 ， CSV + KML   双 平台 同步 更新     \n -   ZIP   打包 直接 用     \n \n --- \n \n 我 可以 帮 你 * * 把 这个   Excel   宏 文件 的 初始 版本 做好 ， 并 在   Data _ Input   里 预填 2 - 3 个 示例 地点 * * ， 你 下载 后 就 能 直接 测试 生成   CSV   /   KML 。     \n 你 要 我 为 你 设计 这个 可 直接 测试 的   ` . xlsm `   文件 的 示例 内容 方案 吗 ？ 这样 你 一 打开 就 能 试运行 生成 文件 。"
         }
-    ]
+    ],
+    "profile": {
+        "gender": "Female",
+        "age": 23,
+        "background": "医学与健康科学",
+        "personality": [
+            "乐观",
+            "独立",
+            "耐心",
+            "友善",
+            "上进"
+        ],
+        "occupation": "学生",
+        "daily_interests": [
+            "养宠物",
+            "绘画",
+            "玩游戏",
+            "运动",
+            "烘焙/烹饪",
+            "听音乐",
+            "网购"
+        ],
+        "travel_habits": [
+            "自然风光",
+            "美食之旅",
+            "参观历史遗迹",
+            "参观博物馆"
+        ],
+        "dining_preferences": [
+            "健康饮食",
+            "烘焙",
+            "均衡饮食",
+            "街头小吃",
+            "烧烤"
+        ],
+        "spending_habits": [
+            "娱乐支出",
+            "注重消费体验",
+            "节俭",
+            "用于旅行"
+        ],
+        "other_aspects": [
+            "住在宿舍",
+            "喜欢参与音乐活动",
+            "喜欢参与体育活动",
+            "社交广泛"
+        ],
+        "complete_tid": {
+            "旅行规划": [
+                2,
+                0,
+                4,
+                3,
+                1
+            ],
+            "技能学习规划": [
+                2,
+                0,
+                3,
+                1
+            ],
+            "礼物准备": [
+                3,
+                0,
+                4
+            ],
+            "菜谱规划": [
+                2,
+                0,
+                1,
+                3
+            ]
+        }
+    }
 }

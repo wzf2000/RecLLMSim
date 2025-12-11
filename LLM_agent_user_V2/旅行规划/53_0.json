@@ -208,5 +208,78 @@
             "content": "好嘞 👍  \n我帮你把 **完整版** 和 **简版共享版** 两份 CSV 数据，预合并成一个 **双工作表纯文本模板**，这样你只要一次性复制到 Excel / WPS，就会变成一个文件内的两个表格（Sheet）。\n\n---\n\n## **使用指南（重要）**\n因为纯文本无法直接在这里自动创建 Excel 的多个工作表，但我会用清晰的分隔标识，将两个表的内容放在同一个文本里，你复制到 Excel 时就很容易创建两个 Sheet。\n\n**步骤**：\n1. **在 Excel 中建一个新工作簿**。  \n2. 复制下面 **Sheet1（完整版）** 内容→粘贴到第一个工作表，并命名为 “完整版行程”。  \n3. 复制 **Sheet2（简版共享）** 内容→粘贴到第二个工作表，并命名为 “简版共享”。  \n4. 调整列宽行高，冻结首行，然后保存为 `.xlsx`。  \n5. 把文件传到手机，即可直接用。\n\n---\n\n### **双Sheet纯文本模板**\n\n---\n\n#### **Sheet1：完整版行程**\n```\n日程,景点1,景点2,景点3,餐厅1,餐厅2,餐厅3,人均餐费,交通方式,时间,总距离(公里),主要单程耗时,亮点备注,一日多点导航(高德)\nD1 南京→昆明→大理,\"① 洱海客栈 https://amap.com/place/72639943\",\"② 大理古城 https://amap.com/place/72636589\",,\"① 小喜米线 https://amap.com/place/98393047\",\"② 再见酒馆 https://amap.com/place/B0FFG8FWPR\",,25/45,\"飞机→高铁/打车\",\"飞3.5h / 高铁2h\",15,机场→客栈1h,\"洱海客栈拍日落佳；大理古城五华楼景好；午米线筋道；晚餐安静\",\"https://uri.amap.com/navigation?from=117.204,31.820,南京禄口机场&to=100.228,25.607,洱海客栈&via=100.227,25.695,大理古城\"\nD2 大理环洱海,\"① 才村湿地 https://amap.com/place/B0FFFWZQ4Q\",\"② 喜洲古镇 https://amap.com/place/B0FFFSX09J\",\"③ 双廊 https://amap.com/place/B0FFFVDOTU\",\"① 益龙粑粑 https://amap.com/place/B0FFG9LGHJ\",\"② 海舌几何餐厅 https://amap.com/place/B0FFG4GB3P\",\"③ 风花雪月菜馆 https://amap.com/place/B0FFG5IIIG\",8/50/60,\"电动车/自驾\",\"环湖约6h\",80,喜洲→双廊40min,\"才村湿地晨景优；喜洲拍民居；双廊洱海北景；窗外海景佳；烤鱼招牌\",\"https://uri.amap.com/navigation?from=100.216,25.688,才村湿地&to=100.165,25.859,喜洲古镇&via=100.246,25.894,双廊\"\nD3 大理→丽江古城,\"① 木府 https://amap.com/place/B0FFFYDNXU\",\"② 四方街 https://amap.com/place/B0FFFYDNXV\",\"③ 束河古镇 https://amap.com/place/B0FFGAH6XV\",\"① 周记米线 https://amap.com/place/B0FFG4U6DN\",\"② 顺顺米灌肠 https://amap.com/place/B0FFG5H4VR\",\"③ 阿哩哩腊排骨 https://amap.com/place/B0FFG6R0VH\",20/20/75,\"高铁→步行\",\"高铁1.5h / 古城游4h\",10,高铁站→古城20min,\"木府观古城全景佳；四方街避夜高峰；束河安静；米线可选辣；火锅炖烂\",\"https://uri.amap.com/navigation?from=100.241,26.872,木府&to=100.239,26.874,四方街&via=100.217,26.899,束河古镇\"\nD4 玉龙雪山+蓝月谷,\"① 玉龙雪山 https://amap.com/place/B0FFFY9P3R\",\"② 蓝月谷 https://amap.com/place/B0FFGAE37N\",\"③ 拉市海 https://amap.com/place/B0FFG8S3RJ\",,\"午餐 路餐\",\"① 大石桥菌火锅 https://amap.com/place/B0FFG92BXN\",-/20/90,\"包车/景区巴士\",\"全天约7h\",50,古城→雪山40min,\"雪山适应海拔；蓝月谷上午水色佳；拉市海骑马可选；菌火锅鲜\",\"https://uri.amap.com/navigation?from=100.230,26.997,玉龙雪山&to=100.235,26.938,蓝月谷&via=100.161,26.857,拉市海\"\nD5 丽江→香格里拉,\"① 松赞林寺 https://amap.com/place/B0FFFZP8HM\",\"② 独克宗古城 https://amap.com/place/B0FFGDBK4D\",,\"午餐 古城家常馆\",\"① 仓央家藏餐馆 https://amap.com/place/B0FFGDAB1V\",,35/80,\"大巴/步行\",\"大巴4h / 古城游3h\",8,车站→松赞林寺15min,\"松赞林寺拍金顶佳；独克宗傍晚转经筒美；牦牛汤锅招牌\",\"https://uri.amap.com/navigation?from=99.709,27.837,松赞林寺&to=99.711,27.833,独克宗古城\"\nD6 普达措国家公园,\"① 属都湖 https://amap.com/place/B0FFFCX4YX\",\"② 碧塔海 https://amap.com/place/B0FFFCX4YX\",,\"① 绿萝餐厅 https://amap.com/place/B0FFGDB4DT\",\"② 红帽子牦牛火锅 https://amap.com/place/B0FFGDB4GJ\",,40/85,\"景区巴士\",\"景区5h / 古城2h\",25,属都湖→碧塔海15min,\"属都湖晨光倒影好；碧塔海步道2-3h；牦牛锅肉厚\",\"https://uri.amap.com/navigation?from=99.940,27.890,属都湖&to=99.950,27.930,碧塔海\"\nD7 香格里拉→丽江→昆明→南京\",,,\"① 桥香园米线 https://amap.com/place/B0FFGA85JL\",,,25,\"大巴→高铁→飞机\",\"长途返程\",返程为主,长途返程,\"米线爽滑；返程路餐\",\"\"\n```\n\n---\n\n#### **Sheet2：简版共享**\n```\n日程,景点1,景点2,景点3,餐厅1,餐厅2,餐厅3,亮点备注,一日多点导航(高德)\nD1 南京→昆明→大理,\"① 洱海客栈 https://amap.com/place/72639943\",\"② 大理古城 https://amap.com/place/72636589\",,\"① 小喜米线 https://amap.com/place/98393047\",\"② 再见酒馆 https://amap.com/place/B0FFG8FWPR\",,\"洱海客栈拍日落佳；大理古城五华楼景好；午米线筋道；晚餐安静\",\"https://uri.amap.com/navigation?from=117.204,31.820,南京禄口机场&to=100.228,25.607,洱海客栈&via=100.227,25.695,大理古城\"\nD2 大理环洱海,\"① 才村湿地 https://amap.com/place/B0FFFWZQ4Q\",\"② 喜洲古镇 https://amap.com/place/B0FFFSX09J\",\"③ 双廊 https://amap.com/place/B0FFFVDOTU\",\"① 益龙粑粑 https://amap.com/place/B0FFG9LGHJ\",\"② 海舌几何餐厅 https://amap.com/place/B0FFG4GB3P\",\"③ 风花雪月菜馆 https://amap.com/place/B0FFG5IIIG\",\"才村湿地晨景优；喜洲拍民居；双廊洱海北景；餐厅窗外海景佳；烤鱼招牌\",\"https://uri.amap.com/navigation?from=100.216,25.688,才村湿地&to=100.165,25.859,喜洲古镇&via=100.246,25.894,双廊\"\nD3 大理→丽江古城,\"① 木府 https://amap.com/place/B0FFFYDNXU\",\"② 四方街 https://amap.com/place/B0FFFYDNXV\",\"③ 束河古镇 https://amap.com/place/B0FFGAH6XV\",\"① 周记米线 https://amap.com/place/B0FFG4U6DN\",\"② 顺顺米灌肠 https://amap.com/place/B0FFG5H4VR\",\"③ 阿哩哩腊排骨 https://amap.com/place/B0FFG6R0VH\",\"木府观古城全景佳；四方街避夜高峰；束河安静；米线可选辣；火锅炖烂\",\"https://uri.amap.com/navigation?from=100.241,26.872,木府&to=100.239,26.874,四方街&via=100.217,26.899,束河古镇\"\nD4 玉龙雪山+蓝月谷,\"① 玉龙雪山 https://amap.com/place/B0FFFY9P3R\",\"② 蓝月谷 https://amap.com/place/B0FFGAE37N\",\"③ 拉市海 https://amap.com/place/B0FFG8S3RJ\",,\"午餐 路餐\",\"① 大石桥菌火锅 https://amap.com/place/B0FFG92BXN\",\"雪山适应海拔；蓝月谷上午水色佳；拉市海骑马可选；菌火锅鲜\",\"https://uri.amap.com/navigation?from=100.230,26.997,玉龙雪山&to=100.235,26.938,蓝月谷&via=100.161,26.857,拉市海\"\nD5 丽江→香格里拉,\"① 松赞林寺 https://amap.com/place/B0FFFZP8HM\",\"② 独克宗古城 https://amap.com/place/B0FFGDBK4D\",,\"午餐 古城家常馆\",\"① 仓央家藏餐馆 https://amap.com/place/B0FFGDAB1V\",,\"松赞林寺拍金顶佳；独克宗傍晚转经筒美；牦牛汤锅招牌\",\"https://uri.amap.com/navigation?from=99.709,27.837,松赞林寺&to=99.711,27.833,独克宗古城\"\nD6 普达措国家公园,\"① 属都湖 https://amap.com/place/B0FFFCX4YX\",\"② 碧塔海 https://amap.com/place/B0FFFCX4YX\",,\"① 绿萝餐厅 https://amap.com/place/B0FFGDB4DT\",\"② 红帽子牦牛火锅 https://amap.com/place/B0FFGDB4GJ\",,\"属都湖晨光倒影好；碧塔海步道2-3h；牦牛锅肉厚量大\",\"https://uri.amap.com/navigation?from=99.940,27.890,属都湖&to=99.950,27.930,碧塔海\"\nD7 香格里拉→丽江→昆明→南京\",,,\"① 桥香园米线 https://amap.com/place/B0FFGA85JL\",,,,\"米线爽滑；返程路餐\",\"\"\n```\n\n---\n\n这样复制两段到 Excel 的两个工作表，就能获得你的**十一终极出行文件** ✅  \n我建议：  \n- **Sheet1 用来你自己管理**，含所有细节。  \n- **Sheet2 发朋友**，他们只看核心信息。\n\n你需要的话，我可以帮你教 **如何在 Excel 里自动为所有链接加超链接格式**，这样即使 CSV 导入没有自动识别，也能一键变成可点导航。 要帮你做这个链接自动化的小教程吗？这样可以保证所有设备都能直接用导航功能。",
             "content_cut": "好 嘞   👍     \n 我 帮 你 把   * * 完整版 * *   和   * * 简版 共享版 * *   两份   CSV   数据 ， 预 合并 成 一个   * * 双 工作 表纯 文本 模板 * * ， 这样 你 只要 一次性 复制到   Excel   /   WPS ， 就 会 变成 一个 文件 内 的 两个 表格 （ Sheet ） 。 \n \n --- \n \n ##   * * 使用指南 （ 重要 ） * * \n 因为 纯 文本 无法 直接 在 这里 自动 创建   Excel   的 多个 工作 表 ， 但 我会 用 清晰 的 分隔 标识 ， 将 两个 表 的 内容 放在 同一个 文本 里 ， 你 复制到   Excel   时 就 很 容易 创建 两个   Sheet 。 \n \n * * 步骤 * * ： \n 1 .   * * 在   Excel   中建 一个 新 工作 簿 * * 。     \n 2 .   复制 下面   * * Sheet1 （ 完整版 ） * *   内容 → 粘贴 到 第一个 工作 表 ， 并 命名 为   “ 完整版 行程 ” 。     \n 3 .   复制   * * Sheet2 （ 简版 共享 ） * *   内容 → 粘贴 到 第二个 工作 表 ， 并 命名 为   “ 简版 共享 ” 。     \n 4 .   调整 列宽行 高 ， 冻结 首 行 ， 然后 保存 为   ` . xlsx ` 。     \n 5 .   把 文件 传到 手机 ， 即可 直接 用 。 \n \n --- \n \n ###   * * 双 Sheet 纯 文本 模板 * * \n \n --- \n \n ####   * * Sheet1 ： 完整版 行程 * * \n ` ` ` \n 日程 , 景点 1 , 景点 2 , 景点 3 , 餐厅 1 , 餐厅 2 , 餐厅 3 , 人均 餐费 , 交通 方式 , 时间 , 总 距离 ( 公里 ) , 主要 单程 耗时 , 亮点 备注 , 一日 多点 导航 ( 高德 ) \n D1   南京 → 昆明 → 大理 , \" ①   洱海 客栈   https : / / amap . com / place / 72639943 \" , \" ②   大理 古城   https : / / amap . com / place / 72636589 \" , , \" ①   小 喜 米线   https : / / amap . com / place / 98393047 \" , \" ②   再见 酒馆   https : / / amap . com / place / B0FFG8FWPR \" , , 25 / 45 , \" 飞机 → 高铁 / 打车 \" , \" 飞 3.5 h   /   高铁 2h \" , 15 , 机场 → 客栈 1h , \" 洱海 客栈 拍 日落 佳 ； 大理 古城 五华 楼景 好 ； 午 米线 筋道 ； 晚餐 安静 \" , \" https : / / uri . amap . com / navigation ? from = 117.204 , 31.820 , 南京 禄口 机场 & to = 100.228 , 25.607 , 洱海 客栈 & via = 100.227 , 25.695 , 大理 古城 \" \n D2   大理 环 洱海 , \" ①   才 村 湿地   https : / / amap . com / place / B0FFFWZQ4Q \" , \" ②   喜洲 古镇   https : / / amap . com / place / B0FFFSX09J \" , \" ③   双廊   https : / / amap . com / place / B0FFFVDOTU \" , \" ①   益龙 粑 粑   https : / / amap . com / place / B0FFG9LGHJ \" , \" ②   海舌 几何 餐厅   https : / / amap . com / place / B0FFG4GB3P \" , \" ③   风花雪月 菜馆   https : / / amap . com / place / B0FFG5IIIG \" , 8 / 50 / 60 , \" 电动车 / 自驾 \" , \" 环湖 约 6h \" , 80 , 喜洲 → 双廊 40min , \" 才 村 湿地 晨景优 ； 喜洲 拍 民居 ； 双廊 洱海 北景 ； 窗外 海景 佳 ； 烤鱼 招牌 \" , \" https : / / uri . amap . com / navigation ? from = 100.216 , 25.688 , 才 村 湿地 & to = 100.165 , 25.859 , 喜洲 古镇 & via = 100.246 , 25.894 , 双廊 \" \n D3   大理 → 丽江 古城 , \" ①   木府   https : / / amap . com / place / B0FFFYDNXU \" , \" ②   四方街   https : / / amap . com / place / B0FFFYDNXV \" , \" ③   束河 古镇   https : / / amap . com / place / B0FFGAH6XV \" , \" ①   周记 米线   https : / / amap . com / place / B0FFG4U6DN \" , \" ②   顺顺 米 灌肠   https : / / amap . com / place / B0FFG5H4VR \" , \" ③   阿哩 哩腊 排骨   https : / / amap . com / place / B0FFG6R0VH \" , 20 / 20 / 75 , \" 高铁 → 步行 \" , \" 高铁 1.5 h   /   古城 游 4h \" , 10 , 高铁 站 → 古城 20min , \" 木府 观 古城 全景 佳 ； 四方街 避夜 高峰 ； 束河 安静 ； 米线 可选辣 ； 火锅 炖烂 \" , \" https : / / uri . amap . com / navigation ? from = 100.241 , 26.872 , 木府 & to = 100.239 , 26.874 , 四方街 & via = 100.217 , 26.899 , 束河 古镇 \" \n D4   玉龙雪山 + 蓝月谷 , \" ①   玉龙雪山   https : / / amap . com / place / B0FFFY9P3R \" , \" ②   蓝月谷   https : / / amap . com / place / B0FFGAE37N \" , \" ③   拉市海   https : / / amap . com / place / B0FFG8S3RJ \" , , \" 午餐   路餐 \" , \" ①   大石桥 菌 火锅   https : / / amap . com / place / B0FFG92BXN \" , - / 20 / 90 , \" 包车 / 景区 巴士 \" , \" 全天 约 7h \" , 50 , 古城 → 雪山 40min , \" 雪山 适应 海拔 ； 蓝月谷 上午 水色 佳 ； 拉市海 骑马 可 选 ； 菌 火锅 鲜 \" , \" https : / / uri . amap . com / navigation ? from = 100.230 , 26.997 , 玉龙雪山 & to = 100.235 , 26.938 , 蓝月谷 & via = 100.161 , 26.857 , 拉市海 \" \n D5   丽江 → 香格里拉 , \" ①   松赞林 寺   https : / / amap . com / place / B0FFFZP8HM \" , \" ②   独克宗 古城   https : / / amap . com / place / B0FFGDBK4D \" , , \" 午餐   古城 家常 馆 \" , \" ①   仓央家 藏 餐馆   https : / / amap . com / place / B0FFGDAB1V \" , , 35 / 80 , \" 大巴 / 步行 \" , \" 大巴 4h   /   古城 游 3h \" , 8 , 车站 → 松赞林 寺 15min , \" 松赞林 寺 拍 金顶 佳 ； 独克宗 傍晚 转经筒 美 ； 牦牛 汤锅 招牌 \" , \" https : / / uri . amap . com / navigation ? from = 99.709 , 27.837 , 松赞林 寺 & to = 99.711 , 27.833 , 独克宗 古城 \" \n D6   普达措 国家 公园 , \" ①   属 都 湖   https : / / amap . com / place / B0FFFCX4YX \" , \" ②   碧塔海   https : / / amap . com / place / B0FFFCX4YX \" , , \" ①   绿萝 餐厅   https : / / amap . com / place / B0FFGDB4DT \" , \" ②   红帽子 牦牛 火锅   https : / / amap . com / place / B0FFGDB4GJ \" , , 40 / 85 , \" 景区 巴士 \" , \" 景区 5h   /   古城 2h \" , 25 , 属 都 湖 → 碧塔海 15min , \" 属 都 湖 晨光 倒影 好 ； 碧塔海 步道 2 - 3h ； 牦牛 锅肉 厚 \" , \" https : / / uri . amap . com / navigation ? from = 99.940 , 27.890 , 属 都 湖 & to = 99.950 , 27.930 , 碧塔海 \" \n D7   香格里拉 → 丽江 → 昆明 → 南京 \" , , , \" ①   桥香园 米线   https : / / amap . com / place / B0FFGA85JL \" , , , 25 , \" 大巴 → 高铁 → 飞机 \" , \" 长途 返程 \" , 返程 为主 , 长途 返程 , \" 米线 爽滑 ； 返程 路餐 \" , \" \" \n ` ` ` \n \n --- \n \n ####   * * Sheet2 ： 简版 共享 * * \n ` ` ` \n 日程 , 景点 1 , 景点 2 , 景点 3 , 餐厅 1 , 餐厅 2 , 餐厅 3 , 亮点 备注 , 一日 多点 导航 ( 高德 ) \n D1   南京 → 昆明 → 大理 , \" ①   洱海 客栈   https : / / amap . com / place / 72639943 \" , \" ②   大理 古城   https : / / amap . com / place / 72636589 \" , , \" ①   小 喜 米线   https : / / amap . com / place / 98393047 \" , \" ②   再见 酒馆   https : / / amap . com / place / B0FFG8FWPR \" , , \" 洱海 客栈 拍 日落 佳 ； 大理 古城 五华 楼景 好 ； 午 米线 筋道 ； 晚餐 安静 \" , \" https : / / uri . amap . com / navigation ? from = 117.204 , 31.820 , 南京 禄口 机场 & to = 100.228 , 25.607 , 洱海 客栈 & via = 100.227 , 25.695 , 大理 古城 \" \n D2   大理 环 洱海 , \" ①   才 村 湿地   https : / / amap . com / place / B0FFFWZQ4Q \" , \" ②   喜洲 古镇   https : / / amap . com / place / B0FFFSX09J \" , \" ③   双廊   https : / / amap . com / place / B0FFFVDOTU \" , \" ①   益龙 粑 粑   https : / / amap . com / place / B0FFG9LGHJ \" , \" ②   海舌 几何 餐厅   https : / / amap . com / place / B0FFG4GB3P \" , \" ③   风花雪月 菜馆   https : / / amap . com / place / B0FFG5IIIG \" , \" 才 村 湿地 晨景优 ； 喜洲 拍 民居 ； 双廊 洱海 北景 ； 餐厅 窗外 海景 佳 ； 烤鱼 招牌 \" , \" https : / / uri . amap . com / navigation ? from = 100.216 , 25.688 , 才 村 湿地 & to = 100.165 , 25.859 , 喜洲 古镇 & via = 100.246 , 25.894 , 双廊 \" \n D3   大理 → 丽江 古城 , \" ①   木府   https : / / amap . com / place / B0FFFYDNXU \" , \" ②   四方街   https : / / amap . com / place / B0FFFYDNXV \" , \" ③   束河 古镇   https : / / amap . com / place / B0FFGAH6XV \" , \" ①   周记 米线   https : / / amap . com / place / B0FFG4U6DN \" , \" ②   顺顺 米 灌肠   https : / / amap . com / place / B0FFG5H4VR \" , \" ③   阿哩 哩腊 排骨   https : / / amap . com / place / B0FFG6R0VH \" , \" 木府 观 古城 全景 佳 ； 四方街 避夜 高峰 ； 束河 安静 ； 米线 可选辣 ； 火锅 炖烂 \" , \" https : / / uri . amap . com / navigation ? from = 100.241 , 26.872 , 木府 & to = 100.239 , 26.874 , 四方街 & via = 100.217 , 26.899 , 束河 古镇 \" \n D4   玉龙雪山 + 蓝月谷 , \" ①   玉龙雪山   https : / / amap . com / place / B0FFFY9P3R \" , \" ②   蓝月谷   https : / / amap . com / place / B0FFGAE37N \" , \" ③   拉市海   https : / / amap . com / place / B0FFG8S3RJ \" , , \" 午餐   路餐 \" , \" ①   大石桥 菌 火锅   https : / / amap . com / place / B0FFG92BXN \" , \" 雪山 适应 海拔 ； 蓝月谷 上午 水色 佳 ； 拉市海 骑马 可 选 ； 菌 火锅 鲜 \" , \" https : / / uri . amap . com / navigation ? from = 100.230 , 26.997 , 玉龙雪山 & to = 100.235 , 26.938 , 蓝月谷 & via = 100.161 , 26.857 , 拉市海 \" \n D5   丽江 → 香格里拉 , \" ①   松赞林 寺   https : / / amap . com / place / B0FFFZP8HM \" , \" ②   独克宗 古城   https : / / amap . com / place / B0FFGDBK4D \" , , \" 午餐   古城 家常 馆 \" , \" ①   仓央家 藏 餐馆   https : / / amap . com / place / B0FFGDAB1V \" , , \" 松赞林 寺 拍 金顶 佳 ； 独克宗 傍晚 转经筒 美 ； 牦牛 汤锅 招牌 \" , \" https : / / uri . amap . com / navigation ? from = 99.709 , 27.837 , 松赞林 寺 & to = 99.711 , 27.833 , 独克宗 古城 \" \n D6   普达措 国家 公园 , \" ①   属 都 湖   https : / / amap . com / place / B0FFFCX4YX \" , \" ②   碧塔海   https : / / amap . com / place / B0FFFCX4YX \" , , \" ①   绿萝 餐厅   https : / / amap . com / place / B0FFGDB4DT \" , \" ②   红帽子 牦牛 火锅   https : / / amap . com / place / B0FFGDB4GJ \" , , \" 属 都 湖 晨光 倒影 好 ； 碧塔海 步道 2 - 3h ； 牦牛 锅肉 厚量 大 \" , \" https : / / uri . amap . com / navigation ? from = 99.940 , 27.890 , 属 都 湖 & to = 99.950 , 27.930 , 碧塔海 \" \n D7   香格里拉 → 丽江 → 昆明 → 南京 \" , , , \" ①   桥香园 米线   https : / / amap . com / place / B0FFGA85JL \" , , , , \" 米线 爽滑 ； 返程 路餐 \" , \" \" \n ` ` ` \n \n --- \n \n 这样 复制 两段 到   Excel   的 两个 工作 表 ， 就 能 获得 你 的 * * 十一 终极 出行 文件 * *   ✅     \n 我 建议 ：     \n -   * * Sheet1   用来 你 自己 管理 * * ， 含 所有 细节 。     \n -   * * Sheet2   发 朋友 * * ， 他们 只 看 核心 信息 。 \n \n 你 需要的话 ， 我 可以 帮 你 教   * * 如何 在   Excel   里 自动 为 所有 链接 加 超链接 格式 * * ， 这样 即使   CSV   导入 没有 自动识别 ， 也 能 一键 变成 可 点 导航 。   要 帮 你 做 这个 链接 自动化 的 小 教程 吗 ？ 这样 可以 保证 所有 设备 都 能 直接 用 导航 功能 。"
         }
-    ]
+    ],
+    "profile": {
+        "gender": "Female",
+        "age": 23,
+        "background": "医学与健康科学",
+        "personality": [
+            "乐观",
+            "独立",
+            "耐心",
+            "友善",
+            "上进"
+        ],
+        "occupation": "学生",
+        "daily_interests": [
+            "养宠物",
+            "绘画",
+            "玩游戏",
+            "运动",
+            "烘焙/烹饪",
+            "听音乐",
+            "网购"
+        ],
+        "travel_habits": [
+            "自然风光",
+            "美食之旅",
+            "参观历史遗迹",
+            "参观博物馆"
+        ],
+        "dining_preferences": [
+            "健康饮食",
+            "烘焙",
+            "均衡饮食",
+            "街头小吃",
+            "烧烤"
+        ],
+        "spending_habits": [
+            "娱乐支出",
+            "注重消费体验",
+            "节俭",
+            "用于旅行"
+        ],
+        "other_aspects": [
+            "住在宿舍",
+            "喜欢参与音乐活动",
+            "喜欢参与体育活动",
+            "社交广泛"
+        ],
+        "complete_tid": {
+            "旅行规划": [
+                2,
+                0,
+                4,
+                3,
+                1
+            ],
+            "技能学习规划": [
+                2,
+                0,
+                3,
+                1
+            ],
+            "礼物准备": [
+                3,
+                0,
+                4
+            ],
+            "菜谱规划": [
+                2,
+                0,
+                1,
+                3
+            ]
+        }
+    }
 }

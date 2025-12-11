@@ -260,5 +260,51 @@
             "content": "好，我来给你这个 `.docx` 模板的 XML 加一层 **版式增强**，让它看起来更像正式的工厂生产单：  \n\n---\n\n## 🎯 增强点：\n1. **封面浅灰背景** → 整个封面的标题区域加一个浅灰色底框，背景色统一（例如 `#f4f4f4`）。\n2. **表格线样式统一** → 所有表格增加固定黑色/深灰色边框，线条粗度适中（便于打印）。\n3. **章节标题样式** → 每个章节标题加入加粗、大字号、底部适当空白。\n4. **间距优化** → 表格与标题之间留空 0.5 行，让版面更呼吸。\n\n---\n\n在 Word 的 `.xml` 里，这些是通过 **`<w:shd>`**（填充背景色）和 `<w:tcBorders>`（表格单元格边框）标签实现的。\n\n我会给你一个**封面背景示例 XML**和**表格线样式示例 XML**，你可以直接替换到我们之前发的分段里相应位置。\n\n---\n\n### 1. 封面浅灰背景示例  \n替换第1段封面标题那几行 XML为：  \n```xml\n<!-- 封面标题 + 灰背景 -->\n<w:p>\n  <w:pPr><w:jc w:val=\"center\"/></w:pPr>\n  <w:r>\n    <w:rPr><w:b/><w:sz w:val=\"48\"/></w:rPr>\n    <w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"f4f4f4\"/>\n    <w:t>篮球刻字 & 球袋定制生产说明书</w:t>\n  </w:r>\n</w:p>\n\n<w:p>\n  <w:pPr><w:jc w:val=\"center\"/></w:pPr>\n  <w:r>\n    <w:rPr><w:sz w:val=\"28\"/></w:rPr>\n    <w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"f4f4f4\"/>\n    <w:t>Basketball Gift Project</w:t>\n  </w:r>\n</w:p>\n```\n这会让标题文字背后有浅灰色背景，居中且整块高亮。\n\n---\n\n### 2. 表格边框样式示例  \n在每个 `<w:tbl>` 开始后，加：\n```xml\n<w:tblPr>\n  <w:tblBorders>\n    <w:top w:val=\"single\" w:sz=\"4\" w:color=\"000000\"/>\n    <w:left w:val=\"single\" w:sz=\"4\" w:color=\"000000\"/>\n    <w:bottom w:val=\"single\" w:sz=\"4\" w:color=\"000000\"/>\n    <w:right w:val=\"single\" w:sz=\"4\" w:color=\"000000\"/>\n    <w:insideH w:val=\"single\" w:sz=\"4\" w:color=\"000000\"/>\n    <w:insideV w:val=\"single\" w:sz=\"4\" w:color=\"000000\"/>\n  </w:tblBorders>\n</w:tblPr>\n```\n这样该表格所有单元格都会有统一的 0.5pt~1pt 边框，看起来很工整。\n\n---\n\n### 3. 章节标题样式示例  \n替换章节标题行，比如：\n```xml\n<w:p>\n  <w:r>\n    <w:rPr><w:b/><w:sz w:val=\"32\"/></w:rPr>\n    <w:t>1. 篮球刻字工艺说明</w:t>\n  </w:r>\n</w:p>\n```\n可以在 `<w:pPr>` 内加底部间距：\n```xml\n<w:pPr>\n  <w:spacing w:after=\"200\"/>\n</w:pPr>\n<w:r>\n  <w:rPr><w:b/><w:sz w:val=\"32\"/></w:rPr>\n  <w:t>1. 篮球刻字工艺说明</w:t>\n</w:r>\n```\n这样标题与下方表格间距更舒服。\n\n---\n\n💡 **你的做法**：\n- 回到我们第1~第4段 XML，把封面的标题 `<w:p>` 部分替换成带 `<w:shd>`背景的版本。  \n- 在每个 `<w:tbl>` 后面直接加 `<w:tblPr><w:tblBorders>...</w:tblBorders></w:tblPr>`。  \n- 在每个章节标题 `<w:p>` 前插入 `<w:pPr><w:spacing w:after=\"200\"/></w:pPr>` 控制间距。\n\n---\n\n如果你愿意，我可以帮你**一次性生成一个整合了灰封面 + 表格边框样式 + 间距优化的完整 document.xml**，这样你就不用去每个地方手动加代码了。你只需要替换进 `.docx` 就能直接得到成品专业说明书。  \n\n你要我直接生成这个**最终整合版 XML**吗？这样你一步就完成所有增强，不需要再自己修改细节。",
             "content_cut": "好 ， 我来 给 你 这个   ` . docx `   模板 的   XML   加 一层   * * 版式 增强 * * ， 让 它 看起来 更 像 正式 的 工厂 生产 单 ：     \n \n --- \n \n ##   🎯   增强 点 ： \n 1 .   * * 封面 浅灰 背景 * *   →   整个 封面 的 标题 区域 加 一个 浅 灰色 底框 ， 背景色 统一 （ 例如   ` # f4f4f4 ` ） 。 \n 2 .   * * 表格 线 样式 统一 * *   →   所有 表格 增加 固定 黑色 / 深灰色 边框 ， 线条 粗度 适中 （ 便于 打印 ） 。 \n 3 .   * * 章节 标题 样式 * *   →   每个 章节 标题 加入 加粗 、 大 字号 、 底部 适当 空白 。 \n 4 .   * * 间距 优化 * *   →   表格 与 标题 之间 留空   0.5   行 ， 让 版面 更 呼吸 。 \n \n --- \n \n 在   Word   的   ` . xml `   里 ， 这些 是 通过   * * ` < w : shd > ` * * （ 填充 背景色 ） 和   ` < w : tcBorders > ` （ 表格 单元格 边框 ） 标签 实现 的 。 \n \n 我会 给 你 一个 * * 封面 背景 示例   XML * * 和 * * 表格 线 样式 示例   XML * * ， 你 可以 直接 替换 到 我们 之前 发 的 分段 里 相应 位置 。 \n \n --- \n \n ###   1 .   封面 浅灰 背景 示例     \n 替换 第 1 段 封面 标题 那 几行   XML 为 ：     \n ` ` ` xml \n < ! --   封面 标题   +   灰 背景   -- > \n < w : p > \n     < w : pPr > < w : jc   w : val = \" center \" / > < / w : pPr > \n     < w : r > \n         < w : rPr > < w : b / > < w : sz   w : val = \" 48 \" / > < / w : rPr > \n         < w : shd   w : val = \" clear \"   w : color = \" auto \"   w : fill = \" f4f4f4 \" / > \n         < w : t > 篮球 刻字   &   球袋 定制 生产 说明书 < / w : t > \n     < / w : r > \n < / w : p > \n \n < w : p > \n     < w : pPr > < w : jc   w : val = \" center \" / > < / w : pPr > \n     < w : r > \n         < w : rPr > < w : sz   w : val = \" 28 \" / > < / w : rPr > \n         < w : shd   w : val = \" clear \"   w : color = \" auto \"   w : fill = \" f4f4f4 \" / > \n         < w : t > Basketball   Gift   Project < / w : t > \n     < / w : r > \n < / w : p > \n ` ` ` \n 这会 让 标题 文字 背后 有 浅 灰色 背景 ， 居中 且 整块 高亮 。 \n \n --- \n \n ###   2 .   表格 边框 样式 示例     \n 在 每个   ` < w : tbl > `   开始 后 ， 加 ： \n ` ` ` xml \n < w : tblPr > \n     < w : tblBorders > \n         < w : top   w : val = \" single \"   w : sz = \" 4 \"   w : color = \" 000000 \" / > \n         < w : left   w : val = \" single \"   w : sz = \" 4 \"   w : color = \" 000000 \" / > \n         < w : bottom   w : val = \" single \"   w : sz = \" 4 \"   w : color = \" 000000 \" / > \n         < w : right   w : val = \" single \"   w : sz = \" 4 \"   w : color = \" 000000 \" / > \n         < w : insideH   w : val = \" single \"   w : sz = \" 4 \"   w : color = \" 000000 \" / > \n         < w : insideV   w : val = \" single \"   w : sz = \" 4 \"   w : color = \" 000000 \" / > \n     < / w : tblBorders > \n < / w : tblPr > \n ` ` ` \n 这样 该 表格 所有 单元格 都 会 有 统一 的   0.5 pt ~ 1pt   边框 ， 看起来 很 工整 。 \n \n --- \n \n ###   3 .   章节 标题 样式 示例     \n 替换 章节 标题 行 ， 比如 ： \n ` ` ` xml \n < w : p > \n     < w : r > \n         < w : rPr > < w : b / > < w : sz   w : val = \" 32 \" / > < / w : rPr > \n         < w : t > 1 .   篮球 刻字 工艺 说明 < / w : t > \n     < / w : r > \n < / w : p > \n ` ` ` \n 可以 在   ` < w : pPr > `   内加 底部 间距 ： \n ` ` ` xml \n < w : pPr > \n     < w : spacing   w : after = \" 200 \" / > \n < / w : pPr > \n < w : r > \n     < w : rPr > < w : b / > < w : sz   w : val = \" 32 \" / > < / w : rPr > \n     < w : t > 1 .   篮球 刻字 工艺 说明 < / w : t > \n < / w : r > \n ` ` ` \n 这样 标题 与 下方 表格 间距 更 舒服 。 \n \n --- \n \n 💡   * * 你 的 做法 * * ： \n -   回到 我们 第 1 ~ 第 4 段   XML ， 把 封面 的 标题   ` < w : p > `   部分 替换成 带   ` < w : shd > ` 背景 的 版本 。     \n -   在 每个   ` < w : tbl > `   后面 直接 加   ` < w : tblPr > < w : tblBorders > ... < / w : tblBorders > < / w : tblPr > ` 。     \n -   在 每个 章节 标题   ` < w : p > `   前 插入   ` < w : pPr > < w : spacing   w : after = \" 200 \" / > < / w : pPr > `   控制 间距 。 \n \n --- \n \n 如果 你 愿意 ， 我 可以 帮 你 * * 一次性 生成 一个 整合 了 灰 封面   +   表格 边框 样式   +   间距 优化 的 完整   document . xml * * ， 这样 你 就 不用 去 每个 地方 手动 加 代码 了 。 你 只 需要 替换 进   ` . docx `   就 能 直接 得到 成品 专业 说明书 。     \n \n 你 要 我 直接 生成 这个 * * 最终 整合 版   XML * * 吗 ？ 这样 你 一步 就 完成 所有 增强 ， 不 需要 再 自己 修改 细节 。"
         }
-    ]
+    ],
+    "profile": {
+        "gender": "Female",
+        "age": 24,
+        "background": "工程与应用科学",
+        "personality": [
+            "独立",
+            "外向",
+            "细致",
+            "坚定"
+        ],
+        "occupation": "学生",
+        "daily_interests": [
+            "运动",
+            "演奏乐器",
+            "听音乐"
+        ],
+        "travel_habits": [
+            "参观历史遗迹",
+            "文化旅行",
+            "国际旅行",
+            "自然风光"
+        ],
+        "dining_preferences": [
+            "健康饮食",
+            "均衡饮食",
+            "尝鲜",
+            "街头小吃"
+        ],
+        "spending_habits": [
+            "注重消费体验",
+            "质量大于数量",
+            "娱乐支出",
+            "用于旅行"
+        ],
+        "other_aspects": [
+            "租房",
+            "独自生活",
+            "喜欢参与体育活动",
+            "喜欢参与学术活动"
+        ],
+        "complete_tid": {
+            "旅行规划": [
+                4
+            ]
+        }
+    }
 }
