@@ -135,11 +135,10 @@ def process_dir(task_dir: str):
                     success += 1
             except Exception as e:
                 failed += 1
-                print(f"Error processing file {file}: {e}")
+                print(f"Error processing file {os.path.join(task_dir, file)}: {e}")
     print(f"Finished processing directory {task_dir}. Failed files: {failed} / {len(files)}, Success: {success} / {len(files)}")
 
 if __name__ == '__main__':
-    # process_file('../LLM_agent_user_V2/旅行规划/140_3.json')
-    for task in ['技能学习规划']:
-        task_dir = os.path.join('../LLM_agent_user_V2', task)
+    for task in ['旅行规划', '技能学习规划', '礼物准备', '菜谱规划']:
+        task_dir = os.path.join('../LLM_agent_user_V3', task)
         process_dir(task_dir)

@@ -81,7 +81,6 @@ def get_sim_data(task: str | None = None, model_type: ModelType = ModelType.LLM,
         for file in files:
             with open(os.path.join(sim_dir, task, file), 'r') as f:
                 data = json.load(f)
-            labels.append(True)
             if rewritten:
                 if 'content_rewritten' not in data['history'][0]:
                     continue
@@ -89,6 +88,7 @@ def get_sim_data(task: str | None = None, model_type: ModelType = ModelType.LLM,
                     content_field = 'content_rewritten'
             else:
                 content_field = 'content' if task in ['旅行规划', '礼物准备', '菜谱规划', '技能学习规划'] else 'content_zh'
+            labels.append(True)
             text = format_history(data['history'], content_field, model_type, True, only='user')
             X.append(text)
     return X, labels
@@ -137,18 +137,21 @@ def process_profile(profile: dict) -> dict:
             raise ValueError(f'Unexpected profile item type: {type(profile[key])}')
     return ret
 
-def process_history(history: list[dict]) -> list[dict]:
+def process_history(history: list[dict], rewritten: bool = False) -> list[dict]:
     ret = []
     for turn in history:
         role = turn['role']
-        content = turn['content_zh'] if 'content_zh' in turn else turn['content']
+        if rewritten and 'content_rewritten' in turn:
+            content = turn['content_rewritten']
+        else:
+            content = turn['content_zh'] if 'content_zh' in turn else turn['content']
         ret.append({
             'role': role,
             'content': content
         })
     return ret
 
-def get_sim_data_dict(dir_path: str = SIM_DIR) -> list[dict]:
+def get_sim_data_dict(dir_path: str = SIM_DIR, rewritten: bool = False) -> list[dict]:
     tasks = ['new travel planning', 'preparing gifts', 'travel planning', 'recipe planning', 'skills learning planning', '旅行规划', '礼物准备', '菜谱规划', '技能学习规划']
     data: list[dict] = []
     for task in tasks:
@@ -162,20 +165,10 @@ def get_sim_data_dict(dir_path: str = SIM_DIR) -> list[dict]:
             with open(os.path.join(dir_path, task, file), 'r') as f:
                 item = json.load(f)
                 data.append({
-                    'history': process_history(item['history']),
+                    'history': process_history(item['history'], rewritten),
                     'task_background': item['task_context_zh'] if language == 'en' else item['task_context'],
                     'file_path': os.path.join(dir_path, task, file),
                 })
-    for file in os.listdir(dir_path):
-        if not file.endswith('.json'):
-            continue
-        with open(os.path.join(dir_path, file), 'r') as f:
-            item = json.load(f)
-            data.append({
-                'history': process_history(item['history']),
-                'task_background': item['task_context_zh'] if 'task_context_zh' in item else item['task_context'],
-                'file_path': os.path.join(dir_path, file),
-            })
     return data
 
 def get_human_data_dict() -> list[dict]:

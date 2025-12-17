@@ -28,7 +28,6 @@ class MLModel():
 
     def fit(self, X_train: np.ndarray, y_train: np.ndarray):
         X_encoded = self.vectorizer.fit_transform(X_train)
-        print(X_train[0])
         print(f"Training model {self.type} with shape {X_encoded.shape}")
         self.model.fit(X_encoded, y_train)
         if self.type == 'LR':

@@ -1,3 +1,4 @@
+import os
 import json
 import argparse
 import xgboost as xgb
@@ -12,7 +13,11 @@ from data_util import SIM_DIR, SIM_DIR_V2, format_history
 
 def work(Type: str, **kwargs) -> dict[str, float]:
     X_human, y_human = get_human_data(model_type=ModelType.ML)
-    X_sim, y_sim = get_sim_data(model_type=ModelType.ML, sim_dir=SIM_DIR_V2)
+    X_sim_1, y_sim_1 = get_sim_data(model_type=ModelType.ML, sim_dir=SIM_DIR)
+    X_sim_2, y_sim_2 = get_sim_data(model_type=ModelType.ML, sim_dir=SIM_DIR_V2)
+    X_sim_rewritten, y_sim_rewritten = get_sim_data(model_type=ModelType.ML, sim_dir=SIM_DIR_V2, rewritten=True)
+    X_sim = X_sim_1 + X_sim_2 + X_sim_rewritten
+    y_sim = y_sim_1 + y_sim_2 + y_sim_rewritten
     X = X_human + X_sim
     y = y_human + y_sim
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -20,18 +25,18 @@ def work(Type: str, **kwargs) -> dict[str, float]:
     model.fit(X_train, y_train)
     y_probs = model.predict_proba(X_test)
     metrics = compute_classification_metrics(y_test, y_probs[:, 1])
-    sim_probs = model.predict_proba(X_sim)
+    sim_probs = model.predict_proba(X_sim_2)
     human_probs = model.predict_proba(X_human)
+    os.makedirs(f"tmp/{Type}", exist_ok=True)
     # plot the histogram of the probabilities
     plt.figure(figsize=(10, 6))
     plt.hist([sim_probs[:, 1], human_probs[:, 1]], bins=50, alpha=0.7, label=['Simulated', 'Human'], color=['red', 'blue'])
     plt.title(f'Histogram of Predicted Probabilities ({Type})')
     plt.xlabel('Predicted Probability of Being Simulated')
     plt.legend()
-    plt.savefig(f"tmp/probability_histogram_{Type}.png")
-    X_sim_rewritten, _ = get_sim_data(model_type=ModelType.ML, sim_dir=SIM_DIR_V2, rewritten=True)
+    plt.savefig(f"tmp/{Type}/probability_histogram.png")
     sim_rewritten_probs = model.predict_proba(X_sim_rewritten)
-    accuracy = (sum(sim_rewritten_probs[:, 1] < 0.5) / len(sim_rewritten_probs))
+    accuracy = (sum(sim_rewritten_probs[:, 1] > 0.5) / len(sim_rewritten_probs))
     metrics['rewritten_sim_accuracy'] = accuracy
     # plot the histogram of the probabilities after rewriting
     plt.figure(figsize=(10, 6))
@@ -39,7 +44,7 @@ def work(Type: str, **kwargs) -> dict[str, float]:
     plt.title(f'Histogram of Predicted Probabilities After Rewriting ({Type})')
     plt.xlabel('Predicted Probability of Being Simulated')
     plt.legend()
-    plt.savefig(f"tmp/probability_histogram_rewritten_{Type}.png")
+    plt.savefig(f"tmp/{Type}/probability_histogram_rewritten.png")
     return metrics
 
 def parse_args() -> argparse.Namespace:

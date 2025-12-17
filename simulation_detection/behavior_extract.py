@@ -1,4 +1,5 @@
 import re
+import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -167,11 +168,12 @@ def train_behavioral_classifier(dialogues: list[dict], labels: list[int]) -> tup
     plt.ylabel('True Positive Rate')
     plt.title('Receiver Operating Characteristic')
     plt.legend(loc="lower right")
-    plt.savefig('behavioral_classifier_roc.png')
+    plt.savefig('tmp/behavioral_classifier_roc.png')
 
     return model, scaler, selector, feature_importance, feature_df.columns[selector.get_support()]
 
 def plot_probability_histogram(model: LogisticRegression, scaler: StandardScaler, selector: SelectKBest, dialogues: list[dict], filename: str, sim: bool):
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
     feature_df = get_features(dialogues)
     X = feature_df.values
     X_selected = selector.transform(X)
@@ -202,6 +204,7 @@ def plot_probability_histogram(model: LogisticRegression, scaler: StandardScaler
     plt.savefig(filename)
 
 def plot_feature_distributions(data_list: dict[str, list[dict]], filename: str, feature_name: str):
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
     plt.figure(figsize=(10, 6))
     for label, dialogues in data_list.items():
         features = BehavioralFeatureExtractor()
@@ -221,14 +224,16 @@ def main():
     sim_data = get_sim_data_dict()
     human_data = get_human_data_dict()
     new_sim_data = get_sim_data_dict(SIM_DIR_V2)
-    dialogues = sim_data + human_data + new_sim_data
+    new_sim_data_rewritten = get_sim_data_dict(SIM_DIR_V2, rewritten=True)
+    dialogues = sim_data + human_data + new_sim_data + new_sim_data_rewritten
     dialogue_dict = {
         'human': human_data,
         'gpt-3.5/4': sim_data,
         'gpt-5': new_sim_data,
+        'gpt-5_rewritten': new_sim_data_rewritten
     }
-    labels = [0] * len(sim_data) + [1] * len(human_data) + [0] * len(new_sim_data)
-    print(f"Total dialogues: {len(dialogues)} (Simulated: {len(sim_data)} + {len(new_sim_data)}, Human: {len(human_data)})")
+    labels = [0] * len(sim_data) + [1] * len(human_data) + [0] * len(new_sim_data) + [0] * len(new_sim_data_rewritten)
+    print(f"Total dialogues: {len(dialogues)} (Simulated: {len(sim_data)} + {len(new_sim_data)} + {len(new_sim_data_rewritten)}, Human: {len(human_data)})")
     # 训练行为分类器
     model, scaler, selector, importance, selected_features = train_behavioral_classifier(dialogues, labels)
     # 找出最重要的三个特征
@@ -237,20 +242,24 @@ def main():
     for feature in top_k_features['feature']:
         plot_feature_distributions(
             dialogue_dict,
-            f'tmp/feature_distribution_{feature}.png',
+            f'tmp/feature/distribution_{feature}.png',
             feature
         )
     plot_probability_histogram(
         model, scaler, selector, sim_data,
-        'tmp/probability_sim.png', sim=True
+        'tmp/probability/sim.png', sim=True
     )
     plot_probability_histogram(
         model, scaler, selector, human_data,
-        'tmp/probability_human.png', sim=False
+        'tmp/probability/human.png', sim=False
     )
     plot_probability_histogram(
         model, scaler, selector, new_sim_data,
-        'tmp/probability_new_sim.png', sim=True
+        'tmp/probability/new_sim.png', sim=True
+    )
+    plot_probability_histogram(
+        model, scaler, selector, new_sim_data_rewritten,
+        'tmp/probability/new_sim_rewritten.png', sim=True
     )
 
     print("最重要的行为特征:")
