@@ -2,6 +2,7 @@ import torch
 import random
 import numpy as np
 from enum import Enum
+from loguru import logger
 from typing import Callable
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.model_selection import train_test_split
@@ -222,6 +223,12 @@ human_attributes = {
     ]
 }
 
+def human_version(data_version: int) -> int:
+    return 2 if data_version >= 2 else 1
+
+def sim_version(data_version: int) -> int:
+    return 3 if data_version >= 4 else (2 if data_version >= 3 else 1)
+
 def split_train_test(X: list[str], y: list) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     return train_test_split(np.array(X), np.array(y), test_size=0.2, random_state=42)
 
@@ -258,10 +265,10 @@ def work_sim2human2(item: str, model_name: str, model_type: ModelType, work: Cal
     add_log(item, model_name, ExpType.SIM2HUMAN2, report)
 
 def work_sim2human3(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
-    X_human, y_human = get_human_data(item, task, model_type, data_version, chat_model)
+    X_human, y_human = get_human_data(item, task, model_type, human_version(data_version), chat_model)
     _, X_test, _, y_test = split_train_test(X_human, y_human)
-    X_train, y_train = get_sim_data(item, 'zh', task, model_type, filtered=True)
-    print(len(y_train), len(y_test))
+    X_train, y_train = get_sim_data(item, 'zh', task, model_type, sim_version(data_version), filtered=True)
+    logger.info(f"Sim train size: {len(X_train)}, Human test size: {len(X_test)}")
     y = y_train + y_test
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
@@ -272,7 +279,7 @@ def work_sim2human3(item: str, model_name: str, model_type: ModelType, work: Cal
     add_log(item, model_name, ExpType.SIM2HUMAN3, report)
 
 def work_human(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, samples: int = -1, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
-    X, y = get_human_data(item, task, model_type, data_version, chat_model)
+    X, y = get_human_data(item, task, model_type, human_version(data_version), chat_model)
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
     X_train, X_test, y_train, y_test = split_train_test(X, y)
@@ -293,10 +300,10 @@ def work_human(item: str, model_name: str, model_type: ModelType, work: Callable
         add_log(item, model_name, ExpType.HUMAN, report)
 
 def work_sim4human(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
-    X_sim, y_sim = get_sim_data(item, 'zh', task, model_type)
+    X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, sim_version(data_version))
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
-    X_human, y_human = get_human_data(item, task, model_type, data_version, chat_model)
+    X_human, y_human = get_human_data(item, task, model_type, human_version(data_version), chat_model)
     X_train, X_test, y_train, y_test = split_train_test(X_human, y_human)
     X_train = np.concatenate((X_sim, X_train))
     y_train = np.concatenate((y_sim, y_train))
@@ -310,10 +317,10 @@ def work_sim4human(item: str, model_name: str, model_type: ModelType, work: Call
     add_log(item, model_name, ExpType.SIM4HUMAN, report)
 
 def work_sim4human2(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
-    X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, filtered=True)
+    X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, sim_version(data_version), filtered=True)
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
-    X_human, y_human = get_human_data(item, task, model_type, data_version, chat_model)
+    X_human, y_human = get_human_data(item, task, model_type, human_version(data_version), chat_model)
     X_train, X_test, y_train, y_test = split_train_test(X_human, y_human)
     X_train = np.concatenate((X_sim, X_train))
     y_train = np.concatenate((y_sim, y_train))
@@ -327,10 +334,10 @@ def work_sim4human2(item: str, model_name: str, model_type: ModelType, work: Cal
     add_log(item, model_name, ExpType.SIM4HUMAN2, report)
 
 def work_sim4human3(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
-    X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, filtered=True)
+    X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, sim_version(data_version), filtered=True)
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
-    X_human, y_human = get_human_data(item, task, model_type, data_version, chat_model)
+    X_human, y_human = get_human_data(item, task, model_type, human_version(data_version), chat_model)
     X_train, X_test, y_train, y_test = split_train_test(X_human, y_human)
     # downsample sim data
     _, X_sim, _, y_sim = train_test_split(X_sim, y_sim, test_size=0.2, random_state=42)
@@ -353,11 +360,11 @@ def sample(X: np.ndarray, y: np.ndarray, num_sample: int) -> tuple[np.ndarray, n
     return X[indices], y[indices]
 
 def work_sim4human4(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, samples: int = -1, ratio: float = 1.0, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
-    X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, filtered=True)
+    X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, sim_version(data_version), filtered=True)
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
     original_size = len(X_sim)
-    X_human, y_human = get_human_data(item, task, model_type, data_version, chat_model)
+    X_human, y_human = get_human_data(item, task, model_type, human_version(data_version), chat_model)
     X_train, X_test, y_train, y_test = split_train_test(X_human, y_human)
     if samples != -1:
         # sample samples from X_train
@@ -415,12 +422,12 @@ def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Cal
                 y_filtered.append(label)
         return X_filtered, y_filtered
 
-    X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, filtered=True)
+    X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, sim_version(data_version), filtered=True)
     X_sim, y_sim = filter(X_sim, y_sim)
     original_size = len(X_sim)
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
-    X_human, y_human = get_human_data(item, task, model_type, data_version, chat_model)
+    X_human, y_human = get_human_data(item, task, model_type, human_version(data_version), chat_model)
     X_train, X_test, y_train, y_test = split_train_test(X_human, y_human)
     if samples != -1:
         # sample samples from X_train
@@ -446,7 +453,8 @@ def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Cal
     y = np.concatenate((y_train, y_test))
     mlb = MultiLabelBinarizer()
     y = mlb.fit_transform(y)
-    print(f"Number of labels: {len(mlb.classes_)}")
+    logger.info(f"Sampled sim train size: {len(X_sim)}")
+    logger.info(f"Number of labels: {len(mlb.classes_)}")
     train_size = len(X_train)
     y_train = y[:train_size]
     y_test = y[train_size:]

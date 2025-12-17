@@ -3,8 +3,11 @@ import json
 import jieba
 import numpy as np
 from enum import Enum
+from loguru import logger
 
 SIM_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'LLM_agent_user')
+SIM_DIR_V2 = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'LLM_agent_user_V2')
+SIM_DIR_V3 = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'LLM_agent_user_V3')
 HUMAN_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'real_human_user')
 HUMAN_DIR_V2 = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'human_exp_V2')
 LABEL_FILE = os.path.join(os.path.dirname(__file__), 'desc_translated.json')
@@ -38,11 +41,20 @@ class ModelType(Enum):
     LM = 'language model'
     HUMAN = 'human'
 
-def format_history(history: list[dict[str, str]], content_field: str, model_type: ModelType, cut: bool, only: str | None = None) -> str | list[dict[str, str]]:
+def format_history(history: list[dict[str, str]], content_field: str | dict[str, str], model_type: ModelType, cut: bool, only: str | None = None) -> str | list[dict[str, str]]:
     if only is not None:
         assert only in ['user', 'assistant'], f'Invalid value for only: {only}'
         history = [utt for utt in history if utt['role'] == only]
-        return '\n\n'.join([utt[content_field] for utt in history])
+        if isinstance(content_field, str):
+            if model_type == ModelType.LLM:
+                return '\n\n'.join([utt[content_field] for utt in history])
+            else:
+                return ' '.join([utt[content_field] for utt in history])
+        else:
+            if model_type == ModelType.LLM:
+                return '\n\n'.join([utt[content_field[only]] for utt in history])
+            else:
+                return ' '.join([utt[content_field[only]] for utt in history])
     if model_type == ModelType.HUMAN:
         return [{
             'role': utt['role'],
@@ -50,44 +62,86 @@ def format_history(history: list[dict[str, str]], content_field: str, model_type
         } for utt in history]
     text = ''
     for utt in history:
-        if model_type == ModelType.LLM:
-            text += f"{utt['role']}: {utt[content_field]}\n\n"
+        if isinstance(content_field, dict):
+            if model_type == ModelType.LLM:
+                text += f"{utt['role']}: {utt[content_field[utt['role']]]}\n\n"
+            else:
+                text += utt[content_field[utt['role']]]
         else:
-            text += utt[content_field]
+            if model_type == ModelType.LLM:
+                text += f"{utt['role']}: {utt[content_field]}\n\n"
+            else:
+                text += utt[content_field]
     if model_type == ModelType.ML and cut:
         text = ' '.join(jieba.lcut(text))
     return text
 
-def get_sim_data(item: str, language: str = 'en', task: str | None = None, model_type: ModelType = ModelType.LLM, filtered: bool = False, only: str | None = None) -> tuple[list[str | list[dict[str, str]]], list[set[str]]]:
+def get_sim_data(item: str, language: str = 'en', task: str | None = None, model_type: ModelType = ModelType.LLM, version: int = 1, filtered: bool = False, only: str | None = None) -> tuple[list[str | list[dict[str, str]]], list[set[str]]]:
     if language == 'zh' and task is not None and task in task_translation:
         task = task_translation[task]
     if task is None:
-        tasks = ['new travel planning', 'preparing gifts', 'travel planning', 'recipe planning', 'skills learning planning']
+        tasks = ['new travel planning', 'preparing gifts', 'travel planning', 'recipe planning', 'skills learning planning', '旅行规划', '礼物准备', '菜谱规划', '技能学习规划']
     elif task == 'travel planning':
-        tasks = ['new travel planning', 'travel planning']
+        tasks = ['new travel planning', 'travel planning', '旅行规划']
     else:
-        tasks = [task]
+        tasks = [task, task_translation_reverse[task]]
+
     labels: list[set[str]] = []
     X: list[str | list[dict[str, str]]] = []
-    for task in tasks:
-        files = os.listdir(os.path.join(SIM_DIR, task))
-        files = [file for file in files if file.endswith('.json')]
-        files.sort(key=lambda x: x.split('.')[0])
-        for file in files:
-            with open(os.path.join(SIM_DIR, task, file), 'r') as f:
-                data = json.load(f)
-            label = [ele[language] for ele in data['profile_mapped'][item]]
-            label = set(label)
-            if filtered:
-                if len(label) == 1 and ('其他' in label or 'Others' in label):
-                    continue
-                if language == 'zh' and '其他' in label:
-                    label.remove('其他')
-                if language == 'en' and 'Others' in label:
-                    label.remove('Others')
-            labels.append(label)
-            text = format_history(data['history'], 'content' if language == 'en' else 'content_zh', model_type, language == 'zh', only=only)
-            X.append(text)
+
+    def update_dir(sim_dir: str, rewritten: bool):
+        if rewritten:
+            logger.info(f"Loading rewritten sim data from {sim_dir} for item {item}")
+        for task in tasks:
+            if not os.path.exists(os.path.join(sim_dir, task)):
+                continue
+            files = os.listdir(os.path.join(sim_dir, task))
+            files = [file for file in files if file.endswith('.json')]
+            files.sort(key=lambda x: x.split('.')[0])
+            for file in files:
+                with open(os.path.join(sim_dir, task, file), 'r') as f:
+                    data = json.load(f)
+                if rewritten and 'content_rewritten' not in data['history'][0]:
+                    continue  # skip non-rewritten data in rewritten mode
+                if 'profile' in data:
+                    translated_item = item.split('and')[0].strip().lower().replace(' ', '_')
+                    label = data['profile'][translated_item]
+                    label = set(label)
+                    labels.append(label)
+                else:
+                    label = [ele[language] for ele in data['profile_mapped'][item]]
+                    label = set(label)
+                    if filtered:
+                        if len(label) == 1 and ('其他' in label or 'Others' in label):
+                            continue
+                        if language == 'zh' and '其他' in label:
+                            label.remove('其他')
+                        if language == 'en' and 'Others' in label:
+                            label.remove('Others')
+                    labels.append(label)
+                if rewritten:
+                    text = format_history(
+                        data['history'],
+                        {
+                            'user': 'content_rewritten',
+                            'assistant': 'content'
+                        },
+                        model_type,
+                        language == 'zh',
+                        only=only,
+                    )
+                else:
+                    text = format_history(
+                        data['history'],
+                        'content' if language == 'en' or 'content_zh' not in data['history'][0] else 'content_zh',
+                        model_type,
+                        language == 'zh',
+                        only=only,
+                    )
+                X.append(text)
+
+    update_dir(SIM_DIR if version == 1 else SIM_DIR_V2 if version in [2, 3] else SIM_DIR_V3, rewritten=(version in [3, 5]))
+    logger.info(f"Loaded {len(X)} samples from sim data for item {item} in language {language} with version {version}")
     return X, labels
 
 def get_human_data(item: str, task: str | None = None, model_type: ModelType = ModelType.LLM, version: int = 1, chat_model: str | None = None, only: str | None = None) -> tuple[list[str | list[dict[str, str]]], list[set[str]]]:
@@ -127,6 +181,7 @@ def get_human_data(item: str, task: str | None = None, model_type: ModelType = M
     if version != 1:
         assert version == 2, f'Invalid version: {version}'
         update_data(HUMAN_DIR_V2)
+    logger.info(f"Loaded {len(X)} samples from human data for item {item} with version {version}")
     return X, labels
 
 def get_human_intent_data(model_type: ModelType = ModelType.LLM):

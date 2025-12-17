@@ -131,7 +131,7 @@ def parse_args():
     parser.add_argument('-m', '--model', type=str, required=True)
     parser.add_argument('-t', '--type', type=str, required=True, choices=['sim', 'sim2human', 'human', 'human2sim', 'sim2human2', 'sim2human3', 'human2sim2', 'sim4human', 'sim4human2', 'sim4human3', 'sim4human4', 'sim4human5'])
     parser.add_argument('-l', '--language', type=str, default='zh', choices=['zh', 'en'])
-    parser.add_argument('-d', '--data_version', type=int, default=1, choices=[1, 2], help='1: original data; 2: updated data')
+    parser.add_argument('-d', '--data_version', type=int, default=1, choices=[1, 2, 3, 4], help='1: original data; 2: updated data; 3: updated data for both sim & human; 4: updated data for both sim with rewritten & human')
     parser.add_argument('-c', '--chat_model', type=str, default=None)
     parser.add_argument('-r', '--ratio', type=float, default=1.0, help='Ratio for sim4human4 & sim4human5')
     parser.add_argument('-s', '--samples', type=int, default=-1, help='Number of samples for training human, -1 for all')

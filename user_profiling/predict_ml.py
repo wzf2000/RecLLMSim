@@ -1,6 +1,7 @@
 import warnings
 import numpy as np
 import xgboost as xgb
+from loguru import logger
 from argparse import ArgumentParser
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
@@ -57,7 +58,7 @@ class Model():
             return self.model.predict_proba(X_encoded)
 
 def work(X_train: list[str], y_train: np.ndarray, X_test: list[str], y_test: np.ndarray, item: str, model_name: str, labels: np.ndarray, ckpt_dir_name: str | None = None, **kwargs) -> dict[str, float]:
-    print(item, y_train.shape, y_test.shape)
+    logger.info(f"Training model {model_name} for item {item} with {len(X_train)} training samples and {len(X_test)} testing samples")
     Type, strategy = model_name.split('-')
     model = Model(Type, strategy, **kwargs)
     model.fit(X_train, y_train)
@@ -69,7 +70,7 @@ def parse_args():
     parser.add_argument('-m', '--model', type=str, required=True)
     parser.add_argument('-t', '--type', type=str, required=True, choices=['sim', 'sim2human', 'human', 'human2sim', 'sim2human2', 'human2sim', 'human2sim2', 'sim4human', 'sim4human2', 'sim4human3', 'sim4human4'])
     parser.add_argument('-l', '--language', type=str, default='zh', choices=['zh', 'en'])
-    parser.add_argument('-d', '--data_version', type=int, default=1, choices=[1, 2], help='1: original data; 2: updated data')
+    parser.add_argument('-d', '--data_version', type=int, default=1, choices=[1, 2, 3, 4], help='1: original data; 2: updated data; 3: updated data for both sim & human; 4: updated data for both sim with rewritten & human')
     parser.add_argument('-c', '--chat_model', type=str, default=None)
     args = parser.parse_args()
     return args
