@@ -63,8 +63,11 @@ def get_nqp_data(sample: bool = False, task_list: list[str] | None = None) -> tu
                 for file in files:
                     with open(os.path.join(dir_name, user, task, file), 'r') as f:
                         data = json.load(f)
+                    history_intents = []
                     for i, utt in enumerate(data['history']):
                         if utt['role'] != 'user' or i == 0:
+                            if utt['role'] == 'user' and 'intent_label' in data['history'][i]:
+                                history_intents.append(data['history'][i]['intent_label'])
                             continue
                         if 'intent_label' not in data['history'][i]:
                             continue
@@ -82,8 +85,11 @@ def get_nqp_data(sample: bool = False, task_list: list[str] | None = None) -> tu
                             'profile': get_profile(data['profile']),
                             'task_context': data['task_context'],
                             'intent': data['history'][i]['intent_label'],
+                            'history_intents': history_intents.copy(),
                         })
                         id_cnt += 1
+                        if 'intent_label' in data['history'][i]:
+                            history_intents.append(data['history'][i]['intent_label'])
 
     get_data_from_dir(HUMAN_DIR)
     get_data_from_dir(HUMAN_DIR_V2)
@@ -120,8 +126,11 @@ def get_nqp_data_sim(task_list: list[str] | None = None, sim_dir: str = SIM_DIR)
             except Exception as e:
                 print(f"Error loading {os.path.join(sim_dir, task, file)}: {e}")
                 raise e
+            history_intents = []
             for i, utt in enumerate(data['history']):
                 if utt['role'] != 'user' or i == 0:
+                    if utt['role'] == 'user' and 'intent_label' in data['history'][i]:
+                        history_intents.append(data['history'][i]['intent_label'])
                     continue
                 if 'intent_label' not in data['history'][i]:
                     continue
@@ -144,7 +153,10 @@ def get_nqp_data_sim(task_list: list[str] | None = None, sim_dir: str = SIM_DIR)
                     'profile': data[preference_field],
                     'task_context': data[task_context_field],
                     'intent': data['history'][i]['intent_label'],
+                    'history_intents': history_intents.copy(),
                 })
+                if 'intent_label' in data['history'][i]:
+                    history_intents.append(data['history'][i]['intent_label'])
     logger.info(f"Total data: {len(data_list)}")
     data_list = [item for item in data_list if item['task'] in task_list]
     logger.info(f"Data for {task_list}: {len(data_list)}")
@@ -171,10 +183,13 @@ def get_nqp_data_sim_rewritten(task_list: list[str] | None = None) -> list[dict]
                 data = json.load(f)
             if content_field not in data['history'][0]:
                 continue
+            history_intents = []
             for i, utt in enumerate(data['history']):
                 if utt['role'] == 'user':
                     data['history'][i][content_cut_field] = ' '.join(jieba.cut(data['history'][i][content_field]))
                 if utt['role'] != 'user' or i == 0:
+                    if utt['role'] == 'user' and 'intent_label' in data['history'][i]:
+                        history_intents.append(data['history'][i]['intent_label'])
                     continue
                 if 'intent_label' not in data['history'][i]:
                     continue
@@ -199,7 +214,10 @@ def get_nqp_data_sim_rewritten(task_list: list[str] | None = None) -> list[dict]
                     'profile': data[preference_field],
                     'task_context': data[task_context_field],
                     'intent': data['history'][i]['intent_label'],
+                    'history_intents': history_intents.copy(),
                 })
+                if 'intent_label' in data['history'][i]:
+                    history_intents.append(data['history'][i]['intent_label'])
     logger.info(f"Total data: {len(data_list)}")
     data_list = [item for item in data_list if item['task'] in task_list]
     logger.info(f"Data for {task_list}: {len(data_list)}")
