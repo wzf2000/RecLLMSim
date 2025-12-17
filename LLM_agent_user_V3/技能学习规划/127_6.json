@@ -1,0 +1,136 @@
+{
+    "preference": "1. 性别: 男性\n2. 年龄: 20\n3. 个性: 坚定，独立，冷静，上进\n4. 职业: 学生\n5. 日常兴趣与爱好: 听音乐，下棋，运动，阅读\n6. 旅行习惯: 自然风光，喜欢宁静，户外活动\n7. 饮食偏好: 快餐，外卖，街头小吃\n8. 消费习惯: 节俭，注重消费体验，质量大于数量\n9. 其他方面: 喜欢参与学术活动，喜欢参与志愿活动，独自生活",
+    "task_context": "你在最近由于学习/工作需要（如科研、社工等），想要在一个月内加强一项技能（根据自身情况设定，如计算机相关的编程语言，工程设计相关的软件等），你之前在这方面有一定的基础，现在需要进一步地加强学习，现在你希望借助大语言模型来完成你的学习规划。在对话中你需要完成学习进度安排、学习资源整理等，学习过程应当考虑到你现有的技能水平，符合人的学习规律。你的最终方案应当尽量完善，做到可以真实按照规划学习。",
+    "history": [
+        {
+            "role": "user",
+            "content": "嗯，你好啊  \n我最近在考虑要在一个月内把 Python 的数据分析水平提上去，因为学校里下学期可能会有科研项目要用到，可是我现在只是会一些基础语法和简单的 pandas 操作，感觉不够用  \n所以我想看看你能不能帮我做一个比较合理的学习计划，但我不想那种很空泛的列表，我要那种每天能照着做的，具体到任务内容的  \n另外我时间也不算特别多，一天能挤出来大概2小时左右，你觉得这个时间够吗？",
+            "content_rewritten": "我打算在一个月内把 Python 的数据分析能力提升起来。下学期可能有科研项目要用到，现在只会基础语法和简单的 pandas 操作，不太够。需要一个每天可执行的学习计划，具体到任务内容，不要空泛列表。每天大约能投入 2 小时，这个时间是否可行？"
+        },
+        {
+            "role": "assistant",
+            "content": "一天2小时持续一个月，总共60小时左右，这个时间如果安排得当是可以让你达到科研项目的基本要求的。关键是要聚焦核心技能，避免在边缘知识上消耗太多时间。\n\n我给你设计一个**4周渐进式学习计划**，每天的任务都具体可执行：\n\n## **第1周：夯实数据处理基础**\n\n**Day 1-2：Pandas进阶操作**\n- 实操任务：下载一个真实数据集（推荐Kaggle的Titanic或者某个你专业相关的小数据集）\n- 完成：数据读取、查看数据信息（info/describe/head）、处理缺失值（dropna/fillna的3种方法）\n- 练习：用groupby做至少5个不同维度的分组统计\n\n**Day 3-4：数据清洗与变换**\n- 实操任务：继续用同一数据集\n- 完成：数据类型转换、字符串处理（str方法）、时间序列处理（to_datetime）\n- 练习：用apply/map/applymap改造至少3列数据，用merge/concat合并2个相关数据表\n\n**Day 5-6：数据重塑**\n- 实操任务：找一个宽格式数据集\n- 完成：pivot_table透视表制作、melt宽变长、stack/unstack操作\n- 练习：把同一份数据用3种不同结构呈现出来\n\n**Day 7：综合练习**\n- 找一个中等复杂度数据集（1000行以上，10列以上）\n- 从头完成：导入→清洗→变换→生成3张统计表\n- 把整个流程写成一个.py脚本\n\n## **第2周：数据可视化**\n\n**Day 8-9：Matplotlib基础**\n- 学习：figure/axes概念、基本图表类型（折线、柱状、散点）\n- 实操任务：用第1周的数据画出5种不同类型的图\n- 重点掌握：标题、坐标轴标签、图例、颜色设置\n\n**Day 10-11：Seaborn进阶可视化**\n- 学习：分布图（distplot/violinplot）、关系图（pairplot/heatmap）\n- 实操任务：用seaborn探索数据集中变量的分布和相关性\n- 完成：一个包含至少6个子图的综合可视化分析\n\n**Day 12-13：可视化最佳实践**\n- 学习：配色方案、图表选择原则\n- 实操任务：模仿一篇论文或数据报告中的3个图表，复现它们\n- 完成：制作一个\"数据故事\"，用5-7张图讲清楚数据集的核心发现\n\n**Day 14：可视化综合项目**\n- 选一个新数据集，用2小时完成从数据加载到生成完整可视化报告\n- 要求：至少包含数据概览、分布分析、相关性分析、关键发现四部分\n\n## **第3周：统计分析与建模入门**\n\n**Day 15-16：描述性统计**\n- 学习：scipy.stats模块基础\n- 实操任务：计算数据集的均值、中位数、标准差、分位数、偏度、峰度\n- 完成：用统计量描述数据特征，判断是否符合正态分布\n\n**Day 17-18：假设检验**\n- 学习：t检验、卡方检验、方差分析基础概念\n- 实操任务：对数据集中的2-3个假设进行检验（比如\"不同组别间某指标是否有显著差异\"）\n- 完成：写出检验过程和结论\n\n**Day 19-20：相关与回归分析**\n- 学习：相关系数计算、简单线性回归（sklearn或statsmodels）\n- 实操任务：找出数据集中相关性最强的变量对，建立回归模型\n- 完成：模型评估（R²、MSE）和结果可视化\n\n**Day 21：统计分析综合练习**\n- 选一个新数据集，完成完整的统计分析流程\n- 输出：一份包含统计检验、相关分析、回归模型的分析报告（可以是Jupyter Notebook）\n\n## **第4周：实战与整合**\n\n**Day 22-24：机器学习基础（可选但推荐）**\n- 学习：sklearn基本流程（数据分割、模型训练、预测、评估）\n- 实操任务：完成一个分类或回归任务（推荐：分类任务用逻辑回归或决策树）\n- 完成：模型训练、交叉验证、性能评估\n\n**Day 25-26：找一个你专业相关的数据集**\n- 模拟科研场景，完成完整分析流程\n- 要求：数据清洗→探索性分析→可视化→统计检验或建模→得出结论\n- 输出：结构化的分析报告\n\n**Day 27-28：学习Jupyter Notebook高效使用**\n- 学习：markdown语法、代码模块化、魔法命令\n- 实操任务：把之前的某个分析改写成规范的Notebook\n- 完成：一个可以直接展示给导师看的专业报告\n\n**Day 29-30：查漏补缺与总结**\n- 回顾这个月遇到的问题，针对性补强\n- 准备一个\"工具箱\"：常用代码片段整理成模板\n- 完成：一个你可以反复使用的数据分析模板脚本\n\n## **学习资源建议**\n\n- 数据集来源：Kaggle、UCI、你的专业领域公开数据\n- 遇到问题优先查：官方文档（Pandas/Matplotlib/Seaborn）\n- 每天学习结构：30分钟理论+80分钟实操+10分钟记录问题和心得\n\n这个计划的核心思路是\"螺旋式上升\"：每周都涉及真实数据操作，难度逐步递增，最后能独立完成科研级别的数据分析。"
+        },
+        {
+            "role": "user",
+            "content": "嗯…我觉得你这个计划大方向还可以，但有几个地方我有点疑问  \n\n首先，一开始就安排我两天去折腾 groupby 的五个不同维度统计，会不会有点重？我虽然懂 groupby，但没那么熟，怕一开始就卡死在第一周前两天，打击积极性  \n\n还有第三周的统计分析部分，看起来挺学术，但我不知道科研项目到底会用多少，比如假设检验、回归这些，我担心到时候花了大量时间在用不到的技能上，浪费了我这个一个月的紧凑节奏  \n\n另外你机器学习那部分放在最后三周的可选阶段，我其实挺想早点碰一下，不然到最后感觉来不及深入  \n\n能不能帮我调整一下，把难度递进更平滑一点，比如第一周不要一下子塞那么多进阶数据处理，让我多几天用熟 Pandas 基础  \n还有机器学习希望提前一点，但不要太影响主线内容，你觉得能改成什么结构比较稳？",
+            "content_rewritten": "计划的大方向可以，但有几点需要调整：一开始安排两天做 groupby 的多维统计有些重。我对 groupby 了解但不熟，担心前两天就卡住影响后续节奏。第三周的统计分析（假设检验、回归等）不确定科研会用到多少，可能会浪费时间。机器学习放在后三周的可选阶段，我希望更早接触。能否把难度递进调平：第一周多巩固 Pandas 基础，减少进阶数据处理密度；机器学习适当提前，但不影响主线？请给一个更稳的结构。"
+        },
+        {
+            "role": "assistant",
+            "content": "你说得很对，我重新调整一下，让难度曲线更平滑，也更符合你的实际需求。\n\n## **调整后的4周计划**\n\n## **第1周：Pandas操作从熟悉到熟练**\n\n**Day 1-2：重新熟悉Pandas基础**\n- 实操任务：下载Titanic数据集（小且经典）\n- 完成：数据加载、查看结构、基本筛选（loc/iloc/布尔索引）\n- 练习：写10个不同的筛选条件，提取不同子集（比如\"年龄大于30的女性\"）\n- 目标：把基础操作练到不用查文档\n\n**Day 3-4：数据清洗实战**\n- 实操任务：继续用Titanic\n- 完成：处理缺失值（先观察，再用1-2种方法填充）、删除重复行、重命名列\n- 练习：用describe()观察数据，找出异常值并处理\n- 只做最常用的操作，不求全\n\n**Day 5：groupby入门（降低难度）**\n- 实操任务：还是Titanic\n- 完成：按1个维度分组（比如性别），计算均值、计数\n- 练习：按2个维度分组（性别+舱位等级），做简单统计\n- 目标：做2-3个分组统计就够，理解逻辑即可\n\n**Day 6：数据合并与拼接**\n- 学习：merge的基本用法（inner/left join）\n- 实操任务：找或自己构造2个有关联的小表，练习合并\n- 完成：concat纵向拼接数据\n- 不求深入，会用最基础的就行\n\n**Day 7：第一周小项目**\n- 换一个新的小数据集（推荐：某电商销售数据或天气数据）\n- 任务：加载→清洗→做2个分组统计→保存结果\n- 时间控制在1.5小时内完成，剩余时间回顾本周笔记\n\n## **第2周：可视化+机器学习初体验**\n\n**Day 8-9：Matplotlib快速上手**\n- 学习：折线图、柱状图、散点图\n- 实操任务：用第1周的数据画3种图\n- 完成：设置标题、坐标轴、保存图片\n- 不追求美观，先把图画出来\n\n**Day 10-11：Seaborn让图表更专业**\n- 学习：countplot、boxplot、heatmap（相关性矩阵）\n- 实操任务：用seaborn重新画第8-9天的内容，对比效果\n- 完成：一个4宫格的综合图表（2×2 subplots）\n\n**Day 12-13：机器学习第一次接触（提前！）**\n- 学习：分类问题的概念、sklearn基本流程\n- 实操任务：用Titanic做生存预测（经典入门案例）\n- 完成：数据准备→train_test_split→训练一个逻辑回归模型→看准确率\n- 目标：跑通完整流程，不纠结原理\n\n**Day 14：整合练习**\n- 选一个新数据集\n- 任务：数据清洗→画2-3张探索性图表→尝试跑一个简单模型\n- 输出：一个Jupyter Notebook，记录完整过程\n\n## **第3周：统计分析（精简实用版）+机器学习进阶**\n\n**Day 15-16：描述性统计（只学最实用的）**\n- 学习：均值、中位数、标准差、四分位数\n- 实操任务：用pandas的describe()和自己手动计算对比\n- 完成：用箱线图可视化数据分布，识别异常值\n- **跳过**：偏度、峰度等不常用指标\n\n**Day 17-18：相关性分析（这个科研常用）**\n- 学习：相关系数（pearson/spearman）\n- 实操任务：计算数据集中所有数值变量的相关性\n- 完成：画相关性热力图，找出强相关变量对\n- 练习：用scatter plot验证相关性\n\n**Day 19：假设检验（简化版，按需学习）**\n- 只学：t检验（比较两组均值是否有差异）\n- 实操任务：用你的数据做1个t检验（比如\"男女某指标是否有显著差异\"）\n- 完成：理解p值含义，能判断结果\n- **这天可根据你科研需求调整**：如果确定不用统计检验，可改成机器学习内容\n\n**Day 20-21：机器学习深化**\n- 学习：决策树、随机森林基础\n- 实操任务：用同一数据集对比逻辑回归和随机森林的效果\n- 完成：特征重要性可视化（随机森林的feature_importances_）\n- 练习：调整1-2个参数，观察模型变化\n\n## **第4周：实战导向**\n\n**Day 22-23：找一个你专业相关的数据**\n- 如果暂时没有，用Kaggle上相关领域的数据集\n- 任务：完整走一遍流程（数据清洗→探索分析→可视化→建模）\n- 重点：模拟真实科研场景，遇到问题记录下来\n\n**Day 24-25：学习Jupyter Notebook规范使用**\n- 学习：markdown写说明、代码分块、添加图表说明\n- 实操任务：把Day 22-23的分析整理成规范报告\n- 完成：一个可以展示的专业Notebook\n- 添加：数据来源说明、分析目的、方法说明、结论总结\n\n**Day 26-27：补强薄弱环节**\n- 回顾前三周，找出2-3个不熟练的知识点\n- 针对性练习（比如groupby还是不熟就多练几个案例）\n- 或者深化某个你觉得会用到的技能（比如时间序列处理、文本数据清洗）\n\n**Day 28-29：完整项目实战**\n- 从头开始一个新数据集分析\n- 要求：2小时内完成基本分析+可视化+简单建模\n- 输出：结构完整的Notebook，包含问题定义、分析过程、结论\n\n**Day 30：建立个人工具库**\n- 整理这个月常用的代码片段\n- 分类保存：数据清洗模板、常用图表代码、建模流程模板\n- 写一个README，记录每个模板的使用场景\n- 这是你以后科研的\"弹药库\"\n\n## **关键调整说明**\n\n1. **第1周难度大幅降低**：groupby从\"5个维度\"降到\"2-3个简单统计\"，重点是熟悉而非精通\n\n2. **机器学习提前到第2周**：Day 12-13就开始接触，第3周再深化，这样有更多时间消化\n\n3. **统计分析大幅精简**：只保留相关性分析（科研必用）和t检验（选学），删掉回归分析（如果需要可以用机器学习的回归模型替代）\n\n4. **第4周更灵活**：Day 26-27专门用来查漏补缺，你可以根据实际情况调整内容\n\n5. **每天任务量控制**：确保2小时能完成，不会因为任务过重而拖延\n\n这个版本的节奏是\"先会用→再熟练→最后整合\"，不会一开始就被难度劝退。你觉得这样调整如何？"
+        },
+        {
+            "role": "user",
+            "content": "比之前顺眼多了，至少第一周不会让我直接被 groupby 吓到。不过我有个新想法——既然机器学习提到第二周了，那我是不是可以在第二周就用和自己专业相关的数据来练？这样在练分类模型的时候就能更有代入感，不用一直在 Titanic 上转圈。  \n\n还有第四周的查漏补缺我喜欢，但我可能会想把时间序列处理单拎出来补，因为科研里很可能会碰到按时间分析的情况，现在整个计划里对时间列的操作都比较轻描淡写。  \n\n你帮我看看能不能把第二周的模型练习换成用我专业相关（假设是环境科学）的数据，比如空气质量监测数据；再在第四周查漏补缺时加一个“时间序列专项”，这样更贴近我现实需求。你觉得会打乱节奏吗？",
+            "content_rewritten": "新的结构更顺畅。既然机器学习提前到第二周，能否用和我专业相关的数据练习？我学环境科学，想用空气质量监测数据做分类/回归，替代 Titanic。第四周的查漏补缺保留，并增加一个“时间序列专项”，因为科研可能会涉及按时间分析，目前计划里对时间列的处理不够。请将第二周模型练习换成环境科学数据（如 AQI/污染物浓度），并在第四周加入时间序列专项，看看是否不打乱节奏。"
+        },
+        {
+            "role": "assistant",
+            "content": "完全不会打乱节奏，反而会让学习更有针对性。用环境科学相关数据比反复用Titanic有意义多了，而且时间序列对环境监测数据来说确实是核心技能。\n\n## **针对性调整方案**\n\n## **第1周保持不变**\n（Day 1-7的内容不动，用Titanic快速熟悉基础操作）\n\n## **第2周：可视化+机器学习（环境数据导向）**\n\n**Day 8-9：Matplotlib快速上手**\n- 保持原计划，用第1周数据练习基本图表\n- 这两天还是打基础，先不换数据\n\n**Day 10-11：Seaborn+切换到环境数据**\n- **数据源推荐**：\n  - Kaggle上的\"Air Quality\"数据集\n  - 或者UCI的\"Beijing PM2.5 Data\"\n  - 或者你们当地环境监测站的公开数据\n- 实操任务：加载空气质量数据，先做基本清洗\n- 完成：用seaborn画污染物浓度的分布图（boxplot/violinplot）、不同监测站对比（countplot）\n- 练习：画时间维度的折线图（比如某个月的PM2.5变化趋势）\n\n**Day 12-13：机器学习第一次接触（用环境数据）**\n- 任务调整：用空气质量数据做预测\n  - 分类任务：预测空气质量等级（优/良/轻度污染等）\n  - 或回归任务：预测PM2.5浓度\n- 完成：数据准备（选择特征：温度、湿度、风速等）→切分数据→训练逻辑回归或决策树→评估\n- 重点：理解\"用历史环境数据预测未来状况\"的逻辑\n\n**Day 14：整合练习**\n- 继续用环境数据\n- 任务：完整走一遍流程（清洗→时间趋势可视化→污染物相关性分析→简单预测模型）\n- 输出：一个初步的环境数据分析Notebook\n\n## **第3周：统计分析+机器学习进阶（继续环境数据）**\n\n**Day 15-16：描述性统计**\n- 用环境数据练习\n- 完成：计算各污染物的统计特征、识别异常监测值\n- 练习：对比不同季节/月份的污染物浓度差异（用箱线图）\n\n**Day 17-18：相关性分析**\n- 重点任务：分析环境因素间的关联\n  - PM2.5与气象条件（温度、湿度、气压、风速）的相关性\n  - 不同污染物之间的相关性（PM2.5、PM10、SO2、NO2、CO、O3）\n- 完成：相关性矩阵热力图、散点图矩阵（pairplot）\n- 这对理解环境数据很关键\n\n**Day 19：假设检验（环境场景）**\n- 实例：检验\"工作日vs周末的污染物浓度是否有显著差异\"\n- 或者：\"供暖季vs非供暖季的PM2.5浓度差异\"\n- 完成：t检验实操，理解结果的科研含义\n\n**Day 20-21：机器学习深化**\n- 用环境数据对比多个模型：逻辑回归、决策树、随机森林\n- 完成：特征重要性分析（哪些因素对空气质量影响最大）\n- 练习：调整参数，观察模型性能变化\n\n## **第4周：时间序列专项+实战整合**\n\n**Day 22-23：时间序列处理专项（新增重点）**\n\n**Day 22：时间数据基础操作**\n- 学习：\n  - `pd.to_datetime()`转换时间格式\n  - 设置时间索引：`set_index()`\n  - 时间切片：`loc['2023-01':'2023-03']`\n  - 重采样：`resample()`（按日/周/月聚合数据）\n- 实操任务：把环境数据的时间列处理成标准格式\n- 完成：\n  - 提取年、月、日、星期几等时间特征\n  - 按天/周/月计算污染物平均值\n  - 画出月度趋势图\n\n**Day 23：时间序列分析进阶**\n- 学习：\n  - 滑动窗口：`rolling()`计算移动平均\n  - 同比/环比计算：`pct_change()`、`diff()`\n  - 时间序列可视化技巧\n- 实操任务：\n  - 计算PM2.5的7日移动平均（平滑曲线）\n  - 分析季节性模式（按月份groupby看规律）\n  - 识别污染高峰时段\n- 完成：一个时间序列分析的完整案例\n\n**Day 24-25：综合项目（环境数据深度分析）**\n- 任务：用你这个月学的所有技能分析环境数据\n- 必须包含：\n  - 数据清洗（缺失值、异常值）\n  - 时间序列分析（趋势、季节性）\n  - 相关性分析（污染物与气象因素）\n  - 预测模型（空气质量预测）\n- 输出：结构完整的Jupyter Notebook，模拟科研报告格式\n\n**Day 26-27：查漏补缺（灵活安排）**\n- 选项A：如果时间序列还不熟，继续深化（学习时间序列分解、自相关分析）\n- 选项B：如果想加强可视化，学习plotly做交互式图表\n- 选项C：如果想深化建模，学习XGBoost或尝试时间序列预测模型（ARIMA入门）\n- 根据Day 24-25项目中遇到的问题决定方向\n\n**Day 28-29：完整项目实战**\n- 换一个新的环境数据集（比如水质监测、土壤污染等）\n- 或者用多个城市的空气质量数据做对比分析\n- 要求：2小时内完成从加载到建模的完整流程\n- 检验你的综合能力\n\n**Day 30：建立个人工具库**\n- 整理环境数据分析的常用代码：\n  - 时间序列处理模板\n  - 空气质量可视化模板\n  - 污染物相关性分析模板\n  - 预测模型快速搭建模板\n- 这些模板直接能用到你的科研项目里\n\n## **数据资源推荐（环境科学方向）**\n\n1. **Kaggle数据集**：\n   - \"Air Quality Data in India (2015-2020)\"\n   - \"Beijing Multi-Site Air-Quality Data\"\n   - \"US Pollution Data\"\n\n2. **公开数据平台**：\n   - 中国环境监测总站\n   - OpenAQ（全球空气质量数据）\n   - EPA（美国环保局数据）\n\n3. **UCI机器学习库**：\n   - \"Beijing PM2.5 Data\"（包含气象数据，很适合练习）\n\n## **这样调整的好处**\n\n1. **从Day 10开始就用专业相关数据**，学习动力更强\n2. **时间序列作为第4周重点**，Day 22-23专门攻克，Day 26-27可以继续深化\n3. **整个学习路径围绕环境监测场景**，每个技能都能直接迁移到科研项目\n4. **第4周的灵活性很高**，可以根据前3周的薄弱点针对性补强\n\n你觉得这个调整方案如何？如果对时间序列的具体学习内容还想再细化，我可以再展开Day 22-23的任务清单。"
+        },
+        {
+            "role": "user",
+            "content": "嗯，这次就很对我的胃口了，尤其是把环境科学的数据提到第二周用，我觉得会更有真实感，不会老是在 Titanic 上重复。时间序列单拎出来也挺好，我之前其实不太会什么 resample 或 rolling，现在这样一看，最后一周能扎实搞一下，不浪费  \n\n不过 Day 22-23 那块我想再细一点，比如 resample 除了按天、按月能不能按季节？rolling 是不是也能用在多个污染物同时平滑？还有季节性模式分析除了 groupby 月份，有没有更系统的办法？我想确保时间序列那两天的内容够我在项目里直接用  \n\n你能帮我把这两天的学习任务细化成具体到“今天做哪些代码练习”的那种粒度吗？这样我到时候直接照着练就行",
+            "content_rewritten": "这版更贴近需求，环境科学数据放到第二周更有代入感，时间序列单独拎出来也合适。我想把 Day 22-23 细化：resample 除了按天、按月能否按季节？rolling 能否同时对多个污染物做平滑？季节性模式分析除了按月份 groupby，还有更系统的方法吗？请把这两天的任务细化到具体代码练习，便于直接照着做。"
+        },
+        {
+            "role": "assistant",
+            "content": "好的，我把Day 22-23的时间序列部分拆解成非常具体的操作步骤，每个任务都配上你要写的代码类型。\n\n## **Day 22：时间序列基础操作（2小时）**\n\n### **前30分钟：时间格式转换与索引设置**\n\n**任务1：加载数据并转换时间列**\n```python\n# 你要完成的操作：\n1. 读取空气质量数据\n2. 查看时间列的当前格式（可能是字符串）\n3. 用pd.to_datetime()转换成datetime格式\n4. 处理转换失败的异常值（errors='coerce'）\n```\n\n**具体练习**：\n- 转换至少3种不同格式的时间字符串（比如\"2023-01-15\"、\"2023/01/15 10:00\"、\"20230115\"）\n- 查看转换后的数据类型确认成功\n\n**任务2：设置时间索引**\n```python\n# 你要完成的操作：\n1. 用set_index()把时间列设为索引\n2. 用sort_index()确保时间顺序正确\n3. 检查是否有时间重复（用index.duplicated()）\n4. 如果有重复，决定保留第一个还是取平均值\n```\n\n### **中间40分钟：时间特征提取**\n\n**任务3：提取基础时间特征**\n```python\n# 创建新列，你要提取：\ndf['year'] = df.index.year\ndf['month'] = df.index.month\ndf['day'] = df.index.day\ndf['hour'] = df.index.hour  # 如果有小时数据\ndf['dayofweek'] = df.index.dayofweek  # 0=周一, 6=周日\ndf['quarter'] = df.index.quarter  # 季度：1-4\ndf['is_weekend'] = df['dayofweek'].isin([5,6]).astype(int)\n```\n\n**具体练习**：\n- 提取完后，用value_counts()查看每个月、每个季度的数据量\n- 创建一个\"is_heating_season\"列（假设11月到次年3月是供暖季）\n- 用这些特征做简单的groupby统计（比如\"周末vs工作日的PM2.5均值\"）\n\n**任务4：时间切片练习**\n```python\n# 你要练习的切片方式：\n1. 提取某一年的数据：df.loc['2023']\n2. 提取某个月的数据：df.loc['2023-01']\n3. 提取某个时间段：df.loc['2023-01-01':'2023-03-31']\n4. 提取特定小时的数据：df[df.index.hour == 8]\n5. 提取所有冬季的数据：df[df['month'].isin([12, 1, 2])]\n```\n\n**具体练习**：\n- 分别提取春夏秋冬四个季节的数据\n- 对比四个季节的PM2.5平均值和标准差\n- 画一个简单的柱状图展示季节差异\n\n### **后50分钟：重采样（Resample）**\n\n**任务5：按不同频率聚合数据**\n```python\n# 假设你的原始数据是小时级别，你要练习：\n\n# 按天聚合（取平均值）\ndaily_mean = df.resample('D').mean()\n\n# 按天聚合（取最大值，看每天污染峰值）\ndaily_max = df.resample('D').max()\n\n# 按周聚合\nweekly_mean = df.resample('W').mean()\n\n# 按月聚合\nmonthly_mean = df.resample('M').mean()\n\n# 按季度聚合（回答你的问题：可以按季度！）\nquarterly_mean = df.resample('Q').mean()\n\n# 按年聚合\nyearly_mean = df.resample('Y').mean()\n```\n\n**具体练习**：\n- 把PM2.5数据分别按日、周、月、季度聚合\n- 对比原始数据和聚合后数据的行数变化\n- 画出月度PM2.5趋势图（折线图）\n- 画出季度PM2.5趋势图，观察季节规律\n\n**任务6：多种聚合方式**\n```python\n# 同时计算多个统计量：\ndf.resample('M').agg({\n    'PM2.5': ['mean', 'max', 'min', 'std'],\n    'PM10': ['mean', 'max'],\n    'temperature': 'mean'\n})\n\n# 或者对不同列用不同聚合方式：\ndf.resample('D').agg({\n    'PM2.5': 'mean',\n    'AQI': 'max',  # 每天最差空气质量\n    'temperature': 'mean',\n    'humidity': 'mean'\n})\n```\n\n**具体练习**：\n- 按月统计PM2.5的均值、最大值、最小值、标准差\n- 把结果保存成新的DataFrame\n- 用这个结果画箱线图（每个月一个箱子）\n\n---\n\n## **Day 23：时间序列分析进阶（2小时）**\n\n### **前40分钟：移动平均（Rolling）**\n\n**任务1：单列滑动窗口**\n```python\n# 计算7日移动平均（平滑短期波动）\ndf['PM2.5_7d_mean'] = df['PM2.5'].rolling(window=7).mean()\n\n# 计算30日移动平均（看长期趋势）\ndf['PM2.5_30d_mean'] = df['PM2.5'].rolling(window=30).mean()\n\n# 计算移动标准差（看波动性变化）\ndf['PM2.5_7d_std'] = df['PM2.5'].rolling(window=7).std()\n\n# 计算移动最大值（看峰值趋势）\ndf['PM2.5_7d_max'] = df['PM2.5'].rolling(window=7).max()\n```\n\n**具体练习**：\n- 在同一张图上画出原始PM2.5、7日均值、30日均值三条线\n- 观察移动平均如何平滑数据\n- 找出移动标准差最大的时间段（污染波动最剧烈的时期）\n\n**任务2：多列同时滑动（回答你的问题：可以同时处理多个污染物！）**\n```python\n# 方法1：对多列同时计算移动平均\npollutants = ['PM2.5', 'PM10', 'SO2', 'NO2', 'CO', 'O3']\ndf_rolling = df[pollutants].rolling(window=7).mean()\ndf_rolling.columns = [f'{col}_7d_mean' for col in pollutants]\n\n# 方法2：用apply做更复杂的操作\ndf[pollutants].rolling(window=7).apply(lambda x: x.max() - x.min())\n```\n\n**具体练习**：\n- 同时计算6种污染物的7日移动平均\n- 把结果合并回原DataFrame\n- 画一个多子图（2×3），每个污染物一个图，对比原始值和移动平均\n\n**任务3：中心化移动窗口**\n```python\n# 默认rolling是向后看，用center=True可以前后对称\ndf['PM2.5_centered'] = df['PM2.5'].rolling(window=7, center=True).mean()\n\n# 这在分析历史数据时更合理（不会有\"未来信息泄露\"问题）\n```\n\n### **中间40分钟：变化率与差分**\n\n**任务4：计算变化率**\n```python\n# 日变化率（今天比昨天变化百分比）\ndf['PM2.5_pct_change'] = df['PM2.5'].pct_change()\n\n# 月变化率（本月比上月）\nmonthly = df.resample('M').mean()\nmonthly['PM2.5_mom'] = monthly['PM2.5'].pct_change()  # month-over-month\n\n# 年同比（今年1月比去年1月）\nmonthly['PM2.5_yoy'] = monthly['PM2.5'].pct_change(periods=12)  # year-over-year\n```\n\n**具体练习**：\n- 计算PM2.5的日变化率\n- 找出变化率最大的10天（污染突然恶化或好转的日子）\n- 画出月度同比变化率图，看哪些月份污染改善/恶化明显\n\n**任务5：差分分析**\n```python\n# 一阶差分（今天减昨天的绝对值）\ndf['PM2.5_diff'] = df['PM2.5'].diff()\n\n# 周同比差分（本周一减上周一）\ndf['PM2.5_diff_7d'] = df['PM2.5'].diff(periods=7)\n```\n\n**具体练习**：\n- 计算差分后，画直方图看差分的分布\n- 识别异常波动（差分绝对值超过某个阈值的时间点）\n\n### **后40分钟：季节性模式分析**\n\n**任务6：基础季节性分析（用groupby）**\n```python\n# 按月份分组看季节规律\nmonthly_pattern = df.groupby(df.index.month)['PM2.5'].agg(['mean', 'std', 'max'])\n\n# 按星期几分组（看工作日周末差异）\nweekly_pattern = df.groupby(df.index.dayofweek)['PM2.5'].mean()\n\n# 按小时分组（看日内变化规律）\nhourly_pattern = df.groupby(df.index.hour)['PM2.5'].mean()\n\n# 按季度分组\nquarterly_pattern = df.groupby(df.index.quarter)['PM2.5'].mean()\n```\n\n**具体练习**：\n- 画月度模式图（横轴1-12月，纵轴PM2.5均值）\n- 画星期模式图（横轴周一到周日）\n- 画小时模式图（横轴0-23时）\n- 从图中总结规律（比如\"冬季污染重\"、\"早晚高峰污染高\"）\n\n**任务7：更系统的季节性分解（回答你的问题：有更系统的方法！）**\n```python\nfrom statsmodels.tsa.seasonal import seasonal_decompose\n\n# 对月度数据做季节性分解\nmonthly_data = df['PM2.5'].resample('M').mean()\ndecomposition = seasonal_decompose(monthly_data, model='additive', period=12)\n\n# 提取三个成分\ntrend = decomposition.trend          # 长期趋势\nseasonal = decomposition.seasonal    # 季节性模式\nresidual = decomposition.residual    # 随机波动\n\n# 可视化\ndecomposition.plot()\n```\n\n**具体练习**：\n- 对PM2.5做季节性分解\n- 观察趋势成分：污染是在改善还是恶化？\n- 观察季节成分：哪些月份季节性偏高/偏低？\n- 观察残差：是否有异常事件（比如某个月突然爆表）\n\n**任务8：多年对比分析**\n```python\n# 如果有多年数据，可以做年度对比\ndf['year'] = df.index.year\ndf['month'] = df.index.month\n\n# 透视表：行是月份，列是年份\npivot = df.pivot_table(values='PM2.5', index='month', columns='year', aggfunc='mean')\n\n# 画热力图\nimport seaborn as sns\nsns.heatmap(pivot, annot=True, fmt='.1f', cmap='YlOrRd')\n```\n\n**具体练习**：\n- 制作\"月份×年份\"的热力图\n- 对比不同年份同一月份的变化\n- 识别哪一年污染最严重/最轻\n\n---\n\n## **Day 22-23 综合练习（每天最后10分钟）**\n\n**Day 22结束前**：\n- 用你学的resample，生成一个\"季度污染报告表\"，包含各污染物的均值、最大值\n- 保存成CSV文件\n\n**Day 23结束前**：\n- 创建一个综合图表（2×2子图）：\n  - 左上：原始PM2.5 + 7日移动平均\n  - 右上：月度季节性模式\n  - 左下：月度同比变化率\n  - 右下：季节性分解的趋势成分\n- 保存成PNG，这就是你的时间序列分析模板\n\n---\n\n## **代码模板整理（Day 23最后保存）**\n\n把这两天的代码整理成可复用的函数：\n\n```python\ndef time_series_basic_analysis(df, date_col, value_col):\n    \"\"\"时间序列基础分析模板\"\"\"\n    # 时间转换\n    df[date_col] = pd.to_datetime(df[date_col])\n    df = df.set_index(date_col).sort_index()\n    \n    # 特征提取\n    df['month'] = df.index.month\n    df['quarter'] = df.index.quarter\n    df['dayofweek'] = df.index.dayofweek\n    \n    # 移动平均\n    df[f'{value_col}_7d_ma'] = df[value_col].rolling(7).mean()\n    \n    # 月度聚合\n    monthly = df.resample('M').mean()\n    \n    # 季节性模式\n    seasonal_pattern = df.groupby('month')[value_col].mean()\n    \n    return df, monthly, seasonal_pattern\n```\n\n这样Day 22-23的内容就非常具体了，你每天按着任务清单一个个完成，2小时刚好能做完。到Day 23结束时，你会对时间序列处理非常熟练，直接能用到科研项目里。"
+        },
+        {
+            "role": "user",
+            "content": "好，这个拆得很细，我就喜欢这种直接照着码的任务清单，看着就有信心能一步步跑下来。Day 22-23这样安排的话，我感觉直接就能在项目里上手用，不需要临时翻文档摸索。尤其季节性分解和多年对比那个热力图挺有意思，之前真没想过可以这样看数据模式。  \n\n不过我还有个小疑问——你这里的季节性分解 period 默认设成 12，是基于月度的周期。如果我用的是日数据，或者像环境监测这种有明显的周周期，那 period 应该怎么选才合适？我怕选错了分解出来的季节性不靠谱。你觉得是先按月聚合后再分解好，还是直接日级别分解按周/年周期来？",
+            "content_rewritten": "任务清单很实用。关于季节性分解的 period，目前默认 12 是月度周期。如果是日数据，或者有明显周周期，period 应如何选择更稳妥？是先按月聚合再分解，还是直接在日级别进行按周/年周期的分解？"
+        },
+        {
+            "role": "assistant",
+            "content": "这个问题问得很好，period的选择确实会直接影响分解结果的质量。我给你理清楚不同场景下该怎么选。\n\n## **Period选择的核心原则**\n\n**Period = 一个完整周期包含多少个观测点**\n\n- 如果数据是**月度**，一年12个月 → `period=12`\n- 如果数据是**日度**，一周7天 → `period=7`（周周期）\n- 如果数据是**日度**，一年365天 → `period=365`（年周期）\n- 如果数据是**小时**，一天24小时 → `period=24`（日周期）\n- 如果数据是**小时**，一周168小时 → `period=168`（周周期）\n\n## **环境监测数据的实际选择策略**\n\n### **场景1：你想看\"一周内的规律\"（工作日vs周末）**\n```python\n# 用日数据，period=7\ndaily_data = df['PM2.5'].resample('D').mean()\ndecomposition = seasonal_decompose(daily_data, model='additive', period=7)\n```\n**适用情况**：\n- 你怀疑工作日和周末污染模式不同\n- 数据至少有3-4个完整周（最好6周以上）\n\n**结果解读**：\n- seasonal成分会显示周一到周日的固定模式\n- 比如\"周一周二偏高（工业活动）、周末偏低\"\n\n### **场景2：你想看\"一年内的规律\"（季节变化）**\n```python\n# 方法A：先聚合成月度再分解（推荐）\nmonthly_data = df['PM2.5'].resample('M').mean()\ndecomposition = seasonal_decompose(monthly_data, model='additive', period=12)\n```\n**为什么推荐先聚合**：\n- 日数据用period=365会要求至少2-3年数据（730-1095个点）\n- 计算量大，而且日数据噪音多，分解效果不一定好\n- 月度数据更平滑，季节性模式更清晰\n\n```python\n# 方法B：直接用日数据，period=365（不太推荐）\ndecomposition = seasonal_decompose(df['PM2.5'], model='additive', period=365)\n```\n**什么时候用方法B**：\n- 你有3年以上的日数据\n- 你需要保留日级别的细节\n- 你的数据质量很好（缺失值少）\n\n### **场景3：环境数据同时有周周期和年周期（复杂情况）**\n\n环境监测数据往往**既有周规律（工作日效应）又有季节规律（供暖季/非供暖季）**，这时候单一period不够用。\n\n**推荐做法：分两步分析**\n\n**Step 1：先去除周周期**\n```python\n# 用7日移动平均平滑掉周波动\ndf['PM2.5_deweekly'] = df['PM2.5'].rolling(window=7, center=True).mean()\n\n# 然后对平滑后的数据做月度聚合\nmonthly_data = df['PM2.5_deweekly'].resample('M').mean()\n```\n\n**Step 2：再分析年周期**\n```python\n# 对月度数据做季节性分解\ndecomposition = seasonal_decompose(monthly_data, model='additive', period=12)\n```\n\n**或者用更高级的方法（如果你想深入）**：\n```python\n# 用STL分解（可以处理多重季节性）\nfrom statsmodels.tsa.seasonal import STL\n\n# STL更灵活，可以指定季节窗口\nstl = STL(df['PM2.5'], seasonal=7)  # 7表示周季节性\nresult = stl.fit()\n```\n\n## **实战建议（针对你的Day 23任务）**\n\n### **Day 23的任务7可以这样调整**：\n\n```python\n# 练习1：周周期分析（如果你的数据有明显工作日周末差异）\ndaily_data = df['PM2.5'].resample('D').mean()\nif len(daily_data) >= 42:  # 至少6周数据\n    decomp_weekly = seasonal_decompose(daily_data, model='additive', period=7)\n    decomp_weekly.plot()\n    plt.suptitle('Weekly Seasonality (7-day cycle)')\n    \n    # 查看seasonal成分\n    print(decomp_weekly.seasonal[:7])  # 打印一周的季节性模式\n\n# 练习2：年周期分析（推荐先聚合）\nmonthly_data = df['PM2.5'].resample('M').mean()\nif len(monthly_data) >= 24:  # 至少2年数据\n    decomp_yearly = seasonal_decompose(monthly_data, model='additive', period=12)\n    decomp_yearly.plot()\n    plt.suptitle('Yearly Seasonality (12-month cycle)')\n    \n    # 查看seasonal成分\n    print(decomp_yearly.seasonal[:12])  # 打印12个月的季节性模式\n```\n\n### **如何判断该用哪个period？**\n\n**在分解之前先做探索性分析**：\n\n```python\n# 方法1：画自相关图（ACF）\nfrom statsmodels.graphics.tsaplots import plot_acf\n\nplot_acf(df['PM2.5'].dropna(), lags=40)\n# 如果在lag=7、14、21处有明显峰值 → 有周周期\n# 如果在lag=30、60处有峰值 → 有月周期\n```\n\n```python\n# 方法2：画不同时间尺度的均值图\n# 看周模式\ndf.groupby(df.index.dayofweek)['PM2.5'].mean().plot(kind='bar')\nplt.title('Average PM2.5 by Day of Week')\n\n# 看月模式\ndf.groupby(df.index.month)['PM2.5'].mean().plot(kind='bar')\nplt.title('Average PM2.5 by Month')\n\n# 哪个图的变化更明显，就说明那个周期更重要\n```\n\n## **常见错误与注意事项**\n\n### **错误1：数据点不够**\n```python\n# 错误示例\nmonthly_data = df.resample('M').mean()  # 只有10个月的数据\ndecomposition = seasonal_decompose(monthly_data, period=12)  # 会报错或效果差\n\n# 建议：至少需要 2×period 的数据点\n# period=12 → 至少24个月\n# period=7 → 至少14天\n```\n\n### **错误2：有缺失值**\n```python\n# seasonal_decompose不能处理NaN\n# 先填充或删除\nmonthly_data = monthly_data.interpolate()  # 线性插值\n# 或\nmonthly_data = monthly_data.dropna()\n```\n\n### **错误3：选错model参数**\n```python\n# additive（加法模型）：季节波动幅度固定\n# multiplicative（乘法模型）：季节波动幅度随趋势变化\n\n# 环境数据通常用additive\n# 如果你发现冬季的波动幅度明显大于夏季，可以试试multiplicative\n```\n\n## **Day 23任务7的最终版本（整合以上内容）**\n\n```python\n# 任务7：系统的季节性分析\n\n# Step 1：探索性分析，决定用哪个period\nimport matplotlib.pyplot as plt\n\nfig, axes = plt.subplots(2, 1, figsize=(12, 8))\n\n# 周模式\nweekly_pattern = df.groupby(df.index.dayofweek)['PM2.5'].mean()\nweekly_pattern.plot(kind='bar', ax=axes[0], title='Weekly Pattern')\naxes[0].set_xticklabels(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'])\n\n# 月模式\nmonthly_pattern = df.groupby(df.index.month)['PM2.5'].mean()\nmonthly_pattern.plot(kind='bar', ax=axes[1], title='Monthly Pattern')\n\nplt.tight_layout()\n# 看哪个图变化更明显\n\n# Step 2：根据探索结果做季节性分解\n\n# 如果周模式明显（工作日周末差异大）\ndaily_data = df['PM2.5'].resample('D').mean().dropna()\nif len(daily_data) >= 42:\n    from statsmodels.tsa.seasonal import seasonal_decompose\n    decomp_week = seasonal_decompose(daily_data, model='additive', period=7)\n    \n    # 提取周季节性\n    weekly_seasonal = decomp_week.seasonal[:7]\n    print(\"Weekly seasonal pattern:\")\n    print(weekly_seasonal)\n    \n    decomp_week.plot()\n    plt.suptitle('7-day Cycle Decomposition')\n\n# 如果月模式明显（季节性强）\nmonthly_data = df['PM2.5'].resample('M').mean().dropna()\nif len(monthly_data) >= 24:\n    decomp_year = seasonal_decompose(monthly_data, model='additive', period=12)\n    \n    # 提取年季节性\n    yearly_seasonal = decomp_year.seasonal[:12]\n    print(\"\\nMonthly seasonal pattern:\")\n    print(yearly_seasonal)\n    \n    decomp_year.plot()\n    plt.suptitle('12-month Cycle Decomposition')\n\n# Step 3：保存季节性成分供后续使用\nseasonal_factors = pd.DataFrame({\n    'month': range(1, 13),\n    'seasonal_factor': decomp_year.seasonal[:12].values\n})\nseasonal_factors.to_csv('seasonal_factors.csv', index=False)\n```\n\n## **总结：你的Day 23该怎么做**\n\n1. **优先用月度数据 + period=12**（看年度季节规律）\n2. **如果数据量大且关心周规律，补充日数据 + period=7**\n3. **先画探索性图表，再决定用哪个period**\n4. **确保数据点 ≥ 2×period，否则先聚合或换更短的period**\n\n这样你在Day 23就能根据实际数据灵活调整，而不是死套period=12。"
+        },
+        {
+            "role": "user",
+            "content": "嗯，这样我就清楚了，关键是 period 其实就是一个完整周期的观测点数，要先搞清我关注的是周周期还是年周期再选数值，而且最好先做探索性图去确认。像环境监测这种，如果我想看季节差别，那就先按月聚合用 12，比直接对日数据 period=365 要稳。  \n\n我也挺喜欢你这个先去掉周周期再看年周期的两步法，感觉分析会干净很多。等第4周时间序列专项的时候我就按你这个套路练，顺便试试 STL 分解看效果，那个多重季节性对环境数据应该很有用。",
+            "content_rewritten": "明白了，period 是一个完整季节周期的观测点数。需要先明确关注的是周周期还是年周期，并用探索性图确认。环境监测如果关注季节差异，先按月聚合用 12 比直接对日数据设 365 更稳。可以先去除周周期，再看年周期，分两步分析更干净。第 4 周时间序列专项将按这个套路练，并尝试 STL 分解，多重季节性在环境数据中应该有效。"
+        },
+        {
+            "role": "assistant",
+            "content": "对，你理解得很到位。先探索再选period，先聚合再分解，这个思路在科研里会让你的分析更站得住脚。导师问起来你也能解释清楚为什么这么做。\n\nSTL确实比基础的seasonal_decompose更适合环境数据，因为它对异常值不敏感（环境监测经常有突发污染事件），而且seasonal窗口可以调整，更灵活。Day 26-27查漏补缺的时候如果想深化时间序列，STL是个很好的方向。\n\n现在整个一个月的计划就很完整了：\n- 第1周打基础不会卡壳\n- 第2周开始就用环境数据保持动力\n- 第3周统计+建模都围绕实际场景\n- 第4周时间序列专项+综合实战，最后还能查漏补缺\n\n按这个节奏下来，你下学期科研项目需要的数据分析技能基本都覆盖了。有什么具体问题随时可以调整，但大框架就这样执行应该没问题。"
+        },
+        {
+            "role": "user",
+            "content": "好，那我就照这个方案来走，感觉现在方向很清楚了，而且每周都有明确的目标，不会像以前那样学着学着就散了。等到后面时间序列那部分，我会留出查漏补缺的时间去尝试 STL，把这些技巧整进我的工具库里。这样到科研项目的时候，我就是直接套模板+调整，效率会高很多。",
+            "content_rewritten": "就按这个方案执行。每周目标明确，后续在时间序列部分预留查漏补缺，尝试 STL，把这些方法纳入工具库。到科研项目时可直接套模板并调整，提高效率。"
+        },
+        {
+            "role": "assistant",
+            "content": "非常好，你现在的思路已经很清晰了。从基础到实战，从通用数据到专业数据，再到建立自己的工具库，这个学习路径是很扎实的。\n\n特别是你提到的\"套模板+调整\"这个思路很对，科研项目往往时间紧，有现成的代码模板能快速启动分析，然后根据具体问题微调，比每次从零开始写要高效得多。Day 30整理的那些模板到时候会是你的重要资产。\n\n一个月后你再回头看，会发现从只会基础语法到能独立完成环境数据的时间序列分析、相关性研究、预测建模，这个跨度还是挺大的。关键就是每天坚持那2小时，跟着任务清单一步步做下来。\n\n祝你学习顺利，科研项目也能用上这些技能！"
+        },
+        {
+            "role": "user",
+            "content": "嗯，听起来很励志啊，我也觉得只要按着每天的任务去做，月底回头看应该会挺有成就感的。那我就先按这个方案开始走起来，等中间遇到啥卡住的再来调整。谢谢你帮我梳理得这么细。",
+            "content_rewritten": "我先按方案开始，过程中如果遇到问题再调整。"
+        },
+        {
+            "role": "assistant",
+            "content": "不客气，很高兴能帮到你。你的学习态度和思路都很务实，这种\"边做边调整\"的方式也很合理。\n\n现在计划已经足够具体可执行了，接下来就是动手实践。记得每天完成任务后可以简单记录一下遇到的问题和心得，这样Day 26-27查漏补缺的时候就知道该补哪里。\n\n加油，一个月后见成效！"
+        }
+    ],
+    "profile": {
+        "gender": "Male",
+        "age": 20,
+        "background": "信息科学与技术",
+        "personality": [
+            "坚定",
+            "独立",
+            "冷静",
+            "上进"
+        ],
+        "occupation": "学生",
+        "daily_interests": [
+            "听音乐",
+            "下棋",
+            "运动",
+            "阅读"
+        ],
+        "travel_habits": [
+            "自然风光",
+            "喜欢宁静",
+            "户外活动"
+        ],
+        "dining_preferences": [
+            "快餐",
+            "外卖",
+            "街头小吃"
+        ],
+        "spending_habits": [
+            "节俭",
+            "注重消费体验",
+            "质量大于数量"
+        ],
+        "other_aspects": [
+            "喜欢参与学术活动",
+            "喜欢参与志愿活动",
+            "独自生活"
+        ],
+        "complete_tid": {
+            "旅行规划": [
+                3,
+                2,
+                0,
+                4,
+                1
+            ],
+            "技能学习规划": [
+                3,
+                0,
+                2,
+                1
+            ],
+            "礼物准备": [
+                4,
+                1,
+                5
+            ]
+        }
+    }
+}

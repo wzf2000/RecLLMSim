@@ -94,6 +94,7 @@ class GenChatTask(Task):
                         if ret_json is None:
                             logger.critical(f'[task context id = {context_ids[tid]}] Error occured when preference id = {pid}')
                             raise Exception('Run Error')
+                        os.makedirs(os.path.join(output_dir, task), exist_ok=True)
                         with open(os.path.join(output_dir, task, f'{pid}_{context_ids[tid]}.json'), 'w') as f:
                             json.dump(ret_json, f, ensure_ascii=False, indent=4)
                         logger.debug(f'[task context id = {context_ids[tid]}, preference id = {pid}] Finish')
@@ -140,7 +141,7 @@ class GenChatTask(Task):
                     max_turn=self.max_turn
                 )
 
-        def ending(x):
+        def ending(x: str) -> bool:
             for token in self.config['end_check']:
                 if token.lower() not in x.lower():
                     return False
@@ -151,7 +152,21 @@ class GenChatTask(Task):
         prompt2_list = [self._generate_prompt(prompt, preference, task_context) for prompt in prompt2_list]
 
         if 'model' in self.config:
-            chatbot1, chatbot2, ended = multi_chat(prompt1_list, prompt2_list, ending=ending, process1=process1, process2=process2, model1=self.config['model']['1'], model2=self.config['model']['2'], max_turn=self.max_turn)
+            # generate seed by hashing preference and task_context
+            random.seed(hash(preference + task_context) % (2 ** 32))
+            if isinstance(self.config['model']['1'], str):
+                model1 = self.config['model']['1']
+                logger.info(f'Using model1: {model1}')
+            else:
+                assert isinstance(self.config['model']['1'], list)
+                model1 = random.choice(self.config['model']['1'])
+            if isinstance(self.config['model']['2'], str):
+                model2 = self.config['model']['2']
+            else:
+                assert isinstance(self.config['model']['2'], list)
+                model2 = random.choice(self.config['model']['2'])
+                logger.info(f'Using model2: {model2}')
+            chatbot1, chatbot2, ended = multi_chat(prompt1_list, prompt2_list, ending=ending, process1=process1, process2=process2, model1=model1, model2=model2, max_turn=self.max_turn)
         else:
             chatbot1, chatbot2, ended = multi_chat(prompt1_list, prompt2_list, ending=ending, process1=process1, process2=process2, max_turn=self.max_turn)
         if not ended:
@@ -162,6 +177,8 @@ class GenChatTask(Task):
             'preference': preference,
             'task_context': task_context,
             'history': chatbot1.history[len(prompt1_list) * 2:],
+            'model1': chatbot1.model,
+            'model2': chatbot2.model,
         }
         if not post_query:
             return ret
