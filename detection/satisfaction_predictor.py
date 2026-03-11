@@ -1,0 +1,219 @@
+import os
+import torch
+from tqdm import tqdm
+from torch.utils.data import Dataset, DataLoader
+from loguru import logger
+from argparse import ArgumentParser
+from scipy.stats import spearmanr, pearsonr
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score, accuracy_score, f1_score
+from transformers import AutoTokenizer, AutoModel, PreTrainedModel, PreTrainedTokenizer
+
+from metric_statistics import get_satisfaction_data
+
+class SatisfactionPredictor(torch.nn.Module):
+    def __init__(self, backbone: PreTrainedModel, num_reasons: int):
+        super(SatisfactionPredictor, self).__init__()
+        self.backbone = backbone
+        hidden_size = backbone.config.hidden_size
+        self.regression_head = torch.nn.Linear(hidden_size, 1)  # For score regression
+        self.classification_head = torch.nn.Linear(hidden_size, num_reasons)  # For reason classification
+
+    def forward(self, input_ids: torch.Tensor, attention_mask: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+        outputs = self.backbone(input_ids=input_ids, attention_mask=attention_mask)
+        pooled_output = outputs.pooler_output  # [batch_size, hidden_size]
+        score = self.regression_head(pooled_output).squeeze(-1)  # [batch_size]
+        reason_logits = self.classification_head(pooled_output)  # [batch_size, num_reasons]
+        return score, reason_logits
+
+class SatisfactionDataset(Dataset):
+    def __init__(self, texts: list[str], labels: list[int], reasons: list[str], tokenizer: PreTrainedTokenizer, reason_to_id: dict[str, int]):
+        self.texts = texts
+        self.labels = labels
+        self.reasons = reasons
+        self.tokenizer = tokenizer
+        self.reason_to_id = reason_to_id
+        if self.tokenizer.pad_token_id is None:
+            self.tokenizer.pad_token = self.tokenizer.eos_token
+            self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
+        self.max_length = tokenizer.model_max_length
+
+    def __len__(self):
+        return len(self.texts)
+
+    def __getitem__(self, idx: int) -> dict[str, torch.Tensor | int]:
+        text = str(self.texts[idx])
+        label = self.labels[idx]
+        reason = self.reasons[idx]
+        reason_id = self.reason_to_id[reason]
+
+        encoding = self.tokenizer.encode_plus(
+            text,
+            add_special_tokens=True,
+            max_length=self.max_length,
+            return_token_type_ids=False,
+            padding='max_length',
+            truncation=True,
+            return_attention_mask=True,
+            return_tensors='pt',
+        )
+        return {
+            'input_ids': encoding['input_ids'].flatten(),
+            'attention_mask': encoding['attention_mask'].flatten(),
+            'labels': label,
+            'reasons': reason_id
+        }
+
+def format_profile(profile: dict) -> str:
+    profile_str = f"性别: {profile['gender']}\n年龄: {profile['age']}\n背景: {profile['background']}\n性格: {', '.join(profile['personality'])}\n职业: {profile['occupation']}\n日常兴趣: {', '.join(profile['daily_interests'])}\n旅行习惯: {', '.join(profile['travel_habits'])}\n饮食偏好: {', '.join(profile['dining_preferences'])}\n消费习惯: {', '.join(profile['spending_habits'])}\n其他方面: {', '.join(profile['other_aspects'])}"
+    return profile_str
+
+def preprocess_data(data_list: list[dict], tokenizer: PreTrainedModel) -> tuple[list[str], list[int], list[str]]:
+
+    def count_tokens(text: str) -> int:
+        return tokenizer(text, truncation=True, max_length=tokenizer.model_max_length, return_tensors="pt")['input_ids'].shape[1]
+    texts = []
+    labels = []
+    reasons = []
+    max_tokens = tokenizer.model_max_length
+    for sample in data_list:
+        previous_text = ""
+        previous_text += "[PROFILE]\n" + format_profile(sample['profile']) + "\n"
+        previous_text += "[TASK CONTEXT]\n" + sample['task_context'] + "\n"
+        previous_tokens = count_tokens(previous_text)
+        history_turns = []
+        assistant_turn_idx = 0
+        for utt in sample['history']:
+            history_turns.append(f"{utt['role']}: {utt['content']}")
+            # TODO: truncate it to fit the model input (left the most recent turns)
+            current_tokens = previous_tokens + count_tokens("[HISTORY]" + "\n".join(history_turns))
+            # Truncate history turns
+            while current_tokens > max_tokens and history_turns:
+                history_turns.pop(0)
+                current_tokens = previous_tokens + count_tokens("[HISTORY]" + "\n".join(history_turns))
+            if utt['role'] != 'assistant':
+                continue
+            final_text = previous_text + "[HISTORY]" + "\n".join(history_turns)
+            label = sample['satisfaction_scores'][assistant_turn_idx]
+            reason = sample['dissatisfaction_reasons'][assistant_turn_idx]
+            texts.append(final_text)
+            labels.append(label)
+            reasons.append(reason)
+            assistant_turn_idx += 1
+    return texts, labels, reasons
+
+def evaluate_satisfaction_predictor(model: SatisfactionPredictor, loader: DataLoader) -> dict[str, float]:
+    # evaluate the satisfaction predictor on the test data
+    # Metrics: regression (e.g., MAE, RMSE, R2, Pearson correlation, Spearman correlation, calibration curve, <= 3 classification), classification (e.g., accuracy, F1-score)
+    model.eval()
+    all_labels = []
+    all_pred_scores = []
+    all_reasons = []
+    all_pred_reason_logits = []
+    with torch.no_grad():
+        for batch in tqdm(loader, desc="Evaluating", unit="batch"):
+            batch = {k: v.to(model.backbone.device) if isinstance(v, torch.Tensor) else v for k, v in batch.items()}
+            input_ids = batch['input_ids']
+            attention_mask = batch['attention_mask']
+            labels = batch['labels'].float()  # [batch_size]
+            reasons = batch['reasons']  # [batch_size]
+
+            pred_scores, pred_reason_logits = model(input_ids=input_ids, attention_mask=attention_mask)
+            all_labels.extend(labels.cpu().numpy())
+            all_pred_scores.extend(pred_scores.cpu().numpy())
+            all_reasons.extend(reasons.cpu().numpy())
+            all_pred_reason_logits.extend(pred_reason_logits.cpu().numpy())
+
+    # Compute regression metrics
+    mae = mean_absolute_error(all_labels, all_pred_scores)
+    rmse = root_mean_squared_error(all_labels, all_pred_scores)
+    r2 = r2_score(all_labels, all_pred_scores)
+    logger.info(f"Regression Metrics - MAE: {mae:.4f}, RMSE: {rmse:.4f}, R2: {r2:.4f}")
+    # Compute correlation metrics
+    pearson_corr = pearsonr(all_labels, all_pred_scores)[0]
+    spearman_corr = spearmanr(all_labels, all_pred_scores)[0]
+    logger.info(f"Correlation Metrics - Pearson: {pearson_corr:.4f}, Spearman: {spearman_corr:.4f}")
+    # Compute classification metrics
+    pred_reason_labels = [logits.argmax() for logits in all_pred_reason_logits]
+    accuracy = accuracy_score(all_reasons, pred_reason_labels)
+    f1 = f1_score(all_reasons, pred_reason_labels, average='weighted')
+    logger.info(f"Classification Metrics - Accuracy: {accuracy:.4f}, F1-score: {f1:.4f}")
+    return {"mae": mae, "rmse": rmse, "r2": r2, "pearson": pearson_corr, "spearman": spearman_corr, "accuracy": accuracy, "f1": f1}
+
+def train_satisfaction_predictor(backbone: PreTrainedModel, train_loader: DataLoader, valid_loader: DataLoader, num_reasons: int, num_epochs: int, alpha: float = 1.0, beta: float = 1.0) -> SatisfactionPredictor:
+    # train a satisfaction predictor with the training data
+    # backbone (e.g., bert-base-chinese) + ordinal head for score regression + classification head for reason classification
+    # Loss = α * Regression Loss (e.g., MSE / ordinal loss) + β * Classification Loss (e.g., BCE / cross-entropy)
+    model = SatisfactionPredictor(backbone, num_reasons)
+    model.to(torch.device("cuda" if torch.cuda.is_available() else "cpu"))
+    loss_fn_regression = torch.nn.MSELoss()
+    loss_fn_classification = torch.nn.CrossEntropyLoss()
+    optimizer = torch.optim.Adam(model.parameters(), lr=2e-5)
+    eval_results = evaluate_satisfaction_predictor(model, valid_loader)  # Evaluate before training
+    torch.save(model.state_dict(), os.path.join('ckpts', 'best.pt'))  # Save initial model
+    best_metric = eval_results["mae"]  # Use MAE as the main metric for model selection
+    for epoch in range(num_epochs):
+        model.train()
+        for batch in (pbar := tqdm(train_loader, desc=f"Epoch {epoch+1}/{num_epochs}", unit="batch")):
+            batch = {k: v.to(model.backbone.device) if isinstance(v, torch.Tensor) else v for k, v in batch.items()}
+            input_ids = batch['input_ids']
+            attention_mask = batch['attention_mask']
+            labels = batch['labels'].float()  # [batch_size]
+            reasons = batch['reasons']  # [batch_size]
+
+            optimizer.zero_grad()
+            pred_scores, pred_reason_logits = model(input_ids=input_ids, attention_mask=attention_mask)
+            loss_regression = loss_fn_regression(pred_scores, labels)
+            loss_classification = loss_fn_classification(pred_reason_logits, reasons)
+            loss = alpha * loss_regression + beta * loss_classification
+            pbar.set_postfix({"loss": f"{loss.item():.4f}", "reg_loss": f"{loss_regression.item():.4f}", "cls_loss": f"{loss_classification.item():.4f}"})
+            loss.backward()
+            optimizer.step()
+
+        eval_results = evaluate_satisfaction_predictor(model, valid_loader)  # Evaluate after each epoch
+        if eval_results["mae"] < best_metric:  # Update best model based on MAE
+            best_metric = eval_results["mae"]
+            torch.save(model.state_dict(), os.path.join('ckpts', 'best.pt'))
+            logger.info(f"New best model saved with MAE: {best_metric:.4f}")
+    # Load the best model before returning
+    model.load_state_dict(torch.load(os.path.join('ckpts', 'best.pt')))
+    return model
+
+def main(model_name: str = "bert-base-chinese", batch_size: int = 16, num_epochs: int = 10):
+    data_list = get_satisfaction_data()
+    backbone = AutoModel.from_pretrained(model_name)
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    texts, labels, reasons = preprocess_data(data_list, tokenizer)
+    reason_set = set(reasons)
+    num_reasons = len(reason_set)
+    reason_to_id = {'其它': 0, '不够多样': 1, '不可用': 2, '满意': 3, '不够细致': 4, '不满足需求': 5}
+    logger.info(reason_to_id)
+    # Split train/valid/test sets (e.g., 80% train, 10% valid, 10% test)
+    train_texts, test_texts, train_labels, test_labels, train_reasons, test_reasons = train_test_split(
+        texts, labels, reasons, test_size=0.1, random_state=42
+    )
+    train_texts, valid_texts, train_labels, valid_labels, train_reasons, valid_reasons = train_test_split(
+        train_texts, train_labels, train_reasons, test_size=1.0 / 9.0, random_state=42
+    )
+    logger.info(f"Train data: {len(train_texts)}, Valid data: {len(valid_texts)}, Test data: {len(test_texts)}")
+
+    train_dataset = SatisfactionDataset(train_texts, train_labels, train_reasons, tokenizer, reason_to_id)
+    valid_dataset = SatisfactionDataset(valid_texts, valid_labels, valid_reasons, tokenizer, reason_to_id)
+    test_dataset = SatisfactionDataset(test_texts, test_labels, test_reasons, tokenizer, reason_to_id)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    valid_loader = DataLoader(valid_dataset, batch_size=batch_size, shuffle=False)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+
+    model = train_satisfaction_predictor(backbone, train_loader, valid_loader, num_reasons, num_epochs)
+    evaluate_satisfaction_predictor(model, test_loader)
+
+def parse_args():
+    parser = ArgumentParser(description="Train and evaluate a satisfaction predictor")
+    parser.add_argument("-m", "--model_name", type=str, default="bert-base-chinese", help="Pre-trained model name")
+    parser.add_argument("-b", "--batch_size", type=int, default=16, help="Batch size for training and evaluation")
+    parser.add_argument("-e", "--num_epochs", type=int, default=10, help="Number of training epochs")
+    return parser.parse_args()
+
+if __name__ == "__main__":
+    args = parse_args()
+    main(**vars(args))
