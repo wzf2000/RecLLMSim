@@ -103,12 +103,34 @@ def preprocess_to_dict_data(data_list: list[dict]) -> dict[str, list[str | float
 # =========================
 
 def format_example(example: dict[str, str | float]) -> str:
+    persona = (example.get("persona") or "").strip()
+    task_context = (example.get("task_context") or "").strip()
+    history = (example.get("history") or "").strip()
+    assistant_reply = (example.get("assistant_reply") or "").strip()
+
+    # 这是“打分任务”的指令模板：清晰的评分标尺 + 只输出分数，有助于稳定表征学习。
     text = (
-        f"用户画像：{example['persona']}\n\n"
-        f"任务背景：{example['task_context']}\n\n"
-        f"最近对话历史：{example['history']}\n\n"
-        f"当前助手回复：{example['assistant_reply']}\n\n"
-        f"请预测用户满意度（1-5分）："
+        "你是一个对话质量评估器。请基于给定信息，预测【用户对当前助手回复】的满意度分数。\n"
+        "\n"
+        "评分范围：1-5 分（整数）。评分含义：\n"
+        "- 1：非常不满意（严重错误/不可用/明显违背需求）\n"
+        "- 2：不满意（有明显问题，基本不满足需求）\n"
+        "- 3：一般（部分满足，但有缺失/不够清晰/可用性一般）\n"
+        "- 4：满意（基本满足需求，少量瑕疵不影响使用）\n"
+        "- 5：非常满意（完全满足需求，清晰、可执行、体验很好）\n"
+        "\n"
+        "判断时重点关注：是否解决需求、是否可执行且正确、是否完整细致、是否与用户画像/上下文一致。\n"
+        "如果信息不足，按最保守的满意分（4）处理。\n"
+        "\n"
+        f"【用户画像】\n{persona or '（空）'}\n"
+        "\n"
+        f"【任务背景】\n{task_context or '（空）'}\n"
+        "\n"
+        f"【最近对话历史】\n{history or '（空）'}\n"
+        "\n"
+        f"【当前助手回复】\n{assistant_reply or '（空）'}\n"
+        "\n"
+        "请输出一个整数分数（仅输出数字，不要解释）："
     )
     return text
 
