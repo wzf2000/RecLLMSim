@@ -3,7 +3,7 @@ import json
 import random
 import streamlit as st
 import numpy as np
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GroupShuffleSplit
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score
 from scipy.stats import spearmanr, pearsonr
 
@@ -12,9 +12,45 @@ from metric_statistics import get_satisfaction_data
 
 # ================= 数据准备模块 =================
 
+def split_by_user_group_shuffle_split(
+    users: list[str],
+    train_ratio: float = 0.8,
+    val_ratio: float = 0.1,
+    test_ratio: float = 0.1,
+    seed: int = 42,
+) -> tuple[list[int], list[int], list[int]]:
+    """使用 sklearn 的 GroupShuffleSplit 按 user 分组切分到 8:1:1（同一 user 不跨集合）。"""
+    if abs((train_ratio + val_ratio + test_ratio) - 1.0) > 1e-8:
+        raise ValueError("train_ratio + val_ratio + test_ratio 必须等于 1")
+    n = len(users)
+    if n == 0:
+        return [], [], []
+
+    all_idx = list(range(n))
+    gss_1 = GroupShuffleSplit(
+        n_splits=1,
+        train_size=train_ratio,
+        test_size=(val_ratio + test_ratio),
+        random_state=seed,
+    )
+    train_rel, temp_rel = next(gss_1.split(all_idx, groups=users))
+    train_idx = [all_idx[i] for i in train_rel]
+    temp_idx = [all_idx[i] for i in temp_rel]
+
+    temp_users = [users[i] for i in temp_idx]
+    gss_2 = GroupShuffleSplit(
+        n_splits=1,
+        train_size=val_ratio / (val_ratio + test_ratio),
+        random_state=seed,
+    )
+    val_rel, test_rel = next(gss_2.split(list(range(len(temp_idx))), groups=temp_users))
+    valid_idx = [temp_idx[i] for i in val_rel]
+    test_idx = [temp_idx[i] for i in test_rel]
+    return train_idx, valid_idx, test_idx
+
 
 @st.cache_data
-def load_and_sample_test_data(sample_size: int = 20):
+def load_and_sample_test_data(sample_size: int = 100, ref_per_score: int = 3):
     """
     加载数据，进行与模型训练相同的切分，并从测试集中随机采样用于人工标注
     """
@@ -36,21 +72,36 @@ def load_and_sample_test_data(sample_size: int = 20):
                     "gt_score": sample['satisfaction_scores'][assistant_turn_idx],
                     "gt_reason": sample['dissatisfaction_reasons'][assistant_turn_idx],
                     "chat_model": sample['chat_model'],
-                    "task": sample['task']
+                    "task": sample['task'],
+                    "user": sample.get("user", "unknown"),
                 })
                 assistant_turn_idx += 1
 
     # 保持与你的训练脚本完全一致的拆分逻辑，以确保拿到同样的测试集
-    # 这里我们只关心切分后的 test_samples
-    train_samples, test_samples = train_test_split(
-        structured_samples, test_size=0.1, random_state=42
+    train_idx, _, test_idx = split_by_user_group_shuffle_split(
+        [s["user"] for s in structured_samples],
+        train_ratio=0.8,
+        val_ratio=0.1,
+        test_ratio=0.1,
+        seed=42,
     )
+    train_samples = [structured_samples[i] for i in train_idx]
+    test_samples = [structured_samples[i] for i in test_idx]
+
+    # 从训练集中按分数分层抽取参考样本（用于对照/校准标注尺度）
+    random.seed(42)
+    ref_by_score: dict[int, list[dict]] = {i: [] for i in range(1, 6)}
+    for score in range(1, 6):
+        candidates = [s for s in train_samples if int(s["gt_score"]) == score]
+        if candidates:
+            k = min(ref_per_score, len(candidates))
+            ref_by_score[score] = random.sample(candidates, k)
 
     # 从测试集中随机采样指定数量的数据用于人工标注
     random.seed(42)  # 固定采样种子，保证每次刷新网页样本不发生改变
     sampled_data = random.sample(
         test_samples, min(sample_size, len(test_samples)))
-    return sampled_data
+    return sampled_data, ref_by_score
 
 # ================= 界面与交互模块 =================
 
@@ -75,13 +126,15 @@ def main():
 
     # 1. 初始化 Session State
     if 'samples' not in st.session_state:
-        st.session_state.samples = load_and_sample_test_data(
-            sample_size=20
-        )  # 你可以在这修改采样数量
+        samples, ref_by_score = load_and_sample_test_data(sample_size=100, ref_per_score=3)
+        st.session_state.samples = samples
+        st.session_state.ref_by_score = ref_by_score
     if 'current_idx' not in st.session_state:
         st.session_state.current_idx = 0
     if 'annotations' not in st.session_state:
         st.session_state.annotations = []
+    if 'active_page' not in st.session_state:
+        st.session_state.active_page = "标注"
 
     # 2. 侧边栏：标注者信息与进度
     with st.sidebar:
@@ -94,10 +147,40 @@ def main():
         st.progress(current_idx / total_samples if total_samples > 0 else 0)
         st.write(f"当前进度: **{current_idx} / {total_samples}**")
 
+        st.markdown("---")
+        st.session_state.active_page = st.radio(
+            "页面",
+            options=["标注", "参考"],
+            index=0 if st.session_state.active_page == "标注" else 1,
+        )
+
         if st.button("重置标注进度", type="secondary"):
             st.session_state.current_idx = 0
             st.session_state.annotations = []
             st.rerun()
+
+    # 参考页：展示来自训练集的分数分层样本（不影响标注进度）
+    if st.session_state.active_page == "参考":
+        st.subheader("📚 参考样本（来自训练集，按分数分层抽取）")
+        ref_by_score = st.session_state.get("ref_by_score", {i: [] for i in range(1, 6)})
+        score_choice = st.selectbox("选择要查看的参考分数", options=[1, 2, 3, 4, 5], index=4)
+        refs = ref_by_score.get(int(score_choice), [])
+        if not refs:
+            st.info("该分数在训练集中没有可用参考样本。")
+            return
+
+        for j, sample in enumerate(refs):
+            with st.expander(f"参考样本 {j+1}（GT 分数：{sample['gt_score']}，任务：{sample.get('task','')}）", expanded=(j == 0)):
+                st.caption(f"模型: {sample.get('chat_model', '')}")
+                st.markdown(f"**🎯 任务背景**:\n\n{sample.get('task_context','')}")
+                st.markdown("---")
+                chat_container = st.container(height=420)
+                with chat_container:
+                    for utt in sample.get('history', []):
+                        role = "user" if utt.get('role') == "user" else "assistant"
+                        with st.chat_message(role):
+                            st.write(utt.get('content', ''))
+        return
 
     # 3. 如果所有样本都标注完成了，展示评估结果
     if current_idx >= total_samples:
