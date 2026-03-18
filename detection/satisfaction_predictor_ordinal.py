@@ -5,11 +5,12 @@ from torch.utils.data import Dataset, DataLoader
 from loguru import logger
 from argparse import ArgumentParser
 from scipy.stats import spearmanr, pearsonr
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score, accuracy_score, f1_score, cohen_kappa_score
 from transformers import AutoTokenizer, AutoModel, PreTrainedModel, PreTrainedTokenizer
 
 from metric_statistics import get_satisfaction_data
+from data_split import split_by_user_group_shuffle_split
+from satisfaction_constants import get_reason_to_id
 
 class OrdinalHead(torch.nn.Module):
     def __init__(self, hidden_size: int, num_classes: int = 5):
@@ -90,13 +91,14 @@ def format_profile(profile: dict) -> str:
     profile_str = f"性别: {profile['gender']}\n年龄: {profile['age']}\n背景: {profile['background']}\n性格: {', '.join(profile['personality'])}\n职业: {profile['occupation']}\n日常兴趣: {', '.join(profile['daily_interests'])}\n旅行习惯: {', '.join(profile['travel_habits'])}\n饮食偏好: {', '.join(profile['dining_preferences'])}\n消费习惯: {', '.join(profile['spending_habits'])}\n其他方面: {', '.join(profile['other_aspects'])}"
     return profile_str
 
-def preprocess_data(data_list: list[dict], tokenizer: PreTrainedModel) -> tuple[list[str], list[int], list[str]]:
+def preprocess_data(data_list: list[dict], tokenizer: PreTrainedModel) -> tuple[list[str], list[int], list[str], list[str]]:
 
     def count_tokens(text: str) -> int:
         return tokenizer(text, truncation=True, max_length=tokenizer.model_max_length, return_tensors="pt")['input_ids'].shape[1]
     texts = []
     labels = []
     reasons = []
+    users = []
     max_tokens = tokenizer.model_max_length
     for sample in data_list:
         previous_text = ""
@@ -121,8 +123,9 @@ def preprocess_data(data_list: list[dict], tokenizer: PreTrainedModel) -> tuple[
             texts.append(final_text)
             labels.append(label)
             reasons.append(reason)
+            users.append(sample.get("user", "unknown"))
             assistant_turn_idx += 1
-    return texts, labels, reasons
+    return texts, labels, reasons, users
 
 def evaluate_satisfaction_predictor(model: SatisfactionPredictor, loader: DataLoader) -> dict[str, float]:
     # evaluate the satisfaction predictor on the test data
@@ -219,18 +222,21 @@ def main(model_name: str = "bert-base-chinese", batch_size: int = 16, num_epochs
     data_list = get_satisfaction_data()
     backbone = AutoModel.from_pretrained(model_name)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
-    texts, labels, reasons = preprocess_data(data_list, tokenizer)
-    reason_set = set(reasons)
-    num_reasons = len(reason_set)
-    reason_to_id = {'其它': 0, '不够多样': 1, '不可用': 2, '满意': 3, '不够细致': 4, '不满足需求': 5}
+    texts, labels, reasons, users = preprocess_data(data_list, tokenizer)
+    reason_to_id = get_reason_to_id()
+    num_reasons = len(reason_to_id)
     logger.info(reason_to_id)
     # Split train/valid/test sets (e.g., 80% train, 10% valid, 10% test)
-    train_texts, test_texts, train_labels, test_labels, train_reasons, test_reasons = train_test_split(
-        texts, labels, reasons, test_size=0.1, random_state=42
-    )
-    train_texts, valid_texts, train_labels, valid_labels, train_reasons, valid_reasons = train_test_split(
-        train_texts, train_labels, train_reasons, test_size=1.0 / 9.0, random_state=42
-    )
+    train_idx, valid_idx, test_idx = split_by_user_group_shuffle_split(users, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1, seed=42)
+    train_texts = [texts[i] for i in train_idx]
+    train_labels = [labels[i] for i in train_idx]
+    train_reasons = [reasons[i] for i in train_idx]
+    valid_texts = [texts[i] for i in valid_idx]
+    valid_labels = [labels[i] for i in valid_idx]
+    valid_reasons = [reasons[i] for i in valid_idx]
+    test_texts = [texts[i] for i in test_idx]
+    test_labels = [labels[i] for i in test_idx]
+    test_reasons = [reasons[i] for i in test_idx]
     logger.info(f"Train data: {len(train_texts)}, Valid data: {len(valid_texts)}, Test data: {len(test_texts)}")
 
     train_dataset = SatisfactionDataset(train_texts, train_labels, train_reasons, tokenizer, reason_to_id)

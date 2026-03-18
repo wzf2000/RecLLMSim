@@ -9,21 +9,20 @@ from datasets import Dataset
 from argparse import ArgumentParser
 from transformers import (
     AutoTokenizer,
-    AutoModel,
     PreTrainedTokenizer,
     PreTrainedModel,
     TrainingArguments,
     Trainer,
     EvalPrediction,
 )
-from transformers.models.qwen3.modeling_qwen3 import Qwen3ForCausalLM
-from peft import LoraConfig, get_peft_model
 from scipy.stats import spearmanr, pearsonr
-from sklearn.model_selection import GroupShuffleSplit
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score, accuracy_score, f1_score
 
 from metric_statistics import get_satisfaction_data
 from satisfaction_predictor import format_profile
+from data_split import split_by_user_group_shuffle_split
+from satisfaction_constants import get_reason_to_id, get_id_to_reason
+from qwen_lora_utils import get_base_model, get_model_with_lora
 
 # =========================
 # 添加回归 Head
@@ -97,43 +96,6 @@ def preprocess_to_dict_data(data_list: list[dict]) -> dict[str, list[str | float
     return data
 
 
-def split_by_user_group_shuffle_split(
-    users: list[str],
-    train_ratio: float = 0.8,
-    val_ratio: float = 0.1,
-    test_ratio: float = 0.1,
-    seed: int = 42,
-) -> tuple[list[int], list[int], list[int]]:
-    """使用 sklearn 的 GroupShuffleSplit 按 user 分组切分到 8:1:1（同一 user 不跨集合）。"""
-    if abs((train_ratio + val_ratio + test_ratio) - 1.0) > 1e-8:
-        raise ValueError("train_ratio + val_ratio + test_ratio 必须等于 1")
-    n = len(users)
-    if n == 0:
-        return [], [], []
-
-    all_idx = list(range(n))
-    gss_1 = GroupShuffleSplit(
-        n_splits=1,
-        train_size=train_ratio,
-        test_size=(val_ratio + test_ratio),
-        random_state=seed,
-    )
-    train_rel, temp_rel = next(gss_1.split(all_idx, groups=users))
-    train_idx = [all_idx[i] for i in train_rel]
-    temp_idx = [all_idx[i] for i in temp_rel]
-
-    # 将 temp 再切成 val / test（各占一半）
-    temp_users = [users[i] for i in temp_idx]
-    gss_2 = GroupShuffleSplit(
-        n_splits=1,
-        train_size=val_ratio / (val_ratio + test_ratio),
-        random_state=seed,
-    )
-    val_rel, test_rel = next(gss_2.split(list(range(len(temp_idx))), groups=temp_users))
-    valid_idx = [temp_idx[i] for i in val_rel]
-    test_idx = [temp_idx[i] for i in test_rel]
-    return train_idx, valid_idx, test_idx
-
 # =========================
 # Tokenizer
 # =========================
@@ -167,7 +129,7 @@ def tokenize_function(example: dict[str, str | float], tokenizer: PreTrainedToke
 def get_dataset(tokenizer: PreTrainedTokenizer, max_len: int) -> tuple[Dataset, int, dict]:
     data_list = get_satisfaction_data()  # 从 metric_statistics 获取数据
     data = preprocess_to_dict_data(data_list)
-    reason_to_id = {'其它': 0, '不够多样': 1, '不可用': 2, '满意': 3, '不够细致': 4, '不满足需求': 5}
+    reason_to_id = get_reason_to_id()
     num_reasons = len(reason_to_id)
     logger.info(reason_to_id)
 
@@ -175,34 +137,6 @@ def get_dataset(tokenizer: PreTrainedTokenizer, max_len: int) -> tuple[Dataset, 
     partial_tokenize = partial(tokenize_function, tokenizer=tokenizer, max_len=max_len, reason_to_id=reason_to_id)
     dataset = dataset.map(partial_tokenize)
     return dataset, num_reasons, reason_to_id
-
-# =========================
-# 加载 Qwen3 backbone（仅 encoder 使用）
-# =========================
-
-def get_base_model(model_name: str) -> PreTrainedModel:
-    base_model = AutoModel.from_pretrained(
-        model_name,
-        dtype=torch.bfloat16,
-        trust_remote_code=True,
-    )
-    return base_model
-
-# =========================
-# 加 LoRA
-# =========================
-
-def get_model_with_lora(base_model: PreTrainedModel) -> PreTrainedModel:
-    lora_config = LoraConfig(
-        r=8,
-        lora_alpha=16,
-        target_modules=["q_proj", "v_proj"],  # Qwen常用
-        lora_dropout=0.1,
-        bias="none",
-        task_type="FEATURE_EXTRACTION"
-    )
-    peft_model = get_peft_model(base_model, lora_config)
-    return peft_model
 
 # =========================
 # Trainer 配置
@@ -267,7 +201,7 @@ def run_test_only(
     tokenizer: PreTrainedTokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
     dataset, num_reasons, reason_to_id = get_dataset(tokenizer, max_len)
     train_idx, valid_idx, test_idx = split_by_user_group_shuffle_split(dataset["user"], train_ratio=0.8, val_ratio=0.1, test_ratio=0.1, seed=42)
-    id_to_reason = {v: k for k, v in reason_to_id.items()}
+    id_to_reason = get_id_to_reason()
     test_dataset = dataset.select(test_idx)
     logger.info(f"Test samples: {len(test_idx)}")
 

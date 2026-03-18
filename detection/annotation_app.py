@@ -3,51 +3,14 @@ import json
 import random
 import streamlit as st
 import numpy as np
-from sklearn.model_selection import GroupShuffleSplit
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score
 from scipy.stats import spearmanr, pearsonr
 
 # 假设你的获取数据函数保存在 metric_statistics.py 中
 from metric_statistics import get_satisfaction_data
+from data_split import split_by_user_group_shuffle_split
 
 # ================= 数据准备模块 =================
-
-def split_by_user_group_shuffle_split(
-    users: list[str],
-    train_ratio: float = 0.8,
-    val_ratio: float = 0.1,
-    test_ratio: float = 0.1,
-    seed: int = 42,
-) -> tuple[list[int], list[int], list[int]]:
-    """使用 sklearn 的 GroupShuffleSplit 按 user 分组切分到 8:1:1（同一 user 不跨集合）。"""
-    if abs((train_ratio + val_ratio + test_ratio) - 1.0) > 1e-8:
-        raise ValueError("train_ratio + val_ratio + test_ratio 必须等于 1")
-    n = len(users)
-    if n == 0:
-        return [], [], []
-
-    all_idx = list(range(n))
-    gss_1 = GroupShuffleSplit(
-        n_splits=1,
-        train_size=train_ratio,
-        test_size=(val_ratio + test_ratio),
-        random_state=seed,
-    )
-    train_rel, temp_rel = next(gss_1.split(all_idx, groups=users))
-    train_idx = [all_idx[i] for i in train_rel]
-    temp_idx = [all_idx[i] for i in temp_rel]
-
-    temp_users = [users[i] for i in temp_idx]
-    gss_2 = GroupShuffleSplit(
-        n_splits=1,
-        train_size=val_ratio / (val_ratio + test_ratio),
-        random_state=seed,
-    )
-    val_rel, test_rel = next(gss_2.split(list(range(len(temp_idx))), groups=temp_users))
-    valid_idx = [temp_idx[i] for i in val_rel]
-    test_idx = [temp_idx[i] for i in test_rel]
-    return train_idx, valid_idx, test_idx
-
 
 @st.cache_data
 def load_and_sample_test_data(sample_size: int = 100, ref_per_score: int = 3):
