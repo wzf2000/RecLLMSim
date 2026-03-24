@@ -42,8 +42,8 @@ class ClsDataset(Dataset):
         )
 
         return {
-            'input_ids': encoding['input_ids'].flatten(), # type: ignore
-            'attention_mask': encoding['attention_mask'].flatten(), # type: ignore
+            'input_ids': encoding['input_ids'].flatten(),  # type: ignore
+            'attention_mask': encoding['attention_mask'].flatten(),  # type: ignore
             'labels': label
         }
 

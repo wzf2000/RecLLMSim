@@ -27,11 +27,11 @@ class WeightedSampleTrainer(Trainer):
         train_dataset = self.train_dataset
         assert train_dataset is not None, "Train dataset must be provided"
         assert hasattr(train_dataset, 'labels'), "Train dataset must have 'labels' attribute"
-        train_labels = train_dataset.labels # type: ignore
+        train_labels = train_dataset.labels  # type: ignore
         sample_weights = [5.0 if label == 0 else 1.0 for label in train_labels]
         sampler = WeightedRandomSampler(
             sample_weights,
-            len(train_dataset), # type: ignore
+            len(train_dataset),  # type: ignore
             replacement=True
         )
         return DataLoader(
