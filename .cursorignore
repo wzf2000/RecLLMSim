@@ -1,0 +1,25 @@
+# Add directories or file patterns to ignore during indexing (e.g. foo/ or *.csv)
+# 匹配目录
+LLM_agent_user/**
+!LLM_agent_user/
+!LLM_agent_user/new travel planning/
+!LLM_agent_user/new travel planning/0.json
+real_human_user/**
+!real_human_user/
+!real_human_user/User_0/
+!real_human_user/User_0/旅行规划/
+!real_human_user/User_0/旅行规划/6.json
+human_exp_V2/**
+!human_exp_V2/
+!human_exp_V2/User_0/
+!human_exp_V2/User_0/菜谱规划/
+!human_exp_V2/User_0/菜谱规划/0.json
+# 匹配目录及文件
+# 匹配文件类型
+*.txt
+log*.json
+# 匹配具体文件
+.env
+# IDE配置
+.idea
+.vscode

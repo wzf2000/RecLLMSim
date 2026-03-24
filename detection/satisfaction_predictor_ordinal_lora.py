@@ -235,9 +235,16 @@ def compute_metrics(eval_pred: EvalPrediction) -> dict[str, float]:
         "reason_f1": f1,
     }
 
-def get_trainer(model: nn.Module, train_dataset: Dataset, valid_dataset: Dataset, batch_size: int, num_epochs: int) -> Trainer:
+def get_trainer(
+    model: nn.Module,
+    train_dataset: Dataset,
+    valid_dataset: Dataset,
+    batch_size: int,
+    num_epochs: int,
+    output_dir: str,
+) -> Trainer:
     training_args = TrainingArguments(
-        output_dir="./ckpts/llm_predictor_ordinal",
+        output_dir=output_dir,
         per_device_train_batch_size=batch_size,
         gradient_accumulation_steps=8,
         num_train_epochs=num_epochs,
@@ -260,7 +267,21 @@ def get_trainer(model: nn.Module, train_dataset: Dataset, valid_dataset: Dataset
     )
     return trainer
 
-def main(model_name: str = "Qwen/Qwen3-8B", max_len: int = 1024, batch_size: int = 2, num_epochs: int = 10, resume_from_checkpoint: bool = False):
+def main(
+    model_name: str = "Qwen/Qwen3-8B",
+    max_len: int = 1024,
+    batch_size: int = 2,
+    num_epochs: int = 10,
+    resume_from_checkpoint: bool = False,
+    output_dir: str = "./ckpts/llm_predictor_ordinal",
+    alpha: float = 1.0,
+    beta: float = 0.5,
+    gamma: float = 0.1,
+    delta: float = 0.2,
+    consistency_temp: float = 2.0,
+    consistency_center: float = 3.5,
+    use_score_weights: bool = False,
+):
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
     logger.info(f"Using device: {DEVICE}")
     tokenizer: PreTrainedTokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
@@ -268,23 +289,27 @@ def main(model_name: str = "Qwen/Qwen3-8B", max_len: int = 1024, batch_size: int
     train_idx, valid_idx, test_idx = split_by_user_group_shuffle_split(dataset["user"], train_ratio=0.8, val_ratio=0.1, test_ratio=0.1, seed=42)
     logger.info(f"Train samples: {len(train_idx)}, Valid samples: {len(valid_idx)}, Test samples: {len(test_idx)}")
 
-    # 用训练集分布构建分数权重（逆频率），缓解 1 分样本学习不足问题
-    train_scores = [int(s) for s in dataset.select(train_idx)["score"]]
-    total = len(train_scores)
-    counts = {i: 0 for i in range(1, 6)}
-    for s in train_scores:
-        if s in counts:
-            counts[s] += 1
-    score_weights = [0.0] * 6  # index 0 unused
-    for s in range(1, 6):
-        c = counts[s]
-        if c <= 0:
-            score_weights[s] = 1.0
-        else:
-            score_weights[s] = total / (5.0 * c)
-    # 防止极端权重导致训练不稳定
-    score_weights = [min(5.0, max(0.2, w)) for w in score_weights]
-    logger.info(f"Train score counts: {counts}, score_weights: {score_weights[1:]}")
+    score_weights: list[float] | None = None
+    if use_score_weights:
+        # 用训练集分布构建分数权重（逆频率），缓解 1 分样本学习不足问题
+        train_scores = [int(s) for s in dataset.select(train_idx)["score"]]
+        total = len(train_scores)
+        counts = {i: 0 for i in range(1, 6)}
+        for s in train_scores:
+            if s in counts:
+                counts[s] += 1
+        score_weights = [0.0] * 6  # index 0 unused
+        for s in range(1, 6):
+            c = counts[s]
+            if c <= 0:
+                score_weights[s] = 1.0
+            else:
+                score_weights[s] = total / (5.0 * c)
+        # 防止极端权重导致训练不稳定
+        score_weights = [min(5.0, max(0.2, w)) for w in score_weights]
+        logger.info(f"Train score counts: {counts}, score_weights: {score_weights[1:]}")
+    else:
+        logger.info("Disable score_weights (use_score_weights=0)")
 
     base_model = get_base_model(model_name)
     backbone = get_model_with_lora(base_model)
@@ -293,12 +318,18 @@ def main(model_name: str = "Qwen/Qwen3-8B", max_len: int = 1024, batch_size: int
         num_reason_classes=num_reasons,
         satisfied_reason_id=reason_to_id["满意"],
         score_weights=score_weights,
+        alpha=alpha,
+        beta=beta,
+        gamma=gamma,
+        delta=delta,
+        consistency_temp=consistency_temp,
+        consistency_center=consistency_center,
     )
     model.to(DEVICE)
     train_dataset = dataset.select(train_idx)
     valid_dataset = dataset.select(valid_idx)
     test_dataset = dataset.select(test_idx)
-    trainer = get_trainer(model, train_dataset, valid_dataset, batch_size, num_epochs)
+    trainer = get_trainer(model, train_dataset, valid_dataset, batch_size, num_epochs, output_dir=output_dir)
     init_metrics = trainer.evaluate()  # 先评估一下初始模型性能
     logger.info(f"Initial Metrics: {init_metrics}")
     trainer.train(resume_from_checkpoint=resume_from_checkpoint)
@@ -312,6 +343,18 @@ def parse_args():
     parser.add_argument("--batch_size", type=int, default=2)
     parser.add_argument("--num_epochs", type=int, default=10)
     parser.add_argument("--resume_from_checkpoint", action="store_true")
+    parser.add_argument("--output_dir", type=str, default="./ckpts/llm_predictor_ordinal")
+    parser.add_argument("--alpha", type=float, default=1.0, help="ordinal satisfaction loss 系数")
+    parser.add_argument("--beta", type=float, default=0.5, help="reason classification loss 系数")
+    parser.add_argument("--gamma", type=float, default=0.1, help="monotonic_penalty 系数")
+    parser.add_argument("--delta", type=float, default=0.2, help="跨任务一致性约束 loss 系数；=0 表示禁用")
+    parser.add_argument("--consistency_temp", type=float, default=2.0, help="一致性约束的 sigmoid 温度")
+    parser.add_argument("--consistency_center", type=float, default=3.5, help="一致性约束的分数中心")
+    parser.add_argument(
+        "--use_score_weights",
+        action="store_true",
+        help="是否使用按分数加权",
+    )
     return parser.parse_args()
 
 if __name__ == "__main__":

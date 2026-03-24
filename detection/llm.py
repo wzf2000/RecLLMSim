@@ -56,13 +56,13 @@ def predict(messages: list[ChatCompletionMessageParam], model: str) -> tuple[int
         if content.startswith('{'):
             parsed = json.loads(content)
             if hasattr(response, 'reasoning_content'):
-                return parsed['classification'], response.reasoning_content + '\n\n' + response.content # type: ignore
+                return parsed['classification'], response.reasoning_content + '\n\n' + response.content  # type: ignore
             else:
                 return parsed['classification'], response.content
         else:
             assert content[0] in ['0', '1', '2', '3', '4', '5'], f"Invalid prediction: {response.content}"
             if hasattr(response, 'reasoning_content'):
-                return int(content[0]), response.reasoning_content + '\n\n' + response.content # type: ignore
+                return int(content[0]), response.reasoning_content + '\n\n' + response.content  # type: ignore
             else:
                 return int(content[0]), response.content
     elif response.refusal:
