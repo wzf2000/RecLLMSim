@@ -434,10 +434,11 @@ def parse_args():
     parser.add_argument(
         "--output_jsonl",
         type=str,
-        default="./outputs/closed_model_reasoning_traces.jsonl",
+        default="./outputs/api_model_traces.jsonl",
+        help="输出文件路径，默认 ./outputs/api_model_traces.jsonl",
     )
-    parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--max_workers", type=int, default=8)
+    parser.add_argument("--seed", type=int, default=42, help="采样随机种子，默认 42")
+    parser.add_argument("--max_workers", type=int, default=8, help="最大工作线程数，默认 8")
     parser.add_argument(
         "--data_split",
         type=str,
@@ -465,7 +466,7 @@ def parse_args():
     parser.add_argument(
         "--reflection_output_jsonl",
         type=str,
-        default="./outputs/closed_model_reasoning_traces_reflection.jsonl",
+        default="./outputs/api_model_traces_reflection.jsonl",
         help="反思模式输出文件（jsonl）",
     )
     return parser.parse_args()
