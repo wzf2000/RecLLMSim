@@ -2,8 +2,9 @@ import jieba
 import numpy as np
 from typing import overload, Literal
 from torch.utils.data import Dataset
-from transformers import AutoTokenizer
-from transformers.tokenization_utils import PreTrainedTokenizer
+from transformers import AutoTokenizer, PreTrainedTokenizer
+from transformers.utils import PaddingStrategy
+from transformers.tokenization_utils_base import TruncationStrategy
 
 class ClsDataset(Dataset):
     def __init__(self, texts: list[str], labels: np.ndarray, tokenizer: PreTrainedTokenizer, max_length: int = 512):
@@ -30,13 +31,13 @@ class ClsDataset(Dataset):
             input_ids = input_ids[-self.max_length:]
         truncated_text = self.tokenizer.decode(input_ids)
 
-        encoding = self.tokenizer.encode_plus(
+        encoding = self.tokenizer._encode_plus(
             truncated_text,
             add_special_tokens=True,
             max_length=self.max_length,
             return_token_type_ids=False,
-            padding='max_length',
-            truncation=True,
+            padding_strategy=PaddingStrategy.MAX_LENGTH,
+            truncation_strategy=TruncationStrategy.LONGEST_FIRST,
             return_attention_mask=True,
             return_tensors='pt',
         )

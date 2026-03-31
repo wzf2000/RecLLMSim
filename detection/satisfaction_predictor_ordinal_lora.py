@@ -1,3 +1,4 @@
+import os
 import torch
 import numpy as np
 import torch.nn as nn
@@ -219,19 +220,21 @@ def compute_metrics(eval_pred: EvalPrediction) -> dict[str, float]:
     rmse = root_mean_squared_error(true_scores, pred_scores)
     r2 = r2_score(true_scores, pred_scores)
     kappa = cohen_kappa_score(true_scores, pred_scores, weights='quadratic')
+    score_accuracy = accuracy_score(true_scores, pred_scores)
     pearson_corr = pearsonr(true_scores, pred_scores)[0]
     spearman_corr = spearmanr(true_scores, pred_scores)[0]
     reason_preds = reason_logits.argmax(axis=-1)
-    accuracy = accuracy_score(true_reasons, reason_preds)
-    f1 = f1_score(true_reasons, reason_preds, average="weighted")
+    reason_accuracy = accuracy_score(true_reasons, reason_preds)
+    f1 = f1_score(true_reasons, reason_preds, average="weighted", zero_division=0)
     return {
         "mae": mae,
         "rmse": rmse,
         "r2": r2,
         "kappa": kappa,
+        "score_accuracy": score_accuracy,
         "pearson_corr": pearson_corr,
         "spearman_corr": spearman_corr,
-        "reason_accuracy": accuracy,
+        "reason_accuracy": reason_accuracy,
         "reason_f1": f1,
     }
 
@@ -267,6 +270,73 @@ def get_trainer(
     )
     return trainer
 
+def run_test_only(
+    model_name: str,
+    max_len: int,
+    batch_size: int,
+    checkpoint_path: str,
+    alpha: float = 1.0,
+    beta: float = 0.5,
+    gamma: float = 0.1,
+    delta: float = 0.2,
+    consistency_temp: float = 2.0,
+    consistency_center: float = 3.5,
+):
+    """加载已有 checkpoint，在测试集上评测并输出统一指标。"""
+    import shutil
+    DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+    logger.info(f"Using device: {DEVICE}, test_only mode")
+    tokenizer: PreTrainedTokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+    dataset, num_reasons, reason_to_id = get_dataset(tokenizer, max_len)
+    train_idx, valid_idx, test_idx = split_by_user_group_shuffle_split(
+        dataset["user"], train_ratio=0.8, val_ratio=0.1, test_ratio=0.1, seed=42
+    )
+    test_dataset = dataset.select(test_idx)
+    logger.info(f"Test samples: {len(test_idx)}")
+
+    base_model = get_base_model(model_name)
+    backbone = get_model_with_lora(base_model)
+    model = SatisfactionModel(
+        backbone,
+        num_reason_classes=num_reasons,
+        satisfied_reason_id=reason_to_id["满意"],
+        alpha=alpha, beta=beta, gamma=gamma, delta=delta,
+        consistency_temp=consistency_temp, consistency_center=consistency_center,
+    )
+
+    # 加载 checkpoint（兼容 safetensors / pytorch_model.bin）
+    ckpt_model_path = None
+    for name in ("model.safetensors", "pytorch_model.bin"):
+        p = os.path.join(checkpoint_path, name)
+        if os.path.isfile(p):
+            ckpt_model_path = p
+            break
+    if ckpt_model_path is None:
+        raise FileNotFoundError(
+            f"No model weights found in {checkpoint_path} (need model.safetensors or pytorch_model.bin)"
+        )
+    if ckpt_model_path.endswith(".safetensors"):
+        from safetensors.torch import load_file
+        state_dict = load_file(ckpt_model_path, device="cpu")
+    else:
+        state_dict = torch.load(ckpt_model_path, map_location="cpu", weights_only=True)
+    model.load_state_dict(state_dict, strict=True)
+    model.to(DEVICE)
+
+    eval_tmp_dir = os.path.join(checkpoint_path, "eval_tmp")
+    training_args = TrainingArguments(
+        output_dir=eval_tmp_dir,
+        per_device_eval_batch_size=batch_size,
+        bf16=True,
+        fp16=False,
+    )
+    trainer = Trainer(model=model, args=training_args, compute_metrics=compute_metrics)
+    pred_output = trainer.predict(test_dataset)
+    logger.info(f"Test Metrics: {pred_output.metrics}")
+    if os.path.isdir(eval_tmp_dir):
+        shutil.rmtree(eval_tmp_dir, ignore_errors=True)
+
+
 def main(
     model_name: str = "Qwen/Qwen3-8B",
     max_len: int = 1024,
@@ -281,7 +351,20 @@ def main(
     consistency_temp: float = 2.0,
     consistency_center: float = 3.5,
     use_score_weights: bool = False,
+    test_only: bool = False,
+    checkpoint_path: str = "",
 ):
+    if test_only:
+        if not checkpoint_path:
+            raise ValueError("--test_only 时必须指定 --checkpoint_path")
+        run_test_only(
+            model_name=model_name, max_len=max_len, batch_size=batch_size,
+            checkpoint_path=checkpoint_path,
+            alpha=alpha, beta=beta, gamma=gamma, delta=delta,
+            consistency_temp=consistency_temp, consistency_center=consistency_center,
+        )
+        return
+
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
     logger.info(f"Using device: {DEVICE}")
     tokenizer: PreTrainedTokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
@@ -355,6 +438,8 @@ def parse_args():
         action="store_true",
         help="是否使用按分数加权",
     )
+    parser.add_argument("--test_only", action="store_true", help="仅加载已有 checkpoint 做测试，跳过训练")
+    parser.add_argument("--checkpoint_path", type=str, default="", help="test_only 时指定 checkpoint 目录（含 model.safetensors 或 pytorch_model.bin）")
     return parser.parse_args()
 
 if __name__ == "__main__":

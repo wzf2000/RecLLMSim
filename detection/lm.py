@@ -4,9 +4,7 @@ import numpy as np
 from torch.utils.data import WeightedRandomSampler, DataLoader
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import recall_score, precision_score, accuracy_score, fbeta_score, f1_score
-from transformers import AutoModelForSequenceClassification
-from transformers.trainer import Trainer
-from transformers.training_args import TrainingArguments
+from transformers import AutoModelForSequenceClassification, Trainer, TrainingArguments
 
 from dataset import get_dataset, preprocess_data_lm
 from evaluation import compute_metrics_cls, compute_metrics_reg

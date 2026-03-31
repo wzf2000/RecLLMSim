@@ -2,7 +2,7 @@ import numpy as np
 from typing import Iterable, Sequence
 from collections import Counter
 from sklearn.metrics import accuracy_score, f1_score, mean_squared_error, classification_report
-from transformers.trainer_utils import EvalPrediction
+from transformers import EvalPrediction
 
 def evaluate(predictions: Sequence[int | float | np.integer], ground_truth: Sequence[int | np.integer], binary: bool = False) -> tuple[float, float]:
     classfication = all(isinstance(p, (int, np.integer)) for p in predictions)

@@ -2,6 +2,7 @@ import os
 import json
 import shutil
 import torch
+import numpy as np
 import torch.nn as nn
 from functools import partial
 from loguru import logger
@@ -16,7 +17,7 @@ from transformers import (
     EvalPrediction,
 )
 from scipy.stats import spearmanr, pearsonr
-from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score, accuracy_score, f1_score
+from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score, accuracy_score, f1_score, cohen_kappa_score
 
 from metric_statistics import get_satisfaction_data
 from satisfaction_predictor import format_profile
@@ -145,21 +146,28 @@ def get_dataset(tokenizer: PreTrainedTokenizer, max_len: int) -> tuple[Dataset, 
 def compute_metrics(eval_pred: EvalPrediction) -> dict[str, float]:
     pred_scores, reason_logits = eval_pred.predictions
     true_scores, true_reasons = eval_pred.label_ids
+    # Round continuous regression output to nearest integer in [1, 5] for discrete metrics
+    pred_scores_rounded = np.clip(np.round(pred_scores).astype(int), 1, 5)
+    true_scores_int = np.round(true_scores).astype(int)
     mae = mean_absolute_error(true_scores, pred_scores)
     rmse = root_mean_squared_error(true_scores, pred_scores)
     r2 = r2_score(true_scores, pred_scores)
+    kappa = cohen_kappa_score(true_scores_int, pred_scores_rounded, weights='quadratic')
+    score_accuracy = accuracy_score(true_scores_int, pred_scores_rounded)
     pearson_corr = pearsonr(true_scores, pred_scores)[0]
     spearman_corr = spearmanr(true_scores, pred_scores)[0]
     reason_preds = reason_logits.argmax(axis=-1)
-    accuracy = accuracy_score(true_reasons, reason_preds)
-    f1 = f1_score(true_reasons, reason_preds, average="weighted")
+    reason_accuracy = accuracy_score(true_reasons, reason_preds)
+    f1 = f1_score(true_reasons, reason_preds, average="weighted", zero_division=0)
     return {
         "mae": mae,
         "rmse": rmse,
         "r2": r2,
+        "kappa": kappa,
+        "score_accuracy": score_accuracy,
         "pearson_corr": pearson_corr,
         "spearman_corr": spearman_corr,
-        "reason_accuracy": accuracy,
+        "reason_accuracy": reason_accuracy,
         "reason_f1": f1,
     }
 
@@ -257,6 +265,25 @@ def run_test_only(
     with open(test_output, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
     logger.info(f"Test predictions and labels saved to {test_output} (total {len(results)} rows)")
+
+    # Compute and log unified metrics
+    ps_arr = np.array(pred_scores, dtype=float)
+    ts_arr = np.array(true_scores, dtype=float)
+    ps_rounded = np.clip(np.round(ps_arr).astype(int), 1, 5)
+    ts_int = np.round(ts_arr).astype(int)
+    test_metrics = {
+        "mae": float(mean_absolute_error(ts_arr, ps_arr)),
+        "rmse": float(root_mean_squared_error(ts_arr, ps_arr)),
+        "r2": float(r2_score(ts_arr, ps_arr)),
+        "kappa": float(cohen_kappa_score(ts_int, ps_rounded, weights='quadratic')),
+        "score_accuracy": float(accuracy_score(ts_int, ps_rounded)),
+        "pearson": float(pearsonr(ts_arr, ps_arr)[0]),
+        "spearman": float(spearmanr(ts_arr, ps_arr)[0]),
+        "reason_accuracy": float(accuracy_score(true_reason_ids, pred_reason_ids)),
+        "reason_f1_weighted": float(f1_score(true_reason_ids, pred_reason_ids, average="weighted", zero_division=0)),
+    }
+    logger.info(f"Test Metrics: {json.dumps(test_metrics, indent=2)}")
+
     if os.path.isdir(training_args.output_dir):
         shutil.rmtree(training_args.output_dir, ignore_errors=True)
     return results
