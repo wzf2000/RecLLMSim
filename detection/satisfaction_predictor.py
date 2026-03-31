@@ -5,8 +5,10 @@ from torch.utils.data import Dataset, DataLoader
 from loguru import logger
 from argparse import ArgumentParser
 from scipy.stats import spearmanr, pearsonr
-from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score, accuracy_score, f1_score
+from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score, accuracy_score, f1_score, cohen_kappa_score
 from transformers import AutoTokenizer, AutoModel, PreTrainedModel, PreTrainedTokenizer
+from transformers.utils import PaddingStrategy
+from transformers.tokenization_utils_base import TruncationStrategy
 
 from metric_statistics import get_satisfaction_data
 from data_split import split_by_user_group_shuffle_split
@@ -48,13 +50,13 @@ class SatisfactionDataset(Dataset):
         reason = self.reasons[idx]
         reason_id = self.reason_to_id[reason]
 
-        encoding = self.tokenizer.encode_plus(
+        encoding = self.tokenizer._encode_plus(
             text,
             add_special_tokens=True,
             max_length=self.max_length,
             return_token_type_ids=False,
-            padding='max_length',
-            truncation=True,
+            padding_strategy=PaddingStrategy.MAX_LENGTH,
+            truncation_strategy=TruncationStrategy.LONGEST_FIRST,
             return_attention_mask=True,
             return_tensors='pt',
         )
@@ -106,8 +108,6 @@ def preprocess_data(data_list: list[dict], tokenizer: PreTrainedModel) -> tuple[
     return texts, labels, reasons, users
 
 def evaluate_satisfaction_predictor(model: SatisfactionPredictor, loader: DataLoader) -> dict[str, float]:
-    # evaluate the satisfaction predictor on the test data
-    # Metrics: regression (e.g., MAE, RMSE, R2, Pearson correlation, Spearman correlation, calibration curve, <= 3 classification), classification (e.g., accuracy, F1-score)
     model.eval()
     all_labels = []
     all_pred_scores = []
@@ -127,21 +127,29 @@ def evaluate_satisfaction_predictor(model: SatisfactionPredictor, loader: DataLo
             all_reasons.extend(reasons.cpu().numpy())
             all_pred_reason_logits.extend(pred_reason_logits.cpu().numpy())
 
-    # Compute regression metrics
+    # Round continuous predictions to integers in [1, 5] for discrete metrics
+    all_labels_int = [int(round(float(s))) for s in all_labels]
+    all_pred_rounded = [int(min(max(round(float(s)), 1), 5)) for s in all_pred_scores]
+
+    # Score metrics
     mae = mean_absolute_error(all_labels, all_pred_scores)
     rmse = root_mean_squared_error(all_labels, all_pred_scores)
     r2 = r2_score(all_labels, all_pred_scores)
-    logger.info(f"Regression Metrics - MAE: {mae:.4f}, RMSE: {rmse:.4f}, R2: {r2:.4f}")
-    # Compute correlation metrics
+    kappa = cohen_kappa_score(all_labels_int, all_pred_rounded, weights='quadratic')
+    score_acc = accuracy_score(all_labels_int, all_pred_rounded)
     pearson_corr = pearsonr(all_labels, all_pred_scores)[0]
     spearman_corr = spearmanr(all_labels, all_pred_scores)[0]
-    logger.info(f"Correlation Metrics - Pearson: {pearson_corr:.4f}, Spearman: {spearman_corr:.4f}")
-    # Compute classification metrics
+    logger.info(f"Score Metrics - MAE: {mae:.4f}, RMSE: {rmse:.4f}, R2: {r2:.4f}, Kappa: {kappa:.4f}, Acc: {score_acc:.4f}, Pearson: {pearson_corr:.4f}, Spearman: {spearman_corr:.4f}")
+    # Reason metrics
     pred_reason_labels = [logits.argmax() for logits in all_pred_reason_logits]
-    accuracy = accuracy_score(all_reasons, pred_reason_labels)
-    f1 = f1_score(all_reasons, pred_reason_labels, average='weighted')
-    logger.info(f"Classification Metrics - Accuracy: {accuracy:.4f}, F1-score: {f1:.4f}")
-    return {"mae": mae, "rmse": rmse, "r2": r2, "pearson": pearson_corr, "spearman": spearman_corr, "accuracy": accuracy, "f1": f1}
+    reason_acc = accuracy_score(all_reasons, pred_reason_labels)
+    f1 = f1_score(all_reasons, pred_reason_labels, average='weighted', zero_division=0)
+    logger.info(f"Reason Metrics - Accuracy: {reason_acc:.4f}, F1-weighted: {f1:.4f}")
+    return {
+        "mae": mae, "rmse": rmse, "r2": r2, "kappa": kappa,
+        "score_accuracy": score_acc, "pearson": pearson_corr, "spearman": spearman_corr,
+        "reason_accuracy": reason_acc, "reason_f1_weighted": f1,
+    }
 
 def train_satisfaction_predictor(backbone: PreTrainedModel, train_loader: DataLoader, valid_loader: DataLoader, num_reasons: int, num_epochs: int, alpha: float = 1.0, beta: float = 1.0) -> SatisfactionPredictor:
     # train a satisfaction predictor with the training data
@@ -153,7 +161,7 @@ def train_satisfaction_predictor(backbone: PreTrainedModel, train_loader: DataLo
     loss_fn_classification = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=2e-5)
     eval_results = evaluate_satisfaction_predictor(model, valid_loader)  # Evaluate before training
-    torch.save(model.state_dict(), os.path.join('ckpts', 'best.pt'))  # Save initial model
+    torch.save(model.state_dict(), os.path.join('ckpts', 'normal', 'best.pt'))  # Save initial model
     best_metric = eval_results["mae"]  # Use MAE as the main metric for model selection
     for epoch in range(num_epochs):
         model.train()
@@ -176,13 +184,13 @@ def train_satisfaction_predictor(backbone: PreTrainedModel, train_loader: DataLo
         eval_results = evaluate_satisfaction_predictor(model, valid_loader)  # Evaluate after each epoch
         if eval_results["mae"] < best_metric:  # Update best model based on MAE
             best_metric = eval_results["mae"]
-            torch.save(model.state_dict(), os.path.join('ckpts', 'best.pt'))
+            torch.save(model.state_dict(), os.path.join('ckpts', 'normal', 'best.pt'))
             logger.info(f"New best model saved with MAE: {best_metric:.4f}")
     # Load the best model before returning
-    model.load_state_dict(torch.load(os.path.join('ckpts', 'best.pt')))
+    model.load_state_dict(torch.load(os.path.join('ckpts', 'normal', 'best.pt')))
     return model
 
-def main(model_name: str = "bert-base-chinese", batch_size: int = 16, num_epochs: int = 10):
+def main(model_name: str = "bert-base-chinese", batch_size: int = 16, num_epochs: int = 10, eval_checkpoint: str = ""):
     data_list = get_satisfaction_data()
     backbone = AutoModel.from_pretrained(model_name)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -216,7 +224,13 @@ def main(model_name: str = "bert-base-chinese", batch_size: int = 16, num_epochs
     valid_loader = DataLoader(valid_dataset, batch_size=batch_size, shuffle=False)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
-    model = train_satisfaction_predictor(backbone, train_loader, valid_loader, num_reasons, num_epochs)
+    if eval_checkpoint:
+        logger.info(f"Loading checkpoint for evaluation: {eval_checkpoint}")
+        model = SatisfactionPredictor(backbone, num_reasons)
+        model.load_state_dict(torch.load(eval_checkpoint, map_location="cpu"))
+        model.to(torch.device("cuda" if torch.cuda.is_available() else "cpu"))
+    else:
+        model = train_satisfaction_predictor(backbone, train_loader, valid_loader, num_reasons, num_epochs)
     evaluate_satisfaction_predictor(model, test_loader)
 
 def parse_args():
@@ -224,6 +238,7 @@ def parse_args():
     parser.add_argument("-m", "--model_name", type=str, default="bert-base-chinese", help="Pre-trained model name")
     parser.add_argument("-b", "--batch_size", type=int, default=16, help="Batch size for training and evaluation")
     parser.add_argument("-e", "--num_epochs", type=int, default=10, help="Number of training epochs")
+    parser.add_argument("--eval_checkpoint", type=str, default="", help="若指定则跳过训练，直接加载该 checkpoint 在测试集上评测")
     return parser.parse_args()
 
 if __name__ == "__main__":
