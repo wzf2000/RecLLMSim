@@ -1,12 +1,9 @@
 import os
 from typing import Sequence
 from torch.utils.data import Dataset
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
-from transformers.modeling_utils import PreTrainedModel
-from transformers.tokenization_utils import PreTrainedTokenizer
-from transformers.trainer import Trainer
-from transformers.training_args import TrainingArguments
-from transformers.trainer_utils import EvalPrediction
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, PreTrainedTokenizer, PreTrainedModel, Trainer, TrainingArguments, EvalPrediction
+from transformers.utils import PaddingStrategy
+from transformers.tokenization_utils_base import TruncationStrategy
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
@@ -41,13 +38,13 @@ class ClsDataset(Dataset):
             input_ids = input_ids[-self.max_length:]
         truncated_text = self.tokenizer.decode(input_ids)
 
-        encoding = self.tokenizer.encode_plus(
+        encoding = self.tokenizer._encode_plus(
             truncated_text,
             add_special_tokens=True,
             max_length=self.max_length,
             return_token_type_ids=False,
-            padding='max_length',
-            truncation=True,
+            padding_strategy=PaddingStrategy.MAX_LENGTH,
+            truncation_strategy=TruncationStrategy.LONGEST_FIRST,
             return_attention_mask=True,
             return_tensors='pt',
         )

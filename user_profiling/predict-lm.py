@@ -3,14 +3,10 @@ import torch
 import numpy as np
 from typing import Any, Sequence
 from torch.utils.data import Dataset
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
-from transformers.trainer_utils import EvalPrediction
-from transformers.modeling_utils import PreTrainedModel
-from transformers.tokenization_utils import PreTrainedTokenizer
-from transformers.trainer import Trainer
-from transformers.training_args import TrainingArguments
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, PreTrainedTokenizer, PreTrainedModel, Trainer, TrainingArguments, EvalPrediction
+from transformers.utils import PaddingStrategy
+from transformers.tokenization_utils_base import TruncationStrategy
 from sklearn.model_selection import train_test_split
-from nltk.tokenize import sent_tokenize
 from argparse import ArgumentParser
 
 from data_util import ModelType
@@ -31,13 +27,13 @@ class MultiLabelDataset(Dataset):
         text = str(self.texts[idx])
         labels = self.labels[idx]
 
-        encoding = self.tokenizer.encode_plus(
+        encoding = self.tokenizer._encode_plus(
             text,
             add_special_tokens=True,
             max_length=self.max_length,
             return_token_type_ids=False,
-            padding='max_length',
-            truncation=True,
+            padding_strategy=PaddingStrategy.MAX_LENGTH,
+            truncation_strategy=TruncationStrategy.LONGEST_FIRST,
             return_attention_mask=True,
             return_tensors='pt',
         )
