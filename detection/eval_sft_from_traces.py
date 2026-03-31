@@ -25,6 +25,7 @@ from typing import Any
 import torch
 from loguru import logger
 from peft import PeftModel
+from scipy.stats import pearsonr, spearmanr
 from sklearn.metrics import (
     accuracy_score,
     cohen_kappa_score,
@@ -39,6 +40,7 @@ from collect_api_model_traces import get_rows_from_split  # noqa: E402
 from sft_from_traces import (  # noqa: E402
     build_source_text,
     load_jsonl,
+    parse_model_json,
     resolve_prompt_for_row,
 )
 from satisfaction_constants import get_reason_to_id  # noqa: E402
@@ -59,45 +61,6 @@ def raw_row_to_eval_record(row: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def parse_model_json(text: str) -> tuple[int | None, str | None]:
-    """从生成文本中解析 classification 与 reason。"""
-    s = text.strip()
-    if s.startswith("```"):
-        lines = s.split("\n")
-        if lines[0].startswith("```"):
-            lines = lines[1:]
-        if lines and lines[-1].strip() == "```":
-            lines = lines[:-1]
-        s = "\n".join(lines).strip()
-
-    if "{" in s:
-        start = s.index("{")
-        depth = 0
-        end = -1
-        for i in range(start, len(s)):
-            if s[i] == "{":
-                depth += 1
-            elif s[i] == "}":
-                depth -= 1
-                if depth == 0:
-                    end = i + 1
-                    break
-        if end > start:
-            try:
-                obj = json.loads(s[start:end])
-                c = int(obj["classification"])
-                r = str(obj.get("reason", "")).strip()
-                if 1 <= c <= 5:
-                    return c, r
-            except Exception:
-                pass
-    for ch in s:
-        if ch in "12345":
-            score = int(ch)
-            return score, None
-    return None, None
-
-
 def normalize_reason(pred: str | None, valid: set[str]) -> str:
     if not pred:
         return "其它" if "其它" in valid else next(iter(valid))
@@ -112,7 +75,7 @@ def normalize_reason(pred: str | None, valid: set[str]) -> str:
 
 @torch.inference_mode()
 def evaluate(
-    checkpoint: str,
+    checkpoint: str | None,
     base_model_name: str,
     test_jsonl: str | None = None,
     data_split: str = "test",
@@ -124,25 +87,31 @@ def evaluate(
     max_new_tokens: int = 512,
     max_history_turns: int = 5,
     include_reasoning_content: bool = False,
+    think_wrap: str = "qwen3",
     limit: int | None = None,
 ) -> dict[str, float]:
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    tokenizer = AutoTokenizer.from_pretrained(checkpoint, trust_remote_code=True)
-    if tokenizer.pad_token is None:
-        tokenizer.pad_token = tokenizer.eos_token
 
     base = AutoModelForCausalLM.from_pretrained(
         base_model_name,
         trust_remote_code=True,
-        torch_dtype=torch.bfloat16 if device == "cuda" else torch.float32,
+        dtype=torch.bfloat16 if device == "cuda" else torch.float32,
     )
-    model = PeftModel.from_pretrained(base, checkpoint)
+    if checkpoint is not None:
+        tokenizer = AutoTokenizer.from_pretrained(checkpoint, trust_remote_code=True)
+        model = PeftModel.from_pretrained(base, checkpoint)
+    else:
+        tokenizer = AutoTokenizer.from_pretrained(base_model_name, trust_remote_code=True)
+        model = base
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
     model.to(device)
     model.eval()
 
+    model_tag = "base_model" if checkpoint is None else f"sft:{os.path.basename(checkpoint.rstrip('/'))}"
     if test_jsonl:
         rows = load_jsonl(test_jsonl)
-        data_source = f"jsonl:{test_jsonl}"
+        data_source = f"jsonl:{test_jsonl}|{model_tag}"
     else:
         raw_rows = get_rows_from_split(
             split=data_split,
@@ -152,7 +121,7 @@ def evaluate(
             test_ratio=test_ratio,
         )
         rows = [raw_row_to_eval_record(r) for r in raw_rows]
-        data_source = f"split:{data_split}"
+        data_source = f"split:{data_split}|{model_tag}"
 
     if limit is not None:
         rows = rows[:limit]
@@ -174,6 +143,7 @@ def evaluate(
             include_reasoning_content=include_reasoning_content,
             max_history_turns_cap=max_history_turns,
             source_budget_override=source_budget,
+            think_wrap=think_wrap,
         )
         source_text = build_source_text(tokenizer, prompt)
         enc = tokenizer(
@@ -215,6 +185,8 @@ def evaluate(
     rmse = root_mean_squared_error(y_score, y_hat_score)
     kappa = cohen_kappa_score(y_score, y_hat_score, weights="quadratic")
     acc_score = accuracy_score(y_score, y_hat_score)
+    pearson_r = float(pearsonr(y_score, y_hat_score).statistic)
+    spearman_r = float(spearmanr(y_score, y_hat_score).statistic)
 
     acc_reason = accuracy_score(y_reason, y_hat_reason)
     f1w = f1_score(y_reason, y_hat_reason, average="weighted", zero_division=0)
@@ -228,6 +200,8 @@ def evaluate(
         "score_mae": float(mae),
         "score_rmse": float(rmse),
         "score_quadratic_kappa": float(kappa),
+        "score_pearson_r": pearson_r,
+        "score_spearman_r": spearman_r,
         "score_accuracy": float(acc_score),
         "reason_accuracy": float(acc_reason),
         "reason_f1_weighted": float(f1w),
@@ -238,7 +212,8 @@ def evaluate(
 
 def parse_args():
     p = argparse.ArgumentParser()
-    p.add_argument("--checkpoint", type=str, required=True, help="SFT 输出目录（含 adapter）")
+    p.add_argument("--checkpoint", type=str, default="", help="SFT 输出目录（含 adapter）；可留空仅评测 base model")
+    p.add_argument("--eval_base_model", action="store_true", help="额外评测裸 base model（无 LoRA）以作对比")
     p.add_argument(
         "--base_model_name",
         type=str,
@@ -268,7 +243,14 @@ def parse_args():
     p.add_argument(
         "--include_reasoning_content",
         action="store_true",
-        help="与训练时 resolve_prompt 预算一致（一般推理评测可关）",
+        help="与训练时 resolve_prompt 预算一致；若训练使用了 --include_reasoning_content，此处应打开并建议增大 --max_new_tokens",
+    )
+    p.add_argument(
+        "--think_wrap",
+        type=str,
+        default="qwen3",
+        choices=["qwen3", "none"],
+        help="须与训练 sft_from_traces.py 的 --think_wrap 一致，用于 resolve_prompt 长度估计",
     )
     p.add_argument("--limit", type=int, default=None, help="只测前 N 条，调试用")
     p.add_argument("--metrics_json", type=str, default="", help="可选，将指标写入该 json 文件")
@@ -277,8 +259,12 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
-    m = evaluate(
-        checkpoint=args.checkpoint,
+
+    if not args.checkpoint and not args.eval_base_model:
+        logger.error("错误：--checkpoint 和 --eval_base_model 至少需要指定一个。")
+        sys.exit(1)
+
+    eval_kwargs = dict(
         base_model_name=args.base_model_name,
         test_jsonl=args.test_jsonl or None,
         data_split=args.data_split,
@@ -290,10 +276,27 @@ if __name__ == "__main__":
         max_new_tokens=args.max_new_tokens,
         max_history_turns=args.max_history_turns,
         include_reasoning_content=args.include_reasoning_content,
+        think_wrap=args.think_wrap,
         limit=args.limit,
     )
-    logger.info(json.dumps(m, ensure_ascii=False, indent=2))
+
+    all_metrics: dict[str, Any] = {}
+
+    if args.checkpoint:
+        logger.info("=== SFT Model ===")
+        m_sft = evaluate(checkpoint=args.checkpoint, **eval_kwargs)
+        logger.info(json.dumps(m_sft, ensure_ascii=False, indent=2))
+        all_metrics["sft"] = m_sft
+
+    if args.eval_base_model:
+        logger.info("=== Base Model ===")
+        m_base = evaluate(checkpoint=None, **eval_kwargs)
+        logger.info(json.dumps(m_base, ensure_ascii=False, indent=2))
+        all_metrics["base"] = m_base
+
     if args.metrics_json:
         os.makedirs(os.path.dirname(args.metrics_json) or ".", exist_ok=True)
+        # 若只评测了一种模型，直接写该 dict；否则写包含两个键的 dict
+        output = all_metrics if len(all_metrics) > 1 else next(iter(all_metrics.values()))
         with open(args.metrics_json, "w", encoding="utf-8") as f:
-            json.dump(m, f, ensure_ascii=False, indent=2)
+            json.dump(output, f, ensure_ascii=False, indent=2)
