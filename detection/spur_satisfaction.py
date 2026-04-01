@@ -18,6 +18,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from threading import Lock
 
 import numpy as np
+import tiktoken
 from loguru import logger
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
@@ -475,11 +476,28 @@ def score_test_set(
 # Phase 4（可选）：Text Embedding + 分类器
 # ──────────────────────────────────────────────────────────────────────────────
 
+_MAX_EMBEDDING_TOKENS = 8191
+
+def _get_tiktoken_enc(model: str) -> tiktoken.Encoding:
+    try:
+        return tiktoken.encoding_for_model(model)
+    except KeyError:
+        return tiktoken.get_encoding("cl100k_base")
+
+
+def _truncate_text(text: str, enc: tiktoken.Encoding, max_tokens: int = _MAX_EMBEDDING_TOKENS) -> str:
+    tokens = enc.encode(text)
+    if len(tokens) <= max_tokens:
+        return text
+    return enc.decode(tokens[-max_tokens:])
+
+
 @retry(stop=stop_after_attempt(3), wait=wait_fixed(5))
 def _embed_batch(texts: list[str], model: str) -> list[list[float]]:
-    """调用 OpenAI Embeddings API，返回 embedding 列表。"""
+    """调用 OpenAI Embeddings API，超长文本自动截断至 token 上限。"""
+    enc = _get_tiktoken_enc(model)
+    texts = [_truncate_text(t, enc) for t in texts]
     resp = client.embeddings.create(input=texts, model=model)
-    # 保证顺序与输入一致
     items = sorted(resp.data, key=lambda x: x.index)
     return [item.embedding for item in items]
 
@@ -504,6 +522,12 @@ def get_embeddings(
         logger.info(f"[Phase 4] embedding 缓存大小不匹配 ({cached_n} vs {len(texts)})，重新提取")
 
     logger.info(f"[Phase 4] 提取 {len(texts)} 条文本的 embedding（model={model}）...")
+    enc = _get_tiktoken_enc(model)
+    n_truncated = sum(1 for t in texts if len(enc.encode(t)) > _MAX_EMBEDDING_TOKENS)
+    if n_truncated:
+        logger.warning(
+            f"[Phase 4] {n_truncated}/{len(texts)} 条文本超过 {_MAX_EMBEDDING_TOKENS} tokens，将自动截断"
+        )
     all_embeddings: list[list[float]] = []
     for start in tqdm(range(0, len(texts), batch_size), desc="Embedding"):
         batch = texts[start : start + batch_size]
