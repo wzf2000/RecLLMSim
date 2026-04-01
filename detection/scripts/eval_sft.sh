@@ -37,7 +37,7 @@ python eval_sft_from_traces.py \
   --checkpoint ./ckpts/${checkpoint} \
   --base_model_name Qwen/Qwen3-8B \
   --max_length 2048 \
-  --max_new_tokens 512 \
+  --max_new_tokens 1024 \
   --max_history_turns 5 \
   --metrics_json ./outputs/evaluation/${checkpoint}_metrics.json \
   --think_wrap ${think_wrap} \
