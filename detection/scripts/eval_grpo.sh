@@ -25,10 +25,10 @@ echo "grpo_checkpoint: ./ckpts/grpo_from_${sft_checkpoint}"
 echo "sft_checkpoint: ./ckpts/${sft_checkpoint}"
 echo "metrics_json: ./outputs/evaluation/grpo_from_${sft_checkpoint}_metrics.json"
 
-# python eval_grpo_from_sft.py \
-#   --grpo_checkpoint ./ckpts/grpo_from_${sft_checkpoint} \
-#   --sft_checkpoint  ./ckpts/${sft_checkpoint} \
-#   --base_model_name Qwen/Qwen3-8B \
-#   --max_length 2048 \
-#   --max_new_tokens 512 \
-#   --metrics_json ./outputs/evaluation/grpo_from_${sft_checkpoint}_metrics.json
+python eval_grpo_from_sft.py \
+  --grpo_checkpoint ./ckpts/grpo_from_${sft_checkpoint} \
+  --sft_checkpoint  ./ckpts/${sft_checkpoint} \
+  --base_model_name Qwen/Qwen3-8B \
+  --max_length 2048 \
+  --max_new_tokens 512 \
+  --metrics_json ./outputs/evaluation/grpo_from_${sft_checkpoint}_metrics.json
