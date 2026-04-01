@@ -18,7 +18,9 @@ python eval_sft_from_traces.py \\
 import argparse
 import json
 import os
+import shutil
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -73,7 +75,83 @@ def normalize_reason(pred: str | None, valid: set[str]) -> str:
     return "其它" if "其它" in valid else next(iter(valid))
 
 
-@torch.inference_mode()
+# ── Generation backends ────────────────────────────────────────────────────────
+
+def _generate_vllm(
+    token_ids_list: list[list[int]],
+    base_model_name: str,
+    lora_checkpoint: str | None,
+    max_new_tokens: int,
+    max_input_length: int,
+    max_lora_rank: int = 64,
+    gpu_memory_utilization: float = 0.90,
+) -> list[str]:
+    """Batch-generate with vLLM. Uses native LoRA support when lora_checkpoint is given."""
+    from vllm import LLM, SamplingParams
+    from vllm.lora.request import LoRARequest
+
+    llm_kwargs: dict[str, Any] = dict(
+        model=base_model_name,
+        dtype="bfloat16",
+        trust_remote_code=True,
+        max_model_len=max_input_length + max_new_tokens,
+        gpu_memory_utilization=gpu_memory_utilization,
+    )
+    lora_req: LoRARequest | None = None
+    if lora_checkpoint is not None:
+        llm_kwargs["enable_lora"] = True
+        llm_kwargs["max_lora_rank"] = max_lora_rank
+        lora_req = LoRARequest("sft", 1, lora_checkpoint)
+
+    llm = LLM(**llm_kwargs)
+    sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, skip_special_tokens=True)
+    outputs = llm.generate(
+        [{"prompt_token_ids": ids} for ids in token_ids_list],
+        sampling_params,
+        lora_request=lora_req,
+    )
+    texts = [o.outputs[0].text for o in outputs]
+    del llm
+    torch.cuda.empty_cache()
+    return texts
+
+
+def _generate_hf(
+    token_ids_list: list[list[int]],
+    base_model_name: str,
+    checkpoint: str | None,
+    max_new_tokens: int,
+    tokenizer: Any,
+) -> list[str]:
+    """Sequential generation with HuggingFace transformers (fallback)."""
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    base = AutoModelForCausalLM.from_pretrained(
+        base_model_name, trust_remote_code=True,
+        dtype=torch.bfloat16 if device == "cuda" else torch.float32,
+    )
+    model = PeftModel.from_pretrained(base, checkpoint) if checkpoint is not None else base
+    model.to(device).eval()
+
+    texts: list[str] = []
+    with torch.inference_mode():
+        for token_ids in tqdm(token_ids_list, desc="generate (hf)"):
+            enc = {
+                "input_ids": torch.tensor([token_ids], device=device),
+                "attention_mask": torch.ones(1, len(token_ids), dtype=torch.long, device=device),
+            }
+            out_ids = model.generate(
+                **enc, max_new_tokens=max_new_tokens, do_sample=False,
+                pad_token_id=tokenizer.pad_token_id, eos_token_id=tokenizer.eos_token_id,
+            )
+            gen = out_ids[0][len(token_ids):]
+            texts.append(tokenizer.decode(gen, skip_special_tokens=True))
+    del model
+    torch.cuda.empty_cache()
+    return texts
+
+
+# ── Main evaluation function ───────────────────────────────────────────────────
+
 def evaluate(
     checkpoint: str | None,
     base_model_name: str,
@@ -89,94 +167,92 @@ def evaluate(
     include_reasoning_content: bool = False,
     think_wrap: str = "qwen3",
     limit: int | None = None,
+    backend: str = "vllm",
+    max_lora_rank: int = 64,
+    gpu_memory_utilization: float = 0.90,
+    output_jsonl: str = "",
 ) -> dict[str, float]:
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-
-    base = AutoModelForCausalLM.from_pretrained(
-        base_model_name,
-        trust_remote_code=True,
-        dtype=torch.bfloat16 if device == "cuda" else torch.float32,
-    )
-    if checkpoint is not None:
-        tokenizer = AutoTokenizer.from_pretrained(checkpoint, trust_remote_code=True)
-        model = PeftModel.from_pretrained(base, checkpoint)
-    else:
-        tokenizer = AutoTokenizer.from_pretrained(base_model_name, trust_remote_code=True)
-        model = base
+    # ── Tokenizer (needed for prompt building in both backends) ────────────
+    tok_src = checkpoint if checkpoint is not None else base_model_name
+    tokenizer = AutoTokenizer.from_pretrained(tok_src, trust_remote_code=True)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
-    model.to(device)
-    model.eval()
 
     model_tag = "base_model" if checkpoint is None else f"sft:{os.path.basename(checkpoint.rstrip('/'))}"
+
+    # ── Data ───────────────────────────────────────────────────────────────
     if test_jsonl:
         rows = load_jsonl(test_jsonl)
         data_source = f"jsonl:{test_jsonl}|{model_tag}"
     else:
         raw_rows = get_rows_from_split(
-            split=data_split,
-            split_seed=split_seed,
-            train_ratio=train_ratio,
-            val_ratio=val_ratio,
-            test_ratio=test_ratio,
+            split=data_split, split_seed=split_seed,
+            train_ratio=train_ratio, val_ratio=val_ratio, test_ratio=test_ratio,
         )
         rows = [raw_row_to_eval_record(r) for r in raw_rows]
         data_source = f"split:{data_split}|{model_tag}"
-
     if limit is not None:
         rows = rows[:limit]
 
-    valid_reasons = set(get_reason_to_id().keys())
+    # ── Build prompts (token_ids) ──────────────────────────────────────────
     source_budget = max(1, max_length - max_new_tokens)
-
-    y_score: list[int] = []
-    y_hat_score: list[int] = []
-    y_reason: list[str] = []
-    y_hat_reason: list[str] = []
-    parse_fail = 0
-
-    for row in tqdm(rows, desc="eval"):
+    all_token_ids: list[list[int]] = []
+    for row in tqdm(rows, desc="build prompts"):
         prompt = resolve_prompt_for_row(
-            row,
-            tokenizer,
-            max_length=max_length,
+            row, tokenizer, max_length=max_length,
             include_reasoning_content=include_reasoning_content,
             max_history_turns_cap=max_history_turns,
             source_budget_override=source_budget,
             think_wrap=think_wrap,
         )
         source_text = build_source_text(tokenizer, prompt)
-        enc = tokenizer(
-            source_text,
-            return_tensors="pt",
-            add_special_tokens=False,
-            truncation=True,
-            max_length=max_length,
-        )
-        enc = {k: v.to(device) for k, v in enc.items()}
-        out_ids = model.generate(
-            **enc,
-            max_new_tokens=max_new_tokens,
-            do_sample=False,
-            pad_token_id=tokenizer.pad_token_id,
-            eos_token_id=tokenizer.eos_token_id,
-        )
-        gen = out_ids[0][enc["input_ids"].shape[1]:]
-        text = tokenizer.decode(gen, skip_special_tokens=True)
+        token_ids = tokenizer(
+            source_text, add_special_tokens=False, truncation=True, max_length=max_length,
+        )["input_ids"]
+        all_token_ids.append(token_ids)
 
+    # ── Generate ───────────────────────────────────────────────────────────
+    logger.info(f"Backend={backend}, samples={len(rows)}, model_tag={model_tag}")
+    if backend == "vllm":
+        texts = _generate_vllm(
+            all_token_ids, base_model_name, checkpoint,
+            max_new_tokens, max_length, max_lora_rank, gpu_memory_utilization,
+        )
+    else:
+        texts = _generate_hf(all_token_ids, base_model_name, checkpoint, max_new_tokens, tokenizer)
+
+    # ── Parse & metrics ────────────────────────────────────────────────────
+    valid_reasons = set(get_reason_to_id().keys())
+    y_score: list[int] = []
+    y_hat_score: list[int] = []
+    y_reason: list[str] = []
+    y_hat_reason: list[str] = []
+    parse_fail = 0
+    sample_records: list[dict[str, Any]] = []
+
+    for text, row in zip(texts, rows):
         ps, pr = parse_model_json(text)
-        gold_s = int(row["gold_score"])
-        gold_r = str(row["gold_reason"])
-
+        meta = row.get("meta", {})
+        record: dict[str, Any] = {
+            "user": meta.get("user", ""),
+            "gold_score": int(row["gold_score"]),
+            "gold_reason": str(row["gold_reason"]),
+            "pred_score": ps,
+            "pred_reason_raw": pr,
+            "pred_reason": None,
+            "raw_text": text,
+            "parse_ok": ps is not None,
+        }
         if ps is None:
             parse_fail += 1
-            continue
-        pr_norm = normalize_reason(pr, valid_reasons)
-
-        y_score.append(gold_s)
-        y_hat_score.append(ps)
-        y_reason.append(gold_r)
-        y_hat_reason.append(pr_norm)
+        else:
+            pr_norm = normalize_reason(pr, valid_reasons)
+            record["pred_reason"] = pr_norm
+            y_score.append(int(row["gold_score"]))
+            y_hat_score.append(ps)
+            y_reason.append(str(row["gold_reason"]))
+            y_hat_reason.append(pr_norm)
+        sample_records.append(record)
 
     if not y_score:
         raise RuntimeError("No valid predictions (all parse failures). Check generation / prompt template.")
@@ -187,7 +263,6 @@ def evaluate(
     acc_score = accuracy_score(y_score, y_hat_score)
     pearson_r = float(pearsonr(y_score, y_hat_score).statistic)
     spearman_r = float(spearmanr(y_score, y_hat_score).statistic)
-
     acc_reason = accuracy_score(y_reason, y_hat_reason)
     f1w = f1_score(y_reason, y_hat_reason, average="weighted", zero_division=0)
     f1m = f1_score(y_reason, y_hat_reason, average="macro", zero_division=0)
@@ -207,6 +282,14 @@ def evaluate(
         "reason_f1_weighted": float(f1w),
         "reason_f1_macro": float(f1m),
     }
+
+    if output_jsonl:
+        os.makedirs(os.path.dirname(output_jsonl) or ".", exist_ok=True)
+        with open(output_jsonl, "w", encoding="utf-8") as f:
+            for rec in sample_records:
+                f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+        logger.info(f"Saved {len(sample_records)} sample records to {output_jsonl}")
+
     return metrics
 
 
@@ -254,6 +337,17 @@ def parse_args():
     )
     p.add_argument("--limit", type=int, default=None, help="只测前 N 条，调试用")
     p.add_argument("--metrics_json", type=str, default="", help="可选，将指标写入该 json 文件")
+    p.add_argument(
+        "--output_jsonl", type=str, default="",
+        help="可选，将每条样本的预测结果写入该 jsonl 文件（含 gold/pred score/reason/raw_text/parse_ok）；"
+             "同时评测 SFT 与 base 时自动加 _sft/_base 后缀",
+    )
+    p.add_argument(
+        "--backend", type=str, default="vllm", choices=["vllm", "hf"],
+        help="推理后端：vllm（默认，批量推理，大幅加速）或 hf（逐条 transformers，兼容性强）",
+    )
+    p.add_argument("--max_lora_rank", type=int, default=64, help="vLLM LoRA 最大 rank，须 >= 训练时的 lora_r")
+    p.add_argument("--gpu_memory_utilization", type=float, default=0.90, help="vLLM GPU 显存利用率（0~1）")
     return p.parse_args()
 
 
@@ -278,19 +372,32 @@ if __name__ == "__main__":
         include_reasoning_content=args.include_reasoning_content,
         think_wrap=args.think_wrap,
         limit=args.limit,
+        backend=args.backend,
+        max_lora_rank=args.max_lora_rank,
+        gpu_memory_utilization=args.gpu_memory_utilization,
     )
+
+    # 同时评测两个模型时，自动为 output_jsonl 加 _sft/_base 后缀以避免覆盖
+    both = bool(args.checkpoint) and args.eval_base_model
+    def _out_path(tag: str) -> str:
+        if not args.output_jsonl:
+            return ""
+        if not both:
+            return args.output_jsonl
+        p = Path(args.output_jsonl)
+        return str(p.parent / f"{p.stem}_{tag}{p.suffix}")
 
     all_metrics: dict[str, Any] = {}
 
     if args.checkpoint:
         logger.info("=== SFT Model ===")
-        m_sft = evaluate(checkpoint=args.checkpoint, **eval_kwargs)
+        m_sft = evaluate(checkpoint=args.checkpoint, output_jsonl=_out_path("sft"), **eval_kwargs)
         logger.info(json.dumps(m_sft, ensure_ascii=False, indent=2))
         all_metrics["sft"] = m_sft
 
     if args.eval_base_model:
         logger.info("=== Base Model ===")
-        m_base = evaluate(checkpoint=None, **eval_kwargs)
+        m_base = evaluate(checkpoint=None, output_jsonl=_out_path("base"), **eval_kwargs)
         logger.info(json.dumps(m_base, ensure_ascii=False, indent=2))
         all_metrics["base"] = m_base
 

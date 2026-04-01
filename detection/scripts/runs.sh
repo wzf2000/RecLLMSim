@@ -19,6 +19,9 @@ CUDA_VISIBLE_DEVICES=0 batch_size=2 input_jsonl=gpt-5_reasoning_traces_reflectio
 
 CUDA_VISIBLE_DEVICES=0 batch_size=2 input_jsonl=qwen3_self_distill_traces_v3.jsonl output_dir=sft_qwen3_from_self_distill_v3 ./scripts/sft.sh
 
+# running...
+CUDA_VISIBLE_DEVICES=0 batch_size=2 input_jsonl=qwen3_self_distill_traces_v2.jsonl output_dir=sft_qwen3_from_self_distill_v2 ./scripts/sft.sh
+
 # 2. Evaluation SFT
 
 CUDA_VISIBLE_DEVICES=0 checkpoint=sft_qwen3_from_gpt5_correct ./scripts/eval_sft.sh
@@ -29,12 +32,10 @@ CUDA_VISIBLE_DEVICES=0 checkpoint=sft_qwen3_from_gpt5_reflection ./scripts/eval_
 
 CUDA_VISIBLE_DEVICES=0 checkpoint=sft_qwen3_from_gpt5_reflection_reasoning ./scripts/eval_sft.sh
 
-# running...
 CUDA_VISIBLE_DEVICES=0 checkpoint=sft_qwen3_from_self_distill_v3 ./scripts/eval_sft.sh
 
 # 3. Collection self-distill traces
 
-# running...
 CUDA_VISIBLE_DEVICES=0 distill_version=v1 sft_checkpoint=sft_qwen3_from_gpt5_correct_reasoning output_jsonl=qwen3_self_distill_traces_v2 num_samples_per_prompt=32 min_reasoning_tokens=20 ./scripts/collect_self_distill.sh
 
 CUDA_VISIBLE_DEVICES=0 distill_version=v2 sft_checkpoint=sft_qwen3_from_gpt5_correct_reasoning output_jsonl=qwen3_self_distill_traces_v3 num_samples_per_prompt=4 min_reasoning_tokens=10 ./scripts/collect_self_distill.sh

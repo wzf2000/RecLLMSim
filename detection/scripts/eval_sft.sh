@@ -29,6 +29,7 @@ fi
 echo "CUDA_VISIBLE_DEVICES: ${CUDA_VISIBLE_DEVICES}"
 echo "checkpoint: ./ckpts/${checkpoint}"
 echo "metrics_json: ./outputs/evaluation/${checkpoint}_metrics.json"
+echo "output_jsonl: ./outputs/evaluation/${checkpoint}_results.jsonl"
 echo "think_wrap: ${think_wrap}"
 echo "flags: ${flags}"
 
@@ -40,4 +41,5 @@ python eval_sft_from_traces.py \
   --max_history_turns 5 \
   --metrics_json ./outputs/evaluation/${checkpoint}_metrics.json \
   --think_wrap ${think_wrap} \
+  --output_jsonl ./outputs/evaluation/${checkpoint}_results.jsonl \
   ${flags}

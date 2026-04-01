@@ -24,6 +24,7 @@ echo "CUDA_VISIBLE_DEVICES: ${CUDA_VISIBLE_DEVICES}"
 echo "grpo_checkpoint: ./ckpts/grpo_from_${sft_checkpoint}"
 echo "sft_checkpoint: ./ckpts/${sft_checkpoint}"
 echo "metrics_json: ./outputs/evaluation/grpo_from_${sft_checkpoint}_metrics.json"
+echo "output_jsonl: ./outputs/evaluation/grpo_from_${sft_checkpoint}_results.jsonl"
 
 python eval_grpo_from_sft.py \
   --grpo_checkpoint ./ckpts/grpo_from_${sft_checkpoint} \
@@ -31,4 +32,5 @@ python eval_grpo_from_sft.py \
   --base_model_name Qwen/Qwen3-8B \
   --max_length 2048 \
   --max_new_tokens 512 \
-  --metrics_json ./outputs/evaluation/grpo_from_${sft_checkpoint}_metrics.json
+  --metrics_json ./outputs/evaluation/grpo_from_${sft_checkpoint}_metrics.json \
+  --output_jsonl ./outputs/evaluation/grpo_from_${sft_checkpoint}_results.jsonl
