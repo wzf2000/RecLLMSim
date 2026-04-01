@@ -225,7 +225,16 @@ def _try_parse_trace_answer_obj(json_str: str) -> tuple[int, str] | None:
             return None
         return c, r
     except Exception:
-        return None
+        pass
+    # 生成被截断时（analysis 字段过长），尝试 regex 提取 classification 和 reason
+    import re
+    m_c = re.search(r'"classification"\s*:\s*([1-5])', json_str)
+    m_r = re.search(r'"reason"\s*:\s*"([^"]*)"', json_str)
+    if m_c is not None:
+        c = int(m_c.group(1))
+        r = m_r.group(1).strip() if m_r is not None else ""
+        return c, r
+    return None
 
 
 def _balanced_json_spans(s: str) -> list[tuple[int, str]]:
