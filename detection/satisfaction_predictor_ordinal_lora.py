@@ -35,8 +35,9 @@ class SatisfactionModel(nn.Module):
         num_reason_classes: int,
         satisfied_reason_id: int,
         score_weights: list[float] | None = None,
+        reason_class_weights: list[float] | None = None,
         alpha: float = 1.0,
-        beta: float = 0.5,
+        beta: float = 2.0,
         gamma: float = 0.1,
         delta: float = 0.2,
         consistency_temp: float = 2.0,
@@ -60,6 +61,10 @@ class SatisfactionModel(nn.Module):
             self.register_buffer("score_weights", torch.tensor(score_weights, dtype=torch.float))
         else:
             self.score_weights = None
+        if reason_class_weights is not None:
+            self.register_buffer("reason_weight", torch.tensor(reason_class_weights, dtype=torch.float))
+        else:
+            self.reason_weight = None
 
     def monotonic_penalty(self, logits: torch.Tensor) -> torch.Tensor:
         probs = torch.sigmoid(logits)
@@ -100,7 +105,12 @@ class SatisfactionModel(nn.Module):
             loss = self.alpha * per_sample.mean()
             loss += self.gamma * self.monotonic_penalty(ordinal_logtis)
             if reason_labels is not None:
-                loss += self.beta * self.reason_loss_fn(reason_logits, reason_labels)
+                if self.reason_weight is not None:
+                    reason_loss = F.cross_entropy(reason_logits, reason_labels,
+                                                  weight=self.reason_weight.to(reason_logits.dtype))
+                else:
+                    reason_loss = self.reason_loss_fn(reason_logits, reason_labels)
+                loss += self.beta * reason_loss
 
             # 跨任务一致性约束：
             # 分数越高 => "满意" 概率越高；分数越低 => "满意" 概率越低
@@ -320,7 +330,7 @@ def run_test_only(
         state_dict = load_file(ckpt_model_path, device="cpu")
     else:
         state_dict = torch.load(ckpt_model_path, map_location="cpu", weights_only=True)
-    model.load_state_dict(state_dict, strict=True)
+    model.load_state_dict(state_dict, strict=False)
     model.to(DEVICE)
 
     eval_tmp_dir = os.path.join(checkpoint_path, "eval_tmp")
@@ -345,12 +355,13 @@ def main(
     resume_from_checkpoint: bool = False,
     output_dir: str = "./ckpts/llm_predictor_ordinal",
     alpha: float = 1.0,
-    beta: float = 0.5,
+    beta: float = 2.0,
     gamma: float = 0.1,
     delta: float = 0.2,
     consistency_temp: float = 2.0,
     consistency_center: float = 3.5,
     use_score_weights: bool = False,
+    use_reason_weights: bool = False,
     test_only: bool = False,
     checkpoint_path: str = "",
 ):
@@ -389,10 +400,33 @@ def main(
             else:
                 score_weights[s] = total / (5.0 * c)
         # 防止极端权重导致训练不稳定
-        score_weights = [min(5.0, max(0.2, w)) for w in score_weights]
+        score_weights = [min(8.0, max(0.2, w)) for w in score_weights]
         logger.info(f"Train score counts: {counts}, score_weights: {score_weights[1:]}")
     else:
         logger.info("Disable score_weights (use_score_weights=0)")
+
+    reason_class_weights: list[float] | None = None
+    if use_reason_weights:
+        train_reasons = [r for r in dataset.select(train_idx)["reason"]]
+        total_r = len(train_reasons)
+        reason_ids = list(reason_to_id.values())
+        id_to_reason = {v: k for k, v in reason_to_id.items()}
+        reason_counts = {i: 0 for i in range(len(reason_to_id))}
+        for r in train_reasons:
+            rid = reason_to_id.get(r)
+            if rid is not None:
+                reason_counts[rid] += 1
+        reason_class_weights = []
+        for i in range(len(reason_to_id)):
+            c = reason_counts[i]
+            if c <= 0:
+                reason_class_weights.append(1.0)
+            else:
+                reason_class_weights.append(total_r / (len(reason_to_id) * c))
+        reason_class_weights = [min(8.0, max(0.2, w)) for w in reason_class_weights]
+        logger.info(f"Reason class weights: { {id_to_reason[i]: round(reason_class_weights[i], 3) for i in range(len(reason_to_id))} }")
+    else:
+        logger.info("Disable reason_class_weights (use_reason_weights=0)")
 
     base_model = get_base_model(model_name)
     backbone = get_model_with_lora(base_model)
@@ -401,6 +435,7 @@ def main(
         num_reason_classes=num_reasons,
         satisfied_reason_id=reason_to_id["满意"],
         score_weights=score_weights,
+        reason_class_weights=reason_class_weights,
         alpha=alpha,
         beta=beta,
         gamma=gamma,
@@ -428,7 +463,7 @@ def parse_args():
     parser.add_argument("--resume_from_checkpoint", action="store_true")
     parser.add_argument("--output_dir", type=str, default="./ckpts/llm_predictor_ordinal")
     parser.add_argument("--alpha", type=float, default=1.0, help="ordinal satisfaction loss 系数")
-    parser.add_argument("--beta", type=float, default=0.5, help="reason classification loss 系数")
+    parser.add_argument("--beta", type=float, default=2.0, help="reason classification loss 系数")
     parser.add_argument("--gamma", type=float, default=0.1, help="monotonic_penalty 系数")
     parser.add_argument("--delta", type=float, default=0.2, help="跨任务一致性约束 loss 系数；=0 表示禁用")
     parser.add_argument("--consistency_temp", type=float, default=2.0, help="一致性约束的 sigmoid 温度")
@@ -437,6 +472,11 @@ def parse_args():
         "--use_score_weights",
         action="store_true",
         help="是否使用按分数加权",
+    )
+    parser.add_argument(
+        "--use_reason_weights",
+        action="store_true",
+        help="是否使用 reason 类别逆频率权重（缓解 满意 类过多的不平衡问题）",
     )
     parser.add_argument("--test_only", action="store_true", help="仅加载已有 checkpoint 做测试，跳过训练")
     parser.add_argument("--checkpoint_path", type=str, default="", help="test_only 时指定 checkpoint 目录（含 model.safetensors 或 pytorch_model.bin）")

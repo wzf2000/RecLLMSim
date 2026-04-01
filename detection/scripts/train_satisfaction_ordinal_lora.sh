@@ -3,10 +3,12 @@
 # 检查点写入 detection/ckpts/llm_predictor_ordinal/。
 #
 # 损失系数说明：
-#   --alpha   ordinal satisfaction 损失系数（默认 1.0）
-#   --beta    reason classification 损失系数（默认 0.5）
-#   --gamma   单调性惩罚系数（默认 0.1）
-#   --delta   跨任务一致性约束系数（0 表示禁用，默认 0.2）
+#   --alpha              ordinal satisfaction 损失系数（默认 1.0）
+#   --beta               reason classification 损失系数（默认 2.0）
+#   --gamma              单调性惩罚系数（默认 0.1）
+#   --delta              跨任务一致性约束系数（0 表示禁用，默认 0.2）
+#   --use_score_weights  启用分数逆频率权重，缓解低分样本学习不足
+#   --use_reason_weights 启用 reason 类别逆频率权重，缓解满意类过多的不平衡问题
 
 set -euo pipefail
 
@@ -29,8 +31,10 @@ python satisfaction_predictor_ordinal_lora.py \
   --num_epochs 10 \
   --output_dir ./ckpts/llm_predictor_ordinal \
   --alpha 1.0 \
-  --beta 0.5 \
+  --beta 2.0 \
   --gamma 0.1 \
-  --delta 0 \
+  --delta 0.2 \
   --consistency_temp 2.0 \
-  --consistency_center 3.5
+  --consistency_center 3.5 \
+  --use_score_weights \
+  --use_reason_weights
