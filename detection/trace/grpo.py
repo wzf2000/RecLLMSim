@@ -156,7 +156,7 @@ def train_grpo(
     split_seed: int = 42,
     max_history_turns: int = 5,
     num_generations: int = 8,
-    max_completion_length: int = 512,
+    max_completion_length: int = 1024,
     per_device_train_batch_size: int = 2,
     gradient_accumulation_steps: int = 4,
     num_train_epochs: int = 1,
@@ -253,7 +253,7 @@ def parse_args():
     p.add_argument("--split_seed", type=int, default=42)
     p.add_argument("--max_history_turns", type=int, default=5)
     p.add_argument("--num_generations", type=int, default=8, help="每个 prompt 采样的 completion 数（G）")
-    p.add_argument("--max_completion_length", type=int, default=512)
+    p.add_argument("--max_completion_length", type=int, default=1024)
     p.add_argument("--per_device_train_batch_size", type=int, default=2)
     p.add_argument("--gradient_accumulation_steps", type=int, default=4)
     p.add_argument("--num_train_epochs", type=int, default=1)

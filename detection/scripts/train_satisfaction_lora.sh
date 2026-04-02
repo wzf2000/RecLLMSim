@@ -17,9 +17,4 @@ mkdir -p ckpts/llm_predictor
 
 export CUDA_VISIBLE_DEVICES
 
-python predictor/lora.py \
-  --model_name Qwen/Qwen3-8B \
-  --max_len 1024 \
-  --batch_size 2 \
-  --eval_batch_size 8 \
-  --num_epochs 10
+python predictor/lora.py "$@"

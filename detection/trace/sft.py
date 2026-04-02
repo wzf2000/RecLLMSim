@@ -540,7 +540,7 @@ def train_sft(
     max_length: int = 2048,
     batch_size: int = 2,
     grad_accum: int = 8,
-    num_epochs: int = 3,
+    num_epochs: int = 10,
     learning_rate: float = 2e-4,
     split_seed: int = 42,
     include_reasoning_content: bool = False,
@@ -641,7 +641,7 @@ def parse_args():
     parser.add_argument("--max_length", type=int, default=2048)
     parser.add_argument("--batch_size", type=int, default=2)
     parser.add_argument("--grad_accum", type=int, default=8)
-    parser.add_argument("--num_epochs", type=int, default=3)
+    parser.add_argument("--num_epochs", type=int, default=10)
     parser.add_argument("--learning_rate", type=float, default=2e-4)
     parser.add_argument("--split_seed", type=int, default=42)
     parser.add_argument(

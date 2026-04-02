@@ -183,7 +183,7 @@ def evaluate(
     val_ratio: float = 0.1,
     test_ratio: float = 0.1,
     max_length: int = 2048,
-    max_new_tokens: int = 512,
+    max_new_tokens: int = 1024,
     max_history_turns: int = 5,
     include_reasoning_content: bool = False,
     think_wrap: str = "qwen3",
@@ -342,7 +342,7 @@ def parse_args():
     p.add_argument("--val_ratio", type=float, default=0.1)
     p.add_argument("--test_ratio", type=float, default=0.1)
     p.add_argument("--max_length", type=int, default=2048)
-    p.add_argument("--max_new_tokens", type=int, default=512)
+    p.add_argument("--max_new_tokens", type=int, default=1024)
     p.add_argument("--max_history_turns", type=int, default=5)
     p.add_argument(
         "--include_reasoning_content",

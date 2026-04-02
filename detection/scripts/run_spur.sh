@@ -25,10 +25,4 @@ DETECTION_DIR="$(dirname "$SCRIPT_DIR")"
 cd "$DETECTION_DIR"
 export PYTHONPATH="$DETECTION_DIR${PYTHONPATH:+:$PYTHONPATH}"
 
-python eval/spur.py \
-  --model gpt-4o \
-  --k_rubrics 10 \
-  --max_extract_per_label 150 \
-  --max_workers 8 \
-  --output_dir ./outputs/spur \
-  "$@"
+python eval/spur.py "$@"

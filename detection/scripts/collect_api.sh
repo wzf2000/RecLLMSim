@@ -42,4 +42,5 @@ fi
 
 python trace/collect_api.py \
     --model ${model} \
-    ${flags}
+    ${flags} \
+    "$@"

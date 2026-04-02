@@ -17,7 +17,4 @@ mkdir -p ckpts/ordinal
 
 export CUDA_VISIBLE_DEVICES
 
-python predictor/bert_ordinal.py \
-  --model_name bert-base-chinese \
-  --batch_size 16 \
-  --num_epochs 10
+python predictor/bert_ordinal.py "$@"

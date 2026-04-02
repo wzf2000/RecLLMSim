@@ -59,13 +59,10 @@ echo "flags: ${flags}"
 
 python trace/sft.py \
   --input_jsonl ./outputs/${input_jsonl} \
-  --model_name Qwen/Qwen3-8B \
   --output_dir ./ckpts/${output_dir} \
-  --max_length 2048 \
   --batch_size ${batch_size} \
   --grad_accum ${grad_accum} \
-  --num_epochs 10 \
-  --learning_rate 2e-4 \
   --trace_source ${trace_source} \
   --think_wrap ${think_wrap} \
-  ${flags}
+  ${flags} \
+  "$@"

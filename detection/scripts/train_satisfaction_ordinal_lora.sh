@@ -26,16 +26,6 @@ mkdir -p ckpts/llm_predictor_ordinal
 export CUDA_VISIBLE_DEVICES
 
 python predictor/lora_ordinal.py \
-  --model_name Qwen/Qwen3-8B \
-  --max_len 1024 \
-  --batch_size 2 \
-  --num_epochs 10 \
-  --output_dir ./ckpts/llm_predictor_ordinal \
-  --alpha 1.0 \
-  --beta 2.0 \
-  --gamma 0.1 \
-  --delta 0.2 \
-  --consistency_temp 2.0 \
-  --consistency_center 3.5 \
   --use_score_weights \
-  --use_reason_weights
+  --use_reason_weights \
+  "$@"

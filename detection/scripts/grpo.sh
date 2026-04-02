@@ -49,33 +49,19 @@ echo "gradient_accumulation_steps: ${gradient_accumulation_steps}"
 if [ "${num_gpus}" -eq 1 ]; then
   python trace/grpo.py \
     --sft_checkpoint ./ckpts/${sft_checkpoint} \
-    --base_model_name Qwen/Qwen3-8B \
     --output_dir ./ckpts/grpo_from_${sft_checkpoint} \
-    --data_split train \
     --num_generations ${num_generations} \
-    --max_completion_length 512 \
     --per_device_train_batch_size ${batch_size} \
     --gradient_accumulation_steps ${gradient_accumulation_steps} \
-    --num_train_epochs 1 \
-    --learning_rate 1e-6 \
-    --lora_r 8 \
-    --lora_alpha 16 \
-    --reward_weights 0.2 0.5 0.3
+    "$@"
 else
   accelerate launch \
     --num_processes ${num_gpus} \
-    grpo_from_sft.py \
+    trace/grpo.py \
     --sft_checkpoint ./ckpts/${sft_checkpoint} \
-    --base_model_name Qwen/Qwen3-8B \
     --output_dir ./ckpts/grpo_from_${sft_checkpoint} \
-    --data_split train \
     --num_generations ${num_generations} \
-    --max_completion_length 512 \
     --per_device_train_batch_size ${per_device_train_batch_size} \
     --gradient_accumulation_steps ${gradient_accumulation_steps} \
-    --num_train_epochs 1 \
-    --learning_rate 1e-6 \
-    --lora_r 8 \
-    --lora_alpha 16 \
-    --reward_weights 0.2 0.5 0.3
+    "$@"
 fi

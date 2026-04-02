@@ -63,10 +63,10 @@ echo "limit: ${limit}"
 
 python ${collect_script} \
   --sft_checkpoint ./ckpts/${sft_checkpoint} \
-  --base_model_name Qwen/Qwen3-8B \
   --output_jsonl ./outputs/${output_jsonl}.jsonl \
   --data_split ${data_split} \
   --num_samples_per_prompt ${num_samples_per_prompt} \
   --min_reasoning_tokens ${min_reasoning_tokens} \
   --temperature ${temperature} \
-  ${limit}
+  ${limit} \
+  "$@"
