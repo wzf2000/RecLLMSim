@@ -244,6 +244,9 @@ def get_dataset(
 # =========================
 
 def compute_metrics(eval_pred: EvalPrediction) -> dict[str, float]:
+    print("=" * 100)
+    print(eval_pred.predictions)
+    print("=" * 100)
     ordinal_logits, reason_logits = eval_pred.predictions
     ordinal_pred = (ordinal_logits > 0).astype(int)  # (batch_size, 4)
     pred_scores = ordinal_pred.sum(axis=1) + 1
@@ -284,6 +287,7 @@ def get_trainer(
     batch_size: int,
     num_epochs: int,
     output_dir: str,
+    disable_reason: bool = False,
 ) -> Trainer:
     training_args = TrainingArguments(
         output_dir=output_dir,
@@ -299,6 +303,7 @@ def get_trainer(
         eval_strategy="epoch",
         load_best_model_at_end=True,
         metric_for_best_model="mae",
+        label_names=["labels"] if disable_reason else ["labels", "reason_labels"],
     )
     trainer = Trainer(
         model=model,
@@ -375,6 +380,7 @@ def run_test_only(
         per_device_eval_batch_size=batch_size,
         bf16=True,
         fp16=False,
+        label_names=["labels"] if disable_reason else ["labels", "reason_labels"],
     )
     trainer = Trainer(model=model, args=training_args, compute_metrics=compute_metrics)
     pred_output = trainer.predict(test_dataset)
@@ -514,7 +520,7 @@ def main(
     train_dataset = dataset.select(train_idx)
     valid_dataset = dataset.select(valid_idx)
     test_dataset = dataset.select(test_idx)
-    trainer = get_trainer(model, train_dataset, valid_dataset, batch_size, num_epochs, output_dir=output_dir)
+    trainer = get_trainer(model, train_dataset, valid_dataset, batch_size, num_epochs, output_dir=output_dir, disable_reason=disable_reason)
     init_metrics = trainer.evaluate()  # 先评估一下初始模型性能
     logger.info(f"Initial Metrics: {init_metrics}")
     trainer.train(resume_from_checkpoint=resume_from_checkpoint)
