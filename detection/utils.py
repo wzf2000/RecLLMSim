@@ -4,7 +4,7 @@ import random
 import numpy as np
 
 api_config_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'api_config.json')
-HUMAN_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'human_exp_V2')
+HUMAN_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')
 
 def conv_format(history: list[dict[str, str]], content_field: str = 'content') -> str:
     text = ''

@@ -2,7 +2,7 @@
 
 ## Data
 
-We provide all the data files under the `real_human_user`, `human_exp_V2` and `LLM_agent_user` folder.
+We provide all the data files under the `data` folder.
 
 The conversation dataset is divided into several parts according to the task and the user. Each conversation is stored in a `.json` file under the corresponding task folder.
 
@@ -45,9 +45,4 @@ Check the `readme.md` file in the `RecUserSim` folder for more details.
 
 ## File Structure
 
-- `real_human_user`/`human_exp_V2`: The conversation data constructed from real human users.
-- `LLM_agent_user`: The conversation data constructed by the LLM agent users.
-- `RecUserSim`: The code for the user simulator framework.
-- `README.md`: This file.
-- `user_behavior`: Automatically label method for user behavior analysis.
-- `statistics`: The code for the statistics of the dataset.
+- `data`: The conversation data constructed from real human users.
