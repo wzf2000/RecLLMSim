@@ -1,0 +1,29 @@
+---
+description: Commit message format and conventions
+alwaysApply: true
+---
+
+# Commit Message Convention
+
+Format: `[scope] action: detail`
+
+- **scope**: module or area affected, e.g. `detection`, `llm`, `data`, `config`, `docs`
+- **action**: what was done, keep it short (add, fix, update, refactor, remove)
+- **detail**: brief description of the change
+
+## Examples
+
+```
+[detection] add: LoRA ordinal predictor for satisfaction
+[llm] fix: token limit overflow in long conversations
+[data] update: preprocessing pipeline for user logs
+[config] refactor: merge redundant env settings
+[docs] add: API usage guide for detection module
+```
+
+## Rules
+
+- Use English for commit messages
+- Keep the entire message under 72 characters
+- No period at the end
+- Use lowercase for action and detail
