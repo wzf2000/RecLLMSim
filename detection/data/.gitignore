@@ -1,0 +1,8 @@
+# 忽略所有数据文件，只保留目录结构（.gitkeep）和本文件
+*
+
+# 保留 gitignore 和 gitkeep 自身
+!.gitignore
+# 取消忽略目录本身（否则 git 不会进入子目录查找 .gitkeep）
+!*/
+!**/.gitkeep
