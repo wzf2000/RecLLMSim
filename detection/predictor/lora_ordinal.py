@@ -323,6 +323,7 @@ def run_test_only(
     data_list: list[dict] | None = None,
     disable_reason: bool = False,
     is_flat: bool = False,
+    sft_model_path: str = "",
 ):
     """加载已有 checkpoint，在测试集上评测并输出统一指标。"""
     import shutil
@@ -336,7 +337,10 @@ def run_test_only(
     test_dataset = dataset.select(test_idx)
     logger.info(f"Test samples: {len(test_idx)}")
 
-    base_model = get_base_model(model_name)
+    backbone_name = sft_model_path if sft_model_path else model_name
+    if sft_model_path:
+        logger.info(f"Using SFT model as backbone: {sft_model_path}")
+    base_model = get_base_model(backbone_name)
     backbone = get_model_with_lora(base_model)
     model = SatisfactionModel(
         backbone,
@@ -419,6 +423,7 @@ def main(
     uss_datasets: list[str] | None = None,
     uss_data_dir: str = "./data/uss/processed",
     disable_reason: bool = False,
+    sft_model_path: str = "",
 ):
     data_list, is_flat = _load_data_list(data_source, uss_datasets, uss_data_dir)
 
@@ -431,6 +436,7 @@ def main(
             alpha=alpha, beta=beta, gamma=gamma, delta=delta,
             consistency_temp=consistency_temp, consistency_center=consistency_center,
             data_list=data_list, disable_reason=disable_reason, is_flat=is_flat,
+            sft_model_path=sft_model_path,
         )
         return
 
@@ -486,7 +492,10 @@ def main(
     else:
         logger.info("Disable reason_class_weights (use_reason_weights=0)")
 
-    base_model = get_base_model(model_name)
+    backbone_name = sft_model_path if sft_model_path else model_name
+    if sft_model_path:
+        logger.info(f"Using SFT model as backbone: {sft_model_path}")
+    base_model = get_base_model(backbone_name)
     backbone = get_model_with_lora(base_model)
     model = SatisfactionModel(
         backbone,
@@ -553,6 +562,10 @@ def parse_args():
     parser.add_argument(
         "--disable_reason", action="store_true",
         help="禁用 reason 分类器和相关 loss（USS 等无细粒度原因标注的数据集使用）",
+    )
+    parser.add_argument(
+        "--sft_model_path", type=str, default="",
+        help="用自己训练的 SFT 模型替换 base model 作为 backbone（传入 checkpoint 目录）；为空则使用 --model_name",
     )
     return parser.parse_args()
 
