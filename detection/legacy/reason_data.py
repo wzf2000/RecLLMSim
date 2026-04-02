@@ -4,7 +4,7 @@ import json
 from typing import Literal, overload
 from sklearn.model_selection import train_test_split
 
-from utils import get_profile, conv_format, HUMAN_DIR
+from lib.utils import get_profile, conv_format, HUMAN_DIR
 
 gt_map = {
     '不够细致': 0,

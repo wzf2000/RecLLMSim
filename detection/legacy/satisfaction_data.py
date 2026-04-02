@@ -5,7 +5,7 @@ import numpy as np
 from typing import overload, Literal
 from sklearn.model_selection import train_test_split
 
-from utils import get_profile, conv_format, HUMAN_DIR
+from lib.utils import get_profile, conv_format, HUMAN_DIR
 
 @overload
 def get_data(sample: bool = False, training: Literal[False] = False, binary: bool = False) -> tuple[list[dict], dict[int, str]]: ...

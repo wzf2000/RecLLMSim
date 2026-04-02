@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 
 from dataset import preprocess_data_ml
-from evaluation import evaluate
+from lib.evaluation import evaluate
 
 class MLModel:
     def __init__(self, vectorizer: str = 'tfidf', model_name: str = 'RF', **kwargs):

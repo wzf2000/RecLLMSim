@@ -2,31 +2,14 @@ import os
 import json
 from argparse import ArgumentParser
 
-from ml import evaluate_ml, train_predict_ml
-from lm import evaluate_lm
-from llm import predict_llm, predict_llm_in_context, get_messages, generate
-from utils import set_seed
-from satisfaction_data import get_data, get_USS_data
-from reason_data import get_reason_data, get_reason_data2, gt_map_reverse
-from merge_data import get_merge_data
-from evaluation import evaluate
-from prompts import score_prompt, binary_prompt, reason_prompts, reason_in_context_prompts, merge_prompts, reason_descriptions, reflect_prompts, refine_prompts, compare_prompts
-
-def work_llm(model: str, version: int, sample: bool = False, binary: bool = False, split: str | None = None) -> tuple[float, float]:
-    set_seed(42)
-    if split is not None:
-        test_data, examples = get_USS_data(split, sample=sample, training=False, binary=binary)
-    else:
-        test_data, examples = get_data(sample=sample, training=False, binary=binary)
-    ground_truth = [data['ground_truth'] for data in test_data]
-    output_file = f'results/{model}_predictions_v{version}{"_sampled" if sample else ""}{"_binary" if binary else ""}{f"_{split}" if split is not None else ""}.json'
-    prompt = binary_prompt if binary else score_prompt
-    if binary:
-        prompts = [prompt.format(context=data['history'], task_context=data['task_context'] if 'task_context' in data else "None", zero_example=examples[0], one_example=examples[1]) for data in test_data]
-    else:
-        prompts = [prompt.format(context=data['history'], task_context=data['task_context'] if 'task_context' in data else "None") for data in test_data]
-    predictions = predict_llm(prompts, model, output_file=output_file)
-    return evaluate(predictions, ground_truth)
+from lib.utils import set_seed
+from lib.evaluation import evaluate
+from lib.llm import generate, get_messages
+from legacy.ml import evaluate_ml, train_predict_ml
+from legacy.satisfaction_data import get_data, get_USS_data
+from legacy.reason_data import get_reason_data, get_reason_data2, gt_map_reverse
+from legacy.merge_data import get_merge_data
+from legacy.prompts import binary_prompt, reason_descriptions, reflect_prompts, refine_prompts, compare_prompts
 
 def work_ml(vectorizer: str = 'tfidf', model_name: str = 'RF', sample: bool = True, binary: bool = False, profile: bool = False, split: str | None = None) -> tuple[float, float]:
     set_seed(42)
@@ -36,71 +19,15 @@ def work_ml(vectorizer: str = 'tfidf', model_name: str = 'RF', sample: bool = Tr
         test_data, train_data = get_data(sample=sample, training=True, binary=binary)
     return evaluate_ml(train_data, test_data, vectorizer=vectorizer, model_name=model_name, profile=profile)
 
-def work_lm(model_name: str, regression: bool = False, sample: bool = True, binary: bool = False, profile: bool = False, split: str | None = None) -> tuple[float, float]:
-    set_seed(42)
-    if split is not None:
-        test_data, train_data = get_USS_data(split, sample=sample, training=True, binary=binary)
-    else:
-        test_data, train_data = get_data(sample=sample, training=True, binary=binary)
-    results = evaluate_lm(model_name, train_data, test_data, num_labels=2 if binary else 5, regression=regression, profile=profile)
-    return results['eval_mse'], results['eval_rmse']
-
-def work_llm_reason(model: str, version: int, prompt_version: int, sample: bool = False, in_context: bool = False, data_version: int = 1) -> tuple[float, float]:
-    set_seed(42)
-    test_data, examples = get_reason_data(sample=sample, training=False) if data_version == 1 else get_reason_data2(sample=sample, training=False)
-    ground_truth = [data['ground_truth'] for data in test_data]
-    output_file = f'results/{model}_reason{data_version}_predictions_v{version}{"_sampled" if sample else ""}.json'
-    if not in_context:
-        prompt = reason_prompts[prompt_version]
-        if '{profile}' in prompt:
-            prompts = [prompt.format(context=data['history'], profile=data['profile'], zero_example=examples[0], one_example=examples[1], two_example=examples[2], three_example=examples[3]) for data in test_data]
-        else:
-            prompts = [prompt.format(context=data['history'], zero_example=examples[0], one_example=examples[1], two_example=examples[2], three_example=examples[3]) for data in test_data]
-        predictions = predict_llm(prompts, model, output_file=output_file)
-    else:
-        prompt = reason_in_context_prompts[prompt_version]
-        histories = [data['origin_history'] for data in test_data]
-        if '{profile}' in prompt:
-            prompts = [prompt.format(zero_example=examples[0], one_example=examples[1], two_example=examples[2], three_example=examples[3], profile=data['profile']) for data in test_data]
-        else:
-            prompts = [prompt.format(zero_example=examples[0], one_example=examples[1], two_example=examples[2], three_example=examples[3]) for _ in test_data]
-        predictions = predict_llm_in_context(prompts, histories, model, output_file=output_file)
-    return evaluate(predictions, ground_truth)
-
 def work_ml_reason(vectorizer: str = 'tfidf', model_name: str = 'RF', sample: bool = True, profile: bool = False, data_version: int = 1) -> tuple[float, float]:
     set_seed(42)
     test_data, train_data = get_reason_data(sample=sample, training=True) if data_version == 1 else get_reason_data2(sample=sample, training=True)
     return evaluate_ml(train_data, test_data, vectorizer=vectorizer, model_name=model_name, profile=profile)
 
-def work_lm_reason(model_name: str, sample: bool = True, profile: bool = False, data_version: int = 1) -> tuple[float, float]:
-    set_seed(42)
-    test_data, train_data = get_reason_data(sample=sample, training=True) if data_version == 1 else get_reason_data2(sample=sample, training=True)
-    results = evaluate_lm(model_name, train_data, test_data, num_labels=4, regression=False, profile=profile)
-    return results['eval_mse'], results['eval_rmse']
-
-def work_llm_merge(model: str, version: int, prompt_version: int, sample: bool = False) -> tuple[float, float]:
-    set_seed(42)
-    test_data, examples = get_merge_data(sample=sample, training=False)
-    ground_truth = [data['ground_truth'] for data in test_data]
-    output_file = f'results/{model}_merge_predictions_v{version}{"_sampled" if sample else ""}.json'
-    prompt = merge_prompts[prompt_version]
-    if '{profile}' in prompt:
-        prompts = [prompt.format(context=data['history'], profile=data['profile'], zero_example=examples[0], one_example=examples[1], two_example=examples[2], three_example=examples[3], four_example=examples[4], five_example=examples[5]) for data in test_data]
-    else:
-        prompts = [prompt.format(context=data['history'], zero_example=examples[0], one_example=examples[1], two_example=examples[2], three_example=examples[3], four_example=examples[4], five_example=examples[5]) for data in test_data]
-    predictions = predict_llm(prompts, model, output_file=output_file)
-    return evaluate(predictions, ground_truth)
-
 def work_ml_merged(vectorizer: str = 'tfidf', model_name: str = 'RF', sample: bool = True, profile: bool = False) -> tuple[float, float]:
     set_seed(42)
     test_data, train_data = get_merge_data(sample=sample, training=True)
     return evaluate_ml(train_data, test_data, vectorizer=vectorizer, model_name=model_name, profile=profile)
-
-def work_lm_merged(model_name: str, sample: bool = True, profile: bool = False) -> tuple[float, float]:
-    set_seed(42)
-    test_data, train_data = get_merge_data(sample=sample, training=True)
-    results = evaluate_lm(model_name, train_data, test_data, num_labels=6, regression=False, profile=profile)
-    return results['eval_mse'], results['eval_rmse']
 
 def reason_test(vectorizer: str = 'tfidf', model_name: str = 'RF', sample: bool = True, binary: bool = False, profile: bool = False, data_version: int = 1, split: str | None = None) -> list[dict]:
     assert split is not None, "Split must be provided for USS data."
@@ -231,7 +158,6 @@ def output_data(data_version: int = 1, reason: bool = True):
 def parse_args():
     parser = ArgumentParser(description="Evaluate models")
     parser.add_argument("--pipe", type=str, default="train", choices=["train", "eval_llm", "output_data", "reason_test", "refine_test"], help="Pipeline to run")
-    parser.add_argument("-t", "--type", type=str, choices=["ml", "lm", "llm"], help="Type of model to evaluate")
     parser.add_argument("--split", type=str, default=None, help="Split for train & test, e.g., CCPE, JDDC")
     parser.add_argument("--reason", action="store_true", help="Use reasoning data")
     parser.add_argument("--merge", action="store_true", help="Use merged data")
@@ -250,29 +176,12 @@ def parse_args():
 if __name__ == '__main__':
     args = parse_args()
     if args.pipe == "train":
-        if args.type == "ml":
-            if args.reason:
-                work_ml_reason(args.vectorizer, args.model, sample=args.sample, profile=args.profile, data_version=args.data_version)
-            elif args.merge:
-                work_ml_merged(args.vectorizer, args.model, sample=args.sample, profile=args.profile)
-            else:
-                work_ml(args.vectorizer, args.model, sample=args.sample, binary=args.binary, profile=args.profile, split=args.split)
-        elif args.type == "lm":
-            if args.reason:
-                work_lm_reason(args.model, sample=args.sample, profile=args.profile, data_version=args.data_version)
-            elif args.merge:
-                work_lm_merged(args.model, sample=args.sample, profile=args.profile)
-            else:
-                work_lm(args.model, regression=args.regression, sample=args.sample, binary=args.binary, profile=args.profile, split=args.split)
-        elif args.type == "llm":
-            if args.reason:
-                work_llm_reason(args.model, args.version, args.prompt_version, sample=args.sample, in_context=args.in_context, data_version=args.data_version)
-            elif args.merge:
-                work_llm_merge(args.model, args.version, args.prompt_version, sample=args.sample)
-            else:
-                work_llm(args.model, args.version, sample=args.sample, binary=args.binary, split=args.split)
+        if args.reason:
+            work_ml_reason(args.vectorizer, args.model, sample=args.sample, profile=args.profile, data_version=args.data_version)
+        elif args.merge:
+            work_ml_merged(args.vectorizer, args.model, sample=args.sample, profile=args.profile)
         else:
-            raise ValueError(f"Unknown type: {args.type}")
+            work_ml(args.vectorizer, args.model, sample=args.sample, binary=args.binary, profile=args.profile, split=args.split)
     elif args.pipe == "eval_llm":
         evaluate_dir(f'results/{args.model}_reason{args.data_version}_predictions_v{args.version}{"_sampled" if args.sample else ""}_cache', sample=args.sample, data_version=args.data_version)
     elif args.pipe == "output_data":
