@@ -7,7 +7,7 @@ from tenacity import retry, stop_after_attempt, wait_fixed
 from threading import Lock
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-api_config_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'api_config.json')
+from .utils import api_config_file
 
 with open(api_config_file, 'r') as f:
     api_config = json.load(f)
