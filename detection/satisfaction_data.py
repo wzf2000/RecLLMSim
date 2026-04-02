@@ -5,35 +5,7 @@ import numpy as np
 from typing import overload, Literal
 from sklearn.model_selection import train_test_split
 
-from utils import get_profile, conv_format, HUMAN_DIR, SIM_DIR
-
-def get_sim_data(sample: bool = False, language: str = 'zh') -> list[dict]:
-    random.seed(42)
-    dir_name = SIM_DIR
-    task_list = ['new travel planning', 'preparing gifts', 'recipe planning', 'skills learning planning', 'travel planning']
-    data_list = []
-    for task in task_list:
-        files = os.listdir(os.path.join(dir_name, task))
-        files = [file for file in files if file.endswith('.json')]
-        files.sort(key=lambda x: x.split('.')[0])
-        if sample:
-            files = files[:20]
-        for file in files:
-            with open(os.path.join(dir_name, task, file), 'r') as f:
-                data = json.load(f)
-            for i, utt in enumerate(data['history']):
-                if utt['role'] != 'assistant':
-                    continue
-                data_list.append({
-                    'task': task,
-                    'turns': i + 1,
-                    'file_path': os.path.join(dir_name, task, file),
-                    'history': conv_format(data['history'][:i + 1], content_field='content_zh' if language == 'zh' else 'content'),
-                    'profile': data['preference_zh'],
-                    'task_context': data['task_context']
-                })
-    print(f"Total data: {len(data_list)}")
-    return data_list
+from utils import get_profile, conv_format, HUMAN_DIR
 
 @overload
 def get_data(sample: bool = False, training: Literal[False] = False, binary: bool = False) -> tuple[list[dict], dict[int, str]]: ...

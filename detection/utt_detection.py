@@ -7,7 +7,7 @@ from lm import evaluate_lm
 from llm import predict_llm, predict_llm_in_context, get_messages, generate
 from utils import set_seed
 from dataset import preprocess_data_ml
-from satisfaction_data import get_data, get_USS_data, get_sim_data
+from satisfaction_data import get_data, get_USS_data
 from reason_data import get_reason_data, get_reason_data2, gt_map_reverse
 from merge_data import get_merge_data
 from evaluation import evaluate
@@ -191,86 +191,6 @@ def evaluate_dir(dir_path: str, sample: bool = True, data_version: int = 1) -> f
     print(f"Accuracy: {acc:.4f}")
     return acc
 
-def detect_simulation_llm(model: str, sample: bool = True, binary: bool = False, profile: bool = False, language: str = 'zh'):
-    set_seed(42)
-    test_data, examples = get_data(sample=sample, training=False, binary=binary)
-    sim_data = get_sim_data(sample=sample, language=language)
-    prompt = binary_prompt if binary else score_prompt
-    if binary:
-        prompts = [prompt.format(context=data['history'], task_context=data['task_context'] if 'task_context' in data else "None", zero_example=examples[0], one_example=examples[1]) for data in sim_data]
-    else:
-        prompts = [prompt.format(context=data['history'], task_context=data['task_context'] if 'task_context' in data else "None") for data in sim_data]
-    output_file = f'results/{model}_sim_predictions{"_sampled" if sample else ""}{"_binary" if binary else ""}{"_en" if language == "en" else ""}.json'
-    sim_predictions = predict_llm(prompts, model, output_file=output_file)
-    from collections import Counter
-    sim_counter = Counter(sim_predictions)
-    print(f"Simulation Detection Results: {sim_counter}")
-    predictions_tasks = {}
-    data_tasks = {}
-    for data, predictionin in zip(sim_data, sim_predictions):
-        task = data['task']
-        if task not in predictions_tasks:
-            predictions_tasks[task] = []
-            data_tasks[task] = []
-        predictions_tasks[task].append(predictionin)
-        data_tasks[task].append(data)
-    import yaml
-    for task, predictions in predictions_tasks.items():
-        task_counter = Counter(predictions)
-        print(f"Task: {task}, Simulation Detection Results: {task_counter}")
-        # if task != 'new travel planning':
-        #     continue
-        # print zero / one example data
-        data_list = data_tasks[task]
-        # get zero / one example data
-        # zero_example = [data['history'] for data, pred in zip(data_list, predictions) if pred == 0 and data['turns'] > 3]
-        model_str = model
-        all_zero_example = [data['history'] for data, pred in zip(data_list, predictions) if pred == 0]
-        os.makedirs(f"tmp/{model_str}", exist_ok=True)
-        with open(f"tmp/{model_str}/zero_example_{task}.txt", 'w') as f:
-            yaml.dump(all_zero_example, f, allow_unicode=True, default_flow_style=False)
-        # one_example = [data['history'] for data, pred in zip(data_list, predictions) if pred == 1]
-        # print(f"Zero Example: {zero_example[-3:]}")
-        # print(f"One Example: {one_example[-3:]}")
-
-def detect_simulation_ml(vectorizer: str = 'tfidf', model_name: str = 'RF', sample: bool = True, binary: bool = False, profile: bool = False, language: str = 'zh'):
-    set_seed(42)
-    test_data, train_data = get_data(sample=sample, training=True, binary=binary)
-    model = evaluate_ml(train_data, test_data, vectorizer=vectorizer, model_name=model_name, profile=profile, return_model=True)
-    sim_data = get_sim_data(language=language)
-    X_sim = preprocess_data_ml(sim_data, profile=profile, labels=False)
-    sim_predictions = model.predict(X_sim)
-    from collections import Counter
-    sim_counter = Counter(sim_predictions)
-    print(f"Simulation Detection Results: {sim_counter}")
-    predictions_tasks = {}
-    data_tasks = {}
-    for data, predictionin in zip(sim_data, sim_predictions):
-        task = data['task']
-        if task not in predictions_tasks:
-            predictions_tasks[task] = []
-            data_tasks[task] = []
-        predictions_tasks[task].append(predictionin)
-        data_tasks[task].append(data)
-    import yaml
-    for task, predictions in predictions_tasks.items():
-        task_counter = Counter(predictions)
-        print(f"Task: {task}, Simulation Detection Results: {task_counter}")
-        # if task != 'new travel planning':
-        #     continue
-        # print zero / one example data
-        data_list = data_tasks[task]
-        # get zero / one example data
-        # zero_example = [data['history'] for data, pred in zip(data_list, predictions) if pred == 0 and data['turns'] > 3]
-        model_str = f"{vectorizer}_{model_name}"
-        all_zero_example = [data['history'] for data, pred in zip(data_list, predictions) if pred == 0]
-        os.makedirs(f"tmp/{model_str}", exist_ok=True)
-        with open(f"tmp/{model_str}/zero_example_{task}.txt", 'w') as f:
-            yaml.dump(all_zero_example, f, allow_unicode=True, default_flow_style=False)
-        # one_example = [data['history'] for data, pred in zip(data_list, predictions) if pred == 1]
-        # print(f"Zero Example: {zero_example[-3:]}")
-        # print(f"One Example: {one_example[-3:]}")
-
 def output_data(data_version: int = 1, reason: bool = True):
     set_seed(42)
     if reason:
@@ -311,7 +231,7 @@ def output_data(data_version: int = 1, reason: bool = True):
 
 def parse_args():
     parser = ArgumentParser(description="Evaluate models")
-    parser.add_argument("--pipe", type=str, default="train", choices=["train", "eval_llm", "output_data", "reason_test", "refine_test", "detect_simulation"], help="Pipeline to run")
+    parser.add_argument("--pipe", type=str, default="train", choices=["train", "eval_llm", "output_data", "reason_test", "refine_test"], help="Pipeline to run")
     parser.add_argument("-t", "--type", type=str, choices=["ml", "lm", "llm"], help="Type of model to evaluate")
     parser.add_argument("--split", type=str, default=None, help="Split for train & test, e.g., CCPE, JDDC")
     parser.add_argument("--reason", action="store_true", help="Use reasoning data")
@@ -326,7 +246,6 @@ def parse_args():
     parser.add_argument("--prompt_version", type=int, default=0, help="Prompt version for LLM models & reason data")
     parser.add_argument("--in_context", action="store_true", help="Use in-context learning for LLM models")
     parser.add_argument("--profile", action="store_true", help="Use profile for ML & LM models")
-    parser.add_argument("--language", type=str, default="zh", choices=["zh", "en"], help="Language of the simulation data")
     return parser.parse_args()
 
 if __name__ == '__main__':
@@ -363,10 +282,5 @@ if __name__ == '__main__':
         reason_test(args.vectorizer, args.model, sample=args.sample, binary=args.binary, profile=args.profile, data_version=args.data_version, split=args.split)
     elif args.pipe == "refine_test":
         refine_test(args.model, args.version, args.prompt_version, sample=args.sample, data_version=args.data_version)
-    elif args.pipe == "detect_simulation":
-        if args.type == "ml":
-            detect_simulation_ml(args.vectorizer, args.model, sample=args.sample, binary=args.binary, profile=args.profile, language=args.language)
-        elif args.type == "llm":
-            detect_simulation_llm(args.model, sample=args.sample, binary=args.binary, profile=args.profile, language=args.language)
     else:
         raise ValueError(f"Unknown pipe: {args.pipe}")
