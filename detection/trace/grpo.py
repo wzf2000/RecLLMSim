@@ -25,9 +25,9 @@ from peft import LoraConfig, PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from trl import GRPOConfig, GRPOTrainer
 
-from .collect_api import get_rows_from_split
+from trace.collect_api import get_rows_from_split
 from lib.satisfaction_constants import get_reason_to_id
-from .sft import (
+from trace.sft import (
     build_prompt_like_collect,
     parse_model_json,
     split_history_turns,

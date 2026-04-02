@@ -54,7 +54,8 @@ detection/
 │   ├── train_satisfaction_bert.sh         # 训练 BERT 预测器
 │   ├── train_satisfaction_ordinal.sh      # 训练 BERT+Ordinal 预测器
 │   ├── train_satisfaction_lora.sh         # 训练 Qwen3+LoRA 预测器
-│   └── train_satisfaction_ordinal_lora.sh # 训练 Qwen3+LoRA+Ordinal 预测器
+│   ├── train_satisfaction_ordinal_lora.sh # 训练 Qwen3+LoRA+Ordinal 预测器（内部数据）
+│   └── train_ordinal_lora_uss.sh          # 训练 Qwen3+LoRA+Ordinal 预测器（USS 数据）
 │
 ├── tools/                  # 一次性工具脚本
 │   ├── annotation_app.py        # 满意度标注 Web 应用
@@ -182,10 +183,28 @@ CUDA_VISIBLE_DEVICES=0 ./scripts/train_satisfaction_lora.sh
 
 检查点输出至 `ckpts/llm_predictor/`。
 
-#### `scripts/train_satisfaction_ordinal_lora.sh` — Qwen3+LoRA+Ordinal 预测器（主力）
+#### `scripts/train_satisfaction_ordinal_lora.sh` — Qwen3+LoRA+Ordinal 预测器（内部数据）
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 ./scripts/train_satisfaction_ordinal_lora.sh
+```
+
+#### `scripts/train_ordinal_lora_uss.sh` — Qwen3+LoRA+Ordinal 预测器（USS 数据）
+
+需先运行 `python tools/preprocess_uss.py` 完成数据预处理。
+
+```bash
+# 全部 5 个子数据集训练
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_ordinal_lora_uss.sh
+
+# 仅用中文子集 JDDC
+CUDA_VISIBLE_DEVICES=0 uss_datasets="JDDC" bash scripts/train_ordinal_lora_uss.sh
+
+# 仅用英文子集
+CUDA_VISIBLE_DEVICES=0 uss_datasets="SGD MWOZ ReDial CCPE" bash scripts/train_ordinal_lora_uss.sh
+
+# 测试已有 checkpoint
+CUDA_VISIBLE_DEVICES=0 test_only=1 checkpoint=checkpoint-500 bash scripts/train_ordinal_lora_uss.sh
 ```
 
 检查点输出至 `ckpts/llm_predictor_ordinal/`。损失系数：

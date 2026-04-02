@@ -19,10 +19,11 @@ from scipy.stats import spearmanr, pearsonr
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score, accuracy_score, f1_score, cohen_kappa_score
 
 from lib.metric_statistics import get_satisfaction_data
-from .bert import format_profile
+from lib.uss_data import get_uss_flat_data, ALL_DATASETS as USS_ALL_DATASETS
 from lib.data_split import split_by_user_group_shuffle_split
 from lib.satisfaction_constants import get_reason_to_id
 from lib.qwen_lora_utils import get_base_model, get_model_with_lora
+from predictor.bert import format_profile
 
 # =========================
 # 添加 Ordinal Head
@@ -187,7 +188,13 @@ def score_to_ordinal(score: int) -> list[int]:
         int(score >= 5),
     ]
 
-def tokenize_function(example: dict[str, str | float], tokenizer: PreTrainedTokenizer, max_len: int, reason_to_id: dict[str, int]) -> dict[str, torch.Tensor | float | int]:
+def tokenize_function(
+    example: dict[str, str | float],
+    tokenizer: PreTrainedTokenizer,
+    max_len: int,
+    reason_to_id: dict[str, int],
+    disable_reason: bool = False,
+) -> dict[str, torch.Tensor | float | int]:
     text = format_example(example)
     tokenized = tokenizer(
         text,
@@ -197,22 +204,38 @@ def tokenize_function(example: dict[str, str | float], tokenizer: PreTrainedToke
     )
     tokenized["labels"] = torch.tensor(score_to_ordinal(example["score"]), dtype=torch.float)
     tokenized["score_int"] = int(example["score"])
-    tokenized["reason_labels"] = reason_to_id[example["reason"]]
+    if not disable_reason:
+        tokenized["reason_labels"] = reason_to_id[example["reason"]]
     return tokenized
 
 # =========================
 # 数据准备
 # =========================
 
-def get_dataset(tokenizer: PreTrainedTokenizer, max_len: int) -> tuple[Dataset, int, dict]:
-    data_list = get_satisfaction_data()  # 从 metric_statistics 获取数据
-    data = preprocess_to_dict_data(data_list)
+def get_dataset(
+    tokenizer: PreTrainedTokenizer,
+    max_len: int,
+    data_list: list[dict] | None = None,
+    disable_reason: bool = False,
+    is_flat: bool = False,
+) -> tuple[Dataset, int, dict]:
+    if data_list is None:
+        data_list = get_satisfaction_data()
+    if is_flat:
+        # data_list is already turn-level dicts; transpose to dict-of-lists
+        data = {k: [d[k] for d in data_list] for k in data_list[0]}
+    else:
+        data = preprocess_to_dict_data(data_list)
     reason_to_id = get_reason_to_id()
     num_reasons = len(reason_to_id)
-    logger.info(reason_to_id)
+    logger.info(f"reason_to_id={reason_to_id}, disable_reason={disable_reason}")
 
     dataset = Dataset.from_dict(data)
-    partial_tokenize = partial(tokenize_function, tokenizer=tokenizer, max_len=max_len, reason_to_id=reason_to_id)
+    partial_tokenize = partial(
+        tokenize_function,
+        tokenizer=tokenizer, max_len=max_len,
+        reason_to_id=reason_to_id, disable_reason=disable_reason,
+    )
     dataset = dataset.map(partial_tokenize)
     return dataset, num_reasons, reason_to_id
 
@@ -224,7 +247,13 @@ def compute_metrics(eval_pred: EvalPrediction) -> dict[str, float]:
     ordinal_logits, reason_logits = eval_pred.predictions
     ordinal_pred = (ordinal_logits > 0).astype(int)  # (batch_size, 4)
     pred_scores = ordinal_pred.sum(axis=1) + 1
-    ordinal_labels, true_reasons = eval_pred.label_ids
+    # label_ids 为 tuple 时含 reason_labels，否则仅有 ordinal labels（disable_reason 模式）
+    if isinstance(eval_pred.label_ids, tuple):
+        ordinal_labels, true_reasons = eval_pred.label_ids
+        has_reason = True
+    else:
+        ordinal_labels = eval_pred.label_ids
+        has_reason = False
     true_scores = ordinal_labels.sum(axis=1) + 1
     mae = mean_absolute_error(true_scores, pred_scores)
     rmse = root_mean_squared_error(true_scores, pred_scores)
@@ -233,10 +262,7 @@ def compute_metrics(eval_pred: EvalPrediction) -> dict[str, float]:
     score_accuracy = accuracy_score(true_scores, pred_scores)
     pearson_corr = pearsonr(true_scores, pred_scores)[0]
     spearman_corr = spearmanr(true_scores, pred_scores)[0]
-    reason_preds = reason_logits.argmax(axis=-1)
-    reason_accuracy = accuracy_score(true_reasons, reason_preds)
-    f1 = f1_score(true_reasons, reason_preds, average="weighted", zero_division=0)
-    return {
+    metrics = {
         "mae": mae,
         "rmse": rmse,
         "r2": r2,
@@ -244,9 +270,12 @@ def compute_metrics(eval_pred: EvalPrediction) -> dict[str, float]:
         "score_accuracy": score_accuracy,
         "pearson_corr": pearson_corr,
         "spearman_corr": spearman_corr,
-        "reason_accuracy": reason_accuracy,
-        "reason_f1": f1,
     }
+    if has_reason:
+        reason_preds = reason_logits.argmax(axis=-1)
+        metrics["reason_accuracy"] = accuracy_score(true_reasons, reason_preds)
+        metrics["reason_f1"] = f1_score(true_reasons, reason_preds, average="weighted", zero_division=0)
+    return metrics
 
 def get_trainer(
     model: nn.Module,
@@ -291,13 +320,16 @@ def run_test_only(
     delta: float = 0.2,
     consistency_temp: float = 2.0,
     consistency_center: float = 3.5,
+    data_list: list[dict] | None = None,
+    disable_reason: bool = False,
+    is_flat: bool = False,
 ):
     """加载已有 checkpoint，在测试集上评测并输出统一指标。"""
     import shutil
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
     logger.info(f"Using device: {DEVICE}, test_only mode")
     tokenizer: PreTrainedTokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
-    dataset, num_reasons, reason_to_id = get_dataset(tokenizer, max_len)
+    dataset, num_reasons, reason_to_id = get_dataset(tokenizer, max_len, data_list=data_list, disable_reason=disable_reason, is_flat=is_flat)
     train_idx, valid_idx, test_idx = split_by_user_group_shuffle_split(
         dataset["user"], train_ratio=0.8, val_ratio=0.1, test_ratio=0.1, seed=42
     )
@@ -347,6 +379,25 @@ def run_test_only(
         shutil.rmtree(eval_tmp_dir, ignore_errors=True)
 
 
+def _load_data_list(
+    data_source: str,
+    uss_datasets: list[str] | None,
+    uss_data_dir: str,
+) -> tuple[list[dict], bool]:
+    """根据 data_source 加载数据。返回 (data_list, is_flat)。
+    is_flat=True 表示 data_list 已是 turn-level 平铺 dicts，无需再经 preprocess_to_dict_data()。
+    """
+    if data_source == "uss":
+        flat = get_uss_flat_data(
+            datasets=uss_datasets,
+            data_dir=uss_data_dir,
+            splits=None,   # 加载全部，由 GroupShuffleSplit 重新划分
+        )
+        return flat, True
+    else:
+        return get_satisfaction_data(), False
+
+
 def main(
     model_name: str = "Qwen/Qwen3-8B",
     max_len: int = 1024,
@@ -364,7 +415,13 @@ def main(
     use_reason_weights: bool = False,
     test_only: bool = False,
     checkpoint_path: str = "",
+    data_source: str = "internal",
+    uss_datasets: list[str] | None = None,
+    uss_data_dir: str = "./data/uss/processed",
+    disable_reason: bool = False,
 ):
+    data_list, is_flat = _load_data_list(data_source, uss_datasets, uss_data_dir)
+
     if test_only:
         if not checkpoint_path:
             raise ValueError("--test_only 时必须指定 --checkpoint_path")
@@ -373,13 +430,14 @@ def main(
             checkpoint_path=checkpoint_path,
             alpha=alpha, beta=beta, gamma=gamma, delta=delta,
             consistency_temp=consistency_temp, consistency_center=consistency_center,
+            data_list=data_list, disable_reason=disable_reason, is_flat=is_flat,
         )
         return
 
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-    logger.info(f"Using device: {DEVICE}")
+    logger.info(f"Using device: {DEVICE}, data_source={data_source}, disable_reason={disable_reason}")
     tokenizer: PreTrainedTokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
-    dataset, num_reasons, reason_to_id = get_dataset(tokenizer, max_len)
+    dataset, num_reasons, reason_to_id = get_dataset(tokenizer, max_len, data_list=data_list, disable_reason=disable_reason, is_flat=is_flat)
     train_idx, valid_idx, test_idx = split_by_user_group_shuffle_split(dataset["user"], train_ratio=0.8, val_ratio=0.1, test_ratio=0.1, seed=42)
     logger.info(f"Train samples: {len(train_idx)}, Valid samples: {len(valid_idx)}, Test samples: {len(test_idx)}")
 
@@ -406,7 +464,7 @@ def main(
         logger.info("Disable score_weights (use_score_weights=0)")
 
     reason_class_weights: list[float] | None = None
-    if use_reason_weights:
+    if use_reason_weights and not disable_reason:
         train_reasons = [r for r in dataset.select(train_idx)["reason"]]
         total_r = len(train_reasons)
         reason_ids = list(reason_to_id.values())
@@ -480,6 +538,22 @@ def parse_args():
     )
     parser.add_argument("--test_only", action="store_true", help="仅加载已有 checkpoint 做测试，跳过训练")
     parser.add_argument("--checkpoint_path", type=str, default="", help="test_only 时指定 checkpoint 目录（含 model.safetensors 或 pytorch_model.bin）")
+    parser.add_argument(
+        "--data_source", type=str, default="internal", choices=["internal", "uss"],
+        help="训练数据来源：internal=项目内部数据，uss=USS 公开数据集",
+    )
+    parser.add_argument(
+        "--uss_datasets", nargs="+", default=None, choices=USS_ALL_DATASETS,
+        help="USS 模式下使用的子数据集，默认全部（JDDC/SGD/MWOZ/ReDial/CCPE）",
+    )
+    parser.add_argument(
+        "--uss_data_dir", type=str, default="./data/uss/processed",
+        help="USS 预处理 JSONL 目录（tools/preprocess_uss.py 输出目录）",
+    )
+    parser.add_argument(
+        "--disable_reason", action="store_true",
+        help="禁用 reason 分类器和相关 loss（USS 等无细粒度原因标注的数据集使用）",
+    )
     return parser.parse_args()
 
 if __name__ == "__main__":

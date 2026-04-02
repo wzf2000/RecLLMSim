@@ -20,10 +20,10 @@ from scipy.stats import spearmanr, pearsonr
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score, accuracy_score, f1_score, cohen_kappa_score
 
 from lib.metric_statistics import get_satisfaction_data
-from .bert import format_profile
 from lib.data_split import split_by_user_group_shuffle_split
 from lib.satisfaction_constants import get_reason_to_id, get_id_to_reason
 from lib.qwen_lora_utils import get_base_model, get_model_with_lora
+from predictor.bert import format_profile
 
 # =========================
 # 添加回归 Head
