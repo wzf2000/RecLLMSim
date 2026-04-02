@@ -113,20 +113,20 @@ class SatisfactionModel(nn.Module):
                     reason_loss = self.reason_loss_fn(reason_logits, reason_labels)
                 loss += self.beta * reason_loss
 
-            # 跨任务一致性约束：
-            # 分数越高 => "满意" 概率越高；分数越低 => "满意" 概率越低
-            # 用预测的 ordinal logits 得到期望分数，再映射为满意概率目标。
-            if self.delta > 0:
-                # expected_score in [1, 5]
-                expected_score = 1.0 + torch.sigmoid(ordinal_logtis).sum(dim=1)
-                target_satisfied_prob = torch.sigmoid(
-                    (expected_score - self.consistency_center) * self.consistency_temp
-                )
-                # 使用 "满意" 的 softmax-logit 做 BCEWithLogits（autocast 安全）
-                # p = softmax(z)[k] => logit(p) = z_k - logsumexp(z)
-                satisfied_softmax_logit = reason_logits[:, self.satisfied_reason_id] - torch.logsumexp(reason_logits, dim=-1)
-                consistency_loss = F.binary_cross_entropy_with_logits(satisfied_softmax_logit, target_satisfied_prob)
-                loss += self.delta * consistency_loss
+                # 跨任务一致性约束：
+                # 分数越高 => "满意" 概率越高；分数越低 => "满意" 概率越低
+                # 用预测的 ordinal logits 得到期望分数，再映射为满意概率目标。
+                if self.delta > 0:
+                    # expected_score in [1, 5]
+                    expected_score = 1.0 + torch.sigmoid(ordinal_logtis).sum(dim=1)
+                    target_satisfied_prob = torch.sigmoid(
+                        (expected_score - self.consistency_center) * self.consistency_temp
+                    )
+                    # 使用 "满意" 的 softmax-logit 做 BCEWithLogits（autocast 安全）
+                    # p = softmax(z)[k] => logit(p) = z_k - logsumexp(z)
+                    satisfied_softmax_logit = reason_logits[:, self.satisfied_reason_id] - torch.logsumexp(reason_logits, dim=-1)
+                    consistency_loss = F.binary_cross_entropy_with_logits(satisfied_softmax_logit, target_satisfied_prob)
+                    loss += self.delta * consistency_loss
 
         return {"loss": loss, "logits": ordinal_logtis, "reason_logits": reason_logits}
 
@@ -244,9 +244,6 @@ def get_dataset(
 # =========================
 
 def compute_metrics(eval_pred: EvalPrediction) -> dict[str, float]:
-    print("=" * 100)
-    print(eval_pred.predictions)
-    print("=" * 100)
     ordinal_logits, reason_logits = eval_pred.predictions
     ordinal_pred = (ordinal_logits > 0).astype(int)  # (batch_size, 4)
     pred_scores = ordinal_pred.sum(axis=1) + 1

@@ -26,6 +26,4 @@ mkdir -p ckpts/llm_predictor_ordinal
 export CUDA_VISIBLE_DEVICES
 
 python predictor/lora_ordinal.py \
-  --use_score_weights \
-  --use_reason_weights \
   "$@"
