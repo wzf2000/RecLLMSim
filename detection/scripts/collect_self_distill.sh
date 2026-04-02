@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 在 detection/ 目录下收集 self-distill 轨迹（trace/collect_self_distill.py）。
+# 在 detection/ 目录下收集 self-distill 轨迹（trace/collect_self_distill_v1.py 或 v2.py）。
 
 set -euo pipefail
 
@@ -14,11 +14,11 @@ export CUDA_VISIBLE_DEVICES
 
 : "${distill_version:=v2}"
 
-# 根据 distill_version 决定 trace/collect_self_distill.py 或 legacy/collect_self_distill_v1.py
+# 根据 distill_version 决定 trace/collect_self_distill.py 或 trace/collect_self_distill_v1.py
 if [ "${distill_version}" == "v2" ]; then
-  collect_script="trace/collect_self_distill.py"
+  collect_script="trace/collect_self_distill_v2.py"
 else
-  collect_script="legacy/collect_self_distill_v1.py"
+  collect_script="trace/collect_self_distill_v1.py"
 fi
 
 if [ -z "${sft_checkpoint:-}" ]; then
