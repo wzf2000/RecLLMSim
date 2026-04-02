@@ -8,6 +8,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DETECTION_DIR="$(dirname "$SCRIPT_DIR")"
 echo "DETECTION_DIR: $DETECTION_DIR"
 cd "$DETECTION_DIR"
+export PYTHONPATH="$DETECTION_DIR${PYTHONPATH:+:$PYTHONPATH}"
 
 : "${CUDA_VISIBLE_DEVICES:=0}"
 export CUDA_VISIBLE_DEVICES
@@ -56,7 +57,7 @@ echo "trace_source: ${trace_source}"
 echo "think_wrap: ${think_wrap}"
 echo "flags: ${flags}"
 
-python sft_from_traces.py \
+python trace/sft.py \
   --input_jsonl ./outputs/${input_jsonl} \
   --model_name Qwen/Qwen3-8B \
   --output_dir ./ckpts/${output_dir} \

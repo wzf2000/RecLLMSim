@@ -22,7 +22,7 @@ from sklearn.metrics import (
     roc_auc_score,
 )
 
-from user_aware_metrics import (
+from lib.user_aware_metrics import (
     compute_user_aware_binary_metrics,
     print_user_aware_binary_metrics,
 )

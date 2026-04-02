@@ -23,8 +23,9 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DETECTION_DIR="$(dirname "$SCRIPT_DIR")"
 cd "$DETECTION_DIR"
+export PYTHONPATH="$DETECTION_DIR${PYTHONPATH:+:$PYTHONPATH}"
 
-python spur_satisfaction.py \
+python eval/spur.py \
   --model gpt-4o \
   --k_rubrics 10 \
   --max_extract_per_label 150 \

@@ -11,8 +11,9 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DETECTION_DIR="$(dirname "$SCRIPT_DIR")"
 cd "$DETECTION_DIR"
+export PYTHONPATH="$DETECTION_DIR${PYTHONPATH:+:$PYTHONPATH}"
 
-python eval_binary_sat.py \
+python eval/binary_sat.py \
   --min_samples 3 \
   --output_json outputs/evaluation/binary_sat_user_aware_metrics.json \
   "$@"

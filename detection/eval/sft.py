@@ -1,14 +1,15 @@
 """
-评测 GRPO post-training 后的模型：指标与 eval_sft_from_traces.py 完全一致。
+评测 SFT 后的开源模型：对满意度分数与原因生成结果计算与 gold 对齐的指标。
 
-GRPO 训练时将 SFT LoRA 先 merge 进基座，再套一层 GRPO LoRA；
-因此加载顺序为：base_model → merge sft_checkpoint → load grpo_checkpoint。
+默认测试集与 `collect_api_model_traces.py` 一致：从 `get_satisfaction_data()` 展开样本后，
+按用户做 train/val/test 划分（默认 0.8/0.1/0.1, seed=42），使用 **test** 划分。
+
+可选 `--test_jsonl` 覆盖为自定义轨迹文件（调试用途）。
 
 用法（在 detection 目录下）：
 
-python eval_grpo_from_sft.py \\
-  --grpo_checkpoint ./ckpts/grpo_from_sft \\
-  --sft_checkpoint  ./ckpts/sft_qwen3_from_gpt5_correct \\
+python eval_sft_from_traces.py \\
+  --checkpoint ./ckpts/sft_from_api_traces \\
   --base_model_name Qwen/Qwen3-8B \\
   --max_length 2048 \\
   --max_new_tokens 512
@@ -18,7 +19,9 @@ import argparse
 import json
 import os
 import shutil
+import sys
 import tempfile
+from pathlib import Path
 from typing import Any
 
 import torch
@@ -35,14 +38,14 @@ from sklearn.metrics import (
 from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-from collect_api_model_traces import get_rows_from_split  # noqa: E402
-from sft_from_traces import (  # noqa: E402
+from trace.collect_api import get_rows_from_split  # noqa: E402
+from trace.sft import (  # noqa: E402
     build_source_text,
     load_jsonl,
     parse_model_json,
     resolve_prompt_for_row,
 )
-from satisfaction_constants import get_reason_to_id  # noqa: E402
+from lib.satisfaction_constants import get_reason_to_id  # noqa: E402
 
 
 def raw_row_to_eval_record(row: dict[str, Any]) -> dict[str, Any]:
@@ -74,82 +77,59 @@ def normalize_reason(pred: str | None, valid: set[str]) -> str:
 
 # ── Generation backends ────────────────────────────────────────────────────────
 
-def _generate_vllm_grpo(
+def _generate_vllm(
     token_ids_list: list[list[int]],
     base_model_name: str,
-    sft_checkpoint: str,
-    grpo_checkpoint: str,
+    lora_checkpoint: str | None,
     max_new_tokens: int,
     max_input_length: int,
     max_lora_rank: int = 64,
     gpu_memory_utilization: float = 0.90,
 ) -> list[str]:
-    """Merge base+SFT → tempdir, then run vLLM with GRPO LoRA adapter."""
+    """Batch-generate with vLLM. Uses native LoRA support when lora_checkpoint is given."""
     from vllm import LLM, SamplingParams
     from vllm.lora.request import LoRARequest
 
-    # Step 1: merge base + SFT adapter on CPU, save to tempdir
-    logger.info("Merging base + SFT adapter (CPU) for vLLM …")
-    base = AutoModelForCausalLM.from_pretrained(
-        base_model_name, trust_remote_code=True, dtype=torch.bfloat16,
+    llm_kwargs: dict[str, Any] = dict(
+        model=base_model_name,
+        dtype="bfloat16",
+        trust_remote_code=True,
+        max_model_len=max_input_length + max_new_tokens,
+        gpu_memory_utilization=gpu_memory_utilization,
     )
-    merged = PeftModel.from_pretrained(base, sft_checkpoint).merge_and_unload()
-    tokenizer_merged = AutoTokenizer.from_pretrained(sft_checkpoint, trust_remote_code=True)
+    lora_req: LoRARequest | None = None
+    if lora_checkpoint is not None:
+        llm_kwargs["enable_lora"] = True
+        llm_kwargs["max_lora_rank"] = max_lora_rank
+        lora_req = LoRARequest("sft", 1, lora_checkpoint)
 
-    tmpdir = tempfile.mkdtemp(prefix="eval_grpo_merged_", dir="./tmp")
-    try:
-        logger.info(f"Saving merged model to {tmpdir} …")
-        merged.save_pretrained(tmpdir)
-        tokenizer_merged.save_pretrained(tmpdir)
-        del merged, base, tokenizer_merged
-        torch.cuda.empty_cache()
-
-        # Step 2: load merged model in vLLM, apply GRPO LoRA at inference
-        llm = LLM(
-            model=tmpdir,
-            dtype="bfloat16",
-            trust_remote_code=True,
-            enable_lora=True,
-            max_lora_rank=max_lora_rank,
-            max_model_len=max_input_length + max_new_tokens,
-            gpu_memory_utilization=gpu_memory_utilization,
-        )
-        lora_req = LoRARequest("grpo", 1, grpo_checkpoint)
-        sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, skip_special_tokens=True)
-        outputs = llm.generate(
-            [{"prompt_token_ids": ids} for ids in token_ids_list],
-            sampling_params,
-            lora_request=lora_req,
-        )
-        texts = [o.outputs[0].text for o in outputs]
-        del llm
-        torch.cuda.empty_cache()
-    finally:
-        shutil.rmtree(tmpdir, ignore_errors=True)
-        logger.info(f"Cleaned up temp dir: {tmpdir}")
-
+    llm = LLM(**llm_kwargs)
+    sampling_params = SamplingParams(temperature=0, max_tokens=max_new_tokens, skip_special_tokens=True)
+    outputs = llm.generate(
+        [{"prompt_token_ids": ids} for ids in token_ids_list],
+        sampling_params,
+        lora_request=lora_req,
+    )
+    texts = [o.outputs[0].text for o in outputs]
+    del llm
+    torch.cuda.empty_cache()
     return texts
 
 
-def _generate_hf_grpo(
+def _generate_hf(
     token_ids_list: list[list[int]],
     base_model_name: str,
-    sft_checkpoint: str,
-    grpo_checkpoint: str,
+    checkpoint: str | None,
     max_new_tokens: int,
     tokenizer: Any,
 ) -> list[str]:
     """Sequential generation with HuggingFace transformers (fallback)."""
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    logger.info(f"Loading base model: {base_model_name}")
     base = AutoModelForCausalLM.from_pretrained(
         base_model_name, trust_remote_code=True,
         dtype=torch.bfloat16 if device == "cuda" else torch.float32,
     )
-    logger.info(f"Merging SFT adapter from: {sft_checkpoint}")
-    base = PeftModel.from_pretrained(base, sft_checkpoint).merge_and_unload()
-    logger.info(f"Loading GRPO adapter from: {grpo_checkpoint}")
-    model = PeftModel.from_pretrained(base, grpo_checkpoint)
+    model = PeftModel.from_pretrained(base, checkpoint) if checkpoint is not None else base
     model.to(device).eval()
 
     texts: list[str] = []
@@ -173,8 +153,7 @@ def _generate_hf_grpo(
 # ── Main evaluation function ───────────────────────────────────────────────────
 
 def evaluate(
-    grpo_checkpoint: str,
-    sft_checkpoint: str,
+    checkpoint: str | None,
     base_model_name: str,
     test_jsonl: str | None = None,
     data_split: str = "test",
@@ -193,22 +172,25 @@ def evaluate(
     gpu_memory_utilization: float = 0.90,
     output_jsonl: str = "",
 ) -> dict[str, float]:
-    # ── Tokenizer (from grpo_checkpoint, needed for prompt building) ───────
-    tokenizer = AutoTokenizer.from_pretrained(grpo_checkpoint, trust_remote_code=True)
+    # ── Tokenizer (needed for prompt building in both backends) ────────────
+    tok_src = checkpoint if checkpoint is not None else base_model_name
+    tokenizer = AutoTokenizer.from_pretrained(tok_src, trust_remote_code=True)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
+
+    model_tag = "base_model" if checkpoint is None else f"sft:{os.path.basename(checkpoint.rstrip('/'))}"
 
     # ── Data ───────────────────────────────────────────────────────────────
     if test_jsonl:
         rows = load_jsonl(test_jsonl)
-        data_source = f"jsonl:{test_jsonl}"
+        data_source = f"jsonl:{test_jsonl}|{model_tag}"
     else:
         raw_rows = get_rows_from_split(
             split=data_split, split_seed=split_seed,
             train_ratio=train_ratio, val_ratio=val_ratio, test_ratio=test_ratio,
         )
         rows = [raw_row_to_eval_record(r) for r in raw_rows]
-        data_source = f"split:{data_split}"
+        data_source = f"split:{data_split}|{model_tag}"
     if limit is not None:
         rows = rows[:limit]
 
@@ -230,17 +212,14 @@ def evaluate(
         all_token_ids.append(token_ids)
 
     # ── Generate ───────────────────────────────────────────────────────────
-    logger.info(f"Backend={backend}, samples={len(rows)}")
+    logger.info(f"Backend={backend}, samples={len(rows)}, model_tag={model_tag}")
     if backend == "vllm":
-        texts = _generate_vllm_grpo(
-            all_token_ids, base_model_name, sft_checkpoint, grpo_checkpoint,
+        texts = _generate_vllm(
+            all_token_ids, base_model_name, checkpoint,
             max_new_tokens, max_length, max_lora_rank, gpu_memory_utilization,
         )
     else:
-        texts = _generate_hf_grpo(
-            all_token_ids, base_model_name, sft_checkpoint, grpo_checkpoint,
-            max_new_tokens, tokenizer,
-        )
+        texts = _generate_hf(all_token_ids, base_model_name, checkpoint, max_new_tokens, tokenizer)
 
     # ── Parse & metrics ────────────────────────────────────────────────────
     valid_reasons = set(get_reason_to_id().keys())
@@ -315,14 +294,14 @@ def evaluate(
 
 
 def parse_args():
-    p = argparse.ArgumentParser(description="评测 GRPO post-training 后的满意度预测模型")
-    p.add_argument("--grpo_checkpoint", type=str, required=True, help="GRPO 输出目录（含 LoRA adapter）")
-    p.add_argument("--sft_checkpoint", type=str, required=True, help="SFT 输出目录（含 LoRA adapter，GRPO 的基座）")
+    p = argparse.ArgumentParser()
+    p.add_argument("--checkpoint", type=str, default="", help="SFT 输出目录（含 adapter）；可留空仅评测 base model")
+    p.add_argument("--eval_base_model", action="store_true", help="额外评测裸 base model（无 LoRA）以作对比")
     p.add_argument(
         "--base_model_name",
         type=str,
         required=True,
-        help="原始基座模型名（与 SFT/GRPO 训练时一致）",
+        help="训练时使用的基座模型名（与保存 adapter 时一致）",
     )
     p.add_argument(
         "--test_jsonl",
@@ -335,9 +314,9 @@ def parse_args():
         type=str,
         default="test",
         choices=["train", "valid", "val", "test", "all"],
-        help="未指定 test_jsonl 时使用的数据划分（默认 test）",
+        help="未指定 test_jsonl 时使用的数据划分（默认 test，与采集脚本 test 集一致）",
     )
-    p.add_argument("--split_seed", type=int, default=42)
+    p.add_argument("--split_seed", type=int, default=42, help="划分随机种子，与采集脚本默认一致")
     p.add_argument("--train_ratio", type=float, default=0.8)
     p.add_argument("--val_ratio", type=float, default=0.1)
     p.add_argument("--test_ratio", type=float, default=0.1)
@@ -347,24 +326,25 @@ def parse_args():
     p.add_argument(
         "--include_reasoning_content",
         action="store_true",
-        help="须与 SFT 训练时的 --include_reasoning_content 一致",
+        help="与训练时 resolve_prompt 预算一致；若训练使用了 --include_reasoning_content，此处应打开并建议增大 --max_new_tokens",
     )
     p.add_argument(
         "--think_wrap",
         type=str,
         default="qwen3",
         choices=["qwen3", "none"],
-        help="须与 SFT 训练时的 --think_wrap 一致",
+        help="须与训练 sft_from_traces.py 的 --think_wrap 一致，用于 resolve_prompt 长度估计",
     )
     p.add_argument("--limit", type=int, default=None, help="只测前 N 条，调试用")
     p.add_argument("--metrics_json", type=str, default="", help="可选，将指标写入该 json 文件")
     p.add_argument(
         "--output_jsonl", type=str, default="",
-        help="可选，将每条样本的预测结果写入该 jsonl 文件（含 gold/pred score/reason/raw_text/parse_ok）",
+        help="可选，将每条样本的预测结果写入该 jsonl 文件（含 gold/pred score/reason/raw_text/parse_ok）；"
+             "同时评测 SFT 与 base 时自动加 _sft/_base 后缀",
     )
     p.add_argument(
         "--backend", type=str, default="vllm", choices=["vllm", "hf"],
-        help="推理后端：vllm（默认）或 hf（逐条，兼容性强）",
+        help="推理后端：vllm（默认，批量推理，大幅加速）或 hf（逐条 transformers，兼容性强）",
     )
     p.add_argument("--max_lora_rank", type=int, default=64, help="vLLM LoRA 最大 rank，须 >= 训练时的 lora_r")
     p.add_argument("--gpu_memory_utilization", type=float, default=0.90, help="vLLM GPU 显存利用率（0~1）")
@@ -373,9 +353,12 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
-    m = evaluate(
-        grpo_checkpoint=args.grpo_checkpoint,
-        sft_checkpoint=args.sft_checkpoint,
+
+    if not args.checkpoint and not args.eval_base_model:
+        logger.error("错误：--checkpoint 和 --eval_base_model 至少需要指定一个。")
+        sys.exit(1)
+
+    eval_kwargs = dict(
         base_model_name=args.base_model_name,
         test_jsonl=args.test_jsonl or None,
         data_split=args.data_split,
@@ -392,10 +375,35 @@ if __name__ == "__main__":
         backend=args.backend,
         max_lora_rank=args.max_lora_rank,
         gpu_memory_utilization=args.gpu_memory_utilization,
-        output_jsonl=args.output_jsonl,
     )
-    logger.info(json.dumps(m, ensure_ascii=False, indent=2))
+
+    # 同时评测两个模型时，自动为 output_jsonl 加 _sft/_base 后缀以避免覆盖
+    both = bool(args.checkpoint) and args.eval_base_model
+    def _out_path(tag: str) -> str:
+        if not args.output_jsonl:
+            return ""
+        if not both:
+            return args.output_jsonl
+        p = Path(args.output_jsonl)
+        return str(p.parent / f"{p.stem}_{tag}{p.suffix}")
+
+    all_metrics: dict[str, Any] = {}
+
+    if args.checkpoint:
+        logger.info("=== SFT Model ===")
+        m_sft = evaluate(checkpoint=args.checkpoint, output_jsonl=_out_path("sft"), **eval_kwargs)
+        logger.info(json.dumps(m_sft, ensure_ascii=False, indent=2))
+        all_metrics["sft"] = m_sft
+
+    if args.eval_base_model:
+        logger.info("=== Base Model ===")
+        m_base = evaluate(checkpoint=None, output_jsonl=_out_path("base"), **eval_kwargs)
+        logger.info(json.dumps(m_base, ensure_ascii=False, indent=2))
+        all_metrics["base"] = m_base
+
     if args.metrics_json:
         os.makedirs(os.path.dirname(args.metrics_json) or ".", exist_ok=True)
+        # 若只评测了一种模型，直接写该 dict；否则写包含两个键的 dict
+        output = all_metrics if len(all_metrics) > 1 else next(iter(all_metrics.values()))
         with open(args.metrics_json, "w", encoding="utf-8") as f:
-            json.dump(m, f, ensure_ascii=False, indent=2)
+            json.dump(output, f, ensure_ascii=False, indent=2)

@@ -10,9 +10,9 @@ from transformers import AutoTokenizer, AutoModel, PreTrainedModel, PreTrainedTo
 from transformers.utils import PaddingStrategy
 from transformers.tokenization_utils_base import TruncationStrategy
 
-from metric_statistics import get_satisfaction_data
-from data_split import split_by_user_group_shuffle_split
-from satisfaction_constants import get_reason_to_id
+from lib.metric_statistics import get_satisfaction_data
+from lib.data_split import split_by_user_group_shuffle_split
+from lib.satisfaction_constants import get_reason_to_id
 
 class OrdinalHead(torch.nn.Module):
     def __init__(self, hidden_size: int, num_classes: int = 5):

@@ -8,6 +8,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DETECTION_DIR="$(dirname "$SCRIPT_DIR")"
 echo "DETECTION_DIR: $DETECTION_DIR"
 cd "$DETECTION_DIR"
+export PYTHONPATH="$DETECTION_DIR${PYTHONPATH:+:$PYTHONPATH}"
 
 mkdir -p ckpts/grpo_from_sft
 
@@ -26,7 +27,7 @@ echo "sft_checkpoint: ./ckpts/${sft_checkpoint}"
 echo "metrics_json: ./outputs/evaluation/grpo_from_${sft_checkpoint}_metrics.json"
 echo "output_jsonl: ./outputs/evaluation/grpo_from_${sft_checkpoint}_results.jsonl"
 
-python eval_grpo_from_sft.py \
+python eval/grpo.py \
   --grpo_checkpoint ./ckpts/grpo_from_${sft_checkpoint} \
   --sft_checkpoint  ./ckpts/${sft_checkpoint} \
   --base_model_name Qwen/Qwen3-8B \

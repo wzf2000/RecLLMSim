@@ -19,7 +19,7 @@ from transformers import (
     default_data_collator,
 )
 
-from satisfaction_constants import get_reason_to_id
+from lib.satisfaction_constants import get_reason_to_id
 
 
 def split_history_turns(history: str) -> list[str]:

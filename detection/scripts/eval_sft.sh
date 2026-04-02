@@ -8,6 +8,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DETECTION_DIR="$(dirname "$SCRIPT_DIR")"
 echo "DETECTION_DIR: $DETECTION_DIR"
 cd "$DETECTION_DIR"
+export PYTHONPATH="$DETECTION_DIR${PYTHONPATH:+:$PYTHONPATH}"
 
 : "${CUDA_VISIBLE_DEVICES:=0}"
 export CUDA_VISIBLE_DEVICES
@@ -33,7 +34,7 @@ echo "output_jsonl: ./outputs/evaluation/${checkpoint}_results.jsonl"
 echo "think_wrap: ${think_wrap}"
 echo "flags: ${flags}"
 
-python eval_sft_from_traces.py \
+python eval/sft.py \
   --checkpoint ./ckpts/${checkpoint} \
   --base_model_name Qwen/Qwen3-8B \
   --max_length 2048 \

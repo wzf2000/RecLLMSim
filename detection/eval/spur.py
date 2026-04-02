@@ -33,10 +33,10 @@ from sklearn.metrics import (
 from tenacity import retry, stop_after_attempt, wait_fixed
 from tqdm import tqdm
 
-from llm import client
-from data_split import split_by_user_group_shuffle_split
-from metric_statistics import get_satisfaction_data
-from satisfaction_predictor import format_profile
+from lib.llm import client
+from lib.data_split import split_by_user_group_shuffle_split
+from lib.metric_statistics import get_satisfaction_data
+from predictor.bert import format_profile
 
 # ──────────────────────────────────────────────────────────────────────────────
 # 常量 / 全局设置

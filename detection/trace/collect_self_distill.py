@@ -32,9 +32,9 @@ from peft import PeftModel
 from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer, PreTrainedTokenizer
 
-from collect_api_model_traces import get_rows_from_split
-from satisfaction_constants import get_reason_to_id
-from sft_from_traces import (
+from .collect_api import get_rows_from_split
+from lib.satisfaction_constants import get_reason_to_id
+from .sft import (
     QWEN3_THINK_BEGIN,
     QWEN3_THINK_END,
     split_history_turns,

@@ -7,6 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DETECTION_DIR="$(dirname "$SCRIPT_DIR")"
 echo "DETECTION_DIR: $DETECTION_DIR"
 cd "$DETECTION_DIR"
+export PYTHONPATH="$DETECTION_DIR${PYTHONPATH:+:$PYTHONPATH}"
 
 : "${CUDA_VISIBLE_DEVICES:=0,1}"
 export CUDA_VISIBLE_DEVICES
@@ -46,7 +47,7 @@ echo "per_device_train_batch_size: ${per_device_train_batch_size}"
 echo "gradient_accumulation_steps: ${gradient_accumulation_steps}"
 
 if [ "${num_gpus}" -eq 1 ]; then
-  python grpo_from_sft.py \
+  python trace/grpo.py \
     --sft_checkpoint ./ckpts/${sft_checkpoint} \
     --base_model_name Qwen/Qwen3-8B \
     --output_dir ./ckpts/grpo_from_${sft_checkpoint} \

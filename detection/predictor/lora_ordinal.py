@@ -18,11 +18,11 @@ from transformers import (
 from scipy.stats import spearmanr, pearsonr
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score, accuracy_score, f1_score, cohen_kappa_score
 
-from metric_statistics import get_satisfaction_data
-from satisfaction_predictor import format_profile
-from data_split import split_by_user_group_shuffle_split
-from satisfaction_constants import get_reason_to_id
-from qwen_lora_utils import get_base_model, get_model_with_lora
+from lib.metric_statistics import get_satisfaction_data
+from .bert import format_profile
+from lib.data_split import split_by_user_group_shuffle_split
+from lib.satisfaction_constants import get_reason_to_id
+from lib.qwen_lora_utils import get_base_model, get_model_with_lora
 
 # =========================
 # 添加 Ordinal Head

@@ -16,6 +16,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DETECTION_DIR="$(dirname "$SCRIPT_DIR")"
 echo "DETECTION_DIR: $DETECTION_DIR"
 cd "$DETECTION_DIR"
+export PYTHONPATH="$DETECTION_DIR${PYTHONPATH:+:$PYTHONPATH}"
 
 mkdir -p ckpts/llm_predictor_ordinal
 
@@ -24,7 +25,7 @@ mkdir -p ckpts/llm_predictor_ordinal
 
 export CUDA_VISIBLE_DEVICES
 
-python satisfaction_predictor_ordinal_lora.py \
+python predictor/lora_ordinal.py \
   --model_name Qwen/Qwen3-8B \
   --max_len 1024 \
   --batch_size 2 \

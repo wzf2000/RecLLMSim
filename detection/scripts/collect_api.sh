@@ -7,6 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DETECTION_DIR="$(dirname "$SCRIPT_DIR")"
 echo "DETECTION_DIR: $DETECTION_DIR"
 cd "$DETECTION_DIR"
+export PYTHONPATH="$DETECTION_DIR${PYTHONPATH:+:$PYTHONPATH}"
 
 : "${model:=gpt-5}"
 
@@ -39,6 +40,6 @@ else
     echo "data_split: ${data_split}"
 fi
 
-python collect_api_model_traces.py \
+python trace/collect_api.py \
     --model ${model} \
     ${flags}

@@ -18,7 +18,7 @@ from sklearn.metrics import (
     root_mean_squared_error,
 )
 
-from user_aware_metrics import compute_user_aware_metrics, print_user_aware_metrics
+from lib.user_aware_metrics import compute_user_aware_metrics, print_user_aware_metrics
 
 
 # ──────────────────────────────────────────────────────────────────────────────

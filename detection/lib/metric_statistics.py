@@ -3,7 +3,7 @@ import json
 import numpy as np
 from loguru import logger
 
-from utils import HUMAN_DIR
+from .utils import HUMAN_DIR
 
 def get_satisfaction_data(dir_name: str = HUMAN_DIR) -> list[dict[str, int | str | list[dict[str, str]]]]:
     task_list = ['旅行规划', '礼物准备', '菜谱规划', '技能学习规划']

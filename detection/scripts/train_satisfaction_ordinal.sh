@@ -8,6 +8,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DETECTION_DIR="$(dirname "$SCRIPT_DIR")"
 echo "DETECTION_DIR: $DETECTION_DIR"
 cd "$DETECTION_DIR"
+export PYTHONPATH="$DETECTION_DIR${PYTHONPATH:+:$PYTHONPATH}"
 
 mkdir -p ckpts/ordinal
 
@@ -16,7 +17,7 @@ mkdir -p ckpts/ordinal
 
 export CUDA_VISIBLE_DEVICES
 
-python satisfaction_predictor_ordinal.py \
+python predictor/bert_ordinal.py \
   --model_name bert-base-chinese \
   --batch_size 16 \
   --num_epochs 10

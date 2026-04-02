@@ -14,8 +14,8 @@ from sklearn.metrics import (
 from scipy.stats import spearmanr, pearsonr
 
 # 假设你的获取数据函数保存在 metric_statistics.py 中
-from metric_statistics import get_satisfaction_data
-from data_split import split_by_user_group_shuffle_split
+from lib.metric_statistics import get_satisfaction_data
+from lib.data_split import split_by_user_group_shuffle_split
 
 # ================= 数据准备模块 =================
 

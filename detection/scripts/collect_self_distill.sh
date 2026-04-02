@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 在 detection/ 目录下收集 self-distill 轨迹（collect_self_distill_traces_v2.py）。
+# 在 detection/ 目录下收集 self-distill 轨迹（trace/collect_self_distill.py）。
 
 set -euo pipefail
 
@@ -7,17 +7,18 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DETECTION_DIR="$(dirname "$SCRIPT_DIR")"
 echo "DETECTION_DIR: $DETECTION_DIR"
 cd "$DETECTION_DIR"
+export PYTHONPATH="$DETECTION_DIR${PYTHONPATH:+:$PYTHONPATH}"
 
 : "${CUDA_VISIBLE_DEVICES:=0}"
 export CUDA_VISIBLE_DEVICES
 
 : "${distill_version:=v2}"
 
-# 根据 distill_version 决定 collect_self_distill_traces_v2.py 或 collect_self_distill_traces.py
+# 根据 distill_version 决定 trace/collect_self_distill.py 或 legacy/collect_self_distill_v1.py
 if [ "${distill_version}" == "v2" ]; then
-  collect_script="collect_self_distill_traces_v2.py"
+  collect_script="trace/collect_self_distill.py"
 else
-  collect_script="collect_self_distill_traces.py"
+  collect_script="legacy/collect_self_distill_v1.py"
 fi
 
 if [ -z "${sft_checkpoint:-}" ]; then
