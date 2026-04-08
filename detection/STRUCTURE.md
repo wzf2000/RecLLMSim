@@ -10,7 +10,9 @@
 detection/
 ├── lib/                    # 公共工具库（被其他模块 import）
 │   ├── utils.py                 # 数据路径、通用工具
-│   ├── data_split.py            # 按用户分组的数据划分
+│   ├── data_split.py            # 按用户分组的数据划分（原始 utterance 级任务）
+│   ├── personalized_data.py     # 个性化任务数据结构与 Cross-Task Split（新）
+│   ├── memory.py                # UserMemory 模型、memory 构建/更新 prompt（新）
 │   ├── satisfaction_constants.py # reason 标签、分数映射等常量
 │   ├── metric_statistics.py     # 数据统计与可视化工具
 │   ├── evaluation.py            # 通用评估指标（MAE/RMSE/Pearson/Spearman/Kappa）
@@ -26,6 +28,7 @@ detection/
 │
 ├── trace/                  # 训练数据收集（轨迹采集 + SFT/GRPO 格式化）
 │   ├── collect_api.py           # 调用 GPT 等 API 模型采集推理轨迹
+│   ├── collect_personalized.py  # 个性化满意度感知 Agent 推理（training-free，新）
 │   ├── collect_self_distill_v1.py  # Self-distill v1：teacher 注入 gold 答案生成轨迹
 │   ├── collect_self_distill_v2.py  # Self-distill v2：当前主用版本
 │   ├── sft.py                   # SFT 数据格式化 + 训练
@@ -37,11 +40,14 @@ detection/
 │   ├── binary_sat.py            # 二分类 SAT/DSAT 评估（≤3=DSAT, ≥4=SAT）
 │   ├── spur.py                  # SPUR 满意度估计（Lin et al., ACL 2024）
 │   ├── user_aware.py            # 用户感知指标对比（Global vs. PerUser vs. Centered）
+│   ├── personalized.py          # 个性化任务评估（Personalization Gain + 分层分析，新）
 │   └── analysis.py              # 细粒度分析（按分数/任务/轮次/reason）
 │
 ├── scripts/                # 可执行 Shell 脚本（统一入口，自动设置 PYTHONPATH）
 │   ├── runs.sh                  # 记录已运行过的完整命令（实验日志）
 │   ├── collect_api.sh           # 采集 API 模型轨迹
+│   ├── collect_personalized.sh  # 个性化 Agent 推理（新）
+│   ├── eval_personalized.sh     # 个性化任务评估（新）
 │   ├── collect_self_distill.sh  # 采集 Self-distill 轨迹（v1/v2）
 │   ├── sft.sh                   # SFT 训练
 │   ├── grpo.sh                  # GRPO 训练
