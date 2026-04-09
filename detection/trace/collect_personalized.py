@@ -319,9 +319,13 @@ def run_agent_on_sample(
     history_window_size: int = 5,
     save_memory_snapshots: bool = False,
     memory_cache_dir: str | None = None,
+    with_memory: bool = True,
 ) -> list[dict]:
     """
     对单个 PersonalizedSample 运行完整 agent 流程，返回所有 turn 的预测结果。
+
+    with_memory=False 时跳过 memory building，使用无记忆 baseline prompt，
+    可与 with_memory=True 的结果直接对比（sample_id 相同）。
 
     每条记录的字段：
       sample_id, user, target_task, target_file, turn_idx,
@@ -333,8 +337,12 @@ def run_agent_on_sample(
     valid_reasons = set(reason_to_id.keys())
     default_reason = "其它" if "其它" in reason_to_id else next(iter(reason_to_id))
 
-    # Phase 1: Build memory
-    memory = build_user_memory(sample, model, memory_cache_dir=memory_cache_dir)
+    # Phase 1: Build memory（with_memory=False 时跳过）
+    memory = (
+        build_user_memory(sample, model, memory_cache_dir=memory_cache_dir)
+        if with_memory
+        else None
+    )
 
     all_turn_records: list[dict] = []
 
@@ -363,7 +371,7 @@ def run_agent_on_sample(
             )
 
         # 包装为输出记录
-        memory_snapshot = memory.model_dump() if save_memory_snapshots else None
+        memory_snapshot = memory.model_dump() if (save_memory_snapshots and memory is not None) else None
         for r in session_results:
             record = {
                 "sample_id": f"{sample.user}__{sample.target_task}__{session_file}__turn_{r['turn_idx']}",
@@ -377,15 +385,15 @@ def run_agent_on_sample(
                 "reason_prediction": r["pred_reason"],
                 "analysis": r["analysis"],
                 "model": model,
-                "with_memory": True,
-                "memory_update_mode": memory_update_mode,
+                "with_memory": with_memory,
+                "memory_update_mode": memory_update_mode if with_memory else "no_memory",
             }
             if memory_snapshot is not None:
                 record["memory_snapshot"] = memory_snapshot
             all_turn_records.append(record)
 
-        # Phase 3: Memory update (per_session / per_session_oracle)
-        if memory_update_mode in ("per_session", "per_session_oracle"):
+        # Phase 3: Memory update (仅 with_memory=True 时触发)
+        if with_memory and memory_update_mode in ("per_session", "per_session_oracle"):
             use_oracle = memory_update_mode == "per_session_oracle"
             try:
                 memory = update_memory(
@@ -515,6 +523,7 @@ def collect_all(
     max_workers: int,
     save_memory_snapshots: bool,
     memory_cache_dir: str | None,
+    with_memory: bool = True,
 ) -> None:
     """对所有样本并发执行 agent 推理，结果写入 output_jsonl。"""
     os.makedirs(os.path.dirname(output_jsonl) or ".", exist_ok=True)
@@ -543,6 +552,7 @@ def collect_all(
             history_window_size=history_window_size,
             save_memory_snapshots=save_memory_snapshots,
             memory_cache_dir=memory_cache_dir,
+            with_memory=with_memory,
         )
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -658,6 +668,15 @@ def parse_args() -> ArgumentParser:
         default=0,
         help="最多处理的 block 数量（<=0 表示不限，用于调试）",
     )
+    parser.add_argument(
+        "--no_memory",
+        action="store_true",
+        help=(
+            "无记忆 baseline 模式：跳过 memory building，"
+            "使用与 collect_api.py 相同的无个性化 prompt。"
+            "输出 sample_id 与有记忆版本一致，可直接用于 Personalization Gain 计算。"
+        ),
+    )
     return parser
 
 
@@ -665,19 +684,25 @@ def main() -> None:
     parser = parse_args()
     args = parser.parse_args()
 
+    with_memory = not args.no_memory
+
     # 自动生成输出路径
     if not args.output_jsonl:
         model_tag = args.model.replace("/", "_").replace(":", "_")
+        mode_tag = "no_memory" if not with_memory else args.memory_update_mode
         args.output_jsonl = (
-            f"outputs/personalized/{model_tag}_{args.split}_{args.memory_update_mode}.jsonl"
+            f"outputs/personalized/{model_tag}_{args.split}_{mode_tag}.jsonl"
         )
 
     logger.info(f"Model:              {args.model}")
     logger.info(f"Split:              {args.split} (train_ratio={args.train_ratio})")
-    logger.info(f"Memory update mode: {args.memory_update_mode}")
+    logger.info(f"With memory:        {with_memory}")
+    if with_memory:
+        logger.info(f"Memory update mode: {args.memory_update_mode}")
     logger.info(f"History window:     {args.history_window_size} turns")
     logger.info(f"Output:             {args.output_jsonl}")
-    logger.info(f"Memory cache:       {args.memory_cache_dir}")
+    if with_memory:
+        logger.info(f"Memory cache:       {args.memory_cache_dir}")
 
     samples = build_personalized_samples(
         split=args.split,
@@ -705,6 +730,7 @@ def main() -> None:
         max_workers=args.max_workers,
         save_memory_snapshots=args.save_memory_snapshots,
         memory_cache_dir=args.memory_cache_dir,
+        with_memory=with_memory,
     )
 
     logger.info(f"Done. Results saved to: {args.output_jsonl}")
