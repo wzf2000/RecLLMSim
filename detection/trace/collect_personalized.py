@@ -59,7 +59,10 @@ from pydantic import BaseModel, Field
 from tenacity import before_sleep_log, retry, stop_after_attempt, wait_fixed
 from tqdm import tqdm
 
-from lib.llm import client
+from openai import OpenAI
+
+from lib.anchor_retrieval import AnchorRetriever, AnchorTurn
+from lib.llm import client as _default_client
 from lib.memory import (
     UserMemory,
     UserMemoryContent,
@@ -77,6 +80,46 @@ from lib.personalized_data import (
 from lib.satisfaction_constants import get_reason_to_id
 
 MemoryUpdateMode = Literal["none", "per_session", "per_session_oracle", "per_turn"]
+
+# ──────────────────────────────────────────────────────────────────────────────
+# LLM 客户端（可在 main() 中切换为 vLLM client）
+# ──────────────────────────────────────────────────────────────────────────────
+
+client = _default_client   # module-level，可被 main() 替换为 vLLM client
+_is_vllm: bool = False     # 仅用于日志标识
+
+T = type
+
+
+def _structured_parse(
+    prompt: str,
+    model: str,
+    response_model: T,
+    temperature: float = 0.3,
+    timeout: int = 120,
+    system_msg: str = "You are an expert user behavior analyst.",
+) -> T:
+    """
+    统一结构化输出调用。
+
+    OpenAI API 和 vLLM >= 0.6（含 0.18.x）均支持 json_schema response_format，
+    OpenAI SDK 的 .parse() 在两者上行为一致，无需分支。
+    """
+    messages = [
+        {"role": "system", "content": system_msg},
+        {"role": "user", "content": prompt},
+    ]
+    response = client.chat.completions.parse(
+        model=model,
+        messages=messages,
+        temperature=temperature,
+        response_format=response_model,
+        timeout=timeout,
+    ).choices[0].message
+    if response.parsed:
+        return response.parsed
+    raise RuntimeError(f"Structured parse failed: {response.refusal or 'no content'}")
+
 
 # ──────────────────────────────────────────────────────────────────────────────
 # LLM 响应模型
@@ -99,22 +142,14 @@ class TurnPrediction(BaseModel):
 )
 def _call_build_memory(prompt: str, model: str) -> UserMemoryContent:
     try:
-        response = client.chat.completions.parse(
-            model=model,
-            messages=[
-                {"role": "system", "content": "You are an expert user behavior analyst."},
-                {"role": "user", "content": prompt},
-            ],
-            temperature=0.3,   # memory building 需要稳定输出，降低温度
-            response_format=UserMemoryContent,
-            timeout=120,
-        ).choices[0].message
+        return _structured_parse(
+            prompt, model, UserMemoryContent,
+            temperature=0.3, timeout=120,
+            system_msg="You are an expert user behavior analyst.",
+        )
     except Exception as e:
         logger.error(f"Memory building failed for {model}: {e}")
         raise e
-    if response.parsed:
-        return response.parsed
-    raise RuntimeError(f"Memory building parse failed: {response.refusal or 'unknown error'}")
 
 
 def build_user_memory(
@@ -137,11 +172,17 @@ def build_user_memory(
         else None
     )
 
-    # 尝试从缓存加载
+    # 尝试从缓存加载（版本不匹配时跳过，重新构建）
     if cache_path and os.path.exists(cache_path):
-        with open(cache_path, "r", encoding="utf-8") as fp:
-            data = json.load(fp)
-        return UserMemory(**data)
+        try:
+            with open(cache_path, "r", encoding="utf-8") as fp:
+                data = json.load(fp)
+            mem = UserMemory(**data)
+            if mem.memory_version == "v2":
+                return mem
+            logger.debug(f"Cache version mismatch ({mem.memory_version}), rebuilding: {cache_path}")
+        except Exception as e:
+            logger.debug(f"Cache load failed ({e}), rebuilding: {cache_path}")
 
     prompt = build_memory_prompt(
         user_id=sample.user,
@@ -175,19 +216,11 @@ def build_user_memory(
     before_sleep=before_sleep_log(logger, log_level=40),
 )
 def _call_predict_turn(prompt: str, model: str) -> TurnPrediction:
-    response = client.chat.completions.parse(
-        model=model,
-        messages=[
-            {"role": "system", "content": "You are a skilled conversational analyst."},
-            {"role": "user", "content": prompt},
-        ],
-        temperature=0.6,
-        response_format=TurnPrediction,
-        timeout=60,
-    ).choices[0].message
-    if response.parsed:
-        return response.parsed
-    raise RuntimeError(f"Turn prediction parse failed: {response.refusal or 'unknown error'}")
+    return _structured_parse(
+        prompt, model, TurnPrediction,
+        temperature=0.6, timeout=60,
+        system_msg="You are a skilled conversational analyst.",
+    )
 
 
 def evaluate_session(
@@ -197,6 +230,8 @@ def evaluate_session(
     history_window_size: int = 5,
     valid_reasons: set[str] | None = None,
     default_reason: str = "其它",
+    retriever: AnchorRetriever | None = None,
+    n_anchors: int = 0,
 ) -> list[dict]:
     """
     对单个 target session 进行逐轮满意度预测。
@@ -211,9 +246,21 @@ def evaluate_session(
     results: list[dict] = []
     history_window: list[str] = []
     assistant_turn_idx = 0
+    last_user_msg: str = ""
 
     for utt in session.history:
+        if utt["role"] == "user":
+            last_user_msg = utt["content"]
         if utt["role"] == "assistant":
+            # 检索 anchor turns（若启用）
+            anchors: list[AnchorTurn] | None = None
+            if memory is not None and retriever is not None and n_anchors > 0:
+                anchors = retriever.retrieve(
+                    query_user_msg=last_user_msg,
+                    query_assistant_reply=utt["content"],
+                    k=n_anchors,
+                )
+
             # 构建 prompt
             if memory is not None:
                 prompt = build_turn_eval_prompt(
@@ -222,6 +269,7 @@ def evaluate_session(
                     task_context=session.task_context,
                     history_window=list(history_window),
                     assistant_reply=utt["content"],
+                    anchor_turns=anchors,
                 )
             else:
                 prompt = build_turn_eval_prompt_no_memory(
@@ -270,19 +318,11 @@ def evaluate_session(
     before_sleep=before_sleep_log(logger, log_level=40),
 )
 def _call_update_memory(prompt: str, model: str) -> UserMemoryContent:
-    response = client.chat.completions.parse(
-        model=model,
-        messages=[
-            {"role": "system", "content": "You are an expert user behavior analyst."},
-            {"role": "user", "content": prompt},
-        ],
-        temperature=0.3,
-        response_format=UserMemoryContent,
-        timeout=120,
-    ).choices[0].message
-    if response.parsed:
-        return response.parsed
-    raise RuntimeError(f"Memory update parse failed: {response.refusal or 'unknown error'}")
+    return _structured_parse(
+        prompt, model, UserMemoryContent,
+        temperature=0.3, timeout=120,
+        system_msg="You are an expert user behavior analyst.",
+    )
 
 
 def update_memory(
@@ -320,6 +360,7 @@ def run_agent_on_sample(
     save_memory_snapshots: bool = False,
     memory_cache_dir: str | None = None,
     with_memory: bool = True,
+    n_anchors: int = 0,
 ) -> list[dict]:
     """
     对单个 PersonalizedSample 运行完整 agent 流程，返回所有 turn 的预测结果。
@@ -344,6 +385,11 @@ def run_agent_on_sample(
         else None
     )
 
+    # Anchor retriever（每个 sample 构建一次，复用 history_sessions）
+    retriever: AnchorRetriever | None = None
+    if with_memory and n_anchors > 0:
+        retriever = AnchorRetriever(sample.history_sessions)
+
     all_turn_records: list[dict] = []
 
     for session in sample.target_sessions:
@@ -358,6 +404,8 @@ def run_agent_on_sample(
                 history_window_size=history_window_size,
                 valid_reasons=valid_reasons,
                 default_reason=default_reason,
+                retriever=retriever,
+                n_anchors=n_anchors,
             )
         else:
             # 整个 session 一次性预测
@@ -368,6 +416,8 @@ def run_agent_on_sample(
                 history_window_size=history_window_size,
                 valid_reasons=valid_reasons,
                 default_reason=default_reason,
+                retriever=retriever,
+                n_anchors=n_anchors,
             )
 
         # 包装为输出记录
@@ -419,23 +469,37 @@ def _evaluate_session_per_turn_update(
     history_window_size: int,
     valid_reasons: set[str],
     default_reason: str,
+    retriever: AnchorRetriever | None = None,
+    n_anchors: int = 0,
 ) -> list[dict]:
     """
     per_turn 模式：每预测一轮后立即更新记忆。
     由于需要顺序执行，不能并行化。
     """
     results: list[dict] = []
-    history_window: list[str] = []
+    history_window: list[str] = []        # 格式化字符串，用于 eval prompt
+    history_window_dicts: list[dict] = [] # 原始 dict，用于构造 mini_session
     assistant_turn_idx = 0
+    last_user_msg: str = ""
 
     for utt in session.history:
+        if utt["role"] == "user":
+            last_user_msg = utt["content"]
         if utt["role"] == "assistant":
+            anchors: list[AnchorTurn] | None = None
+            if retriever is not None and n_anchors > 0:
+                anchors = retriever.retrieve(
+                    query_user_msg=last_user_msg,
+                    query_assistant_reply=utt["content"],
+                    k=n_anchors,
+                )
             prompt = build_turn_eval_prompt(
                 memory=memory,
                 profile=session.profile,
                 task_context=session.task_context,
                 history_window=list(history_window),
                 assistant_reply=utt["content"],
+                anchor_turns=anchors,
             )
             pred = _call_predict_turn(prompt, model)
             pred_reason = pred.reason.strip()
@@ -455,15 +519,14 @@ def _evaluate_session_per_turn_update(
             }
             results.append(turn_result)
 
-            # 逐轮更新记忆
-            # 构造只含当前轮的 "mini-session"
+            # 逐轮更新记忆：用原始 dict 列表构造 mini_session
             mini_session = SessionData(
                 user=session.user,
                 task=session.task,
                 file_path=session.file_path,
                 task_context=session.task_context,
                 profile=session.profile,
-                history=list(history_window) + [utt],  # 包含当前轮
+                history=list(history_window_dicts) + [utt],
                 satisfaction_scores=[gold_score],
                 dissatisfaction_reasons=[gold_reason],
                 chat_model=session.chat_model,
@@ -483,8 +546,11 @@ def _evaluate_session_per_turn_update(
 
         role_label = "用户" if utt["role"] == "user" else "助手"
         history_window.append(f"{role_label}：{utt['content']}")
+        history_window_dicts.append(utt)
         while len(history_window) > history_window_size:
             history_window.pop(0)
+        while len(history_window_dicts) > history_window_size:
+            history_window_dicts.pop(0)
 
     return results
 
@@ -524,6 +590,7 @@ def collect_all(
     save_memory_snapshots: bool,
     memory_cache_dir: str | None,
     with_memory: bool = True,
+    n_anchors: int = 0,
 ) -> None:
     """对所有样本并发执行 agent 推理，结果写入 output_jsonl。"""
     os.makedirs(os.path.dirname(output_jsonl) or ".", exist_ok=True)
@@ -553,6 +620,7 @@ def collect_all(
             save_memory_snapshots=save_memory_snapshots,
             memory_cache_dir=memory_cache_dir,
             with_memory=with_memory,
+            n_anchors=n_anchors,
         )
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -677,12 +745,48 @@ def parse_args() -> ArgumentParser:
             "输出 sample_id 与有记忆版本一致，可直接用于 Personalization Gain 计算。"
         ),
     )
+    # ── vLLM 支持 ─────────────────────────────────────────────────────────────
+    parser.add_argument(
+        "--vllm_base_url",
+        type=str,
+        default="",
+        help=(
+            "vLLM 服务地址（如 http://localhost:8000/v1）。"
+            "设置后自动切换为 vLLM 模式，使用 guided_json 结构化输出。"
+            "留空时使用 api_config.json 中的默认 API。"
+        ),
+    )
+    parser.add_argument(
+        "--vllm_api_key",
+        type=str,
+        default="EMPTY",
+        help="vLLM API key（默认 EMPTY，vLLM 不校验）",
+    )
+    # ── Anchor few-shot（对现有 rubric 的补强）───────────────────────────────
+    parser.add_argument(
+        "--n_anchors",
+        type=int,
+        default=0,
+        help=(
+            "每轮评估时从该用户历史中检索并插入 prompt 的 anchor turns 数量。"
+            "0 表示关闭（保持原 rubric-only 行为）；典型值 2-4。"
+            "仅在 with_memory=True 时生效。"
+        ),
+    )
     return parser
 
 
 def main() -> None:
+    global client, _is_vllm
+
     parser = parse_args()
     args = parser.parse_args()
+
+    # ── vLLM client 初始化 ────────────────────────────────────────────────────
+    if args.vllm_base_url:
+        client = OpenAI(base_url=args.vllm_base_url, api_key=args.vllm_api_key)
+        _is_vllm = True
+        logger.info(f"vLLM mode: base_url={args.vllm_base_url}")
 
     with_memory = not args.no_memory
 
@@ -690,16 +794,19 @@ def main() -> None:
     if not args.output_jsonl:
         model_tag = args.model.replace("/", "_").replace(":", "_")
         mode_tag = "no_memory" if not with_memory else args.memory_update_mode
+        anchor_tag = f"_anchor{args.n_anchors}" if args.n_anchors > 0 else ""
         args.output_jsonl = (
-            f"outputs/personalized/{model_tag}_{args.split}_{mode_tag}.jsonl"
+            f"outputs/personalized/{model_tag}_{args.split}_{mode_tag}{anchor_tag}.jsonl"
         )
 
     logger.info(f"Model:              {args.model}")
+    logger.info(f"Backend:            {'vLLM @ ' + args.vllm_base_url if _is_vllm else 'OpenAI API'}")
     logger.info(f"Split:              {args.split} (train_ratio={args.train_ratio})")
     logger.info(f"With memory:        {with_memory}")
     if with_memory:
         logger.info(f"Memory update mode: {args.memory_update_mode}")
     logger.info(f"History window:     {args.history_window_size} turns")
+    logger.info(f"Anchors per turn:   {args.n_anchors}")
     logger.info(f"Output:             {args.output_jsonl}")
     if with_memory:
         logger.info(f"Memory cache:       {args.memory_cache_dir}")
@@ -731,6 +838,7 @@ def main() -> None:
         save_memory_snapshots=args.save_memory_snapshots,
         memory_cache_dir=args.memory_cache_dir,
         with_memory=with_memory,
+        n_anchors=args.n_anchors,
     )
 
     logger.info(f"Done. Results saved to: {args.output_jsonl}")

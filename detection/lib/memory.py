@@ -1,21 +1,29 @@
 """
-用户记忆模块（User Memory）
+用户记忆模块（User Memory） v2
 
-UserMemory 是 training-free agent 对目标用户的个性化偏好总结，
-由 LLM 从历史 session（含满意度标签）中提炼，并可在预测过程中迭代更新。
+改进要点（相较 v1）：
+  - Schema 用对比式评分边界替代泛化满意/不满意模式列表：
+      four_vs_five_distinction  — 该用户4分和5分的具体区别
+      three_vs_four_distinction — 该用户3分及以下和4分的具体区别
+      scoring_style             — 严格/宽松/中等，附校准说明
+      user_specific_requirements— 区别于一般用户的特定要求（不允许泛化描述）
+  - Memory building prompt 新增按分数分组的对比证据区，迫使 LLM 分析相邻分数差异
+  - Eval prompt 改为逐步判断的个性化评分 rubric，而非泛化的"参考以下模式"
 
 主要组件：
-  ScoreDistribution    — 满意度分布（固定 5 字段，兼容 OpenAI structured output）
-  TaskObservation      — 单个任务类型的观察（替代 dict[str, str]）
-  UserMemoryContent    — LLM 生成部分，严格兼容 OpenAI structured output
-  UserMemory           — 完整记忆 = UserMemoryContent + 程序侧元信息
-  build_memory_prompt  — 从历史 session 构建记忆的 prompt
-  build_memory_update_prompt — 在已有记忆基础上整合新 session 后更新的 prompt
+  ScoreDistribution      — 满意度分布（固定 5 字段，兼容 OpenAI structured output）
+  TaskObservation        — 单个任务类型的观察
+  UserMemoryContent      — LLM 生成部分（严格兼容 OpenAI structured output）
+  UserMemory             — 完整记忆 = UserMemoryContent + 程序侧元信息
+  build_memory_prompt    — 对比式 memory building prompt
+  build_memory_update_prompt — memory 更新 prompt
+  build_turn_eval_prompt     — rubric 式 turn 评估 prompt
+  build_turn_eval_prompt_no_memory — 无记忆 baseline prompt
 """
 
 from __future__ import annotations
 
-import json
+from collections import defaultdict
 
 from pydantic import BaseModel, Field
 
@@ -23,11 +31,11 @@ from .personalized_data import SessionData
 from .satisfaction_constants import get_reason_to_id
 
 # ──────────────────────────────────────────────────────────────────────────────
-# 辅助子模型（用于替代 dict，保证 OpenAI structured output 兼容）
+# 辅助子模型（OpenAI structured output 兼容：无 dict，所有字段必填）
 # ──────────────────────────────────────────────────────────────────────────────
 
 class ScoreDistribution(BaseModel):
-    """满意度 1-5 分的出现次数（固定字段，兼容 OpenAI structured output）。"""
+    """满意度 1-5 分的出现次数（固定字段）。"""
     score_1: int = Field(description="满意度为 1 分的 assistant 轮数")
     score_2: int = Field(description="满意度为 2 分的 assistant 轮数")
     score_3: int = Field(description="满意度为 3 分的 assistant 轮数")
@@ -42,70 +50,78 @@ class ScoreDistribution(BaseModel):
 
 
 class TaskObservation(BaseModel):
-    """针对单个任务类型的关键观察（替代 dict[str, str]）。"""
+    """针对单个任务类型的关键观察。"""
     task_name: str = Field(description="任务类型名称，如旅行规划")
     observation: str = Field(description="该任务下用户特有的偏好或敏感点")
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# LLM 生成模型（严格兼容 OpenAI structured output）
-#
-# 设计约束（OpenAI 要求）：
-#   1. 无 dict 类型字段（使用 list[SubModel] 替代）
-#   2. 所有字段均为必填（无 default），自动进入 required 列表
-#   3. 嵌套模型同理
+# LLM 生成模型（v2：对比式评分边界）
 # ──────────────────────────────────────────────────────────────────────────────
 
 class UserMemoryContent(BaseModel):
     """
-    LLM 生成的用户记忆内容。
-    此类作为 response_format 传给 OpenAI structured output API。
+    LLM 生成的用户记忆（v2）。
+    核心改进：用对比式评分边界替代泛化模式列表，使记忆可直接作为评分 rubric。
     """
 
-    # ── 基本统计 ──────────────────────────────────────────────────────────────
+    # ── 统计基准 ──────────────────────────────────────────────────────────────
     avg_satisfaction_score: float = Field(
         ge=1.0, le=5.0,
-        description="历史 session 中所有 assistant 轮的平均满意度分数",
+        description="历史 assistant 轮的平均满意度分数（用于校准绝对分值）",
     )
     score_distribution: ScoreDistribution = Field(
         description="满意度 1-5 分各自的出现次数",
     )
-
-    # ── 满意 / 不满意触发因素 ──────────────────────────────────────────────────
-    high_satisfaction_patterns: list[str] = Field(
+    scoring_style: str = Field(
         description=(
-            "让该用户打出 4-5 分的回复特征，1-6 条。每条应具体，"
-            "如【提供分阶段的详细执行计划】而非【回答详细】"
+            "该用户的评分风格及校准说明，1-2 句。"
+            "须说明其严格/宽松程度及含义，例如："
+            "【偏严格：平均分 3.8，给出 5 分的门槛很高，需要回复完全命中需求且格式完美】"
+            "或【偏宽松：平均分 4.5，只要回复无明显缺陷即可得 5 分，3 分表示有实质性问题】"
         ),
     )
-    dissatisfaction_patterns: list[str] = Field(
+
+    # ── 对比式评分边界（核心字段）────────────────────────────────────────────
+    four_vs_five_distinction: str = Field(
         description=(
-            "让该用户打出 1-3 分的回复特征，0-6 条。每条应具体指出缺陷类型，"
-            "如【推荐内容不考虑用户当前零基础的实际情况】"
+            "该用户 4 分和 5 分的具体区别，1-3 句。"
+            "须基于历史数据中实际出现的 4 分和 5 分轮次的差异，"
+            "指出哪些具体要素的有无决定了能否从 4 分升至 5 分。"
+            "示例：【5 分要求提供可直接执行的具体步骤和真实资源链接；"
+            "4 分时回复正确但缺乏上述细节，或某一环节不够完整】"
+        ),
+    )
+    three_vs_four_distinction: str = Field(
+        description=(
+            "该用户 3 分及以下和 4 分的具体区别，1-3 句。"
+            "须指出哪些缺陷会导致从 4 分跌至 3 分或更低。"
+            "示例：【达到 4 分要求回复直接回答用户问题且无明显错误；"
+            "3 分及以下出现在回复内容笼统无实质帮助、或忽略了用户的明确约束条件】"
+        ),
+    )
+
+    # ── 用户特异性要求（禁止泛化描述）───────────────────────────────────────
+    user_specific_requirements: list[str] = Field(
+        description=(
+            "该用户区别于一般用户的特定要求，1-5 条。"
+            "每条必须是该用户独有的、可操作的要求，"
+            "禁止使用【回复要详细】【要具体】等对任何用户都适用的泛化描述。"
+            "好的示例：【要求提供可购买的具体品牌和价格区间，而非泛泛推荐品类】"
+            "【要求按周次拆分学习计划，不接受按月粒度的规划】"
         ),
     )
 
     # ── 沟通偏好 ──────────────────────────────────────────────────────────────
     preferred_response_format: str = Field(
-        description="用户偏好的回复组织形式，如【分步骤的结构化列表，每步附具体示例】",
-    )
-    preferred_detail_level: str = Field(
-        description="用户对信息详细程度的偏好，如【高度详细，需要可执行的具体步骤】",
+        description="用户偏好的回复组织形式（格式、结构），尽量具体",
     )
 
-    # ── 任务特定观察（list[TaskObservation] 替代 dict[str, str]）────────────
+    # ── 任务特定观察 ──────────────────────────────────────────────────────────
     task_specific_observations: list[TaskObservation] = Field(
         description=(
-            "针对各历史任务类型的关键观察，每项包含 task_name 和 observation。"
-            "每个历史任务类型应有一条记录（0-4 条）"
-        ),
-    )
-
-    # ── 综合特征 ──────────────────────────────────────────────────────────────
-    notable_user_characteristics: list[str] = Field(
-        description=(
-            "该用户区别于一般用户的显著特征，0-5 条。"
-            "如【对资源推荐极其敏感，要求具体的网址或书名】"
+            "针对各历史任务类型的关键观察，每个有记录的任务一条（0-4 条）。"
+            "observation 须说明该任务场景下用户的特殊偏好或敏感点"
         ),
     )
 
@@ -115,22 +131,11 @@ class UserMemoryContent(BaseModel):
 # ──────────────────────────────────────────────────────────────────────────────
 
 class UserMemory(UserMemoryContent):
-    """
-    完整用户记忆。
-    LLM 只生成 UserMemoryContent 部分；元信息字段由程序在调用后填写。
-    """
-    source_tasks: list[str] = Field(
-        default_factory=list,
-        description="构建本记忆所使用的历史任务类型列表",
-    )
-    n_history_sessions: int = Field(
-        default=0,
-        description="构建本记忆时使用的历史 session 数量",
-    )
-    n_history_turns: int = Field(
-        default=0,
-        description="构建本记忆时使用的历史 assistant 轮总数",
-    )
+    """完整用户记忆 = LLM 生成内容 + 程序侧元信息。"""
+    memory_version: str = Field(default="v2")
+    source_tasks: list[str] = Field(default_factory=list)
+    n_history_sessions: int = Field(default=0)
+    n_history_turns: int = Field(default=0)
 
     @classmethod
     def from_content(
@@ -140,8 +145,8 @@ class UserMemory(UserMemoryContent):
         n_history_sessions: int = 0,
         n_history_turns: int = 0,
     ) -> "UserMemory":
-        """将 LLM 生成的 UserMemoryContent 转换为带元信息的 UserMemory。"""
         data = content.model_dump()
+        data["memory_version"] = "v2"
         data["source_tasks"] = list(source_tasks or [])
         data["n_history_sessions"] = n_history_sessions
         data["n_history_turns"] = n_history_turns
@@ -149,11 +154,12 @@ class UserMemory(UserMemoryContent):
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Prompt 构建
+# 内部工具
 # ──────────────────────────────────────────────────────────────────────────────
 
-_MAX_CONTENT_CHARS = 300   # 单条 assistant 回复截断长度
-_MAX_SESSIONS_IN_PROMPT = 12  # 最多放入 prompt 的 session 数（避免超长）
+_MAX_REPLY_CHARS = 200     # 单条 assistant 回复截断长度（压缩以降低 prompt token 数）
+_MAX_SESSIONS_PROMPT = 8   # 放入 prompt 的最大 session 数（留足输出空间）
+_MAX_EXAMPLES_PER_SCORE = 3  # 每个分数等级最多展示的 turn 例子数
 
 
 def _format_profile(profile: dict) -> str:
@@ -169,34 +175,69 @@ def _format_profile(profile: dict) -> str:
     return "  ".join(parts)
 
 
-def _format_session_for_memory(session: SessionData, idx: int) -> str:
-    """将一个历史 session 格式化为 memory building prompt 中的片段。"""
-    lines = [
-        f"【Session {idx + 1}】任务：{session.task}",
-        f"任务背景：{session.task_context[:200]}",
-        "对话摘要（含满意度标注）：",
-    ]
-    assistant_turn_idx = 0
-    conv_window: list[str] = []
-    for utt in session.history:
-        role_label = "用户" if utt["role"] == "user" else "助手"
-        content = utt["content"][:_MAX_CONTENT_CHARS]
-        if len(utt["content"]) > _MAX_CONTENT_CHARS:
-            content += "…（截断）"
-        conv_window.append(f"  {role_label}: {content}")
+def _truncate(text: str, max_chars: int = _MAX_REPLY_CHARS) -> str:
+    return text if len(text) <= max_chars else text[:max_chars] + "…"
 
-        if utt["role"] == "assistant":
-            score = session.satisfaction_scores[assistant_turn_idx]
-            reason = session.dissatisfaction_reasons[assistant_turn_idx]
-            score_label = f"★{score}"
-            if score <= 3:
-                score_label += f"（不满意原因：{reason}）"
-            conv_window.append(f"  [满意度: {score_label}]")
-            assistant_turn_idx += 1
 
-    lines.extend(conv_window)
+def _collect_turns_by_score(
+    sessions: list[SessionData],
+) -> dict[int, list[dict]]:
+    """
+    从 sessions 中提取所有 (用户问题, 助手回复, 分数, 任务) 四元组，
+    按分数分组返回。
+    """
+    by_score: dict[int, list[dict]] = defaultdict(list)
+    for session in sessions:
+        assistant_idx = 0
+        last_user_msg = ""
+        for utt in session.history:
+            if utt["role"] == "user":
+                last_user_msg = utt["content"]
+            elif utt["role"] == "assistant":
+                if assistant_idx < len(session.satisfaction_scores):
+                    score = session.satisfaction_scores[assistant_idx]
+                    reason = session.dissatisfaction_reasons[assistant_idx]
+                    by_score[score].append({
+                        "task": session.task,
+                        "user_msg": last_user_msg,
+                        "assistant_reply": utt["content"],
+                        "score": score,
+                        "reason": reason,
+                    })
+                    assistant_idx += 1
+    return dict(by_score)
+
+
+def _format_score_group(score: int, turns: list[dict], max_examples: int) -> str:
+    """将同一分数的若干 turn 格式化为对比证据块。"""
+    examples = turns[:max_examples]
+    lines = [f"▸ {score} 分轮次（共 {len(turns)} 轮，展示 {len(examples)} 条）："]
+    for i, t in enumerate(examples, 1):
+        lines.append(f"  [{i}] 任务：{t['task']}")
+        lines.append(f"      用户提问：{_truncate(t['user_msg'], 120)}")
+        lines.append(f"      助手回复：{_truncate(t['assistant_reply'])}")
+        if t["reason"] != "满意":
+            lines.append(f"      不满意原因：{t['reason']}")
     return "\n".join(lines)
 
+
+def _select_sessions(sessions: list[SessionData]) -> list[SessionData]:
+    """按任务均匀采样，保留最多 _MAX_SESSIONS_PROMPT 个 session。"""
+    if len(sessions) <= _MAX_SESSIONS_PROMPT:
+        return sessions
+    by_task: dict[str, list[SessionData]] = defaultdict(list)
+    for s in sessions:
+        by_task[s.task].append(s)
+    selected: list[SessionData] = []
+    per_task = max(1, _MAX_SESSIONS_PROMPT // len(by_task))
+    for task_sessions in by_task.values():
+        selected.extend(task_sessions[:per_task])
+    return selected[:_MAX_SESSIONS_PROMPT]
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Memory Building Prompt（v2：对比式）
+# ──────────────────────────────────────────────────────────────────────────────
 
 def build_memory_prompt(
     user_id: str,
@@ -204,50 +245,89 @@ def build_memory_prompt(
     history_sessions: list[SessionData],
 ) -> str:
     """
-    构造 memory building prompt。
+    构造 memory building prompt（v2）。
 
-    输入：用户 profile + 历史 sessions（含满意度标注）
-    输出：JSON 格式的 UserMemory
+    核心改进：在顺序展示 session 后，额外提供"按分数分组的对比证据"，
+    迫使 LLM 直接对比 4 分和 5 分轮次的差异，避免生成泛化描述。
     """
+    sessions_to_use = _select_sessions(history_sessions)
     reason_labels = list(get_reason_to_id().keys())
 
-    # 如果历史 session 太多，截取最近的若干个（按 session 顺序，保留多样性）
-    sessions_to_use = history_sessions
-    if len(history_sessions) > _MAX_SESSIONS_IN_PROMPT:
-        # 尽量保持各任务类型均匀采样
-        from collections import defaultdict
-        by_task: dict[str, list[SessionData]] = defaultdict(list)
-        for s in history_sessions:
-            by_task[s.task].append(s)
-        sessions_to_use = []
-        per_task = max(1, _MAX_SESSIONS_IN_PROMPT // len(by_task))
-        for task_sessions in by_task.values():
-            sessions_to_use.extend(task_sessions[:per_task])
-        sessions_to_use = sessions_to_use[:_MAX_SESSIONS_IN_PROMPT]
+    # ── Part 1: 按任务顺序展示 session（保留对话上下文）─────────────────────
+    session_lines: list[str] = []
+    for idx, session in enumerate(sessions_to_use):
+        lines = [
+            f"【Session {idx + 1}】任务：{session.task}  "
+            f"任务背景：{_truncate(session.task_context, 150)}",
+        ]
+        assistant_idx = 0
+        for utt in session.history:
+            role = "用户" if utt["role"] == "user" else "助手"
+            content = _truncate(utt["content"])
+            lines.append(f"  {role}：{content}")
+            if utt["role"] == "assistant":
+                score = session.satisfaction_scores[assistant_idx]
+                reason = session.dissatisfaction_reasons[assistant_idx]
+                tag = f"★{score}" + (f"（{reason}）" if score <= 3 else "")
+                lines.append(f"  [满意度: {tag}]")
+                assistant_idx += 1
+        session_lines.append("\n".join(lines))
 
-    session_texts = [
-        _format_session_for_memory(s, i) for i, s in enumerate(sessions_to_use)
+    session_block = "\n\n".join(session_lines)
+
+    # ── Part 2: 按分数分组的对比证据（关键新增）─────────────────────────────
+    turns_by_score = _collect_turns_by_score(sessions_to_use)
+    contrast_lines: list[str] = []
+    # 只展示有实际数据的分数级别，优先展示边界处（4 vs 5，3 vs 4）
+    for score in [5, 4, 3, 2, 1]:
+        turns = turns_by_score.get(score, [])
+        if turns:
+            contrast_lines.append(
+                _format_score_group(score, turns, _MAX_EXAMPLES_PER_SCORE)
+            )
+    contrast_block = "\n\n".join(contrast_lines) if contrast_lines else "（无数据）"
+
+    # ── 统计摘要 ──────────────────────────────────────────────────────────────
+    all_scores = [
+        s for session in sessions_to_use
+        for s in session.satisfaction_scores
     ]
-    session_block = "\n\n".join(session_texts)
+    avg = sum(all_scores) / len(all_scores) if all_scores else 0
+    dist = {i: all_scores.count(i) for i in range(1, 6)}
+    stat_line = (
+        f"总轮数：{len(all_scores)}，平均分：{avg:.2f}，"
+        f"分布：{' / '.join(f'{i}分×{dist[i]}' for i in range(1,6))}"
+    )
 
     prompt = (
-        "你是一名用户行为分析专家。你的任务是基于一名用户与 AI 助手的多个历史对话 session，"
-        "总结该用户的满意度偏好特征，形成一份可用于后续预测的用户记忆（User Memory）。\n\n"
-        f"【用户 ID】{user_id}\n"
-        f"【用户画像】{_format_profile(profile)}\n\n"
-        "【历史对话 Sessions（含满意度标注）】\n"
+        "你是一名用户行为分析专家。请基于以下用户的历史对话记录，"
+        "建立一份精准的个性化用户记忆，用于预测该用户对未来助手回复的满意度。\n\n"
+        f"【用户画像】{_format_profile(profile)}\n"
+        f"【满意度统计】{stat_line}\n\n"
+        "═══ 历史对话（按任务顺序）═══\n"
         f"{session_block}\n\n"
-        "请仔细分析以上 session，重点关注：\n"
-        "1. 哪类回复让该用户给出 4-5 分（满意）？\n"
-        "2. 哪类回复让该用户给出 1-3 分（不满意）？\n"
-        "3. 该用户对回复的组织形式、信息详细程度有什么偏好？\n"
-        "4. 用户在不同任务类型中有哪些特定的敏感点或偏好？\n"
-        "5. 该用户有哪些与众不同的显著特征？\n\n"
+        "═══ 按分数分组的对比证据（重点参考）═══\n"
+        f"{contrast_block}\n\n"
+        "═══ 分析任务 ═══\n"
+        "请严格基于以上对比证据完成以下分析，不得使用对所有用户都成立的泛化描述：\n\n"
+        "1. 【评分边界 4→5】：对比 5 分和 4 分轮次，"
+        "指出哪些具体要素决定了能否从 4 分升至 5 分（必须引用上面的实际例子）\n"
+        "2. 【评分边界 3→4】：对比 4 分和 3 分（及以下）轮次，"
+        "指出导致从 4 分跌至 3 分的具体缺陷类型\n"
+        "3. 【评分风格】：该用户是偏严格还是偏宽松？结合平均分给出校准说明\n"
+        "4. 【用户特异性要求】：该用户有哪些一般用户没有的特定要求？"
+        "（如果所有用户都会这样要求，则不算特异性）\n"
+        "5. 【偏好格式】：该用户偏好什么回复结构或组织形式？\n"
+        "6. 【任务观察】：各任务类型下有哪些特殊偏好？\n\n"
         f"可参考的不满意原因类别：{', '.join(reason_labels)}\n\n"
-        "请严格按照 JSON Schema 输出结构化用户记忆，不要输出其他内容。"
+        "请严格按照 JSON Schema 输出，不要输出其他内容。"
     )
     return prompt
 
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Memory Update Prompt（v2：保守更新）
+# ──────────────────────────────────────────────────────────────────────────────
 
 def build_memory_update_prompt(
     existing_memory: UserMemory,
@@ -256,75 +336,93 @@ def build_memory_update_prompt(
     use_oracle_labels: bool = False,
 ) -> str:
     """
-    构造 memory update prompt。
+    构造 memory update prompt（v2）。
 
-    在已有记忆的基础上，整合一个新 session 的信息后更新记忆。
-
-    参数
-    ----
-    existing_memory : UserMemory
-        当前记忆快照。
-    new_session : SessionData
-        新观察到的 session。
-    turn_predictions : list[dict]
-        该 session 中各轮的预测结果，每条含：
-          pred_score, pred_reason, analysis
-        若 use_oracle_labels=True，则额外含 gold_score, gold_reason。
-    use_oracle_labels : bool
-        是否使用真实标签更新记忆（oracle 模式，用于分析记忆质量上界）。
+    策略：保守更新——仅在新 session 提供了与已有记忆明显矛盾或补充的证据时才修改，
+    避免预测误差噪声污染已有记忆。
     """
-    existing_json = existing_memory.model_dump_json(indent=2)
+    existing_json = existing_memory.model_dump_json(
+        indent=2,
+        exclude={"memory_version", "source_tasks", "n_history_sessions", "n_history_turns"},
+    )
 
-    # 构建新 session 的描述
     session_lines = [
-        f"任务：{new_session.task}",
-        f"任务背景：{new_session.task_context[:200]}",
-        "逐轮预测与实际（若有）：",
+        f"任务：{new_session.task}  背景：{_truncate(new_session.task_context, 150)}",
+        "逐轮信息：",
     ]
-    assistant_turn_idx = 0
-    history_window: list[str] = []
+    assistant_idx = 0
+    last_user = ""
     for utt in new_session.history:
-        role_label = "用户" if utt["role"] == "user" else "助手"
-        content = utt["content"][:_MAX_CONTENT_CHARS]
-        if len(utt["content"]) > _MAX_CONTENT_CHARS:
-            content += "…（截断）"
-        history_window.append(f"  {role_label}: {content}")
-
-        if utt["role"] == "assistant" and assistant_turn_idx < len(turn_predictions):
-            pred = turn_predictions[assistant_turn_idx]
-            pred_score = pred.get("pred_score", "?")
-            pred_reason = pred.get("pred_reason", "?")
-            entry = f"  [预测满意度: ★{pred_score}，原因: {pred_reason}]"
+        if utt["role"] == "user":
+            last_user = _truncate(utt["content"], 120)
+        elif utt["role"] == "assistant" and assistant_idx < len(turn_predictions):
+            pred = turn_predictions[assistant_idx]
+            reply = _truncate(utt["content"])
+            pred_s = pred.get("pred_score", "?")
+            line = f"  用户：{last_user}\n  助手：{reply}"
             if use_oracle_labels:
-                gold_score = pred.get("gold_score", "?")
-                gold_reason = pred.get("gold_reason", "?")
-                entry += f"  [真实满意度: ★{gold_score}，原因: {gold_reason}]"
-            history_window.append(entry)
-            assistant_turn_idx += 1
+                gold_s = pred.get("gold_score", "?")
+                gold_r = pred.get("gold_reason", "?")
+                line += f"\n  [真实 ★{gold_s}（{gold_r}）]"
+            else:
+                line += f"\n  [预测 ★{pred_s}]"
+            session_lines.append(line)
+            assistant_idx += 1
 
-    session_lines.extend(history_window)
     session_text = "\n".join(session_lines)
-
     label_note = (
-        "（注意：本次更新同时提供了真实满意度标签，请优先基于真实标签调整记忆）"
+        "本次提供了真实标签，可作为可靠证据更新记忆。"
         if use_oracle_labels
-        else "（注意：本次更新仅使用模型预测分数，无真实标签）"
+        else "本次仅有模型预测分数（可能有误），请谨慎参考，不要因预测误差大幅修改已有记忆。"
     )
 
     prompt = (
-        "你正在维护一份用户记忆（User Memory）。现在该用户完成了一个新的对话 session，"
-        "请你基于新 session 的观察，更新并完善已有记忆。\n\n"
-        f"【现有用户记忆】\n{existing_json}\n\n"
-        f"【新 Session 信息】\n{session_text}\n\n"
-        f"{label_note}\n\n"
-        "更新要求：\n"
-        "- 若新 session 印证了已有模式，可保留或加强描述\n"
-        "- 若新 session 揭示了新的偏好或与已有模式矛盾，请相应修改\n"
-        "- 统计字段（avg_satisfaction_score, score_distribution 等）需根据新数据更新\n"
-        "- task_specific_observations 可新增条目，但不要删除已有条目\n\n"
-        "请严格按照原 JSON Schema 输出更新后的完整用户记忆（不含 source_tasks / n_history_sessions / n_history_turns 元信息字段），不要输出其他内容。"
+        "你正在维护一份用户记忆。请根据新观察到的 session 决定是否需要更新记忆。\n\n"
+        f"【现有记忆】\n{existing_json}\n\n"
+        f"【新 Session】\n{session_text}\n\n"
+        f"【注意】{label_note}\n\n"
+        "更新原则（保守优先）：\n"
+        "- 若新 session 与已有模式一致，保持记忆不变或仅微调\n"
+        "- 仅当新 session 提供了明确的反例或补充信息时，才修改 four_vs_five_distinction / "
+        "three_vs_four_distinction / user_specific_requirements\n"
+        "- 更新 avg_satisfaction_score 和 score_distribution 的统计数字\n"
+        "- 可新增 task_specific_observations 条目，但不删除已有条目\n\n"
+        "请严格按照原 JSON Schema 输出更新后的记忆（不含元信息字段），不要输出其他内容。"
     )
     return prompt
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Turn Evaluation Prompt（v2：rubric 式逐步判断）
+# ──────────────────────────────────────────────────────────────────────────────
+
+def _format_anchor_turns(anchor_turns: list) -> str:
+    """
+    将检索到的 anchor turns 格式化为 prompt 中的"参考案例"块（rank-match 模式）。
+
+    注意：anchor 的使用方式是 rank-matching / nearest-neighbor —— 让模型找到
+    当前回复在过往案例中"整体质量最接近"的一条，直接对齐其分数。切忌让模型
+    把 anchor 当"高分标杆"然后挑现在回复的毛病（会导致系统性压低预测）。
+    """
+    if not anchor_turns:
+        return ""
+    lines = [
+        "═══ 该用户历史上的参考案例（真实标注分数） ═══",
+        "用法：这些是从该用户过往 session 中检索到的、与当前回复文本最相似的若干轮次。"
+        "请把它们按分数排列当作【已校准的参考刻度】，将当前回复在整体质量维度上与其对齐——"
+        "若当前回复和某个案例的整体质量处于同一档位，就直接给相同的分数。"
+        "不要把这些案例当作【完美标杆】去挑当前回复的毛病。",
+        "",
+    ]
+    for i, a in enumerate(anchor_turns, 1):
+        tag = f"★{a.score}" + (f"（{a.reason}）" if a.score <= 3 else "")
+        user_snip = _truncate(a.user_msg, 120)
+        reply_snip = _truncate(a.assistant_reply, _MAX_REPLY_CHARS)
+        lines.append(f"[案例 {i}] 任务：{a.task}  真实满意度：{tag}")
+        lines.append(f"  用户提问：{user_snip}")
+        lines.append(f"  助手回复：{reply_snip}")
+        lines.append("")
+    return "\n".join(lines)
 
 
 def build_turn_eval_prompt(
@@ -333,55 +431,100 @@ def build_turn_eval_prompt(
     task_context: str,
     history_window: list[str],
     assistant_reply: str,
+    anchor_turns: list | None = None,
 ) -> str:
     """
-    构造单轮满意度预测 prompt（利用用户记忆）。
+    构造单轮满意度预测 prompt（v2）。
 
-    参数
-    ----
-    memory : UserMemory
-        当前用户记忆（可为 None 时退化为无记忆 baseline）。
-    history_window : list[str]
-        当前对话的最近若干轮，格式 ["用户: ...", "助手: ..."]。
-    assistant_reply : str
-        待评估的 assistant 回复。
+    核心改进：将 memory 转化为逐步判断的个性化评分 rubric，
+    而非泛化的"参考以下模式"。评分逻辑显式分三步：
+      Step 1: 是否达到 4 分门槛（three_vs_four_distinction）
+      Step 2: 若达到，是否进一步达到 5 分（four_vs_five_distinction）
+      Step 3: 若未达到 4 分，根据缺陷程度判断 1/2/3 分
+
+    若提供 anchor_turns（list[AnchorTurn]），会在 rubric 之后插入"参考案例"块，
+    作为 few-shot in-context 锚点。
     """
     reason_labels = list(get_reason_to_id().keys())
-    reason_labels_text = "、".join(reason_labels)
+    reason_text = "、".join(reason_labels)
+    history_text = "\n".join(history_window) if history_window else "（无历史）"
 
-    memory_section = (
-        f"【用户记忆摘要】\n"
-        f"  历史平均满意度：{memory.avg_satisfaction_score:.2f}\n"
-        f"  满意触发因素：{'; '.join(memory.high_satisfaction_patterns)}\n"
-        f"  不满意触发因素：{'; '.join(memory.dissatisfaction_patterns)}\n"
-        f"  偏好回复形式：{memory.preferred_response_format}\n"
-        f"  偏好详细程度：{memory.preferred_detail_level}\n"
-        f"  用户显著特征：{'; '.join(memory.notable_user_characteristics)}\n"
-    )
+    # 组装 task 特定观察（若有当前任务的记录则优先展示）
+    task_obs_lines = ""
     if memory.task_specific_observations:
-        obs_lines = "\n".join(
-            f"    {obs.task_name}: {obs.observation}"
-            for obs in memory.task_specific_observations
+        relevant = [o for o in memory.task_specific_observations
+                    if task_context and o.task_name in task_context[:50]]
+        others   = [o for o in memory.task_specific_observations
+                    if o not in relevant]
+        ordered  = relevant + others
+        task_obs_lines = "\n".join(
+            f"  {o.task_name}：{o.observation}" for o in ordered
         )
-        memory_section += f"  任务特定观察：\n{obs_lines}\n"
 
-    history_text = "\n".join(history_window) if history_window else "（无历史对话）"
+    user_reqs = "\n".join(
+        f"  - {r}" for r in memory.user_specific_requirements
+    ) if memory.user_specific_requirements else "  （无特异性要求记录）"
+
+    rubric = (
+        f"【该用户的个性化评分标准】\n"
+        f"评分风格：{memory.scoring_style}\n"
+        f"历史平均分：{memory.avg_satisfaction_score:.2f}  "
+        f"（5分×{memory.score_distribution.score_5} / "
+        f"4分×{memory.score_distribution.score_4} / "
+        f"3分×{memory.score_distribution.score_3} / "
+        f"2分×{memory.score_distribution.score_2} / "
+        f"1分×{memory.score_distribution.score_1}）\n\n"
+        f"▸ 3分以下 → 4分的门槛：{memory.three_vs_four_distinction}\n"
+        f"▸ 4分 → 5分的门槛：{memory.four_vs_five_distinction}\n\n"
+        f"该用户的特定要求（区别于一般用户）：\n{user_reqs}\n"
+        f"偏好回复形式：{memory.preferred_response_format}\n"
+    )
+    if task_obs_lines:
+        rubric += f"任务特定观察：\n{task_obs_lines}\n"
+
+    anchor_block = _format_anchor_turns(anchor_turns or [])
+    anchor_section = (anchor_block + "\n") if anchor_block else ""
+    # 把 anchor 做成 rank-match 的先验：先定位最接近的案例并复用其分数，
+    # rubric 仅用于验证一致性。这种框架下 rubric 不会把分数往下拽。
+    extra_step = (
+        "Step 0 (Rank-Match)：阅读上方【参考案例】。在 1-2 句内找出与当前回复"
+        "【整体质量最接近】的一条案例（注意是比较整体水平，不是挑差异），"
+        "把该案例的真实分数作为当前回复的初始估计。\n"
+        "Step 1 (Sanity-Check)：用下面的 rubric 校验该估计与评分风格是否一致，"
+        "仅当 rubric 明确提示了重大的差异（如缺失用户特定要求）才调整分数；"
+        "若 rubric 与估计一致，保持 rank-match 得到的分数。\n"
+        if anchor_turns else ""
+    )
 
     prompt = (
-        "你是一名个性化对话质量分析员。"
-        "你了解当前用户的历史满意度偏好，请基于用户记忆对助手回复进行评估。\n\n"
-        f"{memory_section}\n"
+        "你是一名个性化对话质量评估员。"
+        "请严格按照以下该用户的个性化评分标准，对助手回复进行评分。\n\n"
+        f"{rubric}\n"
+        f"{anchor_section}"
         f"【用户画像】{_format_profile(profile)}\n\n"
         f"【任务背景】{task_context}\n\n"
         f"【最近对话历史】\n{history_text}\n\n"
-        f"【当前助手回复】{assistant_reply}\n\n"
-        f"【可选原因标签】{reason_labels_text}\n\n"
-        "请基于用户记忆中的满意/不满意触发因素，先进行推理，再预测满意度。\n"
+        f"【待评估的助手回复】\n{assistant_reply}\n\n"
+        f"【可选原因标签】{reason_text}\n\n"
+        "【评分步骤】请严格按以下顺序推理：\n"
+        f"{extra_step}"
+        + (
+            "（若 Step 1 未提示需调整，直接输出 Step 0 的分数，跳过下面的 rubric-only 三步）\n"
+            if anchor_turns else ""
+        )
+        + "Step A: 对照【3分以下→4分的门槛】判断此回复是否达到 4 分基线\n"
+        "Step B: 若达到 4 分，再对照【4分→5分的门槛】判断是否满足 5 分条件\n"
+        "Step C: 若未达到 4 分，根据缺陷的严重程度（参考用户特定要求）决定给 1/2/3 分\n\n"
         "请严格输出 JSON，不要输出其他内容：\n"
         "{\n"
         '  "classification": 1-5 中的整数,\n'
         '  "reason": "从可选原因标签中选择一个",\n'
-        '  "analysis": "你的详细推理过程，需明确引用用户记忆中的哪条模式支撑了判断"\n'
+        '  "analysis": "'
+        + ('按 Step0/Step1/StepA-C 格式说明判断过程，'
+           '先给出 rank-match 得到的分数和依据案例编号，再简述 Step 1 的一致性校验'
+           if anchor_turns else
+           '按 StepA/StepB/StepC 格式说明判断过程，须明确引用上方评分标准中的具体条件')
+        + '"\n'
         "}\n"
     )
     return prompt
@@ -393,12 +536,9 @@ def build_turn_eval_prompt_no_memory(
     history_window: list[str],
     assistant_reply: str,
 ) -> str:
-    """
-    无记忆版本的 turn 评估 prompt（用于 baseline 对比）。
-    与 collect_api.py::build_prompt 逻辑对齐。
-    """
+    """无记忆 baseline prompt（保持不变）。"""
     reason_labels = list(get_reason_to_id().keys())
-    reason_labels_text = "、".join(reason_labels)
+    reason_text = "、".join(reason_labels)
     history_text = "\n".join(history_window) if history_window else "（无历史对话）"
 
     prompt = (
@@ -410,7 +550,7 @@ def build_turn_eval_prompt_no_memory(
         f"【任务背景】{task_context}\n\n"
         f"【最近对话历史】\n{history_text}\n\n"
         f"【当前助手回复】{assistant_reply}\n\n"
-        f"【可选原因标签】{reason_labels_text}\n\n"
+        f"【可选原因标签】{reason_text}\n\n"
         "请严格输出 JSON，不要输出其他内容：\n"
         "{\n"
         '  "classification": 1-5 中的整数,\n'
