@@ -1,5 +1,7 @@
 # Human Vs. Agent in Task-Oriented Conversations
 
+Project-wide agent rules are maintained in `AGENTS.md`.
+
 ## Data
 
 We provide all the data files under the `data` folder.
