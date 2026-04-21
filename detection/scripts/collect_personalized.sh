@@ -21,6 +21,7 @@ min_history_sessions="${min_history_sessions:-1}"
 limit="${limit:-0}"                    # <=0 = 不限制，>0 = 调试用
 output_jsonl="${output_jsonl:-}"        # 留空则自动命名
 n_anchors="${n_anchors:-0}"            # >0 时每轮插入 k 个 few-shot anchor turns
+turn_eval_prompt_version="${turn_eval_prompt_version:-v2}"
 
 # 可选 flag
 extra_args=""
@@ -48,6 +49,7 @@ args=(
     --memory_cache_dir "$memory_cache_dir"
     --min_history_sessions "$min_history_sessions"
     --n_anchors "$n_anchors"
+    --turn_eval_prompt_version "$turn_eval_prompt_version"
 )
 [ -n "$output_jsonl" ] && args+=(--output_jsonl "$output_jsonl")
 [ "$limit" -gt 0 ] && args+=(--limit "$limit")
@@ -60,6 +62,7 @@ echo "  split              = $split  (train_ratio=$train_ratio)"
 echo "  memory_update_mode = $memory_update_mode"
 echo "  history_window     = $history_window_size turns"
 echo "  n_anchors          = $n_anchors"
+echo "  turn_eval_prompt   = $turn_eval_prompt_version"
 echo "  max_workers        = $max_workers"
 echo "=========================================="
 

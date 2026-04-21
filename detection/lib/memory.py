@@ -24,6 +24,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -432,6 +433,7 @@ def build_turn_eval_prompt(
     history_window: list[str],
     assistant_reply: str,
     anchor_turns: list | None = None,
+    prompt_version: Literal["v2", "qwen_short"] = "v2",
 ) -> str:
     """
     构造单轮满意度预测 prompt（v2）。
@@ -444,6 +446,10 @@ def build_turn_eval_prompt(
 
     若提供 anchor_turns（list[AnchorTurn]），会在 rubric 之后插入"参考案例"块，
     作为 few-shot in-context 锚点。
+
+    prompt_version:
+      - "v2": 保持原有 rubric prompt，不改历史实验行为
+      - "qwen_short": 面向 Qwen3-8B 的更短、更硬的 checklist prompt
     """
     reason_labels = list(get_reason_to_id().keys())
     reason_text = "、".join(reason_labels)
@@ -484,6 +490,50 @@ def build_turn_eval_prompt(
 
     anchor_block = _format_anchor_turns(anchor_turns or [])
     anchor_section = (anchor_block + "\n") if anchor_block else ""
+
+    if prompt_version == "qwen_short":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 若提供了参考案例，先找与当前回复整体质量最接近的一条。\n"
+            "2. 参考案例只用于帮助校准分数，不要因为它更完整就机械压低当前回复。\n"
+            "3. 最终分数仍以【4分基线】和【5分门槛】为准。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度评分员。任务是给当前助手回复打 1-5 分。\n"
+            "请严格按下面 checklist 判断，不要写长篇分析。\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"4分基线：{memory.three_vs_four_distinction}\n"
+            f"5分门槛：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n\n"
+            + "【只按这 3 步判断】\n"
+            + "Step 1. 先判断是否达到 4 分基线。\n"
+            + "  - 若没有直接回答问题、明显忽略约束、帮助性不足，给 1/2/3。\n"
+            + "Step 2. 若已达到 4 分，再判断是否满足 5 分门槛。\n"
+            + "  - 只有明显满足关键细节、格式和用户特定要求时才给 5。\n"
+            + "  - 只要整体合格但还缺少关键一项，就给 4。\n"
+            + "Step 3. 选择一个最贴切的原因标签。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 1-5 中的整数,\n'
+            + '  "reason": "从可选原因标签中选择一个",\n'
+            + '  "analysis": "用 2-4 句写明：是否过 4 分基线；若过基线，是否满足 5 分门槛；最终分数依据。若使用参考案例，注明案例编号" \n'
+            + "}\n"
+        )
+        return prompt
+
     # 把 anchor 做成 rank-match 的先验：先定位最接近的案例并复用其分数，
     # rubric 仅用于验证一致性。这种框架下 rubric 不会把分数往下拽。
     extra_step = (

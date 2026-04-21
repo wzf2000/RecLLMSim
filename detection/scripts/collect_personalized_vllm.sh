@@ -15,6 +15,7 @@
 #   limit                — 调试用，限制 block 数量（<=0 不限，默认 0）
 #   output_jsonl         — 输出路径（留空自动生成）
 #   memory_cache_dir     — 记忆缓存目录（默认 outputs/personalized/memory_cache）
+#   turn_eval_prompt_version — v2 / qwen_short（默认 v2）
 
 set -euo pipefail
 cd "$(dirname "$0")/.."   # 切换到 detection/ 目录
@@ -30,6 +31,7 @@ limit="${limit:-0}"
 output_jsonl="${output_jsonl:-}"
 memory_cache_dir="${memory_cache_dir:-outputs/personalized/memory_cache}"
 n_anchors="${n_anchors:-0}"
+turn_eval_prompt_version="${turn_eval_prompt_version:-v2}"
 
 # 构建参数列表
 ARGS=(
@@ -41,6 +43,7 @@ ARGS=(
     --max_workers "${max_workers}"
     --memory_cache_dir "${memory_cache_dir}"
     --n_anchors "${n_anchors}"
+    --turn_eval_prompt_version "${turn_eval_prompt_version}"
 )
 
 if [ "${no_memory}" = "1" ]; then
@@ -62,6 +65,7 @@ echo " Split:       ${split}"
 echo " Update mode: ${memory_update_mode}"
 echo " No memory:   ${no_memory}"
 echo " n_anchors:   ${n_anchors}"
+echo " Prompt ver:  ${turn_eval_prompt_version}"
 echo " Workers:     ${max_workers}"
 echo "=========================================="
 

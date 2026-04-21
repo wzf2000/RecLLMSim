@@ -232,6 +232,7 @@ def evaluate_session(
     default_reason: str = "其它",
     retriever: AnchorRetriever | None = None,
     n_anchors: int = 0,
+    turn_eval_prompt_version: str = "v2",
 ) -> list[dict]:
     """
     对单个 target session 进行逐轮满意度预测。
@@ -270,6 +271,7 @@ def evaluate_session(
                     history_window=list(history_window),
                     assistant_reply=utt["content"],
                     anchor_turns=anchors,
+                    prompt_version=turn_eval_prompt_version,
                 )
             else:
                 prompt = build_turn_eval_prompt_no_memory(
@@ -361,6 +363,7 @@ def run_agent_on_sample(
     memory_cache_dir: str | None = None,
     with_memory: bool = True,
     n_anchors: int = 0,
+    turn_eval_prompt_version: str = "v2",
 ) -> list[dict]:
     """
     对单个 PersonalizedSample 运行完整 agent 流程，返回所有 turn 的预测结果。
@@ -406,6 +409,7 @@ def run_agent_on_sample(
                 default_reason=default_reason,
                 retriever=retriever,
                 n_anchors=n_anchors,
+                turn_eval_prompt_version=turn_eval_prompt_version,
             )
         else:
             # 整个 session 一次性预测
@@ -418,6 +422,7 @@ def run_agent_on_sample(
                 default_reason=default_reason,
                 retriever=retriever,
                 n_anchors=n_anchors,
+                turn_eval_prompt_version=turn_eval_prompt_version,
             )
 
         # 包装为输出记录
@@ -437,6 +442,7 @@ def run_agent_on_sample(
                 "model": model,
                 "with_memory": with_memory,
                 "memory_update_mode": memory_update_mode if with_memory else "no_memory",
+                "turn_eval_prompt_version": turn_eval_prompt_version,
             }
             if memory_snapshot is not None:
                 record["memory_snapshot"] = memory_snapshot
@@ -471,6 +477,7 @@ def _evaluate_session_per_turn_update(
     default_reason: str,
     retriever: AnchorRetriever | None = None,
     n_anchors: int = 0,
+    turn_eval_prompt_version: str = "v2",
 ) -> list[dict]:
     """
     per_turn 模式：每预测一轮后立即更新记忆。
@@ -500,6 +507,7 @@ def _evaluate_session_per_turn_update(
                 history_window=list(history_window),
                 assistant_reply=utt["content"],
                 anchor_turns=anchors,
+                prompt_version=turn_eval_prompt_version,
             )
             pred = _call_predict_turn(prompt, model)
             pred_reason = pred.reason.strip()
@@ -591,6 +599,7 @@ def collect_all(
     memory_cache_dir: str | None,
     with_memory: bool = True,
     n_anchors: int = 0,
+    turn_eval_prompt_version: str = "v2",
 ) -> None:
     """对所有样本并发执行 agent 推理，结果写入 output_jsonl。"""
     os.makedirs(os.path.dirname(output_jsonl) or ".", exist_ok=True)
@@ -621,6 +630,7 @@ def collect_all(
             memory_cache_dir=memory_cache_dir,
             with_memory=with_memory,
             n_anchors=n_anchors,
+            turn_eval_prompt_version=turn_eval_prompt_version,
         )
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -773,6 +783,16 @@ def parse_args() -> ArgumentParser:
             "仅在 with_memory=True 时生效。"
         ),
     )
+    parser.add_argument(
+        "--turn_eval_prompt_version",
+        type=str,
+        default="v2",
+        choices=["v2", "qwen_short"],
+        help=(
+            "turn evaluation prompt 版本。"
+            "v2 为原始 rubric prompt；qwen_short 为面向 Qwen3-8B 的短 checklist prompt。"
+        ),
+    )
     return parser
 
 
@@ -795,8 +815,12 @@ def main() -> None:
         model_tag = args.model.replace("/", "_").replace(":", "_")
         mode_tag = "no_memory" if not with_memory else args.memory_update_mode
         anchor_tag = f"_anchor{args.n_anchors}" if args.n_anchors > 0 else ""
+        prompt_tag = (
+            f"_{args.turn_eval_prompt_version}"
+            if args.turn_eval_prompt_version != "v2" else ""
+        )
         args.output_jsonl = (
-            f"outputs/personalized/{model_tag}_{args.split}_{mode_tag}{anchor_tag}.jsonl"
+            f"outputs/personalized/{model_tag}_{args.split}_{mode_tag}{anchor_tag}{prompt_tag}.jsonl"
         )
 
     logger.info(f"Model:              {args.model}")
@@ -807,6 +831,7 @@ def main() -> None:
         logger.info(f"Memory update mode: {args.memory_update_mode}")
     logger.info(f"History window:     {args.history_window_size} turns")
     logger.info(f"Anchors per turn:   {args.n_anchors}")
+    logger.info(f"Turn eval prompt:   {args.turn_eval_prompt_version}")
     logger.info(f"Output:             {args.output_jsonl}")
     if with_memory:
         logger.info(f"Memory cache:       {args.memory_cache_dir}")
@@ -839,6 +864,7 @@ def main() -> None:
         memory_cache_dir=args.memory_cache_dir,
         with_memory=with_memory,
         n_anchors=args.n_anchors,
+        turn_eval_prompt_version=args.turn_eval_prompt_version,
     )
 
     logger.info(f"Done. Results saved to: {args.output_jsonl}")
