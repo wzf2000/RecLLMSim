@@ -21,7 +21,7 @@ min_history_sessions="${min_history_sessions:-1}"
 limit="${limit:-0}"                    # <=0 = 不限制，>0 = 调试用
 output_jsonl="${output_jsonl:-}"        # 留空则自动命名
 n_anchors="${n_anchors:-0}"            # >0 时每轮插入 k 个 few-shot anchor turns
-turn_eval_prompt_version="${turn_eval_prompt_version:-v2}"
+turn_eval_prompt_version="${turn_eval_prompt_version:-v2}"  # v2 / qwen_short / boundary_34 / boundary_34_refute
 
 # 可选 flag
 extra_args=""

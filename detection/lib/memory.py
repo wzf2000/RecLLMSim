@@ -433,7 +433,7 @@ def build_turn_eval_prompt(
     history_window: list[str],
     assistant_reply: str,
     anchor_turns: list | None = None,
-    prompt_version: Literal["v2", "qwen_short"] = "v2",
+    prompt_version: Literal["v2", "qwen_short", "boundary_34", "boundary_34_refute"] = "v2",
 ) -> str:
     """
     构造单轮满意度预测 prompt（v2）。
@@ -450,6 +450,8 @@ def build_turn_eval_prompt(
     prompt_version:
       - "v2": 保持原有 rubric prompt，不改历史实验行为
       - "qwen_short": 面向 Qwen3-8B 的更短、更硬的 checklist prompt
+      - "boundary_34": 仅围绕 3/4 满意边界判断，输出限制为 3 或 4
+      - "boundary_34_refute": 在 3/4 边界上先做反证检查，抑制默认判 4
     """
     reason_labels = list(get_reason_to_id().keys())
     reason_text = "、".join(reason_labels)
@@ -490,6 +492,118 @@ def build_turn_eval_prompt(
 
     anchor_block = _format_anchor_turns(anchor_turns or [])
     anchor_section = (anchor_block + "\n") if anchor_block else ""
+
+    if prompt_version == "boundary_34_refute":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 先把案例按边界用途理解：真实分数 <=3 是【未达满意线案例】，>=4 是【达到满意线案例】。\n"
+            "2. 优先观察未达满意线案例缺了什么，再看达到满意线案例满足了什么。\n"
+            "3. 不要机械复用案例分数；案例只用于帮助你发现“哪些缺口足以把回复判成 3”。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度边界评估员。\n"
+            "本题只判断当前助手回复是否达到该用户的【满意最低线】。\n"
+            "输出只能是：\n"
+            "- `4` = 满意（达到最低满意线）\n"
+            "- `3` = 不满意（未达到最低满意线）\n\n"
+            "与旧版不同，本题必须先做【反证检查】。\n"
+            "也就是说：先主动寻找足以把回复判成 `3` 的关键缺陷；"
+            "只有当这些缺陷都不成立时，才允许给 `4`。\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+            f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n\n"
+            + "【先做失败检查，再决定是否给 4】\n"
+            + "Step 1. 先检查是否存在任何一个【足以降到 3 分】的关键失败。\n"
+            + "  重点检查：\n"
+            + "  - 没有直接回答用户主要问题\n"
+            + "  - 明显忽略关键约束、条件或任务目标\n"
+            + "  - 内容太泛、太空，用户难以据此采取行动\n"
+            + "  - 漏掉了该用户特别在意的要求或偏好格式\n"
+            + "  - 存在会明显伤害满意度的缺口，而不只是“还可以更好”\n"
+            + "Step 2. 做【反证】。\n"
+            + "  问自己：如果我要把它判成 3，最强证据是什么？\n"
+            + "  - 如果能找到明确且实质的证据，输出 `classification=3`\n"
+            + "  - 只有当这些证据都站不住脚，才继续考虑 `classification=4`\n"
+            + "Step 3. 只有同时满足下面两点，才能给 `4`：\n"
+            + "  - 回复已经基本回答了用户问题，并满足关键要求\n"
+            + "  - 没有发现任何一个足以把它拉回 3 的关键缺陷\n"
+            + "Step 4. 选择一个最贴切的原因标签。\n\n"
+            + "注意：\n"
+            + "- 不要因为“语气像在帮忙”就给 4，关键是是否真正过了满意最低线。\n"
+            + "- 也不要因为“还不够优秀”就给 3；只有出现了足以降到 3 的关键缺陷，才判 3。\n"
+            + "- `classification` 只能输出 `3` 或 `4`。\n"
+            + "- 在 `analysis` 里要明确写出：你检查过哪些降分证据，以及这些证据是否成立。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 只能是 3 或 4,\n'
+            + '  "reason": "从可选原因标签中选择一个",\n'
+            + '  "analysis": "用 3-5 句写明：最可能把该回复判成 3 的关键缺陷是什么；这个缺陷是否成立；最终为什么判成 3 或 4。若使用参考案例，注明更接近未达满意线案例还是达到满意线案例" \n'
+            + "}\n"
+        )
+        return prompt
+
+    if prompt_version == "boundary_34":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 只关心这些案例在满意边界上的含义：真实分数 <=3 视为【不满意案例】，>=4 视为【满意案例】。\n"
+            "2. 不要尝试复用案例的精确分数，只判断当前回复更接近【不满意】还是【满意】。\n"
+            "3. 你的任务不是判断这条回复有多优秀，而是判断：它有没有达到该用户的【最低满意线】。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度边界评估员。\n"
+            "本题只判断当前助手回复是否达到该用户的【满意最低线】。\n"
+            "请不要做 1/2/5 分细分，只输出：\n"
+            "- `4` = 满意（达到最低满意线）\n"
+            "- `3` = 不满意（未达到最低满意线）\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+            f"补充说明（4→5 的更高要求，仅供参考，不作为本题判定目标）：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n\n"
+            + "【只按这 3 步判断】\n"
+            + "Step 1. 先判断回复是否直接回答了用户问题，并满足关键约束。\n"
+            + "Step 2. 再判断它是否达到该用户的【满意最低线】。\n"
+            + "  - 若达到最低满意线，输出 `classification=4`\n"
+            + "  - 若未达到最低满意线，输出 `classification=3`\n"
+            + "Step 3. 选择一个最贴切的原因标签。\n\n"
+            + "注意：\n"
+            + "- 本题的目标是判定【满意 / 不满意】，不是区分 4 和 5。\n"
+            + "- 除非回复明显没达到最低要求，否则不要因为“还不够优秀”就判成 3。\n"
+            + "- `classification` 只能输出 `3` 或 `4`。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 只能是 3 或 4,\n'
+            + '  "reason": "从可选原因标签中选择一个",\n'
+            + '  "analysis": "用 2-4 句写明：是否直接回答问题；是否达到最低满意线；最终为何判为 3 或 4。若使用参考案例，注明更接近满意案例还是不满意案例" \n'
+            + "}\n"
+        )
+        return prompt
 
     if prompt_version == "qwen_short":
         anchor_instruction = (

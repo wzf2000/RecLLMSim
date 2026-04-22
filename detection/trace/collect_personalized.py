@@ -49,6 +49,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from argparse import ArgumentParser
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from threading import Lock
@@ -91,6 +92,125 @@ _is_vllm: bool = False     # 仅用于日志标识
 T = type
 
 
+class StructuredOutputError(RuntimeError):
+    def __init__(self, message: str, raw_text: str = "") -> None:
+        super().__init__(message)
+        self.raw_text = raw_text
+
+
+def _message_content_to_text(content: object) -> str:
+    if content is None:
+        return ""
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        parts: list[str] = []
+        for item in content:
+            if isinstance(item, str):
+                parts.append(item)
+            elif hasattr(item, "text"):
+                parts.append(str(item.text))
+            elif isinstance(item, dict):
+                text = item.get("text") or item.get("content") or ""
+                parts.append(str(text))
+            else:
+                parts.append(str(item))
+        return "".join(parts)
+    return str(content)
+
+
+def _strip_generation_wrappers(text: str) -> str:
+    cleaned = text.strip()
+    cleaned = re.sub(r"<think>[\s\S]*?</think>", "", cleaned)
+    cleaned = cleaned.replace("<think>", "").replace("</think>", "")
+    if cleaned.startswith("```json"):
+        cleaned = cleaned[7:]
+    if cleaned.startswith("```"):
+        cleaned = cleaned[3:]
+    if cleaned.endswith("```"):
+        cleaned = cleaned[:-3]
+    return cleaned.strip()
+
+
+def _normalize_quotes(text: str) -> str:
+    return (
+        text.replace("“", '"')
+        .replace("”", '"')
+        .replace("‘", "'")
+        .replace("’", "'")
+    )
+
+
+def _coerce_prediction_payload(payload: dict) -> dict:
+    coerced = dict(payload)
+    cls = coerced.get("classification")
+    if isinstance(cls, str):
+        cls = cls.strip()
+        if cls in {"1", "2", "3", "4", "5"}:
+            coerced["classification"] = int(cls)
+    return coerced
+
+
+def _recover_structured_output(raw_text: str, response_model: T) -> T | None:
+    cleaned = _normalize_quotes(_strip_generation_wrappers(raw_text))
+    if not cleaned:
+        return None
+
+    # Fast path: extract the outermost JSON object and validate directly.
+    left = cleaned.find("{")
+    right = cleaned.rfind("}")
+    if left != -1 and right != -1 and right > left:
+        candidate = cleaned[left:right + 1]
+        try:
+            parsed = json.loads(candidate)
+            if isinstance(parsed, dict):
+                return response_model.model_validate(_coerce_prediction_payload(parsed))
+            return response_model.model_validate(parsed)
+        except Exception:
+            pass
+    else:
+        candidate = cleaned
+
+    # Fallback: tolerant field extraction for slightly malformed JSON.
+    cls_match = re.search(r'"classification"\s*:\s*"?(?P<cls>[1-5])"?', candidate)
+    reason_match = re.search(r'"reason"\s*:\s*"([^"]*)"', candidate)
+    analysis_match = re.search(r'"analysis"\s*:\s*"([\s\S]*?)"\s*}', candidate)
+
+    analysis = ""
+    if analysis_match:
+        analysis = analysis_match.group(1).strip()
+    else:
+        analysis_key = '"analysis"'
+        idx = candidate.find(analysis_key)
+        if idx != -1:
+            tail = candidate[idx + len(analysis_key):]
+            colon = tail.find(":")
+            if colon != -1:
+                value = tail[colon + 1:].strip()
+                if value.startswith('"'):
+                    value = value[1:]
+                value = value.replace("</think>", "").replace("<think>", "").strip()
+                if value.endswith("}"):
+                    value = value[:-1].rstrip()
+                if value.endswith('"'):
+                    value = value[:-1]
+                analysis = value.strip()
+
+    if cls_match and reason_match and analysis:
+        try:
+            return response_model.model_validate(
+                {
+                    "classification": int(cls_match.group("cls")),
+                    "reason": reason_match.group(1).strip(),
+                    "analysis": analysis,
+                }
+            )
+        except Exception:
+            return None
+
+    return None
+
+
 def _structured_parse(
     prompt: str,
     model: str,
@@ -118,7 +238,63 @@ def _structured_parse(
     ).choices[0].message
     if response.parsed:
         return response.parsed
-    raise RuntimeError(f"Structured parse failed: {response.refusal or 'no content'}")
+
+    raw_text = _message_content_to_text(getattr(response, "content", ""))
+    recovered = _recover_structured_output(raw_text, response_model)
+    if recovered is not None:
+        logger.warning(
+            f"Recovered malformed structured output for {response_model.__name__} "
+            f"(model={model}, temp={temperature}, raw_len={len(raw_text)})"
+        )
+        return recovered
+
+    preview = raw_text[:300].replace("\n", "\\n")
+    raise StructuredOutputError(
+        f"Structured parse failed: {response.refusal or 'no content'}; "
+        f"raw_preview={preview}",
+        raw_text=raw_text,
+    )
+
+
+def _structured_parse_from_raw_text(
+    prompt: str,
+    model: str,
+    response_model: T,
+    temperature: float = 0.3,
+    timeout: int = 120,
+    system_msg: str = "You are an expert user behavior analyst.",
+) -> T:
+    """
+    原始文本路线：
+    - 不使用 SDK .parse()
+    - 直接拿 message.content
+    - 本地做 wrapper stripping + tolerant recovery + schema validate
+
+    仅用于边界 prompt，避免 vLLM/Qwen 在 json_schema 模式下偶发的
+    </think> 残留和半截 JSON 直接在 SDK 层抛错。
+    """
+    messages = [
+        {"role": "system", "content": system_msg},
+        {"role": "user", "content": prompt},
+    ]
+    response = client.chat.completions.create(
+        model=model,
+        messages=messages,
+        temperature=temperature,
+        timeout=timeout,
+    ).choices[0].message
+
+    raw_text = _message_content_to_text(getattr(response, "content", ""))
+    recovered = _recover_structured_output(raw_text, response_model)
+    if recovered is not None:
+        return recovered
+
+    preview = raw_text[:300].replace("\n", "\\n")
+    raise StructuredOutputError(
+        f"Raw structured parse failed: {response.refusal or 'no content'}; "
+        f"raw_preview={preview}",
+        raw_text=raw_text,
+    )
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -127,6 +303,12 @@ def _structured_parse(
 
 class TurnPrediction(BaseModel):
     classification: int = Field(ge=1, le=5)
+    reason: str
+    analysis: str
+
+
+class BoundaryTurnPrediction(BaseModel):
+    classification: Literal[3, 4]
     reason: str
     analysis: str
 
@@ -215,12 +397,71 @@ def build_user_memory(
     wait=wait_fixed(5),
     before_sleep=before_sleep_log(logger, log_level=40),
 )
-def _call_predict_turn(prompt: str, model: str) -> TurnPrediction:
-    return _structured_parse(
-        prompt, model, TurnPrediction,
-        temperature=0.6, timeout=60,
-        system_msg="You are a skilled conversational analyst.",
+def _call_predict_turn(
+    prompt: str,
+    model: str,
+    prompt_version: str = "v2",
+    debug_context: str = "",
+) -> TurnPrediction | BoundaryTurnPrediction:
+    is_boundary_prompt = prompt_version in {"boundary_34", "boundary_34_refute"}
+    response_model = BoundaryTurnPrediction if is_boundary_prompt else TurnPrediction
+    temperature = 0.2 if prompt_version == "boundary_34_refute" else (
+        0.3 if prompt_version == "boundary_34" else 0.6
     )
+
+    try:
+        if is_boundary_prompt:
+            return _structured_parse_from_raw_text(
+                prompt,
+                model,
+                response_model,
+                temperature=temperature,
+                timeout=60,
+                system_msg="You are a skilled conversational analyst.",
+            )
+        return _structured_parse(
+            prompt,
+            model,
+            response_model,
+            temperature=temperature,
+            timeout=60,
+            system_msg="You are a skilled conversational analyst.",
+        )
+    except Exception as e:
+        dump_dir = "outputs/personalized/parse_failures"
+        os.makedirs(dump_dir, exist_ok=True)
+        safe_context = "".join(
+            c if c.isalnum() or c in {"_", "-", "."} else "_"
+            for c in (debug_context or "unknown_context")
+        )[:160]
+        prefix = os.path.join(dump_dir, f"{safe_context}__{prompt_version}")
+        meta = {
+            "debug_context": debug_context,
+            "model": model,
+            "prompt_version": prompt_version,
+            "prompt_length": len(prompt),
+            "temperature": temperature,
+            "response_model": response_model.__name__,
+            "parse_route": "raw_text" if is_boundary_prompt else "sdk_parse",
+            "error": str(e),
+        }
+        try:
+            with open(prefix + ".json", "w", encoding="utf-8") as fp:
+                json.dump(meta, fp, ensure_ascii=False, indent=2)
+            with open(prefix + ".prompt.txt", "w", encoding="utf-8") as fp:
+                fp.write(prompt)
+            if isinstance(e, StructuredOutputError) and e.raw_text:
+                with open(prefix + ".raw.txt", "w", encoding="utf-8") as fp:
+                    fp.write(e.raw_text)
+        except Exception as dump_err:
+            logger.warning(f"Failed to dump parse debug info for {debug_context}: {dump_err}")
+
+        logger.error(
+            "Turn prediction parse failed: "
+            f"context={debug_context}, prompt_version={prompt_version}, "
+            f"prompt_len={len(prompt)}, temperature={temperature}, error={e}"
+        )
+        raise
 
 
 def evaluate_session(
@@ -233,6 +474,7 @@ def evaluate_session(
     retriever: AnchorRetriever | None = None,
     n_anchors: int = 0,
     turn_eval_prompt_version: str = "v2",
+    block_id: str = "",
 ) -> list[dict]:
     """
     对单个 target session 进行逐轮满意度预测。
@@ -281,7 +523,17 @@ def evaluate_session(
                     assistant_reply=utt["content"],
                 )
 
-            pred = _call_predict_turn(prompt, model)
+            debug_context = (
+                f"{block_id}__{os.path.basename(session.file_path)}__turn_{assistant_turn_idx}"
+                if block_id else
+                f"{os.path.basename(session.file_path)}__turn_{assistant_turn_idx}"
+            )
+            pred = _call_predict_turn(
+                prompt,
+                model,
+                prompt_version=turn_eval_prompt_version,
+                debug_context=debug_context,
+            )
             pred_reason = pred.reason.strip()
             if pred_reason not in valid_reasons:
                 pred_reason = default_reason
@@ -410,6 +662,7 @@ def run_agent_on_sample(
                 retriever=retriever,
                 n_anchors=n_anchors,
                 turn_eval_prompt_version=turn_eval_prompt_version,
+                block_id=sample.block_id,
             )
         else:
             # 整个 session 一次性预测
@@ -423,6 +676,7 @@ def run_agent_on_sample(
                 retriever=retriever,
                 n_anchors=n_anchors,
                 turn_eval_prompt_version=turn_eval_prompt_version,
+                block_id=sample.block_id,
             )
 
         # 包装为输出记录
@@ -478,6 +732,7 @@ def _evaluate_session_per_turn_update(
     retriever: AnchorRetriever | None = None,
     n_anchors: int = 0,
     turn_eval_prompt_version: str = "v2",
+    block_id: str = "",
 ) -> list[dict]:
     """
     per_turn 模式：每预测一轮后立即更新记忆。
@@ -509,7 +764,17 @@ def _evaluate_session_per_turn_update(
                 anchor_turns=anchors,
                 prompt_version=turn_eval_prompt_version,
             )
-            pred = _call_predict_turn(prompt, model)
+            debug_context = (
+                f"{block_id}__{os.path.basename(session.file_path)}__turn_{assistant_turn_idx}"
+                if block_id else
+                f"{os.path.basename(session.file_path)}__turn_{assistant_turn_idx}"
+            )
+            pred = _call_predict_turn(
+                prompt,
+                model,
+                prompt_version=turn_eval_prompt_version,
+                debug_context=debug_context,
+            )
             pred_reason = pred.reason.strip()
             if pred_reason not in valid_reasons:
                 pred_reason = default_reason
@@ -787,10 +1052,12 @@ def parse_args() -> ArgumentParser:
         "--turn_eval_prompt_version",
         type=str,
         default="v2",
-        choices=["v2", "qwen_short"],
+        choices=["v2", "qwen_short", "boundary_34", "boundary_34_refute"],
         help=(
             "turn evaluation prompt 版本。"
-            "v2 为原始 rubric prompt；qwen_short 为面向 Qwen3-8B 的短 checklist prompt。"
+            "v2 为原始 rubric prompt；qwen_short 为面向 Qwen3-8B 的短 checklist prompt；"
+            "boundary_34 仅围绕 3/4 满意边界判断，并只输出 3 或 4；"
+            "boundary_34_refute 会先做反证检查，再决定是否给 4。"
         ),
     )
     return parser

@@ -15,7 +15,7 @@
 #   limit                — 调试用，限制 block 数量（<=0 不限，默认 0）
 #   output_jsonl         — 输出路径（留空自动生成）
 #   memory_cache_dir     — 记忆缓存目录（默认 outputs/personalized/memory_cache）
-#   turn_eval_prompt_version — v2 / qwen_short（默认 v2）
+#   turn_eval_prompt_version — v2 / qwen_short / boundary_34 / boundary_34_refute（默认 v2）
 
 set -euo pipefail
 cd "$(dirname "$0")/.."   # 切换到 detection/ 目录
