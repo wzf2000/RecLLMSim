@@ -13,9 +13,11 @@
 #   no_memory            — 1 则跳过记忆（默认 0）
 #   max_workers          — 并发线程数（默认 4；本地模型吞吐有限，不宜过高）
 #   limit                — 调试用，限制 block 数量（<=0 不限，默认 0）
+#   limit_users          — 调试用，按用户数量限制子集（<=0 不限，默认 0）
+#   user_offset          — 按用户子集截取时的起始偏移（默认 0）
 #   output_jsonl         — 输出路径（留空自动生成）
 #   memory_cache_dir     — 记忆缓存目录（默认 outputs/personalized/memory_cache）
-#   turn_eval_prompt_version — v2 / qwen_short / boundary_34 / boundary_34_refute（默认 v2）
+#   turn_eval_prompt_version — v2 / qwen_short / boundary_34 / boundary_34_refute / boundary_34_refute_v2 / boundary_34_selective_refute（默认 v2）
 
 set -euo pipefail
 cd "$(dirname "$0")/.."   # 切换到 detection/ 目录
@@ -28,6 +30,8 @@ memory_update_mode="${memory_update_mode:-none}"
 no_memory="${no_memory:-0}"
 max_workers="${max_workers:-4}"
 limit="${limit:-0}"
+limit_users="${limit_users:-0}"
+user_offset="${user_offset:-0}"
 output_jsonl="${output_jsonl:-}"
 memory_cache_dir="${memory_cache_dir:-outputs/personalized/memory_cache}"
 n_anchors="${n_anchors:-0}"
@@ -58,6 +62,10 @@ if [ "${limit}" -gt 0 ]; then
     ARGS+=(--limit "${limit}")
 fi
 
+if [ "${limit_users}" -gt 0 ]; then
+    ARGS+=(--limit_users "${limit_users}" --user_offset "${user_offset}")
+fi
+
 echo "=========================================="
 echo " Model:       ${model}"
 echo " vLLM URL:    ${vllm_base_url}"
@@ -66,6 +74,7 @@ echo " Update mode: ${memory_update_mode}"
 echo " No memory:   ${no_memory}"
 echo " n_anchors:   ${n_anchors}"
 echo " Prompt ver:  ${turn_eval_prompt_version}"
+echo " Limit users: ${limit_users} (offset=${user_offset})"
 echo " Workers:     ${max_workers}"
 echo "=========================================="
 

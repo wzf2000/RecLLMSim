@@ -433,7 +433,10 @@ def build_turn_eval_prompt(
     history_window: list[str],
     assistant_reply: str,
     anchor_turns: list | None = None,
-    prompt_version: Literal["v2", "qwen_short", "boundary_34", "boundary_34_refute"] = "v2",
+    prompt_version: Literal[
+        "v2", "qwen_short", "boundary_34", "boundary_34_refute", "boundary_34_refute_v2",
+        "boundary_34_selective_refute",
+    ] = "v2",
 ) -> str:
     """
     构造单轮满意度预测 prompt（v2）。
@@ -452,6 +455,8 @@ def build_turn_eval_prompt(
       - "qwen_short": 面向 Qwen3-8B 的更短、更硬的 checklist prompt
       - "boundary_34": 仅围绕 3/4 满意边界判断，输出限制为 3 或 4
       - "boundary_34_refute": 在 3/4 边界上先做反证检查，抑制默认判 4
+      - "boundary_34_refute_v2": 更温和的 refute 版本，仅在存在明确致命缺陷时判 3
+      - "boundary_34_selective_refute": 第一遍温和判 3/4，并显式标记是否需要二次反证复核
     """
     reason_labels = list(get_reason_to_id().keys())
     reason_text = "、".join(reason_labels)
@@ -492,6 +497,125 @@ def build_turn_eval_prompt(
 
     anchor_block = _format_anchor_turns(anchor_turns or [])
     anchor_section = (anchor_block + "\n") if anchor_block else ""
+
+    if prompt_version == "boundary_34_selective_refute":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 只把案例看成边界参考：真实分数 <=3 视为【未达满意线案例】，>=4 视为【达到满意线案例】。\n"
+            "2. 案例只用于帮助你判断当前回复是否接近 3/4 边界，不要机械复用案例分数。\n"
+            "3. 若当前回复明显优于未达满意线案例，或明显达到满意线，就不要触发二次复核。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度边界评估员。\n"
+            "这是 selective-refute 的第一遍初判：先温和判断当前助手回复是否达到该用户的【满意最低线】。\n"
+            "输出只能是：\n"
+            "- `4` = 满意（达到最低满意线）\n"
+            "- `3` = 不满意（未达到最低满意线）\n\n"
+            "除分数外，你还需要判断这个样本是否【真的接近 3/4 边界】，从而需要进入二次反证复核。\n"
+            "只有在证据混合、边界不稳时，才把 `needs_refute_review` 设为 `true`；明显满意或明显不满意都应设为 `false`。\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+            f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n\n"
+            + "【第一遍只做温和边界判断】\n"
+            + "Step 1. 判断回复是否回答了核心问题，并基本满足关键约束。\n"
+            + "Step 2. 判断它是否达到该用户的满意最低线：达到给 `4`，未达到给 `3`。\n"
+            + "Step 3. 再判断这个案例是否【真的接近边界】。\n"
+            + "  只有下面情况才把 `needs_refute_review=true`：\n"
+            + "  - 回复大体有帮助，但有一个可能是关键缺陷的点，是否足以掉到 3 不确定\n"
+            + "  - 当前判成 3，但主要问题可能只是“不够细致”，未必真的低于满意线\n"
+            + "  - 当前判成 4，但可能漏掉了一个关键要求，是否仍算满意不确定\n"
+            + "Step 4. 若结论已经很明显，就输出 `needs_refute_review=false`。\n\n"
+            + "注意：\n"
+            + "- `needs_refute_review=true` 应该是少数情况，不要把它当默认值。\n"
+            + "- 不要因为回复不够优秀就自动触发复核；只有接近 3/4 边界时才触发。\n"
+            + "- `classification` 只能输出 `3` 或 `4`。\n"
+            + "- `analysis` 只需 1-2 句，写明当前判断依据，以及为什么需要或不需要二次复核。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 只能是 3 或 4,\n'
+            + '  "reason": "从可选原因标签中选择一个",\n'
+            + '  "analysis": "用 1-2 句写明当前为何判为 3 或 4，以及是否接近 3/4 边界",\n'
+            + '  "needs_refute_review": true 或 false\n'
+            + "}\n"
+        )
+        return prompt
+
+    if prompt_version == "boundary_34_refute_v2":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 先把案例按边界用途理解：真实分数 <=3 是【未达满意线案例】，>=4 是【达到满意线案例】。\n"
+            "2. 优先观察未达满意线案例中的【致命缺陷】是什么，再看达到满意线案例是否只是存在可改进的小缺口。\n"
+            "3. 不要因为当前回复不如优秀案例完整，就直接判成 3。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度边界评估员。\n"
+            "本题只判断当前助手回复是否达到该用户的【满意最低线】。\n"
+            "输出只能是：\n"
+            "- `4` = 满意（达到最低满意线）\n"
+            "- `3` = 不满意（未达到最低满意线）\n\n"
+            "你需要保留【反证检查】，但采用更温和的判定原则：\n"
+            "只有当存在【明确且关键的失败】时，才允许判 `3`。\n"
+            "如果回复已经回答了核心问题，关键约束也基本满足，而剩余问题只是“还不够细”“还可以更好”，应优先判 `4`。\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+            f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n\n"
+            + "【先做温和反证，再决定是否给 3】\n"
+            + "Step 1. 先判断回复是否已经基本回答了用户的核心问题，并满足关键约束。\n"
+            + "Step 2. 再检查是否存在【明确且关键的失败】。只有下面这些情况才足以判 `3`：\n"
+            + "  - 没有直接回答主要问题\n"
+            + "  - 明显忽略关键约束、条件或任务目标\n"
+            + "  - 内容过于空泛，用户几乎无法据此采取行动\n"
+            + "  - 漏掉了该用户最在意、且会显著影响满意度的要求\n"
+            + "  - 存在会明显伤害可用性的缺口，而不是普通的“还不够细致”\n"
+            + "Step 3. 明确区分两类问题：\n"
+            + "  - 【致命缺陷】= 会让回复掉到 3\n"
+            + "  - 【普通缺口】= 已达到最低满意线，但还不够优秀，仍应给 4\n"
+            + "Step 4. 做简短反证：\n"
+            + "  - 如果你能指出一个明确的【致命缺陷】，输出 `classification=3`\n"
+            + "  - 如果只看到普通缺口，而没有致命缺陷，输出 `classification=4`\n"
+            + "Step 5. 选择一个最贴切的原因标签。\n\n"
+            + "注意：\n"
+            + "- `不够细致` 本身不等于 `3`；只有它严重到导致回复不满足最低满意线时，才可以判 `3`。\n"
+            + "- 不要因为它不如 5 分案例完整，就直接判 `3`。\n"
+            + "- 如果回复已回答核心问题，且关键要求基本满足，应优先保护 `4`。\n"
+            + "- `classification` 只能输出 `3` 或 `4`。\n"
+            + "- `analysis` 只需简短说明：最强的降分证据是什么；它是否属于致命缺陷；最终为何判 3 或 4。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 只能是 3 或 4,\n'
+            + '  "reason": "从可选原因标签中选择一个",\n'
+            + '  "analysis": "用 2-3 句写明：最强的降分证据是什么；它是否属于致命缺陷；最终为何判为 3 或 4。若只是普通缺口，应明确说明仍达到最低满意线" \n'
+            + "}\n"
+        )
+        return prompt
 
     if prompt_version == "boundary_34_refute":
         anchor_instruction = (
@@ -690,6 +814,77 @@ def build_turn_eval_prompt(
            '按 StepA/StepB/StepC 格式说明判断过程，须明确引用上方评分标准中的具体条件')
         + '"\n'
         "}\n"
+    )
+    return prompt
+
+
+def build_turn_eval_refute_followup_prompt(
+    memory: UserMemory,
+    profile: dict,
+    task_context: str,
+    history_window: list[str],
+    assistant_reply: str,
+    initial_classification: int,
+    initial_reason: str,
+    initial_analysis: str,
+) -> str:
+    """Selective-refute 第二遍复核 prompt。"""
+    reason_labels = list(get_reason_to_id().keys())
+    reason_text = "、".join(reason_labels)
+    history_text = "\n".join(history_window) if history_window else "（无历史）"
+    user_reqs = "\n".join(
+        f"  - {r}" for r in memory.user_specific_requirements
+    ) if memory.user_specific_requirements else "  （无特异性要求记录）"
+
+    task_obs_lines = ""
+    if memory.task_specific_observations:
+        relevant = [o for o in memory.task_specific_observations
+                    if task_context and o.task_name in task_context[:50]]
+        others = [o for o in memory.task_specific_observations
+                  if o not in relevant]
+        ordered = relevant + others
+        task_obs_lines = "\n".join(
+            f"  {o.task_name}：{o.observation}" for o in ordered
+        )
+
+    prompt = (
+        "你是一名个性化满意度边界复核员。\n"
+        "这是 selective-refute 的第二遍复核，只在第一遍认为样本接近 3/4 边界时触发。\n"
+        "你的任务不是重新长篇分析，而是检查：第一遍提到的可疑问题，是否真的足以跨过满意/不满意边界。\n\n"
+        "输出只能是：\n"
+        "- `4` = 满意（达到最低满意线）\n"
+        "- `3` = 不满意（未达到最低满意线）\n\n"
+        f"【用户评分摘要】\n"
+        f"评分风格：{memory.scoring_style}\n"
+        f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+        f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+        f"用户特定要求：\n{user_reqs}\n"
+        f"偏好回复形式：{memory.preferred_response_format}\n"
+        + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+        + "\n"
+        + f"【用户画像】{_format_profile(profile)}\n\n"
+        + f"【任务背景】{task_context}\n\n"
+        + f"【最近对话历史】\n{history_text}\n\n"
+        + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+        + f"【第一遍初判】classification={initial_classification}, reason={initial_reason}\n"
+        + f"【第一遍依据】{initial_analysis}\n\n"
+        + f"【可选原因标签】{reason_text}\n\n"
+        + "【复核规则】\n"
+        + "Step 1. 只盯住第一遍提到的可疑点，判断它是否真的是【关键失败】。\n"
+        + "Step 2. 若该问题只是普通缺口、轻度不够细致、仍不影响核心可用性，应保护 `4`。\n"
+        + "Step 3. 只有当该问题确实导致核心问题未被回答、关键要求被忽略，或回复明显低于最低满意线时，才判 `3`。\n"
+        + "Step 4. 给出最终 3/4，并选一个最贴切的原因标签。\n\n"
+        + "注意：\n"
+        + "- 这是复核，不要重新展开完整评分流程。\n"
+        + "- 若第一遍的可疑点并不足以跨过边界，应维持或改判为 `4`。\n"
+        + "- `classification` 只能输出 `3` 或 `4`。\n"
+        + "- `analysis` 只写 1-2 句：该可疑点是否构成关键失败；最终为何判成 3 或 4。\n\n"
+        + "请严格输出 JSON，不要输出其他内容：\n"
+        + "{\n"
+        + '  "classification": 只能是 3 或 4,\n'
+        + '  "reason": "从可选原因标签中选择一个",\n'
+        + '  "analysis": "用 1-2 句写明：第一遍提到的可疑点是否真的足以跨过满意边界，以及最终为何判 3 或 4" \n'
+        + "}\n"
     )
     return prompt
 

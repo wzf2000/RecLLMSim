@@ -69,6 +69,7 @@ from lib.memory import (
     UserMemoryContent,
     build_memory_prompt,
     build_memory_update_prompt,
+    build_turn_eval_refute_followup_prompt,
     build_turn_eval_prompt,
     build_turn_eval_prompt_no_memory,
 )
@@ -148,6 +149,11 @@ def _coerce_prediction_payload(payload: dict) -> dict:
         cls = cls.strip()
         if cls in {"1", "2", "3", "4", "5"}:
             coerced["classification"] = int(cls)
+    needs_review = coerced.get("needs_refute_review")
+    if isinstance(needs_review, str):
+        lowered = needs_review.strip().lower()
+        if lowered in {"true", "false"}:
+            coerced["needs_refute_review"] = lowered == "true"
     return coerced
 
 
@@ -175,6 +181,11 @@ def _recover_structured_output(raw_text: str, response_model: T) -> T | None:
     cls_match = re.search(r'"classification"\s*:\s*"?(?P<cls>[1-5])"?', candidate)
     reason_match = re.search(r'"reason"\s*:\s*"([^"]*)"', candidate)
     analysis_match = re.search(r'"analysis"\s*:\s*"([\s\S]*?)"\s*}', candidate)
+    review_match = re.search(
+        r'"needs_refute_review"\s*:\s*"?(true|false)"?',
+        candidate,
+        flags=re.IGNORECASE,
+    )
 
     analysis = ""
     if analysis_match:
@@ -198,13 +209,14 @@ def _recover_structured_output(raw_text: str, response_model: T) -> T | None:
 
     if cls_match and reason_match and analysis:
         try:
-            return response_model.model_validate(
-                {
-                    "classification": int(cls_match.group("cls")),
-                    "reason": reason_match.group(1).strip(),
-                    "analysis": analysis,
-                }
-            )
+            payload = {
+                "classification": int(cls_match.group("cls")),
+                "reason": reason_match.group(1).strip(),
+                "analysis": analysis,
+            }
+            if review_match:
+                payload["needs_refute_review"] = review_match.group(1).lower() == "true"
+            return response_model.model_validate(payload)
         except Exception:
             return None
 
@@ -313,6 +325,13 @@ class BoundaryTurnPrediction(BaseModel):
     analysis: str
 
 
+class SelectiveBoundaryTurnPrediction(BaseModel):
+    classification: Literal[3, 4]
+    reason: str
+    analysis: str
+    needs_refute_review: bool = False
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # Phase 1: Memory Building
 # ──────────────────────────────────────────────────────────────────────────────
@@ -402,11 +421,28 @@ def _call_predict_turn(
     model: str,
     prompt_version: str = "v2",
     debug_context: str = "",
-) -> TurnPrediction | BoundaryTurnPrediction:
-    is_boundary_prompt = prompt_version in {"boundary_34", "boundary_34_refute"}
-    response_model = BoundaryTurnPrediction if is_boundary_prompt else TurnPrediction
-    temperature = 0.2 if prompt_version == "boundary_34_refute" else (
-        0.3 if prompt_version == "boundary_34" else 0.6
+) -> TurnPrediction | BoundaryTurnPrediction | SelectiveBoundaryTurnPrediction:
+    is_selective_prompt = prompt_version == "boundary_34_selective_refute"
+    is_boundary_prompt = prompt_version in {
+        "boundary_34",
+        "boundary_34_refute",
+        "boundary_34_refute_v2",
+        "boundary_34_selective_refute",
+        "boundary_34_selective_refute_followup",
+    }
+    if is_selective_prompt:
+        response_model = SelectiveBoundaryTurnPrediction
+    elif is_boundary_prompt:
+        response_model = BoundaryTurnPrediction
+    else:
+        response_model = TurnPrediction
+    temperature = (
+        0.2 if prompt_version == "boundary_34_refute" else
+        0.2 if prompt_version == "boundary_34_selective_refute_followup" else
+        0.25 if prompt_version == "boundary_34_refute_v2" else
+        0.25 if prompt_version == "boundary_34_selective_refute" else
+        0.3 if prompt_version == "boundary_34" else
+        0.6
     )
 
     try:
@@ -464,6 +500,118 @@ def _call_predict_turn(
         raise
 
 
+def _predict_turn_with_optional_selective_refute(
+    memory: UserMemory | None,
+    session: SessionData,
+    model: str,
+    history_window: list[str],
+    assistant_reply: str,
+    turn_eval_prompt_version: str,
+    debug_context: str,
+    anchors: list[AnchorTurn] | None = None,
+) -> dict:
+    """统一处理单轮预测，并在 selective 版本下按需触发二次 refute。"""
+    if memory is None:
+        prompt = build_turn_eval_prompt_no_memory(
+            profile=session.profile,
+            task_context=session.task_context,
+            history_window=list(history_window),
+            assistant_reply=assistant_reply,
+        )
+        pred = _call_predict_turn(
+            prompt,
+            model,
+            prompt_version=turn_eval_prompt_version,
+            debug_context=debug_context,
+        )
+        return {
+            "pred_score": pred.classification,
+            "pred_reason": pred.reason.strip(),
+            "analysis": pred.analysis,
+        }
+
+    first_prompt = build_turn_eval_prompt(
+        memory=memory,
+        profile=session.profile,
+        task_context=session.task_context,
+        history_window=list(history_window),
+        assistant_reply=assistant_reply,
+        anchor_turns=anchors,
+        prompt_version=turn_eval_prompt_version,
+    )
+    pred = _call_predict_turn(
+        first_prompt,
+        model,
+        prompt_version=turn_eval_prompt_version,
+        debug_context=debug_context,
+    )
+
+    if turn_eval_prompt_version != "boundary_34_selective_refute":
+        return {
+            "pred_score": pred.classification,
+            "pred_reason": pred.reason.strip(),
+            "analysis": pred.analysis,
+        }
+
+    assert isinstance(pred, SelectiveBoundaryTurnPrediction)
+    result = {
+        "pred_score": pred.classification,
+        "pred_reason": pred.reason.strip(),
+        "analysis": pred.analysis,
+        "analysis_first_pass": pred.analysis,
+        "selective_refute_triggered": pred.needs_refute_review,
+        "selective_refute_applied": False,
+        "selective_refute_initial_score": pred.classification,
+        "selective_refute_initial_reason": pred.reason.strip(),
+    }
+
+    if not pred.needs_refute_review:
+        return result
+
+    followup_prompt = build_turn_eval_refute_followup_prompt(
+        memory=memory,
+        profile=session.profile,
+        task_context=session.task_context,
+        history_window=list(history_window),
+        assistant_reply=assistant_reply,
+        initial_classification=pred.classification,
+        initial_reason=pred.reason.strip(),
+        initial_analysis=pred.analysis,
+    )
+
+    try:
+        followup = _call_predict_turn(
+            followup_prompt,
+            model,
+            prompt_version="boundary_34_selective_refute_followup",
+            debug_context=f"{debug_context}__refute",
+        )
+        assert isinstance(followup, BoundaryTurnPrediction)
+        result.update(
+            {
+                "pred_score": followup.classification,
+                "pred_reason": followup.reason.strip(),
+                "analysis": (
+                    f"[first_pass] {pred.analysis}\n"
+                    f"[refute] {followup.analysis}"
+                ),
+                "analysis_refute": followup.analysis,
+                "selective_refute_applied": True,
+            }
+        )
+    except Exception as e:
+        logger.warning(
+            f"Selective refute follow-up failed for {debug_context}: {e}; "
+            "keeping first-pass decision."
+        )
+        result["analysis"] = (
+            f"[first_pass] {pred.analysis}\n"
+            "[refute] follow-up failed, keep first-pass decision"
+        )
+
+    return result
+
+
 def evaluate_session(
     memory: UserMemory | None,
     session: SessionData,
@@ -504,53 +652,47 @@ def evaluate_session(
                     k=n_anchors,
                 )
 
-            # 构建 prompt
-            if memory is not None:
-                prompt = build_turn_eval_prompt(
-                    memory=memory,
-                    profile=session.profile,
-                    task_context=session.task_context,
-                    history_window=list(history_window),
-                    assistant_reply=utt["content"],
-                    anchor_turns=anchors,
-                    prompt_version=turn_eval_prompt_version,
-                )
-            else:
-                prompt = build_turn_eval_prompt_no_memory(
-                    profile=session.profile,
-                    task_context=session.task_context,
-                    history_window=list(history_window),
-                    assistant_reply=utt["content"],
-                )
-
             debug_context = (
                 f"{block_id}__{os.path.basename(session.file_path)}__turn_{assistant_turn_idx}"
                 if block_id else
                 f"{os.path.basename(session.file_path)}__turn_{assistant_turn_idx}"
             )
-            pred = _call_predict_turn(
-                prompt,
-                model,
-                prompt_version=turn_eval_prompt_version,
+            pred_result = _predict_turn_with_optional_selective_refute(
+                memory=memory,
+                session=session,
+                model=model,
+                history_window=history_window,
+                assistant_reply=utt["content"],
+                turn_eval_prompt_version=turn_eval_prompt_version,
                 debug_context=debug_context,
+                anchors=anchors,
             )
-            pred_reason = pred.reason.strip()
+            pred_reason = pred_result["pred_reason"].strip()
             if pred_reason not in valid_reasons:
                 pred_reason = default_reason
 
             gold_score = session.satisfaction_scores[assistant_turn_idx]
             gold_reason = session.dissatisfaction_reasons[assistant_turn_idx]
 
-            results.append(
-                {
-                    "turn_idx": assistant_turn_idx,
-                    "pred_score": pred.classification,
-                    "pred_reason": pred_reason,
-                    "gold_score": gold_score,
-                    "gold_reason": gold_reason,
-                    "analysis": pred.analysis,
-                }
-            )
+            turn_result = {
+                "turn_idx": assistant_turn_idx,
+                "pred_score": pred_result["pred_score"],
+                "pred_reason": pred_reason,
+                "gold_score": gold_score,
+                "gold_reason": gold_reason,
+                "analysis": pred_result["analysis"],
+            }
+            for optional_key in (
+                "analysis_first_pass",
+                "analysis_refute",
+                "selective_refute_triggered",
+                "selective_refute_applied",
+                "selective_refute_initial_score",
+                "selective_refute_initial_reason",
+            ):
+                if optional_key in pred_result:
+                    turn_result[optional_key] = pred_result[optional_key]
+            results.append(turn_result)
             assistant_turn_idx += 1
 
         # 更新历史窗口（user + assistant 均入窗）
@@ -698,6 +840,16 @@ def run_agent_on_sample(
                 "memory_update_mode": memory_update_mode if with_memory else "no_memory",
                 "turn_eval_prompt_version": turn_eval_prompt_version,
             }
+            for optional_key in (
+                "analysis_first_pass",
+                "analysis_refute",
+                "selective_refute_triggered",
+                "selective_refute_applied",
+                "selective_refute_initial_score",
+                "selective_refute_initial_reason",
+            ):
+                if optional_key in r:
+                    record[optional_key] = r[optional_key]
             if memory_snapshot is not None:
                 record["memory_snapshot"] = memory_snapshot
             all_turn_records.append(record)
@@ -755,27 +907,22 @@ def _evaluate_session_per_turn_update(
                     query_assistant_reply=utt["content"],
                     k=n_anchors,
                 )
-            prompt = build_turn_eval_prompt(
-                memory=memory,
-                profile=session.profile,
-                task_context=session.task_context,
-                history_window=list(history_window),
-                assistant_reply=utt["content"],
-                anchor_turns=anchors,
-                prompt_version=turn_eval_prompt_version,
-            )
             debug_context = (
                 f"{block_id}__{os.path.basename(session.file_path)}__turn_{assistant_turn_idx}"
                 if block_id else
                 f"{os.path.basename(session.file_path)}__turn_{assistant_turn_idx}"
             )
-            pred = _call_predict_turn(
-                prompt,
-                model,
-                prompt_version=turn_eval_prompt_version,
+            pred_result = _predict_turn_with_optional_selective_refute(
+                memory=memory,
+                session=session,
+                model=model,
+                history_window=history_window,
+                assistant_reply=utt["content"],
+                turn_eval_prompt_version=turn_eval_prompt_version,
                 debug_context=debug_context,
+                anchors=anchors,
             )
-            pred_reason = pred.reason.strip()
+            pred_reason = pred_result["pred_reason"].strip()
             if pred_reason not in valid_reasons:
                 pred_reason = default_reason
 
@@ -784,12 +931,22 @@ def _evaluate_session_per_turn_update(
 
             turn_result = {
                 "turn_idx": assistant_turn_idx,
-                "pred_score": pred.classification,
+                "pred_score": pred_result["pred_score"],
                 "pred_reason": pred_reason,
                 "gold_score": gold_score,
                 "gold_reason": gold_reason,
-                "analysis": pred.analysis,
+                "analysis": pred_result["analysis"],
             }
+            for optional_key in (
+                "analysis_first_pass",
+                "analysis_refute",
+                "selective_refute_triggered",
+                "selective_refute_applied",
+                "selective_refute_initial_score",
+                "selective_refute_initial_reason",
+            ):
+                if optional_key in pred_result:
+                    turn_result[optional_key] = pred_result[optional_key]
             results.append(turn_result)
 
             # 逐轮更新记忆：用原始 dict 列表构造 mini_session
@@ -1012,6 +1169,18 @@ def parse_args() -> ArgumentParser:
         help="最多处理的 block 数量（<=0 表示不限，用于调试）",
     )
     parser.add_argument(
+        "--limit_users",
+        type=int,
+        default=0,
+        help="最多处理的用户数量（<=0 表示不限；按用户子集截取，优先于 block limit 使用）",
+    )
+    parser.add_argument(
+        "--user_offset",
+        type=int,
+        default=0,
+        help="按用户子集截取时的起始偏移（默认 0，即从第一个用户开始）",
+    )
+    parser.add_argument(
         "--no_memory",
         action="store_true",
         help=(
@@ -1052,12 +1221,21 @@ def parse_args() -> ArgumentParser:
         "--turn_eval_prompt_version",
         type=str,
         default="v2",
-        choices=["v2", "qwen_short", "boundary_34", "boundary_34_refute"],
+        choices=[
+            "v2",
+            "qwen_short",
+            "boundary_34",
+            "boundary_34_refute",
+            "boundary_34_refute_v2",
+            "boundary_34_selective_refute",
+        ],
         help=(
             "turn evaluation prompt 版本。"
             "v2 为原始 rubric prompt；qwen_short 为面向 Qwen3-8B 的短 checklist prompt；"
             "boundary_34 仅围绕 3/4 满意边界判断，并只输出 3 或 4；"
-            "boundary_34_refute 会先做反证检查，再决定是否给 4。"
+            "boundary_34_refute 会先做反证检查，再决定是否给 4；"
+            "boundary_34_refute_v2 为更温和的 refute 版本，只在存在明确致命缺陷时判 3；"
+            "boundary_34_selective_refute 先做温和初判，只对边界样本触发第二遍 refute。"
         ),
     )
     return parser
@@ -1113,6 +1291,19 @@ def main() -> None:
 
     stats = dataset_stats(samples)
     logger.info(f"Dataset stats: {stats}")
+
+    if args.limit_users > 0:
+        users_in_order = list(dict.fromkeys(s.user for s in samples))
+        start = max(args.user_offset, 0)
+        end = start + args.limit_users
+        selected_users = users_in_order[start:end]
+        selected_user_set = set(selected_users)
+        samples = [s for s in samples if s.user in selected_user_set]
+        logger.info(
+            f"Limiting to {len(selected_users)} users (offset={start}), "
+            f"resulting in {len(samples)} blocks."
+        )
+        logger.info(f"Selected users: {selected_users}")
 
     if args.limit > 0:
         samples = samples[: args.limit]

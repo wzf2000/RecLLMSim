@@ -19,9 +19,11 @@ max_workers="${max_workers:-8}"
 memory_cache_dir="${memory_cache_dir:-outputs/personalized/memory_cache}"
 min_history_sessions="${min_history_sessions:-1}"
 limit="${limit:-0}"                    # <=0 = 不限制，>0 = 调试用
+limit_users="${limit_users:-0}"        # <=0 = 不限制，>0 = 按用户数量截取
+user_offset="${user_offset:-0}"        # 用户子集起始偏移
 output_jsonl="${output_jsonl:-}"        # 留空则自动命名
 n_anchors="${n_anchors:-0}"            # >0 时每轮插入 k 个 few-shot anchor turns
-turn_eval_prompt_version="${turn_eval_prompt_version:-v2}"  # v2 / qwen_short / boundary_34 / boundary_34_refute
+turn_eval_prompt_version="${turn_eval_prompt_version:-v2}"  # v2 / qwen_short / boundary_34 / boundary_34_refute / boundary_34_refute_v2 / boundary_34_selective_refute
 
 # 可选 flag
 extra_args=""
@@ -53,6 +55,7 @@ args=(
 )
 [ -n "$output_jsonl" ] && args+=(--output_jsonl "$output_jsonl")
 [ "$limit" -gt 0 ] && args+=(--limit "$limit")
+[ "$limit_users" -gt 0 ] && args+=(--limit_users "$limit_users" --user_offset "$user_offset")
 
 # ── 运行 ──────────────────────────────────────────────────────
 echo "=========================================="
@@ -63,6 +66,7 @@ echo "  memory_update_mode = $memory_update_mode"
 echo "  history_window     = $history_window_size turns"
 echo "  n_anchors          = $n_anchors"
 echo "  turn_eval_prompt   = $turn_eval_prompt_version"
+echo "  limit_users        = $limit_users  (offset=$user_offset)"
 echo "  max_workers        = $max_workers"
 echo "=========================================="
 
