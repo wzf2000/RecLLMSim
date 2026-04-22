@@ -29,7 +29,11 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 from .personalized_data import SessionData
-from .satisfaction_constants import get_reason_to_id
+from .satisfaction_constants import (
+    SATISFIED_REASON,
+    get_dissatisfied_reasons,
+    get_reason_to_id,
+)
 
 # ──────────────────────────────────────────────────────────────────────────────
 # 辅助子模型（OpenAI structured output 兼容：无 dict，所有字段必填）
@@ -178,6 +182,24 @@ def _format_profile(profile: dict) -> str:
 
 def _truncate(text: str, max_chars: int = _MAX_REPLY_CHARS) -> str:
     return text if len(text) <= max_chars else text[:max_chars] + "…"
+
+
+def _format_reason_rule_block() -> str:
+    dissatisfied_reason_text = "、".join(get_dissatisfied_reasons())
+    return (
+        "【原因标签合法性规则】\n"
+        f"- 只有当 classification <= 3 时，reason 才能从以下不满意原因中选择："
+        f"{dissatisfied_reason_text}\n"
+        f"- 只要 classification >= 4，reason 必须输出 `{SATISFIED_REASON}`。\n"
+        "- 如果 reason 与 classification 不一致，则该输出视为不合法。\n"
+    )
+
+
+def _format_reason_json_rule() -> str:
+    return (
+        f'若 classification >= 4 必须输出 "{SATISFIED_REASON}"；'
+        '若 classification <= 3 只能从其余不满意原因标签中选择一个'
+    )
 
 
 def _collect_turns_by_score(
@@ -464,6 +486,8 @@ def build_turn_eval_prompt(
     """
     reason_labels = list(get_reason_to_id().keys())
     reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
     history_text = "\n".join(history_window) if history_window else "（无历史）"
 
     # 组装 task 特定观察（若有当前任务的记录则优先展示）
@@ -535,7 +559,7 @@ def build_turn_eval_prompt(
             + f"【任务背景】{task_context}\n\n"
             + f"【最近对话历史】\n{history_text}\n\n"
             + f"【待评估的助手回复】\n{assistant_reply}\n\n"
-            + f"【可选原因标签】{reason_text}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
             + "【第一遍平衡边界判断规则】\n"
             + "Step 1. 先写出最强的 `3` 证据：\n"
             + "  - 核心问题是否未被回答？\n"
@@ -559,7 +583,7 @@ def build_turn_eval_prompt(
             + "请严格输出 JSON，不要输出其他内容：\n"
             + "{\n"
             + '  "classification": 只能是 3 或 4,\n'
-            + '  "reason": "从可选原因标签中选择一个",\n'
+            + f'  "reason": "{reason_json_rule}",\n'
             + '  "analysis": "用 1-2 句写明：最强的 3 证据是什么，最强的 4 证据是什么，最终哪一边更强，以及是否需要复核",\n'
             + '  "needs_refute_review": true 或 false\n'
             + "}\n"
@@ -598,7 +622,7 @@ def build_turn_eval_prompt(
             + f"【任务背景】{task_context}\n\n"
             + f"【最近对话历史】\n{history_text}\n\n"
             + f"【待评估的助手回复】\n{assistant_reply}\n\n"
-            + f"【可选原因标签】{reason_text}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
             + "【第一遍边界判断规则】\n"
             + "Step 1. 先判断：回复是否真正回答了用户此刻最核心的问题。\n"
             + "  - 若核心问题没有被回答，优先判 `3`。\n"
@@ -619,7 +643,7 @@ def build_turn_eval_prompt(
             + "请严格输出 JSON，不要输出其他内容：\n"
             + "{\n"
             + '  "classification": 只能是 3 或 4,\n'
-            + '  "reason": "从可选原因标签中选择一个",\n'
+            + f'  "reason": "{reason_json_rule}",\n'
             + '  "analysis": "用 1-2 句写明：核心问题是否被回答，关键要求是否被满足，当前可疑点为何属于普通缺口或关键缺口，以及是否需要复核",\n'
             + '  "needs_refute_review": true 或 false\n'
             + "}\n"
@@ -657,7 +681,7 @@ def build_turn_eval_prompt(
             + f"【任务背景】{task_context}\n\n"
             + f"【最近对话历史】\n{history_text}\n\n"
             + f"【待评估的助手回复】\n{assistant_reply}\n\n"
-            + f"【可选原因标签】{reason_text}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
             + "【第一遍只做严格筛选后的边界判断】\n"
             + "Step 1. 判断回复是否回答了核心问题，并基本满足关键约束。\n"
             + "Step 2. 判断它是否达到该用户的满意最低线：达到给 `4`，未达到给 `3`。\n"
@@ -674,7 +698,7 @@ def build_turn_eval_prompt(
             + "请严格输出 JSON，不要输出其他内容：\n"
             + "{\n"
             + '  "classification": 只能是 3 或 4,\n'
-            + '  "reason": "从可选原因标签中选择一个",\n'
+            + f'  "reason": "{reason_json_rule}",\n'
             + '  "analysis": "用 1-2 句写明当前为何判为 3 或 4、唯一的可疑点是什么，以及是否真的需要复核",\n'
             + '  "needs_refute_review": true 或 false\n'
             + "}\n"
@@ -712,7 +736,7 @@ def build_turn_eval_prompt(
             + f"【任务背景】{task_context}\n\n"
             + f"【最近对话历史】\n{history_text}\n\n"
             + f"【待评估的助手回复】\n{assistant_reply}\n\n"
-            + f"【可选原因标签】{reason_text}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
             + "【第一遍只做温和边界判断】\n"
             + "Step 1. 判断回复是否回答了核心问题，并基本满足关键约束。\n"
             + "Step 2. 判断它是否达到该用户的满意最低线：达到给 `4`，未达到给 `3`。\n"
@@ -730,7 +754,7 @@ def build_turn_eval_prompt(
             + "请严格输出 JSON，不要输出其他内容：\n"
             + "{\n"
             + '  "classification": 只能是 3 或 4,\n'
-            + '  "reason": "从可选原因标签中选择一个",\n'
+            + f'  "reason": "{reason_json_rule}",\n'
             + '  "analysis": "用 1-2 句写明当前为何判为 3 或 4，以及是否接近 3/4 边界",\n'
             + '  "needs_refute_review": true 或 false\n'
             + "}\n"
@@ -769,7 +793,7 @@ def build_turn_eval_prompt(
             + f"【任务背景】{task_context}\n\n"
             + f"【最近对话历史】\n{history_text}\n\n"
             + f"【待评估的助手回复】\n{assistant_reply}\n\n"
-            + f"【可选原因标签】{reason_text}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
             + "【先做温和反证，再决定是否给 3】\n"
             + "Step 1. 先判断回复是否已经基本回答了用户的核心问题，并满足关键约束。\n"
             + "Step 2. 再检查是否存在【明确且关键的失败】。只有下面这些情况才足以判 `3`：\n"
@@ -794,7 +818,7 @@ def build_turn_eval_prompt(
             + "请严格输出 JSON，不要输出其他内容：\n"
             + "{\n"
             + '  "classification": 只能是 3 或 4,\n'
-            + '  "reason": "从可选原因标签中选择一个",\n'
+            + f'  "reason": "{reason_json_rule}",\n'
             + '  "analysis": "用 2-3 句写明：最强的降分证据是什么；它是否属于致命缺陷；最终为何判为 3 或 4。若只是普通缺口，应明确说明仍达到最低满意线" \n'
             + "}\n"
         )
@@ -832,7 +856,7 @@ def build_turn_eval_prompt(
             + f"【任务背景】{task_context}\n\n"
             + f"【最近对话历史】\n{history_text}\n\n"
             + f"【待评估的助手回复】\n{assistant_reply}\n\n"
-            + f"【可选原因标签】{reason_text}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
             + "【先做失败检查，再决定是否给 4】\n"
             + "Step 1. 先检查是否存在任何一个【足以降到 3 分】的关键失败。\n"
             + "  重点检查：\n"
@@ -857,7 +881,7 @@ def build_turn_eval_prompt(
             + "请严格输出 JSON，不要输出其他内容：\n"
             + "{\n"
             + '  "classification": 只能是 3 或 4,\n'
-            + '  "reason": "从可选原因标签中选择一个",\n'
+            + f'  "reason": "{reason_json_rule}",\n'
             + '  "analysis": "用 3-5 句写明：最可能把该回复判成 3 的关键缺陷是什么；这个缺陷是否成立；最终为什么判成 3 或 4。若使用参考案例，注明更接近未达满意线案例还是达到满意线案例" \n'
             + "}\n"
         )
@@ -892,7 +916,7 @@ def build_turn_eval_prompt(
             + f"【任务背景】{task_context}\n\n"
             + f"【最近对话历史】\n{history_text}\n\n"
             + f"【待评估的助手回复】\n{assistant_reply}\n\n"
-            + f"【可选原因标签】{reason_text}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
             + "【只按这 3 步判断】\n"
             + "Step 1. 先判断回复是否直接回答了用户问题，并满足关键约束。\n"
             + "Step 2. 再判断它是否达到该用户的【满意最低线】。\n"
@@ -906,7 +930,7 @@ def build_turn_eval_prompt(
             + "请严格输出 JSON，不要输出其他内容：\n"
             + "{\n"
             + '  "classification": 只能是 3 或 4,\n'
-            + '  "reason": "从可选原因标签中选择一个",\n'
+            + f'  "reason": "{reason_json_rule}",\n'
             + '  "analysis": "用 2-4 句写明：是否直接回答问题；是否达到最低满意线；最终为何判为 3 或 4。若使用参考案例，注明更接近满意案例还是不满意案例" \n'
             + "}\n"
         )
@@ -938,7 +962,7 @@ def build_turn_eval_prompt(
             + f"【任务背景】{task_context}\n\n"
             + f"【最近对话历史】\n{history_text}\n\n"
             + f"【待评估的助手回复】\n{assistant_reply}\n\n"
-            + f"【可选原因标签】{reason_text}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
             + "【只按这 3 步判断】\n"
             + "Step 1. 先判断是否达到 4 分基线。\n"
             + "  - 若没有直接回答问题、明显忽略约束、帮助性不足，给 1/2/3。\n"
@@ -949,7 +973,7 @@ def build_turn_eval_prompt(
             + "请严格输出 JSON，不要输出其他内容：\n"
             + "{\n"
             + '  "classification": 1-5 中的整数,\n'
-            + '  "reason": "从可选原因标签中选择一个",\n'
+            + f'  "reason": "{reason_json_rule}",\n'
             + '  "analysis": "用 2-4 句写明：是否过 4 分基线；若过基线，是否满足 5 分门槛；最终分数依据。若使用参考案例，注明案例编号" \n'
             + "}\n"
         )
@@ -976,7 +1000,7 @@ def build_turn_eval_prompt(
         f"【任务背景】{task_context}\n\n"
         f"【最近对话历史】\n{history_text}\n\n"
         f"【待评估的助手回复】\n{assistant_reply}\n\n"
-        f"【可选原因标签】{reason_text}\n\n"
+        f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
         "【评分步骤】请严格按以下顺序推理：\n"
         f"{extra_step}"
         + (
@@ -989,7 +1013,7 @@ def build_turn_eval_prompt(
         "请严格输出 JSON，不要输出其他内容：\n"
         "{\n"
         '  "classification": 1-5 中的整数,\n'
-        '  "reason": "从可选原因标签中选择一个",\n'
+        f'  "reason": "{reason_json_rule}",\n'
         '  "analysis": "'
         + ('按 Step0/Step1/StepA-C 格式说明判断过程，'
            '先给出 rank-match 得到的分数和依据案例编号，再简述 Step 1 的一致性校验'
@@ -1015,6 +1039,8 @@ def build_turn_eval_refute_followup_prompt(
     """Selective-refute 第二遍复核 prompt。"""
     reason_labels = list(get_reason_to_id().keys())
     reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
     history_text = "\n".join(history_window) if history_window else "（无历史）"
     user_reqs = "\n".join(
         f"  - {r}" for r in memory.user_specific_requirements
@@ -1053,7 +1079,7 @@ def build_turn_eval_refute_followup_prompt(
             + f"【待评估的助手回复】\n{assistant_reply}\n\n"
             + f"【第一遍初判】classification={initial_classification}, reason={initial_reason}\n"
             + f"【第一遍依据】{initial_analysis}\n\n"
-            + f"【可选原因标签】{reason_text}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
             + "【复核规则】\n"
             + "Step 1. 先把第一遍的可疑点复述成一个明确问题：它到底是不是关键失败？\n"
             + "Step 2. 默认保持第一遍初判，只有在发现【明确反证】时才允许改判。\n"
@@ -1068,7 +1094,7 @@ def build_turn_eval_refute_followup_prompt(
             + "请严格输出 JSON，不要输出其他内容：\n"
             + "{\n"
             + '  "classification": 只能是 3 或 4,\n'
-            + '  "reason": "从可选原因标签中选择一个",\n'
+            + f'  "reason": "{reason_json_rule}",\n'
             + '  "analysis": "用 1-2 句写明：是否发现足以推翻第一遍初判的明确反证；最终为何维持或改判" \n'
             + "}\n"
         )
@@ -1095,7 +1121,7 @@ def build_turn_eval_refute_followup_prompt(
         + f"【待评估的助手回复】\n{assistant_reply}\n\n"
         + f"【第一遍初判】classification={initial_classification}, reason={initial_reason}\n"
         + f"【第一遍依据】{initial_analysis}\n\n"
-        + f"【可选原因标签】{reason_text}\n\n"
+        + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
         + "【复核规则】\n"
         + "Step 1. 只盯住第一遍提到的可疑点，判断它是否真的是【关键失败】。\n"
         + "Step 2. 若该问题只是普通缺口、轻度不够细致、仍不影响核心可用性，应保护 `4`。\n"
@@ -1109,7 +1135,7 @@ def build_turn_eval_refute_followup_prompt(
         + "请严格输出 JSON，不要输出其他内容：\n"
         + "{\n"
         + '  "classification": 只能是 3 或 4,\n'
-        + '  "reason": "从可选原因标签中选择一个",\n'
+        + f'  "reason": "{reason_json_rule}",\n'
         + '  "analysis": "用 1-2 句写明：第一遍提到的可疑点是否真的足以跨过满意边界，以及最终为何判 3 或 4" \n'
         + "}\n"
     )
@@ -1125,22 +1151,24 @@ def build_turn_eval_prompt_no_memory(
     """无记忆 baseline prompt（保持不变）。"""
     reason_labels = list(get_reason_to_id().keys())
     reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
     history_text = "\n".join(history_window) if history_window else "（无历史对话）"
 
     prompt = (
         "你是一名会进行细粒度对话质量分析的评估员。\n"
         "请基于给定信息先进行推理，再同时预测：\n"
         "1) 当前用户对助手回复的满意度分数（1-5）\n"
-        '2) 潜在原因（必须从给定标签中选择，包含【满意】）\n\n'
+        "2) 潜在原因（只有在分数 <=3 时才选择不满意原因；分数 >=4 时必须为【满意】）\n\n"
         f"【用户画像】{_format_profile(profile)}\n\n"
         f"【任务背景】{task_context}\n\n"
         f"【最近对话历史】\n{history_text}\n\n"
         f"【当前助手回复】{assistant_reply}\n\n"
-        f"【可选原因标签】{reason_text}\n\n"
+        f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
         "请严格输出 JSON，不要输出其他内容：\n"
         "{\n"
         '  "classification": 1-5 中的整数,\n'
-        '  "reason": "从可选原因标签中选择一个",\n'
+        f'  "reason": "{reason_json_rule}",\n'
         '  "analysis": "你的详细推理过程"\n'
         "}\n"
     )

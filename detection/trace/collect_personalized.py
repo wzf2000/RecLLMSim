@@ -79,7 +79,11 @@ from lib.personalized_data import (
     build_personalized_samples,
     dataset_stats,
 )
-from lib.satisfaction_constants import get_reason_to_id
+from lib.satisfaction_constants import (
+    get_reason_to_id,
+    is_reason_valid_for_score,
+    normalize_reason_for_score,
+)
 
 MemoryUpdateMode = Literal["none", "per_session", "per_session_oracle", "per_turn"]
 
@@ -332,6 +336,26 @@ class SelectiveBoundaryTurnPrediction(BaseModel):
     needs_refute_review: bool = False
 
 
+def _normalize_pred_reason(
+    pred_score: int,
+    pred_reason: str,
+    default_reason: str,
+    debug_context: str = "",
+) -> str:
+    normalized = normalize_reason_for_score(
+        pred_score,
+        pred_reason,
+        default_reason=default_reason,
+    )
+    if not is_reason_valid_for_score(pred_score, pred_reason):
+        context = f" for {debug_context}" if debug_context else ""
+        logger.warning(
+            f"Normalized invalid reason/score pair{context}: "
+            f"score={pred_score}, raw_reason={pred_reason} -> {normalized}"
+        )
+    return normalized
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # Phase 1: Memory Building
 # ──────────────────────────────────────────────────────────────────────────────
@@ -528,19 +552,19 @@ def _should_trigger_selective_refute(
         if pred.classification == 3:
             return reason in {"不够细致", "其它"}
         if pred.classification == 4:
-            return reason in {"不满足需求", "其它", "不可用"}
+            return True
         return False
     if prompt_version == "boundary_34_selective_refute_v3":
         if pred.classification == 3:
             return reason in {"不够细致", "其它"}
         if pred.classification == 4:
-            return reason in {"不满足需求", "其它", "不可用"}
+            return True
         return False
     if prompt_version == "boundary_34_selective_refute_v4":
         if pred.classification == 3:
             return reason in {"不够细致", "其它"}
         if pred.classification == 4:
-            return reason in {"不满足需求", "其它", "不可用"}
+            return True
         return False
 
     return False
@@ -554,6 +578,7 @@ def _predict_turn_with_optional_selective_refute(
     assistant_reply: str,
     turn_eval_prompt_version: str,
     debug_context: str,
+    default_reason: str,
     anchors: list[AnchorTurn] | None = None,
 ) -> dict:
     """统一处理单轮预测，并在 selective 版本下按需触发二次 refute。"""
@@ -570,9 +595,15 @@ def _predict_turn_with_optional_selective_refute(
             prompt_version=turn_eval_prompt_version,
             debug_context=debug_context,
         )
+        pred_reason = _normalize_pred_reason(
+            pred.classification,
+            pred.reason.strip(),
+            default_reason=default_reason,
+            debug_context=debug_context,
+        )
         return {
             "pred_score": pred.classification,
-            "pred_reason": pred.reason.strip(),
+            "pred_reason": pred_reason,
             "analysis": pred.analysis,
         }
 
@@ -591,6 +622,12 @@ def _predict_turn_with_optional_selective_refute(
         prompt_version=turn_eval_prompt_version,
         debug_context=debug_context,
     )
+    pred_reason = _normalize_pred_reason(
+        pred.classification,
+        pred.reason.strip(),
+        default_reason=default_reason,
+        debug_context=debug_context,
+    )
 
     if turn_eval_prompt_version not in {
         "boundary_34_selective_refute",
@@ -600,7 +637,7 @@ def _predict_turn_with_optional_selective_refute(
     }:
         return {
             "pred_score": pred.classification,
-            "pred_reason": pred.reason.strip(),
+            "pred_reason": pred_reason,
             "analysis": pred.analysis,
         }
 
@@ -608,13 +645,13 @@ def _predict_turn_with_optional_selective_refute(
     should_trigger = _should_trigger_selective_refute(pred, turn_eval_prompt_version)
     result = {
         "pred_score": pred.classification,
-        "pred_reason": pred.reason.strip(),
+        "pred_reason": pred_reason,
         "analysis": pred.analysis,
         "analysis_first_pass": pred.analysis,
         "selective_refute_triggered": should_trigger,
         "selective_refute_applied": False,
         "selective_refute_initial_score": pred.classification,
-        "selective_refute_initial_reason": pred.reason.strip(),
+        "selective_refute_initial_reason": pred_reason,
         "selective_refute_model_flag": pred.needs_refute_review,
     }
 
@@ -628,7 +665,7 @@ def _predict_turn_with_optional_selective_refute(
         history_window=list(history_window),
         assistant_reply=assistant_reply,
         initial_classification=pred.classification,
-        initial_reason=pred.reason.strip(),
+        initial_reason=pred_reason,
         initial_analysis=pred.analysis,
         prompt_version=turn_eval_prompt_version,
     )
@@ -650,10 +687,16 @@ def _predict_turn_with_optional_selective_refute(
             debug_context=f"{debug_context}__refute",
         )
         assert isinstance(followup, BoundaryTurnPrediction)
+        followup_reason = _normalize_pred_reason(
+            followup.classification,
+            followup.reason.strip(),
+            default_reason=default_reason,
+            debug_context=f"{debug_context}__refute",
+        )
         result.update(
             {
                 "pred_score": followup.classification,
-                "pred_reason": followup.reason.strip(),
+                "pred_reason": followup_reason,
                 "analysis": (
                     f"[first_pass] {pred.analysis}\n"
                     f"[refute] {followup.analysis}"
@@ -728,6 +771,7 @@ def evaluate_session(
                 assistant_reply=utt["content"],
                 turn_eval_prompt_version=turn_eval_prompt_version,
                 debug_context=debug_context,
+                default_reason=default_reason,
                 anchors=anchors,
             )
             pred_reason = pred_result["pred_reason"].strip()
@@ -985,6 +1029,7 @@ def _evaluate_session_per_turn_update(
                 assistant_reply=utt["content"],
                 turn_eval_prompt_version=turn_eval_prompt_version,
                 debug_context=debug_context,
+                default_reason=default_reason,
                 anchors=anchors,
             )
             pred_reason = pred_result["pred_reason"].strip()
