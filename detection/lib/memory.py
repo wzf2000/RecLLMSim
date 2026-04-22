@@ -436,7 +436,7 @@ def build_turn_eval_prompt(
     prompt_version: Literal[
         "v2", "qwen_short", "boundary_34", "boundary_34_refute", "boundary_34_refute_v2",
         "boundary_34_selective_refute", "boundary_34_selective_refute_v2",
-        "boundary_34_selective_refute_v3",
+        "boundary_34_selective_refute_v3", "boundary_34_selective_refute_v4",
     ] = "v2",
 ) -> str:
     """
@@ -460,6 +460,7 @@ def build_turn_eval_prompt(
       - "boundary_34_selective_refute": 第一遍温和判 3/4，并显式标记是否需要二次反证复核
       - "boundary_34_selective_refute_v2": selective 的收紧版本，只在高不确定边界样本上触发二判
       - "boundary_34_selective_refute_v3": 仅优化 first-pass 的边界措辞，gate 和二判保持 v2
+      - "boundary_34_selective_refute_v4": 平衡 first-pass，强制同时考虑最强的 3/4 证据
     """
     reason_labels = list(get_reason_to_id().keys())
     reason_text = "、".join(reason_labels)
@@ -500,6 +501,70 @@ def build_turn_eval_prompt(
 
     anchor_block = _format_anchor_turns(anchor_turns or [])
     anchor_section = (anchor_block + "\n") if anchor_block else ""
+
+    if prompt_version == "boundary_34_selective_refute_v4":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 只把案例当作 3/4 边界参考：真实分数 <=3 是【未达满意线案例】，>=4 是【达到满意线案例】。\n"
+            "2. 不要只看一边的案例。若当前回复更像未达满意线案例，要敢于判 `3`；若更像达到满意线案例，也不要因不够优秀就压成 `3`。\n"
+            "3. 案例用于校准边界，不用于追求 5 分标准。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度边界评估员。\n"
+            "这是 selective-refute v4 的第一遍初判：目标是尽可能平衡地判断当前助手回复是否达到该用户的【满意最低线】。\n"
+            "输出只能是：\n"
+            "- `4` = 满意（达到最低满意线）\n"
+            "- `3` = 不满意（未达到最低满意线）\n\n"
+            "本题不要默认保护 `4`，也不要默认压成 `3`。你必须同时考虑：\n"
+            "- 最强的“为什么它应该是 `3`”的证据\n"
+            "- 最强的“为什么它至少已经到 `4`”的证据\n"
+            "再决定哪一边更强。\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+            f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n\n"
+            + "【第一遍平衡边界判断规则】\n"
+            + "Step 1. 先写出最强的 `3` 证据：\n"
+            + "  - 核心问题是否未被回答？\n"
+            + "  - 关键约束 / 关键任务目标 / 用户特别在意的要求是否被漏掉？\n"
+            + "  - 缺口是否已经明显影响可用性，导致用户仍会觉得没被满足？\n"
+            + "Step 2. 再写出最强的 `4` 证据：\n"
+            + "  - 核心问题是否已经被回答？\n"
+            + "  - 关键要求是否已经基本满足？\n"
+            + "  - 剩余问题是否只是普通缺口，而不阻止用户把它当作基本满意的回复？\n"
+            + "Step 3. 明确比较这两边哪一边更强：\n"
+            + "  - 若最强的 `3` 证据更强，判 `3`\n"
+            + "  - 若最强的 `4` 证据更强，判 `4`\n"
+            + "Step 4. 只有当两边最强证据真的势均力敌时，才允许 `needs_refute_review=true`。\n"
+            + "  - 明显偏向任一边时必须输出 `needs_refute_review=false`\n\n"
+            + "注意：\n"
+            + "- `不够细致` 既可能只是普通缺口，也可能已经影响可用性；不要默认把它归到任何一边。\n"
+            + "- 友好语气、表面帮助性不能替代“核心问题是否真正回答”。\n"
+            + "- 不要因为不是 5 分水平就压成 `3`，也不要因为看起来有帮助就放成 `4`。\n"
+            + "- `classification` 只能输出 `3` 或 `4`。\n"
+            + "- `analysis` 只需 1-2 句，必须同时提到：最强的 `3` 证据、最强的 `4` 证据，以及最终哪一边更强。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 只能是 3 或 4,\n'
+            + '  "reason": "从可选原因标签中选择一个",\n'
+            + '  "analysis": "用 1-2 句写明：最强的 3 证据是什么，最强的 4 证据是什么，最终哪一边更强，以及是否需要复核",\n'
+            + '  "needs_refute_review": true 或 false\n'
+            + "}\n"
+        )
+        return prompt
 
     if prompt_version == "boundary_34_selective_refute_v3":
         anchor_instruction = (

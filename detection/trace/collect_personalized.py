@@ -426,6 +426,7 @@ def _call_predict_turn(
         "boundary_34_selective_refute",
         "boundary_34_selective_refute_v2",
         "boundary_34_selective_refute_v3",
+        "boundary_34_selective_refute_v4",
     }
     is_boundary_prompt = prompt_version in {
         "boundary_34",
@@ -434,6 +435,7 @@ def _call_predict_turn(
         "boundary_34_selective_refute",
         "boundary_34_selective_refute_v2",
         "boundary_34_selective_refute_v3",
+        "boundary_34_selective_refute_v4",
         "boundary_34_selective_refute_followup",
         "boundary_34_selective_refute_v2_followup",
     }
@@ -451,6 +453,7 @@ def _call_predict_turn(
         0.25 if prompt_version == "boundary_34_selective_refute" else
         0.25 if prompt_version == "boundary_34_selective_refute_v2" else
         0.25 if prompt_version == "boundary_34_selective_refute_v3" else
+        0.25 if prompt_version == "boundary_34_selective_refute_v4" else
         0.3 if prompt_version == "boundary_34" else
         0.6
     )
@@ -533,6 +536,12 @@ def _should_trigger_selective_refute(
         if pred.classification == 4:
             return reason in {"不满足需求", "其它", "不可用"}
         return False
+    if prompt_version == "boundary_34_selective_refute_v4":
+        if pred.classification == 3:
+            return reason in {"不够细致", "其它"}
+        if pred.classification == 4:
+            return reason in {"不满足需求", "其它", "不可用"}
+        return False
 
     return False
 
@@ -587,6 +596,7 @@ def _predict_turn_with_optional_selective_refute(
         "boundary_34_selective_refute",
         "boundary_34_selective_refute_v2",
         "boundary_34_selective_refute_v3",
+        "boundary_34_selective_refute_v4",
     }:
         return {
             "pred_score": pred.classification,
@@ -625,7 +635,11 @@ def _predict_turn_with_optional_selective_refute(
 
     followup_prompt_version = (
         "boundary_34_selective_refute_v2_followup"
-        if turn_eval_prompt_version in {"boundary_34_selective_refute_v2", "boundary_34_selective_refute_v3"}
+        if turn_eval_prompt_version in {
+            "boundary_34_selective_refute_v2",
+            "boundary_34_selective_refute_v3",
+            "boundary_34_selective_refute_v4",
+        }
         else "boundary_34_selective_refute_followup"
     )
     try:
@@ -1282,6 +1296,7 @@ def parse_args() -> ArgumentParser:
             "boundary_34_selective_refute",
             "boundary_34_selective_refute_v2",
             "boundary_34_selective_refute_v3",
+            "boundary_34_selective_refute_v4",
         ],
         help=(
             "turn evaluation prompt 版本。"
@@ -1291,7 +1306,8 @@ def parse_args() -> ArgumentParser:
             "boundary_34_refute_v2 为更温和的 refute 版本，只在存在明确致命缺陷时判 3；"
             "boundary_34_selective_refute 先做温和初判，只对边界样本触发第二遍 refute；"
             "boundary_34_selective_refute_v2 会进一步收紧触发条件，并让第二遍默认维持初判；"
-            "boundary_34_selective_refute_v3 仅优化 first-pass 的 3/4 边界措辞，其余机制保持 v2。"
+            "boundary_34_selective_refute_v3 仅优化 first-pass 的 3/4 边界措辞，其余机制保持 v2；"
+            "boundary_34_selective_refute_v4 以更平衡的 first-pass 同时比较最强的 3/4 证据。"
         ),
     )
     return parser
