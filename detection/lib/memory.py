@@ -435,7 +435,8 @@ def build_turn_eval_prompt(
     anchor_turns: list | None = None,
     prompt_version: Literal[
         "v2", "qwen_short", "boundary_34", "boundary_34_refute", "boundary_34_refute_v2",
-        "boundary_34_selective_refute",
+        "boundary_34_selective_refute", "boundary_34_selective_refute_v2",
+        "boundary_34_selective_refute_v3",
     ] = "v2",
 ) -> str:
     """
@@ -457,6 +458,8 @@ def build_turn_eval_prompt(
       - "boundary_34_refute": 在 3/4 边界上先做反证检查，抑制默认判 4
       - "boundary_34_refute_v2": 更温和的 refute 版本，仅在存在明确致命缺陷时判 3
       - "boundary_34_selective_refute": 第一遍温和判 3/4，并显式标记是否需要二次反证复核
+      - "boundary_34_selective_refute_v2": selective 的收紧版本，只在高不确定边界样本上触发二判
+      - "boundary_34_selective_refute_v3": 仅优化 first-pass 的边界措辞，gate 和二判保持 v2
     """
     reason_labels = list(get_reason_to_id().keys())
     reason_text = "、".join(reason_labels)
@@ -497,6 +500,121 @@ def build_turn_eval_prompt(
 
     anchor_block = _format_anchor_turns(anchor_turns or [])
     anchor_section = (anchor_block + "\n") if anchor_block else ""
+
+    if prompt_version == "boundary_34_selective_refute_v3":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 只把案例当作 3/4 边界参考：真实分数 <=3 是【未达满意线案例】，>=4 是【达到满意线案例】。\n"
+            "2. 优先比较当前回复是否已经达到“这个用户愿意认为它基本有用、基本满意”的最低线，而不是和优秀案例比完整度。\n"
+            "3. 若当前回复已经明显站在某一边，不要因为它不够优秀就把它拖回边界附近。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度边界评估员。\n"
+            "这是 selective-refute v3 的第一遍初判：先尽可能准确地判断当前助手回复是否达到该用户的【满意最低线】。\n"
+            "输出只能是：\n"
+            "- `4` = 满意（达到最低满意线）\n"
+            "- `3` = 不满意（未达到最低满意线）\n\n"
+            "这一步最重要的不是区分“优秀”和“一般”，而是区分：\n"
+            "- 只是普通缺口、还不够细，但已经达到最低满意线\n"
+            "- 真正没过满意线，用户仍会觉得不满意\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+            f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n\n"
+            + "【第一遍边界判断规则】\n"
+            + "Step 1. 先判断：回复是否真正回答了用户此刻最核心的问题。\n"
+            + "  - 若核心问题没有被回答，优先判 `3`。\n"
+            + "Step 2. 再判断：关键约束、关键任务目标、该用户特别在意的要求，是否至少被基本满足。\n"
+            + "  - 若关键要求被漏掉，且这会明显影响可用性，优先判 `3`。\n"
+            + "Step 3. 只有在核心问题已回答、关键要求也基本满足时，才去看剩余缺口属于哪类：\n"
+            + "  - 【普通缺口】= 细节不足、还可更完整、还可更个性化，但不妨碍用户把它当作基本满意的答复，此时应判 `4`\n"
+            + "  - 【关键缺口】= 缺失会让用户仍觉得没被满足、没法直接用、或明显偏离要求，此时应判 `3`\n"
+            + "Step 4. 只有当你真的无法判断某个唯一可疑点到底是普通缺口还是关键缺口时，才允许 `needs_refute_review=true`。\n"
+            + "  - 明显满意或明显不满意都必须输出 `needs_refute_review=false`\n"
+            + "  - `needs_refute_review=true` 必须是少数情况\n\n"
+            + "注意：\n"
+            + "- `不够细致` 默认更接近【普通缺口】，除非它已经严重到让回复不可用或明显没满足核心要求。\n"
+            + "- 不要因为它不是 5 分水平，就把一个本来已经过线的回复判成 3。\n"
+            + "- 也不要因为回复语气友好、表面在帮忙，就把一个没回答核心问题的回复判成 4。\n"
+            + "- `classification` 只能输出 `3` 或 `4`。\n"
+            + "- `analysis` 只需 1-2 句，明确写出：核心问题是否被回答；关键要求是否被满足；当前可疑点为何属于普通缺口或关键缺口。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 只能是 3 或 4,\n'
+            + '  "reason": "从可选原因标签中选择一个",\n'
+            + '  "analysis": "用 1-2 句写明：核心问题是否被回答，关键要求是否被满足，当前可疑点为何属于普通缺口或关键缺口，以及是否需要复核",\n'
+            + '  "needs_refute_review": true 或 false\n'
+            + "}\n"
+        )
+        return prompt
+
+    if prompt_version == "boundary_34_selective_refute_v2":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 只把案例理解为边界参考：真实分数 <=3 是【未达满意线案例】，>=4 是【达到满意线案例】。\n"
+            "2. 只有当当前回复与两类案例都存在明显相似点、边界仍拿不准时，才考虑触发复核。\n"
+            "3. 若当前回复整体明显站在某一边，就不要触发复核。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度边界评估员。\n"
+            "这是 selective-refute v2 的第一遍初判：先温和判断当前助手回复是否达到该用户的【满意最低线】。\n"
+            "输出只能是：\n"
+            "- `4` = 满意（达到最低满意线）\n"
+            "- `3` = 不满意（未达到最低满意线）\n\n"
+            "除分数外，你还需要判断：这个样本是否【高度接近 3/4 边界】，需要进入第二遍复核。\n"
+            "注意，`needs_refute_review=true` 必须是少数情况；只有在你确实拿不准时才允许触发。\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+            f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n\n"
+            + "【第一遍只做严格筛选后的边界判断】\n"
+            + "Step 1. 判断回复是否回答了核心问题，并基本满足关键约束。\n"
+            + "Step 2. 判断它是否达到该用户的满意最低线：达到给 `4`，未达到给 `3`。\n"
+            + "Step 3. 再判断是否真的需要复核。只有下面两类高不确定情形才允许 `needs_refute_review=true`：\n"
+            + "  - 当前判成 `3`，但你怀疑问题主要只是“边缘性的细节不足”，未必真的低于满意线\n"
+            + "  - 当前判成 `4`，但你怀疑它可能漏掉了一个关键要求，是否仍算满意拿不准\n"
+            + "Step 4. 若主要证据已经明显站在一边，必须输出 `needs_refute_review=false`。\n\n"
+            + "注意：\n"
+            + "- 不要因为“还可以更好”就触发复核。\n"
+            + "- 不要因为理由是 `不够细致` 就自动触发复核。\n"
+            + "- 只有当一个具体可疑点是否属于关键失败拿不准时，才触发复核。\n"
+            + "- `classification` 只能输出 `3` 或 `4`。\n"
+            + "- `analysis` 只需 1-2 句，明确写出：当前边界判断是什么；可疑点是什么；是否真的需要复核。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 只能是 3 或 4,\n'
+            + '  "reason": "从可选原因标签中选择一个",\n'
+            + '  "analysis": "用 1-2 句写明当前为何判为 3 或 4、唯一的可疑点是什么，以及是否真的需要复核",\n'
+            + '  "needs_refute_review": true 或 false\n'
+            + "}\n"
+        )
+        return prompt
 
     if prompt_version == "boundary_34_selective_refute":
         anchor_instruction = (
@@ -827,6 +945,7 @@ def build_turn_eval_refute_followup_prompt(
     initial_classification: int,
     initial_reason: str,
     initial_analysis: str,
+    prompt_version: Literal["boundary_34_selective_refute", "boundary_34_selective_refute_v2"] = "boundary_34_selective_refute",
 ) -> str:
     """Selective-refute 第二遍复核 prompt。"""
     reason_labels = list(get_reason_to_id().keys())
@@ -846,6 +965,49 @@ def build_turn_eval_refute_followup_prompt(
         task_obs_lines = "\n".join(
             f"  {o.task_name}：{o.observation}" for o in ordered
         )
+
+    if prompt_version == "boundary_34_selective_refute_v2":
+        prompt = (
+            "你是一名个性化满意度边界复核员。\n"
+            "这是 selective-refute v2 的第二遍复核，只在第一遍认为样本高度接近 3/4 边界时触发。\n"
+            "你的任务不是重新完整评分，而是核实：第一遍指出的唯一可疑点，是否真的足以推翻第一遍初判。\n\n"
+            "输出只能是：\n"
+            "- `4` = 满意（达到最低满意线）\n"
+            "- `3` = 不满意（未达到最低满意线）\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+            f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【第一遍初判】classification={initial_classification}, reason={initial_reason}\n"
+            + f"【第一遍依据】{initial_analysis}\n\n"
+            + f"【可选原因标签】{reason_text}\n\n"
+            + "【复核规则】\n"
+            + "Step 1. 先把第一遍的可疑点复述成一个明确问题：它到底是不是关键失败？\n"
+            + "Step 2. 默认保持第一遍初判，只有在发现【明确反证】时才允许改判。\n"
+            + "Step 3. 如果第一遍判 `3`：只有当你能明确指出核心问题已被回答、关键约束也已满足时，才可改为 `4`。\n"
+            + "Step 4. 如果第一遍判 `4`：只有当你能明确指出关键要求被漏掉、核心问题未被回答，或回复明显低于最低满意线时，才可改为 `3`。\n"
+            + "Step 5. 不要因为模糊的“也许够了”或“还可以更好”就改判；改判必须有明确证据。\n\n"
+            + "注意：\n"
+            + "- 这是核实，不是重新打分。\n"
+            + "- 第二遍不应默认保护 `4`，也不应默认推翻第一遍；默认动作是维持初判。\n"
+            + "- `classification` 只能输出 `3` 或 `4`。\n"
+            + "- `analysis` 只写 1-2 句：是否发现足以推翻初判的明确反证；最终为何维持或改判。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 只能是 3 或 4,\n'
+            + '  "reason": "从可选原因标签中选择一个",\n'
+            + '  "analysis": "用 1-2 句写明：是否发现足以推翻第一遍初判的明确反证；最终为何维持或改判" \n'
+            + "}\n"
+        )
+        return prompt
 
     prompt = (
         "你是一名个性化满意度边界复核员。\n"

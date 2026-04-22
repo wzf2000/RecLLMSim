@@ -422,13 +422,20 @@ def _call_predict_turn(
     prompt_version: str = "v2",
     debug_context: str = "",
 ) -> TurnPrediction | BoundaryTurnPrediction | SelectiveBoundaryTurnPrediction:
-    is_selective_prompt = prompt_version == "boundary_34_selective_refute"
+    is_selective_prompt = prompt_version in {
+        "boundary_34_selective_refute",
+        "boundary_34_selective_refute_v2",
+        "boundary_34_selective_refute_v3",
+    }
     is_boundary_prompt = prompt_version in {
         "boundary_34",
         "boundary_34_refute",
         "boundary_34_refute_v2",
         "boundary_34_selective_refute",
+        "boundary_34_selective_refute_v2",
+        "boundary_34_selective_refute_v3",
         "boundary_34_selective_refute_followup",
+        "boundary_34_selective_refute_v2_followup",
     }
     if is_selective_prompt:
         response_model = SelectiveBoundaryTurnPrediction
@@ -439,8 +446,11 @@ def _call_predict_turn(
     temperature = (
         0.2 if prompt_version == "boundary_34_refute" else
         0.2 if prompt_version == "boundary_34_selective_refute_followup" else
+        0.2 if prompt_version == "boundary_34_selective_refute_v2_followup" else
         0.25 if prompt_version == "boundary_34_refute_v2" else
         0.25 if prompt_version == "boundary_34_selective_refute" else
+        0.25 if prompt_version == "boundary_34_selective_refute_v2" else
+        0.25 if prompt_version == "boundary_34_selective_refute_v3" else
         0.3 if prompt_version == "boundary_34" else
         0.6
     )
@@ -500,6 +510,33 @@ def _call_predict_turn(
         raise
 
 
+def _should_trigger_selective_refute(
+    pred: SelectiveBoundaryTurnPrediction,
+    prompt_version: str,
+) -> bool:
+    if not pred.needs_refute_review:
+        return False
+
+    if prompt_version == "boundary_34_selective_refute":
+        return True
+
+    reason = pred.reason.strip()
+    if prompt_version == "boundary_34_selective_refute_v2":
+        if pred.classification == 3:
+            return reason in {"不够细致", "其它"}
+        if pred.classification == 4:
+            return reason in {"不满足需求", "其它", "不可用"}
+        return False
+    if prompt_version == "boundary_34_selective_refute_v3":
+        if pred.classification == 3:
+            return reason in {"不够细致", "其它"}
+        if pred.classification == 4:
+            return reason in {"不满足需求", "其它", "不可用"}
+        return False
+
+    return False
+
+
 def _predict_turn_with_optional_selective_refute(
     memory: UserMemory | None,
     session: SessionData,
@@ -546,7 +583,11 @@ def _predict_turn_with_optional_selective_refute(
         debug_context=debug_context,
     )
 
-    if turn_eval_prompt_version != "boundary_34_selective_refute":
+    if turn_eval_prompt_version not in {
+        "boundary_34_selective_refute",
+        "boundary_34_selective_refute_v2",
+        "boundary_34_selective_refute_v3",
+    }:
         return {
             "pred_score": pred.classification,
             "pred_reason": pred.reason.strip(),
@@ -554,18 +595,20 @@ def _predict_turn_with_optional_selective_refute(
         }
 
     assert isinstance(pred, SelectiveBoundaryTurnPrediction)
+    should_trigger = _should_trigger_selective_refute(pred, turn_eval_prompt_version)
     result = {
         "pred_score": pred.classification,
         "pred_reason": pred.reason.strip(),
         "analysis": pred.analysis,
         "analysis_first_pass": pred.analysis,
-        "selective_refute_triggered": pred.needs_refute_review,
+        "selective_refute_triggered": should_trigger,
         "selective_refute_applied": False,
         "selective_refute_initial_score": pred.classification,
         "selective_refute_initial_reason": pred.reason.strip(),
+        "selective_refute_model_flag": pred.needs_refute_review,
     }
 
-    if not pred.needs_refute_review:
+    if not should_trigger:
         return result
 
     followup_prompt = build_turn_eval_refute_followup_prompt(
@@ -577,13 +620,19 @@ def _predict_turn_with_optional_selective_refute(
         initial_classification=pred.classification,
         initial_reason=pred.reason.strip(),
         initial_analysis=pred.analysis,
+        prompt_version=turn_eval_prompt_version,
     )
 
+    followup_prompt_version = (
+        "boundary_34_selective_refute_v2_followup"
+        if turn_eval_prompt_version in {"boundary_34_selective_refute_v2", "boundary_34_selective_refute_v3"}
+        else "boundary_34_selective_refute_followup"
+    )
     try:
         followup = _call_predict_turn(
             followup_prompt,
             model,
-            prompt_version="boundary_34_selective_refute_followup",
+            prompt_version=followup_prompt_version,
             debug_context=f"{debug_context}__refute",
         )
         assert isinstance(followup, BoundaryTurnPrediction)
@@ -689,6 +738,7 @@ def evaluate_session(
                 "selective_refute_applied",
                 "selective_refute_initial_score",
                 "selective_refute_initial_reason",
+                "selective_refute_model_flag",
             ):
                 if optional_key in pred_result:
                     turn_result[optional_key] = pred_result[optional_key]
@@ -847,6 +897,7 @@ def run_agent_on_sample(
                 "selective_refute_applied",
                 "selective_refute_initial_score",
                 "selective_refute_initial_reason",
+                "selective_refute_model_flag",
             ):
                 if optional_key in r:
                     record[optional_key] = r[optional_key]
@@ -944,6 +995,7 @@ def _evaluate_session_per_turn_update(
                 "selective_refute_applied",
                 "selective_refute_initial_score",
                 "selective_refute_initial_reason",
+                "selective_refute_model_flag",
             ):
                 if optional_key in pred_result:
                     turn_result[optional_key] = pred_result[optional_key]
@@ -1228,6 +1280,8 @@ def parse_args() -> ArgumentParser:
             "boundary_34_refute",
             "boundary_34_refute_v2",
             "boundary_34_selective_refute",
+            "boundary_34_selective_refute_v2",
+            "boundary_34_selective_refute_v3",
         ],
         help=(
             "turn evaluation prompt 版本。"
@@ -1235,7 +1289,9 @@ def parse_args() -> ArgumentParser:
             "boundary_34 仅围绕 3/4 满意边界判断，并只输出 3 或 4；"
             "boundary_34_refute 会先做反证检查，再决定是否给 4；"
             "boundary_34_refute_v2 为更温和的 refute 版本，只在存在明确致命缺陷时判 3；"
-            "boundary_34_selective_refute 先做温和初判，只对边界样本触发第二遍 refute。"
+            "boundary_34_selective_refute 先做温和初判，只对边界样本触发第二遍 refute；"
+            "boundary_34_selective_refute_v2 会进一步收紧触发条件，并让第二遍默认维持初判；"
+            "boundary_34_selective_refute_v3 仅优化 first-pass 的 3/4 边界措辞，其余机制保持 v2。"
         ),
     )
     return parser
