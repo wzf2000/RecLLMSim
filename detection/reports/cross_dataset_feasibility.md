@@ -72,7 +72,77 @@
 
 ---
 
-## 3. OpenAssistant (OASST / OASST2)
+## 3. URS（`detection/data/urs/`）
+
+数据：三个 JSON 文件。`chinese_merged.json`（515 session，107 user，zh）+ `english_processed.json`（305 session，74 user，en）。每条 item 结构：
+
+```
+conversation_history: [{role, content} × N]        # 完整对话
+user_id, user_satisfaction, intent_label,
+task_difficulty, title, llm
+```
+
+> **⚠️ 命名空间注意**：`all_conversations.json` 直接拼接了中英两个文件，但 **zh 与 en 的 `user_id` 是互相独立的命名空间**（zh 中的 `user_id=3` 和 en 中的 `user_id=3` 是不同用户）。实测：重合的 17 个 uid 在两语言下对话主题风格完全脱节（例：uid=3 zh 全是政经，en 全是闲聊；uid=8 zh 全是瑞士/日内瓦，en 全是 tech/娱乐），证实是 id 冲突而非跨语言同人。**接入 pipeline 时必须给 uid 加语言前缀**（如 `zh_3` / `en_3`），或仅处理其中一种语言；直接用 `all_conversations.json` 会把不同人的打分混成"同一用户"，污染 memory v2 的 `score_distribution`。
+
+**规模与分布（正确命名空间下）**：
+
+| 指标 | 数值 |
+|---|---|
+| Session 总数 | 820（zh 515 + en 305） |
+| Unique users | **181**（zh 107 + en 74，无跨语言同人） |
+| 每用户 session 数 min/avg/max | 1 / 4.53 / 13 |
+| 每用户 intent 类别数 min/avg/max | 1 / 2.8 / 8 |
+| 轮数 / session min/avg/max | 2 / 3.8 / 64 |
+| 满意度 5 档分布（1→5） | 29 / 63 / 188 / 369 / 171 |
+| LLM 来源 | ChatGPT 651，New Bing 38，ERNIE 34，Bard 21，Gemini 14，其他（Claude/Baichuan/Qwen/Llama/...） |
+
+满意度标签天然是 **5 档 ordinal**，中英文一一映射：`很不满意 / dissatisfied → 1 … 非常满意 / very satisfied → 5`。intent_label 有 7 个 canonical 类（professional / retrieval / text / advice / creative / leisure / other），中英可直接规范化。
+
+**依赖对照（基于 181 user 的正确命名空间）**：
+
+- D1（用户身份）：✅ **满足**。加前缀后 181 user，平均每人 4.53 session。
+- D2（跨任务 session）：✅ **满足**。canonical 化后 **145/181 (80.1%) 用户有 ≥2 类 intent**，cross-task split 直接可用（共 **426 个 valid (user, target_intent) pair**）。分语言看：zh 87/107 (81%) 268 pair，en 58/74 (78%) 158 pair。
+- D3（每用户多次打分）：✅ **满足（略弱于 RecLLMSim）**。**114/181 (63%) 用户有 ≥5 个 session**，适合 memory v2 的 `score_distribution` 估计；另有 27 个 1-2 session 的用户可以 `min_history_sessions` 过滤掉。
+- D4（1-5 分标签）：⚠️ **粒度不同**——**label 是 session-level，非 turn-level**。一整段对话共享 1 个满意度分数。
+- D5（对话结构）：✅ 满足。
+- S1（profile）：❌ 无用户画像字段。与现有 fallback 一致（置空）。
+- S2（不满原因）：❌ 无 reason 标签。现有 pipeline 已对 reason 做过降级（仅 reason prediction 子任务受影响）。
+
+**真正要处理的结构差异**是 D4 的 session-level 粒度。三条候选路线：
+
+- **U1. Session-level 评分直接复用（推荐）**
+  把整个 session 当成一条"item"，`pred_score` 直接在 session 粒度算；memory v2 的 `score_distribution` 按 session 统计（而非 turn）。**这条路线和现有 pipeline 在结构上完全对齐**——我们 RecLLMSim 数据虽然是逐轮标，但 v2 memory 核心就是"用户评分风格的全局分布"，天然是 session/user 汇总量。
+  - 改造核心：`SessionData` 里新增一个 `session_score`，`satisfaction_scores` 退化为 `[session_score]`（单元素列表），`assistant_turns = 1`；memory 与 eval 只在 session 级评估。
+  - CDF 校准直接适用（现有代码已按 block 聚合，block 粒度不变）。
+
+- **U2. Turn-level 广播标签（辅助路线）**
+  把 session-level 的一个分数广播给每个 assistant 回复作为 gold，复现 RecLLMSim 的 turn-level pipeline。**不推荐**——人为引入重复 label，MAE / Pearson 这些逐 turn 评估不反映真实语义（任何一轮预测对即可得高分）。仅当想复用 turn-level memory（逐 turn 的 `dissatisfaction_reasons_by_turn`）时作为兜底。
+
+- **U3. Joint session + turn 评估（上限路线）**
+  保留 session-level gold 作为**监督信号与评估主指标**，同时让 LLM 在 turn-level 输出 per-turn 预测（无 gold），用 aggregator（mean / max / min / last-turn）聚到 session 级和 gold 对比。副产物是：per-turn pseudo-label 可用于**未标注数据的 self-distillation**，但超出当前 scope。
+
+**核心价值**：URS 是**唯一一个在依赖对照上几乎与 RecLLMSim 完全一致的公开数据集**——它有真实用户、跨任务、多 session、1-5 ordinal 分数。差异只有 session-level 粒度和缺少 profile/reason，都能通过 U1 路线"几乎无感"地接入现有 pipeline。
+
+**对核心假设 H（评分风格跨任务迁移）的进一步验证价值**：RecLLMSim 是生活类规划任务（旅行/礼物/菜谱/学习），URS 是更通用对话（专业问题/检索/文本/建议/创意/闲聊）——**同一个 H 假设在不同任务分布下的稳健性**是很自然的消融。
+
+**额外红利：天然的语言消融**
+由于 zh 与 en 用户池完全不相交，可以干净地做 `train(zh) → test(en)` / `train(en) → test(zh)` 的跨语言迁移实验（不存在 user leakage），这是 RecLLMSim 无法提供的评估轴。
+
+**潜在风险点**：
+
+1. **每用户 session 数波动大**：1-13，其中 27 个只有 1-2 session 的用户在 cross-task 划分时只能落到 train 或被过滤。有 ≥5 session 的用户占 63%，比 RecLLMSim（基本全员 ≥4 个任务 × 多 session）稀疏。
+2. **语言 + LLM 双重不均衡**：62% 中文 / 38% 英文；LLM 来源 79% ChatGPT。如果在 en 子集单独跑，用户量会缩到 74；memory v2 的 prompt 模板需要处理多语言与多模型（比如 `chat_model` 字段直接拼进 prompt 会让不同模型的打分风格互相串扰）。
+3. **Intent 类别粒度比 RecLLMSim 粗**：7 类中 `retrieval`（32%）和 `professional`（20%）占大头，`other` 只有 11 条容易稀疏——`min_history_sessions` 过滤阈值需要调小（比如从 1 到 0 即允许"只看同任务历史"）或对 `other` 合并到邻近类别。
+4. **缺少 profile**：memory v2 的 `build_memory_prompt` 对 profile 空的情况已有 fallback，但 prompt 里的画像段要整段删；可复用 OASST 处理模式。
+5. **uid 命名空间陷阱**：实现时要强制 `zh_{uid}` / `en_{uid}` 前缀化；若不做则会悄无声息地把不同用户的分数合并到同一个 `score_distribution`，污染 memory 抽取。属于 **需要在代码里显式防御** 的点。
+
+**改造量预估**：最核心的是数据加载器 + `SessionData` 粒度切换，评估链路几乎不需要动。
+
+**结论**：**强烈建议作为 #1 优先级**。它是目前所有候选中对 memory-agent 流水线结构最无缝的数据集，可直接验证**"用户评分风格 + CDF 校准"在通用助手对话场景**的可迁移性。
+
+---
+
+## 4. OpenAssistant (OASST / OASST2)
 
 原始数据组成：一棵棵"消息树"（message tree），包含用户提示、多个候选回复、以及若干 labeler 对每条消息打的 labels。每条 label 有 10+ 维度（quality / helpfulness / humor / creativity / toxicity / ...），多数是连续 [0,1] 或 ordinal。
 
@@ -106,7 +176,7 @@
 
 ---
 
-## 4. WildBench
+## 5. WildBench
 
 AllenAI 发布的 LLM benchmark，约 1024 条 challenging real-world prompts（从 WildChat 筛选 + 人工净化），用来对比 LLM 的回复质量。每条样本包含：任务描述 + 参考答案 + 多个模型的回复 + 成对偏好（win/tie/lose） + AI judge 分数。
 
@@ -124,7 +194,7 @@ AllenAI 发布的 LLM benchmark，约 1024 条 challenging real-world prompts（
 
 ---
 
-## 5. WildChat
+## 6. WildChat
 
 AllenAI 发布的 1M+ 真实 ChatGPT 对话日志（来自同意授权的公共接口）。每条对话包含：
 - 多轮 user-assistant 交互；
@@ -154,39 +224,63 @@ AllenAI 发布的 1M+ 真实 ChatGPT 对话日志（来自同意授权的公共�
 
 ---
 
-## 6. 汇总判断
+## 7. 汇总判断
 
 | 数据集 | D1 用户 | D2 多任务 | D3 分布 | D4 1-5 | D5 对话 | 直接复用？ | 降级路线 |
 |---|---|---|---|---|---|---|---|
-| **USS（本地）**   | ❌ | ❌ | ❌ | ✅ | ✅ | 否 | **R1 对话内 warm-up + R2 subset rubric**（中等改造） |
+| **URS（本地）**   | ✅（181 user，zh/en 独立命名空间） | ✅（145/181 ≥2 intents） | ✅（114/181 ≥5 sessions） | ⚠️ session-level | ✅ | **接近直接复用** | **U1：session 粒度化 + uid 语言前缀**（小改造，~1 天） |
+| **USS（本地）**   | ❌ | ❌ | ❌ | ✅ | ✅ | 否 | **R1 对话内 warm-up + R2 subset rubric**（中等改造，2-3 天） |
 | **OpenAssistant** | ⚠️（labeler） | ⚠️（自造） | ✅（labeler） | ⚠️ | ✅ | 否（需重定位） | **映射 B：labeler-bias modeling**（任务重定位，中大改造） |
 | **WildBench**     | ❌ | ❌ | ❌ | ❌ | ⚠️ | 否 | 只可做 OOD 评估参考 |
 | **WildChat**      | ✅ | ⚠️ | ⚠️ | ❌ | ✅ | 否 | **须先补 label**（LLM-judge / 弱信号 / 众包，代价最高） |
 
-**优先级建议**：
+**优先级建议（更新后）**：
 
-1. **先做 USS（R1+R2）**——数据已落地、改动最集中、能验证 memory v2 rubric + CDF calibration 在**跨语言 / 跨领域 / 无用户画像**条件下的鲁棒性。这同时给现有 USS 监督预测器（`predictor/lora_ordinal.py`）一个 training-free 对照。
-2. **其次再评估 OpenAssistant**——可转型为"标注者偏好建模"研究，故事线完整且数据丰富，但需要先与研究目标对齐（是否愿意把 scope 从 end-user-satisfaction 扩到 labeler-bias）。
-3. **WildBench 只作 OOD 泛化检查**（如果主线预测器需要 external validation）。
-4. **WildChat 放长期 roadmap**——若项目后续要讲"真实世界部署"故事，再启动 LLM-judge 代标或众包路线。
+1. **首选 URS（U1）**——唯一一个在 5 条硬依赖上几乎完全匹配的外部数据集，仅 D4 粒度差异可通过 session 级评估吸收。能直接验证 memory v2 + CDF calibration 在**跨领域任务分布（通用助手场景）+ 跨语言 + 多 LLM 来源**下的迁移能力，且可直接对比 RecLLMSim 上的 H 假设是否持续成立。
+2. **其次做 USS（R1+R2）**——虽然无 user id，但已落地、可用作 training-free 对照线与现有 LoRA 监督 baseline 的消融。
+3. **OpenAssistant**——研究方向是否愿意从 "end-user satisfaction" 扩到 "labeler-bias modeling" 是先决条件；若扩，数据量最大、故事线独立。
+4. **WildBench** 只作 OOD 泛化检查。
+5. **WildChat** 放长期 roadmap（缺 gold label）。
 
-## 7. 落地改造路径（仅针对推荐的 USS 路线）
+## 8. 落地改造路径
 
-如果决定先做 USS，最小可行改动清单：
+### 8.1 URS（首选，U1 路线）
+
+最小可行改动清单：
+
+1. **数据读取**：**不要**直接用 `all_conversations.json`——它对 17 个 id 冲突未做去冲突处理。正确做法是分别读 `chinese_merged.json` 和 `english_processed.json`，对 `user_id` 加语言前缀（`zh_{uid}`, `en_{uid}`）后合并。
+2. `detection/lib/urs_data.py` — 新建：
+   - 定义 canonical intent 映射（`解决专业问题 ↔ Solve Professional Problem` 等 7 类）。
+   - 定义 satisfaction 映射（`很不满意 → 1 … 非常满意 → 5`，en 同构）。
+   - `load_urs_sessions(languages=('zh','en')) -> dict[user, dict[intent, list[SessionData]]]`：读入时即加语言前缀；每条 session 的 `satisfaction_scores` 只装一个元素（session-level score），`dissatisfaction_reasons` 填 `"满意" / "其它"`。
+   - `build_urs_personalized_samples(split, train_ratio, seed, min_history_sessions, languages=...)`：复用 `personalized_data.py` 的 cross-task split 模板，`TASK_LIST` 替换为 7 个 canonical intent。`languages` 参数天然支持"zh-only / en-only / both"三种 run 配置与跨语言迁移实验。
+3. `detection/trace/collect_personalized.py` — 几乎不改：
+   - 把数据入口抽象成 `sample_builder`（callable），对 URS 路径指向 `build_urs_personalized_samples`。
+   - memory cache 命名沿用 `{user}__{intent}__{model}`，由于 user 已带 `zh_` / `en_` 前缀，缓存 key 不会冲突。
+4. `detection/lib/memory.py` — 无须动核心 schema；URS 分支在 prompt 模板里把"用户画像"段落略过，"任务描述"改为从 `title + intent_label` 拼接。多语言 prompt：如果 `zh_` 前缀用户，用中文 rubric；`en_` 前缀用户，用英文 rubric。
+5. `detection/eval/calibrate.py` — **无需改动**；calibration 已按 block 聚合，block 粒度天然是 session-level。
+6. 评估：`eval/personalized.py` 支持 session-level 指标（MAE / RMSE / Pearson / Spearman / QWK / per-user bias），当前逻辑已 block-aware，粒度切换只影响 turn-level 指标的含义（退化为 session-level）。
+
+预计改造量：**~1 天**工作可跑通完整 training-free 基线 + CDF 后校准对比。
+
+### 8.2 USS（R1+R2 路线）
 
 1. `detection/lib/uss_data.py` — 新增：
    - `build_uss_dialogue_samples()`：把每条 dialogue 拆成 `(warmup_prefix, target_suffix)`，前 n=5 轮标签可见构成 `history_sessions` 等价对象。
    - `build_uss_subset_samples()`：按 subset 聚合为 population-level 样本，配合 subset-rubric memory。
 2. `detection/trace/collect_personalized.py` — 改动：
-   - memory cache 命名抽象为 `cache_key_fn`（callable），默认沿用 `{user}__{task}`，USS 分支替换为 `{dialogue_id}__{subset}` 或 `{subset}__population`。
+   - memory cache 命名抽象为 `cache_key_fn`（callable），USS 分支替换为 `{dialogue_id}__{subset}` 或 `{subset}__population`。
 3. `detection/lib/memory.py` — 无须动核心 schema，只需为 USS 子集重写 prompt 模板里的"任务描述" / "用户画像"片段（profile 置空时已有 fallback）。
 4. `detection/eval/calibrate.py` — 支持从输入 JSONL 的**同 dialogue 前缀 gold** 算 CDF，而不是从 memory cache 读。新增一个 `--calibration_source dialogue_prefix|memory_cache` 参数。
 5. 评估沿用 `eval/personalized.py` + `eval/diagnose_confusion.py`，无需改动。
 
 预计改造量：2-3 天工作，能跑通完整 training-free 基线 + CDF 后校准对比。
 
-## 8. 尚未验证的关键假设（做之前建议先小样本 pilot）
+## 9. 尚未验证的关键假设（做之前建议先小样本 pilot）
 
+- **URS U1**：session-level 粒度下的 memory v2 是否仍保留 RecLLMSim 上观测到的"对比式评分边界"信号——建议先在 URS 上跑 30-50 个 block 的 pilot，对比 `no_memory` vs `memory_v2` 的 QWK 与 CDF 前后的 |bias|，确认 CDF 校准增益（在 RecLLMSim 上 −10% MAE / +20% Pearson）是否可复现到 session 粒度。
+- **URS H 假设**：RecLLMSim 的 4 类生活任务 H 成立，URS 是更多样的通用助手任务（专业/检索/闲聊），评分风格是否仍跨 intent 迁移——**先做 pandas 快速统计**：每用户在 training intents 上的 mean score vs test intent 上的 mean score 的 Pearson（跨 145 个有效用户），>0.3 即可认为迁移有效。对 zh（87 user）和 en（58 user）分别算，看语言是否影响稳定性。
+- **URS 语言异构**：加语言前缀后 zh/en 完全不相交，memory v2 在单语言子集（比如只跑 zh 87 user）vs 混合（145 user）下结果是否一致——若差异显著，说明 prompt 模板里混语言材料互相干扰，需要分语言训练/推理。
 - **USS R1**：subset 内"前 n 轮 gold 能代表整段 dialogue 的评分风格"——若 dialogue 本身只有 ~9 轮且分数波动剧烈，warm-up 的估计方差会大。建议先在 JDDC 上取 100 条 pilot 看 warm-up 前 5 轮 vs 全程的 mean / std 相关性。
 - **USS R2**：subset 级别的 rubric 是否比 zero-shot prompt 更准——需和"no_memory"直接对比。
 - **OASST 映射 B**：labeler 在不同 topic 下打分是否稳定（H 是否成立）——无需写复杂 pipeline，先用小 pandas 统计看一眼。
