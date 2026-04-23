@@ -17,7 +17,7 @@
 #   user_offset          — 按用户子集截取时的起始偏移（默认 0）
 #   output_jsonl         — 输出路径（留空自动生成）
 #   memory_cache_dir     — 记忆缓存目录（默认 outputs/personalized/memory_cache）
-#   turn_eval_prompt_version — v2 / qwen_short / boundary_34 / boundary_34_refute / boundary_34_refute_v2 / boundary_34_selective_refute / boundary_34_selective_refute_v2 / boundary_34_selective_refute_v3 / boundary_34_selective_refute_v4（默认 v2）
+#   turn_eval_prompt_version — v2 / qwen_short / boundary_34 / boundary_34_refute / boundary_34_refute_v2 / boundary_34_selective_refute / boundary_34_selective_refute_v2 / boundary_34_selective_refute_v2_fullscale / boundary_34_selective_refute_v3 / boundary_34_selective_refute_v4（默认 v2）
 
 set -euo pipefail
 cd "$(dirname "$0")/.."   # 切换到 detection/ 目录

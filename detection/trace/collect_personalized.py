@@ -69,6 +69,8 @@ from lib.memory import (
     UserMemoryContent,
     build_memory_prompt,
     build_memory_update_prompt,
+    build_turn_eval_fullscale_dsat_refinement_prompt,
+    build_turn_eval_fullscale_sat_refinement_prompt,
     build_turn_eval_refute_followup_prompt,
     build_turn_eval_prompt,
     build_turn_eval_prompt_no_memory,
@@ -336,6 +338,18 @@ class SelectiveBoundaryTurnPrediction(BaseModel):
     needs_refute_review: bool = False
 
 
+class SatRefinementPrediction(BaseModel):
+    classification: Literal[4, 5]
+    reason: str
+    analysis: str
+
+
+class DsatRefinementPrediction(BaseModel):
+    classification: Literal[1, 2, 3]
+    reason: str
+    analysis: str
+
+
 def _normalize_pred_reason(
     pred_score: int,
     pred_reason: str,
@@ -445,34 +459,49 @@ def _call_predict_turn(
     model: str,
     prompt_version: str = "v2",
     debug_context: str = "",
-) -> TurnPrediction | BoundaryTurnPrediction | SelectiveBoundaryTurnPrediction:
+) -> (
+    TurnPrediction
+    | BoundaryTurnPrediction
+    | SelectiveBoundaryTurnPrediction
+    | SatRefinementPrediction
+    | DsatRefinementPrediction
+):
     is_selective_prompt = prompt_version in {
         "boundary_34_selective_refute",
         "boundary_34_selective_refute_v2",
         "boundary_34_selective_refute_v3",
         "boundary_34_selective_refute_v4",
     }
-    is_boundary_prompt = prompt_version in {
-        "boundary_34",
-        "boundary_34_refute",
-        "boundary_34_refute_v2",
-        "boundary_34_selective_refute",
-        "boundary_34_selective_refute_v2",
-        "boundary_34_selective_refute_v3",
-        "boundary_34_selective_refute_v4",
-        "boundary_34_selective_refute_followup",
-        "boundary_34_selective_refute_v2_followup",
-    }
-    if is_selective_prompt:
-        response_model = SelectiveBoundaryTurnPrediction
-    elif is_boundary_prompt:
-        response_model = BoundaryTurnPrediction
+    if prompt_version == "boundary_34_selective_refute_v2_fullscale_sat_refine":
+        response_model = SatRefinementPrediction
+        is_boundary_prompt = True
+    elif prompt_version == "boundary_34_selective_refute_v2_fullscale_dsat_refine":
+        response_model = DsatRefinementPrediction
+        is_boundary_prompt = True
     else:
-        response_model = TurnPrediction
+        is_boundary_prompt = prompt_version in {
+            "boundary_34",
+            "boundary_34_refute",
+            "boundary_34_refute_v2",
+            "boundary_34_selective_refute",
+            "boundary_34_selective_refute_v2",
+            "boundary_34_selective_refute_v3",
+            "boundary_34_selective_refute_v4",
+            "boundary_34_selective_refute_followup",
+            "boundary_34_selective_refute_v2_followup",
+        }
+        if is_selective_prompt:
+            response_model = SelectiveBoundaryTurnPrediction
+        elif is_boundary_prompt:
+            response_model = BoundaryTurnPrediction
+        else:
+            response_model = TurnPrediction
     temperature = (
         0.2 if prompt_version == "boundary_34_refute" else
         0.2 if prompt_version == "boundary_34_selective_refute_followup" else
         0.2 if prompt_version == "boundary_34_selective_refute_v2_followup" else
+        0.25 if prompt_version == "boundary_34_selective_refute_v2_fullscale_sat_refine" else
+        0.25 if prompt_version == "boundary_34_selective_refute_v2_fullscale_dsat_refine" else
         0.25 if prompt_version == "boundary_34_refute_v2" else
         0.25 if prompt_version == "boundary_34_selective_refute" else
         0.25 if prompt_version == "boundary_34_selective_refute_v2" else
@@ -718,6 +747,146 @@ def _predict_turn_with_optional_selective_refute(
     return result
 
 
+def _predict_turn_fullscale_from_boundary_v2(
+    memory: UserMemory | None,
+    session: SessionData,
+    model: str,
+    history_window: list[str],
+    assistant_reply: str,
+    debug_context: str,
+    default_reason: str,
+    anchors: list[AnchorTurn] | None = None,
+) -> dict:
+    """
+    分层 1-5 pipeline：
+    1. 先复用当前最稳的 boundary_34_selective_refute_v2 做 3/4 路由
+    2. SAT 分支再细化到 4/5；DSAT 分支再细化到 1/2/3
+    """
+    if memory is None:
+        prompt = build_turn_eval_prompt_no_memory(
+            profile=session.profile,
+            task_context=session.task_context,
+            history_window=list(history_window),
+            assistant_reply=assistant_reply,
+        )
+        pred = _call_predict_turn(
+            prompt,
+            model,
+            prompt_version="v2",
+            debug_context=debug_context,
+        )
+        assert isinstance(pred, TurnPrediction)
+        return {
+            "pred_score": pred.classification,
+            "pred_reason": _normalize_pred_reason(
+                pred.classification,
+                pred.reason.strip(),
+                default_reason=default_reason,
+                debug_context=debug_context,
+            ),
+            "analysis": pred.analysis,
+            "fullscale_router_score": None,
+            "fullscale_router_reason": "",
+            "fullscale_router_analysis": "",
+            "fullscale_branch": "no_memory_fallback",
+            "fullscale_refine_applied": False,
+        }
+
+    router_result = _predict_turn_with_optional_selective_refute(
+        memory=memory,
+        session=session,
+        model=model,
+        history_window=history_window,
+        assistant_reply=assistant_reply,
+        turn_eval_prompt_version="boundary_34_selective_refute_v2",
+        debug_context=f"{debug_context}__router",
+        default_reason=default_reason,
+        anchors=anchors,
+    )
+
+    router_score = int(router_result["pred_score"])
+    router_reason = router_result["pred_reason"].strip()
+    router_analysis = router_result["analysis"]
+    base_result = {
+        "fullscale_router_score": router_score,
+        "fullscale_router_reason": router_reason,
+        "fullscale_router_analysis": router_analysis,
+        "fullscale_router_triggered": router_result.get("selective_refute_triggered", False),
+        "fullscale_router_applied": router_result.get("selective_refute_applied", False),
+        "fullscale_router_initial_score": router_result.get("selective_refute_initial_score"),
+        "fullscale_router_initial_reason": router_result.get("selective_refute_initial_reason"),
+        "fullscale_router_model_flag": router_result.get("selective_refute_model_flag"),
+        "analysis_router": router_analysis,
+    }
+
+    if router_score >= 4:
+        refine_prompt = build_turn_eval_fullscale_sat_refinement_prompt(
+            memory=memory,
+            profile=session.profile,
+            task_context=session.task_context,
+            history_window=list(history_window),
+            assistant_reply=assistant_reply,
+            router_reason=router_reason,
+            router_analysis=router_analysis,
+            anchor_turns=anchors,
+        )
+        refine = _call_predict_turn(
+            refine_prompt,
+            model,
+            prompt_version="boundary_34_selective_refute_v2_fullscale_sat_refine",
+            debug_context=f"{debug_context}__sat_refine",
+        )
+        assert isinstance(refine, SatRefinementPrediction)
+        final_reason = _normalize_pred_reason(
+            refine.classification,
+            refine.reason.strip(),
+            default_reason=default_reason,
+            debug_context=f"{debug_context}__sat_refine",
+        )
+        return {
+            "pred_score": refine.classification,
+            "pred_reason": final_reason,
+            "analysis": f"[router] {router_analysis}\n[sat_refine] {refine.analysis}",
+            "analysis_sat_refine": refine.analysis,
+            "fullscale_branch": "sat_45",
+            "fullscale_refine_applied": True,
+            **base_result,
+        }
+
+    refine_prompt = build_turn_eval_fullscale_dsat_refinement_prompt(
+        memory=memory,
+        profile=session.profile,
+        task_context=session.task_context,
+        history_window=list(history_window),
+        assistant_reply=assistant_reply,
+        router_reason=router_reason,
+        router_analysis=router_analysis,
+        anchor_turns=anchors,
+    )
+    refine = _call_predict_turn(
+        refine_prompt,
+        model,
+        prompt_version="boundary_34_selective_refute_v2_fullscale_dsat_refine",
+        debug_context=f"{debug_context}__dsat_refine",
+    )
+    assert isinstance(refine, DsatRefinementPrediction)
+    final_reason = _normalize_pred_reason(
+        refine.classification,
+        refine.reason.strip(),
+        default_reason=default_reason,
+        debug_context=f"{debug_context}__dsat_refine",
+    )
+    return {
+        "pred_score": refine.classification,
+        "pred_reason": final_reason,
+        "analysis": f"[router] {router_analysis}\n[dsat_refine] {refine.analysis}",
+        "analysis_dsat_refine": refine.analysis,
+        "fullscale_branch": "dsat_123",
+        "fullscale_refine_applied": True,
+        **base_result,
+    }
+
+
 def evaluate_session(
     memory: UserMemory | None,
     session: SessionData,
@@ -763,17 +932,29 @@ def evaluate_session(
                 if block_id else
                 f"{os.path.basename(session.file_path)}__turn_{assistant_turn_idx}"
             )
-            pred_result = _predict_turn_with_optional_selective_refute(
-                memory=memory,
-                session=session,
-                model=model,
-                history_window=history_window,
-                assistant_reply=utt["content"],
-                turn_eval_prompt_version=turn_eval_prompt_version,
-                debug_context=debug_context,
-                default_reason=default_reason,
-                anchors=anchors,
-            )
+            if turn_eval_prompt_version == "boundary_34_selective_refute_v2_fullscale":
+                pred_result = _predict_turn_fullscale_from_boundary_v2(
+                    memory=memory,
+                    session=session,
+                    model=model,
+                    history_window=history_window,
+                    assistant_reply=utt["content"],
+                    debug_context=debug_context,
+                    default_reason=default_reason,
+                    anchors=anchors,
+                )
+            else:
+                pred_result = _predict_turn_with_optional_selective_refute(
+                    memory=memory,
+                    session=session,
+                    model=model,
+                    history_window=history_window,
+                    assistant_reply=utt["content"],
+                    turn_eval_prompt_version=turn_eval_prompt_version,
+                    debug_context=debug_context,
+                    default_reason=default_reason,
+                    anchors=anchors,
+                )
             pred_reason = pred_result["pred_reason"].strip()
             if pred_reason not in valid_reasons:
                 pred_reason = default_reason
@@ -797,6 +978,19 @@ def evaluate_session(
                 "selective_refute_initial_score",
                 "selective_refute_initial_reason",
                 "selective_refute_model_flag",
+                "analysis_router",
+                "analysis_sat_refine",
+                "analysis_dsat_refine",
+                "fullscale_router_score",
+                "fullscale_router_reason",
+                "fullscale_router_analysis",
+                "fullscale_router_triggered",
+                "fullscale_router_applied",
+                "fullscale_router_initial_score",
+                "fullscale_router_initial_reason",
+                "fullscale_router_model_flag",
+                "fullscale_branch",
+                "fullscale_refine_applied",
             ):
                 if optional_key in pred_result:
                     turn_result[optional_key] = pred_result[optional_key]
@@ -956,6 +1150,19 @@ def run_agent_on_sample(
                 "selective_refute_initial_score",
                 "selective_refute_initial_reason",
                 "selective_refute_model_flag",
+                "analysis_router",
+                "analysis_sat_refine",
+                "analysis_dsat_refine",
+                "fullscale_router_score",
+                "fullscale_router_reason",
+                "fullscale_router_analysis",
+                "fullscale_router_triggered",
+                "fullscale_router_applied",
+                "fullscale_router_initial_score",
+                "fullscale_router_initial_reason",
+                "fullscale_router_model_flag",
+                "fullscale_branch",
+                "fullscale_refine_applied",
             ):
                 if optional_key in r:
                     record[optional_key] = r[optional_key]
@@ -1021,17 +1228,29 @@ def _evaluate_session_per_turn_update(
                 if block_id else
                 f"{os.path.basename(session.file_path)}__turn_{assistant_turn_idx}"
             )
-            pred_result = _predict_turn_with_optional_selective_refute(
-                memory=memory,
-                session=session,
-                model=model,
-                history_window=history_window,
-                assistant_reply=utt["content"],
-                turn_eval_prompt_version=turn_eval_prompt_version,
-                debug_context=debug_context,
-                default_reason=default_reason,
-                anchors=anchors,
-            )
+            if turn_eval_prompt_version == "boundary_34_selective_refute_v2_fullscale":
+                pred_result = _predict_turn_fullscale_from_boundary_v2(
+                    memory=memory,
+                    session=session,
+                    model=model,
+                    history_window=history_window,
+                    assistant_reply=utt["content"],
+                    debug_context=debug_context,
+                    default_reason=default_reason,
+                    anchors=anchors,
+                )
+            else:
+                pred_result = _predict_turn_with_optional_selective_refute(
+                    memory=memory,
+                    session=session,
+                    model=model,
+                    history_window=history_window,
+                    assistant_reply=utt["content"],
+                    turn_eval_prompt_version=turn_eval_prompt_version,
+                    debug_context=debug_context,
+                    default_reason=default_reason,
+                    anchors=anchors,
+                )
             pred_reason = pred_result["pred_reason"].strip()
             if pred_reason not in valid_reasons:
                 pred_reason = default_reason
@@ -1055,6 +1274,19 @@ def _evaluate_session_per_turn_update(
                 "selective_refute_initial_score",
                 "selective_refute_initial_reason",
                 "selective_refute_model_flag",
+                "analysis_router",
+                "analysis_sat_refine",
+                "analysis_dsat_refine",
+                "fullscale_router_score",
+                "fullscale_router_reason",
+                "fullscale_router_analysis",
+                "fullscale_router_triggered",
+                "fullscale_router_applied",
+                "fullscale_router_initial_score",
+                "fullscale_router_initial_reason",
+                "fullscale_router_model_flag",
+                "fullscale_branch",
+                "fullscale_refine_applied",
             ):
                 if optional_key in pred_result:
                     turn_result[optional_key] = pred_result[optional_key]
@@ -1340,6 +1572,7 @@ def parse_args() -> ArgumentParser:
             "boundary_34_refute_v2",
             "boundary_34_selective_refute",
             "boundary_34_selective_refute_v2",
+            "boundary_34_selective_refute_v2_fullscale",
             "boundary_34_selective_refute_v3",
             "boundary_34_selective_refute_v4",
         ],
@@ -1351,6 +1584,7 @@ def parse_args() -> ArgumentParser:
             "boundary_34_refute_v2 为更温和的 refute 版本，只在存在明确致命缺陷时判 3；"
             "boundary_34_selective_refute 先做温和初判，只对边界样本触发第二遍 refute；"
             "boundary_34_selective_refute_v2 会进一步收紧触发条件，并让第二遍默认维持初判；"
+            "boundary_34_selective_refute_v2_fullscale 先用 v2 做 3/4 边界路由，再细化到 4/5 或 1/2/3，最终输出完整 1-5；"
             "boundary_34_selective_refute_v3 仅优化 first-pass 的 3/4 边界措辞，其余机制保持 v2；"
             "boundary_34_selective_refute_v4 以更平衡的 first-pass 同时比较最强的 3/4 证据。"
         ),
