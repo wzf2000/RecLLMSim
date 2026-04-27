@@ -77,6 +77,9 @@ from lib.memory import (
     build_turn_eval_fullscale_sat_refinement_prompt,
     build_turn_eval_refute_followup_prompt,
     build_turn_eval_prompt,
+    build_turn_eval_v3_two_stage_dsat_refinement_prompt,
+    build_turn_eval_v3_two_stage_gate_prompt,
+    build_turn_eval_v3_two_stage_sat_refinement_prompt,
     build_turn_eval_prompt_no_memory,
 )
 from lib.personalized_data import (
@@ -511,8 +514,15 @@ def _call_predict_turn(
     elif prompt_version == "boundary_34_selective_refute_v2_fullscale_dsat_refine":
         response_model = DsatRefinementPrediction
         is_boundary_prompt = True
+    elif prompt_version == "v3_two_stage_sat_refine":
+        response_model = SatRefinementPrediction
+        is_boundary_prompt = True
+    elif prompt_version == "v3_two_stage_dsat_refine":
+        response_model = DsatRefinementPrediction
+        is_boundary_prompt = True
     else:
         is_boundary_prompt = prompt_version in {
+            "v3_two_stage_gate",
             "boundary_34",
             "boundary_34_refute",
             "boundary_34_refute_v2",
@@ -533,8 +543,11 @@ def _call_predict_turn(
         0.2 if prompt_version == "boundary_34_refute" else
         0.2 if prompt_version == "boundary_34_selective_refute_followup" else
         0.2 if prompt_version == "boundary_34_selective_refute_v2_followup" else
+        0.2 if prompt_version == "v3_two_stage_gate" else
         0.25 if prompt_version == "boundary_34_selective_refute_v2_fullscale_sat_refine" else
         0.25 if prompt_version == "boundary_34_selective_refute_v2_fullscale_dsat_refine" else
+        0.25 if prompt_version == "v3_two_stage_sat_refine" else
+        0.25 if prompt_version == "v3_two_stage_dsat_refine" else
         0.25 if prompt_version == "boundary_34_refute_v2" else
         0.25 if prompt_version == "boundary_34_selective_refute" else
         0.25 if prompt_version == "boundary_34_selective_refute_v2" else
@@ -920,6 +933,148 @@ def _predict_turn_fullscale_from_boundary_v2(
     }
 
 
+def _predict_turn_v3_two_stage(
+    memory: UserMemory | UserMemoryV3 | None,
+    session: SessionData,
+    model: str,
+    history_window: list[str],
+    assistant_reply: str,
+    debug_context: str,
+    default_reason: str,
+    anchors: list[AnchorTurn] | None = None,
+) -> dict:
+    """
+    基于 memory v3 的两阶段 1-5 pipeline：
+    1. Stage 1：只做 SAT gate（3/4）
+    2. Stage 2：SAT 分支细化 4/5，DSAT 分支细化 1/2/3
+    """
+    if memory is None:
+        prompt = build_turn_eval_prompt_no_memory(
+            profile=session.profile,
+            task_context=session.task_context,
+            history_window=list(history_window),
+            assistant_reply=assistant_reply,
+        )
+        pred = _call_predict_turn(
+            prompt,
+            model,
+            prompt_version="v2",
+            debug_context=debug_context,
+        )
+        assert isinstance(pred, TurnPrediction)
+        return {
+            "pred_score": pred.classification,
+            "pred_reason": _normalize_pred_reason(
+                pred.classification,
+                pred.reason.strip(),
+                default_reason=default_reason,
+                debug_context=debug_context,
+            ),
+            "analysis": pred.analysis,
+            "two_stage_gate_score": None,
+            "two_stage_gate_reason": "",
+            "two_stage_gate_analysis": "",
+            "two_stage_branch": "no_memory_fallback",
+            "two_stage_refine_applied": False,
+        }
+
+    gate_prompt = build_turn_eval_v3_two_stage_gate_prompt(
+        memory=memory,
+        profile=session.profile,
+        task_context=session.task_context,
+        history_window=list(history_window),
+        assistant_reply=assistant_reply,
+        anchor_turns=anchors,
+    )
+    gate_pred = _call_predict_turn(
+        gate_prompt,
+        model,
+        prompt_version="v3_two_stage_gate",
+        debug_context=f"{debug_context}__gate",
+    )
+    assert isinstance(gate_pred, BoundaryTurnPrediction)
+    gate_reason = _normalize_pred_reason(
+        gate_pred.classification,
+        gate_pred.reason.strip(),
+        default_reason=default_reason,
+        debug_context=f"{debug_context}__gate",
+    )
+    gate_analysis = gate_pred.analysis
+    base_result = {
+        "two_stage_gate_score": gate_pred.classification,
+        "two_stage_gate_reason": gate_reason,
+        "two_stage_gate_analysis": gate_analysis,
+        "analysis_gate": gate_analysis,
+    }
+
+    if gate_pred.classification >= 4:
+        refine_prompt = build_turn_eval_v3_two_stage_sat_refinement_prompt(
+            memory=memory,
+            profile=session.profile,
+            task_context=session.task_context,
+            history_window=list(history_window),
+            assistant_reply=assistant_reply,
+            gate_reason=gate_reason,
+            gate_analysis=gate_analysis,
+            anchor_turns=anchors,
+        )
+        refine = _call_predict_turn(
+            refine_prompt,
+            model,
+            prompt_version="v3_two_stage_sat_refine",
+            debug_context=f"{debug_context}__sat_refine",
+        )
+        assert isinstance(refine, SatRefinementPrediction)
+        final_reason = _normalize_pred_reason(
+            refine.classification,
+            refine.reason.strip(),
+            default_reason=default_reason,
+            debug_context=f"{debug_context}__sat_refine",
+        )
+        return {
+            "pred_score": refine.classification,
+            "pred_reason": final_reason,
+            "analysis": f"[gate] {gate_analysis}\n[sat_refine] {refine.analysis}",
+            "analysis_sat_refine": refine.analysis,
+            "two_stage_branch": "sat_45",
+            "two_stage_refine_applied": True,
+            **base_result,
+        }
+
+    refine_prompt = build_turn_eval_v3_two_stage_dsat_refinement_prompt(
+        memory=memory,
+        profile=session.profile,
+        task_context=session.task_context,
+        history_window=list(history_window),
+        assistant_reply=assistant_reply,
+        gate_reason=gate_reason,
+        gate_analysis=gate_analysis,
+        anchor_turns=anchors,
+    )
+    refine = _call_predict_turn(
+        refine_prompt,
+        model,
+        prompt_version="v3_two_stage_dsat_refine",
+        debug_context=f"{debug_context}__dsat_refine",
+    )
+    assert isinstance(refine, DsatRefinementPrediction)
+    final_reason = _normalize_pred_reason(
+        refine.classification,
+        refine.reason.strip(),
+        default_reason=default_reason,
+        debug_context=f"{debug_context}__dsat_refine",
+    )
+    return {
+        "pred_score": refine.classification,
+        "pred_reason": final_reason,
+        "analysis": f"[gate] {gate_analysis}\n[dsat_refine] {refine.analysis}",
+        "analysis_dsat_refine": refine.analysis,
+        "two_stage_branch": "dsat_123",
+        "two_stage_refine_applied": True,
+        **base_result,
+    }
+
+
 def evaluate_session(
     memory: UserMemory | None,
     session: SessionData,
@@ -967,6 +1122,17 @@ def evaluate_session(
             )
             if turn_eval_prompt_version == "boundary_34_selective_refute_v2_fullscale":
                 pred_result = _predict_turn_fullscale_from_boundary_v2(
+                    memory=memory,
+                    session=session,
+                    model=model,
+                    history_window=history_window,
+                    assistant_reply=utt["content"],
+                    debug_context=debug_context,
+                    default_reason=default_reason,
+                    anchors=anchors,
+                )
+            elif turn_eval_prompt_version == "v3_two_stage":
+                pred_result = _predict_turn_v3_two_stage(
                     memory=memory,
                     session=session,
                     model=model,
@@ -1024,6 +1190,12 @@ def evaluate_session(
                 "fullscale_router_model_flag",
                 "fullscale_branch",
                 "fullscale_refine_applied",
+                "analysis_gate",
+                "two_stage_gate_score",
+                "two_stage_gate_reason",
+                "two_stage_gate_analysis",
+                "two_stage_branch",
+                "two_stage_refine_applied",
             ):
                 if optional_key in pred_result:
                     turn_result[optional_key] = pred_result[optional_key]
@@ -1230,6 +1402,12 @@ def run_agent_on_sample(
                 "fullscale_router_model_flag",
                 "fullscale_branch",
                 "fullscale_refine_applied",
+                "analysis_gate",
+                "two_stage_gate_score",
+                "two_stage_gate_reason",
+                "two_stage_gate_analysis",
+                "two_stage_branch",
+                "two_stage_refine_applied",
             ):
                 if optional_key in r:
                     record[optional_key] = r[optional_key]
@@ -1308,6 +1486,17 @@ def _evaluate_session_per_turn_update(
                     default_reason=default_reason,
                     anchors=anchors,
                 )
+            elif turn_eval_prompt_version == "v3_two_stage":
+                pred_result = _predict_turn_v3_two_stage(
+                    memory=memory,
+                    session=session,
+                    model=model,
+                    history_window=history_window,
+                    assistant_reply=utt["content"],
+                    debug_context=debug_context,
+                    default_reason=default_reason,
+                    anchors=anchors,
+                )
             else:
                 pred_result = _predict_turn_with_optional_selective_refute(
                     memory=memory,
@@ -1356,6 +1545,12 @@ def _evaluate_session_per_turn_update(
                 "fullscale_router_model_flag",
                 "fullscale_branch",
                 "fullscale_refine_applied",
+                "analysis_gate",
+                "two_stage_gate_score",
+                "two_stage_gate_reason",
+                "two_stage_gate_analysis",
+                "two_stage_branch",
+                "two_stage_refine_applied",
             ):
                 if optional_key in pred_result:
                     turn_result[optional_key] = pred_result[optional_key]
@@ -1647,6 +1842,7 @@ def parse_args() -> ArgumentParser:
             "v2",
             "v3",
             "v3_1",
+            "v3_two_stage",
             "qwen_short",
             "boundary_34",
             "boundary_34_refute",
@@ -1662,6 +1858,7 @@ def parse_args() -> ArgumentParser:
             "v2 为原始 rubric prompt；qwen_short 为面向 Qwen3-8B 的短 checklist prompt；"
             "v3 为 memory v3 配套 prompt，会分离 calibration 与 boundary 规则，并在证据不足时弱化边界总结；"
             "v3_1 为 memory v3 的强化版，会重新加硬 3/4 最低满意线，避免因证据不足而默认偏 SAT；"
+            "v3_two_stage 为 memory v3 的两阶段版本：先判是否通过 SAT gate，再做 4/5 或 1/2/3 细分；"
             "boundary_34 仅围绕 3/4 满意边界判断，并只输出 3 或 4；"
             "boundary_34_refute 会先做反证检查，再决定是否给 4；"
             "boundary_34_refute_v2 为更温和的 refute 版本，只在存在明确致命缺陷时判 3；"

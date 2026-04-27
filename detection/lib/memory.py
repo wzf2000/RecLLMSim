@@ -1775,6 +1775,231 @@ def build_turn_eval_fullscale_dsat_refinement_prompt(
     )
 
 
+def build_turn_eval_v3_two_stage_gate_prompt(
+    memory: UserMemory,
+    profile: dict,
+    task_context: str,
+    history_window: list[str],
+    assistant_reply: str,
+    anchor_turns: list | None = None,
+) -> str:
+    """memory v3 两阶段版本的第一层：只判是否过 SAT gate（3/4）。"""
+    reason_labels = list(get_reason_to_id().keys())
+    reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
+    history_text = "\n".join(history_window) if history_window else "（无历史）"
+    user_reqs = "\n".join(
+        f"  - {r}" for r in memory.user_specific_requirements
+    ) if memory.user_specific_requirements else "  （无特异性要求记录）"
+    task_obs_lines = ""
+    if memory.task_specific_observations:
+        relevant = [o for o in memory.task_specific_observations
+                    if task_context and o.task_name in task_context[:50]]
+        others = [o for o in memory.task_specific_observations
+                  if o not in relevant]
+        ordered = relevant + others
+        task_obs_lines = "\n".join(
+            f"  {o.task_name}：{o.observation}" for o in ordered
+        )
+    calibration_summary = getattr(memory, "calibration_summary", memory.scoring_style)
+    evidence_notes = list(getattr(memory, "evidence_notes", []))
+    can_compare_3_vs_4 = bool(getattr(memory, "can_compare_3_vs_4", True))
+    rule_34 = (
+        memory.three_vs_four_distinction
+        if can_compare_3_vs_4 else
+        f"【弱推断，不能当硬规则】{memory.three_vs_four_distinction}"
+    )
+    evidence_block = (
+        "\n".join(f"  - {note}" for note in evidence_notes)
+        if evidence_notes else
+        "  - 边界证据正常，可按规则使用"
+    )
+    anchor_block = _format_anchor_turns(anchor_turns or [])
+    anchor_section = (anchor_block + "\n") if anchor_block else ""
+    anchor_instruction = (
+        "【参考案例使用规则】\n"
+        "1. 本层只判断是否通过最低满意线。不要先想 5 分，只判断当前回复是否至少算满意。\n"
+        "2. 若参考案例显示类似回复在该用户历史中经常落到 <=3，除非当前回复明显更好，否则不要轻易给 4。\n"
+        "3. 若 3/4 边界是弱推断，优先看核心问题、关键约束、可用性和用户特定要求是否满足。\n\n"
+        if anchor_turns else ""
+    )
+    return (
+        "你是一名个性化满意度评估员。\n"
+        "这是 memory v3 两阶段 pipeline 的第一层。你的任务只有一个：判断当前回复是否通过该用户的最低满意线。\n"
+        "输出只能是：\n"
+        "- `4` = 通过 SAT gate（至少满意）\n"
+        "- `3` = 未通过 SAT gate（仍然不满意）\n\n"
+        "这一层不能直接考虑 5 分，也不能因为用户整体偏高分就放松 gate。\n\n"
+        f"【校准信息（只作背景）】\n"
+        f"{calibration_summary}\n"
+        f"历史平均分：{memory.avg_satisfaction_score:.2f}\n\n"
+        f"【SAT gate 规则】\n"
+        f"3→4 边界：{rule_34}\n"
+        f"证据提醒：\n{evidence_block}\n\n"
+        f"【真正影响评分的个性化要求】\n{user_reqs}\n"
+        + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+        + "\n"
+        + f"{anchor_section}"
+        + anchor_instruction
+        + f"【用户画像】{_format_profile(profile)}\n\n"
+        + f"【任务背景】{task_context}\n\n"
+        + f"【最近对话历史】\n{history_text}\n\n"
+        + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+        + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+        + "【第一层只做 SAT gate】\n"
+        + "Step 1. 判断核心问题是否被直接回答。\n"
+        + "Step 2. 判断关键约束、关键任务目标、该用户特别在意的要求是否被满足。\n"
+        + "Step 3. 判断剩余缺口是否只是普通不够细致，而不是会让用户仍然不满意的关键缺口。\n"
+        + "Step 4. 只要核心问题未回答、关键要求被漏掉、或可用性明显不足，就不能给 4。\n"
+        + "Step 5. 只有确认已经过了最低满意线，才能给 4；否则给 3。\n\n"
+        + "注意：\n"
+        + "- 若 3/4 边界证据不足，这不等于可以默认偏 SAT；它只意味着你应更多依赖核心问题、关键要求和真实案例。\n"
+        + "- 本层不区分 4 和 5。\n\n"
+        + "请严格输出 JSON，不要输出其他内容：\n"
+        + "{\n"
+        + '  "classification": 只能是 3 或 4,\n'
+        + f'  "reason": "{reason_json_rule}",\n'
+        + '  "analysis": "用 1-2 句写明：核心问题是否回答、关键要求是否满足、为何通过或未通过 SAT gate" \n'
+        + "}\n"
+    )
+
+
+def build_turn_eval_v3_two_stage_sat_refinement_prompt(
+    memory: UserMemory,
+    profile: dict,
+    task_context: str,
+    history_window: list[str],
+    assistant_reply: str,
+    gate_reason: str,
+    gate_analysis: str,
+    anchor_turns: list | None = None,
+) -> str:
+    """memory v3 两阶段版本第二层 SAT 分支：只细化 4/5。"""
+    reason_labels = list(get_reason_to_id().keys())
+    reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
+    history_text = "\n".join(history_window) if history_window else "（无历史）"
+    user_reqs = "\n".join(
+        f"  - {r}" for r in memory.user_specific_requirements
+    ) if memory.user_specific_requirements else "  （无特异性要求记录）"
+    task_obs_lines = ""
+    if memory.task_specific_observations:
+        relevant = [o for o in memory.task_specific_observations
+                    if task_context and o.task_name in task_context[:50]]
+        others = [o for o in memory.task_specific_observations
+                  if o not in relevant]
+        ordered = relevant + others
+        task_obs_lines = "\n".join(
+            f"  {o.task_name}：{o.observation}" for o in ordered
+        )
+    calibration_summary = getattr(memory, "calibration_summary", memory.scoring_style)
+    can_compare_4_vs_5 = bool(getattr(memory, "can_compare_4_vs_5", True))
+    rule_45 = (
+        memory.four_vs_five_distinction
+        if can_compare_4_vs_5 else
+        f"【弱推断，默认保守给4】{memory.four_vs_five_distinction}"
+    )
+    anchor_block = _format_anchor_turns(anchor_turns or [])
+    anchor_section = (anchor_block + "\n") if anchor_block else ""
+    return (
+        "你是一名个性化满意度评估员。\n"
+        "这是 memory v3 两阶段 pipeline 的第二层 SAT 分支。第一层已确认当前回复至少满意。\n"
+        "你的任务只是在 `4` 和 `5` 之间细化。\n\n"
+        f"【校准信息】\n{calibration_summary}\n\n"
+        f"【4/5 细化规则】\n{rule_45}\n"
+        f"【真正影响评分的个性化要求】\n{user_reqs}\n"
+        + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+        + "\n"
+        + f"{anchor_section}"
+        + f"【用户画像】{_format_profile(profile)}\n\n"
+        + f"【任务背景】{task_context}\n\n"
+        + f"【最近对话历史】\n{history_text}\n\n"
+        + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+        + f"【第一层 gate 输出】reason={gate_reason}\n"
+        + f"【第一层 gate 分析】{gate_analysis}\n\n"
+        + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+        + "【第二层 SAT 细化】\n"
+        + "Step 1. 先把 4 当默认值：既然已经过了 SAT gate，除非有明确证据达到高满意门槛，否则保持 4。\n"
+        + "Step 2. 只有当回复明显完整、个性化、可执行，并接近该用户的高满意案例时，才升到 5。\n"
+        + "Step 3. 若 4/5 边界证据不足，默认保守给 4，而不是猜 5。\n\n"
+        + "请严格输出 JSON，不要输出其他内容：\n"
+        + "{\n"
+        + '  "classification": 只能是 4 或 5,\n'
+        + f'  "reason": "{reason_json_rule}",\n'
+        + '  "analysis": "用 1-2 句写明：为何保持4，或为何已达到5分门槛" \n'
+        + "}\n"
+    )
+
+
+def build_turn_eval_v3_two_stage_dsat_refinement_prompt(
+    memory: UserMemory,
+    profile: dict,
+    task_context: str,
+    history_window: list[str],
+    assistant_reply: str,
+    gate_reason: str,
+    gate_analysis: str,
+    anchor_turns: list | None = None,
+) -> str:
+    """memory v3 两阶段版本第二层 DSAT 分支：只细化 1/2/3。"""
+    reason_labels = list(get_reason_to_id().keys())
+    reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
+    history_text = "\n".join(history_window) if history_window else "（无历史）"
+    user_reqs = "\n".join(
+        f"  - {r}" for r in memory.user_specific_requirements
+    ) if memory.user_specific_requirements else "  （无特异性要求记录）"
+    task_obs_lines = ""
+    if memory.task_specific_observations:
+        relevant = [o for o in memory.task_specific_observations
+                    if task_context and o.task_name in task_context[:50]]
+        others = [o for o in memory.task_specific_observations
+                  if o not in relevant]
+        ordered = relevant + others
+        task_obs_lines = "\n".join(
+            f"  {o.task_name}：{o.observation}" for o in ordered
+        )
+    low_score_evidence_level = getattr(memory, "low_score_evidence_level", "moderate")
+    evidence_note = (
+        "低分证据 sparse/none：默认优先给 3；只有明显不可用、明显错误、严重答非所问时才给 2 或 1。"
+        if low_score_evidence_level in {"none", "sparse"} else
+        "低分证据充分：可以正常区分 1/2/3 的严重度。"
+    )
+    anchor_block = _format_anchor_turns(anchor_turns or [])
+    anchor_section = (anchor_block + "\n") if anchor_block else ""
+    return (
+        "你是一名个性化满意度评估员。\n"
+        "这是 memory v3 两阶段 pipeline 的第二层 DSAT 分支。第一层已确认当前回复没有通过最低满意线。\n"
+        "你的任务只是在 `1/2/3` 之间细化严重度。\n\n"
+        f"【低分细分提示】{evidence_note}\n"
+        f"【真正影响评分的个性化要求】\n{user_reqs}\n"
+        + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+        + "\n"
+        + f"{anchor_section}"
+        + f"【用户画像】{_format_profile(profile)}\n\n"
+        + f"【任务背景】{task_context}\n\n"
+        + f"【最近对话历史】\n{history_text}\n\n"
+        + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+        + f"【第一层 gate 输出】reason={gate_reason}\n"
+        + f"【第一层 gate 分析】{gate_analysis}\n\n"
+        + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+        + "【第二层 DSAT 细化】\n"
+        + "Step 1. 既然第一层已判定未过 SAT gate，本层不能回到 4/5。\n"
+        + "Step 2. 默认先考虑 3：即不满意，但仍有一定帮助。\n"
+        + "Step 3. 只有当回复明显不可用、明显错误、严重答非所问，或几乎没有可执行价值时，才降到 2 或 1。\n"
+        + "Step 4. 若低分证据 sparse/none，更要保守区分 1/2/3，不要轻易给极低分。\n\n"
+        + "请严格输出 JSON，不要输出其他内容：\n"
+        + "{\n"
+        + '  "classification": 只能是 1、2 或 3,\n'
+        + f'  "reason": "{reason_json_rule}",\n'
+        + '  "analysis": "用 1-2 句写明：为什么是3，或为什么严重到2/1" \n'
+        + "}\n"
+    )
+
+
 def build_turn_eval_prompt_no_memory(
     profile: dict,
     task_context: str,
