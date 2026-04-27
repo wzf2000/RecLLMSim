@@ -17,7 +17,8 @@
 #   user_offset          — 按用户子集截取时的起始偏移（默认 0）
 #   output_jsonl         — 输出路径（留空自动生成）
 #   memory_cache_dir     — 记忆缓存目录（默认 outputs/personalized/memory_cache）
-#   turn_eval_prompt_version — v2 / qwen_short / boundary_34 / boundary_34_refute / boundary_34_refute_v2 / boundary_34_selective_refute / boundary_34_selective_refute_v2 / boundary_34_selective_refute_v2_fullscale / boundary_34_selective_refute_v3 / boundary_34_selective_refute_v4（默认 v2）
+#   memory_version       — v2 / v3（默认 v2）
+#   turn_eval_prompt_version — v2 / v3 / v3_1 / qwen_short / boundary_34 / boundary_34_refute / boundary_34_refute_v2 / boundary_34_selective_refute / boundary_34_selective_refute_v2 / boundary_34_selective_refute_v2_fullscale / boundary_34_selective_refute_v3 / boundary_34_selective_refute_v4（默认 v2）
 
 set -euo pipefail
 cd "$(dirname "$0")/.."   # 切换到 detection/ 目录
@@ -34,6 +35,7 @@ limit_users="${limit_users:-0}"
 user_offset="${user_offset:-0}"
 output_jsonl="${output_jsonl:-}"
 memory_cache_dir="${memory_cache_dir:-outputs/personalized/memory_cache}"
+memory_version="${memory_version:-v2}"
 n_anchors="${n_anchors:-0}"
 turn_eval_prompt_version="${turn_eval_prompt_version:-v2}"
 
@@ -46,6 +48,7 @@ ARGS=(
     --memory_update_mode "${memory_update_mode}"
     --max_workers "${max_workers}"
     --memory_cache_dir "${memory_cache_dir}"
+    --memory_version "${memory_version}"
     --n_anchors "${n_anchors}"
     --turn_eval_prompt_version "${turn_eval_prompt_version}"
 )
@@ -71,6 +74,7 @@ echo " Model:       ${model}"
 echo " vLLM URL:    ${vllm_base_url}"
 echo " Split:       ${split}"
 echo " Update mode: ${memory_update_mode}"
+echo " Memory ver:  ${memory_version}"
 echo " No memory:   ${no_memory}"
 echo " n_anchors:   ${n_anchors}"
 echo " Prompt ver:  ${turn_eval_prompt_version}"

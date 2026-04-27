@@ -1,5 +1,5 @@
 """
-用户记忆模块（User Memory） v2
+用户记忆模块（User Memory） v2 / v3
 
 改进要点（相较 v1）：
   - Schema 用对比式评分边界替代泛化满意/不满意模式列表：
@@ -155,6 +155,124 @@ class UserMemory(UserMemoryContent):
         data["source_tasks"] = list(source_tasks or [])
         data["n_history_sessions"] = n_history_sessions
         data["n_history_turns"] = n_history_turns
+        return cls(**data)
+
+
+class UserMemoryContentV3(UserMemoryContent):
+    """
+    LLM 生成的用户记忆（v3）。
+
+    与 v2 保持核心字段兼容，但在 prompt 侧强调：
+      1. 证据不足时必须显式保守
+      2. calibration 信息与边界规则分离
+      3. requirements 只保留真正会改变评分的个性化要求
+    """
+
+
+def _score_distribution_to_counts(
+    dist: ScoreDistribution,
+) -> dict[int, int]:
+    return {
+        1: dist.score_1,
+        2: dist.score_2,
+        3: dist.score_3,
+        4: dist.score_4,
+        5: dist.score_5,
+    }
+
+
+def _build_v3_calibration_summary(
+    avg_score: float,
+    dist: ScoreDistribution,
+) -> str:
+    counts = _score_distribution_to_counts(dist)
+    total = sum(counts.values()) or 1
+    sat_ratio = (counts[4] + counts[5]) / total
+    if avg_score >= 4.4:
+        style = "偏宽松"
+    elif avg_score >= 4.0:
+        style = "中等"
+    elif avg_score >= 3.6:
+        style = "偏严格"
+    else:
+        style = "严格"
+    return (
+        f"{style}：历史均分 {avg_score:.2f}，"
+        f"SAT 占比 {sat_ratio:.1%}（4分×{counts[4]} / 5分×{counts[5]}），"
+        f"DSAT 证据 {counts[1] + counts[2] + counts[3]} 轮。"
+    )
+
+
+def _build_v3_evidence_notes(
+    dist: ScoreDistribution,
+) -> list[str]:
+    counts = _score_distribution_to_counts(dist)
+    notes: list[str] = []
+    if counts[3] == 0 or counts[4] == 0:
+        notes.append("3/4 边界缺直接相邻证据，只能弱推断，不能把 three_vs_four_distinction 当硬规则。")
+    if counts[4] == 0 or counts[5] == 0:
+        notes.append("4/5 边界缺直接相邻证据，只能弱推断，不能把 four_vs_five_distinction 当硬规则。")
+    if counts[1] + counts[2] + counts[3] == 0:
+        notes.append("没有任何 <=3 的历史样本，低分严重度细分基本无证据支撑。")
+    elif counts[1] + counts[2] + counts[3] <= 3:
+        notes.append("<=3 的历史样本很少，1/2/3 细分应保守，默认不要轻易给 1 或 2。")
+    return notes
+
+
+def _low_score_evidence_level(dist: ScoreDistribution) -> Literal["none", "sparse", "moderate", "rich"]:
+    low = dist.score_1 + dist.score_2 + dist.score_3
+    if low == 0:
+        return "none"
+    if low <= 3:
+        return "sparse"
+    if low <= 8:
+        return "moderate"
+    return "rich"
+
+
+class UserMemoryV3(UserMemory):
+    """完整用户记忆（v3）= v2 核心字段 + 程序侧证据充分性元信息。"""
+
+    memory_version: str = Field(default="v3")
+    calibration_summary: str = Field(
+        description="程序侧生成的校准摘要，概括该用户的整体打分刻度",
+    )
+    can_compare_3_vs_4: bool = Field(
+        description="是否同时存在 3 分与 4 分历史，可支持较可靠的 3/4 边界比较",
+    )
+    can_compare_4_vs_5: bool = Field(
+        description="是否同时存在 4 分与 5 分历史，可支持较可靠的 4/5 边界比较",
+    )
+    low_score_evidence_level: Literal["none", "sparse", "moderate", "rich"] = Field(
+        description="<=3 历史样本的证据丰富度，用于控制 1/2/3 细分时的保守程度",
+    )
+    evidence_notes: list[str] = Field(
+        default_factory=list,
+        description="程序侧生成的证据充分性提醒",
+    )
+
+    @classmethod
+    def from_content(
+        cls,
+        content: UserMemoryContentV3,
+        source_tasks: list[str] | None = None,
+        n_history_sessions: int = 0,
+        n_history_turns: int = 0,
+    ) -> "UserMemoryV3":
+        data = content.model_dump()
+        dist = content.score_distribution
+        data["memory_version"] = "v3"
+        data["source_tasks"] = list(source_tasks or [])
+        data["n_history_sessions"] = n_history_sessions
+        data["n_history_turns"] = n_history_turns
+        data["calibration_summary"] = _build_v3_calibration_summary(
+            content.avg_satisfaction_score,
+            dist,
+        )
+        data["can_compare_3_vs_4"] = dist.score_3 > 0 and dist.score_4 > 0
+        data["can_compare_4_vs_5"] = dist.score_4 > 0 and dist.score_5 > 0
+        data["low_score_evidence_level"] = _low_score_evidence_level(dist)
+        data["evidence_notes"] = _build_v3_evidence_notes(dist)
         return cls(**data)
 
 
@@ -348,6 +466,112 @@ def build_memory_prompt(
     return prompt
 
 
+def build_memory_prompt_v3(
+    user_id: str,
+    profile: dict,
+    history_sessions: list[SessionData],
+) -> str:
+    """
+    构造 memory building prompt（v3）。
+
+    相比 v2，v3 的重点不是再增加字段，而是：
+      1. 显式声明哪些边界缺直接证据
+      2. 要求 LLM 在证据不足时输出保守、非确定性的总结
+      3. 把 calibration 与 rule extraction 分开
+    """
+    sessions_to_use = _select_sessions(history_sessions)
+    reason_labels = list(get_reason_to_id().keys())
+
+    session_lines: list[str] = []
+    for idx, session in enumerate(sessions_to_use):
+        lines = [
+            f"【Session {idx + 1}】任务：{session.task}  "
+            f"任务背景：{_truncate(session.task_context, 150)}",
+        ]
+        assistant_idx = 0
+        for utt in session.history:
+            role = "用户" if utt["role"] == "user" else "助手"
+            content = _truncate(utt["content"])
+            lines.append(f"  {role}：{content}")
+            if utt["role"] == "assistant":
+                score = session.satisfaction_scores[assistant_idx]
+                reason = session.dissatisfaction_reasons[assistant_idx]
+                tag = f"★{score}" + (f"（{reason}）" if score <= 3 else "")
+                lines.append(f"  [满意度: {tag}]")
+                assistant_idx += 1
+        session_lines.append("\n".join(lines))
+
+    session_block = "\n\n".join(session_lines)
+
+    turns_by_score = _collect_turns_by_score(sessions_to_use)
+    contrast_lines: list[str] = []
+    for score in [5, 4, 3, 2, 1]:
+        turns = turns_by_score.get(score, [])
+        if turns:
+            contrast_lines.append(
+                _format_score_group(score, turns, _MAX_EXAMPLES_PER_SCORE)
+            )
+    contrast_block = "\n\n".join(contrast_lines) if contrast_lines else "（无数据）"
+
+    all_scores = [
+        s for session in sessions_to_use
+        for s in session.satisfaction_scores
+    ]
+    avg = sum(all_scores) / len(all_scores) if all_scores else 0
+    dist = {i: all_scores.count(i) for i in range(1, 6)}
+    stat_line = (
+        f"总轮数：{len(all_scores)}，平均分：{avg:.2f}，"
+        f"分布：{' / '.join(f'{i}分×{dist[i]}' for i in range(1,6))}"
+    )
+    evidence_lines = [
+        "═══ 证据充分性提醒（必须遵守）═══",
+        f"- 3分轮次：{dist[3]}，4分轮次：{dist[4]}，5分轮次：{dist[5]}",
+        f"- 1/2/3 总低分轮次：{dist[1] + dist[2] + dist[3]}",
+    ]
+    if dist[3] == 0 or dist[4] == 0:
+        evidence_lines.append("- 3/4 缺直接相邻证据：three_vs_four_distinction 必须写成【弱推断 / 证据不足】，不能写成确定性硬规则。")
+    else:
+        evidence_lines.append("- 3/4 有直接相邻证据：可以总结较可靠的满意最低线。")
+    if dist[4] == 0 or dist[5] == 0:
+        evidence_lines.append("- 4/5 缺直接相邻证据：four_vs_five_distinction 必须写成【弱推断 / 证据不足】，不能写成确定性硬规则。")
+    else:
+        evidence_lines.append("- 4/5 有直接相邻证据：可以总结较可靠的 5 分门槛。")
+    if dist[1] + dist[2] + dist[3] <= 3:
+        evidence_lines.append("- 低分样本很少：不要过度总结 1/2/3 的严重度差别，只能给出保守结论。")
+    evidence_block = "\n".join(evidence_lines)
+
+    prompt = (
+        "你是一名用户行为分析专家。请基于以下用户的历史对话记录，"
+        "建立一份精准但保守的个性化用户记忆，用于预测该用户对未来助手回复的满意度。\n\n"
+        f"【用户画像】{_format_profile(profile)}\n"
+        f"【满意度统计】{stat_line}\n\n"
+        f"{evidence_block}\n\n"
+        "═══ 历史对话（按任务顺序）═══\n"
+        f"{session_block}\n\n"
+        "═══ 按分数分组的对比证据（重点参考）═══\n"
+        f"{contrast_block}\n\n"
+        "═══ 分析任务 ═══\n"
+        "请严格基于以上证据完成分析，不得编造历史中未出现的边界规律。\n\n"
+        "分析原则：\n"
+        "1. 先总结【校准信息】：该用户整体偏严格还是偏宽松，平均打分处在哪个区间。\n"
+        "2. 再总结【边界规则】：只有在相邻分数证据存在时，才允许写成较确定的边界规则。\n"
+        "3. 若缺相邻证据，必须明确写成“证据不足，只能弱推断”，不能写成确定性判断。\n"
+        "4. user_specific_requirements 只保留真正会改变评分的个性化要求，不要重复“结构清晰、详细具体”这类通用要求。\n\n"
+        "需要输出的内容：\n"
+        "1. 【评分边界 4→5】：对比 5 分和 4 分轮次，指出哪些具体要素决定了能否从 4 分升至 5 分；"
+        "若缺证据，明确说明证据不足\n"
+        "2. 【评分边界 3→4】：对比 4 分和 3 分（及以下）轮次，指出导致从 4 分跌至 3 分的具体缺陷类型；"
+        "若缺证据，明确说明证据不足\n"
+        "3. 【评分风格】：该用户整体打分刻度如何\n"
+        "4. 【用户特异性要求】：只保留最能改变评分的 1-4 条要求\n"
+        "5. 【偏好格式】：如果只是通用偏好，可简短概括，不必展开\n"
+        "6. 【任务观察】：各任务类型下有哪些特殊偏好\n\n"
+        f"可参考的不满意原因类别：{', '.join(reason_labels)}\n\n"
+        "请严格按照 JSON Schema 输出，不要输出其他内容。"
+    )
+    return prompt
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # Memory Update Prompt（v2：保守更新）
 # ──────────────────────────────────────────────────────────────────────────────
@@ -415,6 +639,71 @@ def build_memory_update_prompt(
     return prompt
 
 
+def build_memory_update_prompt_v3(
+    existing_memory: UserMemoryV3,
+    new_session: SessionData,
+    turn_predictions: list[dict],
+    use_oracle_labels: bool = False,
+) -> str:
+    """
+    构造 memory update prompt（v3）。
+
+    相比 v2，v3 更强调：
+      1. 不要在证据不足时把弱推断改写成硬规则
+      2. 优先更新 calibration 与具体反例
+      3. 只有新证据明确时才改边界文本
+    """
+    existing_json = existing_memory.model_dump_json(
+        indent=2,
+        exclude={"source_tasks", "n_history_sessions", "n_history_turns"},
+    )
+
+    session_lines = [
+        f"任务：{new_session.task}  背景：{_truncate(new_session.task_context, 150)}",
+        "逐轮信息：",
+    ]
+    assistant_idx = 0
+    last_user = ""
+    for utt in new_session.history:
+        if utt["role"] == "user":
+            last_user = _truncate(utt["content"], 120)
+        elif utt["role"] == "assistant" and assistant_idx < len(turn_predictions):
+            pred = turn_predictions[assistant_idx]
+            reply = _truncate(utt["content"])
+            pred_s = pred.get("pred_score", "?")
+            line = f"  用户：{last_user}\n  助手：{reply}"
+            if use_oracle_labels:
+                gold_s = pred.get("gold_score", "?")
+                gold_r = pred.get("gold_reason", "?")
+                line += f"\n  [真实 ★{gold_s}（{gold_r}）]"
+            else:
+                line += f"\n  [预测 ★{pred_s}]"
+            session_lines.append(line)
+            assistant_idx += 1
+
+    session_text = "\n".join(session_lines)
+    label_note = (
+        "本次提供了真实标签，可作为可靠证据更新记忆。"
+        if use_oracle_labels
+        else "本次仅有模型预测分数（可能有误），请谨慎参考，不要把弱证据升级成硬规则。"
+    )
+
+    prompt = (
+        "你正在维护一份 v3 用户记忆。请根据新观察到的 session 决定是否需要更新记忆。\n\n"
+        f"【现有记忆】\n{existing_json}\n\n"
+        f"【新 Session】\n{session_text}\n\n"
+        f"【注意】{label_note}\n\n"
+        "更新原则：\n"
+        "- 优先更新 avg_satisfaction_score / score_distribution 这类 calibration 信息\n"
+        "- three_vs_four_distinction / four_vs_five_distinction 只有在新 session 提供了明确相邻分数反例时才修改\n"
+        "- 若原本属于“证据不足、只能弱推断”的边界，不要因为单条可疑预测就写成确定性规则\n"
+        "- user_specific_requirements 只保留真正改变评分的个性化要求，不要累积通用偏好文本\n"
+        "- preferred_response_format 若没有新增信息，可保持极简\n\n"
+        "请严格按照原 JSON Schema 输出更新后的记忆（不含程序侧元信息字段），不要输出其他内容。"
+    )
+    return prompt
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # Turn Evaluation Prompt（v2：rubric 式逐步判断）
 # ──────────────────────────────────────────────────────────────────────────────
@@ -456,7 +745,7 @@ def build_turn_eval_prompt(
     assistant_reply: str,
     anchor_turns: list | None = None,
     prompt_version: Literal[
-        "v2", "qwen_short", "boundary_34", "boundary_34_refute", "boundary_34_refute_v2",
+        "v2", "v3", "v3_1", "qwen_short", "boundary_34", "boundary_34_refute", "boundary_34_refute_v2",
         "boundary_34_selective_refute", "boundary_34_selective_refute_v2",
         "boundary_34_selective_refute_v3", "boundary_34_selective_refute_v4",
     ] = "v2",
@@ -475,6 +764,8 @@ def build_turn_eval_prompt(
 
     prompt_version:
       - "v2": 保持原有 rubric prompt，不改历史实验行为
+      - "v3": 分离 calibration 与 boundary 规则；证据不足时弱化边界总结
+      - "v3_1": 在 v3 基础上重新加硬 3/4 最低满意线；证据不足只影响 1/2/3 细分，不放松 SAT gate
       - "qwen_short": 面向 Qwen3-8B 的更短、更硬的 checklist prompt
       - "boundary_34": 仅围绕 3/4 满意边界判断，输出限制为 3 或 4
       - "boundary_34_refute": 在 3/4 边界上先做反证检查，抑制默认判 4
@@ -525,6 +816,174 @@ def build_turn_eval_prompt(
 
     anchor_block = _format_anchor_turns(anchor_turns or [])
     anchor_section = (anchor_block + "\n") if anchor_block else ""
+
+    if prompt_version == "v3":
+        calibration_summary = getattr(memory, "calibration_summary", "")
+        evidence_notes = list(getattr(memory, "evidence_notes", []))
+        can_compare_3_vs_4 = bool(getattr(memory, "can_compare_3_vs_4", True))
+        can_compare_4_vs_5 = bool(getattr(memory, "can_compare_4_vs_5", True))
+        low_score_evidence_level = getattr(memory, "low_score_evidence_level", "moderate")
+        evidence_block = (
+            "\n".join(f"  - {note}" for note in evidence_notes)
+            if evidence_notes else
+            "  - 边界证据正常，可按规则使用"
+        )
+        rule_34 = (
+            memory.three_vs_four_distinction
+            if can_compare_3_vs_4 else
+            f"【弱推断，不能当硬规则】{memory.three_vs_four_distinction}"
+        )
+        rule_45 = (
+            memory.four_vs_five_distinction
+            if can_compare_4_vs_5 else
+            f"【弱推断，不能当硬规则】{memory.four_vs_five_distinction}"
+        )
+        low_score_note = (
+            "当前 <=3 历史证据很少；若回复低于 4 分，默认先给 3，只有出现明显不可用/严重错误/严重答非所问时才降到 2 或 1。"
+            if low_score_evidence_level in {"none", "sparse"} else
+            "当前 <=3 历史证据足以支持 1/2/3 的相对严重度细分。"
+        )
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 先找与当前回复整体质量最接近的案例，作为初始刻度，不要只盯着高分案例挑毛病。\n"
+            "2. 若 memory 的某条边界规则被标记为【弱推断】，优先参考统计校准和真实案例，而不要机械服从该规则。\n"
+            "3. 若参考案例与弱边界规则冲突，优先相信更直接的证据：实际案例和整体分布。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化对话质量评估员。请给当前助手回复打 1-5 分。\n"
+            "这是 memory v3 路线：你必须把【校准信息】与【边界规则】分开使用。\n\n"
+            f"【校准信息（优先作为整体分数刻度）】\n"
+            f"程序校准摘要：{calibration_summary or memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"分布：5分×{memory.score_distribution.score_5} / "
+            f"4分×{memory.score_distribution.score_4} / "
+            f"3分×{memory.score_distribution.score_3} / "
+            f"2分×{memory.score_distribution.score_2} / "
+            f"1分×{memory.score_distribution.score_1}\n\n"
+            f"【边界规则（按证据充分性使用）】\n"
+            f"3→4 边界：{rule_34}\n"
+            f"4→5 边界：{rule_45}\n"
+            f"低分细分提示：{low_score_note}\n"
+            f"证据提醒：\n{evidence_block}\n\n"
+            f"【真正影响评分的个性化要求】\n{user_reqs}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + f"偏好回复形式（仅供次要参考）：{memory.preferred_response_format}\n\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+            + "【评分步骤】\n"
+            + "Step A. 先用【校准信息】估计：这个用户整体是更容易给高分，还是更容易压分。不要忽略这个先验。\n"
+            + "Step B. 再用【3→4 边界】判断是否过 4 分基线。\n"
+            + "  - 若该边界被标记为弱推断，不要把它当硬规则；要更多参考统计刻度、真实案例和用户特定要求。\n"
+            + "Step C. 若达到 4 分，再用【4→5 边界】判断是否升到 5。\n"
+            + "  - 若 4→5 边界是弱推断，默认保守给 4；只有回复明显超过一般 4 分完成度时才给 5。\n"
+            + "Step D. 若未达到 4 分，再细分 1/2/3。\n"
+            + "  - 若低分证据 sparse/none，默认优先给 3；只有严重不可用、明显错误或严重答非所问时才给 2/1。\n"
+            + "Step E. 选择最贴切的 reason。若最终分数 >=4，reason 必须是 `满意`。\n\n"
+            + "注意：\n"
+            + "- 校准信息决定“整体刻度”，边界规则决定“临界点”；二者都要用，但不要让弱证据边界压倒更强的校准/案例证据。\n"
+            + "- 不要因为 memory 里出现了一条像规则的话，就忽略它可能只是弱推断。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 1-5 中的整数,\n'
+            + f'  "reason": "{reason_json_rule}",\n'
+            + '  "analysis": "按 StepA-E 简述：校准先验是什么；3/4 或 4/5 边界是否可靠；最终分数如何决定" \n'
+            + "}\n"
+        )
+        return prompt
+
+    if prompt_version == "v3_1":
+        calibration_summary = getattr(memory, "calibration_summary", "")
+        evidence_notes = list(getattr(memory, "evidence_notes", []))
+        can_compare_3_vs_4 = bool(getattr(memory, "can_compare_3_vs_4", True))
+        can_compare_4_vs_5 = bool(getattr(memory, "can_compare_4_vs_5", True))
+        low_score_evidence_level = getattr(memory, "low_score_evidence_level", "moderate")
+        evidence_block = (
+            "\n".join(f"  - {note}" for note in evidence_notes)
+            if evidence_notes else
+            "  - 边界证据正常，可按规则使用"
+        )
+        rule_34 = (
+            memory.three_vs_four_distinction
+            if can_compare_3_vs_4 else
+            f"【弱推断，不能当硬规则】{memory.three_vs_four_distinction}"
+        )
+        rule_45 = (
+            memory.four_vs_five_distinction
+            if can_compare_4_vs_5 else
+            f"【弱推断，不能当硬规则】{memory.four_vs_five_distinction}"
+        )
+        low_score_note = (
+            "当前 <=3 历史证据 sparse/none：这只意味着 1/2/3 内部细分要保守；它不意味着可以放松 3/4 满意边界。若未过满意线，默认先给 3，只有严重不可用或明显错误时才降到 2/1。"
+            if low_score_evidence_level in {"none", "sparse"} else
+            "当前 <=3 历史证据足以支持 1/2/3 的相对严重度细分。"
+        )
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 先找与当前回复整体质量最接近的案例，作为辅助刻度。\n"
+            "2. 但若当前回复没过最低满意线，不要因为参考案例整体分布偏高就勉强给 SAT。\n"
+            "3. 当 3/4 边界是弱推断时，优先看：核心问题是否回答、关键约束是否满足、用户特定要求是否被漏掉。\n"
+            "4. 只有在已经明确过了 SAT gate 后，才让 calibration 和 4/5 边界去决定是否升到 5。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化对话质量评估员。请给当前助手回复打 1-5 分。\n"
+            "这是 memory v3.1 路线：保留 v3 的 calibration 优势，但重新加硬【3/4 最低满意线】。\n\n"
+            f"【校准信息（用于整体刻度，不直接决定是否满意）】\n"
+            f"程序校准摘要：{calibration_summary or memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"分布：5分×{memory.score_distribution.score_5} / "
+            f"4分×{memory.score_distribution.score_4} / "
+            f"3分×{memory.score_distribution.score_3} / "
+            f"2分×{memory.score_distribution.score_2} / "
+            f"1分×{memory.score_distribution.score_1}\n\n"
+            f"【边界规则（按证据充分性使用）】\n"
+            f"3→4 边界：{rule_34}\n"
+            f"4→5 边界：{rule_45}\n"
+            f"低分细分提示：{low_score_note}\n"
+            f"证据提醒：\n{evidence_block}\n\n"
+            f"【真正影响评分的个性化要求】\n{user_reqs}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + f"偏好回复形式（仅供次要参考）：{memory.preferred_response_format}\n\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+            + "【评分步骤】\n"
+            + "Step A. 先读校准信息，只把它当作整体刻度先验：这个用户通常偏高分还是偏低分。它不能直接替代满意/不满意判断。\n"
+            + "Step B. 先做【强 3/4 gate】：判断当前回复是否已经过了最低满意线。\n"
+            + "  - 必须先回答三个问题：\n"
+            + "    1. 核心问题是否被直接回答？\n"
+            + "    2. 关键约束 / 关键任务目标 / 用户特别在意的要求是否被满足？\n"
+            + "    3. 剩余缺口是否只是普通不够细致，而不是会让用户仍然不满意的关键缺口？\n"
+            + "  - 只要以上任一关键项明显失败，就不能给 >=4。\n"
+            + "  - 若 3→4 边界是弱推断，不是放松 gate，而是改为更多依赖上述三个问题与真实案例。\n"
+            + "Step C. 只有在 Step B 已明确通过 SAT gate 后，才允许进入 4/5 细化。\n"
+            + "  - 若 4→5 边界是弱推断，默认保守给 4；只有明显超过一般 4 分完成度时才给 5。\n"
+            + "Step D. 若 Step B 未通过 SAT gate，再细分 1/2/3。\n"
+            + "  - 若低分证据 sparse/none，默认先给 3；只有严重不可用、明显错误、严重答非所问时才给 2/1。\n"
+            + "  - 证据不足只影响 1/2/3 的内部细分，不影响你先把样本判为 <=3。\n"
+            + "Step E. 选择最贴切的 reason。若最终分数 >=4，reason 必须是 `满意`。\n\n"
+            + "注意：\n"
+            + "- v3.1 的核心原则是：先过 SAT gate，再做 calibration 和 4/5 refinement；不能因为用户通常打分偏高，就让未过线的回复变成 SAT。\n"
+            + "- `不够细致` 只有在仍然满足核心需求时才属于普通缺口；若它已经导致关键目标没完成，就仍然是 DSAT。\n"
+            + "- 不要把“证据不足”误解成“默认偏 SAT”。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 1-5 中的整数,\n'
+            + f'  "reason": "{reason_json_rule}",\n'
+            + '  "analysis": "按 StepA-E 简述：校准先验是什么；最低满意线是否通过；若通过为何是4或5，若未通过为何是3/2/1" \n'
+            + "}\n"
+        )
+        return prompt
 
     if prompt_version == "boundary_34_selective_refute_v4":
         anchor_instruction = (

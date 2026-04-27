@@ -67,8 +67,12 @@ from lib.llm import client as _default_client
 from lib.memory import (
     UserMemory,
     UserMemoryContent,
+    UserMemoryContentV3,
+    UserMemoryV3,
     build_memory_prompt,
+    build_memory_prompt_v3,
     build_memory_update_prompt,
+    build_memory_update_prompt_v3,
     build_turn_eval_fullscale_dsat_refinement_prompt,
     build_turn_eval_fullscale_sat_refinement_prompt,
     build_turn_eval_refute_followup_prompt,
@@ -88,6 +92,7 @@ from lib.satisfaction_constants import (
 )
 
 MemoryUpdateMode = Literal["none", "per_session", "per_session_oracle", "per_turn"]
+MemoryVersion = Literal["v2", "v3"]
 
 # ──────────────────────────────────────────────────────────────────────────────
 # LLM 客户端（可在 main() 中切换为 vLLM client）
@@ -379,10 +384,16 @@ def _normalize_pred_reason(
     wait=wait_fixed(5),
     before_sleep=before_sleep_log(logger, log_level=40),
 )
-def _call_build_memory(prompt: str, model: str) -> UserMemoryContent:
+def _call_build_memory(
+    prompt: str,
+    model: str,
+    memory_version: MemoryVersion = "v2",
+) -> UserMemoryContent | UserMemoryContentV3:
     try:
         return _structured_parse(
-            prompt, model, UserMemoryContent,
+            prompt,
+            model,
+            UserMemoryContent if memory_version == "v2" else UserMemoryContentV3,
             temperature=0.3, timeout=120,
             system_msg="You are an expert user behavior analyst.",
         )
@@ -395,7 +406,8 @@ def build_user_memory(
     sample: PersonalizedSample,
     model: str,
     memory_cache_dir: str | None = None,
-) -> UserMemory:
+    memory_version: MemoryVersion = "v2",
+) -> UserMemory | UserMemoryV3:
     """
     为给定样本构建用户记忆。
 
@@ -405,8 +417,13 @@ def build_user_memory(
     缓存文件名：{user}__{target_task}__{model}.json
     """
     cache_key = f"{sample.user}__{sample.target_task}__{model.replace('/', '_')}"
+    cache_file = (
+        f"{cache_key}.json"
+        if memory_version == "v2"
+        else f"{cache_key}__{memory_version}.json"
+    )
     cache_path = (
-        os.path.join(memory_cache_dir, f"{cache_key}.json")
+        os.path.join(memory_cache_dir, cache_file)
         if memory_cache_dir
         else None
     )
@@ -416,25 +433,41 @@ def build_user_memory(
         try:
             with open(cache_path, "r", encoding="utf-8") as fp:
                 data = json.load(fp)
-            mem = UserMemory(**data)
-            if mem.memory_version == "v2":
+            mem = UserMemory(**data) if memory_version == "v2" else UserMemoryV3(**data)
+            if mem.memory_version == memory_version:
                 return mem
             logger.debug(f"Cache version mismatch ({mem.memory_version}), rebuilding: {cache_path}")
         except Exception as e:
             logger.debug(f"Cache load failed ({e}), rebuilding: {cache_path}")
 
-    prompt = build_memory_prompt(
-        user_id=sample.user,
-        profile=sample.profile,
-        history_sessions=sample.history_sessions,
-    )
-    content = _call_build_memory(prompt, model)
-    memory = UserMemory.from_content(
-        content,
-        source_tasks=sample.history_tasks,
-        n_history_sessions=sample.n_history_sessions,
-        n_history_turns=sum(s.assistant_turns for s in sample.history_sessions),
-    )
+    if memory_version == "v2":
+        prompt = build_memory_prompt(
+            user_id=sample.user,
+            profile=sample.profile,
+            history_sessions=sample.history_sessions,
+        )
+        content = _call_build_memory(prompt, model, memory_version="v2")
+        assert isinstance(content, UserMemoryContent)
+        memory = UserMemory.from_content(
+            content,
+            source_tasks=sample.history_tasks,
+            n_history_sessions=sample.n_history_sessions,
+            n_history_turns=sum(s.assistant_turns for s in sample.history_sessions),
+        )
+    else:
+        prompt = build_memory_prompt_v3(
+            user_id=sample.user,
+            profile=sample.profile,
+            history_sessions=sample.history_sessions,
+        )
+        content = _call_build_memory(prompt, model, memory_version="v3")
+        assert isinstance(content, UserMemoryContentV3)
+        memory = UserMemoryV3.from_content(
+            content,
+            source_tasks=sample.history_tasks,
+            n_history_sessions=sample.n_history_sessions,
+            n_history_turns=sum(s.assistant_turns for s in sample.history_sessions),
+        )
 
     # 写入缓存
     if cache_path:
@@ -1015,30 +1048,56 @@ def evaluate_session(
     wait=wait_fixed(5),
     before_sleep=before_sleep_log(logger, log_level=40),
 )
-def _call_update_memory(prompt: str, model: str) -> UserMemoryContent:
+def _call_update_memory(
+    prompt: str,
+    model: str,
+    memory_version: MemoryVersion = "v2",
+) -> UserMemoryContent | UserMemoryContentV3:
     return _structured_parse(
-        prompt, model, UserMemoryContent,
+        prompt,
+        model,
+        UserMemoryContent if memory_version == "v2" else UserMemoryContentV3,
         temperature=0.3, timeout=120,
         system_msg="You are an expert user behavior analyst.",
     )
 
 
 def update_memory(
-    memory: UserMemory,
+    memory: UserMemory | UserMemoryV3,
     session: SessionData,
     turn_predictions: list[dict],
     model: str,
     use_oracle_labels: bool = False,
-) -> UserMemory:
+    memory_version: MemoryVersion = "v2",
+) -> UserMemory | UserMemoryV3:
     """在预测完一个 session 后更新用户记忆。"""
-    prompt = build_memory_update_prompt(
+    if memory_version == "v2":
+        assert isinstance(memory, UserMemory)
+        prompt = build_memory_update_prompt(
+            existing_memory=memory,
+            new_session=session,
+            turn_predictions=turn_predictions,
+            use_oracle_labels=use_oracle_labels,
+        )
+        content = _call_update_memory(prompt, model, memory_version="v2")
+        assert isinstance(content, UserMemoryContent)
+        return UserMemory.from_content(
+            content,
+            source_tasks=memory.source_tasks,
+            n_history_sessions=memory.n_history_sessions + 1,
+            n_history_turns=memory.n_history_turns + len(turn_predictions),
+        )
+
+    assert isinstance(memory, UserMemoryV3)
+    prompt = build_memory_update_prompt_v3(
         existing_memory=memory,
         new_session=session,
         turn_predictions=turn_predictions,
         use_oracle_labels=use_oracle_labels,
     )
-    content = _call_update_memory(prompt, model)
-    return UserMemory.from_content(
+    content = _call_update_memory(prompt, model, memory_version="v3")
+    assert isinstance(content, UserMemoryContentV3)
+    return UserMemoryV3.from_content(
         content,
         source_tasks=memory.source_tasks,
         n_history_sessions=memory.n_history_sessions + 1,
@@ -1054,6 +1113,7 @@ def run_agent_on_sample(
     sample: PersonalizedSample,
     model: str,
     memory_update_mode: MemoryUpdateMode = "per_session",
+    memory_version: MemoryVersion = "v2",
     history_window_size: int = 5,
     save_memory_snapshots: bool = False,
     memory_cache_dir: str | None = None,
@@ -1079,7 +1139,12 @@ def run_agent_on_sample(
 
     # Phase 1: Build memory（with_memory=False 时跳过）
     memory = (
-        build_user_memory(sample, model, memory_cache_dir=memory_cache_dir)
+        build_user_memory(
+            sample,
+            model,
+            memory_cache_dir=memory_cache_dir,
+            memory_version=memory_version,
+        )
         if with_memory
         else None
     )
@@ -1107,6 +1172,7 @@ def run_agent_on_sample(
                 n_anchors=n_anchors,
                 turn_eval_prompt_version=turn_eval_prompt_version,
                 block_id=sample.block_id,
+                memory_version=memory_version,
             )
         else:
             # 整个 session 一次性预测
@@ -1140,6 +1206,7 @@ def run_agent_on_sample(
                 "model": model,
                 "with_memory": with_memory,
                 "memory_update_mode": memory_update_mode if with_memory else "no_memory",
+                "memory_version": memory.memory_version if memory is not None else "none",
                 "turn_eval_prompt_version": turn_eval_prompt_version,
             }
             for optional_key in (
@@ -1180,6 +1247,7 @@ def run_agent_on_sample(
                     turn_predictions=session_results,
                     model=model,
                     use_oracle_labels=use_oracle,
+                    memory_version=memory_version,
                 )
             except Exception as e:
                 logger.warning(
@@ -1191,7 +1259,7 @@ def run_agent_on_sample(
 
 
 def _evaluate_session_per_turn_update(
-    memory: UserMemory,
+    memory: UserMemory | UserMemoryV3,
     session: SessionData,
     model: str,
     history_window_size: int,
@@ -1201,6 +1269,7 @@ def _evaluate_session_per_turn_update(
     n_anchors: int = 0,
     turn_eval_prompt_version: str = "v2",
     block_id: str = "",
+    memory_version: MemoryVersion = "v2",
 ) -> list[dict]:
     """
     per_turn 模式：每预测一轮后立即更新记忆。
@@ -1311,6 +1380,7 @@ def _evaluate_session_per_turn_update(
                     turn_predictions=[turn_result],
                     model=model,
                     use_oracle_labels=False,
+                    memory_version=memory_version,
                 )
             except Exception as e:
                 logger.warning(f"Per-turn memory update failed at turn {assistant_turn_idx}: {e}")
@@ -1357,6 +1427,7 @@ def collect_all(
     samples: list[PersonalizedSample],
     model: str,
     memory_update_mode: MemoryUpdateMode,
+    memory_version: MemoryVersion,
     history_window_size: int,
     output_jsonl: str,
     max_workers: int,
@@ -1390,6 +1461,7 @@ def collect_all(
             sample=sample,
             model=model,
             memory_update_mode=memory_update_mode,
+            memory_version=memory_version,
             history_window_size=history_window_size,
             save_memory_snapshots=save_memory_snapshots,
             memory_cache_dir=memory_cache_dir,
@@ -1492,6 +1564,13 @@ def parse_args() -> ArgumentParser:
         help="记忆缓存目录（默认 outputs/personalized/memory_cache）",
     )
     parser.add_argument(
+        "--memory_version",
+        type=str,
+        default="v2",
+        choices=["v2", "v3"],
+        help="用户记忆版本（默认 v2；v3 会启用更保守的证据充分性建模）",
+    )
+    parser.add_argument(
         "--target_tasks",
         type=str,
         nargs="+",
@@ -1566,6 +1645,8 @@ def parse_args() -> ArgumentParser:
         default="v2",
         choices=[
             "v2",
+            "v3",
+            "v3_1",
             "qwen_short",
             "boundary_34",
             "boundary_34_refute",
@@ -1579,6 +1660,8 @@ def parse_args() -> ArgumentParser:
         help=(
             "turn evaluation prompt 版本。"
             "v2 为原始 rubric prompt；qwen_short 为面向 Qwen3-8B 的短 checklist prompt；"
+            "v3 为 memory v3 配套 prompt，会分离 calibration 与 boundary 规则，并在证据不足时弱化边界总结；"
+            "v3_1 为 memory v3 的强化版，会重新加硬 3/4 最低满意线，避免因证据不足而默认偏 SAT；"
             "boundary_34 仅围绕 3/4 满意边界判断，并只输出 3 或 4；"
             "boundary_34_refute 会先做反证检查，再决定是否给 4；"
             "boundary_34_refute_v2 为更温和的 refute 版本，只在存在明确致命缺陷时判 3；"
@@ -1610,13 +1693,18 @@ def main() -> None:
     if not args.output_jsonl:
         model_tag = args.model.replace("/", "_").replace(":", "_")
         mode_tag = "no_memory" if not with_memory else args.memory_update_mode
+        memory_tag = (
+            f"_mem{args.memory_version}"
+            if with_memory and args.memory_version != "v2"
+            else ""
+        )
         anchor_tag = f"_anchor{args.n_anchors}" if args.n_anchors > 0 else ""
         prompt_tag = (
             f"_{args.turn_eval_prompt_version}"
             if args.turn_eval_prompt_version != "v2" else ""
         )
         args.output_jsonl = (
-            f"outputs/personalized/{model_tag}_{args.split}_{mode_tag}{anchor_tag}{prompt_tag}.jsonl"
+            f"outputs/personalized/{model_tag}_{args.split}_{mode_tag}{memory_tag}{anchor_tag}{prompt_tag}.jsonl"
         )
 
     logger.info(f"Model:              {args.model}")
@@ -1625,6 +1713,7 @@ def main() -> None:
     logger.info(f"With memory:        {with_memory}")
     if with_memory:
         logger.info(f"Memory update mode: {args.memory_update_mode}")
+        logger.info(f"Memory version:     {args.memory_version}")
     logger.info(f"History window:     {args.history_window_size} turns")
     logger.info(f"Anchors per turn:   {args.n_anchors}")
     logger.info(f"Turn eval prompt:   {args.turn_eval_prompt_version}")
@@ -1666,6 +1755,7 @@ def main() -> None:
         samples=samples,
         model=args.model,
         memory_update_mode=args.memory_update_mode,
+        memory_version=args.memory_version,
         history_window_size=args.history_window_size,
         output_jsonl=args.output_jsonl,
         max_workers=args.max_workers,
