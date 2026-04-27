@@ -10,7 +10,7 @@
 > - `scripts/diagnose_confusion.sh`（新）、`scripts/collect_personalized*.sh`（改）
 >
 > 相关输出：
-> - `reports/diagnose_confusion.md`：对 6 份关键历史结果的完整诊断报告
+> - `reports/analysis/diagnose_confusion.md`：对 6 份关键历史结果的完整诊断报告
 > - `outputs/personalized/gpt-4o-mini_limit20_none_anchor3_qmatch.jsonl`：anchor 改造后的 20-block 小规模对照结果
 
 ---
@@ -30,13 +30,13 @@
 ```bash
 result_files="gpt4o_none=outputs/personalized/gpt-4o-mini_test_none_v2.jsonl \
   qwen3_none=outputs/personalized/Qwen_Qwen3-8B_test_none.jsonl" \
-  output_md=reports/diagnose_confusion.md \
+  output_md=reports/analysis/diagnose_confusion.md \
   bash scripts/diagnose_confusion.sh
 ```
 
 ### 1.2 对 6 份历史结果的诊断要点
 
-完整数据见 `reports/diagnose_confusion.md`，核心归纳：
+完整数据见 `reports/analysis/diagnose_confusion.md`，核心归纳：
 
 #### (A) 两个模型共享的主要失误：5 → 4 误判
 
@@ -173,7 +173,7 @@ Oracle 更新**几乎不改变分布**（pred% 变化均 < 1%），说明 update
 
 ### 3.1 已交付
 
-1. ✅ 诊断工具 `eval/diagnose_confusion.py` + 6 份历史结果的完整诊断（`reports/diagnose_confusion.md`）
+1. ✅ 诊断工具 `eval/diagnose_confusion.py` + 6 份历史结果的完整诊断（`reports/analysis/diagnose_confusion.md`）
 2. ✅ Anchor retriever + prompt 改造 + CLI（`--n_anchors` 参数），默认 0 关闭
 3. ✅ 20-block smoke 显示 anchor 改造在 GPT-4o-mini 上**改善 MAE / 用户级偏差**，但 **Pearson / Kappa 小幅下降**
 
@@ -213,7 +213,7 @@ result_files="gpt4o_none=outputs/personalized/gpt-4o-mini_test_none_v2.jsonl \
   gpt4o_oracle=outputs/personalized/gpt-4o-mini_test_per_session_oracle_v2.jsonl \
   qwen3_none=outputs/personalized/Qwen_Qwen3-8B_test_none.jsonl \
   qwen3_oracle=outputs/personalized/Qwen_Qwen3-8B_test_per_session_oracle.jsonl" \
-  output_md=reports/diagnose_confusion.md \
+  output_md=reports/analysis/diagnose_confusion.md \
   bash scripts/diagnose_confusion.sh
 ```
 
@@ -242,6 +242,6 @@ model=Qwen/Qwen3-8B memory_update_mode=none n_anchors=3 \
 ```bash
 result_files="gpt4o_none=outputs/personalized/gpt-4o-mini_test_none_v2.jsonl \
   gpt4o_anchor3=outputs/personalized/gpt-4o-mini_test_none_anchor3.jsonl" \
-  output_md=reports/diagnose_confusion_anchor.md \
+  output_md=reports/analysis/diagnose_confusion_anchor.md \
   bash scripts/diagnose_confusion.sh
 ```

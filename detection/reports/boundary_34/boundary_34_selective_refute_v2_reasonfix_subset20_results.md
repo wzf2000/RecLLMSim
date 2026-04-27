@@ -13,7 +13,7 @@
 
 旧版对照基线来自已有报告：
 
-- `detection/reports/boundary_34_selective_refute_v2_subset_results.md`
+- `detection/reports/boundary_34/boundary_34_selective_refute_v2_subset_results.md`
 
 两者都基于：
 

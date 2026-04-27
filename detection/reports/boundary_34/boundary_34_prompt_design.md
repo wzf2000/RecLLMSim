@@ -13,7 +13,7 @@
 
 ## 为什么这样做
 
-基于 `reports/boundary_metrics_results.md` 的补充验证，目前项目真正更关心的是：
+基于 `reports/analysis/boundary_metrics_results.md` 的补充验证，目前项目真正更关心的是：
 
 - 用户是否满意，而不是回复是否“足够优秀”
 - 如何减少把真实不满意误判成满意（`false_sat_rate`）

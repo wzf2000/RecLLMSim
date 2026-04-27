@@ -2,7 +2,7 @@
 
 ## 动机
 
-来自 `reports/anchor_and_diagnostics.md` 的诊断结论：
+来自 `reports/analysis/anchor_and_diagnostics.md` 的诊断结论：
 - **GPT-4o-mini**：预测分布塌缩到 4 分（pred 59.5% vs gold 37.8%），整体均值偏差小（-0.05），但类别边缘严重错配。
 - **Qwen3-8B**：系统性低估（整体偏差 -0.20，平均绝对用户偏差 0.30），相对排序 OK（Pearson 0.30 左右）。
 
@@ -118,7 +118,7 @@
 - 代码：`detection/eval/calibrate.py`
 - 脚本：`detection/scripts/calibrate.sh`
 - 数据：`detection/outputs/personalized/*_calMS.jsonl`、`*_calCDF.jsonl`（4 份原始文件 × 2 种方法 = 8 份新产物）
-- 诊断：`detection/reports/calibration_confusion.md`
+- 诊断：`detection/reports/analysis/calibration_confusion.md`
 
 ## 下一步建议
 
