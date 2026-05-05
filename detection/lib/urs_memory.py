@@ -13,9 +13,12 @@ from __future__ import annotations
 
 from .memory import (
     UserMemory,
+    UserMemoryContent,
+    _format_score_group,
     _format_profile,
     _format_reason_json_rule,
     _format_reason_rule_block,
+    _select_sessions,
     _truncate,
 )
 from .satisfaction_constants import get_reason_to_id
@@ -29,6 +32,121 @@ def _format_session_dialogue(history: list[dict], max_chars: int = 400) -> str:
         content = _truncate(utt.get("content", ""), max_chars)
         lines.append(f"{role_label}：{content}")
     return "\n".join(lines) if lines else "（空对话）"
+
+
+def _collect_sessions_by_score(sessions: list) -> dict[int, list[dict]]:
+    """URS session-level: 每个 session 只有一个整体标签。"""
+    by_score: dict[int, list[dict]] = {1: [], 2: [], 3: [], 4: [], 5: []}
+    for session in sessions:
+        if not session.satisfaction_scores:
+            continue
+        score = int(session.satisfaction_scores[0])
+        reason = (
+            session.dissatisfaction_reasons[0]
+            if session.dissatisfaction_reasons else "满意"
+        )
+        by_score[score].append({
+            "task": session.task,
+            "user_msg": _truncate(session.task_context, 120),
+            "assistant_reply": _format_session_dialogue(session.history, max_chars=220),
+            "score": score,
+            "reason": reason,
+        })
+    return by_score
+
+
+def build_urs_memory_prompt(
+    user_id: str,
+    profile: dict,
+    history_sessions: list,
+) -> str:
+    """
+    URS session-level memory building prompt。
+
+    与 turn-level v2 的核心 schema 保持一致，但对比证据来自“整段对话级别”的满意度标签。
+    """
+    sessions_to_use = _select_sessions(history_sessions)
+    reason_labels = list(get_reason_to_id().keys())
+
+    session_lines: list[str] = []
+    for idx, session in enumerate(sessions_to_use):
+        score = session.satisfaction_scores[0]
+        reason = session.dissatisfaction_reasons[0]
+        tag = f"★{score}" + (f"（{reason}）" if score <= 3 else "")
+        lines = [
+            f"【Session {idx + 1}】任务：{session.task}",
+            f"任务背景：{_truncate(session.task_context, 150)}",
+            f"整段对话：\n{_format_session_dialogue(session.history, max_chars=220)}",
+            f"[整体满意度: {tag}]",
+        ]
+        session_lines.append("\n".join(lines))
+
+    session_block = "\n\n".join(session_lines)
+    sessions_by_score = _collect_sessions_by_score(sessions_to_use)
+    grouped_block = "\n\n".join(
+        _format_score_group(score, sessions_by_score.get(score, []), max_examples=3)
+        for score in [5, 4, 3, 2, 1]
+        if sessions_by_score.get(score)
+    )
+
+    prompt = (
+        "你是一名用户行为分析师。请基于该用户在 URS 数据集上的历史【整段对话级】满意度标签，"
+        "总结出一份可直接用于后续 session-level 评分的个性化记忆。\n\n"
+        f"【用户 ID】{user_id}\n"
+        f"【用户画像】{_format_profile(profile)}\n\n"
+        f"【历史 session（按原始顺序）】\n{session_block}\n\n"
+        f"【按分数分组的对比证据】\n{grouped_block}\n\n"
+        "你需要输出的内容：\n"
+        "1. 【评分边界 4→5】：对比 5 分和 4 分 session，指出哪些具体要素决定了能否从 4 分升至 5 分；若缺证据，明确说明证据不足\n"
+        "2. 【评分边界 3→4】：对比 4 分和 3 分（及以下）session，指出哪些缺陷会导致从 4 分跌至 3 分；若缺证据，明确说明证据不足\n"
+        "3. 【评分风格】：该用户整体打分刻度如何\n"
+        "4. 【用户特异性要求】：只保留最能改变评分的 1-4 条要求\n"
+        "5. 【偏好格式】：如果只是通用偏好，可简短概括，不必展开\n"
+        "6. 【任务观察】：各 intent 下有哪些特殊偏好\n\n"
+        f"可参考的不满意原因类别：{', '.join(reason_labels)}\n\n"
+        "请严格按照 JSON Schema 输出，不要输出其他内容。"
+    )
+    return prompt
+
+
+def build_urs_memory_update_prompt(
+    existing_memory: UserMemory,
+    new_session,
+    turn_predictions: list[dict],
+    use_oracle_labels: bool = False,
+) -> str:
+    """URS session-level 的 memory update prompt。"""
+    existing_json = existing_memory.model_dump_json(
+        indent=2,
+        exclude={"memory_version", "source_tasks", "n_history_sessions", "n_history_turns"},
+    )
+    pred = turn_predictions[0]
+    score = pred.get("gold_score", "?") if use_oracle_labels else pred.get("pred_score", "?")
+    reason = pred.get("gold_reason", "?") if use_oracle_labels else pred.get("pred_reason", "?")
+    label_note = (
+        "本次提供了真实 session-level 标签，可作为可靠证据更新记忆。"
+        if use_oracle_labels
+        else "本次仅有模型预测的 session-level 标签（可能有误），请谨慎参考，不要因单条弱证据大幅修改已有记忆。"
+    )
+    session_text = (
+        f"任务：{new_session.task}\n"
+        f"背景：{_truncate(new_session.task_context, 180)}\n"
+        f"整段对话：\n{_format_session_dialogue(new_session.history, max_chars=220)}\n"
+        f"[整体标签 ★{score}" + (f"（{reason}）]" if int(score) <= 3 else "]")
+    )
+    prompt = (
+        "你正在维护一份 URS session-level 用户记忆。请根据新观察到的整段对话决定是否需要更新记忆。\n\n"
+        f"【现有记忆】\n{existing_json}\n\n"
+        f"【新 Session】\n{session_text}\n\n"
+        f"【注意】{label_note}\n\n"
+        "更新原则（保守优先）：\n"
+        "- 若新 session 与已有模式一致，保持记忆不变或仅微调\n"
+        "- 仅当新 session 提供了明确反例或补充信息时，才修改 four_vs_five_distinction / three_vs_four_distinction / user_specific_requirements\n"
+        "- 更新 avg_satisfaction_score 和 score_distribution 的统计数字\n"
+        "- 可新增 task_specific_observations 条目，但不删除已有条目\n\n"
+        "请严格按照原 JSON Schema 输出更新后的记忆（不含元信息字段），不要输出其他内容。"
+    )
+    return prompt
 
 
 def build_session_eval_prompt(

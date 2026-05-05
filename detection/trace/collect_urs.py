@@ -34,7 +34,7 @@ from openai import OpenAI
 from tenacity import before_sleep_log, retry, stop_after_attempt, wait_fixed
 from tqdm import tqdm
 
-from lib.memory import UserMemory, build_memory_update_prompt
+from lib.memory import UserMemory, UserMemoryContent
 from lib.personalized_data import PersonalizedSample, SessionData
 from lib.satisfaction_constants import (
     get_reason_to_id,
@@ -47,6 +47,8 @@ from lib.urs_data import (
     urs_dataset_stats,
 )
 from lib.urs_memory import (
+    build_urs_memory_prompt,
+    build_urs_memory_update_prompt,
     build_session_eval_prompt,
     build_session_eval_prompt_no_memory,
 )
@@ -56,11 +58,65 @@ from trace.collect_personalized import (
     StructuredOutputError,
     TurnPrediction,
     _structured_parse,
-    build_user_memory,
 )
 from trace import collect_personalized as _base
 
 MemoryUpdateMode = Literal["none", "per_session", "per_session_oracle"]
+
+
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_fixed(5),
+    before_sleep=before_sleep_log(logger, log_level=40),
+)
+def _call_build_memory(prompt: str, model: str) -> UserMemoryContent:
+    return _structured_parse(
+        prompt,
+        model,
+        UserMemoryContent,
+        temperature=0.3,
+        timeout=120,
+        system_msg="You are an expert user behavior analyst.",
+    )
+
+
+def build_user_memory_urs(
+    sample: PersonalizedSample,
+    model: str,
+    memory_cache_dir: str | None = None,
+) -> UserMemory:
+    cache_key = f"{sample.user}__{sample.target_task}__{model.replace('/', '_')}"
+    cache_path = (
+        os.path.join(memory_cache_dir, f"{cache_key}.json")
+        if memory_cache_dir else None
+    )
+    if cache_path and os.path.exists(cache_path):
+        try:
+            with open(cache_path, "r", encoding="utf-8") as fp:
+                data = json.load(fp)
+            mem = UserMemory(**data)
+            if mem.memory_version == "v2":
+                return mem
+        except Exception as e:
+            logger.debug(f"URS cache load failed ({e}), rebuilding: {cache_path}")
+
+    prompt = build_urs_memory_prompt(
+        user_id=sample.user,
+        profile=sample.profile,
+        history_sessions=sample.history_sessions,
+    )
+    content = _call_build_memory(prompt, model)
+    memory = UserMemory.from_content(
+        content,
+        source_tasks=sample.history_tasks,
+        n_history_sessions=sample.n_history_sessions,
+        n_history_turns=sum(len(s.satisfaction_scores) for s in sample.history_sessions),
+    )
+    if cache_path:
+        os.makedirs(os.path.dirname(cache_path), exist_ok=True)
+        with open(cache_path, "w", encoding="utf-8") as fp:
+            json.dump(memory.model_dump(), fp, ensure_ascii=False, indent=2)
+    return memory
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -209,7 +265,7 @@ def update_memory_urs(
     model: str,
     use_oracle_labels: bool = False,
 ) -> UserMemory:
-    prompt = build_memory_update_prompt(
+    prompt = build_urs_memory_update_prompt(
         existing_memory=memory,
         new_session=session,
         turn_predictions=turn_predictions,
@@ -242,7 +298,7 @@ def run_agent_on_urs_sample(
     default_reason = "其它" if "其它" in reason_to_id else next(iter(reason_to_id))
 
     memory = (
-        build_user_memory(sample, model, memory_cache_dir=memory_cache_dir)
+        build_user_memory_urs(sample, model, memory_cache_dir=memory_cache_dir)
         if with_memory else None
     )
 
