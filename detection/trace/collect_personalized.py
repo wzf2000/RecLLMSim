@@ -66,6 +66,7 @@ from lib.anchor_retrieval import AnchorRetriever, AnchorTurn
 from lib.llm import client as _default_client
 from lib.memory import (
     MemoryUpdatePatchV2_1,
+    MemoryUpdatePatchV2_2,
     UserMemory,
     UserMemoryContent,
     UserMemoryContentV3,
@@ -74,6 +75,8 @@ from lib.memory import (
     build_memory_prompt_v3,
     build_memory_update_prompt,
     build_memory_update_prompt_v2_1,
+    build_memory_update_prompt_v2_2,
+    build_memory_update_prompt_v2_3,
     build_memory_update_prompt_v3,
     build_turn_eval_fullscale_dsat_refinement_prompt,
     build_turn_eval_fullscale_sat_refinement_prompt,
@@ -86,6 +89,8 @@ from lib.memory import (
     build_turn_eval_v3_two_stage_sat_refinement_prompt,
     build_turn_eval_prompt_no_memory,
     merge_memory_v2_1_patch,
+    merge_memory_v2_2_patch,
+    merge_memory_v2_3_patch,
 )
 from lib.personalized_data import (
     PersonalizedSample,
@@ -101,7 +106,7 @@ from lib.satisfaction_constants import (
 
 MemoryUpdateMode = Literal["none", "per_session", "per_session_oracle", "per_turn"]
 MemoryVersion = Literal["v2", "v3"]
-MemoryUpdatePromptVersion = Literal["auto", "v2", "v2_1", "v3"]
+MemoryUpdatePromptVersion = Literal["auto", "v2", "v2_1", "v2_2", "v2_3", "v3"]
 
 # ──────────────────────────────────────────────────────────────────────────────
 # LLM 客户端（可在 main() 中切换为 vLLM client）
@@ -1422,9 +1427,11 @@ def _call_update_memory(
     prompt: str,
     model: str,
     update_prompt_version: MemoryUpdatePromptVersion = "v2",
-) -> UserMemoryContent | UserMemoryContentV3 | MemoryUpdatePatchV2_1:
+) -> UserMemoryContent | UserMemoryContentV3 | MemoryUpdatePatchV2_1 | MemoryUpdatePatchV2_2:
     response_model = (
         MemoryUpdatePatchV2_1 if update_prompt_version == "v2_1"
+        else MemoryUpdatePatchV2_1 if update_prompt_version == "v2_3"
+        else MemoryUpdatePatchV2_2 if update_prompt_version == "v2_2"
         else UserMemoryContent if update_prompt_version == "v2"
         else UserMemoryContentV3
     )
@@ -1440,10 +1447,10 @@ def _call_update_memory(
 def _resolve_memory_update_prompt_version(
     memory_version: MemoryVersion,
     memory_update_prompt_version: MemoryUpdatePromptVersion,
-) -> Literal["v2", "v2_1", "v3"]:
+) -> Literal["v2", "v2_1", "v2_2", "v2_3", "v3"]:
     if memory_update_prompt_version == "auto":
         return "v2" if memory_version == "v2" else "v3"
-    if memory_version == "v2" and memory_update_prompt_version in {"v2", "v2_1"}:
+    if memory_version == "v2" and memory_update_prompt_version in {"v2", "v2_1", "v2_2", "v2_3"}:
         return memory_update_prompt_version
     if memory_version == "v3" and memory_update_prompt_version == "v3":
         return "v3"
@@ -1479,6 +1486,38 @@ def update_memory(
             patch = _call_update_memory(prompt, model, update_prompt_version="v2_1")
             assert isinstance(patch, MemoryUpdatePatchV2_1)
             return merge_memory_v2_1_patch(
+                existing_memory=memory,
+                patch=patch,
+                turn_predictions=turn_predictions,
+                use_oracle_labels=use_oracle_labels,
+            )
+
+        if resolved_update_version == "v2_2":
+            prompt = build_memory_update_prompt_v2_2(
+                existing_memory=memory,
+                new_session=session,
+                turn_predictions=turn_predictions,
+                use_oracle_labels=use_oracle_labels,
+            )
+            patch = _call_update_memory(prompt, model, update_prompt_version="v2_2")
+            assert isinstance(patch, MemoryUpdatePatchV2_2)
+            return merge_memory_v2_2_patch(
+                existing_memory=memory,
+                patch=patch,
+                turn_predictions=turn_predictions,
+                use_oracle_labels=use_oracle_labels,
+            )
+
+        if resolved_update_version == "v2_3":
+            prompt = build_memory_update_prompt_v2_3(
+                existing_memory=memory,
+                new_session=session,
+                turn_predictions=turn_predictions,
+                use_oracle_labels=use_oracle_labels,
+            )
+            patch = _call_update_memory(prompt, model, update_prompt_version="v2_3")
+            assert isinstance(patch, MemoryUpdatePatchV2_1)
+            return merge_memory_v2_3_patch(
                 existing_memory=memory,
                 patch=patch,
                 turn_predictions=turn_predictions,
@@ -2038,11 +2077,13 @@ def parse_args() -> ArgumentParser:
         "--memory_update_prompt_version",
         type=str,
         default="auto",
-        choices=["auto", "v2", "v2_1", "v3"],
+        choices=["auto", "v2", "v2_1", "v2_2", "v2_3", "v3"],
         help=(
             "记忆更新 prompt 版本（默认 auto）。"
             "auto 表示与 memory_version 对齐；"
             "v2_1 仅适用于 memory_version=v2，会启用 patch 式更新：统计量代码更新，边界/要求字段按证据定点修改。"
+            "v2_2 仅适用于 memory_version=v2，会进一步引入结构化 evidence bundle 与更硬的程序侧 gate。"
+            "v2_3 仅适用于 memory_version=v2，会保留 v2.1 的原始 turn 级证据，只增加轻量边界摘要与轻量 gate。"
         ),
     )
     parser.add_argument(
