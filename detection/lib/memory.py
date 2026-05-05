@@ -276,6 +276,56 @@ class UserMemoryV3(UserMemory):
         return cls(**data)
 
 
+class MemoryUpdatePatchV2_1(BaseModel):
+    """
+    v2.1 的 memory update patch。
+
+    设计目标：
+      - 统计量由代码端确定性更新
+      - verbal 字段只做字段级 patch，而不是整份 memory 重写
+    """
+
+    update_scoring_style: bool = Field(
+        description="是否根据新证据改写 scoring_style"
+    )
+    scoring_style: str = Field(
+        description="若 update_scoring_style=true，则给出更新后的 scoring_style；否则原样复述现有值"
+    )
+    update_three_vs_four: bool = Field(
+        description="是否根据新 session 的明确 3/4 证据改写 three_vs_four_distinction"
+    )
+    three_vs_four_distinction: str = Field(
+        description="若 update_three_vs_four=true，则给出新的 3/4 边界总结；否则原样复述现有值"
+    )
+    update_four_vs_five: bool = Field(
+        description="是否根据新 session 的明确 4/5 证据改写 four_vs_five_distinction"
+    )
+    four_vs_five_distinction: str = Field(
+        description="若 update_four_vs_five=true，则给出新的 4/5 边界总结；否则原样复述现有值"
+    )
+    add_user_specific_requirements: list[str] = Field(
+        description=(
+            "需要新增到 user_specific_requirements 的条目，0-3 条。"
+            "只允许新增真正有辨识度、会改变评分的个性化要求；若无新增则返回空列表。"
+        )
+    )
+    update_preferred_response_format: bool = Field(
+        description="是否根据新证据改写 preferred_response_format"
+    )
+    preferred_response_format: str = Field(
+        description="若 update_preferred_response_format=true，则给出新的 preferred_response_format；否则原样复述现有值"
+    )
+    add_or_update_task_specific_observations: list[TaskObservation] = Field(
+        description=(
+            "需要新增或覆盖的 task_specific_observations。"
+            "仅在新 session 对某任务提供了明确新信息时输出；否则返回空列表。"
+        )
+    )
+    rationale: str = Field(
+        description="1-3 句简要说明：这次 update 主要依据哪些新证据，哪些字段保持不变"
+    )
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # 内部工具
 # ──────────────────────────────────────────────────────────────────────────────
@@ -637,6 +687,209 @@ def build_memory_update_prompt(
         "请严格按照原 JSON Schema 输出更新后的记忆（不含元信息字段），不要输出其他内容。"
     )
     return prompt
+
+
+def _collect_update_turns(
+    new_session: SessionData,
+    turn_predictions: list[dict],
+    use_oracle_labels: bool,
+) -> list[dict]:
+    """抽取 update 所需的 turn 级证据，分数字段优先使用 gold（oracle）否则使用 pred。"""
+    turns: list[dict] = []
+    assistant_idx = 0
+    last_user = ""
+    for utt in new_session.history:
+        if utt["role"] == "user":
+            last_user = utt["content"]
+        elif utt["role"] == "assistant" and assistant_idx < len(turn_predictions):
+            pred = turn_predictions[assistant_idx]
+            score = int(pred["gold_score"] if use_oracle_labels else pred["pred_score"])
+            if use_oracle_labels:
+                reason = pred.get("gold_reason", SATISFIED_REASON if score >= 4 else "其它")
+            else:
+                reason = pred.get("pred_reason", SATISFIED_REASON if score >= 4 else "其它")
+            turns.append({
+                "task": new_session.task,
+                "user_msg": last_user,
+                "assistant_reply": utt["content"],
+                "score": score,
+                "reason": reason,
+            })
+            assistant_idx += 1
+    return turns
+
+
+def _format_update_examples(
+    title: str,
+    turns: list[dict],
+    max_examples: int = 2,
+) -> str:
+    if not turns:
+        return f"{title}\n  （无）"
+    lines = [title]
+    for i, t in enumerate(turns[:max_examples], 1):
+        reason_suffix = f"（{t['reason']}）" if t["score"] <= 3 else ""
+        lines.append(f"  [{i}] ★{t['score']}{reason_suffix}")
+        lines.append(f"      用户：{_truncate(t['user_msg'], 120)}")
+        lines.append(f"      助手：{_truncate(t['assistant_reply'])}")
+    return "\n".join(lines)
+
+
+def _dedupe_preserve_order(items: list[str]) -> list[str]:
+    seen: set[str] = set()
+    out: list[str] = []
+    for item in items:
+        normalized = item.strip()
+        if not normalized or normalized in seen:
+            continue
+        seen.add(normalized)
+        out.append(normalized)
+    return out
+
+
+def build_memory_update_prompt_v2_1(
+    existing_memory: UserMemory,
+    new_session: SessionData,
+    turn_predictions: list[dict],
+    use_oracle_labels: bool = False,
+) -> str:
+    """
+    构造 memory update prompt（v2.1）。
+
+    核心改动：
+      1. 不再要求整份 memory 重写
+      2. 统计量由代码侧更新
+      3. verbal 字段只允许 patch 式修改
+    """
+    existing_json = existing_memory.model_dump_json(
+        indent=2,
+        exclude={"memory_version", "source_tasks", "n_history_sessions", "n_history_turns"},
+    )
+    turns = _collect_update_turns(new_session, turn_predictions, use_oracle_labels)
+    by_score: dict[int, list[dict]] = defaultdict(list)
+    for t in turns:
+        by_score[t["score"]].append(t)
+
+    low_turns = by_score[1] + by_score[2] + by_score[3]
+    mid_turns = by_score[4]
+    high_turns = by_score[5]
+
+    session_stats = (
+        f"本 session 分布："
+        f"5分×{len(by_score[5])} / 4分×{len(by_score[4])} / 3分×{len(by_score[3])} / "
+        f"2分×{len(by_score[2])} / 1分×{len(by_score[1])}"
+    )
+    label_note = (
+        "本次提供了真实标签，可视为可靠证据。"
+        if use_oracle_labels
+        else "本次仅有模型预测标签，属于弱证据；除非形成清晰模式，否则不要改 verbal 边界字段。"
+    )
+    prompt = (
+        "你正在维护一份 v2.1 用户记忆。请根据新 session 给出【字段级 patch】，而不是重写整份 memory。\n\n"
+        f"【现有记忆】\n{existing_json}\n\n"
+        f"【新 Session 概览】\n"
+        f"任务：{new_session.task}\n"
+        f"任务背景：{_truncate(new_session.task_context, 180)}\n"
+        f"{session_stats}\n"
+        f"【说明】{label_note}\n\n"
+        f"{_format_update_examples('【<=3 证据（可能影响 3/4 边界或低分要求）】', low_turns)}\n\n"
+        f"{_format_update_examples('【4 分证据（与 <=3 或 5 比较时使用）】', mid_turns)}\n\n"
+        f"{_format_update_examples('【5 分证据（可能影响 4/5 边界）】', high_turns)}\n\n"
+        "更新原则：\n"
+        "1. avg_satisfaction_score 和 score_distribution 由程序自动更新，你不需要负责统计数字。\n"
+        "2. 只有在新 session 提供了明确相邻分数证据时，才改写边界字段：\n"
+        "   - 改写 three_vs_four_distinction 需要有清晰的 <=3 与 4 分对比证据\n"
+        "   - 改写 four_vs_five_distinction 需要有清晰的 4 与 5 分对比证据\n"
+        "3. 如果只是重复了现有模式，必须保持 verbal 字段不变。\n"
+        "4. user_specific_requirements 只能新增真正会改变评分的个性化要求；禁止加入泛化要求。\n"
+        "5. preferred_response_format 只有在出现新的稳定格式偏好时才改。\n"
+        "6. task_specific_observations 只新增/覆盖当前 session 提供了明确新信息的任务观察。\n\n"
+        "请严格按下面的 JSON Schema 输出 patch，不要输出其他内容：\n"
+        "{\n"
+        '  "update_scoring_style": true 或 false,\n'
+        '  "scoring_style": "若不更新则原样复述现有值",\n'
+        '  "update_three_vs_four": true 或 false,\n'
+        '  "three_vs_four_distinction": "若不更新则原样复述现有值",\n'
+        '  "update_four_vs_five": true 或 false,\n'
+        '  "four_vs_five_distinction": "若不更新则原样复述现有值",\n'
+        '  "add_user_specific_requirements": ["仅新增条目；若无则空列表"],\n'
+        '  "update_preferred_response_format": true 或 false,\n'
+        '  "preferred_response_format": "若不更新则原样复述现有值",\n'
+        '  "add_or_update_task_specific_observations": [{"task_name": "...", "observation": "..."}],\n'
+        '  "rationale": "1-3句说明主要依据与保持不变的原因"\n'
+        "}\n"
+    )
+    return prompt
+
+
+def merge_memory_v2_1_patch(
+    existing_memory: UserMemory,
+    patch: MemoryUpdatePatchV2_1,
+    turn_predictions: list[dict],
+    use_oracle_labels: bool = False,
+) -> UserMemory:
+    """将 v2.1 patch 合并回 v2 memory，并由代码端更新统计量。"""
+    scores = [
+        int(pred["gold_score"] if use_oracle_labels else pred["pred_score"])
+        for pred in turn_predictions
+    ]
+    old_counts = existing_memory.score_distribution.model_copy()
+    counts_map = {
+        1: old_counts.score_1,
+        2: old_counts.score_2,
+        3: old_counts.score_3,
+        4: old_counts.score_4,
+        5: old_counts.score_5,
+    }
+    for s in scores:
+        counts_map[s] += 1
+    new_dist = ScoreDistribution(
+        score_1=counts_map[1],
+        score_2=counts_map[2],
+        score_3=counts_map[3],
+        score_4=counts_map[4],
+        score_5=counts_map[5],
+    )
+    old_total = sum(_score_distribution_to_counts(existing_memory.score_distribution).values())
+    new_total = old_total + len(scores)
+    weighted_sum = existing_memory.avg_satisfaction_score * old_total + sum(scores)
+    new_avg = weighted_sum / new_total if new_total else existing_memory.avg_satisfaction_score
+
+    reqs = _dedupe_preserve_order(
+        list(existing_memory.user_specific_requirements)
+        + list(patch.add_user_specific_requirements)
+    )[:5]
+
+    task_obs_map = {
+        obs.task_name: obs.model_copy()
+        for obs in existing_memory.task_specific_observations
+    }
+    for obs in patch.add_or_update_task_specific_observations:
+        task_obs_map[obs.task_name] = obs
+
+    return UserMemory(
+        avg_satisfaction_score=round(new_avg, 4),
+        score_distribution=new_dist,
+        scoring_style=patch.scoring_style if patch.update_scoring_style else existing_memory.scoring_style,
+        four_vs_five_distinction=(
+            patch.four_vs_five_distinction
+            if patch.update_four_vs_five else existing_memory.four_vs_five_distinction
+        ),
+        three_vs_four_distinction=(
+            patch.three_vs_four_distinction
+            if patch.update_three_vs_four else existing_memory.three_vs_four_distinction
+        ),
+        user_specific_requirements=reqs,
+        preferred_response_format=(
+            patch.preferred_response_format
+            if patch.update_preferred_response_format else existing_memory.preferred_response_format
+        ),
+        task_specific_observations=list(task_obs_map.values()),
+        memory_version="v2",
+        source_tasks=list(existing_memory.source_tasks),
+        n_history_sessions=existing_memory.n_history_sessions + 1,
+        n_history_turns=existing_memory.n_history_turns + len(turn_predictions),
+    )
 
 
 def build_memory_update_prompt_v3(

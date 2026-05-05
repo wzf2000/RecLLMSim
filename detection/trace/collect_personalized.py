@@ -65,6 +65,7 @@ from openai import OpenAI
 from lib.anchor_retrieval import AnchorRetriever, AnchorTurn
 from lib.llm import client as _default_client
 from lib.memory import (
+    MemoryUpdatePatchV2_1,
     UserMemory,
     UserMemoryContent,
     UserMemoryContentV3,
@@ -72,6 +73,7 @@ from lib.memory import (
     build_memory_prompt,
     build_memory_prompt_v3,
     build_memory_update_prompt,
+    build_memory_update_prompt_v2_1,
     build_memory_update_prompt_v3,
     build_turn_eval_fullscale_dsat_refinement_prompt,
     build_turn_eval_fullscale_sat_refinement_prompt,
@@ -83,6 +85,7 @@ from lib.memory import (
     build_turn_eval_v3_two_stage_gate_prompt,
     build_turn_eval_v3_two_stage_sat_refinement_prompt,
     build_turn_eval_prompt_no_memory,
+    merge_memory_v2_1_patch,
 )
 from lib.personalized_data import (
     PersonalizedSample,
@@ -98,6 +101,7 @@ from lib.satisfaction_constants import (
 
 MemoryUpdateMode = Literal["none", "per_session", "per_session_oracle", "per_turn"]
 MemoryVersion = Literal["v2", "v3"]
+MemoryUpdatePromptVersion = Literal["auto", "v2", "v2_1", "v3"]
 
 # ──────────────────────────────────────────────────────────────────────────────
 # LLM 客户端（可在 main() 中切换为 vLLM client）
@@ -1417,14 +1421,35 @@ def evaluate_session(
 def _call_update_memory(
     prompt: str,
     model: str,
-    memory_version: MemoryVersion = "v2",
-) -> UserMemoryContent | UserMemoryContentV3:
+    update_prompt_version: MemoryUpdatePromptVersion = "v2",
+) -> UserMemoryContent | UserMemoryContentV3 | MemoryUpdatePatchV2_1:
+    response_model = (
+        MemoryUpdatePatchV2_1 if update_prompt_version == "v2_1"
+        else UserMemoryContent if update_prompt_version == "v2"
+        else UserMemoryContentV3
+    )
     return _structured_parse(
         prompt,
         model,
-        UserMemoryContent if memory_version == "v2" else UserMemoryContentV3,
+        response_model,
         temperature=0.3, timeout=120,
         system_msg="You are an expert user behavior analyst.",
+    )
+
+
+def _resolve_memory_update_prompt_version(
+    memory_version: MemoryVersion,
+    memory_update_prompt_version: MemoryUpdatePromptVersion,
+) -> Literal["v2", "v2_1", "v3"]:
+    if memory_update_prompt_version == "auto":
+        return "v2" if memory_version == "v2" else "v3"
+    if memory_version == "v2" and memory_update_prompt_version in {"v2", "v2_1"}:
+        return memory_update_prompt_version
+    if memory_version == "v3" and memory_update_prompt_version == "v3":
+        return "v3"
+    raise ValueError(
+        f"Incompatible memory update prompt version: memory_version={memory_version}, "
+        f"memory_update_prompt_version={memory_update_prompt_version}"
     )
 
 
@@ -1435,17 +1460,38 @@ def update_memory(
     model: str,
     use_oracle_labels: bool = False,
     memory_version: MemoryVersion = "v2",
+    memory_update_prompt_version: MemoryUpdatePromptVersion = "auto",
 ) -> UserMemory | UserMemoryV3:
     """在预测完一个 session 后更新用户记忆。"""
+    resolved_update_version = _resolve_memory_update_prompt_version(
+        memory_version,
+        memory_update_prompt_version,
+    )
     if memory_version == "v2":
         assert isinstance(memory, UserMemory)
+        if resolved_update_version == "v2_1":
+            prompt = build_memory_update_prompt_v2_1(
+                existing_memory=memory,
+                new_session=session,
+                turn_predictions=turn_predictions,
+                use_oracle_labels=use_oracle_labels,
+            )
+            patch = _call_update_memory(prompt, model, update_prompt_version="v2_1")
+            assert isinstance(patch, MemoryUpdatePatchV2_1)
+            return merge_memory_v2_1_patch(
+                existing_memory=memory,
+                patch=patch,
+                turn_predictions=turn_predictions,
+                use_oracle_labels=use_oracle_labels,
+            )
+
         prompt = build_memory_update_prompt(
             existing_memory=memory,
             new_session=session,
             turn_predictions=turn_predictions,
             use_oracle_labels=use_oracle_labels,
         )
-        content = _call_update_memory(prompt, model, memory_version="v2")
+        content = _call_update_memory(prompt, model, update_prompt_version="v2")
         assert isinstance(content, UserMemoryContent)
         return UserMemory.from_content(
             content,
@@ -1461,7 +1507,7 @@ def update_memory(
         turn_predictions=turn_predictions,
         use_oracle_labels=use_oracle_labels,
     )
-    content = _call_update_memory(prompt, model, memory_version="v3")
+    content = _call_update_memory(prompt, model, update_prompt_version="v3")
     assert isinstance(content, UserMemoryContentV3)
     return UserMemoryV3.from_content(
         content,
@@ -1480,6 +1526,7 @@ def run_agent_on_sample(
     model: str,
     memory_update_mode: MemoryUpdateMode = "per_session",
     memory_version: MemoryVersion = "v2",
+    memory_update_prompt_version: MemoryUpdatePromptVersion = "auto",
     history_window_size: int = 5,
     save_memory_snapshots: bool = False,
     memory_cache_dir: str | None = None,
@@ -1539,6 +1586,7 @@ def run_agent_on_sample(
                 turn_eval_prompt_version=turn_eval_prompt_version,
                 block_id=sample.block_id,
                 memory_version=memory_version,
+                memory_update_prompt_version=memory_update_prompt_version,
             )
         else:
             # 整个 session 一次性预测
@@ -1573,6 +1621,7 @@ def run_agent_on_sample(
                 "with_memory": with_memory,
                 "memory_update_mode": memory_update_mode if with_memory else "no_memory",
                 "memory_version": memory.memory_version if memory is not None else "none",
+                "memory_update_prompt_version": memory_update_prompt_version if with_memory else "none",
                 "turn_eval_prompt_version": turn_eval_prompt_version,
             }
             for optional_key in (
@@ -1625,6 +1674,7 @@ def run_agent_on_sample(
                     model=model,
                     use_oracle_labels=use_oracle,
                     memory_version=memory_version,
+                    memory_update_prompt_version=memory_update_prompt_version,
                 )
             except Exception as e:
                 logger.warning(
@@ -1647,6 +1697,7 @@ def _evaluate_session_per_turn_update(
     turn_eval_prompt_version: str = "v2",
     block_id: str = "",
     memory_version: MemoryVersion = "v2",
+    memory_update_prompt_version: MemoryUpdatePromptVersion = "auto",
 ) -> list[dict]:
     """
     per_turn 模式：每预测一轮后立即更新记忆。
@@ -1791,6 +1842,7 @@ def _evaluate_session_per_turn_update(
                     model=model,
                     use_oracle_labels=False,
                     memory_version=memory_version,
+                    memory_update_prompt_version=memory_update_prompt_version,
                 )
             except Exception as e:
                 logger.warning(f"Per-turn memory update failed at turn {assistant_turn_idx}: {e}")
@@ -1838,6 +1890,7 @@ def collect_all(
     model: str,
     memory_update_mode: MemoryUpdateMode,
     memory_version: MemoryVersion,
+    memory_update_prompt_version: MemoryUpdatePromptVersion,
     history_window_size: int,
     output_jsonl: str,
     max_workers: int,
@@ -1872,6 +1925,7 @@ def collect_all(
             model=model,
             memory_update_mode=memory_update_mode,
             memory_version=memory_version,
+            memory_update_prompt_version=memory_update_prompt_version,
             history_window_size=history_window_size,
             save_memory_snapshots=save_memory_snapshots,
             memory_cache_dir=memory_cache_dir,
@@ -1979,6 +2033,17 @@ def parse_args() -> ArgumentParser:
         default="v2",
         choices=["v2", "v3"],
         help="用户记忆版本（默认 v2；v3 会启用更保守的证据充分性建模）",
+    )
+    parser.add_argument(
+        "--memory_update_prompt_version",
+        type=str,
+        default="auto",
+        choices=["auto", "v2", "v2_1", "v3"],
+        help=(
+            "记忆更新 prompt 版本（默认 auto）。"
+            "auto 表示与 memory_version 对齐；"
+            "v2_1 仅适用于 memory_version=v2，会启用 patch 式更新：统计量代码更新，边界/要求字段按证据定点修改。"
+        ),
     )
     parser.add_argument(
         "--target_tasks",
@@ -2112,13 +2177,19 @@ def main() -> None:
             if with_memory and args.memory_version != "v2"
             else ""
         )
+        update_tag = (
+            f"_upd{args.memory_update_prompt_version}"
+            if with_memory and args.memory_update_mode != "none"
+            and args.memory_update_prompt_version not in {"auto", "v2"}
+            else ""
+        )
         anchor_tag = f"_anchor{args.n_anchors}" if args.n_anchors > 0 else ""
         prompt_tag = (
             f"_{args.turn_eval_prompt_version}"
             if args.turn_eval_prompt_version != "v2" else ""
         )
         args.output_jsonl = (
-            f"outputs/personalized/{model_tag}_{args.split}_{mode_tag}{memory_tag}{anchor_tag}{prompt_tag}.jsonl"
+            f"outputs/personalized/{model_tag}_{args.split}_{mode_tag}{memory_tag}{update_tag}{anchor_tag}{prompt_tag}.jsonl"
         )
 
     logger.info(f"Model:              {args.model}")
@@ -2128,6 +2199,7 @@ def main() -> None:
     if with_memory:
         logger.info(f"Memory update mode: {args.memory_update_mode}")
         logger.info(f"Memory version:     {args.memory_version}")
+        logger.info(f"Memory update ver:  {args.memory_update_prompt_version}")
     logger.info(f"History window:     {args.history_window_size} turns")
     logger.info(f"Anchors per turn:   {args.n_anchors}")
     logger.info(f"Turn eval prompt:   {args.turn_eval_prompt_version}")
@@ -2170,6 +2242,7 @@ def main() -> None:
         model=args.model,
         memory_update_mode=args.memory_update_mode,
         memory_version=args.memory_version,
+        memory_update_prompt_version=args.memory_update_prompt_version,
         history_window_size=args.history_window_size,
         output_jsonl=args.output_jsonl,
         max_workers=args.max_workers,

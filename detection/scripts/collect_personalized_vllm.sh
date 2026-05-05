@@ -10,6 +10,7 @@
 #   vllm_api_key         — vLLM API key（默认 EMPTY）
 #   split                — test / train / all（默认 test）
 #   memory_update_mode   — none / per_session / per_session_oracle（默认 none）
+#   memory_update_prompt_version — auto / v2 / v2_1 / v3（默认 auto）
 #   no_memory            — 1 则跳过记忆（默认 0）
 #   max_workers          — 并发线程数（默认 4；本地模型吞吐有限，不宜过高）
 #   limit                — 调试用，限制 block 数量（<=0 不限，默认 0）
@@ -28,6 +29,7 @@ vllm_base_url="${vllm_base_url:-http://localhost:8000/v1}"
 vllm_api_key="${vllm_api_key:-EMPTY}"
 split="${split:-test}"
 memory_update_mode="${memory_update_mode:-none}"
+memory_update_prompt_version="${memory_update_prompt_version:-auto}"
 no_memory="${no_memory:-0}"
 max_workers="${max_workers:-4}"
 limit="${limit:-0}"
@@ -46,6 +48,7 @@ ARGS=(
     --vllm_api_key "${vllm_api_key}"
     --split "${split}"
     --memory_update_mode "${memory_update_mode}"
+    --memory_update_prompt_version "${memory_update_prompt_version}"
     --max_workers "${max_workers}"
     --memory_cache_dir "${memory_cache_dir}"
     --memory_version "${memory_version}"
@@ -74,6 +77,7 @@ echo " Model:       ${model}"
 echo " vLLM URL:    ${vllm_base_url}"
 echo " Split:       ${split}"
 echo " Update mode: ${memory_update_mode}"
+echo " Update ver:  ${memory_update_prompt_version}"
 echo " Memory ver:  ${memory_version}"
 echo " No memory:   ${no_memory}"
 echo " n_anchors:   ${n_anchors}"
