@@ -77,6 +77,8 @@ from lib.memory import (
     build_turn_eval_fullscale_sat_refinement_prompt,
     build_turn_eval_refute_followup_prompt,
     build_turn_eval_prompt,
+    build_turn_eval_v3_two_stage_v2_gate_followup_prompt,
+    build_turn_eval_v3_two_stage_v2_gate_prompt,
     build_turn_eval_v3_two_stage_dsat_refinement_prompt,
     build_turn_eval_v3_two_stage_gate_prompt,
     build_turn_eval_v3_two_stage_sat_refinement_prompt,
@@ -507,6 +509,7 @@ def _call_predict_turn(
         "boundary_34_selective_refute_v2",
         "boundary_34_selective_refute_v3",
         "boundary_34_selective_refute_v4",
+        "v3_two_stage_v2_gate",
     }
     if prompt_version == "boundary_34_selective_refute_v2_fullscale_sat_refine":
         response_model = SatRefinementPrediction
@@ -523,6 +526,7 @@ def _call_predict_turn(
     else:
         is_boundary_prompt = prompt_version in {
             "v3_two_stage_gate",
+            "v3_two_stage_v2_gate",
             "boundary_34",
             "boundary_34_refute",
             "boundary_34_refute_v2",
@@ -532,6 +536,7 @@ def _call_predict_turn(
             "boundary_34_selective_refute_v4",
             "boundary_34_selective_refute_followup",
             "boundary_34_selective_refute_v2_followup",
+            "v3_two_stage_v2_gate_followup",
         }
         if is_selective_prompt:
             response_model = SelectiveBoundaryTurnPrediction
@@ -544,6 +549,7 @@ def _call_predict_turn(
         0.2 if prompt_version == "boundary_34_selective_refute_followup" else
         0.2 if prompt_version == "boundary_34_selective_refute_v2_followup" else
         0.2 if prompt_version == "v3_two_stage_gate" else
+        0.2 if prompt_version == "v3_two_stage_v2_gate_followup" else
         0.25 if prompt_version == "boundary_34_selective_refute_v2_fullscale_sat_refine" else
         0.25 if prompt_version == "boundary_34_selective_refute_v2_fullscale_dsat_refine" else
         0.25 if prompt_version == "v3_two_stage_sat_refine" else
@@ -553,6 +559,7 @@ def _call_predict_turn(
         0.25 if prompt_version == "boundary_34_selective_refute_v2" else
         0.25 if prompt_version == "boundary_34_selective_refute_v3" else
         0.25 if prompt_version == "boundary_34_selective_refute_v4" else
+        0.25 if prompt_version == "v3_two_stage_v2_gate" else
         0.3 if prompt_version == "boundary_34" else
         0.6
     )
@@ -624,6 +631,12 @@ def _should_trigger_selective_refute(
 
     reason = pred.reason.strip()
     if prompt_version == "boundary_34_selective_refute_v2":
+        if pred.classification == 3:
+            return reason in {"不够细致", "其它"}
+        if pred.classification == 4:
+            return True
+        return False
+    if prompt_version == "v3_two_stage_v2_gate":
         if pred.classification == 3:
             return reason in {"不够细致", "其它"}
         if pred.classification == 4:
@@ -1075,6 +1088,171 @@ def _predict_turn_v3_two_stage(
     }
 
 
+def _predict_turn_v3_two_stage_v2(
+    memory: UserMemory | UserMemoryV3 | None,
+    session: SessionData,
+    model: str,
+    history_window: list[str],
+    assistant_reply: str,
+    debug_context: str,
+    default_reason: str,
+    anchors: list[AnchorTurn] | None = None,
+) -> dict:
+    """
+    memory v3 两阶段 v2：
+    1. 第一层改为 selective-refute 风格的 SAT gate
+    2. 第二层继续沿用现有 4/5 与 1/2/3 refine
+    """
+    if memory is None:
+        return _predict_turn_v3_two_stage(
+            memory=memory,
+            session=session,
+            model=model,
+            history_window=history_window,
+            assistant_reply=assistant_reply,
+            debug_context=debug_context,
+            default_reason=default_reason,
+            anchors=anchors,
+        )
+
+    gate_prompt = build_turn_eval_v3_two_stage_v2_gate_prompt(
+        memory=memory,
+        profile=session.profile,
+        task_context=session.task_context,
+        history_window=list(history_window),
+        assistant_reply=assistant_reply,
+        anchor_turns=anchors,
+    )
+    gate_pred = _call_predict_turn(
+        gate_prompt,
+        model,
+        prompt_version="v3_two_stage_v2_gate",
+        debug_context=f"{debug_context}__gate",
+    )
+    assert isinstance(gate_pred, SelectiveBoundaryTurnPrediction)
+    gate_reason = _normalize_pred_reason(
+        gate_pred.classification,
+        gate_pred.reason.strip(),
+        default_reason=default_reason,
+        debug_context=f"{debug_context}__gate",
+    )
+    should_trigger_gate_refute = _should_trigger_selective_refute(
+        gate_pred,
+        "v3_two_stage_v2_gate",
+    )
+    gate_score = gate_pred.classification
+    gate_analysis = gate_pred.analysis
+    gate_reason_final = gate_reason
+    gate_followup_analysis = ""
+
+    if should_trigger_gate_refute:
+        followup_prompt = build_turn_eval_v3_two_stage_v2_gate_followup_prompt(
+            memory=memory,
+            profile=session.profile,
+            task_context=session.task_context,
+            history_window=list(history_window),
+            assistant_reply=assistant_reply,
+            initial_classification=gate_pred.classification,
+            initial_reason=gate_reason,
+            initial_analysis=gate_pred.analysis,
+        )
+        followup = _call_predict_turn(
+            followup_prompt,
+            model,
+            prompt_version="v3_two_stage_v2_gate_followup",
+            debug_context=f"{debug_context}__gate_followup",
+        )
+        assert isinstance(followup, BoundaryTurnPrediction)
+        gate_score = followup.classification
+        gate_reason_final = _normalize_pred_reason(
+            followup.classification,
+            followup.reason.strip(),
+            default_reason=default_reason,
+            debug_context=f"{debug_context}__gate_followup",
+        )
+        gate_followup_analysis = followup.analysis
+        gate_analysis = f"[first_pass] {gate_pred.analysis}\n[gate_followup] {followup.analysis}"
+
+    base_result = {
+        "two_stage_gate_score": gate_score,
+        "two_stage_gate_reason": gate_reason_final,
+        "two_stage_gate_analysis": gate_analysis,
+        "analysis_gate": gate_analysis,
+        "two_stage_gate_model_flag": gate_pred.needs_refute_review,
+        "two_stage_gate_triggered": should_trigger_gate_refute,
+        "two_stage_gate_refute_applied": should_trigger_gate_refute,
+        "analysis_gate_first_pass": gate_pred.analysis,
+        "analysis_gate_followup": gate_followup_analysis,
+    }
+
+    if gate_score >= 4:
+        refine_prompt = build_turn_eval_v3_two_stage_sat_refinement_prompt(
+            memory=memory,
+            profile=session.profile,
+            task_context=session.task_context,
+            history_window=list(history_window),
+            assistant_reply=assistant_reply,
+            gate_reason=gate_reason_final,
+            gate_analysis=gate_analysis,
+            anchor_turns=anchors,
+        )
+        refine = _call_predict_turn(
+            refine_prompt,
+            model,
+            prompt_version="v3_two_stage_sat_refine",
+            debug_context=f"{debug_context}__sat_refine",
+        )
+        assert isinstance(refine, SatRefinementPrediction)
+        final_reason = _normalize_pred_reason(
+            refine.classification,
+            refine.reason.strip(),
+            default_reason=default_reason,
+            debug_context=f"{debug_context}__sat_refine",
+        )
+        return {
+            "pred_score": refine.classification,
+            "pred_reason": final_reason,
+            "analysis": f"[gate] {gate_analysis}\n[sat_refine] {refine.analysis}",
+            "analysis_sat_refine": refine.analysis,
+            "two_stage_branch": "sat_45",
+            "two_stage_refine_applied": True,
+            **base_result,
+        }
+
+    refine_prompt = build_turn_eval_v3_two_stage_dsat_refinement_prompt(
+        memory=memory,
+        profile=session.profile,
+        task_context=session.task_context,
+        history_window=list(history_window),
+        assistant_reply=assistant_reply,
+        gate_reason=gate_reason_final,
+        gate_analysis=gate_analysis,
+        anchor_turns=anchors,
+    )
+    refine = _call_predict_turn(
+        refine_prompt,
+        model,
+        prompt_version="v3_two_stage_dsat_refine",
+        debug_context=f"{debug_context}__dsat_refine",
+    )
+    assert isinstance(refine, DsatRefinementPrediction)
+    final_reason = _normalize_pred_reason(
+        refine.classification,
+        refine.reason.strip(),
+        default_reason=default_reason,
+        debug_context=f"{debug_context}__dsat_refine",
+    )
+    return {
+        "pred_score": refine.classification,
+        "pred_reason": final_reason,
+        "analysis": f"[gate] {gate_analysis}\n[dsat_refine] {refine.analysis}",
+        "analysis_dsat_refine": refine.analysis,
+        "two_stage_branch": "dsat_123",
+        "two_stage_refine_applied": True,
+        **base_result,
+    }
+
+
 def evaluate_session(
     memory: UserMemory | None,
     session: SessionData,
@@ -1142,6 +1320,17 @@ def evaluate_session(
                     default_reason=default_reason,
                     anchors=anchors,
                 )
+            elif turn_eval_prompt_version == "v3_two_stage_v2":
+                pred_result = _predict_turn_v3_two_stage_v2(
+                    memory=memory,
+                    session=session,
+                    model=model,
+                    history_window=history_window,
+                    assistant_reply=utt["content"],
+                    debug_context=debug_context,
+                    default_reason=default_reason,
+                    anchors=anchors,
+                )
             else:
                 pred_result = _predict_turn_with_optional_selective_refute(
                     memory=memory,
@@ -1196,6 +1385,11 @@ def evaluate_session(
                 "two_stage_gate_analysis",
                 "two_stage_branch",
                 "two_stage_refine_applied",
+                "two_stage_gate_model_flag",
+                "two_stage_gate_triggered",
+                "two_stage_gate_refute_applied",
+                "analysis_gate_first_pass",
+                "analysis_gate_followup",
             ):
                 if optional_key in pred_result:
                     turn_result[optional_key] = pred_result[optional_key]
@@ -1408,6 +1602,11 @@ def run_agent_on_sample(
                 "two_stage_gate_analysis",
                 "two_stage_branch",
                 "two_stage_refine_applied",
+                "two_stage_gate_model_flag",
+                "two_stage_gate_triggered",
+                "two_stage_gate_refute_applied",
+                "analysis_gate_first_pass",
+                "analysis_gate_followup",
             ):
                 if optional_key in r:
                     record[optional_key] = r[optional_key]
@@ -1497,6 +1696,17 @@ def _evaluate_session_per_turn_update(
                     default_reason=default_reason,
                     anchors=anchors,
                 )
+            elif turn_eval_prompt_version == "v3_two_stage_v2":
+                pred_result = _predict_turn_v3_two_stage_v2(
+                    memory=memory,
+                    session=session,
+                    model=model,
+                    history_window=history_window,
+                    assistant_reply=utt["content"],
+                    debug_context=debug_context,
+                    default_reason=default_reason,
+                    anchors=anchors,
+                )
             else:
                 pred_result = _predict_turn_with_optional_selective_refute(
                     memory=memory,
@@ -1551,6 +1761,11 @@ def _evaluate_session_per_turn_update(
                 "two_stage_gate_analysis",
                 "two_stage_branch",
                 "two_stage_refine_applied",
+                "two_stage_gate_model_flag",
+                "two_stage_gate_triggered",
+                "two_stage_gate_refute_applied",
+                "analysis_gate_first_pass",
+                "analysis_gate_followup",
             ):
                 if optional_key in pred_result:
                     turn_result[optional_key] = pred_result[optional_key]
@@ -1843,6 +2058,7 @@ def parse_args() -> ArgumentParser:
             "v3",
             "v3_1",
             "v3_two_stage",
+            "v3_two_stage_v2",
             "qwen_short",
             "boundary_34",
             "boundary_34_refute",
@@ -1859,6 +2075,7 @@ def parse_args() -> ArgumentParser:
             "v3 为 memory v3 配套 prompt，会分离 calibration 与 boundary 规则，并在证据不足时弱化边界总结；"
             "v3_1 为 memory v3 的强化版，会重新加硬 3/4 最低满意线，避免因证据不足而默认偏 SAT；"
             "v3_two_stage 为 memory v3 的两阶段版本：先判是否通过 SAT gate，再做 4/5 或 1/2/3 细分；"
+            "v3_two_stage_v2 为改进版两阶段：第一层改用 selective gate + 可选复核，第二层保持 4/5 与 1/2/3 细分；"
             "boundary_34 仅围绕 3/4 满意边界判断，并只输出 3 或 4；"
             "boundary_34_refute 会先做反证检查，再决定是否给 4；"
             "boundary_34_refute_v2 为更温和的 refute 版本，只在存在明确致命缺陷时判 3；"
