@@ -25,7 +25,7 @@ limit_users="${limit_users:-0}"        # <=0 = 不限制，>0 = 按用户数量�
 user_offset="${user_offset:-0}"        # 用户子集起始偏移
 output_jsonl="${output_jsonl:-}"        # 留空则自动命名
 n_anchors="${n_anchors:-0}"            # >0 时每轮插入 k 个 few-shot anchor turns
-turn_eval_prompt_version="${turn_eval_prompt_version:-v2}"  # v2 / v3 / v3_1 / v3_two_stage / v3_two_stage_v2 / history_prior_delta / qwen_short / boundary_34 / boundary_34_refute / boundary_34_refute_v2 / boundary_34_selective_refute / boundary_34_selective_refute_v2 / boundary_34_selective_refute_v2_fullscale / boundary_34_selective_refute_v3 / boundary_34_selective_refute_v4
+turn_eval_prompt_version="${turn_eval_prompt_version:-v2}"  # v2 / v3 / v3_1 / v3_two_stage / v3_two_stage_v2 / history_prior_delta / history_prior_delta_v2 / qwen_short / boundary_34 / boundary_34_refute / boundary_34_refute_v2 / boundary_34_selective_refute / boundary_34_selective_refute_v2 / boundary_34_selective_refute_v2_fullscale / boundary_34_selective_refute_v3 / boundary_34_selective_refute_v4
 
 # 可选 flag
 extra_args=""

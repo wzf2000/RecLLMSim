@@ -204,6 +204,12 @@ def _coerce_prediction_payload(payload: dict) -> dict:
             coerced["history_prior_score"] = float(prior_score.strip())
         except ValueError:
             pass
+    for bool_key in ("strong_failure_evidence", "strong_excellence_evidence"):
+        value = coerced.get(bool_key)
+        if isinstance(value, str):
+            lowered = value.strip().lower()
+            if lowered in {"true", "false"}:
+                coerced[bool_key] = lowered == "true"
     return coerced
 
 
@@ -393,6 +399,21 @@ class HistoryPriorDeltaPrediction(BaseModel):
     boundary_score: Literal[3, 4]
 
 
+class HistoryPriorDeltaV2Prediction(BaseModel):
+    classification: int = Field(ge=1, le=5)
+    reason: str
+    analysis: str
+    history_prior_score: float = Field(ge=1, le=5)
+    delta_label: Literal["below", "around", "above"]
+    delta_score: int = Field(ge=-2, le=2)
+    delta_confidence: Literal["low", "medium", "high"]
+    passes_satisfaction_boundary: bool
+    boundary_score: Literal[3, 4]
+    boundary_confidence: Literal["low", "medium", "high"]
+    strong_failure_evidence: bool = False
+    strong_excellence_evidence: bool = False
+
+
 class SatRefinementPrediction(BaseModel):
     classification: Literal[4, 5]
     reason: str
@@ -438,6 +459,44 @@ def _reconstruct_history_prior_delta_score(pred: HistoryPriorDeltaPrediction) ->
     if boundary_score >= 4:
         return max(4, reconstructed)
     return min(3, reconstructed)
+
+
+def _sign(value: int) -> int:
+    if value > 0:
+        return 1
+    if value < 0:
+        return -1
+    return 0
+
+
+def _reconstruct_history_prior_delta_v2_score(pred: HistoryPriorDeltaV2Prediction) -> int:
+    """
+    Soft reconstruction for residual judging.
+
+    Keep the rounded user prior as the default exact score.  Use residuals only
+    when the model reports enough evidence, and apply 3/4 boundary constraints
+    only for high-confidence boundary decisions.
+    """
+    score = _clip_score(pred.history_prior_score)
+    delta_step = 0
+    if pred.delta_confidence == "high":
+        delta_step = _sign(pred.delta_score)
+    elif pred.delta_confidence == "medium" and abs(pred.delta_score) == 2:
+        delta_step = _sign(pred.delta_score)
+
+    if delta_step:
+        score += delta_step
+
+    score = _clip_score(score)
+    if pred.boundary_confidence == "high":
+        boundary_score = 4 if pred.passes_satisfaction_boundary else 3
+        if pred.boundary_score in {3, 4}:
+            boundary_score = pred.boundary_score
+        if boundary_score >= 4:
+            score = max(4, score)
+        else:
+            score = min(3, score)
+    return _clip_score(score)
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -562,6 +621,7 @@ def _call_predict_turn(
     | BoundaryTurnPrediction
     | SelectiveBoundaryTurnPrediction
     | HistoryPriorDeltaPrediction
+    | HistoryPriorDeltaV2Prediction
     | SatRefinementPrediction
     | DsatRefinementPrediction
 ):
@@ -587,6 +647,9 @@ def _call_predict_turn(
     elif prompt_version == "history_prior_delta":
         response_model = HistoryPriorDeltaPrediction
         is_boundary_prompt = True
+    elif prompt_version == "history_prior_delta_v2":
+        response_model = HistoryPriorDeltaV2Prediction
+        is_boundary_prompt = False
     else:
         is_boundary_prompt = prompt_version in {
             "v3_two_stage_gate",
@@ -625,6 +688,7 @@ def _call_predict_turn(
         0.25 if prompt_version == "boundary_34_selective_refute_v4" else
         0.25 if prompt_version == "v3_two_stage_v2_gate" else
         0.25 if prompt_version == "history_prior_delta" else
+        0.25 if prompt_version == "history_prior_delta_v2" else
         0.3 if prompt_version == "boundary_34" else
         0.6
     )
@@ -736,8 +800,10 @@ def _predict_turn_with_optional_selective_refute(
 ) -> dict:
     """统一处理单轮预测，并在 selective 版本下按需触发二次 refute。"""
     if memory is None:
-        if turn_eval_prompt_version == "history_prior_delta":
-            raise ValueError("history_prior_delta requires with_memory=True because it uses user history priors.")
+        if turn_eval_prompt_version in {"history_prior_delta", "history_prior_delta_v2"}:
+            raise ValueError(
+                f"{turn_eval_prompt_version} requires with_memory=True because it uses user history priors."
+            )
         prompt = build_turn_eval_prompt_no_memory(
             profile=session.profile,
             task_context=session.task_context,
@@ -795,6 +861,30 @@ def _predict_turn_with_optional_selective_refute(
             "delta_score": pred.delta_score,
             "passes_satisfaction_boundary": pred.passes_satisfaction_boundary,
             "boundary_score": pred.boundary_score,
+            "history_prior_delta_raw_score": pred.classification,
+        }
+    if turn_eval_prompt_version == "history_prior_delta_v2":
+        assert isinstance(pred, HistoryPriorDeltaV2Prediction)
+        final_score = _reconstruct_history_prior_delta_v2_score(pred)
+        pred_reason = _normalize_pred_reason(
+            final_score,
+            pred.reason.strip(),
+            default_reason=default_reason,
+            debug_context=debug_context,
+        )
+        return {
+            "pred_score": final_score,
+            "pred_reason": pred_reason,
+            "analysis": pred.analysis,
+            "history_prior_score": pred.history_prior_score,
+            "delta_label": pred.delta_label,
+            "delta_score": pred.delta_score,
+            "delta_confidence": pred.delta_confidence,
+            "passes_satisfaction_boundary": pred.passes_satisfaction_boundary,
+            "boundary_score": pred.boundary_score,
+            "boundary_confidence": pred.boundary_confidence,
+            "strong_failure_evidence": pred.strong_failure_evidence,
+            "strong_excellence_evidence": pred.strong_excellence_evidence,
             "history_prior_delta_raw_score": pred.classification,
         }
 
@@ -1483,6 +1573,10 @@ def evaluate_session(
                 "delta_score",
                 "passes_satisfaction_boundary",
                 "boundary_score",
+                "delta_confidence",
+                "boundary_confidence",
+                "strong_failure_evidence",
+                "strong_excellence_evidence",
                 "history_prior_delta_raw_score",
             ):
                 if optional_key in pred_result:
@@ -1819,6 +1913,10 @@ def run_agent_on_sample(
                 "delta_score",
                 "passes_satisfaction_boundary",
                 "boundary_score",
+                "delta_confidence",
+                "boundary_confidence",
+                "strong_failure_evidence",
+                "strong_excellence_evidence",
                 "history_prior_delta_raw_score",
             ):
                 if optional_key in r:
@@ -1986,6 +2084,10 @@ def _evaluate_session_per_turn_update(
                 "delta_score",
                 "passes_satisfaction_boundary",
                 "boundary_score",
+                "delta_confidence",
+                "boundary_confidence",
+                "strong_failure_evidence",
+                "strong_excellence_evidence",
                 "history_prior_delta_raw_score",
             ):
                 if optional_key in pred_result:
@@ -2299,6 +2401,7 @@ def parse_args() -> ArgumentParser:
             "v3_two_stage",
             "v3_two_stage_v2",
             "history_prior_delta",
+            "history_prior_delta_v2",
             "qwen_short",
             "boundary_34",
             "boundary_34_refute",
@@ -2317,6 +2420,7 @@ def parse_args() -> ArgumentParser:
             "v3_two_stage 为 memory v3 的两阶段版本：先判是否通过 SAT gate，再做 4/5 或 1/2/3 细分；"
             "v3_two_stage_v2 为改进版两阶段：第一层改用 selective gate + 可选复核，第二层保持 4/5 与 1/2/3 细分；"
             "history_prior_delta 显式使用 history prior，先判 residual delta 和 3/4 boundary，再由代码重建最终 1-5；"
+            "history_prior_delta_v2 为 soft reconstruction 版本，仅在高置信 residual/boundary 下移动或约束分数；"
             "boundary_34 仅围绕 3/4 满意边界判断，并只输出 3 或 4；"
             "boundary_34_refute 会先做反证检查，再决定是否给 4；"
             "boundary_34_refute_v2 为更温和的 refute 版本，只在存在明确致命缺陷时判 3；"

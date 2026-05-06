@@ -1885,7 +1885,7 @@ def build_turn_eval_prompt(
     assistant_reply: str,
     anchor_turns: list | None = None,
     prompt_version: Literal[
-        "v2", "v3", "v3_1", "history_prior_delta", "qwen_short", "boundary_34", "boundary_34_refute", "boundary_34_refute_v2",
+        "v2", "v3", "v3_1", "history_prior_delta", "history_prior_delta_v2", "qwen_short", "boundary_34", "boundary_34_refute", "boundary_34_refute_v2",
         "boundary_34_selective_refute", "boundary_34_selective_refute_v2",
         "boundary_34_selective_refute_v3", "boundary_34_selective_refute_v4",
     ] = "v2",
@@ -1907,6 +1907,7 @@ def build_turn_eval_prompt(
       - "v3": 分离 calibration 与 boundary 规则；证据不足时弱化边界总结
       - "v3_1": 在 v3 基础上重新加硬 3/4 最低满意线；证据不足只影响 1/2/3 细分，不放松 SAT gate
       - "history_prior_delta": 显式以历史均分为 prior，先判 residual delta 与 3/4 boundary，再重建最终分
+      - "history_prior_delta_v2": soft reconstruction 版本，新增 confidence 与 strong evidence 字段
       - "qwen_short": 面向 Qwen3-8B 的更短、更硬的 checklist prompt
       - "boundary_34": 仅围绕 3/4 满意边界判断，输出限制为 3 或 4
       - "boundary_34_refute": 在 3/4 边界上先做反证检查，抑制默认判 4
@@ -1957,6 +1958,86 @@ def build_turn_eval_prompt(
 
     anchor_block = _format_anchor_turns(anchor_turns or [])
     anchor_section = (anchor_block + "\n") if anchor_block else ""
+
+    if prompt_version == "history_prior_delta_v2":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 参考案例用于判断当前回复相对 history prior 的排序位置，而不是直接复制案例分数。\n"
+            "2. 同时找最像当前回复的高分案例和低分案例，比较当前回复更接近哪一侧。\n"
+            "3. 只有当当前回复相对历史常态明显更差/更好，且证据具体，才给 high confidence。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度 residual/boundary judge。请把用户历史先验和当前回复质量分开判断。\n"
+            "本版本不会让你的 delta 机械决定最终分；程序会以 history prior 为默认分数，"
+            "只在你给出足够置信的 residual 或 boundary 证据时才移动/约束分数。\n\n"
+            f"【History Prior（默认 exact-score 锚点）】\n"
+            f"history_prior_score = {memory.avg_satisfaction_score:.2f}\n"
+            f"历史分布：5分×{memory.score_distribution.score_5} / "
+            f"4分×{memory.score_distribution.score_4} / "
+            f"3分×{memory.score_distribution.score_3} / "
+            f"2分×{memory.score_distribution.score_2} / "
+            f"1分×{memory.score_distribution.score_1}\n"
+            f"评分风格：{memory.scoring_style}\n\n"
+            f"【个性化边界】\n"
+            f"3→4 满意最低线：{memory.three_vs_four_distinction}\n"
+            f"4→5 更高要求：{memory.four_vs_five_distinction}\n\n"
+            f"【真正影响评分的个性化要求】\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+            + "【判断步骤】\n"
+            + "Step 1. 固定 history_prior_score：直接使用上面给出的历史平均分，不要自行改写。\n"
+            + "Step 2. 判断 residual delta：当前回复相对该用户历史常态是 below / around / above。\n"
+            + "  - delta_score=-2：明显低于常态，存在严重关键失败。\n"
+            + "  - delta_score=-1：低于常态，有一个清楚的关键缺口。\n"
+            + "  - delta_score=0：大致符合常态。\n"
+            + "  - delta_score=1：高于常态，更完整或更贴合需求。\n"
+            + "  - delta_score=2：显著高于常态，接近历史强满意样本。\n"
+            + "Step 3. 给 delta_confidence：\n"
+            + "  - high：有具体、可引用的证据说明当前回复明显偏离历史常态。\n"
+            + "  - medium：有方向性证据，但偏离不大或证据混合。\n"
+            + "  - low：主要只是主观感觉、证据不足，或当前回复接近历史常态。\n"
+            + "Step 4. 单独判断 3/4 boundary，并给 boundary_confidence：\n"
+            + "  - high：核心问题是否满足非常明确；可以安全地作为硬约束。\n"
+            + "  - medium：更像某一边，但仍有混合证据。\n"
+            + "  - low：不确定，不能作为硬约束。\n"
+            + "Step 5. 标记 strong evidence：\n"
+            + "  - strong_failure_evidence=true 只在存在明确关键失败时使用，例如核心问题没答、关键约束被漏、内容空泛到不可用。\n"
+            + "  - strong_excellence_evidence=true 只在明显超过该用户常态时使用，例如更完整、更贴合个性化要求、比相近历史高分案例更强。\n"
+            + "Step 6. classification 填你按 soft reconstruction 直觉得到的诊断分，但最终 pred_score 会由程序重建。\n"
+            + "  程序默认使用 round(history_prior_score)，只在 high residual 或 medium 且 |delta_score|=2 时移动一档；"
+            + "只有 high-confidence boundary 才会强制 <=3 或 >=4。\n"
+            + "Step 7. 选择 reason：若你的诊断最终分 >=4，reason 必须是 `满意`；若 <=3，reason 必须是不满意原因。\n\n"
+            + "注意：\n"
+            + "- 不要把 ordinary improvement 写成 high confidence；high 必须有具体证据。\n"
+            + "- 不要把“不是 5 分水平”当成未过 3/4 满意线。\n"
+            + "- boundary_confidence=high 应该谨慎使用；只有核心满意/不满意非常明确时才给 high。\n\n"
+            + "重要：不要输出 <think>、推理草稿、Markdown、解释文字或任何 JSON 外文本；只输出一个 JSON object。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 1-5 中的整数,\n'
+            + f'  "reason": "{reason_json_rule}",\n'
+            + '  "analysis": "简述 prior、delta 证据与置信度、boundary 证据与置信度、strong evidence 标记原因",\n'
+            + f'  "history_prior_score": {memory.avg_satisfaction_score:.2f},\n'
+            + '  "delta_label": "below",\n'
+            + '  "delta_score": -2 到 2 的整数,\n'
+            + '  "delta_confidence": "medium",\n'
+            + '  "passes_satisfaction_boundary": true 或 false,\n'
+            + '  "boundary_score": 只能是 3 或 4,\n'
+            + '  "boundary_confidence": "medium",\n'
+            + '  "strong_failure_evidence": true 或 false,\n'
+            + '  "strong_excellence_evidence": true 或 false\n'
+            + "}\n"
+        )
+        return prompt
 
     if prompt_version == "history_prior_delta":
         anchor_instruction = (
