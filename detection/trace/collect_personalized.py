@@ -183,6 +183,27 @@ def _coerce_prediction_payload(payload: dict) -> dict:
         lowered = needs_review.strip().lower()
         if lowered in {"true", "false"}:
             coerced["needs_refute_review"] = lowered == "true"
+    passes_boundary = coerced.get("passes_satisfaction_boundary")
+    if isinstance(passes_boundary, str):
+        lowered = passes_boundary.strip().lower()
+        if lowered in {"true", "false"}:
+            coerced["passes_satisfaction_boundary"] = lowered == "true"
+    boundary_score = coerced.get("boundary_score")
+    if isinstance(boundary_score, str):
+        stripped = boundary_score.strip()
+        if stripped in {"3", "4"}:
+            coerced["boundary_score"] = int(stripped)
+    delta_score = coerced.get("delta_score")
+    if isinstance(delta_score, str):
+        stripped = delta_score.strip()
+        if stripped in {"-2", "-1", "0", "1", "2"}:
+            coerced["delta_score"] = int(stripped)
+    prior_score = coerced.get("history_prior_score")
+    if isinstance(prior_score, str):
+        try:
+            coerced["history_prior_score"] = float(prior_score.strip())
+        except ValueError:
+            pass
     return coerced
 
 
@@ -361,6 +382,17 @@ class SelectiveBoundaryTurnPrediction(BaseModel):
     needs_refute_review: bool = False
 
 
+class HistoryPriorDeltaPrediction(BaseModel):
+    classification: int = Field(ge=1, le=5)
+    reason: str
+    analysis: str
+    history_prior_score: float = Field(ge=1, le=5)
+    delta_label: Literal["below", "around", "above"]
+    delta_score: int = Field(ge=-2, le=2)
+    passes_satisfaction_boundary: bool
+    boundary_score: Literal[3, 4]
+
+
 class SatRefinementPrediction(BaseModel):
     classification: Literal[4, 5]
     reason: str
@@ -391,6 +423,21 @@ def _normalize_pred_reason(
             f"score={pred_score}, raw_reason={pred_reason} -> {normalized}"
         )
     return normalized
+
+
+def _clip_score(score: int | float) -> int:
+    return max(1, min(5, int(round(score))))
+
+
+def _reconstruct_history_prior_delta_score(pred: HistoryPriorDeltaPrediction) -> int:
+    """Rebuild the final 1-5 score from prior + delta, then enforce the 3/4 gate."""
+    reconstructed = _clip_score(pred.history_prior_score + pred.delta_score)
+    boundary_score = 4 if pred.passes_satisfaction_boundary else 3
+    if pred.boundary_score in {3, 4}:
+        boundary_score = pred.boundary_score
+    if boundary_score >= 4:
+        return max(4, reconstructed)
+    return min(3, reconstructed)
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -514,6 +561,7 @@ def _call_predict_turn(
     TurnPrediction
     | BoundaryTurnPrediction
     | SelectiveBoundaryTurnPrediction
+    | HistoryPriorDeltaPrediction
     | SatRefinementPrediction
     | DsatRefinementPrediction
 ):
@@ -535,6 +583,9 @@ def _call_predict_turn(
         is_boundary_prompt = True
     elif prompt_version == "v3_two_stage_dsat_refine":
         response_model = DsatRefinementPrediction
+        is_boundary_prompt = True
+    elif prompt_version == "history_prior_delta":
+        response_model = HistoryPriorDeltaPrediction
         is_boundary_prompt = True
     else:
         is_boundary_prompt = prompt_version in {
@@ -573,6 +624,7 @@ def _call_predict_turn(
         0.25 if prompt_version == "boundary_34_selective_refute_v3" else
         0.25 if prompt_version == "boundary_34_selective_refute_v4" else
         0.25 if prompt_version == "v3_two_stage_v2_gate" else
+        0.25 if prompt_version == "history_prior_delta" else
         0.3 if prompt_version == "boundary_34" else
         0.6
     )
@@ -684,6 +736,8 @@ def _predict_turn_with_optional_selective_refute(
 ) -> dict:
     """统一处理单轮预测，并在 selective 版本下按需触发二次 refute。"""
     if memory is None:
+        if turn_eval_prompt_version == "history_prior_delta":
+            raise ValueError("history_prior_delta requires with_memory=True because it uses user history priors.")
         prompt = build_turn_eval_prompt_no_memory(
             profile=session.profile,
             task_context=session.task_context,
@@ -723,6 +777,27 @@ def _predict_turn_with_optional_selective_refute(
         prompt_version=turn_eval_prompt_version,
         debug_context=debug_context,
     )
+    if turn_eval_prompt_version == "history_prior_delta":
+        assert isinstance(pred, HistoryPriorDeltaPrediction)
+        final_score = _reconstruct_history_prior_delta_score(pred)
+        pred_reason = _normalize_pred_reason(
+            final_score,
+            pred.reason.strip(),
+            default_reason=default_reason,
+            debug_context=debug_context,
+        )
+        return {
+            "pred_score": final_score,
+            "pred_reason": pred_reason,
+            "analysis": pred.analysis,
+            "history_prior_score": pred.history_prior_score,
+            "delta_label": pred.delta_label,
+            "delta_score": pred.delta_score,
+            "passes_satisfaction_boundary": pred.passes_satisfaction_boundary,
+            "boundary_score": pred.boundary_score,
+            "history_prior_delta_raw_score": pred.classification,
+        }
+
     pred_reason = _normalize_pred_reason(
         pred.classification,
         pred.reason.strip(),
@@ -1403,6 +1478,12 @@ def evaluate_session(
                 "two_stage_gate_refute_applied",
                 "analysis_gate_first_pass",
                 "analysis_gate_followup",
+                "history_prior_score",
+                "delta_label",
+                "delta_score",
+                "passes_satisfaction_boundary",
+                "boundary_score",
+                "history_prior_delta_raw_score",
             ):
                 if optional_key in pred_result:
                     turn_result[optional_key] = pred_result[optional_key]
@@ -1733,6 +1814,12 @@ def run_agent_on_sample(
                 "two_stage_gate_refute_applied",
                 "analysis_gate_first_pass",
                 "analysis_gate_followup",
+                "history_prior_score",
+                "delta_label",
+                "delta_score",
+                "passes_satisfaction_boundary",
+                "boundary_score",
+                "history_prior_delta_raw_score",
             ):
                 if optional_key in r:
                     record[optional_key] = r[optional_key]
@@ -1894,6 +1981,12 @@ def _evaluate_session_per_turn_update(
                 "two_stage_gate_refute_applied",
                 "analysis_gate_first_pass",
                 "analysis_gate_followup",
+                "history_prior_score",
+                "delta_label",
+                "delta_score",
+                "passes_satisfaction_boundary",
+                "boundary_score",
+                "history_prior_delta_raw_score",
             ):
                 if optional_key in pred_result:
                     turn_result[optional_key] = pred_result[optional_key]
@@ -2205,6 +2298,7 @@ def parse_args() -> ArgumentParser:
             "v3_1",
             "v3_two_stage",
             "v3_two_stage_v2",
+            "history_prior_delta",
             "qwen_short",
             "boundary_34",
             "boundary_34_refute",
@@ -2222,6 +2316,7 @@ def parse_args() -> ArgumentParser:
             "v3_1 为 memory v3 的强化版，会重新加硬 3/4 最低满意线，避免因证据不足而默认偏 SAT；"
             "v3_two_stage 为 memory v3 的两阶段版本：先判是否通过 SAT gate，再做 4/5 或 1/2/3 细分；"
             "v3_two_stage_v2 为改进版两阶段：第一层改用 selective gate + 可选复核，第二层保持 4/5 与 1/2/3 细分；"
+            "history_prior_delta 显式使用 history prior，先判 residual delta 和 3/4 boundary，再由代码重建最终 1-5；"
             "boundary_34 仅围绕 3/4 满意边界判断，并只输出 3 或 4；"
             "boundary_34_refute 会先做反证检查，再决定是否给 4；"
             "boundary_34_refute_v2 为更温和的 refute 版本，只在存在明确致命缺陷时判 3；"

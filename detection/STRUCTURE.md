@@ -41,6 +41,7 @@ detection/
 │   ├── spur.py                  # SPUR 满意度估计（Lin et al., ACL 2024）
 │   ├── user_aware.py            # 用户感知指标对比（Global vs. PerUser vs. Centered）
 │   ├── personalized.py          # 个性化任务评估（Personalization Gain + 分层分析，新）
+│   ├── history_baselines.py     # 统计 / history-only baseline JSONL 生成（新）
 │   └── analysis.py              # 细粒度分析（按分数/任务/轮次/reason）
 │
 ├── scripts/                # 可执行 Shell 脚本（统一入口，自动设置 PYTHONPATH）
@@ -48,6 +49,7 @@ detection/
 │   ├── collect_api.sh           # 采集 API 模型轨迹
 │   ├── collect_personalized.sh  # 个性化 Agent 推理（新）
 │   ├── eval_personalized.sh     # 个性化任务评估（新）
+│   ├── run_history_baselines.sh # 统计 / history-only baseline 生成（新）
 │   ├── collect_self_distill.sh  # 采集 Self-distill 轨迹（v1/v2）
 │   ├── sft.sh                   # SFT 训练
 │   ├── grpo.sh                  # GRPO 训练
