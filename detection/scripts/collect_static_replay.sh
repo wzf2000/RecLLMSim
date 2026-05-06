@@ -27,6 +27,7 @@ temperature="${temperature:-0.7}"
 max_tokens="${max_tokens:-1024}"
 timeout="${timeout:-120}"
 output_jsonl="${output_jsonl:-}"
+replay_context_mode="${replay_context_mode:-raw}"  # raw / task / profile
 
 args=(
     --model "$model"
@@ -38,6 +39,7 @@ args=(
     --temperature "$temperature"
     --max_tokens "$max_tokens"
     --timeout "$timeout"
+    --replay_context_mode "$replay_context_mode"
 )
 
 [ -n "$base_url" ] && args+=(--base_url "$base_url")
@@ -55,6 +57,7 @@ echo " Static Replay Collection"
 echo "  candidate model = $model"
 echo "  base_url        = ${base_url:-default API}"
 echo "  split           = $split"
+echo "  context_mode    = $replay_context_mode"
 echo "  limit_users     = $limit_users (offset=$user_offset)"
 echo "  max_workers     = $max_workers"
 echo "=========================================="

@@ -13,13 +13,14 @@ from __future__ import annotations
 
 import json
 import os
+import traceback
 from argparse import ArgumentParser
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from threading import Lock
 
 from loguru import logger
 from openai import OpenAI
-from tenacity import before_sleep_log, retry, stop_after_attempt, wait_fixed
+from tenacity import RetryCallState, retry, stop_after_attempt, wait_fixed
 from tqdm import tqdm
 
 from lib.llm import client as default_client
@@ -32,6 +33,29 @@ from lib.personalized_data import (
 client: OpenAI = default_client
 
 
+class EmptyCandidateResponse(RuntimeError):
+    def __init__(self, message: str, response_payload: dict) -> None:
+        super().__init__(message)
+        self.response_payload = response_payload
+
+
+def _to_jsonable(obj: object) -> object:
+    if obj is None or isinstance(obj, (str, int, float, bool)):
+        return obj
+    if isinstance(obj, list):
+        return [_to_jsonable(item) for item in obj]
+    if isinstance(obj, tuple):
+        return [_to_jsonable(item) for item in obj]
+    if isinstance(obj, dict):
+        return {str(k): _to_jsonable(v) for k, v in obj.items()}
+    if hasattr(obj, "model_dump"):
+        try:
+            return _to_jsonable(obj.model_dump())
+        except Exception:
+            pass
+    return str(obj)
+
+
 def _strip_model_wrappers(text: str) -> str:
     out = text.strip()
     if out.startswith("<think>") and "</think>" in out:
@@ -41,6 +65,93 @@ def _strip_model_wrappers(text: str) -> str:
         if len(lines) >= 2:
             out = "\n".join(lines[1:-1]).strip()
     return out
+
+
+def _message_content_to_text(content: object) -> str:
+    if content is None:
+        return ""
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        parts: list[str] = []
+        for item in content:
+            if isinstance(item, str):
+                parts.append(item)
+            elif hasattr(item, "text"):
+                parts.append(str(item.text))
+            elif isinstance(item, dict):
+                parts.append(str(item.get("text") or item.get("content") or ""))
+            else:
+                parts.append(str(item))
+        return "\n".join(p for p in parts if p).strip()
+    return str(content)
+
+
+def _safe_name(text: str, limit: int = 160) -> str:
+    return "".join(
+        c if c.isalnum() or c in {"_", "-", "."} else "_"
+        for c in text
+    )[:limit]
+
+
+def _exception_payload(e: Exception) -> dict:
+    payload = {
+        "error_type": type(e).__name__,
+        "error": str(e),
+        "repr": repr(e),
+        "traceback": "".join(traceback.format_exception_only(type(e), e)).strip(),
+        "full_traceback": traceback.format_exc(),
+    }
+    response = getattr(e, "response", None)
+    if response is not None:
+        payload["http_status_code"] = getattr(response, "status_code", None)
+        payload["http_headers"] = dict(getattr(response, "headers", {}) or {})
+        text = getattr(response, "text", "")
+        if text:
+            payload["http_response_text"] = text[:4000]
+        try:
+            payload["http_response_json"] = response.json()
+        except Exception:
+            pass
+    body = getattr(e, "body", None)
+    if body is not None:
+        payload["error_body"] = body
+    response_payload = getattr(e, "response_payload", None)
+    if response_payload is not None:
+        payload["llm_response"] = response_payload
+    return payload
+
+
+def _dump_generation_failure(
+    sample_id: str,
+    model: str,
+    messages: list[dict],
+    e: Exception,
+) -> None:
+    dump_dir = "outputs/static_replay/generation_failures"
+    os.makedirs(dump_dir, exist_ok=True)
+    prefix = os.path.join(dump_dir, _safe_name(sample_id))
+    meta = {
+        "sample_id": sample_id,
+        "model": model,
+        "messages_count": len(messages),
+        "messages_chars": sum(len(str(m.get("content", ""))) for m in messages),
+        **_exception_payload(e),
+    }
+    with open(prefix + ".json", "w", encoding="utf-8") as fp:
+        json.dump(meta, fp, ensure_ascii=False, indent=2)
+    with open(prefix + ".messages.json", "w", encoding="utf-8") as fp:
+        json.dump(messages, fp, ensure_ascii=False, indent=2)
+
+
+def _log_retry_sleep(retry_state: RetryCallState) -> None:
+    exc = retry_state.outcome.exception() if retry_state.outcome else None
+    logger.warning(
+        "Retrying candidate generation: attempt={}, error_type={}, error={}",
+        retry_state.attempt_number,
+        type(exc).__name__ if exc else "unknown",
+        repr(exc),
+    )
 
 
 def _format_profile(profile: dict) -> str:
@@ -59,16 +170,30 @@ def _build_replay_messages(
     profile: dict,
     task_context: str,
     dialogue_prefix: list[dict],
+    context_mode: str,
 ) -> list[dict]:
-    system = (
-        "You are a helpful assistant. Continue the conversation by answering "
-        "the user's latest message. Use the provided user profile and task "
-        "context only as background. Do not mention that you are being evaluated.\n\n"
-        "请根据以下用户画像和任务背景继续对话，只输出助手回复本身。\n\n"
-        f"【用户画像】\n{_format_profile(profile)}\n\n"
-        f"【任务背景】\n{task_context}"
-    )
-    messages: list[dict] = [{"role": "system", "content": system}]
+    messages: list[dict] = []
+    if context_mode == "task":
+        messages.append({
+            "role": "system",
+            "content": (
+                "Continue the conversation by answering the user's latest "
+                "message. Use the task context only as background. Do not "
+                "mention that you are being evaluated.\n\n"
+                f"【任务背景】\n{task_context}"
+            ),
+        })
+    elif context_mode == "profile":
+        messages.append({
+            "role": "system",
+            "content": (
+                "Continue the conversation by answering the user's latest "
+                "message. Use the user profile and task context only as "
+                "background. Do not mention that you are being evaluated.\n\n"
+                f"【用户画像】\n{_format_profile(profile)}\n\n"
+                f"【任务背景】\n{task_context}"
+            ),
+        })
     messages.extend({"role": u["role"], "content": u["content"]} for u in dialogue_prefix)
     return messages
 
@@ -76,7 +201,8 @@ def _build_replay_messages(
 @retry(
     stop=stop_after_attempt(3),
     wait=wait_fixed(5),
-    before_sleep=before_sleep_log(logger, log_level=40),
+    before_sleep=_log_retry_sleep,
+    reraise=True,
 )
 def _generate_response(
     messages: list[dict],
@@ -91,10 +217,25 @@ def _generate_response(
         temperature=temperature,
         max_tokens=max_tokens,
         timeout=timeout,
-    ).choices[0].message
-    if response.content:
-        return _strip_model_wrappers(response.content)
-    raise RuntimeError(response.refusal or "empty candidate response")
+    )
+    choice = response.choices[0]
+    message = choice.message
+    content = _message_content_to_text(getattr(message, "content", ""))
+    if content:
+        return _strip_model_wrappers(content)
+    response_payload = {
+        "id": getattr(response, "id", None),
+        "model": getattr(response, "model", None),
+        "created": getattr(response, "created", None),
+        "usage": _to_jsonable(getattr(response, "usage", None)),
+        "choice": {
+            "finish_reason": getattr(choice, "finish_reason", None),
+            "index": getattr(choice, "index", None),
+            "message": _to_jsonable(message),
+        },
+    }
+    refusal = getattr(message, "refusal", "")
+    raise EmptyCandidateResponse(refusal or "empty candidate response", response_payload)
 
 
 def _iter_static_turns(sample: PersonalizedSample):
@@ -139,6 +280,7 @@ def collect_sample(
     max_tokens: int,
     timeout: int,
     finished_ids: set[str],
+    context_mode: str,
 ) -> list[dict]:
     records: list[dict] = []
     for session, session_file, turn_idx, prefix, source_reply in _iter_static_turns(sample):
@@ -149,6 +291,7 @@ def collect_sample(
             profile=sample.profile,
             task_context=session.task_context,
             dialogue_prefix=prefix,
+            context_mode=context_mode,
         )
         try:
             candidate_response = _generate_response(
@@ -159,7 +302,16 @@ def collect_sample(
                 timeout=timeout,
             )
         except Exception as e:
-            logger.error(f"Generation failed: {sample_id}: {e}")
+            try:
+                _dump_generation_failure(sample_id, model, messages, e)
+            except Exception as dump_err:
+                logger.warning(f"Failed to dump generation failure for {sample_id}: {dump_err}")
+            details = _exception_payload(e)
+            logger.error(
+                f"Generation failed: {sample_id}: "
+                f"{details['error_type']}: {details['repr']}; "
+                f"dump=outputs/static_replay/generation_failures/{_safe_name(sample_id)}.json"
+            )
             continue
         records.append({
             "sample_id": sample_id,
@@ -168,6 +320,7 @@ def collect_sample(
             "target_file": session_file,
             "turn_idx": turn_idx,
             "candidate_model": model,
+            "replay_context_mode": context_mode,
             "task_context": session.task_context,
             "dialogue_prefix": prefix,
             "candidate_response": candidate_response,
@@ -201,6 +354,7 @@ def collect_all(
     temperature: float,
     max_tokens: int,
     timeout: int,
+    context_mode: str,
 ) -> None:
     os.makedirs(os.path.dirname(output_jsonl) or ".", exist_ok=True)
     finished_ids = load_finished_ids(output_jsonl)
@@ -218,6 +372,7 @@ def collect_all(
                 max_tokens,
                 timeout,
                 finished_ids,
+                context_mode,
             ): sample
             for sample in samples
         }
@@ -249,11 +404,22 @@ def parse_args() -> ArgumentParser:
     parser.add_argument("--user_offset", type=int, default=0)
     parser.add_argument("--max_workers", type=int, default=4)
     parser.add_argument("--temperature", type=float, default=0.7)
-    parser.add_argument("--max_tokens", type=int, default=1024)
+    parser.add_argument("--max_tokens", type=int, default=4096)
     parser.add_argument("--timeout", type=int, default=120)
     parser.add_argument("--output_jsonl", type=str, default="")
     parser.add_argument("--base_url", type=str, default="", help="OpenAI-compatible API base URL")
     parser.add_argument("--api_key", type=str, default="", help="API key for the selected endpoint")
+    parser.add_argument(
+        "--replay_context_mode",
+        type=str,
+        default="raw",
+        choices=["raw", "task", "profile"],
+        help=(
+            "Candidate-visible replay context. raw uses only the original "
+            "dialogue prefix; task additionally injects task context; profile "
+            "injects user profile and task context. Default raw is the benchmark setting."
+        ),
+    )
     return parser
 
 
@@ -280,6 +446,7 @@ def main() -> None:
 
     logger.info(f"Candidate model: {args.model}")
     logger.info(f"Backend: {'custom @ ' + args.base_url if args.base_url else 'default OpenAI API'}")
+    logger.info(f"Replay context mode: {args.replay_context_mode}")
     logger.info(f"Output: {args.output_jsonl}")
     logger.info(f"Dataset stats: {dataset_stats(samples)}")
 
@@ -291,6 +458,7 @@ def main() -> None:
         temperature=args.temperature,
         max_tokens=args.max_tokens,
         timeout=args.timeout,
+        context_mode=args.replay_context_mode,
     )
 
 

@@ -19,6 +19,19 @@ The collector iterates over `PersonalizedSample.target_sessions`. For each
 original assistant turn, it keeps the dialogue prefix before that turn, asks a
 candidate model to generate one assistant reply, and writes one JSONL record.
 
+The default replay setting is `replay_context_mode=raw`. In this mode the
+candidate model only receives the original dialogue prefix. It does not receive
+the hidden user profile or task context through an added system prompt. This is
+the benchmark setting because the response model should match the actual data
+collection condition as closely as possible.
+
+Two non-default ablation modes are also available:
+
+- `replay_context_mode=task`: inject task context as candidate-visible system context
+- `replay_context_mode=profile`: inject both user profile and task context
+
+These modes should be reported separately and not mixed with raw static replay.
+
 The generated reply is not rolled into later turns. This is a single-turn static
 replay setting, so all candidate models are evaluated on the same original
 dialogue prefixes.
@@ -31,6 +44,7 @@ Output fields include:
 - `target_file`
 - `turn_idx`
 - `candidate_model`
+- `replay_context_mode`
 - `task_context`
 - `dialogue_prefix`
 - `candidate_response`
@@ -111,6 +125,7 @@ Run from `detection/`:
 model=Qwen/Qwen3-8B \
 base_url=http://localhost:8000/v1 \
 api_key=EMPTY \
+replay_context_mode=raw \
 limit_users=1 \
 output_jsonl=outputs/static_replay/qwen3_8b_test_responses_u1.jsonl \
 bash scripts/collect_static_replay.sh
@@ -122,12 +137,16 @@ Run from `detection/`:
 
 ```bash
 model=gpt-4o-mini \
+replay_context_mode=raw \
 limit_users=1 \
 output_jsonl=outputs/static_replay/gpt4o_mini_test_responses_u1.jsonl \
 bash scripts/collect_static_replay.sh
 ```
 
 This uses the default project OpenAI client configuration from `lib.llm`.
+
+`replay_context_mode=raw` is the default and can be omitted. It is shown in the
+examples to make the benchmark condition explicit.
 
 ### Judge scoring with vLLM
 

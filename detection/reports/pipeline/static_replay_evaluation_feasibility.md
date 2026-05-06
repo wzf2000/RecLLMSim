@@ -49,9 +49,16 @@ For each original assistant turn:
 This is the cleanest setting because:
 
 - all candidate models receive the same prefix
+- candidate models do not receive hidden user profile or task context through extra prompts
 - future human turns remain irrelevant to the current score
 - model outputs do not change the replay trajectory
 - aggregation is straightforward
+
+The candidate-response collection stage should default to raw replay: only the
+original dialogue prefix is sent to the candidate model. User profile, task
+context, and memory are judge-side information used by the satisfaction
+predictor, not extra context given to the response model. Profile/task-injected
+replay can be useful as an ablation, but it should be reported separately.
 
 Avoid multi-turn generated replay for the first version. Once candidate responses become part of the future context, each model creates a different trajectory, and scores become much harder to compare.
 
@@ -106,7 +113,7 @@ Candidate generation file:
   "target_file": "0.json",
   "turn_idx": 0,
   "candidate_model": "model-name",
-  "profile": "...optional or omitted...",
+  "replay_context_mode": "raw",
   "task_context": "...",
   "dialogue_prefix": [
     {"role": "user", "content": "..."}
