@@ -10,7 +10,7 @@
 #   vllm_api_key         — vLLM API key（默认 EMPTY）
 #   split                — test / train / all（默认 test）
 #   memory_update_mode   — none / per_session / per_session_oracle（默认 none）
-#   memory_update_prompt_version — auto / v2 / v2_1 / v2_2 / v2_3 / v3（默认 auto）
+#   memory_update_prompt_version — auto / v2 / v2_1 / v2_2 / v2_3 / v2_4 / v2_5 / v3（默认 auto）
 #   no_memory            — 1 则跳过记忆（默认 0）
 #   max_workers          — 并发线程数（默认 4；本地模型吞吐有限，不宜过高）
 #   limit                — 调试用，限制 block 数量（<=0 不限，默认 0）

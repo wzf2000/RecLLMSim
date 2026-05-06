@@ -1030,6 +1030,161 @@ def build_memory_update_prompt_v2_1(
     return prompt
 
 
+def build_memory_update_prompt_v2_4(
+    existing_memory: UserMemory,
+    new_session: SessionData,
+    turn_predictions: list[dict],
+    use_oracle_labels: bool = False,
+) -> str:
+    """
+    构造 memory update prompt（v2.4）。
+
+    设计目标：
+      - 以 v2.1 的原始 turn 级证据和 patch schema 为基础
+      - 不引入 v2.2 的 evidence bundle
+      - 不引入 v2.3 的额外边界摘要，避免过度拉向 DSAT
+      - 仅强调无相邻证据时不改 verbal boundary
+    """
+    existing_json = existing_memory.model_dump_json(
+        indent=2,
+        exclude={"memory_version", "source_tasks", "n_history_sessions", "n_history_turns"},
+    )
+    turns = _collect_update_turns(new_session, turn_predictions, use_oracle_labels)
+    by_score: dict[int, list[dict]] = defaultdict(list)
+    for t in turns:
+        by_score[t["score"]].append(t)
+
+    low_turns = by_score[1] + by_score[2] + by_score[3]
+    mid_turns = by_score[4]
+    high_turns = by_score[5]
+
+    session_stats = (
+        f"本 session 分布："
+        f"5分×{len(by_score[5])} / 4分×{len(by_score[4])} / 3分×{len(by_score[3])} / "
+        f"2分×{len(by_score[2])} / 1分×{len(by_score[1])}"
+    )
+    label_note = (
+        "本次提供了真实标签，可视为可靠证据。"
+        if use_oracle_labels
+        else "本次仅有模型预测标签，属于弱证据；请保持 v2.1 的校准收益，但不要把单边样本升级成新的硬边界规则。"
+    )
+    prompt = (
+        "你正在维护一份 v2.4 用户记忆。请根据新 session 给出【字段级 patch】，而不是重写整份 memory。\n\n"
+        f"【现有记忆】\n{existing_json}\n\n"
+        f"【新 Session 概览】\n"
+        f"任务：{new_session.task}\n"
+        f"任务背景：{_truncate(new_session.task_context, 180)}\n"
+        f"{session_stats}\n"
+        f"【说明】{label_note}\n\n"
+        f"{_format_update_examples('【<=3 证据（可能影响 3/4 边界或低分要求）】', low_turns)}\n\n"
+        f"{_format_update_examples('【4 分证据（与 <=3 或 5 比较时使用）】', mid_turns)}\n\n"
+        f"{_format_update_examples('【5 分证据（可能影响 4/5 边界）】', high_turns)}\n\n"
+        "更新原则：\n"
+        "1. avg_satisfaction_score 和 score_distribution 由程序自动更新，你不需要负责统计数字。\n"
+        "2. 尽量保持 v2.1 的轻量 patch 风格：只在有新信息时更新，不做大幅重写。\n"
+        "3. three_vs_four_distinction 只有在本 session 同时存在 3 分和 4 分证据时才建议改写；"
+        "若只有 <=3 或只有 4 分，请保持原样。\n"
+        "4. four_vs_five_distinction 只有在本 session 同时存在 4 分和 5 分证据时才建议改写；"
+        "若只有单边证据，请保持原样。\n"
+        "5. 不要为了提高不满意识别而系统性压低分数；边界文字只能描述证据中真实出现的差异。\n"
+        "6. user_specific_requirements 只能新增真正会改变评分的个性化要求；"
+        "禁止加入“更详细、更具体、更清晰、更结构化、更实用”等泛化要求。\n"
+        "7. preferred_response_format 只有在出现新的稳定格式偏好时才改。\n"
+        "8. task_specific_observations 只新增/覆盖当前 session 提供了明确新信息的任务观察。\n\n"
+        "请严格按下面的 JSON Schema 输出 patch，不要输出其他内容：\n"
+        "{\n"
+        '  "update_scoring_style": true 或 false,\n'
+        '  "scoring_style": "若不更新则原样复述现有值",\n'
+        '  "update_three_vs_four": true 或 false,\n'
+        '  "three_vs_four_distinction": "若不更新则原样复述现有值",\n'
+        '  "update_four_vs_five": true 或 false,\n'
+        '  "four_vs_five_distinction": "若不更新则原样复述现有值",\n'
+        '  "add_user_specific_requirements": ["仅新增条目；若无则空列表"],\n'
+        '  "update_preferred_response_format": true 或 false,\n'
+        '  "preferred_response_format": "若不更新则原样复述现有值",\n'
+        '  "add_or_update_task_specific_observations": [{"task_name": "...", "observation": "..."}],\n'
+        '  "rationale": "1-3句说明主要依据与保持不变的原因"\n'
+        "}\n"
+    )
+    return prompt
+
+
+def build_memory_update_prompt_v2_5(
+    existing_memory: UserMemory,
+    new_session: SessionData,
+    turn_predictions: list[dict],
+    use_oracle_labels: bool = False,
+) -> str:
+    """
+    构造 memory update prompt（v2.5）。
+
+    设计目标：
+      - 继续使用 v2.1 的原始 turn 级证据与 patch schema
+      - 不把 SAT drift 问题交给 verbal boundary 文本解决
+      - 明确要求非 oracle update 不改 scoring_style
+      - 统计均值的上移由 merge 侧轻量阻尼
+    """
+    existing_json = existing_memory.model_dump_json(
+        indent=2,
+        exclude={"memory_version", "source_tasks", "n_history_sessions", "n_history_turns"},
+    )
+    turns = _collect_update_turns(new_session, turn_predictions, use_oracle_labels)
+    by_score: dict[int, list[dict]] = defaultdict(list)
+    for t in turns:
+        by_score[t["score"]].append(t)
+
+    low_turns = by_score[1] + by_score[2] + by_score[3]
+    mid_turns = by_score[4]
+    high_turns = by_score[5]
+
+    session_stats = (
+        f"本 session 分布："
+        f"5分×{len(by_score[5])} / 4分×{len(by_score[4])} / 3分×{len(by_score[3])} / "
+        f"2分×{len(by_score[2])} / 1分×{len(by_score[1])}"
+    )
+    label_note = (
+        "本次提供了真实标签，可视为可靠证据。"
+        if use_oracle_labels
+        else "本次仅有模型预测标签，属于弱证据；请不要根据预测标签改写 scoring_style 或提高用户整体宽松程度。"
+    )
+    prompt = (
+        "你正在维护一份 v2.5 用户记忆。请根据新 session 给出【字段级 patch】，而不是重写整份 memory。\n\n"
+        f"【现有记忆】\n{existing_json}\n\n"
+        f"【新 Session 概览】\n"
+        f"任务：{new_session.task}\n"
+        f"任务背景：{_truncate(new_session.task_context, 180)}\n"
+        f"{session_stats}\n"
+        f"【说明】{label_note}\n\n"
+        f"{_format_update_examples('【<=3 证据（可能影响 3/4 边界或低分要求）】', low_turns)}\n\n"
+        f"{_format_update_examples('【4 分证据（与 <=3 或 5 比较时使用）】', mid_turns)}\n\n"
+        f"{_format_update_examples('【5 分证据（可能影响 4/5 边界）】', high_turns)}\n\n"
+        "更新原则：\n"
+        "1. avg_satisfaction_score 和 score_distribution 由程序自动更新，你不需要负责统计数字。\n"
+        "2. 非 oracle 场景下，scoring_style 默认保持原样；除非说明中明确写着真实标签可靠，否则 update_scoring_style 必须为 false。\n"
+        "3. 不要因为本 session 预测分数偏高，就把用户描述成更宽松、更容易满意。\n"
+        "4. three_vs_four_distinction 只有在出现清晰的 <=3 与 4 分对比证据时才改写。\n"
+        "5. four_vs_five_distinction 只有在出现清晰的 4 与 5 分对比证据时才改写。\n"
+        "6. user_specific_requirements 只能新增真正会改变评分的个性化要求；禁止加入泛化要求。\n"
+        "7. preferred_response_format 只有在出现新的稳定格式偏好时才改。\n"
+        "8. task_specific_observations 只新增/覆盖当前 session 提供了明确新信息的任务观察。\n\n"
+        "请严格按下面的 JSON Schema 输出 patch，不要输出其他内容：\n"
+        "{\n"
+        '  "update_scoring_style": true 或 false,\n'
+        '  "scoring_style": "若不更新则原样复述现有值",\n'
+        '  "update_three_vs_four": true 或 false,\n'
+        '  "three_vs_four_distinction": "若不更新则原样复述现有值",\n'
+        '  "update_four_vs_five": true 或 false,\n'
+        '  "four_vs_five_distinction": "若不更新则原样复述现有值",\n'
+        '  "add_user_specific_requirements": ["仅新增条目；若无则空列表"],\n'
+        '  "update_preferred_response_format": true 或 false,\n'
+        '  "preferred_response_format": "若不更新则原样复述现有值",\n'
+        '  "add_or_update_task_specific_observations": [{"task_name": "...", "observation": "..."}],\n'
+        '  "rationale": "1-3句说明主要依据与保持不变的原因"\n'
+        "}\n"
+    )
+    return prompt
+
+
 def build_memory_update_prompt_v2_2(
     existing_memory: UserMemory,
     new_session: SessionData,
@@ -1433,6 +1588,183 @@ def merge_memory_v2_3_patch(
             patch.three_vs_four_distinction
             if patch.update_three_vs_four and has_3_and_4
             else existing_memory.three_vs_four_distinction
+        ),
+        user_specific_requirements=reqs,
+        preferred_response_format=(
+            patch.preferred_response_format
+            if patch.update_preferred_response_format else existing_memory.preferred_response_format
+        ),
+        task_specific_observations=list(task_obs_map.values()),
+        memory_version="v2",
+        source_tasks=list(existing_memory.source_tasks),
+        n_history_sessions=existing_memory.n_history_sessions + 1,
+        n_history_turns=existing_memory.n_history_turns + len(turn_predictions),
+    )
+
+
+def merge_memory_v2_4_patch(
+    existing_memory: UserMemory,
+    patch: MemoryUpdatePatchV2_1,
+    turn_predictions: list[dict],
+    use_oracle_labels: bool = False,
+) -> UserMemory:
+    """
+    将 v2.4 patch 合并回 v2 memory。
+
+    相比 v2.1 只做轻量保护：
+      - 统计量更新完全保持 v2.1
+      - scoring_style / preferred_response_format / task observations 保持 v2.1
+      - boundary 字段要求相邻分数证据
+      - requirement 过滤泛化文本
+    """
+    scores = [
+        int(pred["gold_score"] if use_oracle_labels else pred["pred_score"])
+        for pred in turn_predictions
+    ]
+    old_counts = existing_memory.score_distribution.model_copy()
+    counts_map = {
+        1: old_counts.score_1,
+        2: old_counts.score_2,
+        3: old_counts.score_3,
+        4: old_counts.score_4,
+        5: old_counts.score_5,
+    }
+    for s in scores:
+        counts_map[s] += 1
+    new_dist = ScoreDistribution(
+        score_1=counts_map[1],
+        score_2=counts_map[2],
+        score_3=counts_map[3],
+        score_4=counts_map[4],
+        score_5=counts_map[5],
+    )
+    old_total = sum(_score_distribution_to_counts(existing_memory.score_distribution).values())
+    new_total = old_total + len(scores)
+    weighted_sum = existing_memory.avg_satisfaction_score * old_total + sum(scores)
+    new_avg = weighted_sum / new_total if new_total else existing_memory.avg_satisfaction_score
+
+    new_score_counts = {s: scores.count(s) for s in range(1, 6)}
+    has_3_and_4 = new_score_counts[3] > 0 and new_score_counts[4] > 0
+    has_4_and_5 = new_score_counts[4] > 0 and new_score_counts[5] > 0
+
+    reqs = list(existing_memory.user_specific_requirements)
+    for item in patch.add_user_specific_requirements:
+        if _is_generic_requirement(item):
+            continue
+        reqs.append(item)
+    reqs = _dedupe_preserve_order(reqs)[:5]
+
+    task_obs_map = {
+        obs.task_name: obs.model_copy()
+        for obs in existing_memory.task_specific_observations
+    }
+    for obs in patch.add_or_update_task_specific_observations:
+        task_obs_map[obs.task_name] = obs
+
+    return UserMemory(
+        avg_satisfaction_score=round(new_avg, 4),
+        score_distribution=new_dist,
+        scoring_style=patch.scoring_style if patch.update_scoring_style else existing_memory.scoring_style,
+        four_vs_five_distinction=(
+            patch.four_vs_five_distinction
+            if patch.update_four_vs_five and has_4_and_5
+            else existing_memory.four_vs_five_distinction
+        ),
+        three_vs_four_distinction=(
+            patch.three_vs_four_distinction
+            if patch.update_three_vs_four and has_3_and_4
+            else existing_memory.three_vs_four_distinction
+        ),
+        user_specific_requirements=reqs,
+        preferred_response_format=(
+            patch.preferred_response_format
+            if patch.update_preferred_response_format else existing_memory.preferred_response_format
+        ),
+        task_specific_observations=list(task_obs_map.values()),
+        memory_version="v2",
+        source_tasks=list(existing_memory.source_tasks),
+        n_history_sessions=existing_memory.n_history_sessions + 1,
+        n_history_turns=existing_memory.n_history_turns + len(turn_predictions),
+    )
+
+
+def merge_memory_v2_5_patch(
+    existing_memory: UserMemory,
+    patch: MemoryUpdatePatchV2_1,
+    turn_predictions: list[dict],
+    use_oracle_labels: bool = False,
+) -> UserMemory:
+    """
+    将 v2.5 patch 合并回 v2 memory。
+
+    相比 v2.1：
+      - 非 oracle 时冻结 scoring_style
+      - 非 oracle 时对 avg_satisfaction_score 的上移做轻量阻尼
+      - requirement 过滤泛化文本
+      - 其他字段保持 v2.1 的轻量 patch 行为
+    """
+    scores = [
+        int(pred["gold_score"] if use_oracle_labels else pred["pred_score"])
+        for pred in turn_predictions
+    ]
+    old_counts = existing_memory.score_distribution.model_copy()
+    counts_map = {
+        1: old_counts.score_1,
+        2: old_counts.score_2,
+        3: old_counts.score_3,
+        4: old_counts.score_4,
+        5: old_counts.score_5,
+    }
+    for s in scores:
+        counts_map[s] += 1
+    new_dist = ScoreDistribution(
+        score_1=counts_map[1],
+        score_2=counts_map[2],
+        score_3=counts_map[3],
+        score_4=counts_map[4],
+        score_5=counts_map[5],
+    )
+    old_total = sum(_score_distribution_to_counts(existing_memory.score_distribution).values())
+    new_total = old_total + len(scores)
+    weighted_sum = existing_memory.avg_satisfaction_score * old_total + sum(scores)
+    raw_new_avg = weighted_sum / new_total if new_total else existing_memory.avg_satisfaction_score
+    if use_oracle_labels or raw_new_avg <= existing_memory.avg_satisfaction_score:
+        new_avg = raw_new_avg
+    else:
+        # Predicted-label updates often drift SAT-heavy; allow only a damped upward prior shift.
+        new_avg = existing_memory.avg_satisfaction_score + 0.25 * (
+            raw_new_avg - existing_memory.avg_satisfaction_score
+        )
+
+    reqs = list(existing_memory.user_specific_requirements)
+    for item in patch.add_user_specific_requirements:
+        if _is_generic_requirement(item):
+            continue
+        reqs.append(item)
+    reqs = _dedupe_preserve_order(reqs)[:5]
+
+    task_obs_map = {
+        obs.task_name: obs.model_copy()
+        for obs in existing_memory.task_specific_observations
+    }
+    for obs in patch.add_or_update_task_specific_observations:
+        task_obs_map[obs.task_name] = obs
+
+    return UserMemory(
+        avg_satisfaction_score=round(new_avg, 4),
+        score_distribution=new_dist,
+        scoring_style=(
+            patch.scoring_style
+            if patch.update_scoring_style and use_oracle_labels
+            else existing_memory.scoring_style
+        ),
+        four_vs_five_distinction=(
+            patch.four_vs_five_distinction
+            if patch.update_four_vs_five else existing_memory.four_vs_five_distinction
+        ),
+        three_vs_four_distinction=(
+            patch.three_vs_four_distinction
+            if patch.update_three_vs_four else existing_memory.three_vs_four_distinction
         ),
         user_specific_requirements=reqs,
         preferred_response_format=(
