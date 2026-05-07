@@ -201,6 +201,34 @@ python -c "from trace.collect_personalized import _call_predict_turn, _predict_t
 python trace/collect_personalized.py --help
 ```
 
+The turn-evaluation facade was then split further:
+
+- `personalized_turn_eval.py`: compatibility facade
+- `personalized_turn_api.py`: structured prediction API call and parse-failure dumping
+- `personalized_turn_selective.py`: normal turn prediction and selective refute
+- `personalized_turn_two_stage.py`: fullscale and two-stage prediction flows
+- `personalized_session_eval.py`: session-level assistant-turn loop
+
+Verification:
+
+```bash
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
+  detection/trace/personalized_turn_eval.py \
+  detection/trace/personalized_turn_api.py \
+  detection/trace/personalized_turn_selective.py \
+  detection/trace/personalized_turn_two_stage.py \
+  detection/trace/personalized_session_eval.py \
+  detection/trace/collect_personalized.py \
+  detection/trace/collect_urs.py \
+  detection/trace/collect_uss.py \
+  detection/trace/score_static_replay.py
+
+cd detection
+python -c "from trace.personalized_turn_eval import call_predict_turn, predict_turn_with_optional_selective_refute, predict_turn_v3_two_stage, evaluate_session; from trace.collect_personalized import _call_predict_turn, evaluate_session as eval2; print(callable(call_predict_turn), callable(predict_turn_with_optional_selective_refute), callable(predict_turn_v3_two_stage), callable(evaluate_session), callable(_call_predict_turn), callable(eval2))"
+
+python trace/collect_personalized.py --help
+```
+
 ### Step 3: Split `lib.memory` behind a facade
 
 Status: implemented in this session.
