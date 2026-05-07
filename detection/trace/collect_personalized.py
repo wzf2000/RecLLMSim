@@ -49,18 +49,22 @@ from __future__ import annotations
 
 import json
 import os
-import re
+import sys
 from argparse import ArgumentParser
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from threading import Lock
 from typing import Literal
 
 from loguru import logger
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from tenacity import before_sleep_log, retry, stop_after_attempt, wait_fixed
 from tqdm import tqdm
 
 from openai import OpenAI
+
+_DETECTION_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _DETECTION_DIR not in sys.path:
+    sys.path.insert(0, _DETECTION_DIR)
 
 from lib.anchor_retrieval import AnchorRetriever, AnchorTurn
 from lib.llm import client as _default_client
@@ -104,8 +108,33 @@ from lib.personalized_data import (
 )
 from lib.satisfaction_constants import (
     get_reason_to_id,
-    is_reason_valid_for_score,
-    normalize_reason_for_score,
+)
+from trace.personalized_predictions import (
+    BoundaryTurnPrediction,
+    DsatRefinementPrediction,
+    HistoryPriorDeltaPrediction,
+    HistoryPriorDeltaV2Prediction,
+    SatRefinementPrediction,
+    SelectiveBoundaryTurnPrediction,
+    TurnPrediction,
+    _anchor_metadata,
+    _history_prior_delta_v3_dsat_votes,
+    _normalize_pred_reason,
+    _reconstruct_history_prior_delta_score,
+    _reconstruct_history_prior_delta_v2_score,
+    _reconstruct_history_prior_delta_v3_1_score,
+    _reconstruct_history_prior_delta_v3_score,
+    _retrieve_anchor_turns,
+)
+from trace.structured_output import (
+    StructuredOutputError,
+    _coerce_prediction_payload,
+    _message_content_to_text,
+    _normalize_quotes,
+    _recover_structured_output,
+    _strip_generation_wrappers,
+    structured_parse,
+    structured_parse_from_raw_text,
 )
 
 MemoryUpdateMode = Literal["none", "per_session", "per_session_oracle", "per_turn"]
@@ -119,479 +148,42 @@ MemoryUpdatePromptVersion = Literal["auto", "v2", "v2_1", "v2_2", "v2_3", "v2_4"
 client = _default_client   # module-level，可被 main() 替换为 vLLM client
 _is_vllm: bool = False     # 仅用于日志标识
 
-T = type
-
-
-class StructuredOutputError(RuntimeError):
-    def __init__(self, message: str, raw_text: str = "") -> None:
-        super().__init__(message)
-        self.raw_text = raw_text
-
-
-def _message_content_to_text(content: object) -> str:
-    if content is None:
-        return ""
-    if isinstance(content, str):
-        return content
-    if isinstance(content, list):
-        parts: list[str] = []
-        for item in content:
-            if isinstance(item, str):
-                parts.append(item)
-            elif hasattr(item, "text"):
-                parts.append(str(item.text))
-            elif isinstance(item, dict):
-                text = item.get("text") or item.get("content") or ""
-                parts.append(str(text))
-            else:
-                parts.append(str(item))
-        return "".join(parts)
-    return str(content)
-
-
-def _strip_generation_wrappers(text: str) -> str:
-    cleaned = text.strip()
-    cleaned = re.sub(r"<think>[\s\S]*?</think>", "", cleaned)
-    cleaned = cleaned.replace("<think>", "").replace("</think>", "")
-    if cleaned.startswith("```json"):
-        cleaned = cleaned[7:]
-    if cleaned.startswith("```"):
-        cleaned = cleaned[3:]
-    if cleaned.endswith("```"):
-        cleaned = cleaned[:-3]
-    return cleaned.strip()
-
-
-def _normalize_quotes(text: str) -> str:
-    return (
-        text.replace("“", '"')
-        .replace("”", '"')
-        .replace("‘", "'")
-        .replace("’", "'")
-    )
-
-
-def _coerce_prediction_payload(payload: dict) -> dict:
-    coerced = dict(payload)
-    cls = coerced.get("classification")
-    if isinstance(cls, str):
-        cls = cls.strip()
-        if cls in {"1", "2", "3", "4", "5"}:
-            coerced["classification"] = int(cls)
-    needs_review = coerced.get("needs_refute_review")
-    if isinstance(needs_review, str):
-        lowered = needs_review.strip().lower()
-        if lowered in {"true", "false"}:
-            coerced["needs_refute_review"] = lowered == "true"
-    passes_boundary = coerced.get("passes_satisfaction_boundary")
-    if isinstance(passes_boundary, str):
-        lowered = passes_boundary.strip().lower()
-        if lowered in {"true", "false"}:
-            coerced["passes_satisfaction_boundary"] = lowered == "true"
-    boundary_score = coerced.get("boundary_score")
-    if isinstance(boundary_score, str):
-        stripped = boundary_score.strip()
-        if stripped in {"3", "4"}:
-            coerced["boundary_score"] = int(stripped)
-    delta_score = coerced.get("delta_score")
-    if isinstance(delta_score, str):
-        stripped = delta_score.strip()
-        if stripped in {"-2", "-1", "0", "1", "2"}:
-            coerced["delta_score"] = int(stripped)
-    prior_score = coerced.get("history_prior_score")
-    if isinstance(prior_score, str):
-        try:
-            coerced["history_prior_score"] = float(prior_score.strip())
-        except ValueError:
-            pass
-    for bool_key in ("strong_failure_evidence", "strong_excellence_evidence"):
-        value = coerced.get(bool_key)
-        if isinstance(value, str):
-            lowered = value.strip().lower()
-            if lowered in {"true", "false"}:
-                coerced[bool_key] = lowered == "true"
-    return coerced
-
-
-def _recover_structured_output(raw_text: str, response_model: T) -> T | None:
-    cleaned = _normalize_quotes(_strip_generation_wrappers(raw_text))
-    if not cleaned:
-        return None
-
-    # Fast path: extract the outermost JSON object and validate directly.
-    left = cleaned.find("{")
-    right = cleaned.rfind("}")
-    if left != -1 and right != -1 and right > left:
-        candidate = cleaned[left:right + 1]
-        try:
-            parsed = json.loads(candidate)
-            if isinstance(parsed, dict):
-                return response_model.model_validate(_coerce_prediction_payload(parsed))
-            return response_model.model_validate(parsed)
-        except Exception:
-            pass
-    else:
-        candidate = cleaned
-
-    # Fallback: tolerant field extraction for slightly malformed JSON.
-    cls_match = re.search(r'"classification"\s*:\s*"?(?P<cls>[1-5])"?', candidate)
-    reason_match = re.search(r'"reason"\s*:\s*"([^"]*)"', candidate)
-    analysis_match = re.search(r'"analysis"\s*:\s*"([\s\S]*?)"\s*}', candidate)
-    review_match = re.search(
-        r'"needs_refute_review"\s*:\s*"?(true|false)"?',
-        candidate,
-        flags=re.IGNORECASE,
-    )
-
-    analysis = ""
-    if analysis_match:
-        analysis = analysis_match.group(1).strip()
-    else:
-        analysis_key = '"analysis"'
-        idx = candidate.find(analysis_key)
-        if idx != -1:
-            tail = candidate[idx + len(analysis_key):]
-            colon = tail.find(":")
-            if colon != -1:
-                value = tail[colon + 1:].strip()
-                if value.startswith('"'):
-                    value = value[1:]
-                value = value.replace("</think>", "").replace("<think>", "").strip()
-                if value.endswith("}"):
-                    value = value[:-1].rstrip()
-                if value.endswith('"'):
-                    value = value[:-1]
-                analysis = value.strip()
-
-    if cls_match and reason_match and analysis:
-        try:
-            payload = {
-                "classification": int(cls_match.group("cls")),
-                "reason": reason_match.group(1).strip(),
-                "analysis": analysis,
-            }
-            if review_match:
-                payload["needs_refute_review"] = review_match.group(1).lower() == "true"
-            return response_model.model_validate(payload)
-        except Exception:
-            return None
-
-    return None
-
-
 def _structured_parse(
     prompt: str,
     model: str,
-    response_model: T,
+    response_model: type[BaseModel],
     temperature: float = 0.3,
     timeout: int = 120,
     system_msg: str = "You are an expert user behavior analyst.",
-) -> T:
-    """
-    统一结构化输出调用。
-
-    OpenAI API 和 vLLM >= 0.6（含 0.18.x）均支持 json_schema response_format，
-    OpenAI SDK 的 .parse() 在两者上行为一致，无需分支。
-    """
-    messages = [
-        {"role": "system", "content": system_msg},
-        {"role": "user", "content": prompt},
-    ]
-    response = client.chat.completions.parse(
+) -> BaseModel:
+    return structured_parse(
+        client=client,
+        prompt=prompt,
         model=model,
-        messages=messages,
+        response_model=response_model,
         temperature=temperature,
-        response_format=response_model,
         timeout=timeout,
-    ).choices[0].message
-    if response.parsed:
-        return response.parsed
-
-    raw_text = _message_content_to_text(getattr(response, "content", ""))
-    recovered = _recover_structured_output(raw_text, response_model)
-    if recovered is not None:
-        logger.warning(
-            f"Recovered malformed structured output for {response_model.__name__} "
-            f"(model={model}, temp={temperature}, raw_len={len(raw_text)})"
-        )
-        return recovered
-
-    preview = raw_text[:300].replace("\n", "\\n")
-    raise StructuredOutputError(
-        f"Structured parse failed: {response.refusal or 'no content'}; "
-        f"raw_preview={preview}",
-        raw_text=raw_text,
+        system_msg=system_msg,
     )
 
 
 def _structured_parse_from_raw_text(
     prompt: str,
     model: str,
-    response_model: T,
+    response_model: type[BaseModel],
     temperature: float = 0.3,
     timeout: int = 120,
     system_msg: str = "You are an expert user behavior analyst.",
-) -> T:
-    """
-    原始文本路线：
-    - 不使用 SDK .parse()
-    - 直接拿 message.content
-    - 本地做 wrapper stripping + tolerant recovery + schema validate
-
-    仅用于边界 prompt，避免 vLLM/Qwen 在 json_schema 模式下偶发的
-    </think> 残留和半截 JSON 直接在 SDK 层抛错。
-    """
-    messages = [
-        {"role": "system", "content": system_msg},
-        {"role": "user", "content": prompt},
-    ]
-    response = client.chat.completions.create(
+) -> BaseModel:
+    return structured_parse_from_raw_text(
+        client=client,
+        prompt=prompt,
         model=model,
-        messages=messages,
+        response_model=response_model,
         temperature=temperature,
         timeout=timeout,
-    ).choices[0].message
-
-    raw_text = _message_content_to_text(getattr(response, "content", ""))
-    recovered = _recover_structured_output(raw_text, response_model)
-    if recovered is not None:
-        return recovered
-
-    preview = raw_text[:300].replace("\n", "\\n")
-    raise StructuredOutputError(
-        f"Raw structured parse failed: {response.refusal or 'no content'}; "
-        f"raw_preview={preview}",
-        raw_text=raw_text,
+        system_msg=system_msg,
     )
-
-
-# ──────────────────────────────────────────────────────────────────────────────
-# LLM 响应模型
-# ──────────────────────────────────────────────────────────────────────────────
-
-class TurnPrediction(BaseModel):
-    classification: int = Field(ge=1, le=5)
-    reason: str
-    analysis: str
-
-
-class BoundaryTurnPrediction(BaseModel):
-    classification: Literal[3, 4]
-    reason: str
-    analysis: str
-
-
-class SelectiveBoundaryTurnPrediction(BaseModel):
-    classification: Literal[3, 4]
-    reason: str
-    analysis: str
-    needs_refute_review: bool = False
-
-
-class HistoryPriorDeltaPrediction(BaseModel):
-    classification: int = Field(ge=1, le=5)
-    reason: str
-    analysis: str
-    history_prior_score: float = Field(ge=1, le=5)
-    delta_label: Literal["below", "around", "above"]
-    delta_score: int = Field(ge=-2, le=2)
-    passes_satisfaction_boundary: bool
-    boundary_score: Literal[3, 4]
-
-
-class HistoryPriorDeltaV2Prediction(BaseModel):
-    classification: int = Field(ge=1, le=5)
-    reason: str
-    analysis: str
-    history_prior_score: float = Field(ge=1, le=5)
-    delta_label: Literal["below", "around", "above"]
-    delta_score: int = Field(ge=-2, le=2)
-    delta_confidence: Literal["low", "medium", "high"]
-    passes_satisfaction_boundary: bool
-    boundary_score: Literal[3, 4]
-    boundary_confidence: Literal["low", "medium", "high"]
-    strong_failure_evidence: bool = False
-    strong_excellence_evidence: bool = False
-
-
-class SatRefinementPrediction(BaseModel):
-    classification: Literal[4, 5]
-    reason: str
-    analysis: str
-
-
-class DsatRefinementPrediction(BaseModel):
-    classification: Literal[1, 2, 3]
-    reason: str
-    analysis: str
-
-
-def _normalize_pred_reason(
-    pred_score: int,
-    pred_reason: str,
-    default_reason: str,
-    debug_context: str = "",
-) -> str:
-    normalized = normalize_reason_for_score(
-        pred_score,
-        pred_reason,
-        default_reason=default_reason,
-    )
-    if not is_reason_valid_for_score(pred_score, pred_reason):
-        context = f" for {debug_context}" if debug_context else ""
-        logger.warning(
-            f"Normalized invalid reason/score pair{context}: "
-            f"score={pred_score}, raw_reason={pred_reason} -> {normalized}"
-        )
-    return normalized
-
-
-def _clip_score(score: int | float) -> int:
-    return max(1, min(5, int(round(score))))
-
-
-def _reconstruct_history_prior_delta_score(pred: HistoryPriorDeltaPrediction) -> int:
-    """Rebuild the final 1-5 score from prior + delta, then enforce the 3/4 gate."""
-    reconstructed = _clip_score(pred.history_prior_score + pred.delta_score)
-    boundary_score = 4 if pred.passes_satisfaction_boundary else 3
-    if pred.boundary_score in {3, 4}:
-        boundary_score = pred.boundary_score
-    if boundary_score >= 4:
-        return max(4, reconstructed)
-    return min(3, reconstructed)
-
-
-def _sign(value: int) -> int:
-    if value > 0:
-        return 1
-    if value < 0:
-        return -1
-    return 0
-
-
-def _reconstruct_history_prior_delta_v2_score(pred: HistoryPriorDeltaV2Prediction) -> int:
-    """
-    Soft reconstruction for residual judging.
-
-    Keep the rounded user prior as the default exact score.  Use residuals only
-    when the model reports enough evidence, and apply 3/4 boundary constraints
-    only for high-confidence boundary decisions.
-    """
-    score = _clip_score(pred.history_prior_score)
-    delta_step = 0
-    if pred.delta_confidence == "high":
-        delta_step = _sign(pred.delta_score)
-    elif pred.delta_confidence == "medium" and abs(pred.delta_score) == 2:
-        delta_step = _sign(pred.delta_score)
-
-    if delta_step:
-        score += delta_step
-
-    score = _clip_score(score)
-    if pred.boundary_confidence == "high":
-        boundary_score = 4 if pred.passes_satisfaction_boundary else 3
-        if pred.boundary_score in {3, 4}:
-            boundary_score = pred.boundary_score
-        if boundary_score >= 4:
-            score = max(4, score)
-        else:
-            score = min(3, score)
-    return _clip_score(score)
-
-
-def _history_prior_delta_v3_dsat_votes(pred: HistoryPriorDeltaV2Prediction) -> int:
-    votes = 0
-    if pred.boundary_score == 3:
-        votes += 1
-    if pred.classification <= 3:
-        votes += 1
-    if pred.delta_score < 0:
-        votes += 1
-    return votes
-
-
-def _reconstruct_history_prior_delta_v3_score(pred: HistoryPriorDeltaV2Prediction) -> int:
-    """
-    Hybrid reconstruction for v3.
-
-    Keep the prior as the exact-score anchor, but expose DSAT discovery when
-    multiple independent signals agree.  Upward movement remains conservative.
-    """
-    score = _clip_score(pred.history_prior_score)
-    dsat_votes = _history_prior_delta_v3_dsat_votes(pred)
-
-    if dsat_votes >= 2:
-        score = min(score, 3)
-    elif pred.delta_confidence == "high":
-        score += _sign(pred.delta_score)
-    elif pred.delta_confidence == "medium" and abs(pred.delta_score) == 2:
-        score += _sign(pred.delta_score)
-
-    score = _clip_score(score)
-    if pred.boundary_confidence == "high" and pred.boundary_score == 4:
-        score = max(score, 4)
-    return _clip_score(score)
-
-
-def _reconstruct_history_prior_delta_v3_1_score(pred: HistoryPriorDeltaV2Prediction) -> int:
-    """
-    Stricter v3 reconstruction.
-
-    The v3 subset run showed that two-vote DSAT cases were sparse and noisy.
-    V3.1 only forces <=3 when all three DSAT signals agree.
-    """
-    score = _clip_score(pred.history_prior_score)
-    dsat_votes = _history_prior_delta_v3_dsat_votes(pred)
-
-    if dsat_votes >= 3:
-        score = min(score, 3)
-    elif pred.delta_confidence == "high":
-        score += _sign(pred.delta_score)
-    elif pred.delta_confidence == "medium" and abs(pred.delta_score) == 2:
-        score += _sign(pred.delta_score)
-
-    score = _clip_score(score)
-    if pred.boundary_confidence == "high" and pred.boundary_score == 4:
-        score = max(score, 4)
-    return _clip_score(score)
-
-
-def _retrieve_anchor_turns(
-    retriever: AnchorRetriever | None,
-    query_user_msg: str,
-    query_assistant_reply: str,
-    k: int,
-    turn_eval_prompt_version: str,
-) -> list[AnchorTurn] | None:
-    if retriever is None or k <= 0:
-        return None
-    if turn_eval_prompt_version == "history_prior_delta_v3_episodic":
-        return retriever.retrieve_boundary_paired(
-            query_user_msg=query_user_msg,
-            query_assistant_reply=query_assistant_reply,
-            k=k,
-        )
-    return retriever.retrieve(
-        query_user_msg=query_user_msg,
-        query_assistant_reply=query_assistant_reply,
-        k=k,
-    )
-
-
-def _anchor_metadata(anchors: list[AnchorTurn] | None) -> dict:
-    if not anchors:
-        return {
-            "n_anchors_retrieved": 0,
-            "anchor_scores": [],
-            "anchor_tasks": [],
-            "anchor_evidence_roles": [],
-        }
-    return {
-        "n_anchors_retrieved": len(anchors),
-        "anchor_scores": [a.score for a in anchors],
-        "anchor_tasks": [a.task for a in anchors],
-        "anchor_evidence_roles": [getattr(a, "evidence_role", "") for a in anchors],
-    }
 
 
 # ──────────────────────────────────────────────────────────────────────────────
