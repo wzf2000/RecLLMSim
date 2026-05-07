@@ -350,14 +350,81 @@ PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from eval.turn_content_filter im
 PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
 ```
 
-### Step 5: Split remaining secondary CLIs
+### Step 5: Split SPUR workflow
+
+Status: implemented after `turn_content_filter.py`.
+
+Moved the SPUR baseline implementation into a focused package:
+
+- `detection/eval/spur/constants.py`: SAT/DSAT label constants.
+- `detection/eval/spur/data.py`: session-to-turn row preprocessing and
+  conversation formatting.
+- `detection/eval/spur/llm.py`: shared chat-completion helper.
+- `detection/eval/spur/rubrics.py`: Phase 1 rubric extraction and Phase 2
+  rubric summarization.
+- `detection/eval/spur/scoring.py`: Phase 3 rubric-based direct scoring.
+- `detection/eval/spur/embeddings.py`: Phase 4 embeddings, rubric features,
+  and logistic regression classifier.
+- `detection/eval/spur/metrics.py`: metric calculation and metric logging.
+- `detection/eval/spur/cli.py`: argparse, cached phase orchestration, and the
+  old `main(...)` wrapper.
+- `detection/eval/spur.py`: compatibility script entry point and re-export
+  facade.
+
+Line counts after split:
+
+| file | lines |
+|---|---:|
+| `detection/eval/spur.py` | 132 |
+| `detection/eval/spur/__init__.py` | 71 |
+| `detection/eval/spur/constants.py` | 2 |
+| `detection/eval/spur/data.py` | 47 |
+| `detection/eval/spur/llm.py` | 28 |
+| `detection/eval/spur/rubrics.py` | 210 |
+| `detection/eval/spur/scoring.py` | 157 |
+| `detection/eval/spur/embeddings.py` | 193 |
+| `detection/eval/spur/metrics.py` | 53 |
+| `detection/eval/spur/cli.py` | 275 |
+
+Backward compatibility:
+
+- `bash scripts/run_spur.sh ...` still reaches `python eval/spur.py "$@"`.
+- `python eval/spur.py --help` still exposes the same CLI options and defaults.
+- Existing imports from `eval.spur` resolve through the new package re-exports.
+- Prompts, cache filenames, output filenames, metric fields, argparse defaults,
+  and phase control flags were kept unchanged.
+
+Verification:
+
+```bash
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
+  detection/eval/spur.py \
+  detection/eval/spur/__init__.py \
+  detection/eval/spur/constants.py \
+  detection/eval/spur/data.py \
+  detection/eval/spur/llm.py \
+  detection/eval/spur/rubrics.py \
+  detection/eval/spur/scoring.py \
+  detection/eval/spur/metrics.py \
+  detection/eval/spur/embeddings.py \
+  detection/eval/spur/cli.py
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python eval/spur.py --help
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from eval.spur import preprocess_to_rows, parse_args, compute_metrics, extract_rubric_candidates; print(callable(preprocess_to_rows), callable(parse_args), callable(compute_metrics), callable(extract_rubric_candidates))"
+
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
+```
+
+### Step 6: Split remaining secondary CLIs
 
 Remaining candidates:
 
-- `eval/spur.py` into rubric extraction, scoring, embeddings/classifier, CLI
 - `trace/sft.py` into prompt parsing, dataset building, trainer wrapper, CLI
 
-These are lower priority because they are less reused by other modules.
+This is lower priority because it is less reused by other modules.
 
 ## Risks and Guardrails
 

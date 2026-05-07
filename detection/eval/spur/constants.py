@@ -1,0 +1,2 @@
+SAT_LABEL = "SAT"
+DSAT_LABEL = "DSAT"
