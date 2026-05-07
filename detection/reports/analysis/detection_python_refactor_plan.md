@@ -292,11 +292,68 @@ cd detection
 python trace/collect_personalized.py --help
 ```
 
-### Step 4: Split secondary CLIs only after shared modules settle
+### Step 4: Split turn content filter
 
-Good candidates:
+Status: implemented after the shared `trace` and `lib.memory` modules were
+stabilized.
 
-- `eval/turn_content_filter.py` into `eval/turn_content/{annotation,analysis,cli}.py`
+Moved the turn-content annotation and analysis script into a focused package:
+
+- `detection/eval/turn_content/io.py`: JSONL load/save helpers.
+- `detection/eval/turn_content/annotation.py`: target turn extraction,
+  annotation prompt building, LLM calls, resume handling, and annotate command.
+- `detection/eval/turn_content/analysis.py`: metric calculation, named result
+  parsing, grouped analysis, and analyze command.
+- `detection/eval/turn_content/cli.py`: argparse definition and vLLM client
+  setup.
+- `detection/eval/turn_content_filter.py`: compatibility entry point and
+  re-export facade.
+
+Line counts after split:
+
+| file | lines |
+|---|---:|
+| `detection/eval/turn_content_filter.py` | 80 |
+| `detection/eval/turn_content/__init__.py` | 29 |
+| `detection/eval/turn_content/io.py` | 21 |
+| `detection/eval/turn_content/annotation.py` | 351 |
+| `detection/eval/turn_content/analysis.py` | 135 |
+| `detection/eval/turn_content/cli.py` | 62 |
+
+Backward compatibility:
+
+- `python eval/turn_content_filter.py annotate ...` and
+  `python eval/turn_content_filter.py analyze ...` keep using the old entry
+  file.
+- Existing imports from `eval.turn_content_filter` keep working for the public
+  functions and the previously local helper names.
+- CLI argument names, defaults, prompts, output fields, retry behavior, and
+  metrics logic were kept unchanged.
+
+Verification:
+
+```bash
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
+  detection/eval/turn_content_filter.py \
+  detection/eval/turn_content/__init__.py \
+  detection/eval/turn_content/io.py \
+  detection/eval/turn_content/annotation.py \
+  detection/eval/turn_content/analysis.py \
+  detection/eval/turn_content/cli.py
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python eval/turn_content_filter.py --help
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from eval.turn_content_filter import TurnContentAnnotation, build_parser, command_annotate, command_analyze; print(TurnContentAnnotation.__name__, callable(build_parser), callable(command_annotate), callable(command_analyze))"
+
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
+```
+
+### Step 5: Split remaining secondary CLIs
+
+Remaining candidates:
+
 - `eval/spur.py` into rubric extraction, scoring, embeddings/classifier, CLI
 - `trace/sft.py` into prompt parsing, dataset building, trainer wrapper, CLI
 
@@ -322,3 +379,5 @@ These are lower priority because they are less reused by other modules.
 4. `[lib/memory] refactor: split memory update logic`
 5. `[lib/memory] refactor: split turn eval prompts`
 6. `[eval] refactor: split turn content filter`
+7. `[eval] refactor: split spur workflow`
+8. `[trace] refactor: split sft workflow`
