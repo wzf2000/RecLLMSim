@@ -310,8 +310,3 @@ def update_memory(
         n_history_sessions=memory.n_history_sessions + 1,
         n_history_turns=memory.n_history_turns + len(turn_predictions),
     )
-
-
-_call_build_memory = call_build_memory
-_call_update_memory = call_update_memory
-_resolve_memory_update_prompt_version = resolve_memory_update_prompt_version

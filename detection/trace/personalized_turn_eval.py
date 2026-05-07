@@ -1087,11 +1087,3 @@ def evaluate_session(
             history_window.pop(0)
 
     return results
-
-
-_call_predict_turn = call_predict_turn
-_should_trigger_selective_refute = should_trigger_selective_refute
-_predict_turn_with_optional_selective_refute = predict_turn_with_optional_selective_refute
-_predict_turn_fullscale_from_boundary_v2 = predict_turn_fullscale_from_boundary_v2
-_predict_turn_v3_two_stage = predict_turn_v3_two_stage
-_predict_turn_v3_two_stage_v2 = predict_turn_v3_two_stage_v2

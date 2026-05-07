@@ -80,8 +80,10 @@ from lib.personalized_data import (
 from lib.satisfaction_constants import (
     get_reason_to_id,
 )
-from trace import personalized_memory as memory_ops
-from trace import personalized_turn_eval as turn_eval
+from trace.personalized_memory import (
+    build_user_memory as _build_user_memory_impl,
+    update_memory as _update_memory_impl,
+)
 from trace.personalized_predictions import (
     BoundaryTurnPrediction,
     DsatRefinementPrediction,
@@ -95,13 +97,16 @@ from trace.personalized_predictions import (
 )
 from trace.structured_output import (
     StructuredOutputError,
-    _coerce_prediction_payload,
-    _message_content_to_text,
-    _normalize_quotes,
-    _recover_structured_output,
-    _strip_generation_wrappers,
     structured_parse,
     structured_parse_from_raw_text,
+)
+from trace.personalized_turn_eval import (
+    call_predict_turn as _call_predict_turn_impl,
+    evaluate_session as _evaluate_session_impl,
+    predict_turn_fullscale_from_boundary_v2 as _predict_turn_fullscale_from_boundary_v2_impl,
+    predict_turn_v3_two_stage as _predict_turn_v3_two_stage_impl,
+    predict_turn_v3_two_stage_v2 as _predict_turn_v3_two_stage_v2_impl,
+    predict_turn_with_optional_selective_refute as _predict_turn_with_optional_selective_refute_impl,
 )
 
 MemoryUpdateMode = Literal["none", "per_session", "per_session_oracle", "per_turn"]
@@ -153,30 +158,13 @@ def _structured_parse_from_raw_text(
     )
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Phase 1: Memory Building
-# ──────────────────────────────────────────────────────────────────────────────
-
-def _call_build_memory(
-    prompt: str,
-    model: str,
-    memory_version: MemoryVersion = "v2",
-) -> BaseModel:
-    return memory_ops.call_build_memory(
-        prompt=prompt,
-        model=model,
-        parse_fn=_structured_parse,
-        memory_version=memory_version,
-    )
-
-
 def build_user_memory(
     sample: PersonalizedSample,
     model: str,
     memory_cache_dir: str | None = None,
     memory_version: MemoryVersion = "v2",
 ) -> UserMemory | UserMemoryV3:
-    return memory_ops.build_user_memory(
+    return _build_user_memory_impl(
         sample=sample,
         model=model,
         parse_fn=_structured_parse,
@@ -203,23 +191,13 @@ def _call_predict_turn(
     | SatRefinementPrediction
     | DsatRefinementPrediction
 ):
-    return turn_eval.call_predict_turn(
+    return _call_predict_turn_impl(
         prompt=prompt,
         model=model,
         parse_fn=_structured_parse,
         raw_parse_fn=_structured_parse_from_raw_text,
         prompt_version=prompt_version,
         debug_context=debug_context,
-    )
-
-
-def _should_trigger_selective_refute(
-    pred: SelectiveBoundaryTurnPrediction,
-    prompt_version: str,
-) -> bool:
-    return turn_eval.should_trigger_selective_refute(
-        pred=pred,
-        prompt_version=prompt_version,
     )
 
 
@@ -234,7 +212,7 @@ def _predict_turn_with_optional_selective_refute(
     default_reason: str,
     anchors: list[AnchorTurn] | None = None,
 ) -> dict:
-    return turn_eval.predict_turn_with_optional_selective_refute(
+    return _predict_turn_with_optional_selective_refute_impl(
         memory=memory,
         session=session,
         model=model,
@@ -258,7 +236,7 @@ def _predict_turn_fullscale_from_boundary_v2(
     default_reason: str,
     anchors: list[AnchorTurn] | None = None,
 ) -> dict:
-    return turn_eval.predict_turn_fullscale_from_boundary_v2(
+    return _predict_turn_fullscale_from_boundary_v2_impl(
         memory=memory,
         session=session,
         model=model,
@@ -281,7 +259,7 @@ def _predict_turn_v3_two_stage(
     default_reason: str,
     anchors: list[AnchorTurn] | None = None,
 ) -> dict:
-    return turn_eval.predict_turn_v3_two_stage(
+    return _predict_turn_v3_two_stage_impl(
         memory=memory,
         session=session,
         model=model,
@@ -304,7 +282,7 @@ def _predict_turn_v3_two_stage_v2(
     default_reason: str,
     anchors: list[AnchorTurn] | None = None,
 ) -> dict:
-    return turn_eval.predict_turn_v3_two_stage_v2(
+    return _predict_turn_v3_two_stage_v2_impl(
         memory=memory,
         session=session,
         model=model,
@@ -329,7 +307,7 @@ def evaluate_session(
     turn_eval_prompt_version: str = "v2",
     block_id: str = "",
 ) -> list[dict]:
-    return turn_eval.evaluate_session(
+    return _evaluate_session_impl(
         memory=memory,
         session=session,
         model=model,
@@ -344,33 +322,6 @@ def evaluate_session(
     )
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Phase 3: Memory Update
-# ──────────────────────────────────────────────────────────────────────────────
-
-def _call_update_memory(
-    prompt: str,
-    model: str,
-    update_prompt_version: MemoryUpdatePromptVersion = "v2",
-) -> BaseModel:
-    return memory_ops.call_update_memory(
-        prompt=prompt,
-        model=model,
-        parse_fn=_structured_parse,
-        update_prompt_version=update_prompt_version,
-    )
-
-
-def _resolve_memory_update_prompt_version(
-    memory_version: MemoryVersion,
-    memory_update_prompt_version: MemoryUpdatePromptVersion,
-) -> Literal["v2", "v2_1", "v2_2", "v2_3", "v2_4", "v2_5", "v3"]:
-    return memory_ops.resolve_memory_update_prompt_version(
-        memory_version=memory_version,
-        memory_update_prompt_version=memory_update_prompt_version,
-    )
-
-
 def update_memory(
     memory: UserMemory | UserMemoryV3,
     session: SessionData,
@@ -380,7 +331,7 @@ def update_memory(
     memory_version: MemoryVersion = "v2",
     memory_update_prompt_version: MemoryUpdatePromptVersion = "auto",
 ) -> UserMemory | UserMemoryV3:
-    return memory_ops.update_memory(
+    return _update_memory_impl(
         memory=memory,
         session=session,
         turn_predictions=turn_predictions,
