@@ -21,7 +21,7 @@ k 条带标签的参考轮，直接作为 few-shot 锚点插入 prompt。
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -37,6 +37,7 @@ class AnchorTurn:
     assistant_reply: str
     score: int
     reason: str
+    evidence_role: str = ""
 
 
 class AnchorRetriever:
@@ -167,6 +168,63 @@ class AnchorRetriever:
         picks.sort(key=lambda x: (-self._turns[x[1]].score, -x[0]))
         picks = picks[:k]
         return [self._turns[idx] for _, idx in picks]
+
+    def retrieve_boundary_paired(
+        self,
+        query_user_msg: str,
+        query_assistant_reply: str,
+        k: int = 4,
+    ) -> list[AnchorTurn]:
+        """
+        返回成对的 3/4 边界证据。
+
+        与普通 top-k 不同，该方法尽量同时取相似的不满意侧（<=3）和满意侧（>=4）
+        历史轮次，用于让 judge 对当前回复做 paired comparison，而不是只参考单侧
+        高分或低分案例。
+        """
+        if self._vectorizer is None or not self._turns or k <= 0:
+            return []
+
+        query_text = self._query_to_text(query_user_msg, query_assistant_reply)
+        qv = self._vectorizer.transform([query_text])
+        sims = cosine_similarity(qv, self._matrix)[0]
+
+        dsat_budget = max(1, k // 2)
+        sat_budget = max(1, k - dsat_budget)
+        dsat = self._top_by_score_side(sims, lambda score: score <= 3, dsat_budget)
+        sat = self._top_by_score_side(sims, lambda score: score >= 4, sat_budget)
+
+        used = {idx for _, idx in dsat + sat}
+        picks = dsat + sat
+        if len(picks) < k:
+            remainder = [
+                (float(s), i)
+                for i, s in enumerate(sims)
+                if i not in used
+            ]
+            remainder.sort(reverse=True)
+            picks.extend(remainder[: k - len(picks)])
+
+        out: list[AnchorTurn] = []
+        for _, idx in picks[:k]:
+            turn = self._turns[idx]
+            role = "DSAT-side evidence (score<=3)" if turn.score <= 3 else "SAT-side evidence (score>=4)"
+            out.append(replace(turn, evidence_role=role))
+        return out
+
+    def _top_by_score_side(
+        self,
+        sims,
+        score_predicate,
+        k: int,
+    ) -> list[tuple[float, int]]:
+        candidates = [
+            (float(s), i)
+            for i, s in enumerate(sims)
+            if score_predicate(self._turns[i].score)
+        ]
+        candidates.sort(reverse=True)
+        return candidates[:k]
 
     @property
     def n_history_turns(self) -> int:

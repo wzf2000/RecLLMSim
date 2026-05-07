@@ -499,6 +499,101 @@ def _reconstruct_history_prior_delta_v2_score(pred: HistoryPriorDeltaV2Predictio
     return _clip_score(score)
 
 
+def _history_prior_delta_v3_dsat_votes(pred: HistoryPriorDeltaV2Prediction) -> int:
+    votes = 0
+    if pred.boundary_score == 3:
+        votes += 1
+    if pred.classification <= 3:
+        votes += 1
+    if pred.delta_score < 0:
+        votes += 1
+    return votes
+
+
+def _reconstruct_history_prior_delta_v3_score(pred: HistoryPriorDeltaV2Prediction) -> int:
+    """
+    Hybrid reconstruction for v3.
+
+    Keep the prior as the exact-score anchor, but expose DSAT discovery when
+    multiple independent signals agree.  Upward movement remains conservative.
+    """
+    score = _clip_score(pred.history_prior_score)
+    dsat_votes = _history_prior_delta_v3_dsat_votes(pred)
+
+    if dsat_votes >= 2:
+        score = min(score, 3)
+    elif pred.delta_confidence == "high":
+        score += _sign(pred.delta_score)
+    elif pred.delta_confidence == "medium" and abs(pred.delta_score) == 2:
+        score += _sign(pred.delta_score)
+
+    score = _clip_score(score)
+    if pred.boundary_confidence == "high" and pred.boundary_score == 4:
+        score = max(score, 4)
+    return _clip_score(score)
+
+
+def _reconstruct_history_prior_delta_v3_1_score(pred: HistoryPriorDeltaV2Prediction) -> int:
+    """
+    Stricter v3 reconstruction.
+
+    The v3 subset run showed that two-vote DSAT cases were sparse and noisy.
+    V3.1 only forces <=3 when all three DSAT signals agree.
+    """
+    score = _clip_score(pred.history_prior_score)
+    dsat_votes = _history_prior_delta_v3_dsat_votes(pred)
+
+    if dsat_votes >= 3:
+        score = min(score, 3)
+    elif pred.delta_confidence == "high":
+        score += _sign(pred.delta_score)
+    elif pred.delta_confidence == "medium" and abs(pred.delta_score) == 2:
+        score += _sign(pred.delta_score)
+
+    score = _clip_score(score)
+    if pred.boundary_confidence == "high" and pred.boundary_score == 4:
+        score = max(score, 4)
+    return _clip_score(score)
+
+
+def _retrieve_anchor_turns(
+    retriever: AnchorRetriever | None,
+    query_user_msg: str,
+    query_assistant_reply: str,
+    k: int,
+    turn_eval_prompt_version: str,
+) -> list[AnchorTurn] | None:
+    if retriever is None or k <= 0:
+        return None
+    if turn_eval_prompt_version == "history_prior_delta_v3_episodic":
+        return retriever.retrieve_boundary_paired(
+            query_user_msg=query_user_msg,
+            query_assistant_reply=query_assistant_reply,
+            k=k,
+        )
+    return retriever.retrieve(
+        query_user_msg=query_user_msg,
+        query_assistant_reply=query_assistant_reply,
+        k=k,
+    )
+
+
+def _anchor_metadata(anchors: list[AnchorTurn] | None) -> dict:
+    if not anchors:
+        return {
+            "n_anchors_retrieved": 0,
+            "anchor_scores": [],
+            "anchor_tasks": [],
+            "anchor_evidence_roles": [],
+        }
+    return {
+        "n_anchors_retrieved": len(anchors),
+        "anchor_scores": [a.score for a in anchors],
+        "anchor_tasks": [a.task for a in anchors],
+        "anchor_evidence_roles": [getattr(a, "evidence_role", "") for a in anchors],
+    }
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # Phase 1: Memory Building
 # ──────────────────────────────────────────────────────────────────────────────
@@ -650,6 +745,15 @@ def _call_predict_turn(
     elif prompt_version == "history_prior_delta_v2":
         response_model = HistoryPriorDeltaV2Prediction
         is_boundary_prompt = False
+    elif prompt_version == "history_prior_delta_v3":
+        response_model = HistoryPriorDeltaV2Prediction
+        is_boundary_prompt = False
+    elif prompt_version == "history_prior_delta_v3_1":
+        response_model = HistoryPriorDeltaV2Prediction
+        is_boundary_prompt = False
+    elif prompt_version == "history_prior_delta_v3_episodic":
+        response_model = HistoryPriorDeltaV2Prediction
+        is_boundary_prompt = False
     else:
         is_boundary_prompt = prompt_version in {
             "v3_two_stage_gate",
@@ -689,6 +793,9 @@ def _call_predict_turn(
         0.25 if prompt_version == "v3_two_stage_v2_gate" else
         0.25 if prompt_version == "history_prior_delta" else
         0.25 if prompt_version == "history_prior_delta_v2" else
+        0.25 if prompt_version == "history_prior_delta_v3" else
+        0.25 if prompt_version == "history_prior_delta_v3_1" else
+        0.25 if prompt_version == "history_prior_delta_v3_episodic" else
         0.3 if prompt_version == "boundary_34" else
         0.6
     )
@@ -800,7 +907,13 @@ def _predict_turn_with_optional_selective_refute(
 ) -> dict:
     """统一处理单轮预测，并在 selective 版本下按需触发二次 refute。"""
     if memory is None:
-        if turn_eval_prompt_version in {"history_prior_delta", "history_prior_delta_v2"}:
+        if turn_eval_prompt_version in {
+            "history_prior_delta",
+            "history_prior_delta_v2",
+            "history_prior_delta_v3",
+            "history_prior_delta_v3_1",
+            "history_prior_delta_v3_episodic",
+        }:
             raise ValueError(
                 f"{turn_eval_prompt_version} requires with_memory=True because it uses user history priors."
             )
@@ -863,9 +976,20 @@ def _predict_turn_with_optional_selective_refute(
             "boundary_score": pred.boundary_score,
             "history_prior_delta_raw_score": pred.classification,
         }
-    if turn_eval_prompt_version == "history_prior_delta_v2":
+    if turn_eval_prompt_version in {"history_prior_delta_v2", "history_prior_delta_v3", "history_prior_delta_v3_1", "history_prior_delta_v3_episodic"}:
         assert isinstance(pred, HistoryPriorDeltaV2Prediction)
-        final_score = _reconstruct_history_prior_delta_v2_score(pred)
+        if turn_eval_prompt_version in {"history_prior_delta_v3", "history_prior_delta_v3_episodic"}:
+            final_score = _reconstruct_history_prior_delta_v3_score(pred)
+            dsat_votes = _history_prior_delta_v3_dsat_votes(pred)
+            dsat_triggered = dsat_votes >= 2
+        elif turn_eval_prompt_version == "history_prior_delta_v3_1":
+            final_score = _reconstruct_history_prior_delta_v3_1_score(pred)
+            dsat_votes = _history_prior_delta_v3_dsat_votes(pred)
+            dsat_triggered = dsat_votes >= 3
+        else:
+            final_score = _reconstruct_history_prior_delta_v2_score(pred)
+            dsat_votes = None
+            dsat_triggered = False
         pred_reason = _normalize_pred_reason(
             final_score,
             pred.reason.strip(),
@@ -886,6 +1010,8 @@ def _predict_turn_with_optional_selective_refute(
             "strong_failure_evidence": pred.strong_failure_evidence,
             "strong_excellence_evidence": pred.strong_excellence_evidence,
             "history_prior_delta_raw_score": pred.classification,
+            **({"dsat_signal_votes": dsat_votes} if dsat_votes is not None else {}),
+            **({"pred_boundary_score": 3 if dsat_triggered else 4} if dsat_votes is not None else {}),
         }
 
     pred_reason = _normalize_pred_reason(
@@ -1465,10 +1591,12 @@ def evaluate_session(
             # 检索 anchor turns（若启用）
             anchors: list[AnchorTurn] | None = None
             if memory is not None and retriever is not None and n_anchors > 0:
-                anchors = retriever.retrieve(
+                anchors = _retrieve_anchor_turns(
+                    retriever=retriever,
                     query_user_msg=last_user_msg,
                     query_assistant_reply=utt["content"],
                     k=n_anchors,
+                    turn_eval_prompt_version=turn_eval_prompt_version,
                 )
 
             debug_context = (
@@ -1536,6 +1664,8 @@ def evaluate_session(
                 "gold_reason": gold_reason,
                 "analysis": pred_result["analysis"],
             }
+            if anchors is not None:
+                turn_result.update(_anchor_metadata(anchors))
             for optional_key in (
                 "analysis_first_pass",
                 "analysis_refute",
@@ -1577,7 +1707,13 @@ def evaluate_session(
                 "boundary_confidence",
                 "strong_failure_evidence",
                 "strong_excellence_evidence",
+                "dsat_signal_votes",
+                "pred_boundary_score",
                 "history_prior_delta_raw_score",
+                "n_anchors_retrieved",
+                "anchor_scores",
+                "anchor_tasks",
+                "anchor_evidence_roles",
             ):
                 if optional_key in pred_result:
                     turn_result[optional_key] = pred_result[optional_key]
@@ -1917,7 +2053,13 @@ def run_agent_on_sample(
                 "boundary_confidence",
                 "strong_failure_evidence",
                 "strong_excellence_evidence",
+                "dsat_signal_votes",
+                "pred_boundary_score",
                 "history_prior_delta_raw_score",
+                "n_anchors_retrieved",
+                "anchor_scores",
+                "anchor_tasks",
+                "anchor_evidence_roles",
             ):
                 if optional_key in r:
                     record[optional_key] = r[optional_key]
@@ -1977,10 +2119,12 @@ def _evaluate_session_per_turn_update(
         if utt["role"] == "assistant":
             anchors: list[AnchorTurn] | None = None
             if retriever is not None and n_anchors > 0:
-                anchors = retriever.retrieve(
+                anchors = _retrieve_anchor_turns(
+                    retriever=retriever,
                     query_user_msg=last_user_msg,
                     query_assistant_reply=utt["content"],
                     k=n_anchors,
+                    turn_eval_prompt_version=turn_eval_prompt_version,
                 )
             debug_context = (
                 f"{block_id}__{os.path.basename(session.file_path)}__turn_{assistant_turn_idx}"
@@ -2047,6 +2191,8 @@ def _evaluate_session_per_turn_update(
                 "gold_reason": gold_reason,
                 "analysis": pred_result["analysis"],
             }
+            if anchors is not None:
+                turn_result.update(_anchor_metadata(anchors))
             for optional_key in (
                 "analysis_first_pass",
                 "analysis_refute",
@@ -2088,7 +2234,13 @@ def _evaluate_session_per_turn_update(
                 "boundary_confidence",
                 "strong_failure_evidence",
                 "strong_excellence_evidence",
+                "dsat_signal_votes",
+                "pred_boundary_score",
                 "history_prior_delta_raw_score",
+                "n_anchors_retrieved",
+                "anchor_scores",
+                "anchor_tasks",
+                "anchor_evidence_roles",
             ):
                 if optional_key in pred_result:
                     turn_result[optional_key] = pred_result[optional_key]
@@ -2402,6 +2554,9 @@ def parse_args() -> ArgumentParser:
             "v3_two_stage_v2",
             "history_prior_delta",
             "history_prior_delta_v2",
+            "history_prior_delta_v3",
+            "history_prior_delta_v3_1",
+            "history_prior_delta_v3_episodic",
             "qwen_short",
             "boundary_34",
             "boundary_34_refute",
@@ -2421,6 +2576,9 @@ def parse_args() -> ArgumentParser:
             "v3_two_stage_v2 为改进版两阶段：第一层改用 selective gate + 可选复核，第二层保持 4/5 与 1/2/3 细分；"
             "history_prior_delta 显式使用 history prior，先判 residual delta 和 3/4 boundary，再由代码重建最终 1-5；"
             "history_prior_delta_v2 为 soft reconstruction 版本，仅在高置信 residual/boundary 下移动或约束分数；"
+            "history_prior_delta_v3 为 hybrid vote 版本，用多个 DSAT 信号触发降到 3，同时保持 prior exact-score anchor；"
+            "history_prior_delta_v3_1 为 v3 收紧版，仅在三个 DSAT 信号同时成立时触发降到 3；"
+            "history_prior_delta_v3_episodic 为 v3 + 边界成对 episodic anchors，使用历史真实轮次辅助 3/4 判断；"
             "boundary_34 仅围绕 3/4 满意边界判断，并只输出 3 或 4；"
             "boundary_34_refute 会先做反证检查，再决定是否给 4；"
             "boundary_34_refute_v2 为更温和的 refute 版本，只在存在明确致命缺陷时判 3；"
@@ -2447,6 +2605,13 @@ def main() -> None:
         logger.info(f"vLLM mode: base_url={args.vllm_base_url}")
 
     with_memory = not args.no_memory
+    if (
+        with_memory
+        and args.turn_eval_prompt_version == "history_prior_delta_v3_episodic"
+        and args.n_anchors <= 0
+    ):
+        args.n_anchors = 4
+        logger.info("history_prior_delta_v3_episodic requires anchors; defaulting n_anchors to 4.")
 
     # 自动生成输出路径
     if not args.output_jsonl:

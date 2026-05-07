@@ -1858,19 +1858,32 @@ def _format_anchor_turns(anchor_turns: list) -> str:
     """
     if not anchor_turns:
         return ""
+    has_evidence_roles = any(getattr(a, "evidence_role", "") for a in anchor_turns)
+    if has_evidence_roles:
+        usage = (
+            "用法：这些是从该用户过往 session 中检索到的边界成对证据。"
+            "请比较当前回复更接近 DSAT-side（<=3）还是 SAT-side（>=4），"
+            "并结合 summary memory 判断 3/4 满意边界；不要机械复制案例分数。"
+        )
+    else:
+        usage = (
+            "用法：这些是从该用户过往 session 中检索到的、与当前回复文本最相似的若干轮次。"
+            "请把它们按分数排列当作【已校准的参考刻度】，将当前回复在整体质量维度上与其对齐——"
+            "若当前回复和某个案例的整体质量处于同一档位，就直接给相同的分数。"
+            "不要把这些案例当作【完美标杆】去挑当前回复的毛病。"
+        )
     lines = [
         "═══ 该用户历史上的参考案例（真实标注分数） ═══",
-        "用法：这些是从该用户过往 session 中检索到的、与当前回复文本最相似的若干轮次。"
-        "请把它们按分数排列当作【已校准的参考刻度】，将当前回复在整体质量维度上与其对齐——"
-        "若当前回复和某个案例的整体质量处于同一档位，就直接给相同的分数。"
-        "不要把这些案例当作【完美标杆】去挑当前回复的毛病。",
+        usage,
         "",
     ]
     for i, a in enumerate(anchor_turns, 1):
         tag = f"★{a.score}" + (f"（{a.reason}）" if a.score <= 3 else "")
         user_snip = _truncate(a.user_msg, 120)
         reply_snip = _truncate(a.assistant_reply, _MAX_REPLY_CHARS)
-        lines.append(f"[案例 {i}] 任务：{a.task}  真实满意度：{tag}")
+        role = getattr(a, "evidence_role", "")
+        role_text = f"  证据侧：{role}" if role else ""
+        lines.append(f"[案例 {i}] 任务：{a.task}  真实满意度：{tag}{role_text}")
         lines.append(f"  用户提问：{user_snip}")
         lines.append(f"  助手回复：{reply_snip}")
         lines.append("")
@@ -1885,7 +1898,7 @@ def build_turn_eval_prompt(
     assistant_reply: str,
     anchor_turns: list | None = None,
     prompt_version: Literal[
-        "v2", "v3", "v3_1", "history_prior_delta", "history_prior_delta_v2", "qwen_short", "boundary_34", "boundary_34_refute", "boundary_34_refute_v2",
+        "v2", "v3", "v3_1", "history_prior_delta", "history_prior_delta_v2", "history_prior_delta_v3", "history_prior_delta_v3_1", "history_prior_delta_v3_episodic", "qwen_short", "boundary_34", "boundary_34_refute", "boundary_34_refute_v2",
         "boundary_34_selective_refute", "boundary_34_selective_refute_v2",
         "boundary_34_selective_refute_v3", "boundary_34_selective_refute_v4",
     ] = "v2",
@@ -1908,6 +1921,9 @@ def build_turn_eval_prompt(
       - "v3_1": 在 v3 基础上重新加硬 3/4 最低满意线；证据不足只影响 1/2/3 细分，不放松 SAT gate
       - "history_prior_delta": 显式以历史均分为 prior，先判 residual delta 与 3/4 boundary，再重建最终分
       - "history_prior_delta_v2": soft reconstruction 版本，新增 confidence 与 strong evidence 字段
+      - "history_prior_delta_v3": hybrid vote 版本，用多个 DSAT 信号触发降到 3，同时保持 prior exact-score anchor
+      - "history_prior_delta_v3_1": v3 收紧版，仅在三个 DSAT 信号同时成立时触发降到 3
+      - "history_prior_delta_v3_episodic": v3 + 边界成对 episodic anchors，用历史真实轮次辅助判 3/4
       - "qwen_short": 面向 Qwen3-8B 的更短、更硬的 checklist prompt
       - "boundary_34": 仅围绕 3/4 满意边界判断，输出限制为 3 或 4
       - "boundary_34_refute": 在 3/4 边界上先做反证检查，抑制默认判 4
@@ -1959,19 +1975,46 @@ def build_turn_eval_prompt(
     anchor_block = _format_anchor_turns(anchor_turns or [])
     anchor_section = (anchor_block + "\n") if anchor_block else ""
 
-    if prompt_version == "history_prior_delta_v2":
+    if prompt_version in {"history_prior_delta_v2", "history_prior_delta_v3", "history_prior_delta_v3_1", "history_prior_delta_v3_episodic"}:
+        is_v3 = prompt_version in {"history_prior_delta_v3", "history_prior_delta_v3_episodic"}
+        is_v3_1 = prompt_version == "history_prior_delta_v3_1"
+        is_v3_family = is_v3 or is_v3_1
+        is_episodic = prompt_version == "history_prior_delta_v3_episodic"
         anchor_instruction = (
             "【参考案例使用规则】\n"
-            "1. 参考案例用于判断当前回复相对 history prior 的排序位置，而不是直接复制案例分数。\n"
-            "2. 同时找最像当前回复的高分案例和低分案例，比较当前回复更接近哪一侧。\n"
-            "3. 只有当当前回复相对历史常态明显更差/更好，且证据具体，才给 high confidence。\n\n"
+            + (
+                "1. 这些案例来自该用户历史真实标注，是 episodic memory evidence；优先把它们用于 3/4 边界成对比较。\n"
+                "2. 同时比较 DSAT-side evidence（<=3）与 SAT-side evidence（>=4）：当前回复更像哪一侧，必须结合具体缺陷/满足点说明。\n"
+                "3. 不要机械复制案例分数；summary memory 给用户整体先验，episodic evidence 给当前 turn 的具体相似证据。\n"
+                "4. 只有当当前回复与历史证据的差异具体、可引用，才给 high confidence。\n"
+                if is_episodic else
+                "1. 参考案例用于判断当前回复相对 history prior 的排序位置，而不是直接复制案例分数。\n"
+                "2. 同时找最像当前回复的高分案例和低分案例，比较当前回复更接近哪一侧。\n"
+                "3. 只有当当前回复相对历史常态明显更差/更好，且证据具体，才给 high confidence。\n"
+            )
+            + (
+                "4. 对 v3 来说，boundary_score=3、classification<=3、delta_score<0 会作为程序侧 DSAT 投票信号；"
+                "若当前回复确实未过满意线，请不要因为用户历史均分高而回避这些信号。\n\n"
+                if is_v3_family and not is_episodic else
+                "5. 对 v3 episodic 来说，boundary_score=3、classification<=3、delta_score<0 会作为程序侧 DSAT 投票信号；"
+                "若 episodic evidence 显示当前回复更接近 <=3 一侧，请如实输出这些信号；若更接近 >=4 一侧，也不要被单个低分案例过度拉低。\n\n"
+                if is_episodic else "\n"
+            )
             if anchor_turns else ""
         )
         prompt = (
             "你是一名个性化满意度 residual/boundary judge。请把用户历史先验和当前回复质量分开判断。\n"
-            "本版本不会让你的 delta 机械决定最终分；程序会以 history prior 为默认分数，"
-            "只在你给出足够置信的 residual 或 boundary 证据时才移动/约束分数。\n\n"
-            f"【History Prior（默认 exact-score 锚点）】\n"
+            + (
+                "本版本会同时使用 summary memory 与 episodic memory：summary memory 提供用户整体评分先验，"
+                "episodic memory 提供该用户历史真实标注的相似案例。请先锚定 history prior，再用成对历史证据判断当前回复是否过 3/4 满意线。\n\n"
+                if is_episodic else
+                "本版本会以 history prior 为 exact-score 锚点，但会用多个 DSAT 信号投票发现未过满意线的回复；"
+                "请如实输出 residual、raw classification 与 3/4 boundary，不要被历史高均分吞掉当前失败证据。\n\n"
+                if is_v3_family else
+                "本版本不会让你的 delta 机械决定最终分；程序会以 history prior 为默认分数，"
+                "只在你给出足够置信的 residual 或 boundary 证据时才移动/约束分数。\n\n"
+            )
+            + f"【History Prior（默认 exact-score 锚点）】\n"
             f"history_prior_score = {memory.avg_satisfaction_score:.2f}\n"
             f"历史分布：5分×{memory.score_distribution.score_5} / "
             f"4分×{memory.score_distribution.score_4} / "
@@ -2013,8 +2056,18 @@ def build_turn_eval_prompt(
             + "  - strong_failure_evidence=true 只在存在明确关键失败时使用，例如核心问题没答、关键约束被漏、内容空泛到不可用。\n"
             + "  - strong_excellence_evidence=true 只在明显超过该用户常态时使用，例如更完整、更贴合个性化要求、比相近历史高分案例更强。\n"
             + "Step 6. classification 填你按 soft reconstruction 直觉得到的诊断分，但最终 pred_score 会由程序重建。\n"
-            + "  程序默认使用 round(history_prior_score)，只在 high residual 或 medium 且 |delta_score|=2 时移动一档；"
-            + "只有 high-confidence boundary 才会强制 <=3 或 >=4。\n"
+            + (
+                "  v3.1 程序默认使用 round(history_prior_score)；只有 boundary_score=3、classification<=3、delta_score<0 三个 DSAT 信号全部成立时，"
+                "才会把最终分约束到 <=3；两个信号只作诊断，不直接触发降分。否则仅在 high residual 或 medium 且 |delta_score|=2 时移动一档，"
+                "并且只用 high-confidence boundary_score=4 做 >=4 约束。\n"
+                if is_v3_1 else
+                "  v3 程序默认使用 round(history_prior_score)；若 boundary_score=3、classification<=3、delta_score<0 中至少两个成立，"
+                "会把最终分约束到 <=3；否则仅在 high residual 或 medium 且 |delta_score|=2 时移动一档，"
+                "并且只用 high-confidence boundary_score=4 做 >=4 约束。\n"
+                if is_v3 else
+                "  程序默认使用 round(history_prior_score)，只在 high residual 或 medium 且 |delta_score|=2 时移动一档；"
+                "只有 high-confidence boundary 才会强制 <=3 或 >=4。\n"
+            )
             + "Step 7. 选择 reason：若你的诊断最终分 >=4，reason 必须是 `满意`；若 <=3，reason 必须是不满意原因。\n\n"
             + "注意：\n"
             + "- 不要把 ordinary improvement 写成 high confidence；high 必须有具体证据。\n"
