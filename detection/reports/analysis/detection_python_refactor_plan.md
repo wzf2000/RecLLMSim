@@ -71,7 +71,7 @@ detection/
     collect_personalized.py           # CLI + orchestration facade
     structured_output.py              # shared structured-output parsing
     personalized_predictions.py       # response schemas and reconstruction logic
-    personalized_memory_io.py         # build/update memory calls and cache handling
+    personalized_memory.py            # build/update memory calls and cache handling
     personalized_eval_flow.py         # session/turn evaluation loops
   eval/
     turn_content/
@@ -167,6 +167,40 @@ python trace/collect_personalized.py --help
 ```
 
 ### Step 3: Split `lib.memory` behind a facade
+
+Before starting on `lib.memory`, an additional `collect_personalized.py`
+subsplit was completed:
+
+Moved memory build/update helpers to `trace/personalized_memory.py`:
+
+- `_call_build_memory`
+- `build_user_memory`
+- `_call_update_memory`
+- `_resolve_memory_update_prompt_version`
+- `update_memory`
+
+`trace.collect_personalized` still exposes wrapper functions with the old
+names/signatures, and the wrappers pass the module-level `_structured_parse`
+function into `personalized_memory.py`.  This preserves the existing behavior
+where other scripts mutate `trace.collect_personalized.client` for vLLM mode.
+
+Verification:
+
+```bash
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
+  detection/trace/personalized_memory.py \
+  detection/trace/personalized_predictions.py \
+  detection/trace/structured_output.py \
+  detection/trace/collect_personalized.py \
+  detection/trace/collect_urs.py \
+  detection/trace/collect_uss.py \
+  detection/trace/score_static_replay.py
+
+cd detection
+python -c "from trace.collect_personalized import build_user_memory, update_memory, _call_build_memory, _call_update_memory; from trace import collect_personalized as base; from trace import personalized_memory as mem; print(callable(build_user_memory), callable(update_memory), callable(_call_build_memory), callable(_call_update_memory), hasattr(base, 'client'), callable(mem.build_user_memory))"
+
+python trace/collect_personalized.py --help
+```
 
 The safest approach is to create new modules first and keep `lib/memory.py` as
 the public facade.  Do not change callers in the same commit.
