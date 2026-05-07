@@ -72,7 +72,7 @@ detection/
     structured_output.py              # shared structured-output parsing
     personalized_predictions.py       # response schemas and reconstruction logic
     personalized_memory.py            # build/update memory calls and cache handling
-    personalized_eval_flow.py         # session/turn evaluation loops
+    personalized_turn_eval.py         # turn prediction flows and session evaluation
   eval/
     turn_content/
       __init__.py
@@ -162,6 +162,41 @@ PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
 
 cd detection
 python -c "from trace.collect_personalized import TurnPrediction, BoundaryTurnPrediction, HistoryPriorDeltaV2Prediction, _normalize_pred_reason, _history_prior_delta_v3_dsat_votes, _retrieve_anchor_turns, _structured_parse; from trace.personalized_predictions import TurnPrediction as TP; print(TurnPrediction is TP, BoundaryTurnPrediction.__name__, HistoryPriorDeltaV2Prediction.__name__, callable(_normalize_pred_reason), callable(_history_prior_delta_v3_dsat_votes), callable(_retrieve_anchor_turns), callable(_structured_parse))"
+
+python trace/collect_personalized.py --help
+```
+
+Another `collect_personalized.py` subsplit was completed for turn evaluation:
+
+Moved turn-level evaluation flow to `trace/personalized_turn_eval.py`:
+
+- `_call_predict_turn`
+- `_should_trigger_selective_refute`
+- `_predict_turn_with_optional_selective_refute`
+- `_predict_turn_fullscale_from_boundary_v2`
+- `_predict_turn_v3_two_stage`
+- `_predict_turn_v3_two_stage_v2`
+- `evaluate_session`
+
+`trace.collect_personalized` keeps wrappers with the old names and signatures.
+The wrappers inject `_structured_parse` and `_structured_parse_from_raw_text`,
+so module-level `client` replacement for vLLM remains compatible.
+
+Verification:
+
+```bash
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
+  detection/trace/personalized_turn_eval.py \
+  detection/trace/personalized_memory.py \
+  detection/trace/personalized_predictions.py \
+  detection/trace/structured_output.py \
+  detection/trace/collect_personalized.py \
+  detection/trace/collect_urs.py \
+  detection/trace/collect_uss.py \
+  detection/trace/score_static_replay.py
+
+cd detection
+python -c "from trace.collect_personalized import _call_predict_turn, _predict_turn_with_optional_selective_refute, _predict_turn_v3_two_stage, evaluate_session, TurnPrediction; from trace import collect_personalized as base; from trace import personalized_turn_eval as te; print(callable(_call_predict_turn), callable(_predict_turn_with_optional_selective_refute), callable(_predict_turn_v3_two_stage), callable(evaluate_session), hasattr(base, 'client'), callable(te.evaluate_session), TurnPrediction.__name__)"
 
 python trace/collect_personalized.py --help
 ```
