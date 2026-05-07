@@ -418,13 +418,72 @@ PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from eval.spur import preprocess
 PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
 ```
 
-### Step 6: Split remaining secondary CLIs
+### Step 6: Split SFT workflow
 
-Remaining candidates:
+Status: implemented after the SPUR split.
 
-- `trace/sft.py` into prompt parsing, dataset building, trainer wrapper, CLI
+Moved the SFT data formatting and training script into a focused package:
 
-This is lower priority because it is less reused by other modules.
+- `detection/trace/sft/parsing.py`: Qwen think markers and generated JSON
+  parsing helpers.
+- `detection/trace/sft/targets.py`: assistant target formatting and reflection
+  target selection.
+- `detection/trace/sft/prompts.py`: history splitting, collect-compatible
+  prompt construction, source text construction, and prompt budget resolution.
+- `detection/trace/sft/selection.py`: JSONL loading and SFT trace filtering.
+- `detection/trace/sft/dataset.py`: tokenization and grouped train/valid
+  dataset construction.
+- `detection/trace/sft/training.py`: LoRA model setup, trainer setup, and
+  `train_sft(...)`.
+- `detection/trace/sft/cli.py`: argparse and CLI dispatch.
+- `detection/trace/sft.py`: compatibility script entry point and re-export
+  facade.
+
+Line counts after split:
+
+| file | lines |
+|---|---:|
+| `detection/trace/sft.py` | 104 |
+| `detection/trace/sft/__init__.py` | 63 |
+| `detection/trace/sft/parsing.py` | 143 |
+| `detection/trace/sft/targets.py` | 75 |
+| `detection/trace/sft/prompts.py` | 134 |
+| `detection/trace/sft/selection.py` | 66 |
+| `detection/trace/sft/dataset.py` | 126 |
+| `detection/trace/sft/training.py` | 121 |
+| `detection/trace/sft/cli.py` | 58 |
+
+Backward compatibility:
+
+- `python trace/sft.py ...` keeps the old entry file and CLI options.
+- `detection/scripts/sft.sh` still reaches the same command path.
+- Existing imports from `trace.sft` used by self-distillation, GRPO, and
+  evaluation scripts are re-exported from the new package.
+- Tokenization, prompt reconstruction, trace filtering, parsing, trainer
+  configuration, and defaults were kept unchanged.
+
+Verification:
+
+```bash
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
+  detection/trace/sft.py \
+  detection/trace/sft/__init__.py \
+  detection/trace/sft/parsing.py \
+  detection/trace/sft/targets.py \
+  detection/trace/sft/prompts.py \
+  detection/trace/sft/selection.py \
+  detection/trace/sft/dataset.py \
+  detection/trace/sft/training.py \
+  detection/trace/sft/cli.py
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python trace/sft.py --help
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from trace.sft import QWEN3_THINK_BEGIN, build_prompt_like_collect, build_source_text, load_jsonl, parse_model_json, resolve_prompt_for_row, split_history_turns; print(QWEN3_THINK_BEGIN, callable(build_prompt_like_collect), callable(build_source_text), callable(load_jsonl), callable(parse_model_json), callable(resolve_prompt_for_row), callable(split_history_turns))"
+
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
+```
 
 ## Risks and Guardrails
 
