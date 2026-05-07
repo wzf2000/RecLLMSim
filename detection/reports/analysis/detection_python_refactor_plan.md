@@ -203,55 +203,66 @@ python trace/collect_personalized.py --help
 
 ### Step 3: Split `lib.memory` behind a facade
 
-Before starting on `lib.memory`, an additional `collect_personalized.py`
-subsplit was completed:
+Status: implemented in this session.
 
-Moved memory build/update helpers to `trace/personalized_memory.py`:
+`detection/lib/memory.py` is now a compatibility facade.  It re-exports the
+same public symbols used by downstream callers, while implementation lives in
+smaller modules:
 
-- `_call_build_memory`
-- `build_user_memory`
-- `_call_update_memory`
-- `_resolve_memory_update_prompt_version`
-- `update_memory`
+- `memory_schema.py`: all Pydantic schemas and small schema-only helpers.
+- `memory_formatting.py`: `_truncate`, score-group formatting, reason-rule
+  formatting, profile formatting, and session score grouping helpers.
+- `memory_build_prompts.py`: initial memory building prompts.
+- `memory_update_prompts.py`: update prompt builders and update evidence
+  bundle helpers.
+- `memory_update_merge.py`: patch merge functions.
+- `memory_eval_prompts.py`: all turn-eval prompt builders.
 
-`trace.collect_personalized` still exposes wrapper functions with the old
-names/signatures, and the wrappers pass the module-level `_structured_parse`
-function into `personalized_memory.py`.  This preserves the existing behavior
-where other scripts mutate `trace.collect_personalized.client` for vLLM mode.
+This preserves imports such as:
+
+- `from lib.memory import UserMemory`
+- `from lib.memory import build_memory_prompt`
+- `from lib.memory import build_turn_eval_prompt`
+- `from lib.memory import merge_memory_v2_5_patch`
+
+Line-count after split:
+
+| file | lines |
+|---|---:|
+| `detection/lib/memory.py` | 78 |
+| `detection/lib/memory_schema.py` | 398 |
+| `detection/lib/memory_formatting.py` | 110 |
+| `detection/lib/memory_build_prompts.py` | 209 |
+| `detection/lib/memory_update_prompts.py` | 691 |
+| `detection/lib/memory_update_merge.py` | 453 |
+| `detection/lib/memory_eval_prompts.py` | 1717 |
 
 Verification:
 
 ```bash
 PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
-  detection/trace/personalized_memory.py \
-  detection/trace/personalized_predictions.py \
-  detection/trace/structured_output.py \
-  detection/trace/collect_personalized.py \
-  detection/trace/collect_urs.py \
-  detection/trace/collect_uss.py \
-  detection/trace/score_static_replay.py
+  detection/lib/memory_schema.py \
+  detection/lib/memory_formatting.py \
+  detection/lib/memory_build_prompts.py \
+  detection/lib/memory_update_prompts.py \
+  detection/lib/memory_update_merge.py \
+  detection/lib/memory_eval_prompts.py \
+  detection/lib/memory.py
 
 cd detection
-python -c "from trace.collect_personalized import build_user_memory, update_memory, _call_build_memory, _call_update_memory; from trace import collect_personalized as base; from trace import personalized_memory as mem; print(callable(build_user_memory), callable(update_memory), callable(_call_build_memory), callable(_call_update_memory), hasattr(base, 'client'), callable(mem.build_user_memory))"
+python -c "from lib.memory import UserMemory, UserMemoryContent, UserMemoryV3, MemoryUpdatePatchV2_1, build_memory_prompt, build_memory_prompt_v3, build_memory_update_prompt_v2_5, merge_memory_v2_5_patch, build_turn_eval_prompt, build_turn_eval_prompt_no_memory; print(UserMemory.__name__, UserMemoryContent.__name__, UserMemoryV3.__name__, MemoryUpdatePatchV2_1.__name__, callable(build_memory_prompt), callable(build_memory_prompt_v3), callable(build_memory_update_prompt_v2_5), callable(merge_memory_v2_5_patch), callable(build_turn_eval_prompt), callable(build_turn_eval_prompt_no_memory))"
 
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
+  detection/trace/personalized_memory.py \
+  detection/trace/personalized_turn_eval.py \
+  detection/trace/collect_personalized.py \
+  detection/trace/collect_urs.py \
+  detection/trace/score_static_replay.py \
+  detection/lib/urs_memory.py
+
+cd detection
 python trace/collect_personalized.py --help
 ```
-
-The safest approach is to create new modules first and keep `lib/memory.py` as
-the public facade.  Do not change callers in the same commit.
-
-Recommended split:
-
-- `memory_schema.py`: all Pydantic schemas and small schema-only helpers.
-- `memory_formatting.py`: `_truncate`, score-group formatting, reason-rule
-  formatting, update evidence formatting.
-- `memory_build_prompts.py`: initial memory building prompts.
-- `memory_update_prompts.py`: update prompt builders.
-- `memory_update_merge.py`: patch merge functions.
-- `memory_eval_prompts.py`: all turn-eval prompt builders.
-
-Then `lib/memory.py` should import and re-export the same public symbols.  This
-preserves `from lib.memory import ...` while making future edits localized.
 
 ### Step 4: Split secondary CLIs only after shared modules settle
 

@@ -1,0 +1,1717 @@
+"""Turn-level evaluation prompt builders for user memory."""
+
+from __future__ import annotations
+
+from typing import Literal
+
+from .satisfaction_constants import SATISFIED_REASON, get_reason_to_id
+from .memory_schema import UserMemory
+from .memory_formatting import (
+    _MAX_REPLY_CHARS,
+    _format_profile,
+    _format_reason_json_rule,
+    _format_reason_rule_block,
+    _truncate,
+)
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Turn Evaluation Prompt（v2：rubric 式逐步判断）
+# ──────────────────────────────────────────────────────────────────────────────
+
+def _format_anchor_turns(anchor_turns: list) -> str:
+    """
+    将检索到的 anchor turns 格式化为 prompt 中的"参考案例"块（rank-match 模式）。
+
+    注意：anchor 的使用方式是 rank-matching / nearest-neighbor —— 让模型找到
+    当前回复在过往案例中"整体质量最接近"的一条，直接对齐其分数。切忌让模型
+    把 anchor 当"高分标杆"然后挑现在回复的毛病（会导致系统性压低预测）。
+    """
+    if not anchor_turns:
+        return ""
+    has_evidence_roles = any(getattr(a, "evidence_role", "") for a in anchor_turns)
+    if has_evidence_roles:
+        usage = (
+            "用法：这些是从该用户过往 session 中检索到的边界成对证据。"
+            "请比较当前回复更接近 DSAT-side（<=3）还是 SAT-side（>=4），"
+            "并结合 summary memory 判断 3/4 满意边界；不要机械复制案例分数。"
+        )
+    else:
+        usage = (
+            "用法：这些是从该用户过往 session 中检索到的、与当前回复文本最相似的若干轮次。"
+            "请把它们按分数排列当作【已校准的参考刻度】，将当前回复在整体质量维度上与其对齐——"
+            "若当前回复和某个案例的整体质量处于同一档位，就直接给相同的分数。"
+            "不要把这些案例当作【完美标杆】去挑当前回复的毛病。"
+        )
+    lines = [
+        "═══ 该用户历史上的参考案例（真实标注分数） ═══",
+        usage,
+        "",
+    ]
+    for i, a in enumerate(anchor_turns, 1):
+        tag = f"★{a.score}" + (f"（{a.reason}）" if a.score <= 3 else "")
+        user_snip = _truncate(a.user_msg, 120)
+        reply_snip = _truncate(a.assistant_reply, _MAX_REPLY_CHARS)
+        role = getattr(a, "evidence_role", "")
+        role_text = f"  证据侧：{role}" if role else ""
+        lines.append(f"[案例 {i}] 任务：{a.task}  真实满意度：{tag}{role_text}")
+        lines.append(f"  用户提问：{user_snip}")
+        lines.append(f"  助手回复：{reply_snip}")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def build_turn_eval_prompt(
+    memory: UserMemory,
+    profile: dict,
+    task_context: str,
+    history_window: list[str],
+    assistant_reply: str,
+    anchor_turns: list | None = None,
+    prompt_version: Literal[
+        "v2", "v3", "v3_1", "history_prior_delta", "history_prior_delta_v2", "history_prior_delta_v3", "history_prior_delta_v3_1", "history_prior_delta_v3_episodic", "qwen_short", "boundary_34", "boundary_34_refute", "boundary_34_refute_v2",
+        "boundary_34_selective_refute", "boundary_34_selective_refute_v2",
+        "boundary_34_selective_refute_v3", "boundary_34_selective_refute_v4",
+    ] = "v2",
+) -> str:
+    """
+    构造单轮满意度预测 prompt（v2）。
+
+    核心改进：将 memory 转化为逐步判断的个性化评分 rubric，
+    而非泛化的"参考以下模式"。评分逻辑显式分三步：
+      Step 1: 是否达到 4 分门槛（three_vs_four_distinction）
+      Step 2: 若达到，是否进一步达到 5 分（four_vs_five_distinction）
+      Step 3: 若未达到 4 分，根据缺陷程度判断 1/2/3 分
+
+    若提供 anchor_turns（list[AnchorTurn]），会在 rubric 之后插入"参考案例"块，
+    作为 few-shot in-context 锚点。
+
+    prompt_version:
+      - "v2": 保持原有 rubric prompt，不改历史实验行为
+      - "v3": 分离 calibration 与 boundary 规则；证据不足时弱化边界总结
+      - "v3_1": 在 v3 基础上重新加硬 3/4 最低满意线；证据不足只影响 1/2/3 细分，不放松 SAT gate
+      - "history_prior_delta": 显式以历史均分为 prior，先判 residual delta 与 3/4 boundary，再重建最终分
+      - "history_prior_delta_v2": soft reconstruction 版本，新增 confidence 与 strong evidence 字段
+      - "history_prior_delta_v3": hybrid vote 版本，用多个 DSAT 信号触发降到 3，同时保持 prior exact-score anchor
+      - "history_prior_delta_v3_1": v3 收紧版，仅在三个 DSAT 信号同时成立时触发降到 3
+      - "history_prior_delta_v3_episodic": v3 + 边界成对 episodic anchors，用历史真实轮次辅助判 3/4
+      - "qwen_short": 面向 Qwen3-8B 的更短、更硬的 checklist prompt
+      - "boundary_34": 仅围绕 3/4 满意边界判断，输出限制为 3 或 4
+      - "boundary_34_refute": 在 3/4 边界上先做反证检查，抑制默认判 4
+      - "boundary_34_refute_v2": 更温和的 refute 版本，仅在存在明确致命缺陷时判 3
+      - "boundary_34_selective_refute": 第一遍温和判 3/4，并显式标记是否需要二次反证复核
+      - "boundary_34_selective_refute_v2": selective 的收紧版本，只在高不确定边界样本上触发二判
+      - "boundary_34_selective_refute_v3": 仅优化 first-pass 的边界措辞，gate 和二判保持 v2
+      - "boundary_34_selective_refute_v4": 平衡 first-pass，强制同时考虑最强的 3/4 证据
+    """
+    reason_labels = list(get_reason_to_id().keys())
+    reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
+    history_text = "\n".join(history_window) if history_window else "（无历史）"
+
+    # 组装 task 特定观察（若有当前任务的记录则优先展示）
+    task_obs_lines = ""
+    if memory.task_specific_observations:
+        relevant = [o for o in memory.task_specific_observations
+                    if task_context and o.task_name in task_context[:50]]
+        others   = [o for o in memory.task_specific_observations
+                    if o not in relevant]
+        ordered  = relevant + others
+        task_obs_lines = "\n".join(
+            f"  {o.task_name}：{o.observation}" for o in ordered
+        )
+
+    user_reqs = "\n".join(
+        f"  - {r}" for r in memory.user_specific_requirements
+    ) if memory.user_specific_requirements else "  （无特异性要求记录）"
+
+    rubric = (
+        f"【该用户的个性化评分标准】\n"
+        f"评分风格：{memory.scoring_style}\n"
+        f"历史平均分：{memory.avg_satisfaction_score:.2f}  "
+        f"（5分×{memory.score_distribution.score_5} / "
+        f"4分×{memory.score_distribution.score_4} / "
+        f"3分×{memory.score_distribution.score_3} / "
+        f"2分×{memory.score_distribution.score_2} / "
+        f"1分×{memory.score_distribution.score_1}）\n\n"
+        f"▸ 3分以下 → 4分的门槛：{memory.three_vs_four_distinction}\n"
+        f"▸ 4分 → 5分的门槛：{memory.four_vs_five_distinction}\n\n"
+        f"该用户的特定要求（区别于一般用户）：\n{user_reqs}\n"
+        f"偏好回复形式：{memory.preferred_response_format}\n"
+    )
+    if task_obs_lines:
+        rubric += f"任务特定观察：\n{task_obs_lines}\n"
+
+    anchor_block = _format_anchor_turns(anchor_turns or [])
+    anchor_section = (anchor_block + "\n") if anchor_block else ""
+
+    if prompt_version in {"history_prior_delta_v2", "history_prior_delta_v3", "history_prior_delta_v3_1", "history_prior_delta_v3_episodic"}:
+        is_v3 = prompt_version in {"history_prior_delta_v3", "history_prior_delta_v3_episodic"}
+        is_v3_1 = prompt_version == "history_prior_delta_v3_1"
+        is_v3_family = is_v3 or is_v3_1
+        is_episodic = prompt_version == "history_prior_delta_v3_episodic"
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            + (
+                "1. 这些案例来自该用户历史真实标注，是 episodic memory evidence；优先把它们用于 3/4 边界成对比较。\n"
+                "2. 同时比较 DSAT-side evidence（<=3）与 SAT-side evidence（>=4）：当前回复更像哪一侧，必须结合具体缺陷/满足点说明。\n"
+                "3. 不要机械复制案例分数；summary memory 给用户整体先验，episodic evidence 给当前 turn 的具体相似证据。\n"
+                "4. 只有当当前回复与历史证据的差异具体、可引用，才给 high confidence。\n"
+                if is_episodic else
+                "1. 参考案例用于判断当前回复相对 history prior 的排序位置，而不是直接复制案例分数。\n"
+                "2. 同时找最像当前回复的高分案例和低分案例，比较当前回复更接近哪一侧。\n"
+                "3. 只有当当前回复相对历史常态明显更差/更好，且证据具体，才给 high confidence。\n"
+            )
+            + (
+                "4. 对 v3 来说，boundary_score=3、classification<=3、delta_score<0 会作为程序侧 DSAT 投票信号；"
+                "若当前回复确实未过满意线，请不要因为用户历史均分高而回避这些信号。\n\n"
+                if is_v3_family and not is_episodic else
+                "5. 对 v3 episodic 来说，boundary_score=3、classification<=3、delta_score<0 会作为程序侧 DSAT 投票信号；"
+                "若 episodic evidence 显示当前回复更接近 <=3 一侧，请如实输出这些信号；若更接近 >=4 一侧，也不要被单个低分案例过度拉低。\n\n"
+                if is_episodic else "\n"
+            )
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度 residual/boundary judge。请把用户历史先验和当前回复质量分开判断。\n"
+            + (
+                "本版本会同时使用 summary memory 与 episodic memory：summary memory 提供用户整体评分先验，"
+                "episodic memory 提供该用户历史真实标注的相似案例。请先锚定 history prior，再用成对历史证据判断当前回复是否过 3/4 满意线。\n\n"
+                if is_episodic else
+                "本版本会以 history prior 为 exact-score 锚点，但会用多个 DSAT 信号投票发现未过满意线的回复；"
+                "请如实输出 residual、raw classification 与 3/4 boundary，不要被历史高均分吞掉当前失败证据。\n\n"
+                if is_v3_family else
+                "本版本不会让你的 delta 机械决定最终分；程序会以 history prior 为默认分数，"
+                "只在你给出足够置信的 residual 或 boundary 证据时才移动/约束分数。\n\n"
+            )
+            + f"【History Prior（默认 exact-score 锚点）】\n"
+            f"history_prior_score = {memory.avg_satisfaction_score:.2f}\n"
+            f"历史分布：5分×{memory.score_distribution.score_5} / "
+            f"4分×{memory.score_distribution.score_4} / "
+            f"3分×{memory.score_distribution.score_3} / "
+            f"2分×{memory.score_distribution.score_2} / "
+            f"1分×{memory.score_distribution.score_1}\n"
+            f"评分风格：{memory.scoring_style}\n\n"
+            f"【个性化边界】\n"
+            f"3→4 满意最低线：{memory.three_vs_four_distinction}\n"
+            f"4→5 更高要求：{memory.four_vs_five_distinction}\n\n"
+            f"【真正影响评分的个性化要求】\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+            + "【判断步骤】\n"
+            + "Step 1. 固定 history_prior_score：直接使用上面给出的历史平均分，不要自行改写。\n"
+            + "Step 2. 判断 residual delta：当前回复相对该用户历史常态是 below / around / above。\n"
+            + "  - delta_score=-2：明显低于常态，存在严重关键失败。\n"
+            + "  - delta_score=-1：低于常态，有一个清楚的关键缺口。\n"
+            + "  - delta_score=0：大致符合常态。\n"
+            + "  - delta_score=1：高于常态，更完整或更贴合需求。\n"
+            + "  - delta_score=2：显著高于常态，接近历史强满意样本。\n"
+            + "Step 3. 给 delta_confidence：\n"
+            + "  - high：有具体、可引用的证据说明当前回复明显偏离历史常态。\n"
+            + "  - medium：有方向性证据，但偏离不大或证据混合。\n"
+            + "  - low：主要只是主观感觉、证据不足，或当前回复接近历史常态。\n"
+            + "Step 4. 单独判断 3/4 boundary，并给 boundary_confidence：\n"
+            + "  - high：核心问题是否满足非常明确；可以安全地作为硬约束。\n"
+            + "  - medium：更像某一边，但仍有混合证据。\n"
+            + "  - low：不确定，不能作为硬约束。\n"
+            + "Step 5. 标记 strong evidence：\n"
+            + "  - strong_failure_evidence=true 只在存在明确关键失败时使用，例如核心问题没答、关键约束被漏、内容空泛到不可用。\n"
+            + "  - strong_excellence_evidence=true 只在明显超过该用户常态时使用，例如更完整、更贴合个性化要求、比相近历史高分案例更强。\n"
+            + "Step 6. classification 填你按 soft reconstruction 直觉得到的诊断分，但最终 pred_score 会由程序重建。\n"
+            + (
+                "  v3.1 程序默认使用 round(history_prior_score)；只有 boundary_score=3、classification<=3、delta_score<0 三个 DSAT 信号全部成立时，"
+                "才会把最终分约束到 <=3；两个信号只作诊断，不直接触发降分。否则仅在 high residual 或 medium 且 |delta_score|=2 时移动一档，"
+                "并且只用 high-confidence boundary_score=4 做 >=4 约束。\n"
+                if is_v3_1 else
+                "  v3 程序默认使用 round(history_prior_score)；若 boundary_score=3、classification<=3、delta_score<0 中至少两个成立，"
+                "会把最终分约束到 <=3；否则仅在 high residual 或 medium 且 |delta_score|=2 时移动一档，"
+                "并且只用 high-confidence boundary_score=4 做 >=4 约束。\n"
+                if is_v3 else
+                "  程序默认使用 round(history_prior_score)，只在 high residual 或 medium 且 |delta_score|=2 时移动一档；"
+                "只有 high-confidence boundary 才会强制 <=3 或 >=4。\n"
+            )
+            + "Step 7. 选择 reason：若你的诊断最终分 >=4，reason 必须是 `满意`；若 <=3，reason 必须是不满意原因。\n\n"
+            + "注意：\n"
+            + "- 不要把 ordinary improvement 写成 high confidence；high 必须有具体证据。\n"
+            + "- 不要把“不是 5 分水平”当成未过 3/4 满意线。\n"
+            + "- boundary_confidence=high 应该谨慎使用；只有核心满意/不满意非常明确时才给 high。\n\n"
+            + "重要：不要输出 <think>、推理草稿、Markdown、解释文字或任何 JSON 外文本；只输出一个 JSON object。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 1-5 中的整数,\n'
+            + f'  "reason": "{reason_json_rule}",\n'
+            + '  "analysis": "简述 prior、delta 证据与置信度、boundary 证据与置信度、strong evidence 标记原因",\n'
+            + f'  "history_prior_score": {memory.avg_satisfaction_score:.2f},\n'
+            + '  "delta_label": "below",\n'
+            + '  "delta_score": -2 到 2 的整数,\n'
+            + '  "delta_confidence": "medium",\n'
+            + '  "passes_satisfaction_boundary": true 或 false,\n'
+            + '  "boundary_score": 只能是 3 或 4,\n'
+            + '  "boundary_confidence": "medium",\n'
+            + '  "strong_failure_evidence": true 或 false,\n'
+            + '  "strong_excellence_evidence": true 或 false\n'
+            + "}\n"
+        )
+        return prompt
+
+    if prompt_version == "history_prior_delta":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 参考案例只用于判断当前回复相对历史先验是更差、相近还是更好。\n"
+            "2. 优先找整体质量和当前回复最接近的案例，比较它与该用户历史平均水平的相对位置。\n"
+            "3. 不要直接复制案例分数；本题先输出 residual delta，再由程序转回最终分。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度 residual judge。请不要直接自由打 1-5 分。\n"
+            "本题必须先以该用户的 history prior 为起点，判断当前回复相对先验的 delta，"
+            "再判断是否通过 3/4 满意边界。程序会根据你输出的 prior + delta 和 boundary 重建最终分。\n\n"
+            f"【History Prior（必须作为起点）】\n"
+            f"history_prior_score = {memory.avg_satisfaction_score:.2f}\n"
+            f"历史分布：5分×{memory.score_distribution.score_5} / "
+            f"4分×{memory.score_distribution.score_4} / "
+            f"3分×{memory.score_distribution.score_3} / "
+            f"2分×{memory.score_distribution.score_2} / "
+            f"1分×{memory.score_distribution.score_1}\n"
+            f"评分风格：{memory.scoring_style}\n\n"
+            f"【个性化边界】\n"
+            f"3→4 满意最低线：{memory.three_vs_four_distinction}\n"
+            f"4→5 更高要求：{memory.four_vs_five_distinction}\n\n"
+            f"【真正影响评分的个性化要求】\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+            + "【判断步骤】\n"
+            + "Step 1. 固定 history_prior_score：直接使用上面给出的历史平均分，不要自行改写。\n"
+            + "Step 2. 判断 residual delta：当前回复相对该用户通常得到的回复，是 below / around / above？\n"
+            + "  - delta_score=-2：明显低于该用户历史常态，存在严重关键失败。\n"
+            + "  - delta_score=-1：低于常态，有一个清楚的关键缺口或可用性损失。\n"
+            + "  - delta_score=0：大致符合该用户历史常态。\n"
+            + "  - delta_score=1：高于常态，明显更贴合需求或更完整。\n"
+            + "  - delta_score=2：显著高于常态，接近该用户历史中的强满意样本。\n"
+            + "Step 3. 单独判断 3/4 boundary：当前回复是否达到该用户的最低满意线？\n"
+            + "  - 若核心问题没被回答、关键约束被忽略、内容空泛到影响使用，passes_satisfaction_boundary=false，boundary_score=3。\n"
+            + "  - 若核心问题已回答且关键要求基本满足，passes_satisfaction_boundary=true，boundary_score=4。\n"
+            + "Step 4. 最终分由程序重建：round(history_prior_score + delta_score) 后裁剪到 1-5；"
+            + "若 boundary_score=3 则最终不超过3，若 boundary_score=4 则最终不低于4。\n"
+            + "你仍需在 classification 中填入你按此规则得到的最终分，方便诊断。\n"
+            + "Step 5. 选择 reason：若最终分 >=4，reason 必须是 `满意`；若最终分 <=3，reason 必须是不满意原因。\n\n"
+            + "注意：\n"
+            + "- history prior 解释用户整体偏高分或偏低分，delta 才解释当前回复比常态好/差。\n"
+            + "- boundary 是硬约束：没过最低满意线时，即使 prior 很高也不能给 4/5；已过最低满意线时不能给 1/2/3。\n"
+            + "- 不要把 5 分门槛误当成 4 分门槛；不够完美不等于未满意。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 1-5 中的整数,\n'
+            + f'  "reason": "{reason_json_rule}",\n'
+            + '  "analysis": "按 Step1-5 简述：prior 是多少；delta 证据；是否过 3/4 boundary；最终分如何由 prior+delta+boundary 得到",\n'
+            + f'  "history_prior_score": {memory.avg_satisfaction_score:.2f},\n'
+            + '  "delta_label": "below",\n'
+            + '  "delta_score": -2 到 2 的整数,\n'
+            + '  "passes_satisfaction_boundary": true 或 false,\n'
+            + '  "boundary_score": 只能是 3 或 4\n'
+            + "}\n"
+        )
+        return prompt
+
+    if prompt_version == "v3":
+        calibration_summary = getattr(memory, "calibration_summary", "")
+        evidence_notes = list(getattr(memory, "evidence_notes", []))
+        can_compare_3_vs_4 = bool(getattr(memory, "can_compare_3_vs_4", True))
+        can_compare_4_vs_5 = bool(getattr(memory, "can_compare_4_vs_5", True))
+        low_score_evidence_level = getattr(memory, "low_score_evidence_level", "moderate")
+        evidence_block = (
+            "\n".join(f"  - {note}" for note in evidence_notes)
+            if evidence_notes else
+            "  - 边界证据正常，可按规则使用"
+        )
+        rule_34 = (
+            memory.three_vs_four_distinction
+            if can_compare_3_vs_4 else
+            f"【弱推断，不能当硬规则】{memory.three_vs_four_distinction}"
+        )
+        rule_45 = (
+            memory.four_vs_five_distinction
+            if can_compare_4_vs_5 else
+            f"【弱推断，不能当硬规则】{memory.four_vs_five_distinction}"
+        )
+        low_score_note = (
+            "当前 <=3 历史证据很少；若回复低于 4 分，默认先给 3，只有出现明显不可用/严重错误/严重答非所问时才降到 2 或 1。"
+            if low_score_evidence_level in {"none", "sparse"} else
+            "当前 <=3 历史证据足以支持 1/2/3 的相对严重度细分。"
+        )
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 先找与当前回复整体质量最接近的案例，作为初始刻度，不要只盯着高分案例挑毛病。\n"
+            "2. 若 memory 的某条边界规则被标记为【弱推断】，优先参考统计校准和真实案例，而不要机械服从该规则。\n"
+            "3. 若参考案例与弱边界规则冲突，优先相信更直接的证据：实际案例和整体分布。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化对话质量评估员。请给当前助手回复打 1-5 分。\n"
+            "这是 memory v3 路线：你必须把【校准信息】与【边界规则】分开使用。\n\n"
+            f"【校准信息（优先作为整体分数刻度）】\n"
+            f"程序校准摘要：{calibration_summary or memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"分布：5分×{memory.score_distribution.score_5} / "
+            f"4分×{memory.score_distribution.score_4} / "
+            f"3分×{memory.score_distribution.score_3} / "
+            f"2分×{memory.score_distribution.score_2} / "
+            f"1分×{memory.score_distribution.score_1}\n\n"
+            f"【边界规则（按证据充分性使用）】\n"
+            f"3→4 边界：{rule_34}\n"
+            f"4→5 边界：{rule_45}\n"
+            f"低分细分提示：{low_score_note}\n"
+            f"证据提醒：\n{evidence_block}\n\n"
+            f"【真正影响评分的个性化要求】\n{user_reqs}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + f"偏好回复形式（仅供次要参考）：{memory.preferred_response_format}\n\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+            + "【评分步骤】\n"
+            + "Step A. 先用【校准信息】估计：这个用户整体是更容易给高分，还是更容易压分。不要忽略这个先验。\n"
+            + "Step B. 再用【3→4 边界】判断是否过 4 分基线。\n"
+            + "  - 若该边界被标记为弱推断，不要把它当硬规则；要更多参考统计刻度、真实案例和用户特定要求。\n"
+            + "Step C. 若达到 4 分，再用【4→5 边界】判断是否升到 5。\n"
+            + "  - 若 4→5 边界是弱推断，默认保守给 4；只有回复明显超过一般 4 分完成度时才给 5。\n"
+            + "Step D. 若未达到 4 分，再细分 1/2/3。\n"
+            + "  - 若低分证据 sparse/none，默认优先给 3；只有严重不可用、明显错误或严重答非所问时才给 2/1。\n"
+            + "Step E. 选择最贴切的 reason。若最终分数 >=4，reason 必须是 `满意`。\n\n"
+            + "注意：\n"
+            + "- 校准信息决定“整体刻度”，边界规则决定“临界点”；二者都要用，但不要让弱证据边界压倒更强的校准/案例证据。\n"
+            + "- 不要因为 memory 里出现了一条像规则的话，就忽略它可能只是弱推断。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 1-5 中的整数,\n'
+            + f'  "reason": "{reason_json_rule}",\n'
+            + '  "analysis": "按 StepA-E 简述：校准先验是什么；3/4 或 4/5 边界是否可靠；最终分数如何决定" \n'
+            + "}\n"
+        )
+        return prompt
+
+    if prompt_version == "v3_1":
+        calibration_summary = getattr(memory, "calibration_summary", "")
+        evidence_notes = list(getattr(memory, "evidence_notes", []))
+        can_compare_3_vs_4 = bool(getattr(memory, "can_compare_3_vs_4", True))
+        can_compare_4_vs_5 = bool(getattr(memory, "can_compare_4_vs_5", True))
+        low_score_evidence_level = getattr(memory, "low_score_evidence_level", "moderate")
+        evidence_block = (
+            "\n".join(f"  - {note}" for note in evidence_notes)
+            if evidence_notes else
+            "  - 边界证据正常，可按规则使用"
+        )
+        rule_34 = (
+            memory.three_vs_four_distinction
+            if can_compare_3_vs_4 else
+            f"【弱推断，不能当硬规则】{memory.three_vs_four_distinction}"
+        )
+        rule_45 = (
+            memory.four_vs_five_distinction
+            if can_compare_4_vs_5 else
+            f"【弱推断，不能当硬规则】{memory.four_vs_five_distinction}"
+        )
+        low_score_note = (
+            "当前 <=3 历史证据 sparse/none：这只意味着 1/2/3 内部细分要保守；它不意味着可以放松 3/4 满意边界。若未过满意线，默认先给 3，只有严重不可用或明显错误时才降到 2/1。"
+            if low_score_evidence_level in {"none", "sparse"} else
+            "当前 <=3 历史证据足以支持 1/2/3 的相对严重度细分。"
+        )
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 先找与当前回复整体质量最接近的案例，作为辅助刻度。\n"
+            "2. 但若当前回复没过最低满意线，不要因为参考案例整体分布偏高就勉强给 SAT。\n"
+            "3. 当 3/4 边界是弱推断时，优先看：核心问题是否回答、关键约束是否满足、用户特定要求是否被漏掉。\n"
+            "4. 只有在已经明确过了 SAT gate 后，才让 calibration 和 4/5 边界去决定是否升到 5。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化对话质量评估员。请给当前助手回复打 1-5 分。\n"
+            "这是 memory v3.1 路线：保留 v3 的 calibration 优势，但重新加硬【3/4 最低满意线】。\n\n"
+            f"【校准信息（用于整体刻度，不直接决定是否满意）】\n"
+            f"程序校准摘要：{calibration_summary or memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"分布：5分×{memory.score_distribution.score_5} / "
+            f"4分×{memory.score_distribution.score_4} / "
+            f"3分×{memory.score_distribution.score_3} / "
+            f"2分×{memory.score_distribution.score_2} / "
+            f"1分×{memory.score_distribution.score_1}\n\n"
+            f"【边界规则（按证据充分性使用）】\n"
+            f"3→4 边界：{rule_34}\n"
+            f"4→5 边界：{rule_45}\n"
+            f"低分细分提示：{low_score_note}\n"
+            f"证据提醒：\n{evidence_block}\n\n"
+            f"【真正影响评分的个性化要求】\n{user_reqs}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + f"偏好回复形式（仅供次要参考）：{memory.preferred_response_format}\n\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+            + "【评分步骤】\n"
+            + "Step A. 先读校准信息，只把它当作整体刻度先验：这个用户通常偏高分还是偏低分。它不能直接替代满意/不满意判断。\n"
+            + "Step B. 先做【强 3/4 gate】：判断当前回复是否已经过了最低满意线。\n"
+            + "  - 必须先回答三个问题：\n"
+            + "    1. 核心问题是否被直接回答？\n"
+            + "    2. 关键约束 / 关键任务目标 / 用户特别在意的要求是否被满足？\n"
+            + "    3. 剩余缺口是否只是普通不够细致，而不是会让用户仍然不满意的关键缺口？\n"
+            + "  - 只要以上任一关键项明显失败，就不能给 >=4。\n"
+            + "  - 若 3→4 边界是弱推断，不是放松 gate，而是改为更多依赖上述三个问题与真实案例。\n"
+            + "Step C. 只有在 Step B 已明确通过 SAT gate 后，才允许进入 4/5 细化。\n"
+            + "  - 若 4→5 边界是弱推断，默认保守给 4；只有明显超过一般 4 分完成度时才给 5。\n"
+            + "Step D. 若 Step B 未通过 SAT gate，再细分 1/2/3。\n"
+            + "  - 若低分证据 sparse/none，默认先给 3；只有严重不可用、明显错误、严重答非所问时才给 2/1。\n"
+            + "  - 证据不足只影响 1/2/3 的内部细分，不影响你先把样本判为 <=3。\n"
+            + "Step E. 选择最贴切的 reason。若最终分数 >=4，reason 必须是 `满意`。\n\n"
+            + "注意：\n"
+            + "- v3.1 的核心原则是：先过 SAT gate，再做 calibration 和 4/5 refinement；不能因为用户通常打分偏高，就让未过线的回复变成 SAT。\n"
+            + "- `不够细致` 只有在仍然满足核心需求时才属于普通缺口；若它已经导致关键目标没完成，就仍然是 DSAT。\n"
+            + "- 不要把“证据不足”误解成“默认偏 SAT”。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 1-5 中的整数,\n'
+            + f'  "reason": "{reason_json_rule}",\n'
+            + '  "analysis": "按 StepA-E 简述：校准先验是什么；最低满意线是否通过；若通过为何是4或5，若未通过为何是3/2/1" \n'
+            + "}\n"
+        )
+        return prompt
+
+    if prompt_version == "boundary_34_selective_refute_v4":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 只把案例当作 3/4 边界参考：真实分数 <=3 是【未达满意线案例】，>=4 是【达到满意线案例】。\n"
+            "2. 不要只看一边的案例。若当前回复更像未达满意线案例，要敢于判 `3`；若更像达到满意线案例，也不要因不够优秀就压成 `3`。\n"
+            "3. 案例用于校准边界，不用于追求 5 分标准。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度边界评估员。\n"
+            "这是 selective-refute v4 的第一遍初判：目标是尽可能平衡地判断当前助手回复是否达到该用户的【满意最低线】。\n"
+            "输出只能是：\n"
+            "- `4` = 满意（达到最低满意线）\n"
+            "- `3` = 不满意（未达到最低满意线）\n\n"
+            "本题不要默认保护 `4`，也不要默认压成 `3`。你必须同时考虑：\n"
+            "- 最强的“为什么它应该是 `3`”的证据\n"
+            "- 最强的“为什么它至少已经到 `4`”的证据\n"
+            "再决定哪一边更强。\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+            f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+            + "【第一遍平衡边界判断规则】\n"
+            + "Step 1. 先写出最强的 `3` 证据：\n"
+            + "  - 核心问题是否未被回答？\n"
+            + "  - 关键约束 / 关键任务目标 / 用户特别在意的要求是否被漏掉？\n"
+            + "  - 缺口是否已经明显影响可用性，导致用户仍会觉得没被满足？\n"
+            + "Step 2. 再写出最强的 `4` 证据：\n"
+            + "  - 核心问题是否已经被回答？\n"
+            + "  - 关键要求是否已经基本满足？\n"
+            + "  - 剩余问题是否只是普通缺口，而不阻止用户把它当作基本满意的回复？\n"
+            + "Step 3. 明确比较这两边哪一边更强：\n"
+            + "  - 若最强的 `3` 证据更强，判 `3`\n"
+            + "  - 若最强的 `4` 证据更强，判 `4`\n"
+            + "Step 4. 只有当两边最强证据真的势均力敌时，才允许 `needs_refute_review=true`。\n"
+            + "  - 明显偏向任一边时必须输出 `needs_refute_review=false`\n\n"
+            + "注意：\n"
+            + "- `不够细致` 既可能只是普通缺口，也可能已经影响可用性；不要默认把它归到任何一边。\n"
+            + "- 友好语气、表面帮助性不能替代“核心问题是否真正回答”。\n"
+            + "- 不要因为不是 5 分水平就压成 `3`，也不要因为看起来有帮助就放成 `4`。\n"
+            + "- `classification` 只能输出 `3` 或 `4`。\n"
+            + "- `analysis` 只需 1-2 句，必须同时提到：最强的 `3` 证据、最强的 `4` 证据，以及最终哪一边更强。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 只能是 3 或 4,\n'
+            + f'  "reason": "{reason_json_rule}",\n'
+            + '  "analysis": "用 1-2 句写明：最强的 3 证据是什么，最强的 4 证据是什么，最终哪一边更强，以及是否需要复核",\n'
+            + '  "needs_refute_review": true 或 false\n'
+            + "}\n"
+        )
+        return prompt
+
+    if prompt_version == "boundary_34_selective_refute_v3":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 只把案例当作 3/4 边界参考：真实分数 <=3 是【未达满意线案例】，>=4 是【达到满意线案例】。\n"
+            "2. 优先比较当前回复是否已经达到“这个用户愿意认为它基本有用、基本满意”的最低线，而不是和优秀案例比完整度。\n"
+            "3. 若当前回复已经明显站在某一边，不要因为它不够优秀就把它拖回边界附近。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度边界评估员。\n"
+            "这是 selective-refute v3 的第一遍初判：先尽可能准确地判断当前助手回复是否达到该用户的【满意最低线】。\n"
+            "输出只能是：\n"
+            "- `4` = 满意（达到最低满意线）\n"
+            "- `3` = 不满意（未达到最低满意线）\n\n"
+            "这一步最重要的不是区分“优秀”和“一般”，而是区分：\n"
+            "- 只是普通缺口、还不够细，但已经达到最低满意线\n"
+            "- 真正没过满意线，用户仍会觉得不满意\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+            f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+            + "【第一遍边界判断规则】\n"
+            + "Step 1. 先判断：回复是否真正回答了用户此刻最核心的问题。\n"
+            + "  - 若核心问题没有被回答，优先判 `3`。\n"
+            + "Step 2. 再判断：关键约束、关键任务目标、该用户特别在意的要求，是否至少被基本满足。\n"
+            + "  - 若关键要求被漏掉，且这会明显影响可用性，优先判 `3`。\n"
+            + "Step 3. 只有在核心问题已回答、关键要求也基本满足时，才去看剩余缺口属于哪类：\n"
+            + "  - 【普通缺口】= 细节不足、还可更完整、还可更个性化，但不妨碍用户把它当作基本满意的答复，此时应判 `4`\n"
+            + "  - 【关键缺口】= 缺失会让用户仍觉得没被满足、没法直接用、或明显偏离要求，此时应判 `3`\n"
+            + "Step 4. 只有当你真的无法判断某个唯一可疑点到底是普通缺口还是关键缺口时，才允许 `needs_refute_review=true`。\n"
+            + "  - 明显满意或明显不满意都必须输出 `needs_refute_review=false`\n"
+            + "  - `needs_refute_review=true` 必须是少数情况\n\n"
+            + "注意：\n"
+            + "- `不够细致` 默认更接近【普通缺口】，除非它已经严重到让回复不可用或明显没满足核心要求。\n"
+            + "- 不要因为它不是 5 分水平，就把一个本来已经过线的回复判成 3。\n"
+            + "- 也不要因为回复语气友好、表面在帮忙，就把一个没回答核心问题的回复判成 4。\n"
+            + "- `classification` 只能输出 `3` 或 `4`。\n"
+            + "- `analysis` 只需 1-2 句，明确写出：核心问题是否被回答；关键要求是否被满足；当前可疑点为何属于普通缺口或关键缺口。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 只能是 3 或 4,\n'
+            + f'  "reason": "{reason_json_rule}",\n'
+            + '  "analysis": "用 1-2 句写明：核心问题是否被回答，关键要求是否被满足，当前可疑点为何属于普通缺口或关键缺口，以及是否需要复核",\n'
+            + '  "needs_refute_review": true 或 false\n'
+            + "}\n"
+        )
+        return prompt
+
+    if prompt_version == "boundary_34_selective_refute_v2":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 只把案例理解为边界参考：真实分数 <=3 是【未达满意线案例】，>=4 是【达到满意线案例】。\n"
+            "2. 只有当当前回复与两类案例都存在明显相似点、边界仍拿不准时，才考虑触发复核。\n"
+            "3. 若当前回复整体明显站在某一边，就不要触发复核。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度边界评估员。\n"
+            "这是 selective-refute v2 的第一遍初判：先温和判断当前助手回复是否达到该用户的【满意最低线】。\n"
+            "输出只能是：\n"
+            "- `4` = 满意（达到最低满意线）\n"
+            "- `3` = 不满意（未达到最低满意线）\n\n"
+            "除分数外，你还需要判断：这个样本是否【高度接近 3/4 边界】，需要进入第二遍复核。\n"
+            "注意，`needs_refute_review=true` 必须是少数情况；只有在你确实拿不准时才允许触发。\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+            f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+            + "【第一遍只做严格筛选后的边界判断】\n"
+            + "Step 1. 判断回复是否回答了核心问题，并基本满足关键约束。\n"
+            + "Step 2. 判断它是否达到该用户的满意最低线：达到给 `4`，未达到给 `3`。\n"
+            + "Step 3. 再判断是否真的需要复核。只有下面两类高不确定情形才允许 `needs_refute_review=true`：\n"
+            + "  - 当前判成 `3`，但你怀疑问题主要只是“边缘性的细节不足”，未必真的低于满意线\n"
+            + "  - 当前判成 `4`，但你怀疑它可能漏掉了一个关键要求，是否仍算满意拿不准\n"
+            + "Step 4. 若主要证据已经明显站在一边，必须输出 `needs_refute_review=false`。\n\n"
+            + "注意：\n"
+            + "- 不要因为“还可以更好”就触发复核。\n"
+            + "- 不要因为理由是 `不够细致` 就自动触发复核。\n"
+            + "- 只有当一个具体可疑点是否属于关键失败拿不准时，才触发复核。\n"
+            + "- `classification` 只能输出 `3` 或 `4`。\n"
+            + "- `analysis` 只需 1-2 句，明确写出：当前边界判断是什么；可疑点是什么；是否真的需要复核。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 只能是 3 或 4,\n'
+            + f'  "reason": "{reason_json_rule}",\n'
+            + '  "analysis": "用 1-2 句写明当前为何判为 3 或 4、唯一的可疑点是什么，以及是否真的需要复核",\n'
+            + '  "needs_refute_review": true 或 false\n'
+            + "}\n"
+        )
+        return prompt
+
+    if prompt_version == "boundary_34_selective_refute":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 只把案例看成边界参考：真实分数 <=3 视为【未达满意线案例】，>=4 视为【达到满意线案例】。\n"
+            "2. 案例只用于帮助你判断当前回复是否接近 3/4 边界，不要机械复用案例分数。\n"
+            "3. 若当前回复明显优于未达满意线案例，或明显达到满意线，就不要触发二次复核。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度边界评估员。\n"
+            "这是 selective-refute 的第一遍初判：先温和判断当前助手回复是否达到该用户的【满意最低线】。\n"
+            "输出只能是：\n"
+            "- `4` = 满意（达到最低满意线）\n"
+            "- `3` = 不满意（未达到最低满意线）\n\n"
+            "除分数外，你还需要判断这个样本是否【真的接近 3/4 边界】，从而需要进入二次反证复核。\n"
+            "只有在证据混合、边界不稳时，才把 `needs_refute_review` 设为 `true`；明显满意或明显不满意都应设为 `false`。\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+            f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+            + "【第一遍只做温和边界判断】\n"
+            + "Step 1. 判断回复是否回答了核心问题，并基本满足关键约束。\n"
+            + "Step 2. 判断它是否达到该用户的满意最低线：达到给 `4`，未达到给 `3`。\n"
+            + "Step 3. 再判断这个案例是否【真的接近边界】。\n"
+            + "  只有下面情况才把 `needs_refute_review=true`：\n"
+            + "  - 回复大体有帮助，但有一个可能是关键缺陷的点，是否足以掉到 3 不确定\n"
+            + "  - 当前判成 3，但主要问题可能只是“不够细致”，未必真的低于满意线\n"
+            + "  - 当前判成 4，但可能漏掉了一个关键要求，是否仍算满意不确定\n"
+            + "Step 4. 若结论已经很明显，就输出 `needs_refute_review=false`。\n\n"
+            + "注意：\n"
+            + "- `needs_refute_review=true` 应该是少数情况，不要把它当默认值。\n"
+            + "- 不要因为回复不够优秀就自动触发复核；只有接近 3/4 边界时才触发。\n"
+            + "- `classification` 只能输出 `3` 或 `4`。\n"
+            + "- `analysis` 只需 1-2 句，写明当前判断依据，以及为什么需要或不需要二次复核。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 只能是 3 或 4,\n'
+            + f'  "reason": "{reason_json_rule}",\n'
+            + '  "analysis": "用 1-2 句写明当前为何判为 3 或 4，以及是否接近 3/4 边界",\n'
+            + '  "needs_refute_review": true 或 false\n'
+            + "}\n"
+        )
+        return prompt
+
+    if prompt_version == "boundary_34_refute_v2":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 先把案例按边界用途理解：真实分数 <=3 是【未达满意线案例】，>=4 是【达到满意线案例】。\n"
+            "2. 优先观察未达满意线案例中的【致命缺陷】是什么，再看达到满意线案例是否只是存在可改进的小缺口。\n"
+            "3. 不要因为当前回复不如优秀案例完整，就直接判成 3。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度边界评估员。\n"
+            "本题只判断当前助手回复是否达到该用户的【满意最低线】。\n"
+            "输出只能是：\n"
+            "- `4` = 满意（达到最低满意线）\n"
+            "- `3` = 不满意（未达到最低满意线）\n\n"
+            "你需要保留【反证检查】，但采用更温和的判定原则：\n"
+            "只有当存在【明确且关键的失败】时，才允许判 `3`。\n"
+            "如果回复已经回答了核心问题，关键约束也基本满足，而剩余问题只是“还不够细”“还可以更好”，应优先判 `4`。\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+            f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+            + "【先做温和反证，再决定是否给 3】\n"
+            + "Step 1. 先判断回复是否已经基本回答了用户的核心问题，并满足关键约束。\n"
+            + "Step 2. 再检查是否存在【明确且关键的失败】。只有下面这些情况才足以判 `3`：\n"
+            + "  - 没有直接回答主要问题\n"
+            + "  - 明显忽略关键约束、条件或任务目标\n"
+            + "  - 内容过于空泛，用户几乎无法据此采取行动\n"
+            + "  - 漏掉了该用户最在意、且会显著影响满意度的要求\n"
+            + "  - 存在会明显伤害可用性的缺口，而不是普通的“还不够细致”\n"
+            + "Step 3. 明确区分两类问题：\n"
+            + "  - 【致命缺陷】= 会让回复掉到 3\n"
+            + "  - 【普通缺口】= 已达到最低满意线，但还不够优秀，仍应给 4\n"
+            + "Step 4. 做简短反证：\n"
+            + "  - 如果你能指出一个明确的【致命缺陷】，输出 `classification=3`\n"
+            + "  - 如果只看到普通缺口，而没有致命缺陷，输出 `classification=4`\n"
+            + "Step 5. 选择一个最贴切的原因标签。\n\n"
+            + "注意：\n"
+            + "- `不够细致` 本身不等于 `3`；只有它严重到导致回复不满足最低满意线时，才可以判 `3`。\n"
+            + "- 不要因为它不如 5 分案例完整，就直接判 `3`。\n"
+            + "- 如果回复已回答核心问题，且关键要求基本满足，应优先保护 `4`。\n"
+            + "- `classification` 只能输出 `3` 或 `4`。\n"
+            + "- `analysis` 只需简短说明：最强的降分证据是什么；它是否属于致命缺陷；最终为何判 3 或 4。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 只能是 3 或 4,\n'
+            + f'  "reason": "{reason_json_rule}",\n'
+            + '  "analysis": "用 2-3 句写明：最强的降分证据是什么；它是否属于致命缺陷；最终为何判为 3 或 4。若只是普通缺口，应明确说明仍达到最低满意线" \n'
+            + "}\n"
+        )
+        return prompt
+
+    if prompt_version == "boundary_34_refute":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 先把案例按边界用途理解：真实分数 <=3 是【未达满意线案例】，>=4 是【达到满意线案例】。\n"
+            "2. 优先观察未达满意线案例缺了什么，再看达到满意线案例满足了什么。\n"
+            "3. 不要机械复用案例分数；案例只用于帮助你发现“哪些缺口足以把回复判成 3”。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度边界评估员。\n"
+            "本题只判断当前助手回复是否达到该用户的【满意最低线】。\n"
+            "输出只能是：\n"
+            "- `4` = 满意（达到最低满意线）\n"
+            "- `3` = 不满意（未达到最低满意线）\n\n"
+            "与旧版不同，本题必须先做【反证检查】。\n"
+            "也就是说：先主动寻找足以把回复判成 `3` 的关键缺陷；"
+            "只有当这些缺陷都不成立时，才允许给 `4`。\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+            f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+            + "【先做失败检查，再决定是否给 4】\n"
+            + "Step 1. 先检查是否存在任何一个【足以降到 3 分】的关键失败。\n"
+            + "  重点检查：\n"
+            + "  - 没有直接回答用户主要问题\n"
+            + "  - 明显忽略关键约束、条件或任务目标\n"
+            + "  - 内容太泛、太空，用户难以据此采取行动\n"
+            + "  - 漏掉了该用户特别在意的要求或偏好格式\n"
+            + "  - 存在会明显伤害满意度的缺口，而不只是“还可以更好”\n"
+            + "Step 2. 做【反证】。\n"
+            + "  问自己：如果我要把它判成 3，最强证据是什么？\n"
+            + "  - 如果能找到明确且实质的证据，输出 `classification=3`\n"
+            + "  - 只有当这些证据都站不住脚，才继续考虑 `classification=4`\n"
+            + "Step 3. 只有同时满足下面两点，才能给 `4`：\n"
+            + "  - 回复已经基本回答了用户问题，并满足关键要求\n"
+            + "  - 没有发现任何一个足以把它拉回 3 的关键缺陷\n"
+            + "Step 4. 选择一个最贴切的原因标签。\n\n"
+            + "注意：\n"
+            + "- 不要因为“语气像在帮忙”就给 4，关键是是否真正过了满意最低线。\n"
+            + "- 也不要因为“还不够优秀”就给 3；只有出现了足以降到 3 的关键缺陷，才判 3。\n"
+            + "- `classification` 只能输出 `3` 或 `4`。\n"
+            + "- 在 `analysis` 里要明确写出：你检查过哪些降分证据，以及这些证据是否成立。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 只能是 3 或 4,\n'
+            + f'  "reason": "{reason_json_rule}",\n'
+            + '  "analysis": "用 3-5 句写明：最可能把该回复判成 3 的关键缺陷是什么；这个缺陷是否成立；最终为什么判成 3 或 4。若使用参考案例，注明更接近未达满意线案例还是达到满意线案例" \n'
+            + "}\n"
+        )
+        return prompt
+
+    if prompt_version == "boundary_34":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 只关心这些案例在满意边界上的含义：真实分数 <=3 视为【不满意案例】，>=4 视为【满意案例】。\n"
+            "2. 不要尝试复用案例的精确分数，只判断当前回复更接近【不满意】还是【满意】。\n"
+            "3. 你的任务不是判断这条回复有多优秀，而是判断：它有没有达到该用户的【最低满意线】。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度边界评估员。\n"
+            "本题只判断当前助手回复是否达到该用户的【满意最低线】。\n"
+            "请不要做 1/2/5 分细分，只输出：\n"
+            "- `4` = 满意（达到最低满意线）\n"
+            "- `3` = 不满意（未达到最低满意线）\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+            f"补充说明（4→5 的更高要求，仅供参考，不作为本题判定目标）：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+            + "【只按这 3 步判断】\n"
+            + "Step 1. 先判断回复是否直接回答了用户问题，并满足关键约束。\n"
+            + "Step 2. 再判断它是否达到该用户的【满意最低线】。\n"
+            + "  - 若达到最低满意线，输出 `classification=4`\n"
+            + "  - 若未达到最低满意线，输出 `classification=3`\n"
+            + "Step 3. 选择一个最贴切的原因标签。\n\n"
+            + "注意：\n"
+            + "- 本题的目标是判定【满意 / 不满意】，不是区分 4 和 5。\n"
+            + "- 除非回复明显没达到最低要求，否则不要因为“还不够优秀”就判成 3。\n"
+            + "- `classification` 只能输出 `3` 或 `4`。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 只能是 3 或 4,\n'
+            + f'  "reason": "{reason_json_rule}",\n'
+            + '  "analysis": "用 2-4 句写明：是否直接回答问题；是否达到最低满意线；最终为何判为 3 或 4。若使用参考案例，注明更接近满意案例还是不满意案例" \n'
+            + "}\n"
+        )
+        return prompt
+
+    if prompt_version == "qwen_short":
+        anchor_instruction = (
+            "【参考案例使用规则】\n"
+            "1. 若提供了参考案例，先找与当前回复整体质量最接近的一条。\n"
+            "2. 参考案例只用于帮助校准分数，不要因为它更完整就机械压低当前回复。\n"
+            "3. 最终分数仍以【4分基线】和【5分门槛】为准。\n\n"
+            if anchor_turns else ""
+        )
+        prompt = (
+            "你是一名个性化满意度评分员。任务是给当前助手回复打 1-5 分。\n"
+            "请严格按下面 checklist 判断，不要写长篇分析。\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+            f"4分基线：{memory.three_vs_four_distinction}\n"
+            f"5分门槛：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"{anchor_section}"
+            + anchor_instruction
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+            + "【只按这 3 步判断】\n"
+            + "Step 1. 先判断是否达到 4 分基线。\n"
+            + "  - 若没有直接回答问题、明显忽略约束、帮助性不足，给 1/2/3。\n"
+            + "Step 2. 若已达到 4 分，再判断是否满足 5 分门槛。\n"
+            + "  - 只有明显满足关键细节、格式和用户特定要求时才给 5。\n"
+            + "  - 只要整体合格但还缺少关键一项，就给 4。\n"
+            + "Step 3. 选择一个最贴切的原因标签。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 1-5 中的整数,\n'
+            + f'  "reason": "{reason_json_rule}",\n'
+            + '  "analysis": "用 2-4 句写明：是否过 4 分基线；若过基线，是否满足 5 分门槛；最终分数依据。若使用参考案例，注明案例编号" \n'
+            + "}\n"
+        )
+        return prompt
+
+    # 把 anchor 做成 rank-match 的先验：先定位最接近的案例并复用其分数，
+    # rubric 仅用于验证一致性。这种框架下 rubric 不会把分数往下拽。
+    extra_step = (
+        "Step 0 (Rank-Match)：阅读上方【参考案例】。在 1-2 句内找出与当前回复"
+        "【整体质量最接近】的一条案例（注意是比较整体水平，不是挑差异），"
+        "把该案例的真实分数作为当前回复的初始估计。\n"
+        "Step 1 (Sanity-Check)：用下面的 rubric 校验该估计与评分风格是否一致，"
+        "仅当 rubric 明确提示了重大的差异（如缺失用户特定要求）才调整分数；"
+        "若 rubric 与估计一致，保持 rank-match 得到的分数。\n"
+        if anchor_turns else ""
+    )
+
+    prompt = (
+        "你是一名个性化对话质量评估员。"
+        "请严格按照以下该用户的个性化评分标准，对助手回复进行评分。\n\n"
+        f"{rubric}\n"
+        f"{anchor_section}"
+        f"【用户画像】{_format_profile(profile)}\n\n"
+        f"【任务背景】{task_context}\n\n"
+        f"【最近对话历史】\n{history_text}\n\n"
+        f"【待评估的助手回复】\n{assistant_reply}\n\n"
+        f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+        "【评分步骤】请严格按以下顺序推理：\n"
+        f"{extra_step}"
+        + (
+            "（若 Step 1 未提示需调整，直接输出 Step 0 的分数，跳过下面的 rubric-only 三步）\n"
+            if anchor_turns else ""
+        )
+        + "Step A: 对照【3分以下→4分的门槛】判断此回复是否达到 4 分基线\n"
+        "Step B: 若达到 4 分，再对照【4分→5分的门槛】判断是否满足 5 分条件\n"
+        "Step C: 若未达到 4 分，根据缺陷的严重程度（参考用户特定要求）决定给 1/2/3 分\n\n"
+        "请严格输出 JSON，不要输出其他内容：\n"
+        "{\n"
+        '  "classification": 1-5 中的整数,\n'
+        f'  "reason": "{reason_json_rule}",\n'
+        '  "analysis": "'
+        + ('按 Step0/Step1/StepA-C 格式说明判断过程，'
+           '先给出 rank-match 得到的分数和依据案例编号，再简述 Step 1 的一致性校验'
+           if anchor_turns else
+           '按 StepA/StepB/StepC 格式说明判断过程，须明确引用上方评分标准中的具体条件')
+        + '"\n'
+        "}\n"
+    )
+    return prompt
+
+
+def build_turn_eval_refute_followup_prompt(
+    memory: UserMemory,
+    profile: dict,
+    task_context: str,
+    history_window: list[str],
+    assistant_reply: str,
+    initial_classification: int,
+    initial_reason: str,
+    initial_analysis: str,
+    prompt_version: Literal["boundary_34_selective_refute", "boundary_34_selective_refute_v2"] = "boundary_34_selective_refute",
+) -> str:
+    """Selective-refute 第二遍复核 prompt。"""
+    reason_labels = list(get_reason_to_id().keys())
+    reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
+    history_text = "\n".join(history_window) if history_window else "（无历史）"
+    user_reqs = "\n".join(
+        f"  - {r}" for r in memory.user_specific_requirements
+    ) if memory.user_specific_requirements else "  （无特异性要求记录）"
+
+    task_obs_lines = ""
+    if memory.task_specific_observations:
+        relevant = [o for o in memory.task_specific_observations
+                    if task_context and o.task_name in task_context[:50]]
+        others = [o for o in memory.task_specific_observations
+                  if o not in relevant]
+        ordered = relevant + others
+        task_obs_lines = "\n".join(
+            f"  {o.task_name}：{o.observation}" for o in ordered
+        )
+
+    if prompt_version == "boundary_34_selective_refute_v2":
+        prompt = (
+            "你是一名个性化满意度边界复核员。\n"
+            "这是 selective-refute v2 的第二遍复核，只在第一遍认为样本高度接近 3/4 边界时触发。\n"
+            "你的任务不是重新完整评分，而是核实：第一遍指出的唯一可疑点，是否真的足以推翻第一遍初判。\n\n"
+            "输出只能是：\n"
+            "- `4` = 满意（达到最低满意线）\n"
+            "- `3` = 不满意（未达到最低满意线）\n\n"
+            f"【用户评分摘要】\n"
+            f"评分风格：{memory.scoring_style}\n"
+            f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+            f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+            f"用户特定要求：\n{user_reqs}\n"
+            f"偏好回复形式：{memory.preferred_response_format}\n"
+            + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+            + "\n"
+            + f"【用户画像】{_format_profile(profile)}\n\n"
+            + f"【任务背景】{task_context}\n\n"
+            + f"【最近对话历史】\n{history_text}\n\n"
+            + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+            + f"【第一遍初判】classification={initial_classification}, reason={initial_reason}\n"
+            + f"【第一遍依据】{initial_analysis}\n\n"
+            + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+            + "【复核规则】\n"
+            + "Step 1. 先把第一遍的可疑点复述成一个明确问题：它到底是不是关键失败？\n"
+            + "Step 2. 默认保持第一遍初判，只有在发现【明确反证】时才允许改判。\n"
+            + "Step 3. 如果第一遍判 `3`：只有当你能明确指出核心问题已被回答、关键约束也已满足时，才可改为 `4`。\n"
+            + "Step 4. 如果第一遍判 `4`：只有当你能明确指出关键要求被漏掉、核心问题未被回答，或回复明显低于最低满意线时，才可改为 `3`。\n"
+            + "Step 5. 不要因为模糊的“也许够了”或“还可以更好”就改判；改判必须有明确证据。\n\n"
+            + "注意：\n"
+            + "- 这是核实，不是重新打分。\n"
+            + "- 第二遍不应默认保护 `4`，也不应默认推翻第一遍；默认动作是维持初判。\n"
+            + "- `classification` 只能输出 `3` 或 `4`。\n"
+            + "- `analysis` 只写 1-2 句：是否发现足以推翻初判的明确反证；最终为何维持或改判。\n\n"
+            + "请严格输出 JSON，不要输出其他内容：\n"
+            + "{\n"
+            + '  "classification": 只能是 3 或 4,\n'
+            + f'  "reason": "{reason_json_rule}",\n'
+            + '  "analysis": "用 1-2 句写明：是否发现足以推翻第一遍初判的明确反证；最终为何维持或改判" \n'
+            + "}\n"
+        )
+        return prompt
+
+    prompt = (
+        "你是一名个性化满意度边界复核员。\n"
+        "这是 selective-refute 的第二遍复核，只在第一遍认为样本接近 3/4 边界时触发。\n"
+        "你的任务不是重新长篇分析，而是检查：第一遍提到的可疑问题，是否真的足以跨过满意/不满意边界。\n\n"
+        "输出只能是：\n"
+        "- `4` = 满意（达到最低满意线）\n"
+        "- `3` = 不满意（未达到最低满意线）\n\n"
+        f"【用户评分摘要】\n"
+        f"评分风格：{memory.scoring_style}\n"
+        f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+        f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+        f"用户特定要求：\n{user_reqs}\n"
+        f"偏好回复形式：{memory.preferred_response_format}\n"
+        + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+        + "\n"
+        + f"【用户画像】{_format_profile(profile)}\n\n"
+        + f"【任务背景】{task_context}\n\n"
+        + f"【最近对话历史】\n{history_text}\n\n"
+        + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+        + f"【第一遍初判】classification={initial_classification}, reason={initial_reason}\n"
+        + f"【第一遍依据】{initial_analysis}\n\n"
+        + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+        + "【复核规则】\n"
+        + "Step 1. 只盯住第一遍提到的可疑点，判断它是否真的是【关键失败】。\n"
+        + "Step 2. 若该问题只是普通缺口、轻度不够细致、仍不影响核心可用性，应保护 `4`。\n"
+        + "Step 3. 只有当该问题确实导致核心问题未被回答、关键要求被忽略，或回复明显低于最低满意线时，才判 `3`。\n"
+        + "Step 4. 给出最终 3/4，并选一个最贴切的原因标签。\n\n"
+        + "注意：\n"
+        + "- 这是复核，不要重新展开完整评分流程。\n"
+        + "- 若第一遍的可疑点并不足以跨过边界，应维持或改判为 `4`。\n"
+        + "- `classification` 只能输出 `3` 或 `4`。\n"
+        + "- `analysis` 只写 1-2 句：该可疑点是否构成关键失败；最终为何判成 3 或 4。\n\n"
+        + "请严格输出 JSON，不要输出其他内容：\n"
+        + "{\n"
+        + '  "classification": 只能是 3 或 4,\n'
+        + f'  "reason": "{reason_json_rule}",\n'
+        + '  "analysis": "用 1-2 句写明：第一遍提到的可疑点是否真的足以跨过满意边界，以及最终为何判 3 或 4" \n'
+        + "}\n"
+    )
+    return prompt
+
+
+def build_turn_eval_fullscale_sat_refinement_prompt(
+    memory: UserMemory,
+    profile: dict,
+    task_context: str,
+    history_window: list[str],
+    assistant_reply: str,
+    router_reason: str,
+    router_analysis: str,
+    anchor_turns: list | None = None,
+) -> str:
+    """在 boundary router 判为 SAT 后，细化到 4/5。"""
+    reason_labels = list(get_reason_to_id().keys())
+    reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
+    history_text = "\n".join(history_window) if history_window else "（无历史）"
+    user_reqs = "\n".join(
+        f"  - {r}" for r in memory.user_specific_requirements
+    ) if memory.user_specific_requirements else "  （无特异性要求记录）"
+
+    task_obs_lines = ""
+    if memory.task_specific_observations:
+        relevant = [o for o in memory.task_specific_observations
+                    if task_context and o.task_name in task_context[:50]]
+        others = [o for o in memory.task_specific_observations
+                  if o not in relevant]
+        ordered = relevant + others
+        task_obs_lines = "\n".join(
+            f"  {o.task_name}：{o.observation}" for o in ordered
+        )
+
+    anchor_block = _format_anchor_turns(anchor_turns or [])
+    anchor_section = (anchor_block + "\n") if anchor_block else ""
+    anchor_instruction = (
+        "【参考案例使用规则】\n"
+        "1. 在这一步只关心 `4` 和 `5` 的区别。\n"
+        "2. 若使用参考案例，优先比较真实分数为 `4/5` 的案例；<=3 的案例只说明回复至少已经过线，不用于决定 5 分。\n"
+        "3. 不要因为回复已经过了满意线，就自动给 5；只有明确达到 5 分门槛时才升到 5。\n\n"
+        if anchor_turns else ""
+    )
+
+    return (
+        "你是一名个性化满意度细化评估员。\n"
+        "第一层 boundary router 已确认：当前回复至少达到满意线。\n"
+        "你的任务不是重新判断满意/不满意，而是只在 `4` 和 `5` 之间做细化。\n\n"
+        "输出只能是：\n"
+        "- `5` = 明确达到该用户的高满意门槛\n"
+        "- `4` = 已满意，但还没到 5 分门槛\n\n"
+        f"【用户评分摘要】\n"
+        f"评分风格：{memory.scoring_style}\n"
+        f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+        f"满意最低线（3→4，仅供背景参考）：{memory.three_vs_four_distinction}\n"
+        f"高满意门槛（4→5 关键）：{memory.four_vs_five_distinction}\n"
+        f"用户特定要求：\n{user_reqs}\n"
+        f"偏好回复形式：{memory.preferred_response_format}\n"
+        + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+        + "\n"
+        + f"{anchor_section}"
+        + anchor_instruction
+        + f"【用户画像】{_format_profile(profile)}\n\n"
+        + f"【任务背景】{task_context}\n\n"
+        + f"【最近对话历史】\n{history_text}\n\n"
+        + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+        + f"【第一层 router 输出】reason={router_reason}\n"
+        + f"【第一层 router 分析】{router_analysis}\n\n"
+        + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+        + "【4/5 细化规则】\n"
+        + "Step 1. 把 `4` 当成默认值：既然已经过了满意线，除非有明确证据达到高满意门槛，否则保持 `4`。\n"
+        + "Step 2. 只检查这些是否足以升到 `5`：\n"
+        + "  - 是否完整命中用户真正关心的点，而不只是基本回答\n"
+        + "  - 是否满足了该用户对细节、格式、可执行性、资源具体度的更高要求\n"
+        + "  - 是否几乎没有明显短板，整体完成度接近该用户的高满意案例\n"
+        + "Step 3. 如果只是“合格但还有一两处明显缺口”，输出 `4`；只有明确达到 `four_vs_five_distinction` 描述的高门槛，才输出 `5`。\n\n"
+        + "注意：\n"
+        + "- 本步不能回退到 `3`。\n"
+        + f"- 由于最终分数 >=4，`reason` 必须输出 `{SATISFIED_REASON}`。\n"
+        + "- `analysis` 只需 1-2 句，明确写出：为什么仍是 4，或为什么已经到 5。\n\n"
+        + "请严格输出 JSON，不要输出其他内容：\n"
+        + "{\n"
+        + '  "classification": 只能是 4 或 5,\n'
+        + f'  "reason": "{reason_json_rule}",\n'
+        + '  "analysis": "用 1-2 句写明：为什么保持 4，或为什么已经达到 5 分门槛" \n'
+        + "}\n"
+    )
+
+
+def build_turn_eval_fullscale_dsat_refinement_prompt(
+    memory: UserMemory,
+    profile: dict,
+    task_context: str,
+    history_window: list[str],
+    assistant_reply: str,
+    router_reason: str,
+    router_analysis: str,
+    anchor_turns: list | None = None,
+) -> str:
+    """在 boundary router 判为 DSAT 后，细化到 1/2/3。"""
+    reason_labels = list(get_reason_to_id().keys())
+    reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
+    history_text = "\n".join(history_window) if history_window else "（无历史）"
+    user_reqs = "\n".join(
+        f"  - {r}" for r in memory.user_specific_requirements
+    ) if memory.user_specific_requirements else "  （无特异性要求记录）"
+
+    task_obs_lines = ""
+    if memory.task_specific_observations:
+        relevant = [o for o in memory.task_specific_observations
+                    if task_context and o.task_name in task_context[:50]]
+        others = [o for o in memory.task_specific_observations
+                  if o not in relevant]
+        ordered = relevant + others
+        task_obs_lines = "\n".join(
+            f"  {o.task_name}：{o.observation}" for o in ordered
+        )
+
+    anchor_block = _format_anchor_turns(anchor_turns or [])
+    anchor_section = (anchor_block + "\n") if anchor_block else ""
+    anchor_instruction = (
+        "【参考案例使用规则】\n"
+        "1. 在这一步只关心 `1/2/3` 的严重度差异。\n"
+        "2. 若使用参考案例，优先比较真实分数 <=3 的案例；>=4 的案例只说明当前回复已经确定没过线。\n"
+        "3. 不要把所有不满意都压成 3；`2` 和 `1` 只留给明显更严重的失败。\n\n"
+        if anchor_turns else ""
+    )
+
+    return (
+        "你是一名个性化满意度细化评估员。\n"
+        "第一层 boundary router 已确认：当前回复没有达到满意线。\n"
+        "你的任务不是重新判断是否满意，而是只在 `1/2/3` 之间细化严重程度。\n\n"
+        "输出只能是：\n"
+        "- `3` = 不满意，但仍有部分帮助，或只是明显低于满意线\n"
+        "- `2` = 很不满意，核心问题大多没解决，帮助性较弱\n"
+        "- `1` = 极不满意，几乎不可用、明显错误或严重偏离需求\n\n"
+        f"【用户评分摘要】\n"
+        f"评分风格：{memory.scoring_style}\n"
+        f"历史平均分：{memory.avg_satisfaction_score:.2f}\n"
+        f"满意最低线（3→4 关键）：{memory.three_vs_four_distinction}\n"
+        f"高满意门槛（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+        f"用户特定要求：\n{user_reqs}\n"
+        f"偏好回复形式：{memory.preferred_response_format}\n"
+        + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+        + "\n"
+        + f"{anchor_section}"
+        + anchor_instruction
+        + f"【用户画像】{_format_profile(profile)}\n\n"
+        + f"【任务背景】{task_context}\n\n"
+        + f"【最近对话历史】\n{history_text}\n\n"
+        + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+        + f"【第一层 router 输出】reason={router_reason}\n"
+        + f"【第一层 router 分析】{router_analysis}\n\n"
+        + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+        + "【1/2/3 细化规则】\n"
+        + "Step 1. 先接受第一层结论：当前回复已经没过满意线，因此本步只能在 `1/2/3` 之间选。\n"
+        + "Step 2. 判断严重度：\n"
+        + "  - `3`：仍有一定帮助，但关键缺口让它没过满意线\n"
+        + "  - `2`：帮助性有限，核心问题大多没解决，内容较空泛或关键要求大面积缺失\n"
+        + "  - `1`：几乎不可用、严重答非所问、明显错误，或几乎没有可执行信息\n"
+        + "Step 3. 只有在失败非常严重时才给 `1`；一般的“不满意但有点用”应优先给 `3`，而不是过度压到 `1/2`。\n"
+        + "Step 4. 选择一个最贴切的不满意原因标签。\n\n"
+        + "注意：\n"
+        + "- 本步不能回升到 `4/5`。\n"
+        + f"- 由于最终分数 <=3，`reason` 只能选择不满意原因，不能输出 `{SATISFIED_REASON}`。\n"
+        + "- `analysis` 只需 1-2 句，明确写出：为什么是 3，或为什么严重到 2/1。\n\n"
+        + "请严格输出 JSON，不要输出其他内容：\n"
+        + "{\n"
+        + '  "classification": 只能是 1、2 或 3,\n'
+        + f'  "reason": "{reason_json_rule}",\n'
+        + '  "analysis": "用 1-2 句写明：当前失败严重到什么程度，以及为什么是 3 / 2 / 1" \n'
+        + "}\n"
+    )
+
+
+def build_turn_eval_v3_two_stage_gate_prompt(
+    memory: UserMemory,
+    profile: dict,
+    task_context: str,
+    history_window: list[str],
+    assistant_reply: str,
+    anchor_turns: list | None = None,
+) -> str:
+    """memory v3 两阶段版本的第一层：只判是否过 SAT gate（3/4）。"""
+    reason_labels = list(get_reason_to_id().keys())
+    reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
+    history_text = "\n".join(history_window) if history_window else "（无历史）"
+    user_reqs = "\n".join(
+        f"  - {r}" for r in memory.user_specific_requirements
+    ) if memory.user_specific_requirements else "  （无特异性要求记录）"
+    task_obs_lines = ""
+    if memory.task_specific_observations:
+        relevant = [o for o in memory.task_specific_observations
+                    if task_context and o.task_name in task_context[:50]]
+        others = [o for o in memory.task_specific_observations
+                  if o not in relevant]
+        ordered = relevant + others
+        task_obs_lines = "\n".join(
+            f"  {o.task_name}：{o.observation}" for o in ordered
+        )
+    calibration_summary = getattr(memory, "calibration_summary", memory.scoring_style)
+    evidence_notes = list(getattr(memory, "evidence_notes", []))
+    can_compare_3_vs_4 = bool(getattr(memory, "can_compare_3_vs_4", True))
+    rule_34 = (
+        memory.three_vs_four_distinction
+        if can_compare_3_vs_4 else
+        f"【弱推断，不能当硬规则】{memory.three_vs_four_distinction}"
+    )
+    evidence_block = (
+        "\n".join(f"  - {note}" for note in evidence_notes)
+        if evidence_notes else
+        "  - 边界证据正常，可按规则使用"
+    )
+    anchor_block = _format_anchor_turns(anchor_turns or [])
+    anchor_section = (anchor_block + "\n") if anchor_block else ""
+    anchor_instruction = (
+        "【参考案例使用规则】\n"
+        "1. 本层只判断是否通过最低满意线。不要先想 5 分，只判断当前回复是否至少算满意。\n"
+        "2. 若参考案例显示类似回复在该用户历史中经常落到 <=3，除非当前回复明显更好，否则不要轻易给 4。\n"
+        "3. 若 3/4 边界是弱推断，优先看核心问题、关键约束、可用性和用户特定要求是否满足。\n\n"
+        if anchor_turns else ""
+    )
+    return (
+        "你是一名个性化满意度评估员。\n"
+        "这是 memory v3 两阶段 pipeline 的第一层。你的任务只有一个：判断当前回复是否通过该用户的最低满意线。\n"
+        "输出只能是：\n"
+        "- `4` = 通过 SAT gate（至少满意）\n"
+        "- `3` = 未通过 SAT gate（仍然不满意）\n\n"
+        "这一层不能直接考虑 5 分，也不能因为用户整体偏高分就放松 gate。\n\n"
+        f"【校准信息（只作背景）】\n"
+        f"{calibration_summary}\n"
+        f"历史平均分：{memory.avg_satisfaction_score:.2f}\n\n"
+        f"【SAT gate 规则】\n"
+        f"3→4 边界：{rule_34}\n"
+        f"证据提醒：\n{evidence_block}\n\n"
+        f"【真正影响评分的个性化要求】\n{user_reqs}\n"
+        + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+        + "\n"
+        + f"{anchor_section}"
+        + anchor_instruction
+        + f"【用户画像】{_format_profile(profile)}\n\n"
+        + f"【任务背景】{task_context}\n\n"
+        + f"【最近对话历史】\n{history_text}\n\n"
+        + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+        + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+        + "【第一层只做 SAT gate】\n"
+        + "Step 1. 判断核心问题是否被直接回答。\n"
+        + "Step 2. 判断关键约束、关键任务目标、该用户特别在意的要求是否被满足。\n"
+        + "Step 3. 判断剩余缺口是否只是普通不够细致，而不是会让用户仍然不满意的关键缺口。\n"
+        + "Step 4. 只要核心问题未回答、关键要求被漏掉、或可用性明显不足，就不能给 4。\n"
+        + "Step 5. 只有确认已经过了最低满意线，才能给 4；否则给 3。\n\n"
+        + "注意：\n"
+        + "- 若 3/4 边界证据不足，这不等于可以默认偏 SAT；它只意味着你应更多依赖核心问题、关键要求和真实案例。\n"
+        + "- 本层不区分 4 和 5。\n\n"
+        + "请严格输出 JSON，不要输出其他内容：\n"
+        + "{\n"
+        + '  "classification": 只能是 3 或 4,\n'
+        + f'  "reason": "{reason_json_rule}",\n'
+        + '  "analysis": "用 1-2 句写明：核心问题是否回答、关键要求是否满足、为何通过或未通过 SAT gate" \n'
+        + "}\n"
+    )
+
+
+def build_turn_eval_v3_two_stage_v2_gate_prompt(
+    memory: UserMemory,
+    profile: dict,
+    task_context: str,
+    history_window: list[str],
+    assistant_reply: str,
+    anchor_turns: list | None = None,
+) -> str:
+    """memory v3 两阶段 v2 的第一层：借鉴 selective-refute v2 的 SAT gate。"""
+    reason_labels = list(get_reason_to_id().keys())
+    reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
+    history_text = "\n".join(history_window) if history_window else "（无历史）"
+    user_reqs = "\n".join(
+        f"  - {r}" for r in memory.user_specific_requirements
+    ) if memory.user_specific_requirements else "  （无特异性要求记录）"
+    task_obs_lines = ""
+    if memory.task_specific_observations:
+        relevant = [o for o in memory.task_specific_observations
+                    if task_context and o.task_name in task_context[:50]]
+        others = [o for o in memory.task_specific_observations
+                  if o not in relevant]
+        ordered = relevant + others
+        task_obs_lines = "\n".join(
+            f"  {o.task_name}：{o.observation}" for o in ordered
+        )
+    calibration_summary = getattr(memory, "calibration_summary", memory.scoring_style)
+    evidence_notes = list(getattr(memory, "evidence_notes", []))
+    can_compare_3_vs_4 = bool(getattr(memory, "can_compare_3_vs_4", True))
+    rule_34 = (
+        memory.three_vs_four_distinction
+        if can_compare_3_vs_4 else
+        f"【弱推断，仅作参考】{memory.three_vs_four_distinction}"
+    )
+    evidence_block = (
+        "\n".join(f"  - {note}" for note in evidence_notes)
+        if evidence_notes else
+        "  - 3/4 边界证据正常，可按规则使用"
+    )
+    anchor_block = _format_anchor_turns(anchor_turns or [])
+    anchor_section = (anchor_block + "\n") if anchor_block else ""
+    anchor_instruction = (
+        "【参考案例使用规则】\n"
+        "1. 只把案例理解为边界参考：真实分数 <=3 是【未达满意线案例】，>=4 是【达到满意线案例】。\n"
+        "2. 只有当当前回复与两类案例都存在明显相似点、边界仍拿不准时，才考虑触发复核。\n"
+        "3. 若当前回复整体明显站在某一边，就不要触发复核。\n\n"
+        if anchor_turns else ""
+    )
+    return (
+        "你是一名个性化满意度边界评估员。\n"
+        "这是 memory v3 两阶段 v2 的第一层 SAT gate。你的任务是先判断当前回复是否达到该用户的【满意最低线】。\n"
+        "输出只能是：\n"
+        "- `4` = 满意（达到最低满意线）\n"
+        "- `3` = 不满意（未达到最低满意线）\n\n"
+        "除分数外，你还需要判断：这个样本是否【高度接近 3/4 边界】，需要进入 gate 复核。\n"
+        "`needs_refute_review=true` 必须是少数情况；只有在你确实拿不准时才允许触发。\n\n"
+        f"【校准信息（只作背景，不得放松 SAT gate）】\n"
+        f"{calibration_summary}\n"
+        f"历史平均分：{memory.avg_satisfaction_score:.2f}\n\n"
+        f"【SAT gate 规则】\n"
+        f"满意最低线（3→4 边界）：{rule_34}\n"
+        f"证据提醒：\n{evidence_block}\n"
+        f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+        f"用户特定要求：\n{user_reqs}\n"
+        + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+        + "\n"
+        + f"{anchor_section}"
+        + anchor_instruction
+        + f"【用户画像】{_format_profile(profile)}\n\n"
+        + f"【任务背景】{task_context}\n\n"
+        + f"【最近对话历史】\n{history_text}\n\n"
+        + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+        + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+        + "【第一遍只做严格筛选后的 SAT gate】\n"
+        + "Step 1. 判断回复是否回答了核心问题，并基本满足关键约束。\n"
+        + "Step 2. 判断它是否达到该用户的满意最低线：达到给 `4`，未达到给 `3`。\n"
+        + "Step 3. 再判断是否真的需要复核。只有下面两类高不确定情形才允许 `needs_refute_review=true`：\n"
+        + "  - 当前判成 `3`，但你怀疑问题主要只是边缘性的细节不足，未必真的低于满意线\n"
+        + "  - 当前判成 `4`，但你怀疑它可能漏掉了一个关键要求，是否仍算满意拿不准\n"
+        + "Step 4. 若主要证据已经明显站在一边，必须输出 `needs_refute_review=false`。\n\n"
+        + "注意：\n"
+        + "- 校准信息只能帮助你理解用户整体严格度，不能拿来抵消“核心问题没回答/关键要求没满足/可用性不足”。\n"
+        + "- 若 3/4 边界证据不足，不要默认偏 SAT；此时更应依赖核心问题、关键要求、可用性和参考案例。\n"
+        + "- 不要因为“还可以更好”就触发复核。\n"
+        + "- 不要因为理由是 `不够细致` 就自动触发复核。\n"
+        + "- 只有当一个具体可疑点是否属于关键失败拿不准时，才触发复核。\n"
+        + "- `classification` 只能输出 `3` 或 `4`。\n"
+        + "- `analysis` 只需 1-2 句，明确写出：当前为何判为 3 或 4、唯一的可疑点是什么、是否真的需要复核。\n\n"
+        + "请严格输出 JSON，不要输出其他内容：\n"
+        + "{\n"
+        + '  "classification": 只能是 3 或 4,\n'
+        + f'  "reason": "{reason_json_rule}",\n'
+        + '  "analysis": "用 1-2 句写明当前为何判为 3 或 4、唯一的可疑点是什么，以及是否真的需要复核",\n'
+        + '  "needs_refute_review": true 或 false\n'
+        + "}\n"
+    )
+
+
+def build_turn_eval_v3_two_stage_v2_gate_followup_prompt(
+    memory: UserMemory,
+    profile: dict,
+    task_context: str,
+    history_window: list[str],
+    assistant_reply: str,
+    initial_classification: int,
+    initial_reason: str,
+    initial_analysis: str,
+) -> str:
+    """memory v3 两阶段 v2 的 gate 复核 prompt。"""
+    reason_labels = list(get_reason_to_id().keys())
+    reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
+    history_text = "\n".join(history_window) if history_window else "（无历史）"
+    user_reqs = "\n".join(
+        f"  - {r}" for r in memory.user_specific_requirements
+    ) if memory.user_specific_requirements else "  （无特异性要求记录）"
+    task_obs_lines = ""
+    if memory.task_specific_observations:
+        relevant = [o for o in memory.task_specific_observations
+                    if task_context and o.task_name in task_context[:50]]
+        others = [o for o in memory.task_specific_observations
+                  if o not in relevant]
+        ordered = relevant + others
+        task_obs_lines = "\n".join(
+            f"  {o.task_name}：{o.observation}" for o in ordered
+        )
+    calibration_summary = getattr(memory, "calibration_summary", memory.scoring_style)
+    evidence_notes = list(getattr(memory, "evidence_notes", []))
+    evidence_block = (
+        "\n".join(f"  - {note}" for note in evidence_notes)
+        if evidence_notes else
+        "  - 3/4 边界证据正常，可按规则使用"
+    )
+    return (
+        "你是一名个性化满意度边界复核员。\n"
+        "这是 memory v3 两阶段 v2 的 gate 复核，只在第一遍认为样本高度接近 3/4 边界时触发。\n"
+        "你的任务不是重新完整评分，而是核实：第一遍指出的唯一可疑点，是否真的足以推翻第一遍初判。\n\n"
+        "输出只能是：\n"
+        "- `4` = 满意（达到最低满意线）\n"
+        "- `3` = 不满意（未达到最低满意线）\n\n"
+        f"【校准信息（只作背景）】\n{calibration_summary}\n"
+        f"【SAT gate 规则】\n"
+        f"满意最低线（3→4 边界）：{memory.three_vs_four_distinction}\n"
+        f"证据提醒：\n{evidence_block}\n"
+        f"更高要求（4→5，仅供背景参考）：{memory.four_vs_five_distinction}\n"
+        f"用户特定要求：\n{user_reqs}\n"
+        + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+        + "\n"
+        + f"【用户画像】{_format_profile(profile)}\n\n"
+        + f"【任务背景】{task_context}\n\n"
+        + f"【最近对话历史】\n{history_text}\n\n"
+        + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+        + f"【第一遍初判】classification={initial_classification}, reason={initial_reason}\n"
+        + f"【第一遍依据】{initial_analysis}\n\n"
+        + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+        + "【复核规则】\n"
+        + "Step 1. 先把第一遍的可疑点复述成一个明确问题：它到底是不是关键失败？\n"
+        + "Step 2. 默认保持第一遍初判，只有在发现【明确反证】时才允许改判。\n"
+        + "Step 3. 如果第一遍判 `3`：只有当你能明确指出核心问题已被回答、关键约束也已满足时，才可改为 `4`。\n"
+        + "Step 4. 如果第一遍判 `4`：只有当你能明确指出关键要求被漏掉、核心问题未被回答，或回复明显低于最低满意线时，才可改为 `3`。\n"
+        + "Step 5. 校准信息不能单独构成改判理由；改判必须来自当前回复本身的明确证据。\n\n"
+        + "请严格输出 JSON，不要输出其他内容：\n"
+        + "{\n"
+        + '  "classification": 只能是 3 或 4,\n'
+        + f'  "reason": "{reason_json_rule}",\n'
+        + '  "analysis": "用 1-2 句写明：是否发现足以推翻第一遍初判的明确反证；最终为何维持或改判" \n'
+        + "}\n"
+    )
+
+
+def build_turn_eval_v3_two_stage_sat_refinement_prompt(
+    memory: UserMemory,
+    profile: dict,
+    task_context: str,
+    history_window: list[str],
+    assistant_reply: str,
+    gate_reason: str,
+    gate_analysis: str,
+    anchor_turns: list | None = None,
+) -> str:
+    """memory v3 两阶段版本第二层 SAT 分支：只细化 4/5。"""
+    reason_labels = list(get_reason_to_id().keys())
+    reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
+    history_text = "\n".join(history_window) if history_window else "（无历史）"
+    user_reqs = "\n".join(
+        f"  - {r}" for r in memory.user_specific_requirements
+    ) if memory.user_specific_requirements else "  （无特异性要求记录）"
+    task_obs_lines = ""
+    if memory.task_specific_observations:
+        relevant = [o for o in memory.task_specific_observations
+                    if task_context and o.task_name in task_context[:50]]
+        others = [o for o in memory.task_specific_observations
+                  if o not in relevant]
+        ordered = relevant + others
+        task_obs_lines = "\n".join(
+            f"  {o.task_name}：{o.observation}" for o in ordered
+        )
+    calibration_summary = getattr(memory, "calibration_summary", memory.scoring_style)
+    can_compare_4_vs_5 = bool(getattr(memory, "can_compare_4_vs_5", True))
+    rule_45 = (
+        memory.four_vs_five_distinction
+        if can_compare_4_vs_5 else
+        f"【弱推断，默认保守给4】{memory.four_vs_five_distinction}"
+    )
+    anchor_block = _format_anchor_turns(anchor_turns or [])
+    anchor_section = (anchor_block + "\n") if anchor_block else ""
+    return (
+        "你是一名个性化满意度评估员。\n"
+        "这是 memory v3 两阶段 pipeline 的第二层 SAT 分支。第一层已确认当前回复至少满意。\n"
+        "你的任务只是在 `4` 和 `5` 之间细化。\n\n"
+        f"【校准信息】\n{calibration_summary}\n\n"
+        f"【4/5 细化规则】\n{rule_45}\n"
+        f"【真正影响评分的个性化要求】\n{user_reqs}\n"
+        + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+        + "\n"
+        + f"{anchor_section}"
+        + f"【用户画像】{_format_profile(profile)}\n\n"
+        + f"【任务背景】{task_context}\n\n"
+        + f"【最近对话历史】\n{history_text}\n\n"
+        + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+        + f"【第一层 gate 输出】reason={gate_reason}\n"
+        + f"【第一层 gate 分析】{gate_analysis}\n\n"
+        + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+        + "【第二层 SAT 细化】\n"
+        + "Step 1. 先把 4 当默认值：既然已经过了 SAT gate，除非有明确证据达到高满意门槛，否则保持 4。\n"
+        + "Step 2. 只有当回复明显完整、个性化、可执行，并接近该用户的高满意案例时，才升到 5。\n"
+        + "Step 3. 若 4/5 边界证据不足，默认保守给 4，而不是猜 5。\n\n"
+        + "请严格输出 JSON，不要输出其他内容：\n"
+        + "{\n"
+        + '  "classification": 只能是 4 或 5,\n'
+        + f'  "reason": "{reason_json_rule}",\n'
+        + '  "analysis": "用 1-2 句写明：为何保持4，或为何已达到5分门槛" \n'
+        + "}\n"
+    )
+
+
+def build_turn_eval_v3_two_stage_dsat_refinement_prompt(
+    memory: UserMemory,
+    profile: dict,
+    task_context: str,
+    history_window: list[str],
+    assistant_reply: str,
+    gate_reason: str,
+    gate_analysis: str,
+    anchor_turns: list | None = None,
+) -> str:
+    """memory v3 两阶段版本第二层 DSAT 分支：只细化 1/2/3。"""
+    reason_labels = list(get_reason_to_id().keys())
+    reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
+    history_text = "\n".join(history_window) if history_window else "（无历史）"
+    user_reqs = "\n".join(
+        f"  - {r}" for r in memory.user_specific_requirements
+    ) if memory.user_specific_requirements else "  （无特异性要求记录）"
+    task_obs_lines = ""
+    if memory.task_specific_observations:
+        relevant = [o for o in memory.task_specific_observations
+                    if task_context and o.task_name in task_context[:50]]
+        others = [o for o in memory.task_specific_observations
+                  if o not in relevant]
+        ordered = relevant + others
+        task_obs_lines = "\n".join(
+            f"  {o.task_name}：{o.observation}" for o in ordered
+        )
+    low_score_evidence_level = getattr(memory, "low_score_evidence_level", "moderate")
+    evidence_note = (
+        "低分证据 sparse/none：默认优先给 3；只有明显不可用、明显错误、严重答非所问时才给 2 或 1。"
+        if low_score_evidence_level in {"none", "sparse"} else
+        "低分证据充分：可以正常区分 1/2/3 的严重度。"
+    )
+    anchor_block = _format_anchor_turns(anchor_turns or [])
+    anchor_section = (anchor_block + "\n") if anchor_block else ""
+    return (
+        "你是一名个性化满意度评估员。\n"
+        "这是 memory v3 两阶段 pipeline 的第二层 DSAT 分支。第一层已确认当前回复没有通过最低满意线。\n"
+        "你的任务只是在 `1/2/3` 之间细化严重度。\n\n"
+        f"【低分细分提示】{evidence_note}\n"
+        f"【真正影响评分的个性化要求】\n{user_reqs}\n"
+        + (f"任务特定观察：\n{task_obs_lines}\n" if task_obs_lines else "")
+        + "\n"
+        + f"{anchor_section}"
+        + f"【用户画像】{_format_profile(profile)}\n\n"
+        + f"【任务背景】{task_context}\n\n"
+        + f"【最近对话历史】\n{history_text}\n\n"
+        + f"【待评估的助手回复】\n{assistant_reply}\n\n"
+        + f"【第一层 gate 输出】reason={gate_reason}\n"
+        + f"【第一层 gate 分析】{gate_analysis}\n\n"
+        + f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+        + "【第二层 DSAT 细化】\n"
+        + "Step 1. 既然第一层已判定未过 SAT gate，本层不能回到 4/5。\n"
+        + "Step 2. 默认先考虑 3：即不满意，但仍有一定帮助。\n"
+        + "Step 3. 只有当回复明显不可用、明显错误、严重答非所问，或几乎没有可执行价值时，才降到 2 或 1。\n"
+        + "Step 4. 若低分证据 sparse/none，更要保守区分 1/2/3，不要轻易给极低分。\n\n"
+        + "请严格输出 JSON，不要输出其他内容：\n"
+        + "{\n"
+        + '  "classification": 只能是 1、2 或 3,\n'
+        + f'  "reason": "{reason_json_rule}",\n'
+        + '  "analysis": "用 1-2 句写明：为什么是3，或为什么严重到2/1" \n'
+        + "}\n"
+    )
+
+
+def build_turn_eval_prompt_no_memory(
+    profile: dict,
+    task_context: str,
+    history_window: list[str],
+    assistant_reply: str,
+) -> str:
+    """无记忆 baseline prompt（保持不变）。"""
+    reason_labels = list(get_reason_to_id().keys())
+    reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
+    history_text = "\n".join(history_window) if history_window else "（无历史对话）"
+
+    prompt = (
+        "你是一名会进行细粒度对话质量分析的评估员。\n"
+        "请基于给定信息先进行推理，再同时预测：\n"
+        "1) 当前用户对助手回复的满意度分数（1-5）\n"
+        "2) 潜在原因（只有在分数 <=3 时才选择不满意原因；分数 >=4 时必须为【满意】）\n\n"
+        f"【用户画像】{_format_profile(profile)}\n\n"
+        f"【任务背景】{task_context}\n\n"
+        f"【最近对话历史】\n{history_text}\n\n"
+        f"【当前助手回复】{assistant_reply}\n\n"
+        f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+        "请严格输出 JSON，不要输出其他内容：\n"
+        "{\n"
+        '  "classification": 1-5 中的整数,\n'
+        f'  "reason": "{reason_json_rule}",\n'
+        '  "analysis": "你的详细推理过程"\n'
+        "}\n"
+    )
+    return prompt
