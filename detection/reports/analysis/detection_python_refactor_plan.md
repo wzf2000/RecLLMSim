@@ -487,6 +487,61 @@ PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name
 
 ## Risks and Guardrails
 
+## Additional Refactor Pass: Personalized Runner
+
+Status: implemented after the secondary CLI splits.
+
+Moved the remaining block-level orchestration out of
+`detection/trace/collect_personalized.py` while preserving the historical
+entry file and imported function names:
+
+- `detection/trace/personalized_runner.py`: `run_agent_on_sample(...)`,
+  per-turn memory update evaluation, turn record formatting, optional metadata
+  propagation, and per-session memory update orchestration.
+- `detection/trace/personalized_collect.py`: resume ID loading and concurrent
+  block collection / JSONL append logic.
+- `detection/trace/collect_personalized.py`: compatibility facade for old
+  imports plus structured parse wrappers, memory wrappers, turn-eval wrappers,
+  argparse, vLLM client setup, sample loading, and CLI dispatch.
+
+Line counts after split:
+
+| file | lines |
+|---|---:|
+| `detection/trace/collect_personalized.py` | 785 |
+| `detection/trace/personalized_runner.py` | 376 |
+| `detection/trace/personalized_collect.py` | 95 |
+
+Backward compatibility:
+
+- `python trace/collect_personalized.py ...` keeps the old command path.
+- Existing imports of `run_agent_on_sample`, `collect_all`,
+  `load_finished_ids`, and `_evaluate_session_per_turn_update` from
+  `trace.collect_personalized` still work.
+- `trace.collect_personalized.client` and `_is_vllm` remain module-level state
+  in the compatibility entry file.
+- Output JSONL fields, optional metadata keys, resume semantics, CLI options,
+  and memory update modes were kept unchanged.
+
+Verification:
+
+```bash
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
+  detection/trace/collect_personalized.py \
+  detection/trace/personalized_runner.py \
+  detection/trace/personalized_collect.py
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python trace/collect_personalized.py --help
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from trace.collect_personalized import run_agent_on_sample, collect_all, load_finished_ids, _evaluate_session_per_turn_update; print(callable(run_agent_on_sample), callable(collect_all), callable(load_finished_ids), callable(_evaluate_session_per_turn_update))"
+
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
+```
+
+## Risks and Guardrails
+
 - Do not rename current CLI entry files.
 - Do not change existing argparse option names or defaults.
 - Do not change output JSONL field names.

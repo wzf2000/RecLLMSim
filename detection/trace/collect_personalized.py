@@ -47,17 +47,13 @@
 
 from __future__ import annotations
 
-import json
 import os
 import sys
 from argparse import ArgumentParser
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from threading import Lock
 from typing import Literal
 
 from loguru import logger
 from pydantic import BaseModel
-from tqdm import tqdm
 
 from openai import OpenAI
 
@@ -77,9 +73,6 @@ from lib.personalized_data import (
     build_personalized_samples,
     dataset_stats,
 )
-from lib.satisfaction_constants import (
-    get_reason_to_id,
-)
 from trace.personalized_memory import (
     build_user_memory as _build_user_memory_impl,
     update_memory as _update_memory_impl,
@@ -92,8 +85,6 @@ from trace.personalized_predictions import (
     SatRefinementPrediction,
     SelectiveBoundaryTurnPrediction,
     TurnPrediction,
-    _anchor_metadata,
-    _retrieve_anchor_turns,
 )
 from trace.structured_output import (
     StructuredOutputError,
@@ -107,6 +98,14 @@ from trace.personalized_turn_eval import (
     predict_turn_v3_two_stage as _predict_turn_v3_two_stage_impl,
     predict_turn_v3_two_stage_v2 as _predict_turn_v3_two_stage_v2_impl,
     predict_turn_with_optional_selective_refute as _predict_turn_with_optional_selective_refute_impl,
+)
+from trace.personalized_collect import (
+    collect_all as _collect_all_impl,
+    load_finished_ids as _load_finished_ids_impl,
+)
+from trace.personalized_runner import (
+    evaluate_session_per_turn_update as _evaluate_session_per_turn_update_impl,
+    run_agent_on_sample as _run_agent_on_sample_impl,
 )
 
 MemoryUpdateMode = Literal["none", "per_session", "per_session_oracle", "per_turn"]
@@ -360,171 +359,26 @@ def run_agent_on_sample(
     n_anchors: int = 0,
     turn_eval_prompt_version: str = "v2",
 ) -> list[dict]:
-    """
-    对单个 PersonalizedSample 运行完整 agent 流程，返回所有 turn 的预测结果。
-
-    with_memory=False 时跳过 memory building，使用无记忆 baseline prompt，
-    可与 with_memory=True 的结果直接对比（sample_id 相同）。
-
-    每条记录的字段：
-      sample_id, user, target_task, target_file, turn_idx,
-      gold_score, pred_score, gold_reason, reason_prediction,
-      analysis, model, with_memory, memory_update_mode,
-      [memory_snapshot]  (可选)
-    """
-    reason_to_id = get_reason_to_id()
-    valid_reasons = set(reason_to_id.keys())
-    default_reason = "其它" if "其它" in reason_to_id else next(iter(reason_to_id))
-
-    # Phase 1: Build memory（with_memory=False 时跳过）
-    memory = (
-        build_user_memory(
-            sample,
-            model,
-            memory_cache_dir=memory_cache_dir,
-            memory_version=memory_version,
-        )
-        if with_memory
-        else None
+    return _run_agent_on_sample_impl(
+        sample=sample,
+        model=model,
+        build_user_memory_fn=build_user_memory,
+        evaluate_session_fn=evaluate_session,
+        update_memory_fn=update_memory,
+        predict_turn_with_optional_selective_refute_fn=_predict_turn_with_optional_selective_refute,
+        predict_turn_fullscale_from_boundary_v2_fn=_predict_turn_fullscale_from_boundary_v2,
+        predict_turn_v3_two_stage_fn=_predict_turn_v3_two_stage,
+        predict_turn_v3_two_stage_v2_fn=_predict_turn_v3_two_stage_v2,
+        memory_update_mode=memory_update_mode,
+        memory_version=memory_version,
+        memory_update_prompt_version=memory_update_prompt_version,
+        history_window_size=history_window_size,
+        save_memory_snapshots=save_memory_snapshots,
+        memory_cache_dir=memory_cache_dir,
+        with_memory=with_memory,
+        n_anchors=n_anchors,
+        turn_eval_prompt_version=turn_eval_prompt_version,
     )
-
-    # Anchor retriever（每个 sample 构建一次，复用 history_sessions）
-    retriever: AnchorRetriever | None = None
-    if with_memory and n_anchors > 0:
-        retriever = AnchorRetriever(sample.history_sessions)
-
-    all_turn_records: list[dict] = []
-
-    for session in sample.target_sessions:
-        session_file = os.path.basename(session.file_path)
-
-        if memory_update_mode == "per_turn":
-            # 逐轮预测 + 逐轮更新（每轮预测后立即更新记忆）
-            session_results = _evaluate_session_per_turn_update(
-                memory=memory,
-                session=session,
-                model=model,
-                history_window_size=history_window_size,
-                valid_reasons=valid_reasons,
-                default_reason=default_reason,
-                retriever=retriever,
-                n_anchors=n_anchors,
-                turn_eval_prompt_version=turn_eval_prompt_version,
-                block_id=sample.block_id,
-                memory_version=memory_version,
-                memory_update_prompt_version=memory_update_prompt_version,
-            )
-        else:
-            # 整个 session 一次性预测
-            session_results = evaluate_session(
-                memory=memory,
-                session=session,
-                model=model,
-                history_window_size=history_window_size,
-                valid_reasons=valid_reasons,
-                default_reason=default_reason,
-                retriever=retriever,
-                n_anchors=n_anchors,
-                turn_eval_prompt_version=turn_eval_prompt_version,
-                block_id=sample.block_id,
-            )
-
-        # 包装为输出记录
-        memory_snapshot = memory.model_dump() if (save_memory_snapshots and memory is not None) else None
-        for r in session_results:
-            record = {
-                "sample_id": f"{sample.user}__{sample.target_task}__{session_file}__turn_{r['turn_idx']}",
-                "user": sample.user,
-                "target_task": sample.target_task,
-                "target_file": session_file,
-                "turn_idx": r["turn_idx"],
-                "gold_score": r["gold_score"],
-                "pred_score": r["pred_score"],
-                "gold_reason": r["gold_reason"],
-                "reason_prediction": r["pred_reason"],
-                "analysis": r["analysis"],
-                "model": model,
-                "with_memory": with_memory,
-                "memory_update_mode": memory_update_mode if with_memory else "no_memory",
-                "memory_version": memory.memory_version if memory is not None else "none",
-                "memory_update_prompt_version": memory_update_prompt_version if with_memory else "none",
-                "turn_eval_prompt_version": turn_eval_prompt_version,
-            }
-            for optional_key in (
-                "analysis_first_pass",
-                "analysis_refute",
-                "selective_refute_triggered",
-                "selective_refute_applied",
-                "selective_refute_initial_score",
-                "selective_refute_initial_reason",
-                "selective_refute_model_flag",
-                "analysis_router",
-                "analysis_sat_refine",
-                "analysis_dsat_refine",
-                "fullscale_router_score",
-                "fullscale_router_reason",
-                "fullscale_router_analysis",
-                "fullscale_router_triggered",
-                "fullscale_router_applied",
-                "fullscale_router_initial_score",
-                "fullscale_router_initial_reason",
-                "fullscale_router_model_flag",
-                "fullscale_branch",
-                "fullscale_refine_applied",
-                "analysis_gate",
-                "two_stage_gate_score",
-                "two_stage_gate_reason",
-                "two_stage_gate_analysis",
-                "two_stage_branch",
-                "two_stage_refine_applied",
-                "two_stage_gate_model_flag",
-                "two_stage_gate_triggered",
-                "two_stage_gate_refute_applied",
-                "analysis_gate_first_pass",
-                "analysis_gate_followup",
-                "history_prior_score",
-                "delta_label",
-                "delta_score",
-                "passes_satisfaction_boundary",
-                "boundary_score",
-                "delta_confidence",
-                "boundary_confidence",
-                "strong_failure_evidence",
-                "strong_excellence_evidence",
-                "dsat_signal_votes",
-                "pred_boundary_score",
-                "history_prior_delta_raw_score",
-                "n_anchors_retrieved",
-                "anchor_scores",
-                "anchor_tasks",
-                "anchor_evidence_roles",
-            ):
-                if optional_key in r:
-                    record[optional_key] = r[optional_key]
-            if memory_snapshot is not None:
-                record["memory_snapshot"] = memory_snapshot
-            all_turn_records.append(record)
-
-        # Phase 3: Memory update (仅 with_memory=True 时触发)
-        if with_memory and memory_update_mode in ("per_session", "per_session_oracle"):
-            use_oracle = memory_update_mode == "per_session_oracle"
-            try:
-                memory = update_memory(
-                    memory=memory,
-                    session=session,
-                    turn_predictions=session_results,
-                    model=model,
-                    use_oracle_labels=use_oracle,
-                    memory_version=memory_version,
-                    memory_update_prompt_version=memory_update_prompt_version,
-                )
-            except Exception as e:
-                logger.warning(
-                    f"Memory update failed for {sample.user}/{session_file}: {e}, "
-                    f"keeping existing memory."
-                )
-
-    return all_turn_records
 
 
 def _evaluate_session_per_turn_update(
@@ -541,211 +395,30 @@ def _evaluate_session_per_turn_update(
     memory_version: MemoryVersion = "v2",
     memory_update_prompt_version: MemoryUpdatePromptVersion = "auto",
 ) -> list[dict]:
-    """
-    per_turn 模式：每预测一轮后立即更新记忆。
-    由于需要顺序执行，不能并行化。
-    """
-    results: list[dict] = []
-    history_window: list[str] = []        # 格式化字符串，用于 eval prompt
-    history_window_dicts: list[dict] = [] # 原始 dict，用于构造 mini_session
-    assistant_turn_idx = 0
-    last_user_msg: str = ""
+    return _evaluate_session_per_turn_update_impl(
+        memory=memory,
+        session=session,
+        model=model,
+        history_window_size=history_window_size,
+        valid_reasons=valid_reasons,
+        default_reason=default_reason,
+        update_memory_fn=update_memory,
+        predict_turn_with_optional_selective_refute_fn=_predict_turn_with_optional_selective_refute,
+        predict_turn_fullscale_from_boundary_v2_fn=_predict_turn_fullscale_from_boundary_v2,
+        predict_turn_v3_two_stage_fn=_predict_turn_v3_two_stage,
+        predict_turn_v3_two_stage_v2_fn=_predict_turn_v3_two_stage_v2,
+        retriever=retriever,
+        n_anchors=n_anchors,
+        turn_eval_prompt_version=turn_eval_prompt_version,
+        block_id=block_id,
+        memory_version=memory_version,
+        memory_update_prompt_version=memory_update_prompt_version,
+    )
 
-    for utt in session.history:
-        if utt["role"] == "user":
-            last_user_msg = utt["content"]
-        if utt["role"] == "assistant":
-            anchors: list[AnchorTurn] | None = None
-            if retriever is not None and n_anchors > 0:
-                anchors = _retrieve_anchor_turns(
-                    retriever=retriever,
-                    query_user_msg=last_user_msg,
-                    query_assistant_reply=utt["content"],
-                    k=n_anchors,
-                    turn_eval_prompt_version=turn_eval_prompt_version,
-                )
-            debug_context = (
-                f"{block_id}__{os.path.basename(session.file_path)}__turn_{assistant_turn_idx}"
-                if block_id else
-                f"{os.path.basename(session.file_path)}__turn_{assistant_turn_idx}"
-            )
-            if turn_eval_prompt_version == "boundary_34_selective_refute_v2_fullscale":
-                pred_result = _predict_turn_fullscale_from_boundary_v2(
-                    memory=memory,
-                    session=session,
-                    model=model,
-                    history_window=history_window,
-                    assistant_reply=utt["content"],
-                    debug_context=debug_context,
-                    default_reason=default_reason,
-                    anchors=anchors,
-                )
-            elif turn_eval_prompt_version == "v3_two_stage":
-                pred_result = _predict_turn_v3_two_stage(
-                    memory=memory,
-                    session=session,
-                    model=model,
-                    history_window=history_window,
-                    assistant_reply=utt["content"],
-                    debug_context=debug_context,
-                    default_reason=default_reason,
-                    anchors=anchors,
-                )
-            elif turn_eval_prompt_version == "v3_two_stage_v2":
-                pred_result = _predict_turn_v3_two_stage_v2(
-                    memory=memory,
-                    session=session,
-                    model=model,
-                    history_window=history_window,
-                    assistant_reply=utt["content"],
-                    debug_context=debug_context,
-                    default_reason=default_reason,
-                    anchors=anchors,
-                )
-            else:
-                pred_result = _predict_turn_with_optional_selective_refute(
-                    memory=memory,
-                    session=session,
-                    model=model,
-                    history_window=history_window,
-                    assistant_reply=utt["content"],
-                    turn_eval_prompt_version=turn_eval_prompt_version,
-                    debug_context=debug_context,
-                    default_reason=default_reason,
-                    anchors=anchors,
-                )
-            pred_reason = pred_result["pred_reason"].strip()
-            if pred_reason not in valid_reasons:
-                pred_reason = default_reason
-
-            gold_score = session.satisfaction_scores[assistant_turn_idx]
-            gold_reason = session.dissatisfaction_reasons[assistant_turn_idx]
-
-            turn_result = {
-                "turn_idx": assistant_turn_idx,
-                "pred_score": pred_result["pred_score"],
-                "pred_reason": pred_reason,
-                "gold_score": gold_score,
-                "gold_reason": gold_reason,
-                "analysis": pred_result["analysis"],
-            }
-            if anchors is not None:
-                turn_result.update(_anchor_metadata(anchors))
-            for optional_key in (
-                "analysis_first_pass",
-                "analysis_refute",
-                "selective_refute_triggered",
-                "selective_refute_applied",
-                "selective_refute_initial_score",
-                "selective_refute_initial_reason",
-                "selective_refute_model_flag",
-                "analysis_router",
-                "analysis_sat_refine",
-                "analysis_dsat_refine",
-                "fullscale_router_score",
-                "fullscale_router_reason",
-                "fullscale_router_analysis",
-                "fullscale_router_triggered",
-                "fullscale_router_applied",
-                "fullscale_router_initial_score",
-                "fullscale_router_initial_reason",
-                "fullscale_router_model_flag",
-                "fullscale_branch",
-                "fullscale_refine_applied",
-                "analysis_gate",
-                "two_stage_gate_score",
-                "two_stage_gate_reason",
-                "two_stage_gate_analysis",
-                "two_stage_branch",
-                "two_stage_refine_applied",
-                "two_stage_gate_model_flag",
-                "two_stage_gate_triggered",
-                "two_stage_gate_refute_applied",
-                "analysis_gate_first_pass",
-                "analysis_gate_followup",
-                "history_prior_score",
-                "delta_label",
-                "delta_score",
-                "passes_satisfaction_boundary",
-                "boundary_score",
-                "delta_confidence",
-                "boundary_confidence",
-                "strong_failure_evidence",
-                "strong_excellence_evidence",
-                "dsat_signal_votes",
-                "pred_boundary_score",
-                "history_prior_delta_raw_score",
-                "n_anchors_retrieved",
-                "anchor_scores",
-                "anchor_tasks",
-                "anchor_evidence_roles",
-            ):
-                if optional_key in pred_result:
-                    turn_result[optional_key] = pred_result[optional_key]
-            results.append(turn_result)
-
-            # 逐轮更新记忆：用原始 dict 列表构造 mini_session
-            mini_session = SessionData(
-                user=session.user,
-                task=session.task,
-                file_path=session.file_path,
-                task_context=session.task_context,
-                profile=session.profile,
-                history=list(history_window_dicts) + [utt],
-                satisfaction_scores=[gold_score],
-                dissatisfaction_reasons=[gold_reason],
-                chat_model=session.chat_model,
-            )
-            try:
-                memory = update_memory(
-                    memory=memory,
-                    session=mini_session,
-                    turn_predictions=[turn_result],
-                    model=model,
-                    use_oracle_labels=False,
-                    memory_version=memory_version,
-                    memory_update_prompt_version=memory_update_prompt_version,
-                )
-            except Exception as e:
-                logger.warning(f"Per-turn memory update failed at turn {assistant_turn_idx}: {e}")
-
-            assistant_turn_idx += 1
-
-        role_label = "用户" if utt["role"] == "user" else "助手"
-        history_window.append(f"{role_label}：{utt['content']}")
-        history_window_dicts.append(utt)
-        while len(history_window) > history_window_size:
-            history_window.pop(0)
-        while len(history_window_dicts) > history_window_size:
-            history_window_dicts.pop(0)
-
-    return results
-
-
-# ──────────────────────────────────────────────────────────────────────────────
-# 断点续跑：已完成 sample_id 集合
-# ──────────────────────────────────────────────────────────────────────────────
 
 def load_finished_ids(output_jsonl: str) -> set[str]:
-    finished: set[str] = set()
-    if not os.path.exists(output_jsonl):
-        return finished
-    with open(output_jsonl, "r", encoding="utf-8") as fp:
-        for line in fp:
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                obj = json.loads(line)
-                finished.add(obj["sample_id"])
-            except Exception:
-                continue
-    return finished
+    return _load_finished_ids_impl(output_jsonl)
 
-
-# ──────────────────────────────────────────────────────────────────────────────
-# 主推理流程
-# ──────────────────────────────────────────────────────────────────────────────
 
 def collect_all(
     samples: list[PersonalizedSample],
@@ -762,53 +435,22 @@ def collect_all(
     n_anchors: int = 0,
     turn_eval_prompt_version: str = "v2",
 ) -> None:
-    """对所有样本并发执行 agent 推理，结果写入 output_jsonl。"""
-    os.makedirs(os.path.dirname(output_jsonl) or ".", exist_ok=True)
-    finished_ids = load_finished_ids(output_jsonl)
-    logger.info(f"Already finished turn IDs: {len(finished_ids)}")
-
-    # per_turn 模式需要顺序处理同一 block，设 max_workers 上限不影响正确性
-    # 但 block 之间仍可并行
-    output_lock = Lock()
-
-    def process_sample(sample: PersonalizedSample) -> list[dict]:
-        # 过滤已完成的 block（只要 block 中任一 turn 未完成就重新跑整个 block）
-        # 判断依据：block 下所有 turn 的 sample_id 均已存在则跳过
-        expected_ids = {
-            f"{sample.user}__{sample.target_task}__{os.path.basename(s.file_path)}__turn_{t}"
-            for s in sample.target_sessions
-            for t in range(s.assistant_turns)
-        }
-        if expected_ids and expected_ids.issubset(finished_ids):
-            return []  # 已全部完成，跳过
-
-        return run_agent_on_sample(
-            sample=sample,
-            model=model,
-            memory_update_mode=memory_update_mode,
-            memory_version=memory_version,
-            memory_update_prompt_version=memory_update_prompt_version,
-            history_window_size=history_window_size,
-            save_memory_snapshots=save_memory_snapshots,
-            memory_cache_dir=memory_cache_dir,
-            with_memory=with_memory,
-            n_anchors=n_anchors,
-            turn_eval_prompt_version=turn_eval_prompt_version,
-        )
-
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        futures = {executor.submit(process_sample, s): s for s in samples}
-        for future in tqdm(as_completed(futures), total=len(futures), desc="blocks"):
-            sample = futures[future]
-            try:
-                records = future.result()
-                if records:
-                    with output_lock:
-                        with open(output_jsonl, "a", encoding="utf-8") as fp:
-                            for r in records:
-                                fp.write(json.dumps(r, ensure_ascii=False) + "\n")
-            except Exception as e:
-                logger.error(f"Block {sample.block_id} failed: {e}")
+    return _collect_all_impl(
+        samples=samples,
+        model=model,
+        memory_update_mode=memory_update_mode,
+        memory_version=memory_version,
+        memory_update_prompt_version=memory_update_prompt_version,
+        history_window_size=history_window_size,
+        output_jsonl=output_jsonl,
+        max_workers=max_workers,
+        save_memory_snapshots=save_memory_snapshots,
+        memory_cache_dir=memory_cache_dir,
+        run_agent_on_sample_fn=run_agent_on_sample,
+        with_memory=with_memory,
+        n_anchors=n_anchors,
+        turn_eval_prompt_version=turn_eval_prompt_version,
+    )
 
 
 # ──────────────────────────────────────────────────────────────────────────────
