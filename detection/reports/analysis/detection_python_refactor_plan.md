@@ -818,6 +818,50 @@ PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from trace.collect_urs import bu
 PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
 ```
 
+## Additional Refactor Pass: Personalized Evaluation
+
+Status: implemented after trace collection splits.
+
+Moved `detection/eval/personalized.py` into focused evaluation modules:
+
+- `detection/eval/personalized/io.py`: JSONL result loading.
+- `detection/eval/personalized/global_metrics.py`: score-regression metrics and
+  global metric logging.
+- `detection/eval/personalized/boundary_metrics.py`: SAT/DSAT boundary metrics
+  and logging.
+- `detection/eval/personalized/stratified.py`: grouped global/boundary
+  analysis.
+- `detection/eval/personalized/gain.py`: personalization gain and per-user PG.
+- `detection/eval/personalized/tables.py`: multi-file comparison table logging.
+- `detection/eval/personalized/runner.py`: single-file evaluation orchestration.
+- `detection/eval/personalized/cli.py`: argparse, comparison orchestration, and
+  JSON output.
+- `detection/eval/personalized.py`: compatibility entry point and re-export
+  facade.
+
+Backward compatibility:
+
+- `python eval/personalized.py ...` keeps the old command path and CLI options.
+- Existing imports from `eval.personalized` keep working for previous helpers.
+- Metric formulas, output JSON shape, comparison behavior, and logging text were
+  kept unchanged.
+
+Verification:
+
+```bash
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
+  detection/eval/personalized.py \
+  detection/eval/personalized/*.py
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python eval/personalized.py --help
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from eval.personalized import load_records, compute_global_metrics, compute_boundary_metrics, evaluate_single; print(callable(load_records), callable(compute_global_metrics), callable(compute_boundary_metrics), callable(evaluate_single))"
+
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
+```
+
 ## Risks and Guardrails
 
 - Do not rename current CLI entry files.
