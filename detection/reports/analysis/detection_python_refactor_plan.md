@@ -598,6 +598,61 @@ PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from lib.memory import build_tur
 PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
 ```
 
+## Additional Refactor Pass: Memory Eval Dispatcher
+
+Status: implemented after splitting the second-half prompt families.
+
+Moved the remaining `build_turn_eval_prompt(...)` prompt-version branches into
+dedicated modules and kept `detection/lib/memory_eval_prompts.py` as the public
+dispatcher:
+
+- `detection/lib/memory_eval_base_prompts.py`: default v2-style rubric prompt.
+- `detection/lib/memory_eval_history_prior_prompts.py`: `history_prior_delta*`
+  prompt variants.
+- `detection/lib/memory_eval_v3_prompts.py`: `v3` and `v3_1` prompt variants.
+- `detection/lib/memory_eval_boundary_prompts.py`: `boundary_34*` prompt
+  variants.
+- `detection/lib/memory_eval_qwen_prompts.py`: `qwen_short` prompt variant.
+- `detection/lib/memory_eval_prompts.py`: dispatcher and compatibility
+  re-exports.
+
+Line counts after split:
+
+| file | lines |
+|---|---:|
+| `detection/lib/memory_eval_prompts.py` | 111 |
+| `detection/lib/memory_eval_base_prompts.py` | 99 |
+| `detection/lib/memory_eval_history_prior_prompts.py` | 249 |
+| `detection/lib/memory_eval_v3_prompts.py` | 233 |
+| `detection/lib/memory_eval_boundary_prompts.py` | 475 |
+| `detection/lib/memory_eval_qwen_prompts.py` | 120 |
+
+Backward compatibility:
+
+- `build_turn_eval_prompt(...)` still resolves from both `lib.memory` and
+  `lib.memory_eval_prompts`.
+- The dispatcher preserves the same `prompt_version` routing.
+- Prompt branch bodies were moved mechanically; function signatures and prompt
+  text were kept unchanged.
+
+Verification:
+
+```bash
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
+  detection/lib/memory_eval_prompts.py \
+  detection/lib/memory_eval_base_prompts.py \
+  detection/lib/memory_eval_boundary_prompts.py \
+  detection/lib/memory_eval_history_prior_prompts.py \
+  detection/lib/memory_eval_qwen_prompts.py \
+  detection/lib/memory_eval_v3_prompts.py \
+  detection/lib/memory.py
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from lib.memory import build_turn_eval_prompt, build_turn_eval_prompt_no_memory; from lib.memory_eval_prompts import build_turn_eval_history_prior_prompt, build_turn_eval_boundary_prompt; print(callable(build_turn_eval_prompt), callable(build_turn_eval_prompt_no_memory), callable(build_turn_eval_history_prior_prompt), callable(build_turn_eval_boundary_prompt))"
+
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
+```
+
 ## Risks and Guardrails
 
 - Do not rename current CLI entry files.
