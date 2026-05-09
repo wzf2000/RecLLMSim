@@ -653,6 +653,57 @@ PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from lib.memory import build_tur
 PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
 ```
 
+## Additional Refactor Pass: Memory Update Prompt Families
+
+Status: implemented after the memory eval dispatcher split.
+
+Moved `detection/lib/memory_update_prompts.py` into prompt-family modules:
+
+- `detection/lib/memory_update_common.py`: turn evidence extraction,
+  formatting helpers, and structured update evidence bundle creation.
+- `detection/lib/memory_update_v2_prompts.py`: base v2 conservative full-memory
+  update prompt.
+- `detection/lib/memory_update_patch_prompts.py`: v2.1, v2.2, v2.3, v2.4,
+  and v2.5 patch-style update prompts.
+- `detection/lib/memory_update_v3_prompts.py`: v3 update prompt.
+- `detection/lib/memory_update_prompts.py`: compatibility facade and
+  re-exports.
+
+Line counts after split:
+
+| file | lines |
+|---|---:|
+| `detection/lib/memory_update_prompts.py` | 37 |
+| `detection/lib/memory_update_common.py` | 177 |
+| `detection/lib/memory_update_v2_prompts.py` | 74 |
+| `detection/lib/memory_update_patch_prompts.py` | 404 |
+| `detection/lib/memory_update_v3_prompts.py` | 74 |
+
+Backward compatibility:
+
+- Existing imports from `lib.memory_update_prompts` keep working for all prompt
+  builders and helper functions.
+- Existing imports from `lib.memory` keep working for update prompt builders.
+- Function signatures and prompt text were moved mechanically and kept
+  unchanged.
+
+Verification:
+
+```bash
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
+  detection/lib/memory_update_prompts.py \
+  detection/lib/memory_update_common.py \
+  detection/lib/memory_update_v2_prompts.py \
+  detection/lib/memory_update_patch_prompts.py \
+  detection/lib/memory_update_v3_prompts.py \
+  detection/lib/memory.py
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from lib.memory import build_memory_update_prompt, build_memory_update_prompt_v2_5, build_memory_update_prompt_v3; from lib.memory_update_prompts import _collect_update_turns; print(callable(build_memory_update_prompt), callable(build_memory_update_prompt_v2_5), callable(build_memory_update_prompt_v3), callable(_collect_update_turns))"
+
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
+```
+
 ## Risks and Guardrails
 
 - Do not rename current CLI entry files.
