@@ -704,6 +704,65 @@ PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from lib.memory import build_mem
 PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
 ```
 
+## Additional Refactor Pass: API Trace Collection
+
+Status: implemented after the memory prompt refactors.
+
+Moved `detection/trace/collect_api.py` into focused API-trace modules:
+
+- `detection/trace/api_trace/schema.py`: `TraceAnswer` and
+  `ReflectionAnswer`.
+- `detection/trace/api_trace/data.py`: raw satisfaction data preprocessing and
+  split selection.
+- `detection/trace/api_trace/prompts.py`: trace prompt and chat message
+  construction.
+- `detection/trace/api_trace/io.py`: JSONL IO and resume index loading.
+- `detection/trace/api_trace/llm.py`: parsed trace/reflection LLM calls.
+- `detection/trace/api_trace/reflection.py`: error typing, reflection feedback,
+  and reflection file generation.
+- `detection/trace/api_trace/collection.py`: concurrent trace collection.
+- `detection/trace/api_trace/cli.py`: argparse and CLI dispatch.
+- `detection/trace/collect_api.py`: compatibility entry point and re-export
+  facade.
+
+Line counts after split:
+
+| file | lines |
+|---|---:|
+| `detection/trace/collect_api.py` | 52 |
+| `detection/trace/api_trace/schema.py` | 17 |
+| `detection/trace/api_trace/data.py` | 73 |
+| `detection/trace/api_trace/prompts.py` | 59 |
+| `detection/trace/api_trace/io.py` | 44 |
+| `detection/trace/api_trace/llm.py` | 50 |
+| `detection/trace/api_trace/reflection.py` | 141 |
+| `detection/trace/api_trace/collection.py` | 116 |
+| `detection/trace/api_trace/cli.py` | 81 |
+
+Backward compatibility:
+
+- `python trace/collect_api.py ...` keeps the old command path and CLI options.
+- Existing imports from `trace.collect_api`, especially `get_rows_from_split`,
+  keep working.
+- Trace output fields, reflection output fields, resume semantics, prompt text,
+  and API call parameters were kept unchanged.
+
+Verification:
+
+```bash
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
+  detection/trace/collect_api.py \
+  detection/trace/api_trace/*.py
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python trace/collect_api.py --help
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from trace.collect_api import get_rows_from_split, TraceAnswer, collect_traces, generate_reflections_from_file; print(callable(get_rows_from_split), TraceAnswer.__name__, callable(collect_traces), callable(generate_reflections_from_file))"
+
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
+```
+
 ## Risks and Guardrails
 
 - Do not rename current CLI entry files.
