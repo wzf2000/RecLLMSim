@@ -862,6 +862,48 @@ PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from eval.personalized import lo
 PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
 ```
 
+## Additional Refactor Pass: Satisfaction Diagnostics Evaluation
+
+Status: implemented after personalized evaluation split.
+
+Moved `detection/eval/analysis.py` into focused diagnostic modules:
+
+- `detection/eval/analysis/io.py`: JSON loading and small score/path helpers.
+- `detection/eval/analysis/score_metrics.py`: score calibration, label-score,
+  and after-dissatisfied analysis.
+- `detection/eval/analysis/binary_metrics.py`: SAT/DSAT binary satisfaction
+  metrics.
+- `detection/eval/analysis/diagnostics.py`: large-error cases and
+  pred-reason/score alignment diagnostics.
+- `detection/eval/analysis/grouped.py`: reason, task, turn, and chat-model
+  grouped diagnostics.
+- `detection/eval/analysis/overall.py`: overall metrics and reason confusion.
+- `detection/eval/analysis/cli.py`: report assembly, printing, and JSON output.
+- `detection/eval/analysis.py`: compatibility entry point and re-export facade.
+
+Backward compatibility:
+
+- `python eval/analysis.py ...` keeps the old command path and CLI options.
+- Existing imports from `eval.analysis` keep working for previous helpers.
+- Report JSON keys, metric formulas, and terminal output text were kept
+  unchanged.
+
+Verification:
+
+```bash
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
+  detection/eval/analysis.py \
+  detection/eval/analysis/*.py
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python eval/analysis.py --help
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from eval.analysis import load_results, analyze_by_label_score, analyze_binary_satisfaction, overall_metrics; print(callable(load_results), callable(analyze_by_label_score), callable(analyze_binary_satisfaction), callable(overall_metrics))"
+
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
+```
+
 ## Risks and Guardrails
 
 - Do not rename current CLI entry files.
