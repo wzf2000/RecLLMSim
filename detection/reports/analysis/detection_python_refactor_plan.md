@@ -540,6 +540,64 @@ PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from trace.collect_personalized 
 PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
 ```
 
+## Additional Refactor Pass: Memory Eval Prompt Families
+
+Status: implemented after the personalized runner split.
+
+Moved the second half of `detection/lib/memory_eval_prompts.py` into focused
+prompt-family modules:
+
+- `detection/lib/memory_eval_common.py`: shared anchor-turn formatting helper.
+- `detection/lib/memory_eval_refute_prompts.py`: selective-refute follow-up
+  prompt.
+- `detection/lib/memory_eval_refinement_prompts.py`: fullscale and v3
+  SAT/DSAT refinement prompts.
+- `detection/lib/memory_eval_two_stage_prompts.py`: v3 two-stage gate and gate
+  follow-up prompts.
+- `detection/lib/memory_eval_no_memory_prompts.py`: no-memory baseline prompt.
+- `detection/lib/memory_eval_prompts.py`: primary `build_turn_eval_prompt(...)`
+  plus re-exports for the moved prompt builders.
+
+Line counts after split:
+
+| file | lines |
+|---|---:|
+| `detection/lib/memory_eval_prompts.py` | 1011 |
+| `detection/lib/memory_eval_common.py` | 39 |
+| `detection/lib/memory_eval_refute_prompts.py` | 133 |
+| `detection/lib/memory_eval_refinement_prompts.py` | 327 |
+| `detection/lib/memory_eval_two_stage_prompts.py` | 278 |
+| `detection/lib/memory_eval_no_memory_prompts.py` | 47 |
+
+Backward compatibility:
+
+- Existing imports from `lib.memory_eval_prompts` keep working for the moved
+  prompt builders.
+- Existing imports from `lib.memory` keep working because `lib.memory` still
+  re-exports the prompt builders.
+- Prompt text and function signatures were moved mechanically and kept
+  unchanged.
+
+Verification:
+
+```bash
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
+  detection/lib/memory_eval_prompts.py \
+  detection/lib/memory_eval_common.py \
+  detection/lib/memory_eval_refute_prompts.py \
+  detection/lib/memory_eval_refinement_prompts.py \
+  detection/lib/memory_eval_two_stage_prompts.py \
+  detection/lib/memory_eval_no_memory_prompts.py \
+  detection/lib/memory.py
+
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from detection.lib.memory_eval_prompts import build_turn_eval_prompt, build_turn_eval_refute_followup_prompt, build_turn_eval_v3_two_stage_gate_prompt, build_turn_eval_prompt_no_memory; print(callable(build_turn_eval_prompt), callable(build_turn_eval_refute_followup_prompt), callable(build_turn_eval_v3_two_stage_gate_prompt), callable(build_turn_eval_prompt_no_memory))"
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from lib.memory import build_turn_eval_prompt, build_turn_eval_refute_followup_prompt, build_turn_eval_v3_two_stage_gate_prompt, build_turn_eval_prompt_no_memory; print(callable(build_turn_eval_prompt), callable(build_turn_eval_refute_followup_prompt), callable(build_turn_eval_v3_two_stage_gate_prompt), callable(build_turn_eval_prompt_no_memory))"
+
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
+```
+
 ## Risks and Guardrails
 
 - Do not rename current CLI entry files.
