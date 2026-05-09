@@ -763,6 +763,61 @@ PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from trace.collect_api import ge
 PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
 ```
 
+## Additional Refactor Pass: URS Trace Collection
+
+Status: implemented after API trace collection split.
+
+Moved `detection/trace/collect_urs.py` into focused URS session-level modules:
+
+- `detection/trace/urs/memory.py`: URS memory build/update calls and cache
+  handling.
+- `detection/trace/urs/session_eval.py`: session-level prompt selection,
+  structured prediction, parse-failure dumps, and reason normalization.
+- `detection/trace/urs/runner.py`: sample-level orchestration and output record
+  formatting.
+- `detection/trace/urs/collect.py`: resume ID loading and concurrent JSONL
+  collection.
+- `detection/trace/urs/cli.py`: argparse, vLLM client setup, sample loading,
+  filtering, and CLI dispatch.
+- `detection/trace/collect_urs.py`: compatibility entry point and re-export
+  facade.
+
+Line counts after split:
+
+| file | lines |
+|---|---:|
+| `detection/trace/collect_urs.py` | 46 |
+| `detection/trace/urs/__init__.py` | 21 |
+| `detection/trace/urs/memory.py` | 116 |
+| `detection/trace/urs/session_eval.py` | 136 |
+| `detection/trace/urs/runner.py` | 91 |
+| `detection/trace/urs/collect.py` | 86 |
+| `detection/trace/urs/cli.py` | 130 |
+
+Backward compatibility:
+
+- `python trace/collect_urs.py ...` keeps the old command path and CLI options.
+- Existing imports from `trace.collect_urs` keep working for the previous
+  top-level helpers.
+- Output JSONL fields, sample IDs, resume semantics, prompt selection, vLLM
+  client mutation, and memory update modes were kept unchanged.
+
+Verification:
+
+```bash
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile \
+  detection/trace/collect_urs.py \
+  detection/trace/urs/*.py
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python trace/collect_urs.py --help
+
+cd detection
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -c "from trace.collect_urs import build_user_memory_urs, evaluate_urs_session, run_agent_on_urs_sample, collect_all_urs; print(callable(build_user_memory_urs), callable(evaluate_urs_session), callable(run_agent_on_urs_sample), callable(collect_all_urs))"
+
+PYTHONPYCACHEPREFIX=/tmp/rec_pycache python -m py_compile $(find detection -name '*.py' -print)
+```
+
 ## Risks and Guardrails
 
 - Do not rename current CLI entry files.
