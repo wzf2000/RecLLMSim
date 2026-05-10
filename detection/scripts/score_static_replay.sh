@@ -8,8 +8,11 @@ export PYTHONPATH="$(pwd):${PYTHONPATH:-}"
 
 input_jsonl="${input_jsonl:?missing input_jsonl=outputs/static_replay/...jsonl}"
 judge_model="${judge_model:?missing judge_model=...}"
+memory_model="${memory_model:-}"
 judge_base_url="${judge_base_url:-}"
 judge_api_key="${judge_api_key:-}"
+memory_base_url="${memory_base_url:-}"
+memory_api_key="${memory_api_key:-}"
 judge_config="${judge_config:-}"
 split="${split:-test}"
 train_ratio="${train_ratio:-0.2}"
@@ -40,8 +43,12 @@ args=(
     --turn_eval_prompt_version "$turn_eval_prompt_version"
 )
 
+[ -n "$memory_model" ] && args+=(--memory_model "$memory_model")
+
 [ -n "$judge_base_url" ] && args+=(--judge_base_url "$judge_base_url")
 [ -n "$judge_api_key" ] && args+=(--judge_api_key "$judge_api_key")
+[ -n "$memory_base_url" ] && args+=(--memory_base_url "$memory_base_url")
+[ -n "$memory_api_key" ] && args+=(--memory_api_key "$memory_api_key")
 [ -n "$judge_config" ] && args+=(--judge_config "$judge_config")
 [ -n "$output_jsonl" ] && args+=(--output_jsonl "$output_jsonl")
 [ "$limit" -gt 0 ] && args+=(--limit "$limit")
@@ -56,7 +63,16 @@ echo "=========================================="
 echo " Static Replay Scoring"
 echo "  input       = $input_jsonl"
 echo "  judge model = $judge_model"
+echo "  memory model= ${memory_model:-$judge_model}"
 echo "  judge URL   = ${judge_base_url:-default API}"
+if [ -n "$memory_base_url" ]; then
+    memory_url_label="$memory_base_url"
+elif [ "${memory_model:-$judge_model}" = "$judge_model" ]; then
+    memory_url_label="${judge_base_url:-default API}"
+else
+    memory_url_label="default API"
+fi
+echo "  memory URL  = $memory_url_label"
 echo "  memory      = ${memory_version}/${turn_eval_prompt_version}"
 echo "  no_memory   = $no_memory"
 echo "=========================================="

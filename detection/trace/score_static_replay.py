@@ -77,6 +77,7 @@ def _build_memory_cache(
     records: list[dict],
     samples_by_key: dict[tuple[str, str], PersonalizedSample],
     judge_model: str,
+    memory_model: str,
     memory_cache_dir: str,
     memory_version: personalized.MemoryVersion,
     with_memory: bool,
@@ -92,7 +93,7 @@ def _build_memory_cache(
             continue
         out[key] = personalized.build_user_memory(
             sample=sample,
-            model=judge_model,
+            model=memory_model,
             memory_cache_dir=memory_cache_dir,
             memory_version=memory_version,
         )
@@ -104,6 +105,7 @@ def score_record(
     memory_by_key: dict[tuple[str, str], object],
     samples_by_key: dict[tuple[str, str], PersonalizedSample],
     judge_model: str,
+    memory_model: str,
     judge_config: str,
     turn_eval_prompt_version: str,
     memory_version: personalized.MemoryVersion,
@@ -155,6 +157,7 @@ def score_record(
     out = dict(record)
     out.update({
         "judge_model": judge_model,
+        "judge_memory_model": memory_model if with_memory else "none",
         "judge_config": judge_config,
         "judge_memory_version": memory_version if with_memory else "none",
         "judge_turn_eval_prompt_version": turn_eval_prompt_version,
@@ -169,6 +172,7 @@ def score_all(
     records: list[dict],
     output_jsonl: str,
     judge_model: str,
+    memory_model: str,
     judge_config: str,
     memory_version: personalized.MemoryVersion,
     turn_eval_prompt_version: str,
@@ -194,6 +198,7 @@ def score_all(
         records=pending,
         samples_by_key=samples_by_key,
         judge_model=judge_model,
+        memory_model=memory_model,
         memory_cache_dir=memory_cache_dir,
         memory_version=memory_version,
         with_memory=with_memory,
@@ -207,6 +212,7 @@ def score_all(
                 memory_by_key,
                 samples_by_key,
                 judge_model,
+                memory_model,
                 judge_config,
                 turn_eval_prompt_version,
                 memory_version,
@@ -233,8 +239,24 @@ def parse_args() -> ArgumentParser:
     parser.add_argument("--input_jsonl", type=str, required=True)
     parser.add_argument("--output_jsonl", type=str, default="")
     parser.add_argument("--judge_model", type=str, required=True)
+    parser.add_argument(
+        "--memory_model",
+        type=str,
+        default="",
+        help="Model used to build/load judge memory. Defaults to --judge_model.",
+    )
     parser.add_argument("--judge_base_url", type=str, default="")
     parser.add_argument("--judge_api_key", type=str, default="")
+    parser.add_argument(
+        "--memory_base_url",
+        type=str,
+        default="",
+        help=(
+            "OpenAI-compatible endpoint used for memory_model. If omitted, only "
+            "defaults to judge_base_url when memory_model equals judge_model."
+        ),
+    )
+    parser.add_argument("--memory_api_key", type=str, default="")
     parser.add_argument("--judge_config", type=str, default="")
     parser.add_argument("--split", type=str, default="test", choices=["train", "test", "all"])
     parser.add_argument("--train_ratio", type=float, default=0.2)
@@ -255,12 +277,28 @@ def parse_args() -> ArgumentParser:
 
 def main() -> None:
     args = parse_args().parse_args()
+    memory_model = args.memory_model or args.judge_model
+
     if args.judge_base_url:
         personalized.client = OpenAI(
             base_url=args.judge_base_url,
             api_key=args.judge_api_key or "EMPTY",
         )
         personalized._is_vllm = True
+    if args.memory_base_url:
+        memory_base_url = args.memory_base_url
+        memory_api_key = args.memory_api_key or "EMPTY"
+    elif memory_model == args.judge_model:
+        memory_base_url = args.judge_base_url
+        memory_api_key = args.judge_api_key or "EMPTY"
+    else:
+        memory_base_url = ""
+        memory_api_key = ""
+    if memory_base_url:
+        personalized.memory_client = OpenAI(
+            base_url=memory_base_url,
+            api_key=memory_api_key,
+        )
 
     records = load_jsonl(args.input_jsonl)
     if args.limit > 0:
@@ -269,8 +307,16 @@ def main() -> None:
     if not args.output_jsonl:
         base, ext = os.path.splitext(args.input_jsonl)
         judge_tag = args.judge_model.replace("/", "_").replace(":", "_")
-        args.output_jsonl = f"{base}_scored_by_{judge_tag}{ext or '.jsonl'}"
-    judge_config = args.judge_config or f"{args.judge_model}_mem{args.memory_version}_{args.turn_eval_prompt_version}"
+        memory_tag = ""
+        if memory_model != args.judge_model and not args.no_memory:
+            memory_tag = "_memmodel_" + memory_model.replace("/", "_").replace(":", "_")
+        args.output_jsonl = f"{base}_scored_by_{judge_tag}{memory_tag}{ext or '.jsonl'}"
+    judge_config = args.judge_config or (
+        f"{args.judge_model}_mem{args.memory_version}_{args.turn_eval_prompt_version}"
+        if memory_model == args.judge_model else
+        f"{args.judge_model}_mem{args.memory_version}_{args.turn_eval_prompt_version}"
+        f"_memmodel_{memory_model}"
+    )
 
     samples = build_personalized_samples(
         split=args.split,
@@ -291,7 +337,10 @@ def main() -> None:
 
     logger.info(f"Input records: {len(records)}")
     logger.info(f"Judge model: {args.judge_model}")
+    logger.info(f"Memory model: {memory_model if not args.no_memory else 'none'}")
     logger.info(f"Judge backend: {'custom @ ' + args.judge_base_url if args.judge_base_url else 'default OpenAI API'}")
+    if memory_base_url:
+        logger.info(f"Memory backend: custom @ {memory_base_url}")
     logger.info(f"Output: {args.output_jsonl}")
     logger.info(f"Dataset stats: {dataset_stats(samples)}")
 
@@ -299,6 +348,7 @@ def main() -> None:
         records=records,
         output_jsonl=args.output_jsonl,
         judge_model=args.judge_model,
+        memory_model=memory_model,
         judge_config=judge_config,
         memory_version=args.memory_version,  # type: ignore[arg-type]
         turn_eval_prompt_version=args.turn_eval_prompt_version,
