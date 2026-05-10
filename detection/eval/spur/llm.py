@@ -1,13 +1,26 @@
 from __future__ import annotations
 
+from openai import OpenAI
 from tenacity import retry, stop_after_attempt, wait_fixed
 
 from lib.llm import client
 
+_client = client
+
+
+def configure_client(base_url: str = "", api_key: str = "") -> None:
+    """Override the default project client, e.g. for local vLLM endpoints."""
+    global _client
+    if base_url:
+        _client = OpenAI(
+            base_url=base_url,
+            api_key=api_key or "EMPTY",
+        )
+
 
 @retry(stop=stop_after_attempt(3), wait=wait_fixed(3))
 def _call_llm(messages: list[dict], model: str) -> str:
-    response = client.chat.completions.create(
+    response = _client.chat.completions.create(
         model=model,
         messages=messages,
         temperature=0.3,

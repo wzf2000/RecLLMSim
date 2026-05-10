@@ -1,8 +1,21 @@
 from __future__ import annotations
 
-from predictor.bert import format_profile
-
 from .constants import DSAT_LABEL, SAT_LABEL
+
+
+def format_profile(profile: dict) -> str:
+    return (
+        f"性别: {profile.get('gender', '')}\n"
+        f"年龄: {profile.get('age', '')}\n"
+        f"背景: {profile.get('background', '')}\n"
+        f"性格: {', '.join(profile.get('personality', []))}\n"
+        f"职业: {profile.get('occupation', '')}\n"
+        f"日常兴趣: {', '.join(profile.get('daily_interests', []))}\n"
+        f"旅行习惯: {', '.join(profile.get('travel_habits', []))}\n"
+        f"饮食偏好: {', '.join(profile.get('dining_preferences', []))}\n"
+        f"消费习惯: {', '.join(profile.get('spending_habits', []))}\n"
+        f"其他方面: {', '.join(profile.get('other_aspects', []))}"
+    )
 
 
 def preprocess_to_rows(data_list: list[dict]) -> list[dict]:
