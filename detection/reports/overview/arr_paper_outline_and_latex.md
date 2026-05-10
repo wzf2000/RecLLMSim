@@ -233,24 +233,40 @@ Source-task user histories
 Recommended subsections:
 
 1. **Baselines**
-   - global mean / majority
-   - task mean / majority
-   - user history mean / median / majority
-   - user history CDF hash
-   - nearest historical turn retrieval
-   - Qwen3-8B no-memory / memory variants
-   - gpt-4o-mini and gpt-5.4-mini API judge variants on subsets
+   - **Distributional baselines**: global mean/majority and task
+     mean/majority estimated from train users.
+   - **User-history baselines**: source-task user-history mean, median,
+     majority, and empirical CDF/hash assignment. These use the same user's
+     labeled histories but do not inspect the target turn semantics.
+   - **Retrieval baselines**: nearest historical turn and top-$k$ nearest
+     historical turns, using source-task labeled turns as non-parametric
+     personalized evidence.
+   - **Generic judge baselines**: zero-shot and few-shot LLM-as-a-judge
+     variants that see the target context and assistant response but do not
+     receive user profile, source-task history, or memory.
+   - **External/potential baselines**: personalized SPUR-style rubric
+     induction and supervised BERT ordinal prediction. These are aligned to the
+     personalized split; if full results are not ready, mark them as pending in
+     paper tables.
+   - **Our predictor**: Qwen3-8B memory-v2 predictor as the full-split default,
+     with stronger-backbone subset analyses for Qwen3.6-35B-A3B and
+     gpt-5.4-mini.
 2. **Predictor variants**
-   - raw no-memory
-   - memory v2
+   - no-memory judge vs memory-v2 personalized judge
    - memory update variants v2.1-v2.5
-   - boundary-specific prompts
-   - post-hoc mean shift and CDF
+   - boundary-specific prompt families and selective-refute variants
+   - history-prior-delta and episodic/RAG ablations on fixed subsets
+   - post-hoc calibration: mean shift and CDF/rank mapping
+   - backbone comparison: Qwen3-8B, Qwen3.6-35B-A3B, gpt-4o-mini,
+     gpt-5.4-mini
 3. **Metrics**
-   - Full score: MAE, RMSE, Pearson, Spearman, Quadratic Weighted Kappa
-   - Boundary: accuracy, F1-SAT, F1-DSAT, boundary kappa, AUC, false SAT, false
-     DSAT
-   - User-aware: per-user aggregation and within-user centering
+   - Full score: MAE, RMSE, Pearson, Spearman, and Quadratic Weighted Kappa.
+   - Boundary: accuracy, F1-SAT, F1-DSAT, boundary kappa, AUC, false-SAT rate,
+     and false-DSAT rate under the 3/4 split.
+   - User-aware: per-user aggregation and within-user centering.
+   - Static replay: micro mean, user macro mean, task macro mean, user-task
+     block macro mean, SAT/DSAT rate, and user-level bootstrap confidence
+     intervals.
 4. **Implementation**
    - OpenAI-compatible APIs and vLLM support
    - structured JSON output and parse failure logging
@@ -659,17 +675,112 @@ the user's historical score distribution.
 \section{Experimental Setup}
 
 \paragraph{Baselines.}
-We compare global mean/majority, task mean/majority, user-history
-mean/median/majority, empirical user-history CDF, nearest historical turn
-retrieval, and LLM-based judges. LLM variants include Qwen3-8B, gpt-4o-mini,
-and gpt-5.4-mini under no-memory, memory, and calibrated settings.
+We compare against four classes of baselines. First, distributional baselines
+estimate scores from train users only, including global mean/majority and
+task-specific mean/majority predictors. Second, user-history baselines use the
+same user's labeled source-task histories without inspecting the target
+response semantics; these include user-history mean, median, majority, and an
+empirical CDF/hash assignment baseline. Third, retrieval baselines use the
+nearest labeled source-task turns as non-parametric personalized evidence,
+including top-1 and top-$k$ nearest historical turn variants. Fourth, generic
+LLM-as-a-judge baselines score the target assistant response from the target
+context only, under zero-shot or few-shot global demonstrations, without user
+profile, source-task history, or memory. We additionally include aligned
+implementations of a SPUR-style rubric induction baseline and a supervised BERT
+ordinal baseline as potential external comparisons; these are reported when
+full-split results are available.
+
+Our main predictor is a training-free memory-based judge. Unless otherwise
+specified, the full-split experiments use Qwen3-8B with memory version v2, no
+target-task memory update, and the v2 turn-evaluation prompt. We ablate the
+effect of removing memory, changing memory/update variants, adding
+boundary-specific prompts, using history-prior-delta or episodic retrieval
+modules, and applying post-hoc calibration. For model-capacity analysis, we
+also run fixed-subset comparisons with Qwen3.6-35B-A3B and gpt-5.4-mini.
+
+\paragraph{Post-hoc calibration.}
+Let $B=(u,t)$ denote a user--target-task block, and let
+$\hat{y}_i \in \{1,\ldots,5\}$ be the raw prediction for turn $i\in B$. Mean
+shift uses the user's historical mean $\mu^{\mathrm{hist}}_{u,\neg t}$ and the
+block prediction mean $\bar{\hat{y}}_B$:
+\begin{equation}
+  \tilde{y}_i =
+  \operatorname{clip}_{1,5}\!\left(
+  \operatorname{round}\left(\hat{y}_i +
+  \mu^{\mathrm{hist}}_{u,\neg t} - \bar{\hat{y}}_B\right)\right).
+\end{equation}
+CDF calibration ranks predictions within the block and maps each rank to the
+inverse empirical CDF of the user's source-task history:
+\begin{equation}
+  \tilde{y}_i =
+  F^{-1}_{u,\neg t}\!\left(\frac{\operatorname{rank}_B(\hat{y}_i)+0.5}{|B|}\right).
+\end{equation}
+We report raw and calibrated variants separately because calibration changes
+the score scale and can mechanically impose the user's historical distribution.
 
 \paragraph{Metrics.}
-For 1--5 prediction, we report MAE, RMSE, Pearson correlation, Spearman
-correlation, and quadratic weighted kappa. For the 3/4 satisfaction boundary,
-we report accuracy, F1 for satisfied and dissatisfied turns, Cohen's kappa, AUC,
-false-SAT rate, and false-DSAT rate. We also report user-aware metrics based on
-per-user aggregation and within-user centering.
+For full 1--5 score prediction, we report absolute error, ranking, and ordinal
+agreement metrics. Given gold scores $y_i$ and predictions $\hat{y}_i$ over
+$N$ target turns, mean absolute error and root mean squared error are
+\begin{equation}
+  \mathrm{MAE} = \frac{1}{N}\sum_{i=1}^{N}|y_i-\hat{y}_i|,
+  \qquad
+  \mathrm{RMSE} = \sqrt{\frac{1}{N}\sum_{i=1}^{N}(y_i-\hat{y}_i)^2}.
+\end{equation}
+Pearson correlation measures linear score association, while Spearman
+correlation applies Pearson correlation to the score ranks:
+\begin{equation}
+  r =
+  \frac{\sum_i (y_i-\bar{y})(\hat{y}_i-\bar{\hat{y}})}
+       {\sqrt{\sum_i (y_i-\bar{y})^2}\sqrt{\sum_i(\hat{y}_i-\bar{\hat{y}})^2}}.
+\end{equation}
+Quadratic weighted kappa (QWK) measures ordinal agreement while penalizing
+larger score disagreements more heavily:
+\begin{equation}
+  \kappa_{\mathrm{QW}} =
+  1 - \frac{\sum_{a,b} w_{ab} O_{ab}}{\sum_{a,b} w_{ab} E_{ab}},
+  \qquad
+  w_{ab}=\frac{(a-b)^2}{(K-1)^2},
+\end{equation}
+where $O$ is the observed confusion matrix, $E$ is the expected confusion matrix
+under independent marginals, and $K=5$.
+
+We also evaluate the satisfaction boundary induced by the 3/4 split:
+$\mathrm{DSAT}$ if $y_i\leq 3$ and $\mathrm{SAT}$ if $y_i\geq 4$. We report
+accuracy, class-specific F1 for SAT and DSAT, Cohen's kappa, AUC, false-SAT
+rate, and false-DSAT rate. In particular,
+\begin{equation}
+  \mathrm{FalseSAT} =
+  \frac{\#\{i: y_i\leq 3,\ \hat{y}_i\geq 4\}}
+       {\#\{i: y_i\leq 3\}},
+  \qquad
+  \mathrm{FalseDSAT} =
+  \frac{\#\{i: y_i\geq 4,\ \hat{y}_i\leq 3\}}
+       {\#\{i: y_i\geq 4\}}.
+\end{equation}
+False-SAT is especially important because it corresponds to missing turns where
+the user was actually dissatisfied.
+
+To separate global score-scale effects from personalized discrimination, we
+report user-aware variants. Per-user metrics compute the metric independently
+for each user and average over users. Within-user centered metrics first remove
+each user's mean score:
+\begin{equation}
+  y_i^{c}=y_i-\bar{y}_{u(i)}, \qquad
+  \hat{y}_i^{c}=\hat{y}_i-\bar{\hat{y}}_{u(i)},
+\end{equation}
+and then compute correlation on the centered values.
+
+\paragraph{Static replay metrics.}
+For Static Replay Evaluation, candidate models generate responses for the same
+fixed historical prefixes and a frozen personalized predictor assigns
+satisfaction scores. We report micro mean satisfaction
+$\frac{1}{N}\sum_i \hat{y}_i$, user macro mean
+$\frac{1}{|U|}\sum_{u\in U}\frac{1}{N_u}\sum_{i:u(i)=u}\hat{y}_i$, task macro
+mean, and user-task block macro mean. We also report SAT rate, DSAT rate, and
+user-level bootstrap confidence intervals. The replay benchmark uses a frozen
+judge state for all candidate models; generated responses are not rolled into
+future dialogue turns.
 
 \section{Results}
 
