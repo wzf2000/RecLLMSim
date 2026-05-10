@@ -64,6 +64,15 @@ The scorer loads the generated JSONL records, rebuilds the corresponding
 personalized samples, builds or loads user memory, and calls the selected
 satisfaction predictor on each candidate response.
 
+The memory-building model and turn-level judge model can be configured
+separately:
+
+- `memory_model`: model used to build/load user memory; defaults to `judge_model`
+- `judge_model`: model used to score candidate responses
+
+This supports ablations such as using a lower-cost model for memory summaries
+and a stronger model for turn-level judging.
+
 The first recommended judge configuration is:
 
 - `memory_version=v2`
@@ -155,12 +164,28 @@ Run from `detection/`:
 ```bash
 input_jsonl=outputs/static_replay/qwen3_8b_test_responses_u1.jsonl \
 judge_model=Qwen/Qwen3-8B \
+memory_model=Qwen/Qwen3-8B \
 judge_base_url=http://localhost:8000/v1 \
 judge_api_key=EMPTY \
 judge_config=qwen3_memv2_none \
 memory_version=v2 \
 turn_eval_prompt_version=v2 \
 output_jsonl=outputs/static_replay/qwen3_8b_test_scored_by_qwen3_memv2.jsonl \
+bash scripts/score_static_replay.sh
+```
+
+Mixed memory/judge setup:
+
+```bash
+input_jsonl=outputs/static_replay/qwen3_8b_test_responses_u1.jsonl \
+judge_model=Qwen/Qwen3.6-35B-A3B \
+memory_model=Qwen/Qwen3-8B \
+judge_base_url=http://localhost:8000/v1 \
+judge_api_key=EMPTY \
+judge_config=qwen36_judge_qwen8b_memory_v2_none \
+memory_version=v2 \
+turn_eval_prompt_version=v2 \
+output_jsonl=outputs/static_replay/qwen3_8b_test_scored_by_qwen36_memqwen8b.jsonl \
 bash scripts/score_static_replay.sh
 ```
 

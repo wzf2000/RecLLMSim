@@ -28,6 +28,14 @@ max_tokens="${max_tokens:-1024}"
 timeout="${timeout:-120}"
 output_jsonl="${output_jsonl:-}"
 replay_context_mode="${replay_context_mode:-raw}"  # raw / task / profile
+selection_mode="${selection_mode:-full}"  # full / hard / filter
+hard_max_per_block="${hard_max_per_block:-3}"
+hard_max_per_session="${hard_max_per_session:-1}"
+hard_global_budget="${hard_global_budget:-300}"
+hard_positive_controls_per_block="${hard_positive_controls_per_block:-1}"
+hard_min_turn_idx="${hard_min_turn_idx:-1}"
+hard_score_quota="${hard_score_quota:-1:25,2:50,4:75}"
+hard_min_per_user="${hard_min_per_user:-1}"
 
 args=(
     --model "$model"
@@ -40,6 +48,14 @@ args=(
     --max_tokens "$max_tokens"
     --timeout "$timeout"
     --replay_context_mode "$replay_context_mode"
+    --selection_mode "$selection_mode"
+    --hard_max_per_block "$hard_max_per_block"
+    --hard_max_per_session "$hard_max_per_session"
+    --hard_global_budget "$hard_global_budget"
+    --hard_positive_controls_per_block "$hard_positive_controls_per_block"
+    --hard_min_turn_idx "$hard_min_turn_idx"
+    --hard_score_quota "$hard_score_quota"
+    --hard_min_per_user "$hard_min_per_user"
 )
 
 [ -n "$base_url" ] && args+=(--base_url "$base_url")
@@ -58,6 +74,11 @@ echo "  candidate model = $model"
 echo "  base_url        = ${base_url:-default API}"
 echo "  split           = $split"
 echo "  context_mode    = $replay_context_mode"
+echo "  selection_mode  = $selection_mode"
+echo "  hard_budget     = $hard_global_budget"
+echo "  hard_min_turn   = $hard_min_turn_idx"
+echo "  hard_quota      = $hard_score_quota"
+echo "  hard_min_user   = $hard_min_per_user"
 echo "  limit_users     = $limit_users (offset=$user_offset)"
 echo "  max_workers     = $max_workers"
 echo "=========================================="

@@ -16,6 +16,8 @@ import os
 import traceback
 from argparse import ArgumentParser
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from collections import Counter, defaultdict
+from dataclasses import dataclass
 from threading import Lock
 
 from loguru import logger
@@ -31,6 +33,14 @@ from lib.personalized_data import (
 )
 
 client: OpenAI = default_client
+
+
+@dataclass(frozen=True)
+class ReplayTurnSelection:
+    sample_id: str
+    selection_mode: str
+    selection_score: float
+    selection_reasons: list[str]
 
 
 class EmptyCandidateResponse(RuntimeError):
@@ -250,13 +260,245 @@ def _iter_static_turns(sample: PersonalizedSample):
             prefix.append({"role": utt["role"], "content": utt["content"]})
 
 
-def _expected_ids(samples: list[PersonalizedSample]) -> set[str]:
-    return {
+def _expected_ids(
+    samples: list[PersonalizedSample],
+    selected_ids: set[str] | None = None,
+) -> set[str]:
+    ids = {
         f"{sample.user}__{sample.target_task}__{os.path.basename(session.file_path)}__turn_{turn_idx}"
         for sample in samples
         for session in sample.target_sessions
         for turn_idx in range(session.assistant_turns)
     }
+    if selected_ids is not None:
+        ids &= selected_ids
+    return ids
+
+
+def _last_user_text(prefix: list[dict]) -> str:
+    for message in reversed(prefix):
+        if message.get("role") == "user":
+            return str(message.get("content", ""))
+    return ""
+
+
+def _is_substantive_turn(prefix: list[dict], source_reply: str) -> bool:
+    user_text = _last_user_text(prefix).strip()
+    reply = source_reply.strip()
+    if len(user_text) < 8:
+        return False
+    ack_phrases = {
+        "好的",
+        "好",
+        "可以",
+        "没问题",
+        "明白",
+        "收到",
+        "当然",
+        "当然可以",
+    }
+    compact = reply.replace("。", "").replace("！", "").replace("!", "").strip()
+    if compact in ack_phrases:
+        return False
+    if len(reply) < 25 and len(user_text) < 25:
+        return False
+    return True
+
+
+def _has_specific_dsat_reason(score: int | None, reason: str | None) -> bool:
+    if score is None or score > 3:
+        return False
+    reason_text = (reason or "").strip()
+    return reason_text not in {"", "满意", "其它", "其他", "无", "none", "None"}
+
+
+def _score_replay_turn(
+    score: int | None,
+    reason: str | None,
+    prefix: list[dict],
+    source_reply: str,
+) -> tuple[float, list[str]]:
+    reasons: list[str] = []
+    selection_score = 0.0
+
+    if score is not None and score <= 3:
+        selection_score += 3.0
+        reasons.append("score_le_3")
+    if score in {3, 4}:
+        selection_score += 2.0
+        reasons.append("boundary_3_4")
+    if _has_specific_dsat_reason(score, reason):
+        selection_score += 1.5
+        reasons.append("specific_dsat_reason")
+
+    if _is_substantive_turn(prefix, source_reply):
+        selection_score += 1.0
+        reasons.append("substantive")
+    else:
+        selection_score -= 1.5
+        reasons.append("non_substantive")
+
+    if len(_last_user_text(prefix).strip()) >= 20:
+        selection_score += 1.0
+        reasons.append("clear_user_request")
+
+    if score == 5:
+        selection_score -= 0.5
+        reasons.append("positive_control_candidate")
+
+    return selection_score, reasons
+
+
+def _build_replay_selection(
+    samples: list[PersonalizedSample],
+    selection_mode: str,
+    hard_max_per_block: int,
+    hard_max_per_session: int,
+    hard_global_budget: int,
+    hard_positive_controls_per_block: int,
+    hard_min_turn_idx: int,
+    hard_score_quota: dict[int, int] | None = None,
+    hard_min_per_user: int = 1,
+) -> dict[str, ReplayTurnSelection] | None:
+    if selection_mode == "full":
+        return None
+
+    selected: dict[str, ReplayTurnSelection] = {}
+    all_candidates: list[tuple[str, str, str, int | None, float, list[str]]] = []
+    score_counter: Counter[int | None] = Counter()
+    reason_counter: Counter[str] = Counter()
+
+    for sample in samples:
+        block_id = sample.block_id
+        by_session: dict[str, list[tuple[str, int | None, float, list[str]]]] = defaultdict(list)
+        for session, session_file, turn_idx, prefix, source_reply in _iter_static_turns(sample):
+            if turn_idx < hard_min_turn_idx:
+                continue
+            score = (
+                int(session.satisfaction_scores[turn_idx])
+                if turn_idx < len(session.satisfaction_scores)
+                else None
+            )
+            reason = (
+                session.dissatisfaction_reasons[turn_idx]
+                if turn_idx < len(session.dissatisfaction_reasons)
+                else None
+            )
+            selection_score, reasons = _score_replay_turn(score, reason, prefix, source_reply)
+            if "non_substantive" in reasons and score is not None and score >= 4:
+                continue
+            sample_id = f"{sample.user}__{sample.target_task}__{session_file}__turn_{turn_idx}"
+            by_session[session_file].append((sample_id, score, selection_score, reasons))
+
+        session_limited: list[tuple[str, int | None, float, list[str]]] = []
+        for turns in by_session.values():
+            turns = sorted(turns, key=lambda x: (-x[2], x[0]))
+            session_limited.extend(turns[:hard_max_per_session])
+
+        low_or_boundary = [
+            t for t in session_limited
+            if t[1] is not None and int(t[1]) <= 4
+        ]
+        positive_controls = [
+            t for t in session_limited
+            if t[1] == 5 and "substantive" in t[3]
+        ]
+        low_or_boundary = sorted(low_or_boundary, key=lambda x: (-x[2], x[0]))
+        positive_controls = sorted(positive_controls, key=lambda x: (-x[2], x[0]))
+
+        block_selected = low_or_boundary[:hard_max_per_block]
+        remaining = hard_max_per_block - len(block_selected)
+        if remaining > 0 and hard_positive_controls_per_block > 0:
+            block_selected.extend(
+                positive_controls[:min(remaining, hard_positive_controls_per_block)]
+            )
+
+        for sample_id, score, selection_score, reasons in block_selected:
+            all_candidates.append((sample_id, block_id, sample.target_task, score, selection_score, reasons))
+
+    all_candidates = sorted(all_candidates, key=lambda x: (-x[4], x[1], x[0]))
+    if hard_global_budget > 0 and hard_min_per_user > 0:
+        by_user: dict[str, list[tuple[str, str, str, int | None, float, list[str]]]] = defaultdict(list)
+        for candidate in all_candidates:
+            user = candidate[1].split("__", 1)[0]
+            by_user[user].append(candidate)
+        warm_selected: list[tuple[str, str, str, int | None, float, list[str]]] = []
+        warm_used_ids: set[str] = set()
+        for user in sorted(by_user):
+            for candidate in by_user[user][:hard_min_per_user]:
+                if len(warm_selected) >= hard_global_budget:
+                    break
+                warm_selected.append(candidate)
+                warm_used_ids.add(candidate[0])
+            if len(warm_selected) >= hard_global_budget:
+                break
+        all_candidates = warm_selected + [
+            candidate for candidate in all_candidates
+            if candidate[0] not in warm_used_ids
+        ]
+
+    if hard_global_budget > 0 and hard_score_quota:
+        by_score: dict[int | None, list[tuple[str, str, str, int | None, float, list[str]]]] = defaultdict(list)
+        for candidate in all_candidates:
+            by_score[candidate[3]].append(candidate)
+
+        quota_selected: list[tuple[str, str, str, int | None, float, list[str]]] = []
+        used_ids: set[str] = set()
+        if hard_min_per_user > 0:
+            by_user: set[str] = set()
+            for candidate in all_candidates:
+                user = candidate[1].split("__", 1)[0]
+                if user in by_user:
+                    continue
+                quota_selected.append(candidate)
+                used_ids.add(candidate[0])
+                by_user.add(user)
+                if len(quota_selected) >= hard_global_budget:
+                    break
+        for score, quota in sorted(hard_score_quota.items()):
+            if quota <= 0:
+                continue
+            picked: list[tuple[str, str, str, int | None, float, list[str]]] = []
+            for candidate in by_score.get(score, []):
+                if candidate[0] in used_ids:
+                    continue
+                picked.append(candidate)
+                if len(picked) >= quota:
+                    break
+            quota_selected.extend(picked)
+            used_ids.update(candidate[0] for candidate in picked)
+
+        remaining_budget = hard_global_budget - len(quota_selected)
+        if remaining_budget > 0:
+            for candidate in all_candidates:
+                if candidate[0] in used_ids:
+                    continue
+                quota_selected.append(candidate)
+                used_ids.add(candidate[0])
+                if len(quota_selected) >= hard_global_budget:
+                    break
+        all_candidates = quota_selected[:hard_global_budget]
+    elif hard_global_budget > 0:
+        all_candidates = all_candidates[:hard_global_budget]
+
+    for sample_id, _, _, score, selection_score, reasons in all_candidates:
+        selected[sample_id] = ReplayTurnSelection(
+            sample_id=sample_id,
+            selection_mode=selection_mode,
+            selection_score=selection_score,
+            selection_reasons=reasons,
+        )
+        score_counter[score] += 1
+        reason_counter.update(reasons)
+
+    logger.info(
+        "Static replay selection: mode={}, selected_turns={}, score_dist={}, reason_dist={}",
+        selection_mode,
+        len(selected),
+        dict(sorted(score_counter.items(), key=lambda x: (x[0] is None, x[0]))),
+        dict(reason_counter.most_common()),
+    )
+    return selected
 
 
 def load_finished_ids(output_jsonl: str) -> set[str]:
@@ -281,10 +523,15 @@ def collect_sample(
     timeout: int,
     finished_ids: set[str],
     context_mode: str,
+    selection_mode: str,
+    selected_turns: dict[str, ReplayTurnSelection] | None,
 ) -> list[dict]:
     records: list[dict] = []
     for session, session_file, turn_idx, prefix, source_reply in _iter_static_turns(sample):
         sample_id = f"{sample.user}__{sample.target_task}__{session_file}__turn_{turn_idx}"
+        selection = selected_turns.get(sample_id) if selected_turns is not None else None
+        if selected_turns is not None and selection is None:
+            continue
         if sample_id in finished_ids:
             continue
         messages = _build_replay_messages(
@@ -321,6 +568,9 @@ def collect_sample(
             "turn_idx": turn_idx,
             "candidate_model": model,
             "replay_context_mode": context_mode,
+            "selection_mode": selection_mode,
+            "selection_score": selection.selection_score if selection else None,
+            "selection_reasons": selection.selection_reasons if selection else [],
             "task_context": session.task_context,
             "dialogue_prefix": prefix,
             "candidate_response": candidate_response,
@@ -355,10 +605,13 @@ def collect_all(
     max_tokens: int,
     timeout: int,
     context_mode: str,
+    selection_mode: str,
+    selected_turns: dict[str, ReplayTurnSelection] | None,
 ) -> None:
     os.makedirs(os.path.dirname(output_jsonl) or ".", exist_ok=True)
     finished_ids = load_finished_ids(output_jsonl)
-    expected = _expected_ids(samples)
+    selected_ids = set(selected_turns) if selected_turns is not None else None
+    expected = _expected_ids(samples, selected_ids=selected_ids)
     logger.info(f"Already finished turns: {len(finished_ids & expected)} / {len(expected)}")
     output_lock = Lock()
 
@@ -373,6 +626,8 @@ def collect_all(
                 timeout,
                 finished_ids,
                 context_mode,
+                selection_mode,
+                selected_turns,
             ): sample
             for sample in samples
         }
@@ -410,6 +665,67 @@ def parse_args() -> ArgumentParser:
     parser.add_argument("--base_url", type=str, default="", help="OpenAI-compatible API base URL")
     parser.add_argument("--api_key", type=str, default="", help="API key for the selected endpoint")
     parser.add_argument(
+        "--selection_mode",
+        type=str,
+        default="full",
+        choices=["full", "hard", "filter"],
+        help=(
+            "Turn selection mode. full replays every assistant turn; hard/filter "
+            "selects high-value turns with per-session and per-block caps."
+        ),
+    )
+    parser.add_argument(
+        "--hard_max_per_block",
+        type=int,
+        default=3,
+        help="Max selected turns per user-task block in hard/filter mode.",
+    )
+    parser.add_argument(
+        "--hard_max_per_session",
+        type=int,
+        default=1,
+        help="Max selected turns per dialogue session in hard/filter mode.",
+    )
+    parser.add_argument(
+        "--hard_global_budget",
+        type=int,
+        default=300,
+        help="Global selected-turn cap in hard/filter mode; <=0 disables the cap.",
+    )
+    parser.add_argument(
+        "--hard_positive_controls_per_block",
+        type=int,
+        default=1,
+        help="Max score-5 positive-control turns per block in hard/filter mode.",
+    )
+    parser.add_argument(
+        "--hard_min_turn_idx",
+        type=int,
+        default=1,
+        help=(
+            "Minimum 0-based assistant turn index selected in hard/filter mode. "
+            "Default 1 skips the first assistant reply in each session."
+        ),
+    )
+    parser.add_argument(
+        "--hard_score_quota",
+        type=str,
+        default="1:25,2:50,4:75",
+        help=(
+            "Comma-separated minimum score quotas in hard/filter mode, e.g. "
+            "'1:25,2:50,4:75'. Remaining budget is filled by selection score."
+        ),
+    )
+    parser.add_argument(
+        "--hard_min_per_user",
+        type=int,
+        default=1,
+        help=(
+            "Minimum selected turns per user in hard/filter mode when candidates "
+            "are available. Default 1 improves user coverage."
+        ),
+    )
+    parser.add_argument(
         "--replay_context_mode",
         type=str,
         default="raw",
@@ -442,11 +758,47 @@ def main() -> None:
 
     if not args.output_jsonl:
         model_tag = args.model.replace("/", "_").replace(":", "_")
-        args.output_jsonl = f"outputs/static_replay/{model_tag}_{args.split}_responses.jsonl"
+        selection_tag = "" if args.selection_mode == "full" else f"_{args.selection_mode}"
+        args.output_jsonl = (
+            f"outputs/static_replay/{model_tag}_{args.split}"
+            f"{selection_tag}_responses.jsonl"
+        )
+
+    hard_score_quota: dict[int, int] = {}
+    if args.hard_score_quota.strip():
+        for item in args.hard_score_quota.split(","):
+            if not item.strip():
+                continue
+            score_text, quota_text = item.split(":", 1)
+            hard_score_quota[int(score_text)] = int(quota_text)
+
+    selected_turns = _build_replay_selection(
+        samples=samples,
+        selection_mode=args.selection_mode,
+        hard_max_per_block=args.hard_max_per_block,
+        hard_max_per_session=args.hard_max_per_session,
+        hard_global_budget=args.hard_global_budget,
+        hard_positive_controls_per_block=args.hard_positive_controls_per_block,
+        hard_min_turn_idx=args.hard_min_turn_idx,
+        hard_score_quota=hard_score_quota,
+        hard_min_per_user=args.hard_min_per_user,
+    )
 
     logger.info(f"Candidate model: {args.model}")
     logger.info(f"Backend: {'custom @ ' + args.base_url if args.base_url else 'default OpenAI API'}")
     logger.info(f"Replay context mode: {args.replay_context_mode}")
+    logger.info(f"Selection mode: {args.selection_mode}")
+    if selected_turns is not None:
+        logger.info(
+            "Selection caps: max_per_block={}, max_per_session={}, global_budget={}, positive_controls_per_block={}",
+            args.hard_max_per_block,
+            args.hard_max_per_session,
+            args.hard_global_budget,
+            args.hard_positive_controls_per_block,
+        )
+        logger.info(f"Selection min turn idx: {args.hard_min_turn_idx}")
+        logger.info(f"Selection score quota: {hard_score_quota}")
+        logger.info(f"Selection min per user: {args.hard_min_per_user}")
     logger.info(f"Output: {args.output_jsonl}")
     logger.info(f"Dataset stats: {dataset_stats(samples)}")
 
@@ -459,6 +811,8 @@ def main() -> None:
         max_tokens=args.max_tokens,
         timeout=args.timeout,
         context_mode=args.replay_context_mode,
+        selection_mode=args.selection_mode,
+        selected_turns=selected_turns,
     )
 
 
