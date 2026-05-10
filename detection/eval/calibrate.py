@@ -155,10 +155,12 @@ def calibrate_records(
     按 (user, target_task, model) 分块校准。
     返回 (校准后记录, 统计信息)
     """
-    # 分块
+    # 分块。若预测模型和 memory 构建模型拆分，cache key 应按 memory_model 查找。
     blocks: dict[tuple, list[int]] = defaultdict(list)
     for i, r in enumerate(records):
-        blocks[(r["user"], r["target_task"], r["model"])].append(i)
+        scoring_model = r.get("model") or r.get("judge_model")
+        memory_model = r.get("memory_model") or r.get("judge_memory_model") or scoring_model
+        blocks[(r["user"], r["target_task"], memory_model)].append(i)
 
     out = [dict(r) for r in records]
     stats = {

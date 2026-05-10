@@ -13,6 +13,7 @@ from tenacity import before_sleep_log, retry, stop_after_attempt, wait_fixed
 from trace.personalized_predictions import (
     BoundaryTurnPrediction,
     DsatRefinementPrediction,
+    EpisodicBoundaryRefinementPrediction,
     HistoryPriorDeltaPrediction,
     HistoryPriorDeltaV2Prediction,
     SatRefinementPrediction,
@@ -43,6 +44,7 @@ def call_predict_turn(
     | HistoryPriorDeltaV2Prediction
     | SatRefinementPrediction
     | DsatRefinementPrediction
+    | EpisodicBoundaryRefinementPrediction
 ):
     is_selective_prompt = prompt_version in {
         "boundary_34_selective_refute",
@@ -77,6 +79,12 @@ def call_predict_turn(
         is_boundary_prompt = False
     elif prompt_version == "history_prior_delta_v3_episodic":
         response_model = HistoryPriorDeltaV2Prediction
+        is_boundary_prompt = False
+    elif prompt_version == "history_prior_delta_v3_episodic_twopass":
+        response_model = HistoryPriorDeltaV2Prediction
+        is_boundary_prompt = False
+    elif prompt_version == "history_prior_delta_v3_episodic_refine":
+        response_model = EpisodicBoundaryRefinementPrediction
         is_boundary_prompt = False
     else:
         is_boundary_prompt = prompt_version in {
@@ -120,6 +128,8 @@ def call_predict_turn(
         0.25 if prompt_version == "history_prior_delta_v3" else
         0.25 if prompt_version == "history_prior_delta_v3_1" else
         0.25 if prompt_version == "history_prior_delta_v3_episodic" else
+        0.25 if prompt_version == "history_prior_delta_v3_episodic_twopass" else
+        0.2 if prompt_version == "history_prior_delta_v3_episodic_refine" else
         0.3 if prompt_version == "boundary_34" else
         0.6
     )

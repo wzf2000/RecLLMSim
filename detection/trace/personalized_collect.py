@@ -49,6 +49,7 @@ def collect_all(
     with_memory: bool = True,
     n_anchors: int = 0,
     turn_eval_prompt_version: str = "v2",
+    memory_model: str | None = None,
 ) -> None:
     """对所有样本并发执行 agent 推理，结果写入 output_jsonl。"""
     os.makedirs(os.path.dirname(output_jsonl) or ".", exist_ok=True)
@@ -78,6 +79,7 @@ def collect_all(
             with_memory=with_memory,
             n_anchors=n_anchors,
             turn_eval_prompt_version=turn_eval_prompt_version,
+            memory_model=memory_model,
         )
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:

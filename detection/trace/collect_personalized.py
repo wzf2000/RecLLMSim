@@ -80,6 +80,7 @@ from trace.personalized_memory import (
 from trace.personalized_predictions import (
     BoundaryTurnPrediction,
     DsatRefinementPrediction,
+    EpisodicBoundaryRefinementPrediction,
     HistoryPriorDeltaPrediction,
     HistoryPriorDeltaV2Prediction,
     SatRefinementPrediction,
@@ -117,6 +118,7 @@ MemoryUpdatePromptVersion = Literal["auto", "v2", "v2_1", "v2_2", "v2_3", "v2_4"
 # ──────────────────────────────────────────────────────────────────────────────
 
 client = _default_client   # module-level，可被 main() 替换为 vLLM client
+memory_client = _default_client
 _is_vllm: bool = False     # 仅用于日志标识
 
 def _structured_parse(
@@ -157,6 +159,25 @@ def _structured_parse_from_raw_text(
     )
 
 
+def _structured_parse_memory(
+    prompt: str,
+    model: str,
+    response_model: type[BaseModel],
+    temperature: float = 0.3,
+    timeout: int = 120,
+    system_msg: str = "You are an expert user behavior analyst.",
+) -> BaseModel:
+    return structured_parse(
+        client=memory_client,
+        prompt=prompt,
+        model=model,
+        response_model=response_model,
+        temperature=temperature,
+        timeout=timeout,
+        system_msg=system_msg,
+    )
+
+
 def build_user_memory(
     sample: PersonalizedSample,
     model: str,
@@ -166,7 +187,7 @@ def build_user_memory(
     return _build_user_memory_impl(
         sample=sample,
         model=model,
-        parse_fn=_structured_parse,
+        parse_fn=_structured_parse_memory,
         memory_cache_dir=memory_cache_dir,
         memory_version=memory_version,
     )
@@ -189,6 +210,7 @@ def _call_predict_turn(
     | HistoryPriorDeltaV2Prediction
     | SatRefinementPrediction
     | DsatRefinementPrediction
+    | EpisodicBoundaryRefinementPrediction
 ):
     return _call_predict_turn_impl(
         prompt=prompt,
@@ -335,7 +357,7 @@ def update_memory(
         session=session,
         turn_predictions=turn_predictions,
         model=model,
-        parse_fn=_structured_parse,
+        parse_fn=_structured_parse_memory,
         use_oracle_labels=use_oracle_labels,
         memory_version=memory_version,
         memory_update_prompt_version=memory_update_prompt_version,
@@ -358,6 +380,7 @@ def run_agent_on_sample(
     with_memory: bool = True,
     n_anchors: int = 0,
     turn_eval_prompt_version: str = "v2",
+    memory_model: str | None = None,
 ) -> list[dict]:
     return _run_agent_on_sample_impl(
         sample=sample,
@@ -378,6 +401,7 @@ def run_agent_on_sample(
         with_memory=with_memory,
         n_anchors=n_anchors,
         turn_eval_prompt_version=turn_eval_prompt_version,
+        memory_model=memory_model,
     )
 
 
@@ -394,11 +418,13 @@ def _evaluate_session_per_turn_update(
     block_id: str = "",
     memory_version: MemoryVersion = "v2",
     memory_update_prompt_version: MemoryUpdatePromptVersion = "auto",
+    memory_model: str | None = None,
 ) -> list[dict]:
     return _evaluate_session_per_turn_update_impl(
         memory=memory,
         session=session,
         model=model,
+        memory_model=memory_model or model,
         history_window_size=history_window_size,
         valid_reasons=valid_reasons,
         default_reason=default_reason,
@@ -434,6 +460,7 @@ def collect_all(
     with_memory: bool = True,
     n_anchors: int = 0,
     turn_eval_prompt_version: str = "v2",
+    memory_model: str | None = None,
 ) -> None:
     return _collect_all_impl(
         samples=samples,
@@ -450,6 +477,7 @@ def collect_all(
         with_memory=with_memory,
         n_anchors=n_anchors,
         turn_eval_prompt_version=turn_eval_prompt_version,
+        memory_model=memory_model,
     )
 
 
@@ -532,6 +560,15 @@ def parse_args() -> ArgumentParser:
         help="记忆缓存目录（默认 outputs/personalized/memory_cache）",
     )
     parser.add_argument(
+        "--memory_model",
+        type=str,
+        default="",
+        help=(
+            "用于构建/更新用户记忆的模型。留空时与 --model 相同；"
+            "设置后 --model 仅用于 turn-level 预测。"
+        ),
+    )
+    parser.add_argument(
         "--memory_version",
         type=str,
         default="v2",
@@ -611,6 +648,21 @@ def parse_args() -> ArgumentParser:
         default="EMPTY",
         help="vLLM API key（默认 EMPTY，vLLM 不校验）",
     )
+    parser.add_argument(
+        "--memory_vllm_base_url",
+        type=str,
+        default="",
+        help=(
+            "memory_model 使用的 OpenAI-compatible/vLLM 地址；留空时若 memory_model 与 "
+            "--model 相同则沿用 --vllm_base_url，否则使用默认 API client。"
+        ),
+    )
+    parser.add_argument(
+        "--memory_vllm_api_key",
+        type=str,
+        default="EMPTY",
+        help="memory_model vLLM API key（默认 EMPTY）。",
+    )
     # ── Anchor few-shot（对现有 rubric 的补强）───────────────────────────────
     parser.add_argument(
         "--n_anchors",
@@ -637,6 +689,7 @@ def parse_args() -> ArgumentParser:
             "history_prior_delta_v3",
             "history_prior_delta_v3_1",
             "history_prior_delta_v3_episodic",
+            "history_prior_delta_v3_episodic_twopass",
             "qwen_short",
             "boundary_34",
             "boundary_34_refute",
@@ -659,6 +712,7 @@ def parse_args() -> ArgumentParser:
             "history_prior_delta_v3 为 hybrid vote 版本，用多个 DSAT 信号触发降到 3，同时保持 prior exact-score anchor；"
             "history_prior_delta_v3_1 为 v3 收紧版，仅在三个 DSAT 信号同时成立时触发降到 3；"
             "history_prior_delta_v3_episodic 为 v3 + 边界成对 episodic anchors，使用历史真实轮次辅助 3/4 判断；"
+            "history_prior_delta_v3_episodic_twopass 为 v3.1 first-pass，仅不确定样本用 episodic anchors 二次复核；"
             "boundary_34 仅围绕 3/4 满意边界判断，并只输出 3 或 4；"
             "boundary_34_refute 会先做反证检查，再决定是否给 4；"
             "boundary_34_refute_v2 为更温和的 refute 版本，只在存在明确致命缺陷时判 3；"
@@ -673,7 +727,7 @@ def parse_args() -> ArgumentParser:
 
 
 def main() -> None:
-    global client, _is_vllm
+    global client, memory_client, _is_vllm
 
     parser = parse_args()
     args = parser.parse_args()
@@ -683,15 +737,36 @@ def main() -> None:
         client = OpenAI(base_url=args.vllm_base_url, api_key=args.vllm_api_key)
         _is_vllm = True
         logger.info(f"vLLM mode: base_url={args.vllm_base_url}")
+    memory_model_name = args.memory_model or args.model
+    if args.memory_vllm_base_url:
+        memory_base_url = args.memory_vllm_base_url
+        memory_api_key = args.memory_vllm_api_key
+    elif memory_model_name == args.model:
+        memory_base_url = args.vllm_base_url
+        memory_api_key = args.vllm_api_key
+    else:
+        memory_base_url = ""
+        memory_api_key = ""
+    if memory_base_url:
+        memory_client = OpenAI(
+            base_url=memory_base_url,
+            api_key=memory_api_key,
+        )
+        logger.info(f"Memory vLLM/API mode: base_url={memory_base_url}")
 
     with_memory = not args.no_memory
     if (
         with_memory
-        and args.turn_eval_prompt_version == "history_prior_delta_v3_episodic"
+        and args.turn_eval_prompt_version in {
+            "history_prior_delta_v3_episodic",
+            "history_prior_delta_v3_episodic_twopass",
+        }
         and args.n_anchors <= 0
     ):
         args.n_anchors = 4
-        logger.info("history_prior_delta_v3_episodic requires anchors; defaulting n_anchors to 4.")
+        logger.info(
+            f"{args.turn_eval_prompt_version} requires anchors; defaulting n_anchors to 4."
+        )
 
     # 自动生成输出路径
     if not args.output_jsonl:
@@ -713,12 +788,28 @@ def main() -> None:
             f"_{args.turn_eval_prompt_version}"
             if args.turn_eval_prompt_version != "v2" else ""
         )
+        memory_model_tag = ""
+        if with_memory and args.memory_model and args.memory_model != args.model:
+            memory_model_tag = (
+                "_memmodel"
+                + args.memory_model.replace("/", "_").replace(":", "_")
+            )
         args.output_jsonl = (
-            f"outputs/personalized/{model_tag}_{args.split}_{mode_tag}{memory_tag}{update_tag}{anchor_tag}{prompt_tag}.jsonl"
+            f"outputs/personalized/{model_tag}_{args.split}_{mode_tag}"
+            f"{memory_tag}{update_tag}{anchor_tag}{prompt_tag}{memory_model_tag}.jsonl"
         )
 
     logger.info(f"Model:              {args.model}")
+    if with_memory:
+        logger.info(f"Memory model:       {args.memory_model or args.model}")
     logger.info(f"Backend:            {'vLLM @ ' + args.vllm_base_url if _is_vllm else 'OpenAI API'}")
+    if with_memory:
+        memory_backend = (
+            f"custom @ {memory_base_url}"
+            if memory_base_url
+            else "default OpenAI/API client"
+        )
+        logger.info(f"Memory backend:     {memory_backend}")
     logger.info(f"Split:              {args.split} (train_ratio={args.train_ratio})")
     logger.info(f"With memory:        {with_memory}")
     if with_memory:
@@ -776,6 +867,7 @@ def main() -> None:
         with_memory=with_memory,
         n_anchors=args.n_anchors,
         turn_eval_prompt_version=args.turn_eval_prompt_version,
+        memory_model=args.memory_model or None,
     )
 
     logger.info(f"Done. Results saved to: {args.output_jsonl}")

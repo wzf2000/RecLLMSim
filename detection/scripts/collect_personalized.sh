@@ -18,6 +18,7 @@ memory_update_prompt_version="${memory_update_prompt_version:-auto}"  # auto / v
 history_window_size="${history_window_size:-5}"
 max_workers="${max_workers:-8}"
 memory_cache_dir="${memory_cache_dir:-outputs/personalized/memory_cache}"
+memory_model="${memory_model:-}"        # 留空则与 model 相同
 memory_version="${memory_version:-v2}"  # v2 / v3
 min_history_sessions="${min_history_sessions:-1}"
 limit="${limit:-0}"                    # <=0 = 不限制，>0 = 调试用
@@ -25,7 +26,7 @@ limit_users="${limit_users:-0}"        # <=0 = 不限制，>0 = 按用户数量�
 user_offset="${user_offset:-0}"        # 用户子集起始偏移
 output_jsonl="${output_jsonl:-}"        # 留空则自动命名
 n_anchors="${n_anchors:-0}"            # >0 时每轮插入 k 个 few-shot anchor turns
-turn_eval_prompt_version="${turn_eval_prompt_version:-v2}"  # v2 / v3 / v3_1 / v3_two_stage / v3_two_stage_v2 / history_prior_delta / history_prior_delta_v2 / history_prior_delta_v3 / history_prior_delta_v3_1 / history_prior_delta_v3_episodic / qwen_short / boundary_34 / boundary_34_refute / boundary_34_refute_v2 / boundary_34_selective_refute / boundary_34_selective_refute_v2 / boundary_34_selective_refute_v2_fullscale / boundary_34_selective_refute_v3 / boundary_34_selective_refute_v4
+turn_eval_prompt_version="${turn_eval_prompt_version:-v2}"  # v2 / v3 / v3_1 / v3_two_stage / v3_two_stage_v2 / history_prior_delta / history_prior_delta_v2 / history_prior_delta_v3 / history_prior_delta_v3_1 / history_prior_delta_v3_episodic / history_prior_delta_v3_episodic_twopass / qwen_short / boundary_34 / boundary_34_refute / boundary_34_refute_v2 / boundary_34_selective_refute / boundary_34_selective_refute_v2 / boundary_34_selective_refute_v2_fullscale / boundary_34_selective_refute_v3 / boundary_34_selective_refute_v4
 
 # 可选 flag
 extra_args=""
@@ -57,6 +58,7 @@ args=(
     --n_anchors "$n_anchors"
     --turn_eval_prompt_version "$turn_eval_prompt_version"
 )
+[ -n "$memory_model" ] && args+=(--memory_model "$memory_model")
 [ -n "$output_jsonl" ] && args+=(--output_jsonl "$output_jsonl")
 [ "$limit" -gt 0 ] && args+=(--limit "$limit")
 [ "$limit_users" -gt 0 ] && args+=(--limit_users "$limit_users" --user_offset "$user_offset")
@@ -65,6 +67,7 @@ args=(
 echo "=========================================="
 echo " 个性化满意度感知 Agent 推理"
 echo "  model              = $model"
+echo "  memory_model       = ${memory_model:-$model}"
 echo "  split              = $split  (train_ratio=$train_ratio)"
 echo "  memory_update_mode = $memory_update_mode"
 echo "  memory_update_ver  = $memory_update_prompt_version"

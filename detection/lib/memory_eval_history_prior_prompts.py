@@ -247,3 +247,85 @@ def build_turn_eval_history_prior_prompt(
         )
         return prompt
 
+
+def build_turn_eval_history_prior_episodic_refine_prompt(
+    memory: UserMemory,
+    profile: dict,
+    task_context: str,
+    history_window: list[str],
+    assistant_reply: str,
+    first_pass: dict,
+    anchor_turns: list,
+) -> str:
+    reason_labels = list(get_reason_to_id().keys())
+    reason_text = "、".join(reason_labels)
+    reason_rule_block = _format_reason_rule_block()
+    reason_json_rule = _format_reason_json_rule()
+    history_text = "\n".join(history_window) if history_window else "（无历史）"
+    anchor_block = _format_anchor_turns(anchor_turns)
+
+    user_reqs = "\n".join(
+        f"  - {r}" for r in memory.user_specific_requirements
+    ) if memory.user_specific_requirements else "  （无特异性要求记录）"
+
+    first_pass_block = (
+        f"classification={first_pass.get('classification')}; "
+        f"final_score={first_pass.get('final_score')}; "
+        f"reason={first_pass.get('reason')}; "
+        f"history_prior_score={first_pass.get('history_prior_score')}; "
+        f"delta_label={first_pass.get('delta_label')}; "
+        f"delta_score={first_pass.get('delta_score')}; "
+        f"delta_confidence={first_pass.get('delta_confidence')}; "
+        f"boundary_score={first_pass.get('boundary_score')}; "
+        f"boundary_confidence={first_pass.get('boundary_confidence')}; "
+        f"strong_failure_evidence={first_pass.get('strong_failure_evidence')}; "
+        f"strong_excellence_evidence={first_pass.get('strong_excellence_evidence')}; "
+        f"dsat_votes={first_pass.get('dsat_votes')}; "
+        f"analysis={first_pass.get('analysis')}"
+    )
+
+    prompt = (
+        "你是一名 episodic memory boundary reviewer。第一遍 judge 已经给出 history-prior 判断；"
+        "你只需要基于该用户历史真实标注案例，复核当前回复更接近 3/4 边界哪一侧。\n\n"
+        "【重要原则】\n"
+        "1. summary memory 只作为背景；本轮重点是比较当前回复和 episodic evidence 的具体相似失败/满足点。\n"
+        "2. 不要因为一个低分案例就判 3；只有当前回复的核心失败模式与 DSAT-side evidence 具体相同或更严重，才选择 dsat。\n"
+        "3. 不要因为回复不完美就判 3；若核心问题已回答且更接近 SAT-side evidence，选择 sat。\n"
+        "4. 若两侧都有相似点、证据不足或只是表面词相似，选择 mixed，confidence=low/medium。\n\n"
+        f"【History Prior】\n"
+        f"history_prior_score={memory.avg_satisfaction_score:.2f}\n"
+        f"历史分布：5分×{memory.score_distribution.score_5} / "
+        f"4分×{memory.score_distribution.score_4} / "
+        f"3分×{memory.score_distribution.score_3} / "
+        f"2分×{memory.score_distribution.score_2} / "
+        f"1分×{memory.score_distribution.score_1}\n"
+        f"评分风格：{memory.scoring_style}\n"
+        f"3→4 满意最低线：{memory.three_vs_four_distinction}\n"
+        f"4→5 更高要求：{memory.four_vs_five_distinction}\n"
+        f"用户特异要求：\n{user_reqs}\n"
+        f"偏好回复形式：{memory.preferred_response_format}\n\n"
+        f"【第一遍判断】\n{first_pass_block}\n\n"
+        f"{anchor_block}\n\n"
+        f"【用户画像】{_format_profile(profile)}\n\n"
+        f"【任务背景】{task_context}\n\n"
+        f"【最近对话历史】\n{history_text}\n\n"
+        f"【待复核的助手回复】\n{assistant_reply}\n\n"
+        f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
+        "【输出要求】\n"
+        "- closest_evidence_side=\"dsat\"：当前回复的核心失败模式更接近 DSAT-side evidence，且会影响最低满意线。\n"
+        "- closest_evidence_side=\"sat\"：当前回复核心需求已满足，更接近 SAT-side evidence。\n"
+        "- closest_evidence_side=\"mixed\"：两侧证据混合或检索案例不够贴近，不应改动第一遍边界。\n"
+        "- evidence_match_confidence=\"high\" 只能在相似点非常具体时使用。\n"
+        "- classification 只输出 3 或 4，表示 episodic evidence 建议的 3/4 边界侧。\n"
+        "- reason 规则：classification=4 时必须是 `满意`；classification=3 时必须是不满意原因。\n\n"
+        "重要：不要输出 <think>、Markdown、解释文字或任何 JSON 外文本；只输出一个 JSON object。\n\n"
+        "请严格输出 JSON，不要输出其他内容：\n"
+        "{\n"
+        '  "classification": 3 或 4,\n'
+        f'  "reason": "{reason_json_rule}",\n'
+        '  "analysis": "简述最相似的 DSAT/SAT 证据、当前回复与其关键相同/不同点，以及为何建议 3/4 或保持 mixed",\n'
+        '  "closest_evidence_side": "mixed",\n'
+        '  "evidence_match_confidence": "medium"\n'
+        "}\n"
+    )
+    return prompt

@@ -63,6 +63,16 @@ OPTIONAL_TURN_KEYS = (
     "anchor_scores",
     "anchor_tasks",
     "anchor_evidence_roles",
+    "analysis_episodic_refine",
+    "episodic_refine_triggered",
+    "episodic_refine_applied",
+    "episodic_refine_initial_score",
+    "episodic_refine_initial_reason",
+    "episodic_refine_first_pass_dsat_votes",
+    "episodic_closest_evidence_side",
+    "episodic_evidence_match_confidence",
+    "episodic_refine_boundary_score",
+    "episodic_refine_reason",
 )
 
 
@@ -137,6 +147,7 @@ def evaluate_session_per_turn_update(
     memory: UserMemory | UserMemoryV3,
     session: SessionData,
     model: str,
+    memory_model: str,
     history_window_size: int,
     valid_reasons: set[str],
     default_reason: str,
@@ -231,7 +242,7 @@ def evaluate_session_per_turn_update(
                     memory=memory,
                     session=mini_session,
                     turn_predictions=[turn_result],
-                    model=model,
+                    model=memory_model,
                     use_oracle_labels=False,
                     memory_version=memory_version,
                     memory_update_prompt_version=memory_update_prompt_version,
@@ -271,15 +282,17 @@ def run_agent_on_sample(
     with_memory: bool = True,
     n_anchors: int = 0,
     turn_eval_prompt_version: str = "v2",
+    memory_model: str | None = None,
 ) -> list[dict]:
     reason_to_id = get_reason_to_id()
     valid_reasons = set(reason_to_id.keys())
     default_reason = "其它" if "其它" in reason_to_id else next(iter(reason_to_id))
 
+    memory_model_effective = memory_model or model
     memory = (
         build_user_memory_fn(
             sample,
-            model,
+            memory_model_effective,
             memory_cache_dir=memory_cache_dir,
             memory_version=memory_version,
         )
@@ -301,6 +314,7 @@ def run_agent_on_sample(
                 memory=memory,
                 session=session,
                 model=model,
+                memory_model=memory_model_effective,
                 history_window_size=history_window_size,
                 valid_reasons=valid_reasons,
                 default_reason=default_reason,
@@ -344,6 +358,7 @@ def run_agent_on_sample(
                 "reason_prediction": r["pred_reason"],
                 "analysis": r["analysis"],
                 "model": model,
+                "memory_model": memory_model_effective if with_memory else "none",
                 "with_memory": with_memory,
                 "memory_update_mode": memory_update_mode if with_memory else "no_memory",
                 "memory_version": memory.memory_version if memory is not None else "none",
@@ -362,7 +377,7 @@ def run_agent_on_sample(
                     memory=memory,
                     session=session,
                     turn_predictions=session_results,
-                    model=model,
+                    model=memory_model_effective,
                     use_oracle_labels=use_oracle,
                     memory_version=memory_version,
                     memory_update_prompt_version=memory_update_prompt_version,

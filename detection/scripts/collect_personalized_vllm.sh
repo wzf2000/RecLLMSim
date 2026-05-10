@@ -18,8 +18,11 @@
 #   user_offset          — 按用户子集截取时的起始偏移（默认 0）
 #   output_jsonl         — 输出路径（留空自动生成）
 #   memory_cache_dir     — 记忆缓存目录（默认 outputs/personalized/memory_cache）
+#   memory_model         — 用于构建/更新 memory 的模型；留空则等于 model
+#   memory_vllm_base_url — memory_model 的 OpenAI-compatible 地址；
+#                          留空时同模型沿用 vllm_base_url，异模型使用默认 API client
 #   memory_version       — v2 / v3（默认 v2）
-#   turn_eval_prompt_version — v2 / v3 / v3_1 / v3_two_stage / v3_two_stage_v2 / history_prior_delta / history_prior_delta_v2 / history_prior_delta_v3 / history_prior_delta_v3_1 / history_prior_delta_v3_episodic / qwen_short / boundary_34 / boundary_34_refute / boundary_34_refute_v2 / boundary_34_selective_refute / boundary_34_selective_refute_v2 / boundary_34_selective_refute_v2_fullscale / boundary_34_selective_refute_v3 / boundary_34_selective_refute_v4（默认 v2）
+#   turn_eval_prompt_version — v2 / v3 / v3_1 / v3_two_stage / v3_two_stage_v2 / history_prior_delta / history_prior_delta_v2 / history_prior_delta_v3 / history_prior_delta_v3_1 / history_prior_delta_v3_episodic / history_prior_delta_v3_episodic_twopass / qwen_short / boundary_34 / boundary_34_refute / boundary_34_refute_v2 / boundary_34_selective_refute / boundary_34_selective_refute_v2 / boundary_34_selective_refute_v2_fullscale / boundary_34_selective_refute_v3 / boundary_34_selective_refute_v4（默认 v2）
 
 set -euo pipefail
 cd "$(dirname "$0")/.."   # 切换到 detection/ 目录
@@ -27,6 +30,8 @@ cd "$(dirname "$0")/.."   # 切换到 detection/ 目录
 model="${model:-Qwen/Qwen3-8B}"
 vllm_base_url="${vllm_base_url:-http://localhost:8000/v1}"
 vllm_api_key="${vllm_api_key:-EMPTY}"
+memory_vllm_base_url="${memory_vllm_base_url:-}"
+memory_vllm_api_key="${memory_vllm_api_key:-EMPTY}"
 split="${split:-test}"
 memory_update_mode="${memory_update_mode:-none}"
 memory_update_prompt_version="${memory_update_prompt_version:-auto}"
@@ -37,6 +42,7 @@ limit_users="${limit_users:-0}"
 user_offset="${user_offset:-0}"
 output_jsonl="${output_jsonl:-}"
 memory_cache_dir="${memory_cache_dir:-outputs/personalized/memory_cache}"
+memory_model="${memory_model:-}"
 memory_version="${memory_version:-v2}"
 n_anchors="${n_anchors:-0}"
 turn_eval_prompt_version="${turn_eval_prompt_version:-v2}"
@@ -56,6 +62,13 @@ ARGS=(
     --turn_eval_prompt_version "${turn_eval_prompt_version}"
 )
 
+if [ -n "${memory_model}" ]; then
+    ARGS+=(--memory_model "${memory_model}")
+fi
+if [ -n "${memory_vllm_base_url}" ]; then
+    ARGS+=(--memory_vllm_base_url "${memory_vllm_base_url}" --memory_vllm_api_key "${memory_vllm_api_key}")
+fi
+
 if [ "${no_memory}" = "1" ]; then
     ARGS+=(--no_memory)
 fi
@@ -74,7 +87,16 @@ fi
 
 echo "=========================================="
 echo " Model:       ${model}"
+echo " Memory model:${memory_model:-$model}"
 echo " vLLM URL:    ${vllm_base_url}"
+if [ -n "${memory_vllm_base_url}" ]; then
+    memory_url_label="${memory_vllm_base_url}"
+elif [ "${memory_model:-$model}" = "$model" ]; then
+    memory_url_label="${vllm_base_url}"
+else
+    memory_url_label="default API client"
+fi
+echo " Memory URL:  ${memory_url_label}"
 echo " Split:       ${split}"
 echo " Update mode: ${memory_update_mode}"
 echo " Update ver:  ${memory_update_prompt_version}"

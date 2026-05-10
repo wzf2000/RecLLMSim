@@ -71,6 +71,14 @@ class DsatRefinementPrediction(BaseModel):
     analysis: str
 
 
+class EpisodicBoundaryRefinementPrediction(BaseModel):
+    classification: Literal[3, 4]
+    reason: str
+    analysis: str
+    closest_evidence_side: Literal["dsat", "sat", "mixed"]
+    evidence_match_confidence: Literal["low", "medium", "high"]
+
+
 def normalize_pred_reason(
     pred_score: int,
     pred_reason: str,
@@ -210,7 +218,10 @@ def retrieve_anchor_turns(
 ) -> list[AnchorTurn] | None:
     if retriever is None or k <= 0:
         return None
-    if turn_eval_prompt_version == "history_prior_delta_v3_episodic":
+    if turn_eval_prompt_version in {
+        "history_prior_delta_v3_episodic",
+        "history_prior_delta_v3_episodic_twopass",
+    }:
         return retriever.retrieve_boundary_paired(
             query_user_msg=query_user_msg,
             query_assistant_reply=query_assistant_reply,

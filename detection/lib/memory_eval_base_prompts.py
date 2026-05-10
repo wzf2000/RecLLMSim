@@ -62,6 +62,16 @@ def build_turn_eval_base_prompt(
 
     anchor_block = _format_anchor_turns(anchor_turns or [])
     anchor_section = (anchor_block + "\n") if anchor_block else ""
+    # Anchor runs use a rank-match prior before applying the rubric sanity check.
+    extra_step = (
+        "Step 0 (Rank-Match)：阅读上方【参考案例】。在 1-2 句内找出与当前回复"
+        "【整体质量最接近】的一条案例（注意是比较整体水平，不是挑差异），"
+        "把该案例的真实分数作为当前回复的初始估计。\n"
+        "Step 1 (Sanity-Check)：用下面的 rubric 校验该估计与评分风格是否一致，"
+        "仅当 rubric 明确提示了重大的差异（如缺失用户特定要求）才调整分数；"
+        "若 rubric 与估计一致，保持 rank-match 得到的分数。\n"
+        if anchor_turns else ""
+    )
 
     prompt = (
         "你是一名个性化对话质量评估员。"
@@ -95,5 +105,4 @@ def build_turn_eval_base_prompt(
         "}\n"
     )
     return prompt
-
 

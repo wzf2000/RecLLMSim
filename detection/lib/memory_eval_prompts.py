@@ -21,7 +21,10 @@ from .memory_eval_common import _format_anchor_turns
 
 from .memory_eval_base_prompts import build_turn_eval_base_prompt
 from .memory_eval_boundary_prompts import build_turn_eval_boundary_prompt
-from .memory_eval_history_prior_prompts import build_turn_eval_history_prior_prompt
+from .memory_eval_history_prior_prompts import (
+    build_turn_eval_history_prior_episodic_refine_prompt,
+    build_turn_eval_history_prior_prompt,
+)
 from .memory_eval_qwen_prompts import build_turn_eval_qwen_short_prompt
 from .memory_eval_v3_prompts import build_turn_eval_v3_prompt
 def build_turn_eval_prompt(
@@ -32,7 +35,7 @@ def build_turn_eval_prompt(
     assistant_reply: str,
     anchor_turns: list | None = None,
     prompt_version: Literal[
-        "v2", "v3", "v3_1", "history_prior_delta", "history_prior_delta_v2", "history_prior_delta_v3", "history_prior_delta_v3_1", "history_prior_delta_v3_episodic", "qwen_short", "boundary_34", "boundary_34_refute", "boundary_34_refute_v2",
+        "v2", "v3", "v3_1", "history_prior_delta", "history_prior_delta_v2", "history_prior_delta_v3", "history_prior_delta_v3_1", "history_prior_delta_v3_episodic", "history_prior_delta_v3_episodic_twopass", "qwen_short", "boundary_34", "boundary_34_refute", "boundary_34_refute_v2",
         "boundary_34_selective_refute", "boundary_34_selective_refute_v2",
         "boundary_34_selective_refute_v3", "boundary_34_selective_refute_v4",
     ] = "v2",
@@ -58,6 +61,7 @@ def build_turn_eval_prompt(
       - "history_prior_delta_v3": hybrid vote 版本，用多个 DSAT 信号触发降到 3，同时保持 prior exact-score anchor
       - "history_prior_delta_v3_1": v3 收紧版，仅在三个 DSAT 信号同时成立时触发降到 3
       - "history_prior_delta_v3_episodic": v3 + 边界成对 episodic anchors，用历史真实轮次辅助判 3/4
+      - "history_prior_delta_v3_episodic_twopass": v3.1 first-pass + 不确定样本 episodic 二次复核
       - "qwen_short": 面向 Qwen3-8B 的更短、更硬的 checklist prompt
       - "boundary_34": 仅围绕 3/4 满意边界判断，输出限制为 3 或 4
       - "boundary_34_refute": 在 3/4 边界上先做反证检查，抑制默认判 4
@@ -67,6 +71,10 @@ def build_turn_eval_prompt(
       - "boundary_34_selective_refute_v3": 仅优化 first-pass 的边界措辞，gate 和二判保持 v2
       - "boundary_34_selective_refute_v4": 平衡 first-pass，强制同时考虑最强的 3/4 证据
     """
+    if prompt_version == "history_prior_delta_v3_episodic_twopass":
+        return build_turn_eval_history_prior_prompt(
+            memory, profile, task_context, history_window, assistant_reply, None, "history_prior_delta_v3_1"
+        )
     if prompt_version in {"history_prior_delta", "history_prior_delta_v2", "history_prior_delta_v3", "history_prior_delta_v3_1", "history_prior_delta_v3_episodic"}:
         return build_turn_eval_history_prior_prompt(
             memory, profile, task_context, history_window, assistant_reply, anchor_turns, prompt_version

@@ -185,6 +185,16 @@ def evaluate_session(
                 "anchor_scores",
                 "anchor_tasks",
                 "anchor_evidence_roles",
+                "analysis_episodic_refine",
+                "episodic_refine_triggered",
+                "episodic_refine_applied",
+                "episodic_refine_initial_score",
+                "episodic_refine_initial_reason",
+                "episodic_refine_first_pass_dsat_votes",
+                "episodic_closest_evidence_side",
+                "episodic_evidence_match_confidence",
+                "episodic_refine_boundary_score",
+                "episodic_refine_reason",
             ):
                 if optional_key in pred_result:
                     turn_result[optional_key] = pred_result[optional_key]
