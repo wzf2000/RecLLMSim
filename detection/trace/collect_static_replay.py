@@ -26,6 +26,11 @@ from tenacity import RetryCallState, retry, stop_after_attempt, wait_fixed
 from tqdm import tqdm
 
 from lib.llm import client as default_client
+from lib.dialogue_memory import (
+    DialogueMemoryIndex,
+    DialogueMemoryRecord,
+    format_dialogue_memory_prompt,
+)
 from lib.personalized_data import (
     PersonalizedSample,
     build_personalized_samples,
@@ -181,9 +186,18 @@ def _build_replay_messages(
     task_context: str,
     dialogue_prefix: list[dict],
     context_mode: str,
+    dialogue_memories: list[DialogueMemoryRecord] | None = None,
+    dialogue_memory_max_chars_per_item: int = 700,
 ) -> list[dict]:
     messages: list[dict] = []
-    if context_mode == "task":
+    if context_mode in {"dialogue_memory_tfidf", "dialogue_memory_diverse"}:
+        memory_prompt = format_dialogue_memory_prompt(
+            dialogue_memories or [],
+            max_chars_per_item=dialogue_memory_max_chars_per_item,
+        )
+        if memory_prompt:
+            messages.append({"role": "system", "content": memory_prompt})
+    elif context_mode == "task":
         messages.append({
             "role": "system",
             "content": (
@@ -525,8 +539,24 @@ def collect_sample(
     context_mode: str,
     selection_mode: str,
     selected_turns: dict[str, ReplayTurnSelection] | None,
+    dialogue_memory_top_k: int,
+    dialogue_memory_max_chars_per_item: int,
+    dialogue_memory_local_history_size: int,
 ) -> list[dict]:
     records: list[dict] = []
+    use_dialogue_memory = context_mode in {
+        "dialogue_memory_tfidf",
+        "dialogue_memory_diverse",
+    }
+    dialogue_memory_index = (
+        DialogueMemoryIndex(
+            user=sample.user,
+            sessions=sample.history_sessions,
+            local_history_size=dialogue_memory_local_history_size,
+        )
+        if use_dialogue_memory
+        else None
+    )
     for session, session_file, turn_idx, prefix, source_reply in _iter_static_turns(sample):
         sample_id = f"{sample.user}__{sample.target_task}__{session_file}__turn_{turn_idx}"
         selection = selected_turns.get(sample_id) if selected_turns is not None else None
@@ -534,11 +564,25 @@ def collect_sample(
             continue
         if sample_id in finished_ids:
             continue
+        dialogue_memories: list[DialogueMemoryRecord] = []
+        if dialogue_memory_index is not None:
+            strategy = (
+                "diverse"
+                if context_mode == "dialogue_memory_diverse"
+                else "tfidf"
+            )
+            dialogue_memories = dialogue_memory_index.retrieve(
+                dialogue_prefix=prefix,
+                k=dialogue_memory_top_k,
+                strategy=strategy,
+            )
         messages = _build_replay_messages(
             profile=sample.profile,
             task_context=session.task_context,
             dialogue_prefix=prefix,
             context_mode=context_mode,
+            dialogue_memories=dialogue_memories,
+            dialogue_memory_max_chars_per_item=dialogue_memory_max_chars_per_item,
         )
         try:
             candidate_response = _generate_response(
@@ -571,6 +615,11 @@ def collect_sample(
             "selection_mode": selection_mode,
             "selection_score": selection.selection_score if selection else None,
             "selection_reasons": selection.selection_reasons if selection else [],
+            "dialogue_memory_top_k": dialogue_memory_top_k if use_dialogue_memory else 0,
+            "dialogue_memory_records": [
+                memory.to_metadata(max_chars=240)
+                for memory in dialogue_memories
+            ],
             "task_context": session.task_context,
             "dialogue_prefix": prefix,
             "candidate_response": candidate_response,
@@ -607,6 +656,9 @@ def collect_all(
     context_mode: str,
     selection_mode: str,
     selected_turns: dict[str, ReplayTurnSelection] | None,
+    dialogue_memory_top_k: int,
+    dialogue_memory_max_chars_per_item: int,
+    dialogue_memory_local_history_size: int,
 ) -> None:
     os.makedirs(os.path.dirname(output_jsonl) or ".", exist_ok=True)
     finished_ids = load_finished_ids(output_jsonl)
@@ -628,6 +680,9 @@ def collect_all(
                 context_mode,
                 selection_mode,
                 selected_turns,
+                dialogue_memory_top_k,
+                dialogue_memory_max_chars_per_item,
+                dialogue_memory_local_history_size,
             ): sample
             for sample in samples
         }
@@ -729,12 +784,37 @@ def parse_args() -> ArgumentParser:
         "--replay_context_mode",
         type=str,
         default="raw",
-        choices=["raw", "task", "profile"],
+        choices=[
+            "raw",
+            "task",
+            "profile",
+            "dialogue_memory_tfidf",
+            "dialogue_memory_diverse",
+        ],
         help=(
             "Candidate-visible replay context. raw uses only the original "
             "dialogue prefix; task additionally injects task context; profile "
-            "injects user profile and task context. Default raw is the benchmark setting."
+            "injects user profile and task context; dialogue_memory_* injects "
+            "unlabeled cross-scenario dialogue memories. Default raw is the benchmark setting."
         ),
+    )
+    parser.add_argument(
+        "--dialogue_memory_top_k",
+        type=int,
+        default=4,
+        help="Number of retrieved unlabeled dialogue memories for dialogue_memory_* modes.",
+    )
+    parser.add_argument(
+        "--dialogue_memory_max_chars_per_item",
+        type=int,
+        default=700,
+        help="Max assistant-reply characters per retrieved dialogue memory in the prompt.",
+    )
+    parser.add_argument(
+        "--dialogue_memory_local_history_size",
+        type=int,
+        default=4,
+        help="Number of previous messages stored per dialogue-memory record.",
     )
     return parser
 
@@ -787,6 +867,13 @@ def main() -> None:
     logger.info(f"Candidate model: {args.model}")
     logger.info(f"Backend: {'custom @ ' + args.base_url if args.base_url else 'default OpenAI API'}")
     logger.info(f"Replay context mode: {args.replay_context_mode}")
+    if args.replay_context_mode.startswith("dialogue_memory_"):
+        logger.info(
+            "Dialogue memory: top_k={}, max_chars_per_item={}, local_history_size={}",
+            args.dialogue_memory_top_k,
+            args.dialogue_memory_max_chars_per_item,
+            args.dialogue_memory_local_history_size,
+        )
     logger.info(f"Selection mode: {args.selection_mode}")
     if selected_turns is not None:
         logger.info(
@@ -813,6 +900,9 @@ def main() -> None:
         context_mode=args.replay_context_mode,
         selection_mode=args.selection_mode,
         selected_turns=selected_turns,
+        dialogue_memory_top_k=args.dialogue_memory_top_k,
+        dialogue_memory_max_chars_per_item=args.dialogue_memory_max_chars_per_item,
+        dialogue_memory_local_history_size=args.dialogue_memory_local_history_size,
     )
 
 
