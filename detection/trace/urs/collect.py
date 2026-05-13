@@ -41,6 +41,7 @@ def collect_all_urs(
     save_memory_snapshots: bool,
     memory_cache_dir: str | None,
     with_memory: bool = True,
+    prompt_version: str = "v2",
 ) -> None:
     os.makedirs(os.path.dirname(output_jsonl) or ".", exist_ok=True)
     finished_ids = load_finished_ids(output_jsonl)
@@ -63,6 +64,7 @@ def collect_all_urs(
             save_memory_snapshots=save_memory_snapshots,
             memory_cache_dir=memory_cache_dir,
             with_memory=with_memory,
+            prompt_version=prompt_version,
         )
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -83,4 +85,3 @@ def collect_all_urs(
 # ──────────────────────────────────────────────────────────────────────────────
 # CLI
 # ──────────────────────────────────────────────────────────────────────────────
-

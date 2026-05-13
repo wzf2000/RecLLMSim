@@ -20,6 +20,7 @@ def run_agent_on_urs_sample(
     save_memory_snapshots: bool = False,
     memory_cache_dir: str | None = None,
     with_memory: bool = True,
+    prompt_version: str = "v2",
 ) -> list[dict]:
     reason_to_id = get_reason_to_id()
     valid_reasons = set(reason_to_id.keys())
@@ -41,6 +42,7 @@ def run_agent_on_urs_sample(
             valid_reasons=valid_reasons,
             default_reason=default_reason,
             block_id=sample.block_id,
+            prompt_version=prompt_version,
         )
 
         memory_snapshot = memory.model_dump() if (save_memory_snapshots and memory is not None) else None
@@ -59,6 +61,7 @@ def run_agent_on_urs_sample(
                 "model": model,
                 "with_memory": with_memory,
                 "memory_update_mode": memory_update_mode if with_memory else "no_memory",
+                "urs_prompt_version": prompt_version,
                 "dataset": "urs",
                 "chat_model": session.chat_model,
             }
@@ -88,4 +91,3 @@ def run_agent_on_urs_sample(
 # ──────────────────────────────────────────────────────────────────────────────
 # 主推理流程 + 断点续跑
 # ──────────────────────────────────────────────────────────────────────────────
-

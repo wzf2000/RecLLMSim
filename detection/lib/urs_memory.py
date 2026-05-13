@@ -23,6 +23,8 @@ from .memory import (
 )
 from .satisfaction_constants import get_reason_to_id
 
+UrsPromptVersion = str
+
 
 def _format_session_dialogue(history: list[dict], max_chars: int = 400) -> str:
     """把整段对话渲染成 "用户：... / 助手：..." 形式的多行文本。"""
@@ -53,6 +55,69 @@ def _collect_sessions_by_score(sessions: list) -> dict[int, list[dict]]:
             "reason": reason,
         })
     return by_score
+
+
+def _format_urs_calibration_block(prompt_version: UrsPromptVersion) -> str:
+    if prompt_version not in {"urs_v2_calibrated", "urs_v2_memory_guarded"}:
+        return ""
+    return (
+        "【URS 评分刻度校准】\n"
+        "- 这是 URS session-level 评分：请评价用户对整段对话的总体满意度，不要只因局部小瑕疵下调到 3 分。\n"
+        "- 5 分：整体非常满意；回答充分、准确、贴合需求，结构清晰，并明显超过基本要求。不要求绝对完美。\n"
+        "- 4 分：整体满意；主要需求已被满足，即使存在轻微遗漏、表达不够优雅或少量可改进点，也应给 4 分而不是 3 分。\n"
+        "- 3 分：一般/中性；只有部分满足需求，存在明显缺口、泛泛而谈、没有完全解决问题，或用户可能需要继续追问。\n"
+        "- 2 分：不满意；核心需求大多没有满足，回答明显偏题、错误、缺少关键内容或实用性较差。\n"
+        "- 1 分：很不满意；回答严重错误、无关、拒答不当，或基本无法使用。\n"
+        "- 对 3/4 边界要特别谨慎：若整段对话已经解决主要任务且没有严重错误，优先判为 4；只有存在实质性缺陷时才判为 3 或更低。\n"
+        "- 对 4/5 边界不要过度保守：若回答完整、有帮助且明显贴合用户意图，可以给 5；5 分不等于完美无缺。\n\n"
+    )
+
+
+def _memory_confidence(memory: UserMemory) -> tuple[str, str]:
+    dist = memory.score_distribution
+    counts = [
+        int(dist.score_1),
+        int(dist.score_2),
+        int(dist.score_3),
+        int(dist.score_4),
+        int(dist.score_5),
+    ]
+    nonzero = sum(1 for c in counts if c > 0)
+    n_sessions = int(memory.n_history_sessions)
+    if n_sessions < 3:
+        return (
+            "low",
+            f"history_sessions={n_sessions} < 3，历史证据很薄，memory 只能作为弱参考",
+        )
+    if nonzero <= 1:
+        return (
+            "low",
+            f"score_buckets={nonzero}，历史分数几乎单一，不能据此断定用户总是宽松或严格",
+        )
+    if n_sessions < 5 or nonzero == 2:
+        return (
+            "medium",
+            f"history_sessions={n_sessions}, score_buckets={nonzero}，memory 有一定参考价值但不稳定",
+        )
+    return (
+        "high",
+        f"history_sessions={n_sessions}, score_buckets={nonzero}，memory 证据相对充分",
+    )
+
+
+def _format_memory_guard_block(memory: UserMemory, prompt_version: UrsPromptVersion) -> str:
+    if prompt_version != "urs_v2_memory_guarded":
+        return ""
+    confidence, reason = _memory_confidence(memory)
+    return (
+        "【Memory 使用约束】\n"
+        f"- 当前 memory 可信度：{confidence}（{reason}）。\n"
+        "- memory 只能帮助理解该用户可能的评分风格，不能替代对当前 session 内容质量的判断。\n"
+        "- 若当前 session 有直接证据显示回答偏题、错误、拒答、未解决核心需求或明显有帮助，应优先相信当前 session 证据。\n"
+        "- 不要把某个历史 intent 的具体要求泛化到无关 intent。例如旅游/家庭活动偏好不能直接用于经济学定义、天气查询或专业题目。\n"
+        "- 若 memory 主要来自单一分数桶（全 5、全 4 或全 3），只能说明历史样本不足，不能据此把当前 session 自动推高或压低。\n"
+        "- 若 memory 与当前 session 证据冲突，必须在 analysis 中说明冲突，并以当前 session 证据为主。\n\n"
+    )
 
 
 def build_urs_memory_prompt(
@@ -154,6 +219,7 @@ def build_session_eval_prompt(
     profile: dict,
     task_context: str,
     session_history: list[dict],
+    prompt_version: UrsPromptVersion = "v2",
 ) -> str:
     """
     URS session-level 评分 prompt（v2 rubric，带 memory）。
@@ -169,6 +235,8 @@ def build_session_eval_prompt(
     reason_rule_block = _format_reason_rule_block()
     reason_json_rule = _format_reason_json_rule()
     dialogue_text = _format_session_dialogue(session_history)
+    calibration_block = _format_urs_calibration_block(prompt_version)
+    memory_guard_block = _format_memory_guard_block(memory, prompt_version)
 
     user_reqs = "\n".join(
         f"  - {r}" for r in memory.user_specific_requirements
@@ -187,6 +255,7 @@ def build_session_eval_prompt(
         f"▸ 4分 → 5分的门槛：{memory.four_vs_five_distinction}\n\n"
         f"该用户的特定要求（区别于一般用户）：\n{user_reqs}\n"
         f"偏好回复形式：{memory.preferred_response_format}\n"
+        f"\n{memory_guard_block}"
     )
 
     prompt = (
@@ -197,6 +266,7 @@ def build_session_eval_prompt(
         f"【用户画像】{_format_profile(profile)}\n\n"
         f"【任务背景】{task_context}\n\n"
         f"【完整对话】\n{dialogue_text}\n\n"
+        f"{calibration_block}"
         f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
         "【评分步骤】请严格按以下顺序推理：\n"
         "Step A: 通读整段对话，判断助手整体是否满足该用户的【3分→4分门槛】（即是否达到满意最低线）\n"
@@ -217,6 +287,7 @@ def build_session_eval_prompt_no_memory(
     profile: dict,
     task_context: str,
     session_history: list[dict],
+    prompt_version: UrsPromptVersion = "v2",
 ) -> str:
     """URS session-level 评分 prompt — 无记忆 baseline。"""
     reason_labels = list(get_reason_to_id().keys())
@@ -224,6 +295,7 @@ def build_session_eval_prompt_no_memory(
     reason_rule_block = _format_reason_rule_block()
     reason_json_rule = _format_reason_json_rule()
     dialogue_text = _format_session_dialogue(session_history)
+    calibration_block = _format_urs_calibration_block(prompt_version)
 
     prompt = (
         "你是一名会进行细粒度对话质量分析的评估员。\n"
@@ -232,6 +304,7 @@ def build_session_eval_prompt_no_memory(
         f"【用户画像】{_format_profile(profile)}\n\n"
         f"【任务背景】{task_context}\n\n"
         f"【完整对话】\n{dialogue_text}\n\n"
+        f"{calibration_block}"
         f"【可选原因标签】{reason_text}\n{reason_rule_block}\n"
         "请严格输出 JSON，不要输出其他内容：\n"
         "{\n"

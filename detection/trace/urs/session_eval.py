@@ -86,6 +86,7 @@ def evaluate_urs_session(
     valid_reasons: set[str],
     default_reason: str,
     block_id: str = "",
+    prompt_version: str = "v2",
 ) -> list[dict]:
     """对单个 URS session 出 1 条预测。返回形式与 evaluate_session 保持一致（单元素）。"""
     if memory is None:
@@ -93,6 +94,7 @@ def evaluate_urs_session(
             profile=session.profile,
             task_context=session.task_context,
             session_history=session.history,
+            prompt_version=prompt_version,
         )
     else:
         prompt = build_session_eval_prompt(
@@ -100,6 +102,7 @@ def evaluate_urs_session(
             profile=session.profile,
             task_context=session.task_context,
             session_history=session.history,
+            prompt_version=prompt_version,
         )
 
     debug_context = (
@@ -133,4 +136,3 @@ def evaluate_urs_session(
 # ──────────────────────────────────────────────────────────────────────────────
 # Memory update（复用 personalized 的 update_memory，但 per_turn 不支持）
 # ──────────────────────────────────────────────────────────────────────────────
-

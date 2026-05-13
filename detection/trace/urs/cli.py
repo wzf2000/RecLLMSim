@@ -26,6 +26,13 @@ def parse_args() -> ArgumentParser:
         choices=["none", "per_session", "per_session_oracle"],
         help="per_turn 在 URS 上语义不适用，已禁用",
     )
+    parser.add_argument(
+        "--urs_prompt_version",
+        type=str,
+        default="v2",
+        choices=["v2", "urs_v2_calibrated", "urs_v2_memory_guarded"],
+        help="URS session-level scoring prompt version.",
+    )
     parser.add_argument("--output_jsonl", type=str, default="")
     parser.add_argument("--max_workers", type=int, default=8)
     parser.add_argument("--save_memory_snapshots", action="store_true")
@@ -81,6 +88,7 @@ def main() -> None:
     logger.info(f"Split:              {args.split} (train_ratio={args.train_ratio})")
     logger.info(f"Languages:          {args.languages}")
     logger.info(f"With memory:        {with_memory}")
+    logger.info(f"Prompt version:     {args.urs_prompt_version}")
     if with_memory:
         logger.info(f"Memory update mode: {args.memory_update_mode}")
     logger.info(f"Output:             {args.output_jsonl}")
@@ -123,8 +131,7 @@ def main() -> None:
         save_memory_snapshots=args.save_memory_snapshots,
         memory_cache_dir=args.memory_cache_dir if with_memory else None,
         with_memory=with_memory,
+        prompt_version=args.urs_prompt_version,
     )
 
     logger.info(f"Done. Results saved to: {args.output_jsonl}")
-
-
