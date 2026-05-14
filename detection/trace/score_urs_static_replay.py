@@ -247,7 +247,16 @@ def parse_args() -> ArgumentParser:
         "--urs_prompt_version",
         type=str,
         default="v2",
-        choices=["v2", "urs_v2_calibrated", "urs_v2_memory_guarded"],
+        choices=[
+            "v2",
+            "urs_v2_calibrated",
+            "urs_v2_memory_guarded",
+            "urs_v2_calibrated_langaware",
+            "urs_v2_calibrated_task_guarded",
+            "urs_v2_calibrated_task_guarded_v2",
+            "urs_v2_calibrated_task_guarded_memgate",
+            "urs_v2_calibrated_task_guarded_evidence_first",
+        ],
     )
     parser.add_argument("--split", type=str, default="test", choices=["train", "test", "all"])
     parser.add_argument("--train_ratio", type=float, default=0.2)
