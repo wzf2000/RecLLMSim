@@ -44,7 +44,9 @@ class UrsReplaySelection:
 
 
 class EmptyCandidateResponse(RuntimeError):
-    pass
+    def __init__(self, message: str, response_payload: dict) -> None:
+        super().__init__(message)
+        self.response_payload = response_payload
 
 
 def _safe_name(text: str, limit: int = 160) -> str:
@@ -82,6 +84,23 @@ def _strip_model_wrappers(text: str) -> str:
     return out
 
 
+def _to_jsonable(obj: object) -> object:
+    if obj is None or isinstance(obj, (str, int, float, bool)):
+        return obj
+    if isinstance(obj, list):
+        return [_to_jsonable(item) for item in obj]
+    if isinstance(obj, tuple):
+        return [_to_jsonable(item) for item in obj]
+    if isinstance(obj, dict):
+        return {str(k): _to_jsonable(v) for k, v in obj.items()}
+    if hasattr(obj, "model_dump"):
+        try:
+            return _to_jsonable(obj.model_dump())
+        except Exception:
+            pass
+    return str(obj)
+
+
 def _exception_payload(e: Exception) -> dict:
     payload = {
         "error_type": type(e).__name__,
@@ -103,6 +122,9 @@ def _exception_payload(e: Exception) -> dict:
     body = getattr(e, "body", None)
     if body is not None:
         payload["error_body"] = body
+    response_payload = getattr(e, "response_payload", None)
+    if response_payload is not None:
+        payload["llm_response"] = response_payload
     return payload
 
 
@@ -111,6 +133,7 @@ def _dump_generation_failure(
     model: str,
     messages: list[dict],
     e: Exception,
+    request_params: dict | None = None,
 ) -> None:
     dump_dir = "outputs/urs_static_replay/generation_failures"
     os.makedirs(dump_dir, exist_ok=True)
@@ -120,6 +143,7 @@ def _dump_generation_failure(
         "model": model,
         "messages_count": len(messages),
         "messages_chars": sum(len(str(m.get("content", ""))) for m in messages),
+        "request_params": request_params or {},
         **_exception_payload(e),
     }
     with open(prefix + ".json", "w", encoding="utf-8") as fp:
@@ -158,9 +182,23 @@ def _generate_response(
         max_tokens=max_tokens,
         timeout=timeout,
     )
-    content = _message_content_to_text(response.choices[0].message.content)
+    choice = response.choices[0]
+    message = choice.message
+    content = _message_content_to_text(getattr(message, "content", ""))
     if not content:
-        raise EmptyCandidateResponse("empty candidate response")
+        response_payload = {
+            "id": getattr(response, "id", None),
+            "model": getattr(response, "model", None),
+            "created": getattr(response, "created", None),
+            "usage": _to_jsonable(getattr(response, "usage", None)),
+            "choice": {
+                "finish_reason": getattr(choice, "finish_reason", None),
+                "index": getattr(choice, "index", None),
+                "message": _to_jsonable(message),
+            },
+        }
+        refusal = getattr(message, "refusal", "")
+        raise EmptyCandidateResponse(refusal or "empty candidate response", response_payload)
     return _strip_model_wrappers(content)
 
 
@@ -388,7 +426,21 @@ def collect_sample(
             )
         except Exception as e:
             try:
-                _dump_generation_failure(sid, model, messages, e)
+                _dump_generation_failure(
+                    sid,
+                    model,
+                    messages,
+                    e,
+                    request_params={
+                        "temperature": temperature,
+                        "max_tokens": max_tokens,
+                        "timeout": timeout,
+                        "context_mode": context_mode,
+                        "granularity": granularity,
+                        "dialogue_memory_top_k": dialogue_memory_top_k,
+                        "dialogue_memory_max_chars_per_item": dialogue_memory_max_chars_per_item,
+                    },
+                )
             except Exception as dump_err:
                 logger.warning(f"Failed to dump generation failure for {sid}: {dump_err}")
             logger.error(f"Generation failed: {sid}: {type(e).__name__}: {e}")
