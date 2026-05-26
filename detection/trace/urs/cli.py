@@ -17,9 +17,13 @@ def parse_args() -> ArgumentParser:
     )
     parser.add_argument("--model", type=str, default="gpt-4o")
     parser.add_argument(
-        "--split", type=str, default="test", choices=["train", "test", "all"],
+        "--split", type=str, default="test", choices=["train", "dev", "test", "all"],
     )
     parser.add_argument("--train_ratio", type=float, default=0.2)
+    parser.add_argument(
+        "--dev_ratio", type=float, default=0.5,
+        help="When split=dev, split this fraction from the train user pool.",
+    )
     parser.add_argument("--split_seed", type=int, default=42)
     parser.add_argument(
         "--memory_update_mode", type=str, default="per_session",
@@ -107,6 +111,7 @@ def main() -> None:
     samples = build_urs_personalized_samples(
         split=args.split,
         train_ratio=args.train_ratio,
+        dev_ratio=args.dev_ratio,
         seed=args.split_seed,
         min_history_sessions=args.min_history_sessions,
         target_intents=args.target_intents,

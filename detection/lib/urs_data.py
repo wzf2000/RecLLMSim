@@ -188,6 +188,7 @@ def load_urs_sessions(
 def build_urs_personalized_samples(
     split: str = "test",
     train_ratio: float = 0.2,
+    dev_ratio: float = 0.5,
     seed: int = 42,
     min_history_sessions: int = 1,
     target_intents: list[str] | None = None,
@@ -257,17 +258,39 @@ def build_urs_personalized_samples(
     indices = list(range(len(all_samples)))
     train_rel, test_rel = next(gss.split(indices, groups=user_list))
 
+    train_inner_rel = train_rel
+    dev_rel: list[int] = []
+    if split == "dev":
+        if not 0.0 < dev_ratio < 1.0:
+            raise ValueError(f"dev_ratio must be in (0, 1), got {dev_ratio}")
+        train_pool_groups = [user_list[i] for i in train_rel]
+        train_pool_indices = list(range(len(train_rel)))
+        dev_gss = GroupShuffleSplit(
+            n_splits=1,
+            train_size=1.0 - dev_ratio,
+            test_size=dev_ratio,
+            random_state=seed + 1,
+        )
+        inner_train_pos, dev_pos = next(
+            dev_gss.split(train_pool_indices, groups=train_pool_groups)
+        )
+        train_inner_rel = [int(train_rel[i]) for i in inner_train_pos]
+        dev_rel = [int(train_rel[i]) for i in dev_pos]
+
     split_map = {
-        "train": [all_samples[i] for i in train_rel],
+        "train": [all_samples[i] for i in train_inner_rel],
+        "dev":   [all_samples[i] for i in dev_rel],
         "test":  [all_samples[i] for i in test_rel],
     }
     selected = split_map[split]
 
-    train_users = {all_samples[i].user for i in train_rel}
+    train_users = {all_samples[i].user for i in train_inner_rel}
+    dev_users = {all_samples[i].user for i in dev_rel}
     test_users  = {all_samples[i].user for i in test_rel}
     logger.info(
         f"[urs_data] split={split}, languages={languages}, "
-        f"train_users={len(train_users)}, test_users={len(test_users)}, "
+        f"train_users={len(train_users)}, dev_users={len(dev_users)}, "
+        f"test_users={len(test_users)}, "
         f"selected_samples={len(selected)}, "
         f"total_target_sessions={sum(len(s.target_sessions) for s in selected)}"
     )
