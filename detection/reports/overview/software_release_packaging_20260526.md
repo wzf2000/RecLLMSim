@@ -3,8 +3,8 @@
 ## Artifact
 
 - Release directory: `detection/assets/releases/PersTurnBench/`
-- Compressed archive: `detection/assets/releases/PersTurnBench.tar.gz`
-- SHA256: `90cb7d9088772a1ff0a45d8fb2a7fd5d3975bc065b9132c58491afb6013359a1`
+- Compressed archive: `detection/assets/releases/PersTurnBench.tgz`
+- SHA256: `0061e5728b8df12b40b1809d5daca59d99a5b56736df98e23012730fa8307d07`
 - Archive size: 144 KB
 
 ## Scope

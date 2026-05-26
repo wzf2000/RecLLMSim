@@ -3,7 +3,7 @@
 ## Artifact
 
 - Release directory: `detection/assets/releases/persturnbench_data_release_20260526/`
-- Compressed archive: `detection/assets/releases/persturnbench_data_release_20260526.tar.gz`
+- Compressed archive: `detection/assets/releases/persturnbench_data_release_20260526.tgz`
 - SHA256: `12f02837b8f2d516efdcc66d1fe0862a3cfd4af1ce065486f304730dd915f7bb`
 - Archive size: 9.2 MB
 
