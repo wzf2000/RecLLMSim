@@ -4,8 +4,8 @@
 
 - Release directory: `detection/assets/releases/PersTurnBench/`
 - Compressed archive: `detection/assets/releases/PersTurnBench.tgz`
-- SHA256: `0061e5728b8df12b40b1809d5daca59d99a5b56736df98e23012730fa8307d07`
-- Archive size: 144 KB
+- SHA256: `a99658e4fb2ef7e59eb71dfb601cb5c06664d46a69cdcb0e5646f6d553e78380`
+- Archive size: 148 KB
 
 ## Scope
 
@@ -31,6 +31,14 @@ The primary evaluator configuration documented in `README.md` is:
 - split: `test`.
 
 The release keeps some shared helper functions that support older or exploratory modes when they are required by imports, but the documented commands use the no-update memory setting.
+
+## README Update for Public Release
+
+The release `README.md` was revised on 2026-05-28 to serve as the public GitHub landing page for `https://github.com/wzf2000/PersTurnBench`.
+The updated README now includes a project overview, included components, repository layout, Zenodo data link, installation instructions, API configuration, evaluator/baseline/replay commands, reproducibility notes, intended-use statement, citation placeholder, and license pointer.
+The release-local `detection/README.md` was also updated to list the actual paper-facing script entrypoints.
+An Apache-2.0 `LICENSE` file was added to the release root to match the outer project license.
+Both `PersTurnBench.tgz` and `PersTurnBench.tar.gz` were rebuilt from the updated release tree while excluding the release repository's internal `.git` directory; the two archive files have the same SHA256 shown above.
 
 ## Data and Configuration
 
