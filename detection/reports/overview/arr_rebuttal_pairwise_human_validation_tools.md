@@ -20,6 +20,7 @@ Even if the ARR rebuttal timeline is too tight, the same tools can be reused for
 
 - `detection/tools/replay_pairwise_validation_app.py`
   - Streamlit annotation page for pairwise validation.
+  - Provides a Chinese/English UI switch in the sidebar, with Chinese as the default language for domestic annotators.
   - Shows task context, optional user profile, conversation prefix, current user request, and blinded Response A/B.
   - Shows an optional `User preference evidence` panel to help annotators make personalized pairwise judgments.
   - Hides model names, evaluator scores, gold labels, and score deltas by default.
@@ -147,6 +148,8 @@ Additional checks:
 - `conda run -n chat python -c "import streamlit; print(streamlit.__version__)"`
 
 The installed Streamlit version in the `chat` environment is `1.55.0`.
+The annotation UI was also checked after adding the Chinese/English language switch.
+The saved annotation schema remains compatible with earlier records, while the new `ui_language` field records the active display language.
 
 After adding preference evidence, a second dry-run generated `detection/outputs/human_validation/replay_pairwise_items_evidence_dryrun.jsonl` with the same 12-item selection setting.
 The first inspected item contained:
