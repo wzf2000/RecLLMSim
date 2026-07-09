@@ -13,13 +13,18 @@ Even if the ARR rebuttal timeline is too tight, the same tools can be reused for
   - Supports candidate-vs-candidate comparisons by default.
   - Supports candidate-vs-original-assistant comparisons with `--include_source_assistant`.
   - Reconstructs user profiles through `lib.personalized_data.build_personalized_samples()`.
+  - Adds source-history preference evidence for annotators: score distribution, template summary, low-side reason counts, and high/low historical anchor examples.
+  - The preference summary is generated from raw source-history labels and examples, not copied from the evaluator memory.
   - Stratifies selected items by evaluator score gap: `large_gap`, `small_gap`, and `tie`.
   - Balances repeated exposure with `--max_per_sample`, `--max_per_user`, and `--max_per_model_pair`.
 
 - `detection/tools/replay_pairwise_validation_app.py`
   - Streamlit annotation page for pairwise validation.
   - Shows task context, optional user profile, conversation prefix, current user request, and blinded Response A/B.
+  - Shows an optional `User preference evidence` panel to help annotators make personalized pairwise judgments.
   - Hides model names, evaluator scores, gold labels, and score deltas by default.
+  - Supports subset assignment in the sidebar: all items, the first half, or the second half.
+  - For a 120-item file, this allows annotators to label all 120 items, items 1--60, or items 61--120.
   - Saves one append-only JSONL file per annotator under `outputs/human_validation/annotations/`.
   - Supports resume by loading the latest record per `item_id`.
 
@@ -28,13 +33,25 @@ Even if the ARR rebuttal timeline is too tight, the same tools can be reused for
 Each generated item contains:
 
 - identifiers: `item_id`, `sample_id`, `user`, `target_task`, `target_file`, `turn_idx`;
-- context: `task_context`, `profile`, `dialogue_prefix`, `current_user_request`;
+- context: `task_context`, `profile`, `user_preference_evidence`, `dialogue_prefix`, `current_user_request`;
 - selection metadata: `selection_mode`, `selection_score`, `selection_reasons`;
 - hidden evaluation metadata: `pair_kind`, `pair_bucket`, `evaluator_preference`, `evaluator_score_delta`, `model_pair`;
 - blinded sides: `side_a` and `side_b`, each containing a response and hidden source metadata.
 
-The annotation UI only exposes the context and response text during normal use.
+The annotation UI only exposes the context, source-history preference evidence, and response text during normal use.
 The hidden metadata can be shown with the sidebar debug checkbox for internal inspection.
+When a subset is selected, progress and navigation are computed within that subset.
+Saved records include `annotation_subset`, `subset_item_index`, `source_item_index`, and `source_item_total`, so later analysis can recover both the annotator assignment and the original item-file position.
+
+`user_preference_evidence` contains:
+
+- `score_distribution`: source-history score counts, mean score, SAT rate, neutral rate, and score-1/2 rate;
+- `summary`: a short template-generated summary of user strictness and common low-side reasons;
+- `low_side_reasons`: top low-side / neutral reason counts from history;
+- `anchor_examples`: up to two high-score and two low/neutral historical examples from other scenarios.
+
+The evidence is meant to support independent human labeling of which response better fits the original user's preferences.
+It does not include current-turn gold labels, evaluator scores, model identities, or evaluator-generated memory text.
 
 ## Recommended Commands
 
@@ -57,7 +74,9 @@ python detection/tools/build_replay_pairwise_items.py \
   --sample_size 120 \
   --max_per_sample 1 \
   --max_per_user 4 \
-  --max_per_model_pair 20
+  --max_per_model_pair 20 \
+  --max_anchor_examples_per_side 2 \
+  --anchor_excerpt_chars 420
 ```
 
 Optional candidate-vs-original-assistant validation:
@@ -128,6 +147,13 @@ Additional checks:
 - `conda run -n chat python -c "import streamlit; print(streamlit.__version__)"`
 
 The installed Streamlit version in the `chat` environment is `1.55.0`.
+
+After adding preference evidence, a second dry-run generated `detection/outputs/human_validation/replay_pairwise_items_evidence_dryrun.jsonl` with the same 12-item selection setting.
+The first inspected item contained:
+
+- five-bucket historical score distribution over 67 source-history turns;
+- a template summary with historical mean, SAT/Neutral/score-1/2 rates, and common low-side reasons;
+- two high-score anchors and two low/neutral anchors.
 
 ## Suggested Rebuttal Use
 

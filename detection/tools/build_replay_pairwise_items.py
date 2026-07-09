@@ -83,6 +83,13 @@ def _safe_text(text: object) -> str:
     return str(text).strip()
 
 
+def _excerpt(text: object, max_chars: int) -> str:
+    value = _safe_text(text)
+    if len(value) <= max_chars:
+        return value
+    return value[: max_chars - 1].rstrip() + "..."
+
+
 def _current_user_request(prefix: list[dict[str, Any]]) -> str:
     for utt in reversed(prefix):
         if utt.get("role") == "user":
@@ -90,15 +97,169 @@ def _current_user_request(prefix: list[dict[str, Any]]) -> str:
     return ""
 
 
-def _profile_map(split: str, min_history_sessions: int) -> dict[tuple[str, str], dict[str, Any]]:
+def _history_turns(sample: Any, max_chars: int) -> list[dict[str, Any]]:
+    turns: list[dict[str, Any]] = []
+    for session in sample.history_sessions:
+        source_file = os.path.basename(session.file_path)
+        last_user = ""
+        assistant_idx = 0
+        for utt in session.history:
+            role = utt.get("role")
+            if role == "user":
+                last_user = _safe_text(utt.get("content"))
+                continue
+            if role != "assistant":
+                continue
+            if assistant_idx >= len(session.satisfaction_scores):
+                assistant_idx += 1
+                continue
+            score = int(session.satisfaction_scores[assistant_idx])
+            reason = (
+                session.dissatisfaction_reasons[assistant_idx]
+                if assistant_idx < len(session.dissatisfaction_reasons)
+                else ""
+            )
+            turns.append({
+                "source_task": session.task,
+                "source_file": source_file,
+                "turn_idx": assistant_idx,
+                "user_request": _excerpt(last_user, max_chars),
+                "assistant_response": _excerpt(utt.get("content"), max_chars),
+                "score": score,
+                "reason": reason,
+            })
+            assistant_idx += 1
+    return turns
+
+
+def _score_distribution(turns: list[dict[str, Any]]) -> dict[str, Any]:
+    scores = [int(t["score"]) for t in turns]
+    counts = Counter(scores)
+    total = len(scores)
+    return {
+        "total_turns": total,
+        "mean": round(sum(scores) / total, 3) if total else None,
+        "counts": {str(score): int(counts.get(score, 0)) for score in range(1, 6)},
+        "sat_rate": round(sum(1 for score in scores if score >= 4) / total, 3) if total else None,
+        "neutral_rate": round(sum(1 for score in scores if score == 3) / total, 3) if total else None,
+        "low_rate": round(sum(1 for score in scores if score <= 2) / total, 3) if total else None,
+    }
+
+
+def _reason_distribution(turns: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    reasons = Counter(
+        _safe_text(t.get("reason")) or "unspecified"
+        for t in turns
+        if int(t.get("score", 0)) <= 3
+    )
+    return [
+        {"reason": reason, "count": count}
+        for reason, count in reasons.most_common(5)
+    ]
+
+
+def _preference_summary(turns: list[dict[str, Any]], tasks: list[str]) -> list[str]:
+    dist = _score_distribution(turns)
+    total = int(dist["total_turns"])
+    if total == 0:
+        return ["No source-history satisfaction evidence is available for this user block."]
+
+    mean = dist["mean"]
+    sat_rate = float(dist["sat_rate"])
+    neutral_rate = float(dist["neutral_rate"])
+    low_rate = float(dist["low_rate"])
+    summary: list[str] = [
+        (
+            f"Source-history evidence covers {total} assistant turns from "
+            f"{len(tasks)} other scenario(s): {', '.join(tasks)}."
+        ),
+        (
+            f"Historical mean score is {mean:.2f}; SAT rate is {sat_rate:.1%}, "
+            f"Neutral rate is {neutral_rate:.1%}, and score-1/2 rate is {low_rate:.1%}."
+        ),
+    ]
+    if mean is not None and mean >= 4.25 and low_rate <= 0.08:
+        summary.append("This user appears relatively easy to satisfy in the source histories, so severe preference signals should be checked against concrete constraints.")
+    elif mean is not None and mean <= 3.85:
+        summary.append("This user appears relatively strict in the source histories; generic or under-specified answers may be less preferred.")
+    else:
+        summary.append("This user shows a mixed rating pattern; compare responses against the current request and the anchor examples rather than relying on overall quality alone.")
+
+    reason_items = _reason_distribution(turns)
+    if reason_items:
+        reason_text = ", ".join(f"{item['reason']} ({item['count']})" for item in reason_items[:3])
+        summary.append(f"Common low-side/neutral reasons in source histories: {reason_text}.")
+    summary.append("This summary is generated from raw source-history labels and examples; it is not copied from the evaluator memory.")
+    return summary
+
+
+def _select_anchor_examples(
+    turns: list[dict[str, Any]],
+    max_per_side: int,
+) -> dict[str, list[dict[str, Any]]]:
+    high = sorted(
+        [t for t in turns if int(t["score"]) >= 4],
+        key=lambda t: (-int(t["score"]), str(t["source_task"]), str(t["source_file"]), int(t["turn_idx"])),
+    )[:max_per_side]
+    low_or_neutral = sorted(
+        [t for t in turns if int(t["score"]) <= 3],
+        key=lambda t: (int(t["score"]), str(t["source_task"]), str(t["source_file"]), int(t["turn_idx"])),
+    )[:max_per_side]
+    return {
+        "high_score": high,
+        "low_or_neutral": low_or_neutral,
+    }
+
+
+def _preference_evidence(sample: Any, max_examples_per_side: int, max_chars: int) -> dict[str, Any]:
+    turns = _history_turns(sample, max_chars=max_chars)
+    tasks = list(dict.fromkeys(session.task for session in sample.history_sessions))
+    return {
+        "source": "template_from_source_history_labels",
+        "source_history_tasks": tasks,
+        "score_distribution": _score_distribution(turns),
+        "low_side_reasons": _reason_distribution(turns),
+        "summary": _preference_summary(turns, tasks),
+        "anchor_examples": _select_anchor_examples(
+            turns,
+            max_per_side=max_examples_per_side,
+        ),
+    }
+
+
+def _block_context_maps(
+    split: str,
+    min_history_sessions: int,
+    max_anchor_examples_per_side: int,
+    anchor_excerpt_chars: int,
+) -> tuple[
+    dict[tuple[str, str], dict[str, Any]],
+    dict[tuple[str, str], dict[str, Any]],
+]:
     samples = build_personalized_samples(
         split=split,
         min_history_sessions=min_history_sessions,
     )
-    return {
-        (sample.user, sample.target_task): sample.profile
+    profile_by_block = {(sample.user, sample.target_task): sample.profile for sample in samples}
+    evidence_by_block = {
+        (sample.user, sample.target_task): _preference_evidence(
+            sample,
+            max_examples_per_side=max_anchor_examples_per_side,
+            max_chars=anchor_excerpt_chars,
+        )
         for sample in samples
     }
+    return profile_by_block, evidence_by_block
+
+
+def _profile_map(split: str, min_history_sessions: int) -> dict[tuple[str, str], dict[str, Any]]:
+    profile_by_block, _ = _block_context_maps(
+        split=split,
+        min_history_sessions=min_history_sessions,
+        max_anchor_examples_per_side=2,
+        anchor_excerpt_chars=420,
+    )
+    return profile_by_block
 
 
 def _load_model_records(
@@ -180,6 +341,7 @@ def _make_pair_item(
     record_a: dict[str, Any],
     record_b: dict[str, Any],
     profile_by_block: dict[tuple[str, str], dict[str, Any]],
+    evidence_by_block: dict[tuple[str, str], dict[str, Any]],
     tie_margin: float,
     seed: int,
 ) -> dict[str, Any]:
@@ -217,6 +379,7 @@ def _make_pair_item(
         "pair_bucket": _bucket(abs_delta, tie_margin=tie_margin),
         "task_context": record_a.get("task_context", ""),
         "profile": profile_by_block.get((user, target_task), {}),
+        "user_preference_evidence": evidence_by_block.get((user, target_task), {}),
         "dialogue_prefix": prefix,
         "current_user_request": _current_user_request(prefix if isinstance(prefix, list) else []),
         "selection_mode": record_a.get("selection_mode"),
@@ -246,6 +409,7 @@ def _make_pair_item(
 def build_pair_candidates(
     model_records: dict[str, dict[str, dict[str, Any]]],
     profile_by_block: dict[tuple[str, str], dict[str, Any]],
+    evidence_by_block: dict[tuple[str, str], dict[str, Any]],
     include_source_assistant: bool,
     source_score_field: str,
     tie_margin: float,
@@ -273,6 +437,7 @@ def build_pair_candidates(
                     record_a=record_a,
                     record_b=record_b,
                     profile_by_block=profile_by_block,
+                    evidence_by_block=evidence_by_block,
                     tie_margin=tie_margin,
                     seed=seed,
                 )
@@ -440,6 +605,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max_per_sample", type=int, default=1)
     parser.add_argument("--max_per_user", type=int, default=4)
     parser.add_argument("--max_per_model_pair", type=int, default=20)
+    parser.add_argument("--max_anchor_examples_per_side", type=int, default=2)
+    parser.add_argument("--anchor_excerpt_chars", type=int, default=420)
     parser.add_argument("--include_source_assistant", action="store_true")
     parser.add_argument("--source_score_field", default="gold_score")
     return parser.parse_args()
@@ -455,13 +622,16 @@ def main() -> None:
         for record in model_records[model].values():
             record["_pairwise_input_path"] = path
 
-    profile_by_block = _profile_map(
+    profile_by_block, evidence_by_block = _block_context_maps(
         split=args.split,
         min_history_sessions=args.min_history_sessions,
+        max_anchor_examples_per_side=args.max_anchor_examples_per_side,
+        anchor_excerpt_chars=args.anchor_excerpt_chars,
     )
     candidates = build_pair_candidates(
         model_records=model_records,
         profile_by_block=profile_by_block,
+        evidence_by_block=evidence_by_block,
         include_source_assistant=args.include_source_assistant,
         source_score_field=args.source_score_field,
         tie_margin=args.tie_margin,

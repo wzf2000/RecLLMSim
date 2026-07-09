@@ -32,6 +32,12 @@ REASON_OPTIONS = [
     "other",
 ]
 
+SUBSET_OPTIONS = {
+    "all": "All items",
+    "first_half": "First half",
+    "second_half": "Second half",
+}
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Pairwise replay validation app.")
@@ -107,6 +113,23 @@ def first_unannotated_index(items: list[dict[str, Any]], annotations: dict[str, 
     return len(items)
 
 
+def subset_bounds(total: int, subset_key: str) -> tuple[int, int]:
+    midpoint = (total + 1) // 2
+    if subset_key == "first_half":
+        return 0, midpoint
+    if subset_key == "second_half":
+        return midpoint, total
+    return 0, total
+
+
+def subset_caption(subset_key: str, start: int, end: int, total: int) -> str:
+    if total <= 0:
+        return "No items"
+    if subset_key == "all":
+        return f"All items: 1-{total}"
+    return f"{SUBSET_OPTIONS[subset_key]}: {start + 1}-{end} of {total}"
+
+
 def format_profile(profile: dict[str, Any]) -> None:
     if not profile:
         st.caption("No profile is available for this item.")
@@ -132,6 +155,93 @@ def format_profile(profile: dict[str, Any]) -> None:
         else:
             value_text = str(value)
         st.markdown(f"**{label}:** {value_text}")
+
+
+def render_score_distribution(dist: dict[str, Any]) -> None:
+    if not dist or not dist.get("total_turns"):
+        st.caption("No historical score distribution is available.")
+        return
+    counts = dist.get("counts", {})
+    rows = [
+        {
+            "Score": score,
+            "Count": int(counts.get(str(score), 0)),
+        }
+        for score in range(1, 6)
+    ]
+    st.markdown(
+        f"**Historical mean:** {float(dist.get('mean', 0.0)):.2f} "
+        f"over {int(dist.get('total_turns', 0))} source-history assistant turns"
+    )
+    st.dataframe(rows, hide_index=True, use_container_width=True)
+    st.caption(
+        "SAT = scores 4-5; Neutral = score 3; low = scores 1-2. "
+        f"SAT rate {float(dist.get('sat_rate') or 0.0):.1%}, "
+        f"Neutral rate {float(dist.get('neutral_rate') or 0.0):.1%}, "
+        f"low-score rate {float(dist.get('low_rate') or 0.0):.1%}."
+    )
+
+
+def render_anchor_example(example: dict[str, Any], idx: int) -> None:
+    title = (
+        f"{idx}. {example.get('source_task', '')} / "
+        f"{example.get('source_file', '')} / turn {example.get('turn_idx', '')} "
+        f"/ score {example.get('score', '')}"
+    )
+    with st.expander(title, expanded=False):
+        reason = example.get("reason")
+        if reason:
+            st.markdown(f"**Historical reason:** {reason}")
+        st.markdown("**Historical user request**")
+        st.write(example.get("user_request", ""))
+        st.markdown("**Historical assistant response**")
+        st.write(example.get("assistant_response", ""))
+
+
+def render_user_preference_evidence(evidence: dict[str, Any]) -> None:
+    if not evidence:
+        st.caption("No source-history preference evidence is available for this item.")
+        return
+
+    st.caption(
+        "Generated from this user's labeled source-history conversations in other scenarios. "
+        "It does not include the current hidden evaluator score or model identity."
+    )
+    summary = evidence.get("summary", [])
+    if summary:
+        st.markdown("**Preference summary**")
+        for bullet in summary:
+            st.markdown(f"- {bullet}")
+
+    render_score_distribution(evidence.get("score_distribution", {}))
+
+    reasons = evidence.get("low_side_reasons", [])
+    if reasons:
+        st.markdown("**Common low-side / neutral reasons**")
+        reason_rows = [
+            {"Reason": item.get("reason", ""), "Count": int(item.get("count", 0))}
+            for item in reasons
+        ]
+        st.dataframe(reason_rows, hide_index=True, use_container_width=True)
+
+    anchors = evidence.get("anchor_examples", {})
+    high_examples = anchors.get("high_score", [])
+    low_examples = anchors.get("low_or_neutral", [])
+    if high_examples or low_examples:
+        st.markdown("**Historical anchor examples**")
+        high_col, low_col = st.columns(2)
+        with high_col:
+            st.markdown("High-score examples")
+            if not high_examples:
+                st.caption("No high-score anchors.")
+            for idx, example in enumerate(high_examples, 1):
+                render_anchor_example(example, idx)
+        with low_col:
+            st.markdown("Low / neutral examples")
+            if not low_examples:
+                st.caption("No low/neutral anchors.")
+            for idx, example in enumerate(low_examples, 1):
+                render_anchor_example(example, idx)
 
 
 def render_conversation(prefix: list[dict[str, Any]]) -> None:
@@ -212,33 +322,61 @@ def main() -> None:
 
         out_path = annotation_path(args.output_dir, annotator_id)
         annotations = load_annotations(out_path)
-        total = len(items)
-        done = len(set(annotations) & {str(item.get("item_id")) for item in items})
+        total_items = len(items)
+        subset_labels = {
+            key: subset_caption(key, *subset_bounds(total_items, key), total_items)
+            for key in SUBSET_OPTIONS
+        }
+        subset_label = st.selectbox(
+            "Annotation subset",
+            options=list(subset_labels.values()),
+            index=0,
+        )
+        subset_key = next(
+            key for key, label in subset_labels.items() if label == subset_label
+        )
+        subset_start, subset_end = subset_bounds(total_items, subset_key)
+        selected_items = items[subset_start:subset_end]
+        total = len(selected_items)
+        if total == 0:
+            st.error("The selected annotation subset has no items.")
+            st.stop()
+
+        if st.session_state.get("loaded_subset_key") != subset_key:
+            st.session_state.current_idx = first_unannotated_index(selected_items, annotations)
+            st.session_state.loaded_subset_key = subset_key
+
+        selected_item_ids = {str(item.get("item_id")) for item in selected_items}
+        done = len(set(annotations) & selected_item_ids)
         st.progress(done / total if total else 0.0)
-        st.write(f"Progress: **{done} / {total}**")
+        st.write(f"Subset progress: **{done} / {total}**")
+        st.caption(f"Full item set: {total_items} items")
         st.caption(f"Saving to `{out_path}`")
 
         if "current_idx" not in st.session_state:
-            st.session_state.current_idx = first_unannotated_index(items, annotations)
+            st.session_state.current_idx = first_unannotated_index(selected_items, annotations)
         if st.button("Go to next unlabeled item"):
-            st.session_state.current_idx = first_unannotated_index(items, annotations)
+            st.session_state.current_idx = first_unannotated_index(selected_items, annotations)
             st.rerun()
 
         max_idx = max(0, total - 1)
         chosen_idx = st.number_input(
-            "Item index",
+            "Subset item index",
             min_value=0,
             max_value=max_idx,
             value=min(int(st.session_state.current_idx), max_idx),
             step=1,
         )
         st.session_state.current_idx = int(chosen_idx)
+        absolute_item_index = subset_start + int(st.session_state.current_idx)
+        st.caption(f"Current full-set item index: {absolute_item_index + 1} / {total_items}")
 
         show_profile = st.checkbox("Show user profile", value=True)
+        show_preference_evidence = st.checkbox("Show preference evidence", value=True)
         show_debug = st.checkbox("Show hidden metadata", value=args.show_debug_default)
         st.caption("Model names and evaluator scores should remain hidden during normal annotation.")
 
-    item = items[int(st.session_state.current_idx)]
+    item = selected_items[int(st.session_state.current_idx)]
     item_id = str(item.get("item_id"))
     existing = annotations.get(item_id)
 
@@ -255,6 +393,9 @@ def main() -> None:
     if show_profile:
         with st.expander("User profile", expanded=False):
             format_profile(item.get("profile", {}))
+    if show_preference_evidence:
+        with st.expander("User preference evidence", expanded=True):
+            render_user_preference_evidence(item.get("user_preference_evidence", {}))
 
     left, right = st.columns([1.1, 1.2])
     with left:
@@ -296,6 +437,10 @@ def main() -> None:
         human_choice = PREFERENCE_OPTIONS[preference_label]
         annotation = {
             "annotator_id": safe_annotator_id(annotator_id),
+            "annotation_subset": subset_key,
+            "subset_item_index": int(st.session_state.current_idx),
+            "source_item_index": subset_start + int(st.session_state.current_idx),
+            "source_item_total": len(items),
             "item_id": item_id,
             "sample_id": item.get("sample_id"),
             "user": item.get("user"),
@@ -316,7 +461,7 @@ def main() -> None:
         }
         append_annotation(out_path, annotation)
         st.session_state.current_idx = min(
-            first_unannotated_index(items, load_annotations(out_path)),
+            first_unannotated_index(selected_items, load_annotations(out_path)),
             total - 1,
         )
         st.rerun()
