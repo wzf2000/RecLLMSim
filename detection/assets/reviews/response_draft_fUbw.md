@@ -35,8 +35,9 @@ Detailed numbers and interpretation are recorded in `detection/reports/overview/
 ### Draft Response
 
 Thank you for pointing out that the 1--5 rating scale and its relation to a trinary SAT-Neutral-DSAT schema should be clearer.
-The 1--5 scale is useful for our setting because the memory explicitly models both the minimum-satisfaction boundary between scores 3 and 4 and the excellence boundary between scores 4 and 5.
-The lower scores also distinguish severe failures from partially useful but still insufficient responses.
+In our data collection, users were given explanations and examples for all five satisfaction levels before rating assistant turns, so the intended score boundaries were anchored during annotation rather than left implicit.
+We chose a five-level scale because graded satisfaction feedback is a common way to collect user utility judgments in search and recommendation-style evaluation settings, and it preserves ordinal distinctions beyond a coarse three-way label.
+This design is not perfect and does not eliminate user-level inconsistency, but it provides more information about minimum satisfaction, excellence, and severe failures than a trinary-only label.
 However, we agree that a trinary view is important for interpreting the results.
 We therefore add a trinary analysis that maps scores 1--2 to DSAT, score 3 to Neutral, and scores 4--5 to SAT.
 The memory evaluator achieves the best macro-F1 among the compared methods, with the largest gains on the minority DSAT and Neutral classes.
@@ -107,8 +108,10 @@ This analysis will show how evaluator performance changes as historical evidence
 ### Draft Response
 
 We agree that the current data are limited to planning-oriented Chinese conversations and that a scalar satisfaction score cannot capture all mixed reactions within a turn.
-Our current formulation targets the user's final turn-level satisfaction judgment, while the dissatisfaction reason records only the primary low-satisfaction category.
-We will clarify this scope and add aspect-level or multi-label satisfaction modeling as future work.
+Our current contribution is to move from conversation-level satisfaction to turn-level personalized satisfaction, which already localizes user feedback to the assistant turn that triggered the judgment.
+We agree that even turn-level labels can still collapse multiple factors within the same response.
+The dissatisfaction reason records only the primary low-satisfaction category, so finer factor-level or multi-label satisfaction modeling is a natural next step.
+We will clarify this scope and add aspect-level satisfaction modeling as future work.
 
 ## Response to Q1: Single Run or Summary Statistics
 
