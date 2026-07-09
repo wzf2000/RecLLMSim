@@ -36,6 +36,14 @@ Default output maps:
 This means the baseline should be interpreted mainly as a 3/4 boundary baseline,
 not a full 1-5 predictor.
 
+For rebuttal analysis, the runner also supports `score_mapping=trinary_24`, which keeps the same binary SPUR decisions but maps SPUR `DSAT` to `pred_score=2`.
+This allows a trinary `1--2=DSAT`, `3=Neutral`, `4--5=SAT` sensitivity check without re-running rubric induction or LLM scoring.
+
+The runner also supports a full 3-level SPUR setting with `label_schema=trinary`.
+In this mode, train labels are constructed as `score 1--2 -> DSAT`, `score 3 -> NEUTRAL`, and `score 4--5 -> SAT`.
+Phase 1 extracts three groups of rubric candidates, Phase 2 summarizes three rubric sets, and Phase 3 predicts one of `DSAT`, `NEUTRAL`, and `SAT`.
+The compatible JSONL maps these predictions to scores `2`, `3`, and `4`, respectively.
+
 ## Supported Variants
 
 The default and recommended first run is:
@@ -68,7 +76,34 @@ metrics_json=outputs/personalized/spur_direct_gpt4o_mini_personalized_test_metri
 bash scripts/run_personalized_spur.sh
 ```
 
-Then evaluate with:
+Full 3-level SPUR command for the rebuttal run:
+
+```bash
+cd /data/wangzhefan/RecLLMSim
+conda activate chat
+model='Qwen/Qwen3-8B' \
+base_url='http://localhost:8001/v1' \
+api_key='EMPTY' \
+variant='direct' \
+label_schema='trinary' \
+score_mapping='trinary_24' \
+max_extract_per_label=150 \
+max_workers=4 \
+output_dir='outputs/spur_personalized/qwen3_8b_trinary_direct' \
+output_jsonl='outputs/personalized/spur_trinary_direct_qwen3_8b_personalized_test.jsonl' \
+metrics_json='outputs/personalized/spur_trinary_direct_qwen3_8b_personalized_test_metrics.json' \
+bash detection/scripts/run_personalized_spur.sh
+```
+
+Evaluate the full 3-level run with:
+
+```bash
+result_file='outputs/personalized/spur_trinary_direct_qwen3_8b_personalized_test.jsonl' \
+output_json='outputs/personalized/spur_trinary_direct_qwen3_8b_personalized_test_eval.json' \
+bash detection/scripts/eval_personalized.sh
+```
+
+Evaluate the example binary run with:
 
 ```bash
 result_file=outputs/personalized/spur_direct_gpt4o_mini_personalized_test.jsonl \
@@ -88,4 +123,3 @@ Using the default split:
 
 The emitted JSONL contains the original personalized `sample_id`, `user`,
 `target_task`, `gold_score`, and `pred_score` fields.
-

@@ -1,9 +1,10 @@
 # ARR Rebuttal: SPUR-Style Baseline Clarification
 
 本文档整理 Reviewer fUbw 关于 SPUR-style baseline 的问题和可直接用于 rebuttal / revision 的澄清内容。
-本次检查不需要重新运行 SPUR，不新增实验代码。
 当前 induced rubric 已经存在于本地输出中。
-结论是这部分可以直接处理：在 rebuttal 中澄清当前实现是基于本文训练集重新诱导 rubric 的 binary boundary-oriented SPUR-style adaptation，并在附录或 artifact 中给出 induced rubric。
+本次补充先新增了一个不重新调用 LLM 的 SPUR 输出映射诊断版本，并进一步实现了完整的 `DSAT/NEUTRAL/SAT` 三分类 SPUR personalized pipeline。
+结论是这部分可以直接处理：在 rebuttal 中澄清原已报告结果是基于本文训练集重新诱导 rubric 的 binary boundary-oriented SPUR-style adaptation，并在附录或 artifact 中给出 induced rubric。
+如果时间允许，正式 rebuttal 应优先报告完整 3-level SPUR 结果，而不是仅报告输出映射诊断。
 
 ## 1. Reviewer Concern
 
@@ -55,7 +56,98 @@ Therefore, this row should be interpreted as a boundary-oriented rubric baseline
 It should not be presented as a full 1--5 satisfaction predictor or a full trinary SAT-Neutral-DSAT predictor.
 The revised text should also avoid implying that the original SPUR framework cannot support neutral labels.
 
-## 3. Induced Rubrics
+## 3. Full 3-Level SPUR Implementation
+
+The personalized SPUR runner now supports `label_schema=trinary`.
+This is the setting closest to the reviewer's interpretation of the original SPUR-style setup:
+
+- `score 1--2 -> DSAT`
+- `score 3 -> NEUTRAL`
+- `score 4--5 -> SAT`
+
+In this mode, Phase 1 extracts separate DSAT, NEUTRAL, and SAT rubric candidates from the personalized training split.
+Phase 2 summarizes three rubric sets.
+Phase 3 predicts one of `DSAT`, `NEUTRAL`, and `SAT` for each test turn.
+The compatible JSONL maps predictions to `pred_score=2/3/4` so the existing 1--5 evaluator can still be used for auxiliary ordinal metrics.
+
+Full run command:
+
+```bash
+cd /data/wangzhefan/RecLLMSim
+conda activate chat
+model='Qwen/Qwen3-8B' \
+base_url='http://localhost:8001/v1' \
+api_key='EMPTY' \
+variant='direct' \
+label_schema='trinary' \
+score_mapping='trinary_24' \
+max_extract_per_label=150 \
+max_workers=4 \
+output_dir='outputs/spur_personalized/qwen3_8b_trinary_direct' \
+output_jsonl='outputs/personalized/spur_trinary_direct_qwen3_8b_personalized_test.jsonl' \
+metrics_json='outputs/personalized/spur_trinary_direct_qwen3_8b_personalized_test_metrics.json' \
+bash detection/scripts/run_personalized_spur.sh
+```
+
+Evaluation command:
+
+```bash
+result_file='outputs/personalized/spur_trinary_direct_qwen3_8b_personalized_test.jsonl' \
+output_json='outputs/personalized/spur_trinary_direct_qwen3_8b_personalized_test_eval.json' \
+bash detection/scripts/eval_personalized.sh
+```
+
+Current implementation checks:
+
+- Python compile check passed for the updated SPUR modules.
+- Trinary split check produced train labels: `SAT=1261`, `NEUTRAL=108`, `DSAT=44`.
+- Trinary split check produced test labels: `SAT=5367`, `NEUTRAL=733`, `DSAT=374`.
+- Cached binary SPUR smoke test passed with the original Phase-3 cache and reproduced the existing binary metrics (`Accuracy=0.7135`, `F1-DSAT=0.2955`).
+
+The full LLM run has not been started in this session because the same local vLLM endpoint may already be occupied by the repeated-run stability experiment.
+
+## 4. Diagnostic Trinary Mapping Control
+
+To check whether the original `DSAT -> score 3` mapping disadvantages SPUR under the reviewer-suggested trinary schema, we added a second output-only mapping:
+
+- `boundary_34`: `SAT -> score 4`, `DSAT -> score 3`.
+- `trinary_24`: `SAT -> score 4`, `DSAT -> score 2`.
+
+This change reuses the same induced rubrics and the same cached Phase-3 SPUR decisions.
+It does not re-call the LLM or change the SPUR decision boundary; it only changes how the binary SPUR output is converted into the 1--5-compatible record format.
+
+Command:
+
+```bash
+model='Qwen/Qwen3-8B' \
+output_dir='outputs/spur_personalized/qwen3_8b_direct' \
+output_jsonl='outputs/personalized/spur_direct_qwen3_8b_personalized_test_trinary24.jsonl' \
+metrics_json='outputs/personalized/spur_direct_qwen3_8b_personalized_test_trinary24_metrics.json' \
+skip_phase1=1 \
+skip_phase2=1 \
+score_mapping='trinary_24' \
+conda run -n chat bash detection/scripts/run_personalized_spur.sh
+```
+
+Output files:
+
+- `detection/outputs/personalized/spur_direct_qwen3_8b_personalized_test_trinary24.jsonl`
+- `detection/outputs/personalized/spur_direct_qwen3_8b_personalized_test_trinary24_metrics.json`
+- `detection/outputs/personalized/spur_direct_qwen3_8b_personalized_test_trinary24_eval.json`
+- `detection/outputs/personalized/spur_trinary_mapping_comparison_metrics.json`
+
+Under the trinary schema (`1--2=DSAT`, `3=Neutral`, `4--5=SAT`), the two SPUR mappings behave differently:
+
+| SPUR mapping | Acc | Macro-F1 | Weighted-F1 | F1-DSAT | F1-Neutral | F1-SAT | Pred DSAT/Neu/SAT |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| `boundary_34` | 0.6894 | 0.3422 | 0.7033 | 0.0000 | 0.2063 | 0.8202 | 0/1526/4948 |
+| `trinary_24` | 0.6775 | 0.3281 | 0.6894 | 0.1642 | 0.0000 | 0.8202 | 1526/0/4948 |
+
+The `trinary_24` mapping confirms that SPUR's low-side predictions do contain some severe-dissatisfaction signal, raising F1-DSAT from `0.0000` to `0.1642`.
+However, because this SPUR adaptation is still binary, it cannot identify score-3 Neutral turns under this mapping.
+This is why the full memory evaluator remains stronger in the trinary view: it can produce all three regions and obtains F1-DSAT `0.2820`, F1-Neutral `0.2456`, and Macro-F1 `0.4680`.
+
+## 5. Induced Rubrics
 
 The following rubrics are copied from `detection/outputs/spur_personalized/qwen3_8b_direct/phase2_rubrics_k10.json`.
 They are the actual induced rubrics used by the reported Qwen3-8B SPUR-style baseline.
@@ -88,11 +180,21 @@ English translations for paper appendix:
 | 9 | Emphasis on safety and health considerations | Homogeneous recommendations lacking novelty or distinctiveness |
 | 10 | Multi-platform resource access optimization | Resource-access barriers or unclear implementation path |
 
-## 4. Recommended Paper Revision
+## 6. Recommended Paper Revision
 
 Main Table 2 footnote:
 
 > The SPUR-style row is a binary boundary-oriented adaptation: rubrics are re-induced from the personalized training split, and SAT/low-side predictions are mapped to scores 4/3 for ordinal metrics.
+
+Additional rebuttal / appendix wording for the new control:
+
+> We additionally checked an alternative trinary-compatible output mapping for the same SPUR decisions, where SAT is mapped to score 4 and DSAT is mapped to score 2.
+> This raises SPUR's trinary DSAT F1 but removes Neutral predictions, confirming that the limitation is the binary SPUR adaptation rather than the specific 3/4 score mapping.
+
+Preferred rebuttal wording after full trinary SPUR finishes:
+
+> We additionally ran a full three-level SPUR-style adaptation using the same personalized split, with scores 1--2, 3, and 4--5 used to induce DSAT, NEUTRAL, and SAT rubrics respectively.
+> This directly addresses the neutral-label concern while keeping the rubric induction source controlled.
 
 Appendix baseline details:
 
@@ -100,10 +202,11 @@ Appendix baseline details:
 > Instead, we adapt SPUR-style rubric induction as a supervised boundary baseline under our personalized split.
 > The induced rubrics are learned from the training users and are not borrowed from the SPUR paper.
 
-## 5. Rebuttal-Ready Wording
+## 7. Rebuttal-Ready Wording
 
 > We agree that the SPUR-style row should be described more carefully.
 > Our implementation is a binary SPUR-style rubric-induction adaptation over the personalized training split, not a full reproduction of the original SPUR neutral-label pipeline.
 > The rubrics are re-induced from our training users rather than borrowed from the SPUR paper.
 > We will provide the induced rubrics in the appendix and revise the footnote to interpret this row as a boundary-oriented rubric baseline, with SAT/low-side predictions mapped to scores 4/3 for ordinal metrics.
-> The trinary analysis also makes this limitation explicit: this binary adaptation cannot predict the score-1--2 DSAT class because its low-side output is mapped to score 3.
+> To address the mapping concern directly, we also evaluated the same SPUR decisions with an alternative trinary-compatible mapping, SAT -> 4 and DSAT -> 2.
+> This improves SPUR's DSAT F1 under the trinary view but leaves Neutral F1 at 0, so the main limitation is that this adaptation is binary rather than a full trinary or 1--5 evaluator.

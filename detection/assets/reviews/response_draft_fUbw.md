@@ -26,7 +26,8 @@ Detailed numbers and interpretation are recorded in `detection/reports/overview/
 | Global mean | 0.3022 | 0.7515 | 0.0000 | 0.0000 | 0.9065 |
 | User-history mean | 0.3517 | 0.7632 | 0.0000 | 0.1559 | 0.8993 |
 | Nearest-history turn | 0.4144 | 0.7508 | 0.1729 | 0.2045 | 0.8656 |
-| SPUR-style evaluator | 0.3422 | 0.7033 | 0.0000 | 0.2063 | 0.8202 |
+| SPUR-style evaluator (`DSAT -> 3`) | 0.3422 | 0.7033 | 0.0000 | 0.2063 | 0.8202 |
+| SPUR-style evaluator (`DSAT -> 2`) | 0.3281 | 0.6894 | 0.1642 | 0.0000 | 0.8202 |
 | Zero-shot judge | 0.3770 | 0.7587 | 0.1612 | 0.0765 | 0.8935 |
 | Few-shot judge | 0.3944 | 0.7402 | 0.1809 | 0.1414 | 0.8610 |
 | Prometheus-rubric judge | 0.3946 | 0.7540 | 0.1937 | 0.1088 | 0.8812 |
@@ -57,6 +58,10 @@ The current SPUR-style implementation re-induces 10 SAT rubrics and 10 low-side 
 The output file is `detection/outputs/spur_personalized/qwen3_8b_direct/phase2_rubrics_k10.json`.
 The training split used for induction contains 22 users, 85 user--scenario blocks, and 1,413 target turns.
 The test split contains 90 users, 356 user--scenario blocks, and 6,474 target turns.
+We additionally generated an alternative output-only mapping for the same cached SPUR decisions: `SAT -> score 4` and `DSAT -> score 2`.
+The resulting file is `detection/outputs/personalized/spur_direct_qwen3_8b_personalized_test_trinary24.jsonl`.
+We also implemented a full three-level SPUR setting with `label_schema=trinary`, where training labels are `1--2=DSAT`, `3=NEUTRAL`, and `4--5=SAT`.
+The full run should write to `detection/outputs/personalized/spur_trinary_direct_qwen3_8b_personalized_test.jsonl`.
 
 ### Draft Response
 
@@ -64,13 +69,18 @@ We agree that the current SPUR-style row should be described more carefully.
 Our implementation is a binary SPUR-style rubric-induction adaptation over the personalized training split, not a full reproduction of the original SPUR neutral-label pipeline.
 The induced rubric is learned from the training split of our data and is not directly borrowed from the SPUR paper.
 We will revise the footnote, provide the induced rubric, and interpret this row as a boundary/rubric baseline rather than a full 1--5 or trinary predictor.
-The trinary analysis makes this limitation explicit: the binary SPUR-style adaptation maps its two outputs to scores 4 and 3, so it cannot predict the 1--2 DSAT class.
+To directly address the neutral-label concern, we have implemented a full three-level SPUR-style adaptation that induces separate DSAT, NEUTRAL, and SAT rubrics from scores 1--2, 3, and 4--5 respectively.
+We will report this three-level SPUR result once the full run finishes.
+As a quick diagnostic on the existing binary SPUR decisions, we also evaluated an output-only mapping, `SAT -> 4` and `DSAT -> 2`; this raises SPUR's trinary DSAT F1 from 0.0000 to 0.1642 but leaves Neutral F1 at 0, confirming that the main limitation is binary classification rather than only the 3/4 score mapping.
 
 ### TODO
 
 - [x] 找到当前 SPUR induced rubric 的输出位置或重新导出。
 - [x] Appendix 中放 induced rubric 或说明 artifact path。
 - [x] 修改 Table 2 footnote，不再暗示原 SPUR pipeline 无 neutral label。
+- [x] 补充 `SAT -> 4, DSAT -> 2` 的 trinary-compatible SPUR output mapping。
+- [x] 实现完整 `DSAT/NEUTRAL/SAT` 三分类 SPUR personalized pipeline。
+- [ ] 跑完整三分类 SPUR 结果并替换 W2/W1 中的 SPUR row。
 
 ## Response to W3: SAT/DSAT Terminology and Score 3
 

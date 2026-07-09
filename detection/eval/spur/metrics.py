@@ -10,7 +10,7 @@ from sklearn.metrics import (
     roc_auc_score,
 )
 
-from .constants import SAT_LABEL
+from .constants import DSAT_LABEL, NEUTRAL_LABEL, SAT_LABEL
 
 
 def compute_metrics(results: list[dict]) -> dict[str, float]:
@@ -36,6 +36,27 @@ def compute_metrics(results: list[dict]) -> dict[str, float]:
     return metrics
 
 
+def compute_trinary_metrics(results: list[dict]) -> dict[str, float | int | dict[str, int]]:
+    label_order = [DSAT_LABEL, NEUTRAL_LABEL, SAT_LABEL]
+    gold = [r["gold_label"] for r in results]
+    pred = [r["pred_label"] for r in results]
+    parse_rate = sum(r.get("parse_ok", False) for r in results) / len(results)
+    per_label_f1 = f1_score(gold, pred, labels=label_order, average=None, zero_division=0)
+    metrics = {
+        "accuracy": accuracy_score(gold, pred),
+        "f1_macro": f1_score(gold, pred, labels=label_order, average="macro", zero_division=0),
+        "f1_weighted": f1_score(gold, pred, labels=label_order, average="weighted", zero_division=0),
+        "f1_dsat": float(per_label_f1[0]),
+        "f1_neutral": float(per_label_f1[1]),
+        "f1_sat": float(per_label_f1[2]),
+        "parse_rate": parse_rate,
+        "n_samples": len(results),
+        "gold_distribution": {label: int(sum(1 for x in gold if x == label)) for label in label_order},
+        "pred_distribution": {label: int(sum(1 for x in pred if x == label)) for label in label_order},
+    }
+    return metrics
+
+
 def print_metrics(metrics: dict[str, float], header: str = ""):
     sep = "=" * 55
     if header:
@@ -50,4 +71,23 @@ def print_metrics(metrics: dict[str, float], header: str = ""):
     logger.info(f"  F1-DSAT:         {metrics['f1_dsat']:.4f}")
     logger.info(f"  Kappa:           {metrics['kappa']:.4f}")
     logger.info(f"  AUC:             {metrics['auc']:.4f}")
+    logger.info(sep)
+
+
+def print_trinary_metrics(metrics: dict, header: str = ""):
+    sep = "=" * 55
+    if header:
+        logger.info(sep)
+        logger.info(header)
+    logger.info(sep)
+    logger.info(f"  样本数:          {metrics['n_samples']}")
+    logger.info(f"  Gold dist:       {metrics['gold_distribution']}")
+    logger.info(f"  Pred dist:       {metrics['pred_distribution']}")
+    logger.info(f"  解析成功率:      {metrics['parse_rate']:.1%}")
+    logger.info(f"  Accuracy:        {metrics['accuracy']:.4f}")
+    logger.info(f"  Macro-F1:        {metrics['f1_macro']:.4f}")
+    logger.info(f"  Weighted-F1:     {metrics['f1_weighted']:.4f}")
+    logger.info(f"  F1-DSAT:         {metrics['f1_dsat']:.4f}")
+    logger.info(f"  F1-Neutral:      {metrics['f1_neutral']:.4f}")
+    logger.info(f"  F1-SAT:          {metrics['f1_sat']:.4f}")
     logger.info(sep)

@@ -24,11 +24,11 @@ _DETECTION_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath
 if _DETECTION_DIR not in sys.path:
     sys.path.insert(0, _DETECTION_DIR)
 
-from eval.spur.constants import DSAT_LABEL, SAT_LABEL
-from eval.spur.data import format_conversation, format_profile
+from eval.spur.constants import DSAT_LABEL, NEUTRAL_LABEL, SAT_LABEL
+from eval.spur.data import format_conversation, format_profile, score_to_spur_label
 from eval.spur.embeddings import build_rubric_feature_vec, get_embeddings
 from eval.spur.llm import configure_client
-from eval.spur.metrics import compute_metrics, print_metrics
+from eval.spur.metrics import compute_metrics, compute_trinary_metrics, print_metrics, print_trinary_metrics
 from eval.spur.rubrics import extract_rubric_candidates, summarize_rubrics
 from eval.spur.scoring import score_rows
 from lib.personalized_data import PersonalizedSample, build_personalized_samples, dataset_stats
@@ -42,6 +42,7 @@ def _row_from_turn(
     turn_idx: int,
     history_window: list[str],
     assistant_reply: str,
+    label_schema: str,
 ) -> dict:
     score = int(session.satisfaction_scores[turn_idx])
     reason = (
@@ -57,7 +58,7 @@ def _row_from_turn(
         "assistant_reply": assistant_reply,
         "gold_score": score,
         "gold_reason": normalize_reason_for_score(score, reason),
-        "binary_label": SAT_LABEL if score >= 4 else DSAT_LABEL,
+        "binary_label": score_to_spur_label(score, label_schema),
         "user": sample.user,
         "target_task": sample.target_task,
         "target_file": session_file,
@@ -69,6 +70,7 @@ def _row_from_turn(
 def personalized_samples_to_spur_rows(
     samples: list[PersonalizedSample],
     history_window_size: int,
+    label_schema: str = "binary",
 ) -> list[dict]:
     rows: list[dict] = []
     for sample in samples:
@@ -85,6 +87,7 @@ def personalized_samples_to_spur_rows(
                         turn_idx=assistant_idx,
                         history_window=history_window,
                         assistant_reply=utt["content"],
+                        label_schema=label_schema,
                     ))
                     assistant_idx += 1
                 history_window.append(f'{utt["role"]}：{utt["content"]}')
@@ -120,22 +123,33 @@ def spur_results_to_personalized_records(
     scored: list[dict],
     model: str,
     variant: str,
+    score_mapping: str,
+    label_schema: str,
 ) -> list[dict]:
     records: list[dict] = []
     for row, result in zip(rows, scored):
         pred_label = result.get("pred_label", DSAT_LABEL)
-        pred_score = 4 if pred_label == SAT_LABEL else 3
+        if label_schema == "trinary" and pred_label == NEUTRAL_LABEL:
+            pred_score = 3
+        elif pred_label == SAT_LABEL:
+            pred_score = 4
+        elif score_mapping == "trinary_24":
+            pred_score = 2
+        elif label_schema == "trinary":
+            pred_score = 2
+        else:
+            pred_score = 3
         records.append({
             "sample_id": row["sample_id"],
             "user": row["user"],
             "target_task": row["target_task"],
             "target_file": row["target_file"],
             "turn_idx": row["turn_idx"],
-            "model": f"spur_{variant}:{model}",
+            "model": f"spur_{variant}_{label_schema}_{score_mapping}:{model}",
             "with_memory": False,
             "memory_version": "none",
             "memory_update_mode": "none",
-            "turn_eval_prompt_version": f"spur_{variant}",
+            "turn_eval_prompt_version": f"spur_{variant}_{label_schema}_{score_mapping}",
             "source_chat_model": row.get("source_chat_model", "unknown"),
             "gold_score": row["gold_score"],
             "gold_reason": row["gold_reason"],
@@ -145,6 +159,7 @@ def spur_results_to_personalized_records(
             "spur_pred_label": pred_label,
             "spur_confidence": float(result.get("confidence", 0.5)),
             "spur_sat_matches": result.get("sat_matches", []),
+            "spur_neutral_matches": result.get("neutral_matches", []),
             "spur_dsat_matches": result.get("dsat_matches", []),
             "spur_reason": result.get("reason", ""),
             "parse_ok": bool(result.get("parse_ok", False)),
@@ -252,6 +267,10 @@ def parse_args() -> ArgumentParser:
     parser.add_argument("--min_history_sessions", type=int, default=1)
     parser.add_argument("--target_tasks", type=str, nargs="+", default=None)
     parser.add_argument("--history_window_size", type=int, default=5)
+    parser.add_argument("--label_schema", type=str, default="binary",
+                        choices=["binary", "trinary"])
+    parser.add_argument("--score_mapping", type=str, default="boundary_34",
+                        choices=["boundary_34", "trinary_24"])
     parser.add_argument("--limit_test", type=int, default=0)
     parser.add_argument("--limit_train", type=int, default=0)
     parser.add_argument("--seed", type=int, default=42)
@@ -271,7 +290,7 @@ def main() -> None:
     if not args.output_jsonl:
         args.output_jsonl = os.path.join(
             args.output_dir,
-            f"spur_{args.variant}_{args.model}_personalized_test.jsonl".replace("/", "_"),
+            f"spur_{args.variant}_{args.label_schema}_{args.score_mapping}_{args.model}_personalized_test.jsonl".replace("/", "_"),
         )
     if not args.metrics_json:
         base, _ = os.path.splitext(args.output_jsonl)
@@ -282,17 +301,27 @@ def main() -> None:
         direct_like = [
             {
                 "gold_score": r["gold_score"],
-                "gold_label": SAT_LABEL if int(r["gold_score"]) >= 4 else DSAT_LABEL,
-                "pred_label": r.get("spur_pred_label", SAT_LABEL if int(r["pred_score"]) >= 4 else DSAT_LABEL),
+                "gold_label": score_to_spur_label(int(r["gold_score"]), args.label_schema),
+                "pred_label": r.get(
+                    "spur_pred_label",
+                    score_to_spur_label(int(r["pred_score"]), args.label_schema),
+                ),
                 "confidence": r.get("spur_confidence", 0.5),
                 "parse_ok": r.get("parse_ok", True),
             }
             for r in records
         ]
-        metrics = compute_metrics(direct_like)
-        print_metrics(metrics, header=f"SPUR personalized ({args.variant}) only_eval")
+        if args.label_schema == "trinary":
+            metrics = compute_trinary_metrics(direct_like)
+            print_trinary_metrics(metrics, header=f"SPUR personalized ({args.variant}, trinary) only_eval")
+        else:
+            metrics = compute_metrics(direct_like)
+            print_metrics(metrics, header=f"SPUR personalized ({args.variant}) only_eval")
         _save_json(args.metrics_json, {"spur_direct": metrics})
         return
+
+    if args.label_schema == "trinary" and args.variant != "direct":
+        raise ValueError("Trinary SPUR currently supports only variant=direct.")
 
     train_samples = build_personalized_samples(
         split="train",
@@ -308,8 +337,16 @@ def main() -> None:
         min_history_sessions=args.min_history_sessions,
         target_tasks=args.target_tasks,
     )
-    train_rows = personalized_samples_to_spur_rows(train_samples, args.history_window_size)
-    test_rows = personalized_samples_to_spur_rows(test_samples, args.history_window_size)
+    train_rows = personalized_samples_to_spur_rows(
+        train_samples,
+        args.history_window_size,
+        label_schema=args.label_schema,
+    )
+    test_rows = personalized_samples_to_spur_rows(
+        test_samples,
+        args.history_window_size,
+        label_schema=args.label_schema,
+    )
 
     if args.limit_train > 0:
         rng = random.Random(args.seed)
@@ -322,9 +359,10 @@ def main() -> None:
     logger.info(f"Test stats:  {dataset_stats(test_samples)}")
     logger.info(f"SPUR rows: train={len(train_rows)}, test={len(test_rows)}")
 
-    p1_cache = os.path.join(args.output_dir, "phase1_candidates.json")
-    p2_cache = os.path.join(args.output_dir, f"phase2_rubrics_k{args.k_rubrics}.json")
-    p3_test_cache = os.path.join(args.output_dir, f"phase3_test_{args.model}_k{args.k_rubrics}.jsonl".replace("/", "_"))
+    schema_suffix = "" if args.label_schema == "binary" else f"_{args.label_schema}"
+    p1_cache = os.path.join(args.output_dir, f"phase1_candidates{schema_suffix}.json")
+    p2_cache = os.path.join(args.output_dir, f"phase2_rubrics{schema_suffix}_k{args.k_rubrics}.json")
+    p3_test_cache = os.path.join(args.output_dir, f"phase3_test{schema_suffix}_{args.model}_k{args.k_rubrics}.jsonl".replace("/", "_"))
 
     if args.skip_phase1:
         with open(p1_cache, encoding="utf-8") as fp:
@@ -356,11 +394,12 @@ def main() -> None:
         cache_file=p3_test_cache,
         max_workers=args.max_workers,
         desc="SPUR personalized test",
+        label_schema=args.label_schema,
     )
 
     scored_for_output = test_scored
     if args.variant != "direct":
-        p3_train_cache = os.path.join(args.output_dir, f"phase3_train_{args.model}_k{args.k_rubrics}.jsonl".replace("/", "_"))
+        p3_train_cache = os.path.join(args.output_dir, f"phase3_train{schema_suffix}_{args.model}_k{args.k_rubrics}.jsonl".replace("/", "_"))
         train_scored = score_rows(
             train_rows,
             rubrics=rubrics,
@@ -368,6 +407,7 @@ def main() -> None:
             cache_file=p3_train_cache,
             max_workers=args.max_workers,
             desc="SPUR personalized train",
+            label_schema=args.label_schema,
         )
         scored_for_output = _train_lr_variant(
             variant=args.variant,
@@ -382,13 +422,19 @@ def main() -> None:
             seed=args.seed,
         )
 
-    metrics = compute_metrics(scored_for_output)
-    print_metrics(metrics, header=f"SPUR personalized ({args.variant})")
+    if args.label_schema == "trinary":
+        metrics = compute_trinary_metrics(scored_for_output)
+        print_trinary_metrics(metrics, header=f"SPUR personalized ({args.variant}, trinary)")
+    else:
+        metrics = compute_metrics(scored_for_output)
+        print_metrics(metrics, header=f"SPUR personalized ({args.variant})")
     records = spur_results_to_personalized_records(
         test_rows,
         scored_for_output,
         model=args.model,
         variant=args.variant,
+        score_mapping=args.score_mapping,
+        label_schema=args.label_schema,
     )
     _save_jsonl(args.output_jsonl, records)
     _save_json(args.metrics_json, {

@@ -1,6 +1,17 @@
 from __future__ import annotations
 
-from .constants import DSAT_LABEL, SAT_LABEL
+from .constants import DSAT_LABEL, NEUTRAL_LABEL, SAT_LABEL
+
+
+def score_to_spur_label(score: int | float, label_schema: str = "binary") -> str:
+    score_int = int(score)
+    if label_schema == "trinary":
+        if score_int <= 2:
+            return DSAT_LABEL
+        if score_int == 3:
+            return NEUTRAL_LABEL
+        return SAT_LABEL
+    return SAT_LABEL if score_int >= 4 else DSAT_LABEL
 
 
 def format_profile(profile: dict) -> str:
@@ -18,7 +29,7 @@ def format_profile(profile: dict) -> str:
     )
 
 
-def preprocess_to_rows(data_list: list[dict]) -> list[dict]:
+def preprocess_to_rows(data_list: list[dict], label_schema: str = "binary") -> list[dict]:
     """将原始 session 级数据展开为 turn 级行，每条 assistant 发言对应一行。"""
     rows: list[dict] = []
     for sample in data_list:
@@ -37,7 +48,7 @@ def preprocess_to_rows(data_list: list[dict]) -> list[dict]:
                         "history": "\n".join(history_window),
                         "assistant_reply": utt["content"],
                         "gold_score": score,
-                        "binary_label": SAT_LABEL if score >= 4 else DSAT_LABEL,
+                        "binary_label": score_to_spur_label(score, label_schema),
                         "user": sample.get("user", "unknown"),
                     }
                 )

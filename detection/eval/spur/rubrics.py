@@ -9,7 +9,7 @@ from threading import Lock
 from loguru import logger
 from tqdm import tqdm
 
-from .constants import DSAT_LABEL, SAT_LABEL
+from .constants import DSAT_LABEL, NEUTRAL_LABEL, SAT_LABEL
 from .data import format_conversation
 from .llm import _call_llm, _sys_user
 
@@ -31,6 +31,14 @@ _EXTRACT_SAT_TMPL = """\
 _EXTRACT_DSAT_TMPL = """\
 以下对话中用户感到【不满意】（满意度 <= 3 分）。
 请提取 3 条能解释"为何用户不满意"的通用规律（rubric），以 JSON 数组形式输出，每条为一个字符串。
+不要输出其他内容，只输出 JSON 数组。
+
+{conversation}
+"""
+
+_EXTRACT_NEUTRAL_TMPL = """\
+以下对话中用户感到【一般/中立】（满意度 = 3 分）。
+请提取 3 条能解释"为何用户既未明显满意也未明显不满意"的通用规律（rubric），以 JSON 数组形式输出，每条为一个字符串。
 不要输出其他内容，只输出 JSON 数组。
 
 {conversation}
@@ -61,10 +69,30 @@ _SUMMARIZE_DSAT_TMPL = """\
 每条 rubric 应为通用描述（15-50字），以 JSON 数组输出，不输出其他内容。
 """
 
+_SUMMARIZE_NEUTRAL_TMPL = """\
+以下是从多条用户【一般/中立】对话中提取的中立评价原因候选 rubric，共 {n} 条：
+
+{candidates}
+
+请归纳整合，输出 {k} 条最具代表性的"用户一般/中立"通用 rubric。
+每条 rubric 应为通用描述（15-50字），以 JSON 数组输出，不输出其他内容。
+"""
+
+
+def _label_order_for_rows(rows: list[dict]) -> list[str]:
+    present = {r["binary_label"] for r in rows}
+    return [label for label in [DSAT_LABEL, NEUTRAL_LABEL, SAT_LABEL] if label in present]
+
 
 def _extract_rubrics_for_one(row: dict, model: str) -> list[str]:
     """对单条样本提取 rubric 候选，返回字符串列表（可能为空）。"""
-    tmpl = _EXTRACT_SAT_TMPL if row["binary_label"] == SAT_LABEL else _EXTRACT_DSAT_TMPL
+    label = row["binary_label"]
+    if label == SAT_LABEL:
+        tmpl = _EXTRACT_SAT_TMPL
+    elif label == NEUTRAL_LABEL:
+        tmpl = _EXTRACT_NEUTRAL_TMPL
+    else:
+        tmpl = _EXTRACT_DSAT_TMPL
     prompt = tmpl.format(conversation=format_conversation(row))
     try:
         raw = _call_llm(_sys_user(_EXTRACT_SYSTEM, prompt), model)
@@ -85,30 +113,30 @@ def extract_rubric_candidates(
 ) -> dict[str, list[str]]:
     """
     Phase 1：并行提取所有训练样本的 rubric 候选。
-    返回 {"SAT": [...], "DSAT": [...]}
+    返回包含当前 label schema 中各标签的候选 rubric 字典。
     """
     if cache_file and os.path.exists(cache_file):
         logger.info(f"[Phase 1] 加载缓存: {cache_file}")
         with open(cache_file) as f:
             return json.load(f)
 
-    sat_rows = [r for r in rows if r["binary_label"] == SAT_LABEL]
-    dsat_rows = [r for r in rows if r["binary_label"] == DSAT_LABEL]
+    label_order = _label_order_for_rows(rows)
+    rows_by_label = {label: [r for r in rows if r["binary_label"] == label] for label in label_order}
 
     if max_per_label > 0:
         rng = random.Random(42)
-        if len(sat_rows) > max_per_label:
-            sat_rows = rng.sample(sat_rows, max_per_label)
-        if len(dsat_rows) > max_per_label:
-            dsat_rows = rng.sample(dsat_rows, max_per_label)
+        for label, label_rows in list(rows_by_label.items()):
+            if len(label_rows) > max_per_label:
+                rows_by_label[label] = rng.sample(label_rows, max_per_label)
 
     logger.info(
-        f"[Phase 1] Rubric extraction: {len(sat_rows)} SAT + {len(dsat_rows)} DSAT samples"
+        "[Phase 1] Rubric extraction: "
+        + " + ".join(f"{len(rows_by_label[label])} {label}" for label in label_order)
     )
 
-    candidates: dict[str, list[str]] = {"SAT": [], "DSAT": []}
+    candidates: dict[str, list[str]] = {label: [] for label in label_order}
     lock = Lock()
-    all_rows = sat_rows + dsat_rows
+    all_rows = [row for label in label_order for row in rows_by_label[label]]
 
     def process(row: dict):
         rubrics = _extract_rubrics_for_one(row, model)
@@ -125,7 +153,8 @@ def extract_rubric_candidates(
                 logger.warning(f"Worker failed: {e}")
 
     logger.info(
-        f"[Phase 1] 候选数: SAT={len(candidates['SAT'])}, DSAT={len(candidates['DSAT'])}"
+        "[Phase 1] 候选数: "
+        + ", ".join(f"{label}={len(candidates[label])}" for label in label_order)
     )
 
     if cache_file:
@@ -147,7 +176,12 @@ def _summarize_one_label(
     """
     对单个标签的候选列表做多轮归纳（当候选数超过 chunk_size 时先分块再汇总）。
     """
-    tmpl = _SUMMARIZE_SAT_TMPL if label == SAT_LABEL else _SUMMARIZE_DSAT_TMPL
+    if label == SAT_LABEL:
+        tmpl = _SUMMARIZE_SAT_TMPL
+    elif label == NEUTRAL_LABEL:
+        tmpl = _SUMMARIZE_NEUTRAL_TMPL
+    else:
+        tmpl = _SUMMARIZE_DSAT_TMPL
 
     def _call_summarize(cands: list[str], target_k: int) -> list[str]:
         numbered = "\n".join(f"{i+1}. {c}" for i, c in enumerate(cands))
@@ -186,7 +220,7 @@ def summarize_rubrics(
 ) -> dict[str, list[str]]:
     """
     Phase 2：将候选 rubric 归纳为各 k 条代表性 rubric。
-    返回 {"SAT": [...k条...], "DSAT": [...k条...]}
+    返回每个标签的 k 条代表性 rubric。
     """
     if cache_file and os.path.exists(cache_file):
         logger.info(f"[Phase 2] 加载缓存: {cache_file}")
@@ -194,7 +228,8 @@ def summarize_rubrics(
             return json.load(f)
 
     rubrics: dict[str, list[str]] = {}
-    for label in [SAT_LABEL, DSAT_LABEL]:
+    label_order = [label for label in [DSAT_LABEL, NEUTRAL_LABEL, SAT_LABEL] if label in candidates]
+    for label in label_order:
         logger.info(f"[Phase 2] 归纳 {label} rubrics（候选={len(candidates[label])}）...")
         rubrics[label] = _summarize_one_label(candidates[label], label, model, k)
         logger.info(f"[Phase 2] {label} rubrics ({len(rubrics[label])}):")
