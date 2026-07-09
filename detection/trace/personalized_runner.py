@@ -364,6 +364,14 @@ def run_agent_on_sample(
                 "memory_version": memory.memory_version if memory is not None else "none",
                 "memory_update_prompt_version": memory_update_prompt_version if with_memory else "none",
                 "turn_eval_prompt_version": turn_eval_prompt_version,
+                "history_session_budget": getattr(sample, "history_session_budget", 0),
+                "history_budget_strategy": getattr(sample, "history_budget_strategy", "all"),
+                "n_history_sessions_used": sample.n_history_sessions,
+                "n_history_sessions_before_budget": (
+                    sample.n_history_sessions_before_budget
+                    if sample.n_history_sessions_before_budget is not None
+                    else sample.n_history_sessions
+                ),
             }
             _copy_optional_turn_keys(r, record)
             if memory_snapshot is not None:

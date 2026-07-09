@@ -78,6 +78,9 @@ def build_user_memory(
     memory version suffix for later schemas.
     """
     cache_key = f"{sample.user}__{sample.target_task}__{model.replace('/', '_')}"
+    history_cache_tag = getattr(sample, "history_cache_tag", "")
+    if history_cache_tag:
+        cache_key = f"{cache_key}__{history_cache_tag}"
     cache_file = (
         f"{cache_key}.json"
         if memory_version == "v2"

@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import json
 import os
-from dataclasses import dataclass, field
+from dataclasses import dataclass, replace
 
 from loguru import logger
 from sklearn.model_selection import GroupShuffleSplit
@@ -67,6 +67,9 @@ class PersonalizedSample:
     target_task: str
     history_sessions: list[SessionData]
     target_sessions: list[SessionData]
+    history_session_budget: int = 0
+    history_budget_strategy: str = "all"
+    n_history_sessions_before_budget: int | None = None
 
     # 唯一标识，用于跨运行去重
     @property
@@ -84,6 +87,13 @@ class PersonalizedSample:
     @property
     def history_tasks(self) -> list[str]:
         return list(dict.fromkeys(s.task for s in self.history_sessions))
+
+    @property
+    def history_cache_tag(self) -> str:
+        if self.history_session_budget <= 0:
+            return ""
+        strategy = self.history_budget_strategy.replace("/", "_").replace(" ", "_")
+        return f"histk{self.history_session_budget}_{strategy}"
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -277,6 +287,85 @@ def build_personalized_samples(
 # 工具函数
 # ──────────────────────────────────────────────────────────────────────────────
 
+def _select_history_sessions_round_robin_by_task(
+    history_sessions: list[SessionData],
+    budget: int,
+) -> list[SessionData]:
+    sessions_by_task: dict[str, list[SessionData]] = {}
+    for session in history_sessions:
+        sessions_by_task.setdefault(session.task, []).append(session)
+
+    task_order = [task for task in TASK_LIST if task in sessions_by_task]
+    selected: list[SessionData] = []
+    depth = 0
+    while len(selected) < budget:
+        added = False
+        for task in task_order:
+            task_sessions = sessions_by_task[task]
+            if depth < len(task_sessions):
+                selected.append(task_sessions[depth])
+                added = True
+                if len(selected) >= budget:
+                    break
+        if not added:
+            break
+        depth += 1
+    return selected
+
+
+def apply_history_session_budget(
+    samples: list[PersonalizedSample],
+    history_session_budget: int,
+    strategy: str = "round_robin_task",
+) -> list[PersonalizedSample]:
+    """
+    Return samples with at most K source-history sessions per user-target block.
+
+    This is used for robustness ablations under sparse user histories. The default
+    round-robin strategy keeps the selection deterministic while spreading small
+    budgets across source task types when possible.
+    """
+    if history_session_budget <= 0:
+        return samples
+    if strategy not in {"round_robin_task", "original_order"}:
+        raise ValueError(f"Unknown history budget strategy: {strategy}")
+
+    budgeted_samples: list[PersonalizedSample] = []
+    for sample in samples:
+        original_count = len(sample.history_sessions)
+        if strategy == "round_robin_task":
+            selected_history = _select_history_sessions_round_robin_by_task(
+                sample.history_sessions,
+                history_session_budget,
+            )
+        else:
+            selected_history = sample.history_sessions[:history_session_budget]
+
+        budgeted_samples.append(
+            replace(
+                sample,
+                history_sessions=selected_history,
+                history_session_budget=history_session_budget,
+                history_budget_strategy=strategy,
+                n_history_sessions_before_budget=original_count,
+            )
+        )
+
+    if not budgeted_samples:
+        return []
+
+    before_counts = [
+        s.n_history_sessions_before_budget or s.n_history_sessions
+        for s in budgeted_samples
+    ]
+    after_counts = [s.n_history_sessions for s in budgeted_samples]
+    logger.info(
+        f"[personalized_data] applied history_session_budget={history_session_budget}, "
+        f"strategy={strategy}, avg_history_sessions "
+        f"{sum(before_counts) / len(before_counts):.2f}->{sum(after_counts) / len(after_counts):.2f}"
+    )
+    return budgeted_samples
+
 def get_all_users(data_dir: str = HUMAN_DIR) -> list[str]:
     return sorted(
         u for u in os.listdir(data_dir) if os.path.isdir(os.path.join(data_dir, u))
@@ -289,7 +378,7 @@ def dataset_stats(samples: list[PersonalizedSample]) -> dict:
     target_sessions = sum(len(s.target_sessions) for s in samples)
     target_turns = sum(s.n_target_turns for s in samples)
     history_per_sample = [s.n_history_sessions for s in samples]
-    return {
+    stats = {
         "n_users": len(users),
         "n_blocks": len(samples),
         "n_target_sessions": target_sessions,
@@ -298,3 +387,19 @@ def dataset_stats(samples: list[PersonalizedSample]) -> dict:
         "min_history_sessions": min(history_per_sample) if history_per_sample else 0,
         "max_history_sessions": max(history_per_sample) if history_per_sample else 0,
     }
+    original_history_per_sample = [
+        s.n_history_sessions_before_budget
+        for s in samples
+        if s.n_history_sessions_before_budget is not None
+    ]
+    if original_history_per_sample:
+        stats.update(
+            {
+                "avg_history_sessions_before_budget": (
+                    sum(original_history_per_sample) / len(original_history_per_sample)
+                ),
+                "min_history_sessions_before_budget": min(original_history_per_sample),
+                "max_history_sessions_before_budget": max(original_history_per_sample),
+            }
+        )
+    return stats

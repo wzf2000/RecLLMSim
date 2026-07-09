@@ -21,6 +21,8 @@ memory_cache_dir="${memory_cache_dir:-outputs/personalized/memory_cache}"
 memory_model="${memory_model:-}"        # 留空则与 model 相同
 memory_version="${memory_version:-v2}"  # v2 / v3
 min_history_sessions="${min_history_sessions:-1}"
+history_session_budget="${history_session_budget:-0}"  # 0=全部历史；>0=每个 block 最多使用 K 个历史 session
+history_budget_strategy="${history_budget_strategy:-round_robin_task}"  # round_robin_task / original_order
 limit="${limit:-0}"                    # <=0 = 不限制，>0 = 调试用
 limit_users="${limit_users:-0}"        # <=0 = 不限制，>0 = 按用户数量截取
 user_offset="${user_offset:-0}"        # 用户子集起始偏移
@@ -55,6 +57,8 @@ args=(
     --memory_cache_dir "$memory_cache_dir"
     --memory_version "$memory_version"
     --min_history_sessions "$min_history_sessions"
+    --history_session_budget "$history_session_budget"
+    --history_budget_strategy "$history_budget_strategy"
     --n_anchors "$n_anchors"
     --turn_eval_prompt_version "$turn_eval_prompt_version"
 )
@@ -72,6 +76,9 @@ echo "  split              = $split  (train_ratio=$train_ratio)"
 echo "  memory_update_mode = $memory_update_mode"
 echo "  memory_update_ver  = $memory_update_prompt_version"
 echo "  memory_version     = $memory_version"
+echo "  min_history        = $min_history_sessions sessions"
+echo "  history_budget     = $history_session_budget sessions"
+echo "  budget_strategy    = $history_budget_strategy"
 echo "  history_window     = $history_window_size turns"
 echo "  n_anchors          = $n_anchors"
 echo "  turn_eval_prompt   = $turn_eval_prompt_version"

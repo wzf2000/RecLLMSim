@@ -13,6 +13,10 @@
 #   memory_update_prompt_version — auto / v2 / v2_1 / v2_2 / v2_3 / v2_4 / v2_5 / v3（默认 auto）
 #   no_memory            — 1 则跳过记忆（默认 0）
 #   max_workers          — 并发线程数（默认 4；本地模型吞吐有限，不宜过高）
+#   history_window_size  — turn-level prompt 中保留的最近对话轮数（默认 5）
+#   min_history_sessions — 过滤 history session 数量不足的 block（默认 1）
+#   history_session_budget — 0 表示全部历史；>0 表示每个 block 最多使用 K 个历史 session
+#   history_budget_strategy — round_robin_task / original_order（默认 round_robin_task）
 #   limit                — 调试用，限制 block 数量（<=0 不限，默认 0）
 #   limit_users          — 调试用，按用户数量限制子集（<=0 不限，默认 0）
 #   user_offset          — 按用户子集截取时的起始偏移（默认 0）
@@ -37,6 +41,10 @@ memory_update_mode="${memory_update_mode:-none}"
 memory_update_prompt_version="${memory_update_prompt_version:-auto}"
 no_memory="${no_memory:-0}"
 max_workers="${max_workers:-4}"
+history_window_size="${history_window_size:-5}"
+min_history_sessions="${min_history_sessions:-1}"
+history_session_budget="${history_session_budget:-0}"
+history_budget_strategy="${history_budget_strategy:-round_robin_task}"
 limit="${limit:-0}"
 limit_users="${limit_users:-0}"
 user_offset="${user_offset:-0}"
@@ -56,8 +64,12 @@ ARGS=(
     --memory_update_mode "${memory_update_mode}"
     --memory_update_prompt_version "${memory_update_prompt_version}"
     --max_workers "${max_workers}"
+    --history_window_size "${history_window_size}"
     --memory_cache_dir "${memory_cache_dir}"
     --memory_version "${memory_version}"
+    --min_history_sessions "${min_history_sessions}"
+    --history_session_budget "${history_session_budget}"
+    --history_budget_strategy "${history_budget_strategy}"
     --n_anchors "${n_anchors}"
     --turn_eval_prompt_version "${turn_eval_prompt_version}"
 )
@@ -102,6 +114,10 @@ echo " Update mode: ${memory_update_mode}"
 echo " Update ver:  ${memory_update_prompt_version}"
 echo " Memory ver:  ${memory_version}"
 echo " No memory:   ${no_memory}"
+echo " Min history: ${min_history_sessions} sessions"
+echo " Hist budget: ${history_session_budget} sessions"
+echo " Hist strat:  ${history_budget_strategy}"
+echo " Hist window: ${history_window_size} turns"
 echo " n_anchors:   ${n_anchors}"
 echo " Prompt ver:  ${turn_eval_prompt_version}"
 echo " Limit users: ${limit_users} (offset=${user_offset})"

@@ -70,6 +70,7 @@ from lib.memory import (
 from lib.personalized_data import (
     PersonalizedSample,
     SessionData,
+    apply_history_session_budget,
     build_personalized_samples,
     dataset_stats,
 )
@@ -605,6 +606,26 @@ def parse_args() -> ArgumentParser:
         help="过滤：历史 session 数量至少为该值（默认 1）",
     )
     parser.add_argument(
+        "--history_session_budget",
+        type=int,
+        default=0,
+        help=(
+            "每个 user-target block 最多使用的 source-history session 数量。"
+            "0 表示使用全部历史；>0 用于 history amount robustness ablation。"
+        ),
+    )
+    parser.add_argument(
+        "--history_budget_strategy",
+        type=str,
+        default="round_robin_task",
+        choices=["round_robin_task", "original_order"],
+        help=(
+            "history_session_budget>0 时的裁剪策略。"
+            "round_robin_task 会尽量跨 source task 均衡选择；"
+            "original_order 使用原始 history_sessions 顺序。"
+        ),
+    )
+    parser.add_argument(
         "--limit",
         type=int,
         default=0,
@@ -784,6 +805,11 @@ def main() -> None:
             else ""
         )
         anchor_tag = f"_anchor{args.n_anchors}" if args.n_anchors > 0 else ""
+        history_budget_tag = (
+            f"_histk{args.history_session_budget}_{args.history_budget_strategy}"
+            if with_memory and args.history_session_budget > 0
+            else ""
+        )
         prompt_tag = (
             f"_{args.turn_eval_prompt_version}"
             if args.turn_eval_prompt_version != "v2" else ""
@@ -796,7 +822,8 @@ def main() -> None:
             )
         args.output_jsonl = (
             f"outputs/personalized/{model_tag}_{args.split}_{mode_tag}"
-            f"{memory_tag}{update_tag}{anchor_tag}{prompt_tag}{memory_model_tag}.jsonl"
+            f"{memory_tag}{update_tag}{anchor_tag}{history_budget_tag}"
+            f"{prompt_tag}{memory_model_tag}.jsonl"
         )
 
     logger.info(f"Model:              {args.model}")
@@ -816,6 +843,8 @@ def main() -> None:
         logger.info(f"Memory update mode: {args.memory_update_mode}")
         logger.info(f"Memory version:     {args.memory_version}")
         logger.info(f"Memory update ver:  {args.memory_update_prompt_version}")
+        logger.info(f"History budget:     {args.history_session_budget}")
+        logger.info(f"Budget strategy:    {args.history_budget_strategy}")
     logger.info(f"History window:     {args.history_window_size} turns")
     logger.info(f"Anchors per turn:   {args.n_anchors}")
     logger.info(f"Turn eval prompt:   {args.turn_eval_prompt_version}")
@@ -850,6 +879,14 @@ def main() -> None:
     if args.limit > 0:
         samples = samples[: args.limit]
         logger.info(f"Limiting to {len(samples)} blocks for debugging.")
+
+    if with_memory and args.history_session_budget > 0:
+        samples = apply_history_session_budget(
+            samples,
+            history_session_budget=args.history_session_budget,
+            strategy=args.history_budget_strategy,
+        )
+        logger.info(f"Budgeted dataset stats: {dataset_stats(samples)}")
 
     os.makedirs(args.memory_cache_dir, exist_ok=True)
 
