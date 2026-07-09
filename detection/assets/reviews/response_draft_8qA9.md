@@ -21,7 +21,11 @@ In the revision, we will make this scope more explicit and describe PersTurnBenc
 
 We are preparing a small stratified validation over replayed candidate responses.
 Annotators will be shown the user profile, task background, conversation prefix, current user request, and two candidate responses, and will be asked which response is more likely to satisfy the target user.
-We will stratify the sample by model pair difficulty and evaluator score margin, and report agreement between human preferences and the frozen evaluator, especially on high-margin comparisons.
+We have implemented the item construction and annotation interface for this validation.
+The item sampler builds blinded A/B comparisons from scored replay outputs and stratifies pairs by model-pair difficulty, evaluator score margin, source task, and user coverage.
+The annotation page hides model names, evaluator scores, and gold labels, and asks annotators for A/B/tie/uncertain preference, confidence, and optional reason categories.
+If completed in time, we will report human-evaluator agreement overall, agreement on high-margin pairs, inter-annotator agreement, and bootstrap confidence intervals over items.
+If the validation is not completed before the response deadline, we will still revise the paper to describe this as the most important next validation step rather than implying that the current automatic ranking is final.
 
 ### TODO
 
@@ -72,4 +76,3 @@ We will therefore revise the text to describe PersTurnBench results as tiered sc
 - Add Kendall's tau values.
 - Replace strict ranking wording with broad groups / tiers.
 - Make clear that reference-CDF is the official reported score because it reduces score inflation, not because raw scores are ignored.
-
