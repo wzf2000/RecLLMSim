@@ -351,7 +351,18 @@ def work_sim2human3(item: str, model_name: str, model_type: ModelType, work: Cal
     logger.info(f"Sim train size: {len(X_train)}, Human test size: {len(X_test)}")
     mlb, encoded = encode_label_partitions(np.asarray(y_train, dtype=object), y_test)
     y_train, y_test = encoded
-    report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, seed=seed, **kwargs)
+    report = work(
+        X_train,
+        y_train,
+        X_test,
+        y_test,
+        item,
+        model_name,
+        mlb.classes_,
+        ckpt_dir_name=f'sim2human3_{item}_seed_{seed}',
+        seed=seed,
+        **kwargs,
+    )
     add_log(item, model_name, ExpType.SIM2HUMAN3, report, seed=seed)
 
 def work_human(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, samples: int = -1, data_version: int = 1, chat_model: str | None = None, seed: int = 42, **kwargs) -> None:
