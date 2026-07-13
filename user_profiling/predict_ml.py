@@ -17,10 +17,11 @@ from pipe_util import exp_sim, exp_sim2human, exp_sim2human2, exp_human, exp_sim
 warnings.filterwarnings('ignore', category=UndefinedMetricWarning)
 
 class Model():
-    def __init__(self, Type: str, strategy: str = 'OneVsRest', **kwargs):
+    def __init__(self, Type: str, strategy: str = 'OneVsRest', random_state: int = 42, **kwargs):
         self.vectorizer = TfidfVectorizer()
         self.Type = Type
         self.strategy = strategy
+        kwargs.setdefault('random_state', random_state)
         if Type == 'LR':
             model = LogisticRegression(**kwargs)
         elif Type == 'RF':
@@ -34,7 +35,7 @@ class Model():
         elif strategy == 'MultiOutput':
             self.model = MultiOutputClassifier(model)
         elif strategy == 'ClassifierChain':
-            self.model = ClassifierChain(model, order='random', random_state=42)
+            self.model = ClassifierChain(model, order='random', random_state=random_state)
         else:
             raise NotImplementedError
 
@@ -57,10 +58,10 @@ class Model():
         else:
             return self.model.predict_proba(X_encoded)
 
-def work(X_train: list[str], y_train: np.ndarray, X_test: list[str], y_test: np.ndarray, item: str, model_name: str, labels: np.ndarray, ckpt_dir_name: str | None = None, **kwargs) -> dict[str, float]:
+def work(X_train: list[str], y_train: np.ndarray, X_test: list[str], y_test: np.ndarray, item: str, model_name: str, labels: np.ndarray, ckpt_dir_name: str | None = None, seed: int = 42, **kwargs) -> dict[str, float]:
     logger.info(f"Training model {model_name} for item {item} with {len(X_train)} training samples and {len(X_test)} testing samples")
     Type, strategy = model_name.split('-')
-    model = Model(Type, strategy, **kwargs)
+    model = Model(Type, strategy, random_state=seed, **kwargs)
     model.fit(X_train, y_train)
     y_score = model.predict_proba(X_test)
     return compute_metrics(y_test, y_score)
@@ -72,6 +73,8 @@ def parse_args():
     parser.add_argument('-l', '--language', type=str, default='zh', choices=['zh', 'en'])
     parser.add_argument('-d', '--data_version', type=int, default=1, choices=[1, 2, 3, 4], help='1: original data; 2: updated data; 3: updated data for both sim & human; 4: updated data for both sim with rewritten & human')
     parser.add_argument('-c', '--chat_model', type=str, default=None)
+    parser.add_argument('-r', '--ratio', type=float, default=1.0, help='Ratio for sim4human4')
+    parser.add_argument('--seed', type=int, default=42)
     args = parser.parse_args()
     return args
 
@@ -103,7 +106,7 @@ if __name__ == '__main__':
     if args.type == 'sim':
         exp_sim(args.model, ModelType.ML, work, args.language, **params)
     elif args.type == 'human':
-        exp_human(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, **params)
+        exp_human(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, **params)
     elif args.type == 'sim2human':
         exp_sim2human(args.model, ModelType.ML, work, **params)
     elif args.type == 'human2sim':
@@ -115,12 +118,12 @@ if __name__ == '__main__':
     elif args.type == 'human2sim2':
         exp_human2sim2(args.model, ModelType.ML, work, **params)
     elif args.type == 'sim4human':
-        exp_sim4human(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, **params)
+        exp_sim4human(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, **params)
     elif args.type == 'sim4human2':
-        exp_sim4human2(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, **params)
+        exp_sim4human2(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, **params)
     elif args.type == 'sim4human3':
-        exp_sim4human3(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, **params)
+        exp_sim4human3(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, **params)
     elif args.type == 'sim4human4':
-        exp_sim4human4(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, **params)
+        exp_sim4human4(args.model, ModelType.ML, work, ratio=args.ratio, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, **params)
     else:
         raise NotImplementedError

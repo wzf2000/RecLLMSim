@@ -33,9 +33,9 @@ def add_log(item: str, model_name: str, exp_type: ExpType, result: dict[str, flo
             if cls:
                 f.write('prediction\tf1_micro\tf1_macro\tf1_weighted\taccuracy\n')
             else:
-                f.write('prediction\tf1_micro\tf1_macro\tf1_weighted\taccuracy\thit@1\thit@3\trecall@1\trecall@3\n')
+                f.write('prediction\tf1_micro\tf1_macro\tf1_weighted\taccuracy\thit@1\thit@3\thit@5\trecall@1\trecall@3\trecall@5\tmap_macro\n')
     with open(log_file, 'a') as f:
         if cls:
             f.write(f"{item}\t{result['f1_micro']:.4f}\t{result['f1_macro']:.4f}\t{result['f1_weighted']:.4f}\t{result['accuracy']:.4f}\n")
         else:
-            f.write(f"{item}\t{result['f1_micro']:.4f}\t{result['f1_macro']:.4f}\t{result['f1_weighted']:.4f}\t{result['accuracy']:.4f}\t{result['hit_rate_1']:.4f}\t{result['hit_rate_3']:.4f}\t{result['recall_1']:.4f}\t{result['recall_3']:.4f}\n")
+            f.write(f"{item}\t{result['f1_micro']:.4f}\t{result['f1_macro']:.4f}\t{result['f1_weighted']:.4f}\t{result['accuracy']:.4f}\t{result['hit_rate_1']:.4f}\t{result['hit_rate_3']:.4f}\t{result['hit_rate_5']:.4f}\t{result['recall_1']:.4f}\t{result['recall_3']:.4f}\t{result['recall_5']:.4f}\t{result['map_macro']:.4f}\n")

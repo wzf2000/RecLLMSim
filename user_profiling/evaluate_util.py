@@ -2,6 +2,7 @@ import numpy as np
 from sklearn import metrics
 
 def hit_rate(labels: np.ndarray, probs: np.ndarray, k: int):
+    k = min(k, probs.shape[1])
     top_k = np.argsort(probs, axis=1)[:, -k:]
     hits = 0
     for i in range(len(labels)):
@@ -13,6 +14,7 @@ def hit_rate(labels: np.ndarray, probs: np.ndarray, k: int):
     return hits / len(labels)
 
 def recall(labels: np.ndarray, probs: np.ndarray, k: int):
+    k = min(k, probs.shape[1])
     top_k = np.argsort(probs, axis=1)[:, -k:]
     recalls = 0
     total = 0
@@ -53,14 +55,21 @@ def compute_metrics(labels: np.ndarray, probs: np.ndarray, ranking_only: bool = 
     # 计算hitrate与recall
     hit_rate_1 = hit_rate(labels, probs, 1)
     hit_rate_3 = hit_rate(labels, probs, 3)
+    hit_rate_5 = hit_rate(labels, probs, 5)
     recall_1 = recall(labels, probs, 1)
     recall_3 = recall(labels, probs, 3)
+    recall_5 = recall(labels, probs, 5)
+    observed_classes = np.sum(labels, axis=0) > 0
+    map_macro = metrics.average_precision_score(labels[:, observed_classes], probs[:, observed_classes], average='macro') if np.any(observed_classes) else float('nan')
 
     ret_dict = {
         'hit_rate_1': hit_rate_1,
         'hit_rate_3': hit_rate_3,
+        'hit_rate_5': hit_rate_5,
         'recall_1': recall_1,
         'recall_3': recall_3,
+        'recall_5': recall_5,
+        'map_macro': map_macro,
     }
     if ranking_only:
         return ret_dict
