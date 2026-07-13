@@ -39,7 +39,9 @@ def read_metric(path: str, metric: str) -> dict[str, float]:
 
 
 def paired_tests(baseline: np.ndarray, augmented: np.ndarray) -> tuple[float, float]:
-    t_pvalue = float(ttest_rel(augmented, baseline).pvalue)
+    with warnings.catch_warnings():
+        warnings.simplefilter('ignore', RuntimeWarning)
+        t_pvalue = float(ttest_rel(augmented, baseline).pvalue)
     differences = augmented - baseline
     if np.allclose(differences, 0):
         return t_pvalue, 1.0
@@ -57,15 +59,19 @@ def main() -> None:
     parser.add_argument('--metric', choices=METRIC_COLUMNS, default='recall_3')
     parser.add_argument('--ratio', type=float, default=0.1)
     parser.add_argument('--topk', type=int, default=6)
+    parser.add_argument('--include_agent_only', action='store_true')
     parser.add_argument('--output', type=Path)
     args = parser.parse_args()
 
     metric_column = METRIC_COLUMNS[args.metric]
     baseline_by_seed = []
     augmented_by_seed = []
+    agent_only_by_seed = []
     for seed_text in args.seeds:
         seed = int(seed_text)
         baseline_by_seed.append(read_metric(get_log_file(args.model, ExpType.HUMAN, seed=seed), metric_column))
+        if args.include_agent_only:
+            agent_only_by_seed.append(read_metric(get_log_file(args.model, ExpType.SIM2HUMAN3, seed=seed), metric_column))
         augmented_by_seed.append(read_metric(get_log_file(
             args.model,
             ExpType.SIM4HUMAN5,
@@ -80,9 +86,11 @@ def main() -> None:
         if item == 'Macro average':
             baseline = np.array([np.mean([run[name] for name in args.items]) for run in baseline_by_seed])
             augmented = np.array([np.mean([run[name] for name in args.items]) for run in augmented_by_seed])
+            agent_only = np.array([np.mean([run[name] for name in args.items]) for run in agent_only_by_seed]) if args.include_agent_only else None
         else:
             baseline = np.array([run[item] for run in baseline_by_seed])
             augmented = np.array([run[item] for run in augmented_by_seed])
+            agent_only = np.array([run[item] for run in agent_only_by_seed]) if args.include_agent_only else None
         t_pvalue, wilcoxon_pvalue = paired_tests(baseline, augmented)
         relative_gain = np.divide(
             augmented - baseline,
@@ -90,10 +98,17 @@ def main() -> None:
             out=np.full_like(baseline, np.nan),
             where=baseline != 0,
         )
-        rows.append({
+        row = {
             'item': item,
             'baseline_mean': np.mean(baseline),
             'baseline_std': np.std(baseline, ddof=1),
+        }
+        if agent_only is not None:
+            row.update({
+                'agent_only_mean': np.mean(agent_only),
+                'agent_only_std': np.std(agent_only, ddof=1),
+            })
+        row.update({
             'augmented_mean': np.mean(augmented),
             'augmented_std': np.std(augmented, ddof=1),
             'absolute_gain': np.mean(augmented - baseline),
@@ -101,6 +116,7 @@ def main() -> None:
             'paired_t_pvalue': t_pvalue,
             'wilcoxon_pvalue': wilcoxon_pvalue,
         })
+        rows.append(row)
 
     fieldnames = list(rows[0])
     if args.output:

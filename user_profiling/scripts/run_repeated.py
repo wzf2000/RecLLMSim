@@ -55,6 +55,7 @@ def main() -> None:
     parser.add_argument('--epochs', type=float, default=10)
     parser.add_argument('--batch_size', type=int, default=16)
     parser.add_argument('--max_length', type=int, default=512)
+    parser.add_argument('--include_agent_only', action='store_true')
     parser.add_argument('--force', action='store_true')
     parser.add_argument('--dry_run', action='store_true')
     args = parser.parse_args()
@@ -85,6 +86,10 @@ def main() -> None:
         seed = int(seed_text)
         human_log = get_log_file(args.model, ExpType.HUMAN, seed=seed)
         run(common + ['-t', 'human', '--seed', str(seed)], human_log, args.items, args.force, args.dry_run)
+
+        if args.include_agent_only:
+            agent_only_log = get_log_file(args.model, ExpType.SIM2HUMAN3, seed=seed)
+            run(common + ['-t', 'sim2human3', '--seed', str(seed)], agent_only_log, args.items, args.force, args.dry_run)
 
         augmentation_metadata = {
             'hc': 'hot',
