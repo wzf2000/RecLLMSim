@@ -1,6 +1,5 @@
 import warnings
 import numpy as np
-import xgboost as xgb
 from loguru import logger
 from argparse import ArgumentParser
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -27,6 +26,7 @@ class Model():
         elif Type == 'RF':
             model = RandomForestClassifier(**kwargs)
         elif Type == 'XGB':
+            import xgboost as xgb
             model = xgb.XGBClassifier(**kwargs)
         else:
             raise NotImplementedError
@@ -66,6 +66,9 @@ def work(X_train: list[str], y_train: np.ndarray, X_test: list[str], y_test: np.
     y_score = model.predict_proba(X_test)
     return compute_metrics(y_test, y_score)
 
+def list_str(value: str) -> list[str]:
+    return value.split(',')
+
 def parse_args():
     parser = ArgumentParser()
     parser.add_argument('-m', '--model', type=str, required=True)
@@ -75,11 +78,12 @@ def parse_args():
     parser.add_argument('-c', '--chat_model', type=str, default=None)
     parser.add_argument('-r', '--ratio', type=float, default=1.0, help='Ratio for sim4human4')
     parser.add_argument('--seed', type=int, default=42)
+    parser.add_argument('--only_all', action='store_true', help='Only train and test on the combined scenarios')
+    parser.add_argument('--items', type=list_str, default=None, help='Comma-separated attributes to train and test')
     args = parser.parse_args()
     return args
 
 if __name__ == '__main__':
-    xgb.set_config(verbosity=1)
     XGB_PARAMS = {
         'n_estimators': 100,
         'max_depth': 10,
@@ -98,6 +102,8 @@ if __name__ == '__main__':
     args = parse_args()
     Type, strategy = args.model.split('-')
     if Type == 'XGB':
+        import xgboost as xgb
+        xgb.set_config(verbosity=1)
         params = XGB_PARAMS
     elif Type == 'RF':
         params = RF_PARAMS
@@ -106,7 +112,7 @@ if __name__ == '__main__':
     if args.type == 'sim':
         exp_sim(args.model, ModelType.ML, work, args.language, **params)
     elif args.type == 'human':
-        exp_human(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, **params)
+        exp_human(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, only_all=args.only_all, items=args.items, **params)
     elif args.type == 'sim2human':
         exp_sim2human(args.model, ModelType.ML, work, **params)
     elif args.type == 'human2sim':
@@ -118,12 +124,12 @@ if __name__ == '__main__':
     elif args.type == 'human2sim2':
         exp_human2sim2(args.model, ModelType.ML, work, **params)
     elif args.type == 'sim4human':
-        exp_sim4human(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, **params)
+        exp_sim4human(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, only_all=args.only_all, items=args.items, **params)
     elif args.type == 'sim4human2':
-        exp_sim4human2(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, **params)
+        exp_sim4human2(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, only_all=args.only_all, items=args.items, **params)
     elif args.type == 'sim4human3':
-        exp_sim4human3(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, **params)
+        exp_sim4human3(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, only_all=args.only_all, items=args.items, **params)
     elif args.type == 'sim4human4':
-        exp_sim4human4(args.model, ModelType.ML, work, ratio=args.ratio, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, **params)
+        exp_sim4human4(args.model, ModelType.ML, work, ratio=args.ratio, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, only_all=args.only_all, items=args.items, **params)
     else:
         raise NotImplementedError
