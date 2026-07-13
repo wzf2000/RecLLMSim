@@ -1,11 +1,12 @@
 import torch
 import random
 import numpy as np
+from dataclasses import dataclass
 from enum import Enum
 from loguru import logger
 from typing import Callable
 from sklearn.preprocessing import MultiLabelBinarizer
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GroupShuffleSplit, train_test_split
 
 from data_util import get_sim_data, get_human_data, ModelType
 from log_util import add_log, ExpType
@@ -229,6 +230,85 @@ def human_version(data_version: int) -> int:
 def sim_version(data_version: int) -> int:
     return 3 if data_version >= 4 else (2 if data_version >= 3 else 1)
 
+@dataclass(frozen=True)
+class HumanDataSplit:
+    X_train: np.ndarray
+    y_train: np.ndarray
+    groups_train: np.ndarray
+    X_val: np.ndarray
+    y_val: np.ndarray
+    groups_val: np.ndarray
+    X_test: np.ndarray
+    y_test: np.ndarray
+    groups_test: np.ndarray
+
+def split_grouped_human_data(X: list, y: list, groups: list[str], seed: int = 42, test_size: float = 0.2, val_size: float = 0.2) -> HumanDataSplit:
+    X_array = np.asarray(X, dtype=object)
+    y_array = np.asarray(y, dtype=object)
+    groups_array = np.asarray(groups)
+    if not (len(X_array) == len(y_array) == len(groups_array)):
+        raise ValueError('X, y, and groups must have the same length')
+    if not 0 < test_size < 1 or not 0 < val_size < 1 or test_size + val_size >= 1:
+        raise ValueError('test_size and val_size must be positive and sum to less than 1')
+
+    outer_split = GroupShuffleSplit(n_splits=1, test_size=test_size, random_state=seed)
+    train_val_indices, test_indices = next(outer_split.split(X_array, y_array, groups_array))
+    relative_val_size = val_size / (1 - test_size)
+    inner_split = GroupShuffleSplit(n_splits=1, test_size=relative_val_size, random_state=seed)
+    train_relative, val_relative = next(inner_split.split(
+        X_array[train_val_indices],
+        y_array[train_val_indices],
+        groups_array[train_val_indices],
+    ))
+    train_indices = train_val_indices[train_relative]
+    val_indices = train_val_indices[val_relative]
+
+    return HumanDataSplit(
+        X_train=X_array[train_indices],
+        y_train=y_array[train_indices],
+        groups_train=groups_array[train_indices],
+        X_val=X_array[val_indices],
+        y_val=y_array[val_indices],
+        groups_val=groups_array[val_indices],
+        X_test=X_array[test_indices],
+        y_test=y_array[test_indices],
+        groups_test=groups_array[test_indices],
+    )
+
+def get_human_split(item: str, task: str | None, model_type: ModelType, data_version: int, chat_model: str | None = None) -> HumanDataSplit:
+    X, y, groups = get_human_data(
+        item,
+        task,
+        model_type,
+        human_version(data_version),
+        chat_model,
+        return_groups=True,
+    )
+    return split_grouped_human_data(X, y, groups)
+
+def get_human_training_partition(split: HumanDataSplit, model_type: ModelType) -> tuple[np.ndarray, np.ndarray, np.ndarray | None, np.ndarray | None]:
+    if model_type == ModelType.LM:
+        return split.X_train, split.y_train, split.X_val, split.y_val
+    return (
+        np.concatenate((split.X_train, split.X_val)),
+        np.concatenate((split.y_train, split.y_val)),
+        None,
+        None,
+    )
+
+def encode_label_partitions(*partitions: np.ndarray) -> tuple[MultiLabelBinarizer, list[np.ndarray]]:
+    lengths = [len(partition) for partition in partitions]
+    labels = np.concatenate(partitions)
+    mlb = MultiLabelBinarizer()
+    encoded = mlb.fit_transform(labels)
+    offsets = np.cumsum([0] + lengths)
+    return mlb, [encoded[offsets[i]:offsets[i + 1]] for i in range(len(lengths))]
+
+def validation_kwargs(X_val: np.ndarray | None, y_val: np.ndarray | None) -> dict:
+    if X_val is None or y_val is None:
+        return {}
+    return {'X_val': X_val, 'y_val': y_val}
+
 def split_train_test(X: list[str], y: list) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     return train_test_split(np.array(X), np.array(y), test_size=0.2, random_state=42)
 
@@ -265,24 +345,19 @@ def work_sim2human2(item: str, model_name: str, model_type: ModelType, work: Cal
     add_log(item, model_name, ExpType.SIM2HUMAN2, report)
 
 def work_sim2human3(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
-    X_human, y_human = get_human_data(item, task, model_type, human_version(data_version), chat_model)
-    _, X_test, _, y_test = split_train_test(X_human, y_human)
+    human_split = get_human_split(item, task, model_type, data_version, chat_model)
+    X_test, y_test = human_split.X_test, human_split.y_test
     X_train, y_train = get_sim_data(item, 'zh', task, model_type, sim_version(data_version), filtered=True)
     logger.info(f"Sim train size: {len(X_train)}, Human test size: {len(X_test)}")
-    y = y_train + y_test
-    mlb = MultiLabelBinarizer()
-    y = mlb.fit_transform(y)
-    train_size = len(X_train)
-    y_train = y[:train_size]
-    y_test = y[train_size:]
+    mlb, encoded = encode_label_partitions(np.asarray(y_train, dtype=object), y_test)
+    y_train, y_test = encoded
     report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
     add_log(item, model_name, ExpType.SIM2HUMAN3, report)
 
 def work_human(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, samples: int = -1, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
-    X, y = get_human_data(item, task, model_type, human_version(data_version), chat_model)
-    mlb = MultiLabelBinarizer()
-    y = mlb.fit_transform(y)
-    X_train, X_test, y_train, y_test = split_train_test(X, y)
+    human_split = get_human_split(item, task, model_type, data_version, chat_model)
+    X_train, y_train, X_val, y_val = get_human_training_partition(human_split, model_type)
+    X_test, y_test = human_split.X_test, human_split.y_test
     if samples != -1:
         # sample samples from X_train
         assert 0 < samples <= len(X_train), f"Samples should be between 0 and {len(X_train)}"
@@ -293,7 +368,24 @@ def work_human(item: str, model_name: str, model_type: ModelType, work: Callable
         ckpt_dir_name = f'human_{samples}_{item}'
     else:
         ckpt_dir_name = f'human_{item}'
-    report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, ckpt_dir_name=ckpt_dir_name, **kwargs)
+    label_partitions = [y_train, y_test] if y_val is None else [y_train, y_val, y_test]
+    mlb, encoded = encode_label_partitions(*label_partitions)
+    if y_val is None:
+        y_train, y_test = encoded
+    else:
+        y_train, y_val, y_test = encoded
+    report = work(
+        X_train,
+        y_train,
+        X_test,
+        y_test,
+        item,
+        model_name,
+        mlb.classes_,
+        ckpt_dir_name=ckpt_dir_name,
+        **validation_kwargs(X_val, y_val),
+        **kwargs,
+    )
     if samples > 0:
         add_log(item, model_name, ExpType.HUMAN, report, samples=samples)
     else:
@@ -303,53 +395,53 @@ def work_sim4human(item: str, model_name: str, model_type: ModelType, work: Call
     X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, sim_version(data_version))
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
-    X_human, y_human = get_human_data(item, task, model_type, human_version(data_version), chat_model)
-    X_train, X_test, y_train, y_test = split_train_test(X_human, y_human)
-    X_train = np.concatenate((X_sim, X_train))
-    y_train = np.concatenate((y_sim, y_train))
-    y = np.concatenate((y_train, y_test))
-    mlb = MultiLabelBinarizer()
-    y = mlb.fit_transform(y)
-    train_size = len(X_train)
-    y_train = y[:train_size]
-    y_test = y[train_size:]
-    report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
+    human_split = get_human_split(item, task, model_type, data_version, chat_model)
+    X_human_train, y_human_train, X_val, y_val = get_human_training_partition(human_split, model_type)
+    X_train = np.concatenate((X_sim, X_human_train))
+    y_train = np.concatenate((y_sim, y_human_train))
+    label_partitions = [y_train, human_split.y_test] if y_val is None else [y_train, y_val, human_split.y_test]
+    mlb, encoded = encode_label_partitions(*label_partitions)
+    if y_val is None:
+        y_train, y_test = encoded
+    else:
+        y_train, y_val, y_test = encoded
+    report = work(X_train, y_train, human_split.X_test, y_test, item, model_name, mlb.classes_, **validation_kwargs(X_val, y_val), **kwargs)
     add_log(item, model_name, ExpType.SIM4HUMAN, report)
 
 def work_sim4human2(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
     X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, sim_version(data_version), filtered=True)
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
-    X_human, y_human = get_human_data(item, task, model_type, human_version(data_version), chat_model)
-    X_train, X_test, y_train, y_test = split_train_test(X_human, y_human)
-    X_train = np.concatenate((X_sim, X_train))
-    y_train = np.concatenate((y_sim, y_train))
-    y = np.concatenate((y_train, y_test))
-    mlb = MultiLabelBinarizer()
-    y = mlb.fit_transform(y)
-    train_size = len(X_train)
-    y_train = y[:train_size]
-    y_test = y[train_size:]
-    report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
+    human_split = get_human_split(item, task, model_type, data_version, chat_model)
+    X_human_train, y_human_train, X_val, y_val = get_human_training_partition(human_split, model_type)
+    X_train = np.concatenate((X_sim, X_human_train))
+    y_train = np.concatenate((y_sim, y_human_train))
+    label_partitions = [y_train, human_split.y_test] if y_val is None else [y_train, y_val, human_split.y_test]
+    mlb, encoded = encode_label_partitions(*label_partitions)
+    if y_val is None:
+        y_train, y_test = encoded
+    else:
+        y_train, y_val, y_test = encoded
+    report = work(X_train, y_train, human_split.X_test, y_test, item, model_name, mlb.classes_, **validation_kwargs(X_val, y_val), **kwargs)
     add_log(item, model_name, ExpType.SIM4HUMAN2, report)
 
 def work_sim4human3(item: str, model_name: str, model_type: ModelType, work: Callable[[list[str], np.ndarray, list[str], np.ndarray, str, str, np.ndarray], dict[str, float]], task: str | None = None, data_version: int = 1, chat_model: str | None = None, **kwargs) -> None:
     X_sim, y_sim = get_sim_data(item, 'zh', task, model_type, sim_version(data_version), filtered=True)
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
-    X_human, y_human = get_human_data(item, task, model_type, human_version(data_version), chat_model)
-    X_train, X_test, y_train, y_test = split_train_test(X_human, y_human)
+    human_split = get_human_split(item, task, model_type, data_version, chat_model)
+    X_human_train, y_human_train, X_val, y_val = get_human_training_partition(human_split, model_type)
     # downsample sim data
     _, X_sim, _, y_sim = train_test_split(X_sim, y_sim, test_size=0.2, random_state=42)
-    X_train = np.concatenate((X_sim, X_train))
-    y_train = np.concatenate((y_sim, y_train))
-    y = np.concatenate((y_train, y_test))
-    mlb = MultiLabelBinarizer()
-    y = mlb.fit_transform(y)
-    train_size = len(X_train)
-    y_train = y[:train_size]
-    y_test = y[train_size:]
-    report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, **kwargs)
+    X_train = np.concatenate((X_sim, X_human_train))
+    y_train = np.concatenate((y_sim, y_human_train))
+    label_partitions = [y_train, human_split.y_test] if y_val is None else [y_train, y_val, human_split.y_test]
+    mlb, encoded = encode_label_partitions(*label_partitions)
+    if y_val is None:
+        y_train, y_test = encoded
+    else:
+        y_train, y_val, y_test = encoded
+    report = work(X_train, y_train, human_split.X_test, y_test, item, model_name, mlb.classes_, **validation_kwargs(X_val, y_val), **kwargs)
     add_log(item, model_name, ExpType.SIM4HUMAN3, report)
 
 def sample(X: np.ndarray, y: np.ndarray, num_sample: int) -> tuple[np.ndarray, np.ndarray]:
@@ -364,8 +456,8 @@ def work_sim4human4(item: str, model_name: str, model_type: ModelType, work: Cal
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
     original_size = len(X_sim)
-    X_human, y_human = get_human_data(item, task, model_type, human_version(data_version), chat_model)
-    X_train, X_test, y_train, y_test = split_train_test(X_human, y_human)
+    human_split = get_human_split(item, task, model_type, data_version, chat_model)
+    X_train, y_train, X_val, y_val = get_human_training_partition(human_split, model_type)
     if samples != -1:
         # sample samples from X_train
         assert 0 < samples <= len(X_train), f"Samples should be between 0 and {len(X_train)}"
@@ -382,13 +474,24 @@ def work_sim4human4(item: str, model_name: str, model_type: ModelType, work: Cal
     X_sim, y_sim = sample(X_sim, y_sim, sim_train_size)
     X_train = np.concatenate((X_sim, X_train))
     y_train = np.concatenate((y_sim, y_train))
-    y = np.concatenate((y_train, y_test))
-    mlb = MultiLabelBinarizer()
-    y = mlb.fit_transform(y)
-    train_size = len(X_train)
-    y_train = y[:train_size]
-    y_test = y[train_size:]
-    report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, ckpt_dir_name=ckpt_dir_name, **kwargs)
+    label_partitions = [y_train, human_split.y_test] if y_val is None else [y_train, y_val, human_split.y_test]
+    mlb, encoded = encode_label_partitions(*label_partitions)
+    if y_val is None:
+        y_train, y_test = encoded
+    else:
+        y_train, y_val, y_test = encoded
+    report = work(
+        X_train,
+        y_train,
+        human_split.X_test,
+        y_test,
+        item,
+        model_name,
+        mlb.classes_,
+        ckpt_dir_name=ckpt_dir_name,
+        **validation_kwargs(X_val, y_val),
+        **kwargs,
+    )
     log_name = f'{item}'
     if samples > 0:
         add_log(log_name, model_name, ExpType.SIM4HUMAN4, report, samples=samples, ratio=ratio if sim_train_size < original_size else "full")
@@ -427,8 +530,8 @@ def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Cal
     original_size = len(X_sim)
     X_sim = np.array(X_sim)
     y_sim = np.array(y_sim)
-    X_human, y_human = get_human_data(item, task, model_type, human_version(data_version), chat_model)
-    X_train, X_test, y_train, y_test = split_train_test(X_human, y_human)
+    human_split = get_human_split(item, task, model_type, data_version, chat_model)
+    X_train, y_train, X_val, y_val = get_human_training_partition(human_split, model_type)
     if samples != -1:
         # sample samples from X_train
         assert 0 < samples <= len(X_train), f"Samples should be between 0 and {len(X_train)}"
@@ -450,15 +553,26 @@ def work_sim4human5(item: str, model_name: str, model_type: ModelType, work: Cal
     log_name = f'{item}'
     X_train = np.concatenate((X_sim, X_train))
     y_train = np.concatenate((y_sim, y_train))
-    y = np.concatenate((y_train, y_test))
-    mlb = MultiLabelBinarizer()
-    y = mlb.fit_transform(y)
+    label_partitions = [y_train, human_split.y_test] if y_val is None else [y_train, y_val, human_split.y_test]
+    mlb, encoded = encode_label_partitions(*label_partitions)
+    if y_val is None:
+        y_train, y_test = encoded
+    else:
+        y_train, y_val, y_test = encoded
     logger.info(f"Sampled sim train size: {len(X_sim)}")
     logger.info(f"Number of labels: {len(mlb.classes_)}")
-    train_size = len(X_train)
-    y_train = y[:train_size]
-    y_test = y[train_size:]
-    report = work(X_train, y_train, X_test, y_test, item, model_name, mlb.classes_, ckpt_dir_name=ckpt_dir_name, **kwargs)
+    report = work(
+        X_train,
+        y_train,
+        human_split.X_test,
+        y_test,
+        item,
+        model_name,
+        mlb.classes_,
+        ckpt_dir_name=ckpt_dir_name,
+        **validation_kwargs(X_val, y_val),
+        **kwargs,
+    )
     if samples > 0:
         add_log(log_name, model_name, ExpType.SIM4HUMAN5, report, samples=samples, hc=hot_cold.value, topk=topk, ratio=ratio if sim_train_size < original_size else "full")
     else:

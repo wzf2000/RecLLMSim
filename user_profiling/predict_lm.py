@@ -90,8 +90,9 @@ def get_trainer(model: PreTrainedModel, train_dataset: MultiLabelDataset, val_da
     )
     return trainer
 
-def work(X_train: list[str], y_train: np.ndarray, X_test: list[str], y_test: np.ndarray, item: str, model_name: str, labels: np.ndarray, ckpt_dir_name: str | None = None, **kwargs) -> dict[str, float]:
-    X_train, y_train, X_val, y_val = split_train_val(X_train, y_train)
+def work(X_train: list[str], y_train: np.ndarray, X_test: list[str], y_test: np.ndarray, item: str, model_name: str, labels: np.ndarray, ckpt_dir_name: str | None = None, X_val: list[str] | np.ndarray | None = None, y_val: np.ndarray | None = None, **kwargs) -> dict[str, float]:
+    if X_val is None or y_val is None:
+        X_train, y_train, X_val, y_val = split_train_val(X_train, y_train)
     train_dataset, val_dataset, test_dataset = get_dataset(model_name, X_train, y_train, X_val, y_val, X_test, y_test)
     set_seed(42)
     model = AutoModelForSequenceClassification.from_pretrained(

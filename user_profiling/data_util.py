@@ -4,6 +4,7 @@ import jieba
 import numpy as np
 from enum import Enum
 from loguru import logger
+from typing import Literal, overload
 
 SIM_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'LLM_agent_user')
 SIM_DIR_V2 = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'LLM_agent_user_V2')
@@ -144,7 +145,13 @@ def get_sim_data(item: str, language: str = 'en', task: str | None = None, model
     logger.info(f"Loaded {len(X)} samples from sim data for item {item} in language {language} with version {version}")
     return X, labels
 
-def get_human_data(item: str, task: str | None = None, model_type: ModelType = ModelType.LLM, version: int = 1, chat_model: str | None = None, only: str | None = None) -> tuple[list[str | list[dict[str, str]]], list[set[str]]]:
+@overload
+def get_human_data(item: str, task: str | None = None, model_type: ModelType = ModelType.LLM, version: int = 1, chat_model: str | None = None, only: str | None = None, return_groups: Literal[False] = False) -> tuple[list[str | list[dict[str, str]]], list[set[str]]]: ...
+
+@overload
+def get_human_data(item: str, task: str | None = None, model_type: ModelType = ModelType.LLM, version: int = 1, chat_model: str | None = None, only: str | None = None, return_groups: Literal[True] = True) -> tuple[list[str | list[dict[str, str]]], list[set[str]], list[str]]: ...
+
+def get_human_data(item: str, task: str | None = None, model_type: ModelType = ModelType.LLM, version: int = 1, chat_model: str | None = None, only: str | None = None, return_groups: bool = False) -> tuple[list[str | list[dict[str, str]]], list[set[str]]] | tuple[list[str | list[dict[str, str]]], list[set[str]], list[str]]:
     if task is not None and task in task_translation_reverse:
         task = task_translation_reverse[task]
     if task is None:
@@ -155,8 +162,10 @@ def get_human_data(item: str, task: str | None = None, model_type: ModelType = M
 
     labels: list[set[str]] = []
     X: list[str | list[dict[str, str]]] = []
+    groups: list[str] = []
 
     def update_data(user_dir: str):
+        source = os.path.basename(user_dir)
         users = os.listdir(user_dir)
         users.sort(key=lambda x: int(x.split('_')[-1]))
         for user in users:
@@ -176,12 +185,15 @@ def get_human_data(item: str, task: str | None = None, model_type: ModelType = M
                     labels.append(label)
                     text = format_history(data['history'], 'content', model_type, True, only=only)
                     X.append(text)
+                    groups.append(f'{source}/{user}')
 
     update_data(HUMAN_DIR)
     if version != 1:
         assert version == 2, f'Invalid version: {version}'
         update_data(HUMAN_DIR_V2)
     logger.info(f"Loaded {len(X)} samples from human data for item {item} with version {version}")
+    if return_groups:
+        return X, labels, groups
     return X, labels
 
 def get_human_intent_data(model_type: ModelType = ModelType.LLM):
