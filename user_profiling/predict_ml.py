@@ -11,7 +11,7 @@ from sklearn.exceptions import UndefinedMetricWarning
 
 from data_util import ModelType
 from evaluate_util import compute_metrics
-from pipe_util import exp_sim, exp_sim2human, exp_sim2human2, exp_human, exp_sim4human, exp_sim4human2, exp_human2sim, exp_human2sim2, exp_sim4human3, exp_sim4human4
+from pipe_util import exp_sim, exp_sim2human, exp_sim2human2, exp_human, exp_sim4human, exp_sim4human2, exp_human2sim, exp_human2sim2, exp_sim4human3, exp_sim4human4, exp_sim4human5, HotCold
 
 warnings.filterwarnings('ignore', category=UndefinedMetricWarning)
 
@@ -69,14 +69,19 @@ def work(X_train: list[str], y_train: np.ndarray, X_test: list[str], y_test: np.
 def list_str(value: str) -> list[str]:
     return value.split(',')
 
+def hot_cold(value: str) -> HotCold:
+    return HotCold(value)
+
 def parse_args():
     parser = ArgumentParser()
     parser.add_argument('-m', '--model', type=str, required=True)
-    parser.add_argument('-t', '--type', type=str, required=True, choices=['sim', 'sim2human', 'human', 'human2sim', 'sim2human2', 'human2sim', 'human2sim2', 'sim4human', 'sim4human2', 'sim4human3', 'sim4human4'])
+    parser.add_argument('-t', '--type', type=str, required=True, choices=['sim', 'sim2human', 'human', 'human2sim', 'sim2human2', 'human2sim', 'human2sim2', 'sim4human', 'sim4human2', 'sim4human3', 'sim4human4', 'sim4human5'])
     parser.add_argument('-l', '--language', type=str, default='zh', choices=['zh', 'en'])
     parser.add_argument('-d', '--data_version', type=int, default=1, choices=[1, 2, 3, 4], help='1: original data; 2: updated data; 3: updated data for both sim & human; 4: updated data for both sim with rewritten & human')
     parser.add_argument('-c', '--chat_model', type=str, default=None)
-    parser.add_argument('-r', '--ratio', type=float, default=1.0, help='Ratio for sim4human4')
+    parser.add_argument('-r', '--ratio', type=float, default=1.0, help='Ratio for sim4human4 and sim4human5')
+    parser.add_argument('-hc', '--hot_cold', type=hot_cold, choices=list(HotCold), default=HotCold.HOT)
+    parser.add_argument('--topk', type=int, default=3)
     parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--only_all', action='store_true', help='Only train and test on the combined scenarios')
     parser.add_argument('--items', type=list_str, default=None, help='Comma-separated attributes to train and test')
@@ -131,5 +136,7 @@ if __name__ == '__main__':
         exp_sim4human3(args.model, ModelType.ML, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, only_all=args.only_all, items=args.items, **params)
     elif args.type == 'sim4human4':
         exp_sim4human4(args.model, ModelType.ML, work, ratio=args.ratio, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, only_all=args.only_all, items=args.items, **params)
+    elif args.type == 'sim4human5':
+        exp_sim4human5(args.model, ModelType.ML, work, ratio=args.ratio, hot_cold=args.hot_cold, topk=args.topk, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, only_all=args.only_all, items=args.items, **params)
     else:
         raise NotImplementedError
