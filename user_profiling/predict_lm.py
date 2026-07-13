@@ -43,11 +43,11 @@ class MultiLabelDataset(Dataset):
             'labels': torch.FloatTensor(labels)
         }
 
-def get_dataset(model_name_or_path: str, train_texts: list[str], train_labels: np.ndarray, val_texts: list[str], val_labels: np.ndarray, test_texts: list[str], test_labels: np.ndarray) -> tuple[MultiLabelDataset, MultiLabelDataset, MultiLabelDataset]:
+def get_dataset(model_name_or_path: str, train_texts: list[str], train_labels: np.ndarray, val_texts: list[str], val_labels: np.ndarray, test_texts: list[str], test_labels: np.ndarray, max_length: int = 512) -> tuple[MultiLabelDataset, MultiLabelDataset, MultiLabelDataset]:
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
-    train_dataset = MultiLabelDataset(train_texts, train_labels, tokenizer)
-    val_dataset = MultiLabelDataset(val_texts, val_labels, tokenizer)
-    test_dataset = MultiLabelDataset(test_texts, test_labels, tokenizer)
+    train_dataset = MultiLabelDataset(train_texts, train_labels, tokenizer, max_length)
+    val_dataset = MultiLabelDataset(val_texts, val_labels, tokenizer, max_length)
+    test_dataset = MultiLabelDataset(test_texts, test_labels, tokenizer, max_length)
     return train_dataset, val_dataset, test_dataset
 
 def split_train_val(X: list[str], y: np.ndarray, seed: int = 42) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
@@ -63,16 +63,16 @@ def compute_metrics_LM(p: EvalPrediction) -> dict[str, float]:
     probs = torch.sigmoid(torch.Tensor(logits)).numpy()
     return compute_metrics(labels, probs)
 
-def get_trainer(model: PreTrainedModel, train_dataset: MultiLabelDataset, val_dataset: MultiLabelDataset, ckpt_dir_name: str | None = None, seed: int = 42) -> Trainer:
+def get_trainer(model: PreTrainedModel, train_dataset: MultiLabelDataset, val_dataset: MultiLabelDataset, ckpt_dir_name: str | None = None, seed: int = 42, epochs: float = 10, batch_size: int = 16) -> Trainer:
     if ckpt_dir_name is not None:
         output_dir = os.path.join(os.path.dirname(__file__), 'results', ckpt_dir_name)
     else:
         output_dir = os.path.join(os.path.dirname(__file__), 'results', 'profile')
     training_args = TrainingArguments(
         output_dir=output_dir,
-        num_train_epochs=10,
-        per_device_train_batch_size=16,
-        per_device_eval_batch_size=16,
+        num_train_epochs=epochs,
+        per_device_train_batch_size=batch_size,
+        per_device_eval_batch_size=batch_size,
         eval_strategy="epoch",
         save_strategy="epoch",
         logging_strategy="epoch",
@@ -81,6 +81,7 @@ def get_trainer(model: PreTrainedModel, train_dataset: MultiLabelDataset, val_da
         save_total_limit=1,
         seed=seed,
         data_seed=seed,
+        report_to='none',
     )
 
     trainer = Trainer(
@@ -92,17 +93,17 @@ def get_trainer(model: PreTrainedModel, train_dataset: MultiLabelDataset, val_da
     )
     return trainer
 
-def work(X_train: list[str], y_train: np.ndarray, X_test: list[str], y_test: np.ndarray, item: str, model_name: str, labels: np.ndarray, ckpt_dir_name: str | None = None, X_val: list[str] | np.ndarray | None = None, y_val: np.ndarray | None = None, seed: int = 42, **kwargs) -> dict[str, float]:
+def work(X_train: list[str], y_train: np.ndarray, X_test: list[str], y_test: np.ndarray, item: str, model_name: str, labels: np.ndarray, ckpt_dir_name: str | None = None, X_val: list[str] | np.ndarray | None = None, y_val: np.ndarray | None = None, seed: int = 42, epochs: float = 10, batch_size: int = 16, max_length: int = 512, **kwargs) -> dict[str, float]:
     if X_val is None or y_val is None:
         X_train, y_train, X_val, y_val = split_train_val(X_train, y_train, seed)
-    train_dataset, val_dataset, test_dataset = get_dataset(model_name, X_train, y_train, X_val, y_val, X_test, y_test)
+    train_dataset, val_dataset, test_dataset = get_dataset(model_name, X_train, y_train, X_val, y_val, X_test, y_test, max_length)
     set_seed(seed)
     model = AutoModelForSequenceClassification.from_pretrained(
         model_name,
         num_labels=y_train.shape[1],
         problem_type="multi_label_classification"
     )
-    trainer = get_trainer(model, train_dataset, val_dataset, ckpt_dir_name, seed)
+    trainer = get_trainer(model, train_dataset, val_dataset, ckpt_dir_name, seed, epochs, batch_size)
     trainer.train()
     results = trainer.evaluate(test_dataset)
     return {
@@ -146,6 +147,9 @@ def parse_args():
     parser.add_argument('--only_all', action='store_true', help='Only train & test on all scenarios')
     parser.add_argument('--items', type=list_str, default=None, help='Attributes to train & test on')
     parser.add_argument('--seed', type=int, default=42)
+    parser.add_argument('--epochs', type=float, default=10)
+    parser.add_argument('--batch_size', type=int, default=16)
+    parser.add_argument('--max_length', type=int, default=512)
     args = parser.parse_args()
     return args
 
@@ -154,7 +158,7 @@ if __name__ == '__main__':
     if args.type == 'sim':
         exp_sim(args.model, ModelType.LM, work, args.language, only_all=args.only_all, items=args.items)
     elif args.type == 'human':
-        exp_human(args.model, ModelType.LM, work, samples=args.samples, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, only_all=args.only_all, items=args.items)
+        exp_human(args.model, ModelType.LM, work, samples=args.samples, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, epochs=args.epochs, batch_size=args.batch_size, max_length=args.max_length, only_all=args.only_all, items=args.items)
     elif args.type == 'sim2human':
         exp_sim2human(args.model, ModelType.LM, work, only_all=args.only_all, items=args.items)
     elif args.type == 'human2sim':
@@ -164,16 +168,16 @@ if __name__ == '__main__':
     elif args.type == 'human2sim2':
         exp_human2sim2(args.model, ModelType.LM, work, only_all=args.only_all, items=args.items)
     elif args.type == 'sim2human3':
-        exp_sim2human3(args.model, ModelType.LM, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, only_all=args.only_all, items=args.items)
+        exp_sim2human3(args.model, ModelType.LM, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, epochs=args.epochs, batch_size=args.batch_size, max_length=args.max_length, only_all=args.only_all, items=args.items)
     elif args.type == 'sim4human':
-        exp_sim4human(args.model, ModelType.LM, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, only_all=args.only_all, items=args.items)
+        exp_sim4human(args.model, ModelType.LM, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, epochs=args.epochs, batch_size=args.batch_size, max_length=args.max_length, only_all=args.only_all, items=args.items)
     elif args.type == 'sim4human2':
-        exp_sim4human2(args.model, ModelType.LM, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, only_all=args.only_all, items=args.items)
+        exp_sim4human2(args.model, ModelType.LM, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, epochs=args.epochs, batch_size=args.batch_size, max_length=args.max_length, only_all=args.only_all, items=args.items)
     elif args.type == 'sim4human3':
-        exp_sim4human3(args.model, ModelType.LM, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, only_all=args.only_all, items=args.items)
+        exp_sim4human3(args.model, ModelType.LM, work, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, epochs=args.epochs, batch_size=args.batch_size, max_length=args.max_length, only_all=args.only_all, items=args.items)
     elif args.type == 'sim4human4':
-        exp_sim4human4(args.model, ModelType.LM, work, samples=args.samples, ratio=args.ratio, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, only_all=args.only_all, items=args.items)
+        exp_sim4human4(args.model, ModelType.LM, work, samples=args.samples, ratio=args.ratio, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, epochs=args.epochs, batch_size=args.batch_size, max_length=args.max_length, only_all=args.only_all, items=args.items)
     elif args.type == 'sim4human5':
-        exp_sim4human5(args.model, ModelType.LM, work, samples=args.samples, ratio=args.ratio, hot_cold=args.hot_cold, topk=args.topk, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, only_all=args.only_all, items=args.items)
+        exp_sim4human5(args.model, ModelType.LM, work, samples=args.samples, ratio=args.ratio, hot_cold=args.hot_cold, topk=args.topk, data_version=args.data_version, chat_model=args.chat_model, seed=args.seed, epochs=args.epochs, batch_size=args.batch_size, max_length=args.max_length, only_all=args.only_all, items=args.items)
     else:
         raise NotImplementedError
